@@ -1,0 +1,30 @@
+{
+  "name": "botboletos",
+  "description": "Pepper recommends events, bars and restaurants contextually to its users",
+  "scripts": {
+  },
+  "env": {
+    "BOT_TOKEN": {
+      "required": true
+    },
+    "MONGODB_URI": {
+      "required": true
+    },
+    "MONGOLAB_AMBER_URI": {
+      "required": true
+    },
+    "PAGE_ACCESS_TOKEN": {
+      "required": true
+    }
+  },
+  "formation": {
+  },
+  "addons": [
+    "mongolab"
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ]
+}
