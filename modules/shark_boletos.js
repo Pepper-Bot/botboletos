@@ -13,7 +13,7 @@ module.exports = function()
             Message.typingOn(senderId);      
             // simulamos el tipeado
             // enviamos el mensaje    
-                  Message.sendMessage(senderId, "SHARK DE OCTUBRE de Julio en Mérida. Vive la experiencia pottérica del año. \r\nReserva tú lugar.");
+                  Message.sendMessage(senderId, "SHARK DE OCTUBRE... \r\nReserva tú lugar.");
                   Message.typingOff(senderId);
 
                   // tipeado off

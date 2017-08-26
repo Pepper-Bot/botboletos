@@ -605,16 +605,17 @@ function chooseReferral(referral, senderId){
             // llamamos al módulo de boletos y los enviamos.
             var Magic = require('../modules/boletos');
             Magic.start(senderId);
-
+            break;
         }
-        break;
+       
         //estas líneas se agregan para el modulo de shark boletos!!!
-        case "SHARK":{
+        case "SHARKSTANK":{
             var Shark = require('../modules/shark_boletos');
             Shark.start(senderId);
+            break;
         }
 
-        break;
+       
 
         default:
         {
