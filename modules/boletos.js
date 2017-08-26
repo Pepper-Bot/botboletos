@@ -73,13 +73,15 @@ module.exports = function()
                       }           
                     ]      
                 });
+                console.log('EVENT RESULT>>>>>>>>>>>>>>>>>>>>>>>>');
+                console.log(eventResults[i]);
             }
      
         
 
 
 
-            console.log(eventResults);
+            //console.log(eventResults);
             // se las enviamos al cliente
             Message.genericButton(senderId, eventResults);
             // dejamos de tipear
