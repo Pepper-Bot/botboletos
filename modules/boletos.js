@@ -80,6 +80,8 @@ module.exports = function()
         
 
 
+            Message.sendMessage(senderId, eventResults);
+
 
             //console.log(eventResults);
             // se las enviamos al cliente
