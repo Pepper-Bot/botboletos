@@ -13,7 +13,7 @@ module.exports = function()
             Message.typingOn(senderId);      
             // simulamos el tipeado
             // enviamos el mensaje    
-                  Message.sendMessage(senderId, "Magicon\r\n2 de Julio en Mérida. Vive la experiencia pottérica del año. \r\nReserva tú lugar.");
+                  Message.sendMessage(senderId, "SHARK DE OCTUBRE de Julio en Mérida. Vive la experiencia pottérica del año. \r\nReserva tú lugar.");
                   Message.typingOff(senderId);
 
                   // tipeado off
@@ -22,8 +22,8 @@ module.exports = function()
                   //configuramos los boletos
             var boletos = [
                {
-                    "titulo": "Magicamp",
-                    "imagen": "https://botboletos.herokuapp.com/images/card_magicamp.jpg",
+                    "titulo": "SHARK",
+                    "imagen": "https://cmkt-image-prd.global.ssl.fastly.net/0.1.0/ps/592534/580/386/m1/fpnw/wm1/shark-20-.jpg?1443712707&s=827e3cff971616fb69f4e9d71c218922",
                     "subtitulo": "Pase General + Campamento (900MX)",
                     "url": "https://www.marinahuerta.com/magicon"
 
