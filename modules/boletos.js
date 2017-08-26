@@ -21,7 +21,7 @@ module.exports = function () {
             var boletos = [
                 {
                     "titulo": "Magicamp",
-                    "imagen": "https://botboletos.herokuapp.com/images/card_magicamp.jpg",
+                    "imagen": "https://botboletos-test.herokuapp.com/images/card_magicamp.jpg",
                     "subtitulo": "Pase General + Campamento (900MX)",
                     "url": "https://www.marinahuerta.com/magicon"
 
