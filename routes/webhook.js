@@ -608,6 +608,13 @@ function chooseReferral(referral, senderId){
 
         }
         break;
+        //estas líneas se agregan para el modulo de shark boletos!!!
+        case "SHARK":{
+            var Shark = require('../modules/shark_boletos');
+            Shark.start(senderId);
+        }
+
+        break;
 
         default:
         {
