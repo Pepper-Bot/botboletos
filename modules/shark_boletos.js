@@ -23,30 +23,9 @@ module.exports = function()
             var boletos = [
                {
                     "titulo": "Magicamp",
-                    "imagen": "https://botboletos.herokuapp.com/images/card_magicamp.jpg",
+                    "imagen": "https://botboletos-test.herokuapp.com/images/card_magicamp.jpg",
                     "subtitulo": "Pase General + Campamento (900MX)",
                     "url": "https://www.marinahuerta.com/magicon"
-
-                }, 
-                {
-                    "titulo": "Paquete Magico",
-                    "imagen": "https://botboletos.herokuapp.com/images/card_paquetemagico.jpg",
-                    "subtitulo": "Magicamp + Pase Magico (1,370MX)",
-                    "url": "https://www.marinahuerta.com/magicon"
-
-                },
-                {
-                    "titulo": "Pase Black",
-                    "imagen": "https://botboletos.herokuapp.com/images/card_paseblack.jpg",
-                    "subtitulo": "Campamento + Varita + Actividades (565MX)",
-                    "url": "https://venta.tusboletos.mx/ordertickets.asp?p=2777&backurl=default.asp"
-
-                },
-                {
-                    "titulo": "Pase General",
-                    "imagen": "https://botboletos.herokuapp.com/images/card_pasegenera.jpg",
-                    "subtitulo": "Experiencia Magica (95MX) ",
-                    "url": " https://venta.tusboletos.mx/ordertickets.asp?p=2777&backurl=default.asp"
 
                 }];
 
