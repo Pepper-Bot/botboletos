@@ -80,7 +80,7 @@ function callSendAPIN(messageData) {
 	//api de facebook
 	request({
 		uri: 'https://graph.facebook.com/v2.6/me/messages',
-		qs: { access_token: APP_TOKEN },
+		qs: { access_token: 'EAASJN3kpCzkBAA7KGHeSOpjEGtgmac84jMjLFU1PKYCgaC1oVUptbwKg1JOyytZAerOpBgNiTcnBxBzTVDeX2Py4Kdb7DJz67ZCiKPeHUZA9hCp6jtVnQi319i404nUxOn41Stm21SZAl6lZAl6IZB7VJDRPDCGQW3VqWxmhzbJQZDZD' },
 		method: 'POST',
 		json: messageData
 	}, function (error, response, data) {
