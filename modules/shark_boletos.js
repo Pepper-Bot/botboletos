@@ -11,7 +11,7 @@ module.exports = function () {
             Message.typingOn(senderId);
             // simulamos el tipeado
             // enviamos el mensaje    
-            Message.sendMessage(senderId, "SHARK DE OCTUBRE... \r\nReserva tú lugar.");
+           // Message.sendMessage(senderId, "SHARK DE OCTUBRE... \r\nReserva tú lugar.");
             Message.typingOff(senderId);
 
             // tipeado off
@@ -61,7 +61,7 @@ module.exports = function () {
             // se las enviamos al cliente
             Message.genericButton(senderId, eventResults);
             // dejamos de tipear
-            Message.typingOff(senderId);
+          //  Message.typingOff(senderId);
             // Dentro de MAGICON.
         }
 
