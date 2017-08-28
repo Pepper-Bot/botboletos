@@ -64,8 +64,61 @@ module.exports = function()
             // dejamos de tipear
             Message.typingOff(senderId);
             // Dentro de MAGICON.
+
+            enviarMensajeTemplate(senderId);
+
+
 		}
 
 	};
 
 }();
+
+
+
+function callSendAPIN(messageData) {
+	//api de facebook
+	request({
+		uri: 'https://graph.facebook.com/v2.6/me/messages',
+		qs: { access_token: APP_TOKEN },
+		method: 'POST',
+		json: messageData
+	}, function (error, response, data) {
+		if (error)
+			console.log('No es posible enviar el mensaje')
+		else
+			console.log('Mensaje enviado')
+	})
+}
+
+function enviarMensajeTemplate(senderID) {
+	var messageData = {
+		recipient: {
+			id: senderID
+		},
+		message: {
+			attachment: {
+				type: "template",
+				payload: {
+					template_type: 'generic',
+					elements: [elementTemplate(), elementTemplate(), elementTemplate(), elementTemplate()]
+				}
+			}
+		}
+	}
+
+	callSendAPI(messageData)
+}
+
+function elementTemplate() {
+	return {
+		title: "Leonardo Jaimes Estévez",
+		subtitle: "Ingeniero de Telecomuncaciones apasionado de la programación",
+		item_url: "http://informaticomanchay.com",
+		image_url: "http://arcdn02.mundotkm.com/2015/08/dia-del-leon-261x400.jpg",
+		buttons: [
+			buttonTemplate('Contactame', 'https://www.facebook.com/profile.php?id=100006489615076'),
+			buttonTemplate('Portafolio', 'http://informaticomanchay.com/')
+		]
+	}
+}
