@@ -58,7 +58,7 @@ module.exports = function()
 
 
 
-            console.log(eventResults);
+            console.log('events Results >>>>>>>>>>>>>>>'+eventResults);
             // se las enviamos al cliente
             Message.genericButton(senderId, eventResults);
             // dejamos de tipear
