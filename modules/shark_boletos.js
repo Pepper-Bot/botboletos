@@ -63,7 +63,7 @@ module.exports = function () {
             // se las enviamos al cliente
 
             enviarMensajeTemplate(senderId);
-            Message.genericButton(senderId, elementTemplate());
+            Message.genericButton(senderId, eventResults);
 
 
             // dejamos de tipear
