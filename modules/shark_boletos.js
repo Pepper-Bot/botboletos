@@ -61,6 +61,10 @@ module.exports = function () {
 
             console.log('events Results >>>>>>>>>>>>>>>' + eventResults);
             // se las enviamos al cliente
+            
+            Message.sendMessage(senderId,eventResults[0].image_url  );
+
+
               Message.genericButton(senderId, eventResults);
             // dejamos de tipear
             Message.typingOff(senderId);
