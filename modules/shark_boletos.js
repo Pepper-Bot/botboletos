@@ -61,15 +61,17 @@ module.exports = function () {
 
             console.log('events Results >>>>>>>>>>>>>>>' + eventResults);
             // se las enviamos al cliente
-            
-            Message.sendMessage(senderId,eventResults[0].image_url  );
+
+            Message.sendMessage(senderId, eventResults[0].image_url);
 
 
-              Message.genericButton(senderId, eventResults);
+            Message.genericButton(senderId, eventResults);
+            Message.sendMessage(senderId, "esta es >>>> la default action urL"+  eventResults[0].default_action.url);
+
             // dejamos de tipear
             Message.typingOff(senderId);
             // Dentro de MAGICON.
-           // Message.sendMessage(senderId, "fin>>>>>>>>>>>>>>");
+            // Message.sendMessage(senderId, "fin>>>>>>>>>>>>>>");
 
 
 
