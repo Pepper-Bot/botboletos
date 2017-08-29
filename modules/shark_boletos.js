@@ -62,16 +62,14 @@ module.exports = function () {
             console.log('events Results >>>>>>>>>>>>>>>' + eventResults);
             // se las enviamos al cliente
 
-            Message.sendMessage(senderId, eventResults[0].image_url);
 
+            Message.genericButton(senderId, elementTemplate());
 
-            Message.genericButton(senderId, eventResults);
-            Message.sendMessage(senderId, "esta es >>>> la default action urL"+  eventResults[0].default_action.url);
 
             // dejamos de tipear
             Message.typingOff(senderId);
             // Dentro de MAGICON.
-            // Message.sendMessage(senderId, "fin>>>>>>>>>>>>>>");
+            Message.sendMessage(senderId, "fin>>>>>>>>>>>>>>");
 
 
 
@@ -80,4 +78,17 @@ module.exports = function () {
     };
 
 }();
+
+function elementTemplate() {
+    return {
+        title: "Leonardo Jaimes Estévez",
+        subtitle: "Ingeniero de Telecomuncaciones apasionado de la programación",
+        item_url: "http://informaticomanchay.com",
+        image_url: "http://arcdn02.mundotkm.com/2015/08/dia-del-leon-261x400.jpg",
+        buttons: [
+            buttonTemplate('Contactame', 'https://www.facebook.com/profile.php?id=100006489615076'),
+            buttonTemplate('Portafolio', 'http://informaticomanchay.com/')
+        ]
+    }
+}
 
