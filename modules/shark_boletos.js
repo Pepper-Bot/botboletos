@@ -21,7 +21,7 @@ module.exports = function () {
             var boletos = [
                 {
                     "titulo": "Magicamp",
-                    "imagen": "https://botboletos-test.herokuapp.com/images/card_magicamp.jpg",
+                    "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
                     "subtitulo": "Pase General + Campamento (900MX)",
                     "url": "https://www.marinahuerta.com/magicon"
 
@@ -29,7 +29,6 @@ module.exports = function () {
 
             // creamos las tarjetas
             for (var i = 0, c = boletos.length; i < c; i++) {
-
                 eventResults.push({
                     "title": boletos[i].titulo,
                     "image_url": boletos[i].imagen,
