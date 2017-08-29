@@ -85,13 +85,7 @@ function elementTemplate() {
         subtitle: "Ingeniero de Telecomuncaciones apasionado de la programación",
         item_url: "http://informaticomanchay.com",
         image_url: "http://arcdn02.mundotkm.com/2015/08/dia-del-leon-261x400.jpg",
-        "default_action": {
-            "type": "web_url",
-            "url": 'https://www.facebook.com/profile.php?id=100006489615076',
-            "messenger_extensions": true,
-            "webview_height_ratio": "tall",
-            "fallback_url": 'https://www.facebook.com/profile.php?id=100006489615076'
-        },
+        
         buttons: [
             buttonTemplate('Contactame', 'https://www.facebook.com/profile.php?id=100006489615076'),
             buttonTemplate('Portafolio', 'http://informaticomanchay.com/')
@@ -100,44 +94,44 @@ function elementTemplate() {
 }
 
 function buttonTemplate(title, url) {
-    return {
-        type: 'web_url',
-        url: url,
-        title: title
-    }
+	return {
+		type: 'web_url',
+		url: url,
+		title: title
+	}
 }
 
 function enviarMensajeTemplate(senderID) {
-    var messageData = {
-        recipient: {
-            id: senderID
-        },
-        message: {
-            attachment: {
-                type: "template",
-                payload: {
-                    template_type: 'generic',
-                    elements: [elementTemplate(), elementTemplate(), elementTemplate(), elementTemplate()]
-                }
-            }
-        }
-    }
+	var messageData = {
+		recipient: {
+			id: senderID
+		},
+		message: {
+			attachment: {
+				type: "template",
+				payload: {
+					template_type: 'generic',
+					elements: [elementTemplate(), elementTemplate(), elementTemplate(), elementTemplate()]
+				}
+			}
+		}
+	}
 
-    callSendAPI(messageData)
+	callSendAPI(messageData)
 }
 
 function callSendAPI(messageData) {
     var request = require('request');
-    //api de facebook
-    request({
-        uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: 'EAASJN3kpCzkBAA7KGHeSOpjEGtgmac84jMjLFU1PKYCgaC1oVUptbwKg1JOyytZAerOpBgNiTcnBxBzTVDeX2Py4Kdb7DJz67ZCiKPeHUZA9hCp6jtVnQi319i404nUxOn41Stm21SZAl6lZAl6IZB7VJDRPDCGQW3VqWxmhzbJQZDZD' },
-        method: 'POST',
-        json: messageData
-    }, function (error, response, data) {
-        if (error)
-            console.log('No es posible enviar el mensaje')
-        else
-            console.log('Mensaje enviado')
-    })
+	//api de facebook
+	request({
+		uri: 'https://graph.facebook.com/v2.6/me/messages',
+		qs: { access_token: 'EAASJN3kpCzkBAA7KGHeSOpjEGtgmac84jMjLFU1PKYCgaC1oVUptbwKg1JOyytZAerOpBgNiTcnBxBzTVDeX2Py4Kdb7DJz67ZCiKPeHUZA9hCp6jtVnQi319i404nUxOn41Stm21SZAl6lZAl6IZB7VJDRPDCGQW3VqWxmhzbJQZDZD' },
+		method: 'POST',
+		json: messageData
+	}, function (error, response, data) {
+		if (error)
+			console.log('No es posible enviar el mensaje')
+		else
+			console.log('Mensaje enviado')
+	})
 }
