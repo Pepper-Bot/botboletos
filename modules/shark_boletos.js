@@ -85,6 +85,13 @@ function elementTemplate() {
         subtitle: "Ingeniero de Telecomuncaciones apasionado de la programación",
         item_url: "http://informaticomanchay.com",
         image_url: "http://arcdn02.mundotkm.com/2015/08/dia-del-leon-261x400.jpg",
+        "default_action": {
+            "type": "web_url",
+            "url": boletos[i].url,
+            "messenger_extensions": true,
+            "webview_height_ratio": "tall",
+            "fallback_url": boletos[i].url
+        },
         buttons: [
             buttonTemplate('Contactame', 'https://www.facebook.com/profile.php?id=100006489615076'),
             buttonTemplate('Portafolio', 'http://informaticomanchay.com/')
