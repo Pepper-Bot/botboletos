@@ -34,14 +34,14 @@ module.exports = function () {
                     "title": boletos[i].titulo,
                     "image_url": boletos[i].imagen,
                     "subtitle": boletos[i].subtitulo,
-                    "item_url": boletos[i].url,
-                    /*"default_action": {
+                    //"item_url": boletos[i].url,
+                    "default_action": {
                         "type": "web_url",
                         "url": boletos[i].url,
                         "messenger_extensions": true,
-                        "webview_height_ratio": "tall",
-                        "fallback_url": boletos[i].url
-                    },*/
+                        "webview_height_ratio": "tall"/*,
+                        "fallback_url": boletos[i].url*/
+                    },
                     "buttons": [
                         {
                             "type": "web_url",
