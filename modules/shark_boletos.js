@@ -18,14 +18,43 @@ module.exports = function () {
 
 
             //configuramos los boletos
-            var boletos = [
-                {
-                    "titulo": "Shark!!!!",
-                    "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
-                    "subtitulo": "Pase General + Campamento (900MX)",
-                    "url": "https://www.marinahuerta.com/magicon"
+            var boletos =
+                [
+                    {
+                        "titulo": "Shark!!!!",
+                        "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
+                        "subtitulo": "Pase General + Campamento (900MX)",
+                        "url": "https://www.marinahuerta.com/magicon"
 
-                }];
+                    },
+
+
+                    {
+                        "titulo": "Shark!!!!",
+                        "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
+                        "subtitulo": "Pase General + Campamento (900MX)",
+                        "url": "https://www.marinahuerta.com/magicon"
+
+                    },
+                    {
+                        "titulo": "Shark!!!!",
+                        "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
+                        "subtitulo": "Pase General + Campamento (900MX)",
+                        "url": "https://www.marinahuerta.com/magicon"
+
+                    },
+
+                    {
+                        "titulo": "Shark!!!!",
+                        "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
+                        "subtitulo": "Pase General + Campamento (900MX)",
+                        "url": "https://www.marinahuerta.com/magicon"
+
+                    }
+
+
+
+                ];
 
             // creamos las tarjetas
             for (var i = 0, c = boletos.length; i < c; i++) {
@@ -37,9 +66,9 @@ module.exports = function () {
                     "default_action": {
                         "type": "web_url",
                         "url": boletos[i].url//,
-                         //"messenger_extensions": true//,
-                       // "webview_height_ratio": "tall",
-                       // "fallback_url": boletos[i].url
+                        //"messenger_extensions": true//,
+                        // "webview_height_ratio": "tall",
+                        // "fallback_url": boletos[i].url
                     },
                     "buttons": [
                         {
