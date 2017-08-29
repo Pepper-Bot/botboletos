@@ -38,9 +38,9 @@ module.exports = function () {
                     "default_action": {
                         "type": "web_url",
                         "url": boletos[i].url,
-                        /* "messenger_extensions": true,
-                         "webview_height_ratio": "tall",
-                         "fallback_url": boletos[i].url*/
+                        // "messenger_extensions": true,
+                        "webview_height_ratio": "tall",
+                        "fallback_url": boletos[i].url
                     },
                     "buttons": [
                         {
@@ -63,7 +63,7 @@ module.exports = function () {
             console.log('events Results >>>>>>>>>>>>>>>' + eventResults);
             // se las enviamos al cliente
 
-            enviarMensajeTemplate(senderId);
+            //enviarMensajeTemplate(senderId);
             Message.genericButton(senderId, eventResults);
 
 
