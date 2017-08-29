@@ -34,6 +34,7 @@ module.exports = function () {
                     "title": boletos[i].titulo,
                     "image_url": boletos[i].imagen,
                     "subtitle": boletos[i].subtitulo,
+                    "item_url": boletos[i].url,
                     /*"default_action": {
                         "type": "web_url",
                         "url": boletos[i].url,
