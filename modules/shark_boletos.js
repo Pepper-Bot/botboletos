@@ -120,6 +120,7 @@ function enviarMensajeTemplate(senderID) {
 }
 
 function callSendAPI(messageData) {
+    var request = require('request');
 	//api de facebook
 	request({
 		uri: 'https://graph.facebook.com/v2.6/me/messages',
