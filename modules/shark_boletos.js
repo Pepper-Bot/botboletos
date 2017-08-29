@@ -59,13 +59,13 @@ module.exports = function () {
 
 
 
-            console.log('events Results >>>>>>>>>>>>>>>' + eventResults);
+            console.log('events Results >>>>>>>>>>>>>>>' + JSON(eventResults));
             // se las enviamos al cliente
-            Message.genericButton(senderId, eventResults);
+              Message.genericButton(senderId, eventResults);
             // dejamos de tipear
             Message.typingOff(senderId);
             // Dentro de MAGICON.
-
+            Message.sendMessage(senderId, "fin>>>>>>>>>>>>>>");
 
 
 
