@@ -66,10 +66,10 @@ module.exports = function()
                                                 "subtitle": json.restaurants[i].restaurant.cuisines,
                                                 "default_action": {
                                                   "type": "web_url",
-                                                  "url": 'https://botboletos.herokuapp.com/redirect/?u='+json.restaurants[i].restaurant.url + '&id='+result.fbId/*,
+                                                  "url": 'https://botboletos.herokuapp.com/redirect/?u='+json.restaurants[i].restaurant.url + '&id='+result.fbId,
                                                   "messenger_extensions": true,
                                                   "webview_height_ratio": "tall",
-                                                  "fallback_url":'https://botboletos.herokuapp.com/redirect/?u='+json.restaurants[i].restaurant.url + '&id='+result.fbId*/
+                                                  "fallback_url":'https://botboletos.herokuapp.com/redirect/?u='+json.restaurants[i].restaurant.url + '&id='+result.fbId
                                                 },
                                                 "buttons":[
                                                   {
