@@ -78,10 +78,10 @@ module.exports = function()
                                             "subtitle": json._embedded.events[i].pleaseNote,
                                             "default_action": {
                                               "type": "web_url",
-                                              "url": 'https://botboletos.herokuapp.com/redirect/?u='+eventURL+'&id='+result.fbId/*,
+                                              "url": 'https://botboletos.herokuapp.com/redirect/?u='+eventURL+'&id='+result.fbId,
                                               "messenger_extensions": true,
                                               "webview_height_ratio": "tall",
-                                              "fallback_url": 'https://botboletos.herokuapp.com/redirect/?u='+eventURL+'&id='+result.fbId*/
+                                              "fallback_url": 'https://botboletos.herokuapp.com/redirect/?u='+eventURL+'&id='+result.fbId 
                                             },
                                             "buttons":[
                                               {
