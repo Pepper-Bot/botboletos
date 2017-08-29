@@ -52,7 +52,7 @@ module.exports = function () {
 
 
 
-                console.log('events Results >>>>>>>>>>>>>>>' + eventResults[i]);
+                console.log('events Results >>>>>>>>>>>>>>>' + eventResults[i].title);
             }
 
 
