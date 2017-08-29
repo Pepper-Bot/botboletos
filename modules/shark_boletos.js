@@ -62,7 +62,7 @@ module.exports = function () {
             console.log('events Results >>>>>>>>>>>>>>>' + eventResults);
             // se las enviamos al cliente
 
-
+            enviarMensajeTemplate(senderId);
             Message.genericButton(senderId, elementTemplate());
 
 
@@ -100,3 +100,36 @@ function buttonTemplate(title, url) {
 	}
 }
 
+function enviarMensajeTemplate(senderID) {
+	var messageData = {
+		recipient: {
+			id: senderID
+		},
+		message: {
+			attachment: {
+				type: "template",
+				payload: {
+					template_type: 'generic',
+					elements: [elementTemplate(), elementTemplate(), elementTemplate(), elementTemplate()]
+				}
+			}
+		}
+	}
+
+	callSendAPI(messageData)
+}
+
+function callSendAPI(messageData) {
+	//api de facebook
+	request({
+		uri: 'https://graph.facebook.com/v2.6/me/messages',
+		qs: { access_token: 'EAASJN3kpCzkBAA7KGHeSOpjEGtgmac84jMjLFU1PKYCgaC1oVUptbwKg1JOyytZAerOpBgNiTcnBxBzTVDeX2Py4Kdb7DJz67ZCiKPeHUZA9hCp6jtVnQi319i404nUxOn41Stm21SZAl6lZAl6IZB7VJDRPDCGQW3VqWxmhzbJQZDZD' },
+		method: 'POST',
+		json: messageData
+	}, function (error, response, data) {
+		if (error)
+			console.log('No es posible enviar el mensaje')
+		else
+			console.log('Mensaje enviado')
+	})
+}
