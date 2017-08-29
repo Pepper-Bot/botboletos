@@ -20,7 +20,7 @@ module.exports = function () {
             //configuramos los boletos
             var boletos = [
                 {
-                    "titulo": "Magicamp",
+                    "titulo": "Shark!!!!",
                     "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
                     "subtitulo": "Pase General + Campamento (900MX)",
                     "url": "https://www.marinahuerta.com/magicon"
