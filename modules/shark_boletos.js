@@ -71,10 +71,8 @@ module.exports = function () {
                     "subtitle": boletos[i].subtitulo,
                     //"item_url": boletos[i].url,
                     "default_action": {
-                        //"type": "web_url",
-                        //"url": boletos[i].url//,
-                        "type":"postback",
-                        "payload": "TIBURON"+ (i+1)
+                        "type": "web_url",
+                        "url": boletos[i].url//,
                         //"messenger_extensions": true//,
                         // "webview_height_ratio": "tall",
                         // "fallback_url": boletos[i].url
