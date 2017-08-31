@@ -71,8 +71,10 @@ module.exports = function () {
                     "subtitle": boletos[i].subtitulo,
                     //"item_url": boletos[i].url,
                     "default_action": {
-                        "type": "web_url",
-                        "url": boletos[i].url//,
+                        //"type": "web_url",
+                        //"url": boletos[i].url//,
+                        "type":"postback",
+                        "payload": "TIBURON"+ (i+1)
                         //"messenger_extensions": true//,
                         // "webview_height_ratio": "tall",
                         // "fallback_url": boletos[i].url
@@ -105,8 +107,8 @@ module.exports = function () {
 
             // dejamos de tipear
             Message.typingOff(senderId);
-            // Dentro de MAGICON.
-            Message.sendMessage(senderId, "fin>>>>>>>>>>>>>>");
+          
+           
 
 
 
