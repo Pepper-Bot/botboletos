@@ -19,6 +19,7 @@ router.get('/', function(req, res) {
 		console.log(result);
 		console.log(req.query.id);
 		result.urlsVisited.push(req.query.u);
+		
 		result.save(function(err){
 
 			if(!err){

@@ -178,7 +178,7 @@ function processQuickReplies(event) {
 
     switch (payload) {
 
-        case "tiburon":{
+        case "TIBURON":{
             Message.typingOn(senderId);
             Message.sendMessage(senderId, 'Le picaste al tiburon!!!!!');
             Message.typingOff(senderId);
