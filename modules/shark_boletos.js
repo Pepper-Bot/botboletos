@@ -16,7 +16,7 @@ module.exports = function () {
 
             // tipeado off
 
-
+            var URLAplication = "https://botboletos-test.herokuapp.com/redirect/?u="
             //configuramos los boletos
             var boletos =
                 [
@@ -24,7 +24,7 @@ module.exports = function () {
                         "titulo": "Startups Showcase Early Supporter:",
                         "imagen": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34398973%2F221981936048%2F1%2Foriginal.jpg?w=800&rect=0%2C0%2C1680%2C840&s=9fff7c3a5c78f70de08659dd5999e766",
                         "subtitulo": "Timely Supporter. \"you are fantastic \"  we welcome you to the monthle Live Sharks  Tank demon + pitch expo & VIP party, its a smashing success and amazing event! you will enjoy the networking, pitching, and then more networking at the VIP -after party! be sure to bring lots of bussines cards! ",
-                        "url": "https://botboletos-test.herokuapp.com/redirect/?u=https://www.eventbrite.com/register?orderid=8a613b028e8711e7b25a12a0e100dc36&client_token=3a9b3506b08345e08ec3bcd25e2abde3&eid=37138315702"+'&id='+senderId/*,
+                        "url": URLAplication + "https://www.eventbrite.com/" + '&id=' + senderId
 
                     },
 
@@ -79,10 +79,10 @@ module.exports = function () {
                     },
                     "buttons": [
                         {
-                            "type":"postback",
-                           // "url": boletos[i].url,
+                            "type": "postback",
+                            // "url": boletos[i].url,
                             "title": "Reservar",
-                            "payload": "TIBURON"+ (i+1)
+                            "payload": "TIBURON" + (i + 1)
                         }
                     ]
                 });
@@ -105,8 +105,8 @@ module.exports = function () {
 
             // dejamos de tipear
             Message.typingOff(senderId);
-          
-           
+
+
 
 
 
