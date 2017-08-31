@@ -178,7 +178,7 @@ function processQuickReplies(event) {
 
     switch (payload) {
 
- 
+
         case "TRYAGAIN_NO":
             Message.typingOn(senderId);
             Message.sendMessage(senderId, 'Ok, if you change your mind, type START AGAIN. See you Later.');
@@ -399,13 +399,22 @@ function processPostback(event) {
     switch (payload) {
 
 
-        case "TIBURON":{
-            Message.typingOn(senderId);
-            Message.sendMessage(senderId, 'Le picaste al tiburon!!!!!');
-            Message.typingOff(senderId);
-           console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Entramos al tiburon<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+        case "TIBURON1": {
+            Message.sendMessage(senderId, 'Le picaste al tiburon 1');
+        } break;
+        case "TIBURON2": {
+            Message.sendMessage(senderId, 'Le picaste al tiburon 2');
+        } break;
+        case "TIBURON3": {
+            Message.sendMessage(senderId, 'Le picaste al tiburon 3');
+        } break;
+        case "TIBURON4": {
+            Message.sendMessage(senderId, 'Le picaste al tiburon 4');
+        } break;
+        case "TIBURON5": {
+            Message.sendMessage(senderId, 'Le picaste al tiburon 5');
+        } break;
 
-        }break;
 
 
 
