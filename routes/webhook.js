@@ -182,7 +182,7 @@ function processQuickReplies(event) {
             Message.typingOn(senderId);
             Message.sendMessage(senderId, 'Le picaste al tiburon!!!!!');
             Message.typingOff(senderId);
-
+           console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Entramos al tiburon<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 
         }break;
 
