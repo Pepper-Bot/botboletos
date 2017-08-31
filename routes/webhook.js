@@ -178,14 +178,7 @@ function processQuickReplies(event) {
 
     switch (payload) {
 
-        case "TIBURON":{
-            Message.typingOn(senderId);
-            Message.sendMessage(senderId, 'Le picaste al tiburon!!!!!');
-            Message.typingOff(senderId);
-           console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Entramos al tiburon<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
-
-        }break;
-
+ 
         case "TRYAGAIN_NO":
             Message.typingOn(senderId);
             Message.sendMessage(senderId, 'Ok, if you change your mind, type START AGAIN. See you Later.');
@@ -400,17 +393,22 @@ function processQuickReplies(event) {
 
 function processPostback(event) {
 
-
-
-
-
-
     var senderId = event.sender.id;
     var payload = event.postback.payload;
 
-
-
     switch (payload) {
+
+
+        case "TIBURON":{
+            Message.typingOn(senderId);
+            Message.sendMessage(senderId, 'Le picaste al tiburon!!!!!');
+            Message.typingOff(senderId);
+           console.log(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>Entramos al tiburon<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+
+        }break;
+
+
+
         case "Greetings":
 
             if (undefined !== event.postback.referral) {
