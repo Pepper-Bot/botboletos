@@ -82,7 +82,7 @@ module.exports = function () {
                             "type":"postback",
                            // "url": boletos[i].url,
                             "title": "Reservar",
-                            "payload": "TIBURON"
+                            "payload": "TIBURON"+ (i+1)
                         }
                     ]
                 });

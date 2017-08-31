@@ -399,21 +399,26 @@ function processPostback(event) {
     switch (payload) {
 
 
-        case "TIBURON1": {
+        case "TIBURON1":
             Message.sendMessage(senderId, 'Le picaste al tiburon 1');
-        } break;
-        case "TIBURON2": {
+            console.log(">>>>>>>>>TIBURON1<<<<<<<<<<");
+            break;
+        case "TIBURON2":
             Message.sendMessage(senderId, 'Le picaste al tiburon 2');
-        } break;
-        case "TIBURON3": {
+            console.log(">>>>>>>>>TIBURON2<<<<<<<<<<");
+            break;
+        case "TIBURON3":
             Message.sendMessage(senderId, 'Le picaste al tiburon 3');
-        } break;
-        case "TIBURON4": {
+            console.log(">>>>>>>>>TIBURON3<<<<<<<<<<");
+            break;
+        case "TIBURON4":
             Message.sendMessage(senderId, 'Le picaste al tiburon 4');
-        } break;
-        case "TIBURON5": {
+            console.log(">>>>>>>>>TIBURON4<<<<<<<<<<");
+            break;
+        case "TIBURON5":
             Message.sendMessage(senderId, 'Le picaste al tiburon 5');
-        } break;
+            console.log(">>>>>>>>>TIBURON5<<<<<<<<<<");
+            break;
 
 
 
