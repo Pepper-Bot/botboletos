@@ -11,7 +11,7 @@ module.exports = function () {
             Message.typingOn(senderId);
             // simulamos el tipeado
             // enviamos el mensaje    
-            Message.sendMessage(senderId, "SHARK BOLETOS");
+            Message.sendMessage(senderId, "Sharks Tank EnVivo® Episode 51 - with $50k in prizes!");
             Message.typingOff(senderId);
 
             // tipeado off
@@ -79,9 +79,10 @@ module.exports = function () {
                     },
                     "buttons": [
                         {
-                            "type": "web_url",
-                            "url": boletos[i].url,
-                            "title": "Reservar"
+                            "type":"postback",
+                           // "url": boletos[i].url,
+                            "title": "Reservar",
+                            "payload": "tiburon"
                         }
                     ]
                 });

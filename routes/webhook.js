@@ -178,6 +178,14 @@ function processQuickReplies(event) {
 
     switch (payload) {
 
+        case "tiburon":{
+            Message.typingOn(senderId);
+            Message.sendMessage(senderId, 'Le picaste al tiburon!!!!!');
+            Message.typingOff(senderId);
+
+
+        }break;
+
         case "TRYAGAIN_NO":
             Message.typingOn(senderId);
             Message.sendMessage(senderId, 'Ok, if you change your mind, type START AGAIN. See you Later.');
