@@ -46,9 +46,9 @@ module.exports = function () {
                     },
 
                     {
-                        "titulo": "Startups Showcase Sponsor Bronze I",
-                        "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
-                        "subtitulo": "Pase General + Campamento (900MX)",
+                        "titulo": "Sharks Sponsors",
+                        "imagen": "https://botboletos-test.herokuapp.com/images/shark_sponsors_medium",
+                        "subtitulo": "Be presented as sponsor and get your VIP expositor table ",
                         "url": "https://www.marinahuerta.com/magicon"
 
                     },
