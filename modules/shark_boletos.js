@@ -46,9 +46,9 @@ module.exports = function () {
                     },
 
                     {
-                        "titulo": "Sharks Sponsors",
+                        "titulo": "Get Featured as Sponsors (from $500)",
                         "imagen": "https://botboletos-test.herokuapp.com/images/shark_sponsors_medium.jpg",
-                        "subtitulo": "Be presented as sponsor and get your VIP expositor table ",
+                        "subtitulo": "Get exposed to our networks. Get your VIP expositor table. Reach 50K leads ",
                         "url": "https://www.marinahuerta.com/magicon"
 
                     },
