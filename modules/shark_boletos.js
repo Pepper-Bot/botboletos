@@ -22,7 +22,7 @@ module.exports = function () {
             var boletos =
                 [
                     {
-                        "titulo": "Early Bird Access",
+                        "titulo": "Early Bird Access - $20",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_entrepreneur.png",
                         "subtitulo": "Only $20  \"Limited Availability \"Be sure to bring lots of bussines cards!  Live the Sharktank Experience",
                         "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
@@ -31,7 +31,7 @@ module.exports = function () {
 
 
                     {
-                        "titulo": "General Access",
+                        "titulo": "General Access - $30",
                         "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
                         "subtitulo": "Watch elite startups pitch innovative ideas and win. Network w VIP Tech",
                         "url": "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702"
