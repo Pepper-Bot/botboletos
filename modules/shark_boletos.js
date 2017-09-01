@@ -24,24 +24,24 @@ module.exports = function () {
                     {
                         "titulo": "Early Bird Access",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_entrepreneur.png",
-                        "subtitulo": "Only $20  \"Limited Availability \"Be sure to bring lots of bussines cards! ",
+                        "subtitulo": "Only $20  \"Limited Availability \"Be sure to bring lots of bussines cards!  Live the Sharktank Experience",
                         "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
 
                     },
 
 
                     {
-                        "titulo": "Same day including at the door Sales",
+                        "titulo": "General Access",
                         "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
-                        "subtitulo": "Pase General + Campamento (900MX)",
-                        "url": "https://www.marinahuerta.com/magicon"
+                        "subtitulo": "Watch elite startups pitch innovative ideas and win. Network w VIP Tech",
+                        "url": "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702"
 
                     },
                     {
-                        "titulo": "Startups on the Stage \"Bring your A-Game!\"",
+                        "titulo": "Pitch On Stage - Win 50K \"Bring your A-Game!\" - $150",
                         "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
-                        "subtitulo": "Pase General + Campamento (900MX)",
-                        "url": "https://www.marinahuerta.com/magicon"
+                        "subtitulo": "Get seed funding. Network w Investors and other succesful startups",
+                        "url": "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702"
 
                     },
 
@@ -49,13 +49,6 @@ module.exports = function () {
                         "titulo": "Get Featured as Sponsor - $500",
                         "imagen": "https://botboletos-test.herokuapp.com/images/shark_sponsors_medium.jpg",
                         "subtitulo": "Get exposed to our networks. Get your VIP expositor table. Reach 50K leads ",
-                        "url": "https://www.marinahuerta.com/magicon"
-
-                    },
-                    {
-                        "titulo": "Startups Showcase Sponsor Bronze II",
-                        "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
-                        "subtitulo": "Pase General + Campamento (900MX)",
                         "url": "https://www.marinahuerta.com/magicon"
 
                     }
