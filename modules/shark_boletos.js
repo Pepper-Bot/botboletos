@@ -47,7 +47,7 @@ module.exports = function () {
 
                     {
                         "titulo": "Sharks Sponsors",
-                        "imagen": "https://botboletos-test.herokuapp.com/images/shark_sponsors_medium",
+                        "imagen": "https://botboletos-test.herokuapp.com/images/shark_sponsors_medium.jpg",
                         "subtitulo": "Be presented as sponsor and get your VIP expositor table ",
                         "url": "https://www.marinahuerta.com/magicon"
 
