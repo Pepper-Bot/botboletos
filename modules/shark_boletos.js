@@ -23,7 +23,7 @@ module.exports = function () {
                 [
                     {
                         "titulo": "Early Bird Access",
-                        "imagen": "https://botboletos.herokuapp.com/images/card_magicamp.jpg",
+                        "imagen": "https://botboletos-test.herokuapp.com/images/sharks tank bot sponsors.png",
                         "subtitulo": "Only $20  \"Limited Availability \"Be sure to bring lots of bussines cards! ",
                         "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
 
