@@ -15,16 +15,17 @@ module.exports = function () {
             Message.typingOff(senderId);
 
             // tipeado off
-
+            
+            // Guarda el url cada vez que el usuario hace click en la tarjeta
             var URLAplication = "https://botboletos-test.herokuapp.com/redirect/?u="
             //configuramos los boletos
             var boletos =
                 [
                     {
-                        "titulo": "Startups Showcase Early Supporter:",
-                        "imagen": "https://img.evbuc.com/https%3A%2F%2Fcdn.evbuc.com%2Fimages%2F34398973%2F221981936048%2F1%2Foriginal.jpg?w=800&rect=0%2C0%2C1680%2C840&s=9fff7c3a5c78f70de08659dd5999e766",
-                        "subtitulo": "Timely Supporter. \"you are fantastic \"  we welcome you to the monthle Live Sharks  Tank demon + pitch expo & VIP party, its a smashing success and amazing event! you will enjoy the networking, pitching, and then more networking at the VIP -after party! be sure to bring lots of bussines cards! ",
-                        "url": URLAplication + "https://www.eventbrite.com/" + '&id=' + senderId
+                        "titulo": "Early Bird Access",
+                        "imagen": "https://drive.google.com/file/d/0B7CiCKhp4gPPellrVDkxLUttSEE/view?usp=sharing",
+                        "subtitulo": "Only $20  \"Limited Availability \"Be sure to bring lots of bussines cards! ",
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
 
                     },
 
