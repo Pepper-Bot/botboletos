@@ -34,6 +34,8 @@ module.exports = function () {
                         Message.typingOn(senderId);
                         Message.sendMessage(senderId, json.name.text);
                         Message.typingOff(senderId);
+                        Message.typingOn(senderId);
+                        Message.sendMessage(senderId, json.description.text);
                     }
                 }
 
