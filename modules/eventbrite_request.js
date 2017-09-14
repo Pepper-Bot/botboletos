@@ -31,7 +31,9 @@ module.exports = function () {
                 function (error, response, body) {
                     if (!error) {
                         var json = JSON.parse(body);
+                        Message.typingOn(senderId);
                         Message.sendMessage(senderId, json.name.text);
+                        Message.typingOff(senderId);
                     }
                 }
 
