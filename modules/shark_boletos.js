@@ -35,14 +35,14 @@ module.exports = function () {
                         "titulo": "General Admission - $20",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_tank_16sec_video_attendees.png",
                         "subtitulo": "Bring cards and network w Bay Area investors and entrepreneurs",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
+                       "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702?discount=Entrepreneur" + '&id=' + senderId
 
                     },
                     {
                         "titulo": "Startups - $150",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_participant.png",
                         "subtitulo": "PPitch your idea and Win 50K. Get Funded this Friday.",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
+                      "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702?discount=Entrepreneur" + '&id=' + senderId
 
                     },
 
@@ -50,7 +50,7 @@ module.exports = function () {
                         "titulo": "Sponsors - from $500",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_sponsor.png",
                         "subtitulo": "Get your logo in front of 50 thousand people. Get a VIP table and join the smashing party.",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702?discount=Entrepreneur" + '&id=' + senderId
 
                     }
 
