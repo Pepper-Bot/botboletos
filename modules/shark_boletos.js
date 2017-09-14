@@ -75,7 +75,7 @@ module.exports = function () {
                         {
                             "type": "postback",
                             "url": boletos[i].url,
-                            "title": "Reservar",
+                            "title": "Reservar"
                             //"payload": "TIBURON" + (i + 1)
                         }
                     ]
