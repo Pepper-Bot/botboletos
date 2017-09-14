@@ -7,29 +7,25 @@ module.exports = function () {
             Message.sendMessage(senderId, "Eventbrite Request !! ");
             Message.typingOff(senderId);
 
-            var api;
+            var apiEB;
             var eventbriteAPI = require('node-eventbrite');
             var eventbrite_token = 'GAPMQH6AUBENAC2SPCEX';
-            var api;
-            
+         
             try {
-                 api = eventbriteAPI({
+                apiEB = eventbriteAPI({
                     token: eventbrite_token,
                     version : 'v3'
                 });
             } catch (error) {
                 console.log(error.message);
             }
-            
-            api.owned_events({ user_id: 221981936048 }, function (error, data) {
+           
+            apiEB.prototype.owned_events({ user_id: 221981936048 }, function (error, data) {
                 if (error)
                     console.log(error.message);
                 else
                     console.log(JSON.stringify(data)); // Do something with your data!
             });
-
-
-
 
 
 
