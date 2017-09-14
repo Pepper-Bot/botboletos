@@ -32,10 +32,9 @@ module.exports = function () {
                     if (!error) {
                         var json = JSON.parse(body);
                         Message.typingOn(senderId);
-                        Message.sendMessage(senderId, json.name.text);
-                        Message.typingOff(senderId);
-                        Message.typingOn(senderId);
                         Message.sendMessage(senderId, json.description.text);
+                        Message.typingOff(senderId);
+                     
                     }
                 }
 
