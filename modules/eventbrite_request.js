@@ -6,16 +6,13 @@ module.exports = function () {
 
 
             var Message = require('../bot/messages');
-            // llamamos al modulo de mensajes
             var eventResults = [];
             Message.typingOn(senderId);
-            // simulamos el tipeado
-            // enviamos el mensaje    
             Message.sendMessage(senderId, "Eventbrite Request !! ");
             Message.typingOff(senderId);
 
 
-            var eventbriteAPI = require('node-eventbrite');
+            /*var eventbriteAPI = require('node-eventbrite');
 
             var token = 'GAPMQH6AUBENAC2SPCEX';
 
@@ -33,10 +30,10 @@ module.exports = function () {
                     console.log(error.message);
                 else
                     console.log(JSON.stringify(data)); // Do something with your data!
-            });
+            });*/
 
 
-            
+
 
 
         }
