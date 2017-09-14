@@ -8,11 +8,6 @@ module.exports = function () {
             Message.typingOff(senderId);
             var request = require('request');
 
-
-            //var eventbriteAPI = require('node-eventbrite');
-
-
-
             var baseURL = "https://www.eventbriteapi.com/v3"
             var userID = 221981936048;
             var OAuthtoken = "GAPMQH6AUBENAC2SPCEX";
@@ -20,12 +15,12 @@ module.exports = function () {
             var token = "?token=" + OAuthtoken;
             var events = "/events/"
             var event = 37138315702
-            console.log("URL>>>>>>>>>>>>>>>>" + baseURL + events + event + token);
+            console.log("URL>>>>>>>>>>>>>>>>" + baseURL + events + event );
 
 
             request(
                 {
-                    url: baseURL + events + event + token,
+                    url: baseURL + events + event,
                     qs: {
                         token: 'GAPMQH6AUBENAC2SPCEX'
 
@@ -35,7 +30,7 @@ module.exports = function () {
                 ,
                 function (error, response, body) {
                     if (!error) {
-                        console.log(JSON.stringify(body)); 
+                        console.log(JSON.parse(body)); 
                     }
                 }
 
