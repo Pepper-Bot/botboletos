@@ -9,10 +9,10 @@ module.exports = function () {
 
             var api;
             var eventbriteAPI = require('node-eventbrite');
-            var token = 'GAPMQH6AUBENAC2SPCEX';
+            var eventbrite_token = 'GAPMQH6AUBENAC2SPCEX';
             try {
                 api = eventbriteAPI({
-                    token: token,
+                    token: eventbrite_token,
                     version: 'v3'
                 });
 
