@@ -25,7 +25,7 @@ module.exports = function () {
                         "titulo": "Discount - Limited Time",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_image_discount.jpg",
                         "subtitulo": "Live the Sharks Tank experience. You can also pitch and Win 50K",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702?discount=Entrepreneur" + '&id=' + senderId
                                                
 												
                     },
