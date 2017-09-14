@@ -74,9 +74,9 @@ module.exports = function () {
                     "buttons": [
                         {
                             "type": "postback",
-                            // "url": boletos[i].url,
+                            "url": boletos[i].url,
                             "title": "Reservar",
-                            "payload": "TIBURON" + (i + 1)
+                            //"payload": "TIBURON" + (i + 1)
                         }
                     ]
                 });
