@@ -596,11 +596,13 @@ function chooseReferral(referral, senderId) {
             }
             break;
 
-            
+
         case "EVENTBRITE":
             {
-                var EventBriteModule = require('../modules/eventbrite_request');
-                EventBriteModule.start(senderId);
+               /* var EventBriteModule = require('../modules/eventbrite_request');
+                EventBriteModule.start(senderId);*/
+
+                console.log("entramos a event brite");
 
             }
             break;
