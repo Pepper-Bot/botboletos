@@ -10,32 +10,23 @@ module.exports = function () {
             var api;
             var eventbriteAPI = require('node-eventbrite');
             var eventbrite_token = 'GAPMQH6AUBENAC2SPCEX';
+            var api;
+            
             try {
-                api = eventbriteAPI({
+                 api = eventbriteAPI({
                     token: eventbrite_token,
-                    version: 'v3'
+                    version : 'v3'
                 });
-
-                console.log('>>>>>>>>>>>>>YA TENEMOS UNA VARIABLE api de EVENTBRITEAPI<<<<<<<<<<<<<<<<                                   '); // the options are missing, this function throws an error.
             } catch (error) {
-                console.log("ERROR EN LA API>>>" + error.message); // the options are missing, this function throws an error.
+                console.log(error.message);
             }
-
-            if (api)
-                api.owned_events({ user_id: 221981936048 }, function (error, data) {
-                    if (error)
-                        console.log(error.message);
-                    else {
-                        console.log('<<<<<<<<<<<<<<  -ENCONTRAMOS RESPUESTA- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
-                        console.log(JSON.stringify(data)); // Do something with your data!
-
-                        // 
-
-
-                    }
-
-
-                });
+            
+            api.owned_events({ user_id: 221981936048 }, function (error, data) {
+                if (error)
+                    console.log(error.message);
+                else
+                    console.log(JSON.stringify(data)); // Do something with your data!
+            });
 
 
 
