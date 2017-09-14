@@ -16,19 +16,21 @@ module.exports = function () {
                     token: token,
                     version: 'v3'
                 });
+
+                console.log('>>>>>>>>>>>>>YA TENEMOS UNA VARIABLE api de EVENTBRITEAPI<<<<<<<<<<<<<<<<                                   '); // the options are missing, this function throws an error.
             } catch (error) {
                 console.log("ERROR EN LA API>>>" + error.message); // the options are missing, this function throws an error.
             }
 
-            
+
             api.owned_events({ user_id: 221981936048 }, function (error, data) {
                 if (error)
                     console.log(error.message);
-                else{
+                else {
                     console.log('<<<<<<<<<<<<<<  -ENCONTRAMOS RESPUESTA- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
                     console.log(JSON.stringify(data)); // Do something with your data!
 
-                   // 
+                    // 
 
 
                 }
@@ -36,7 +38,7 @@ module.exports = function () {
 
 
 
-                   
+
             });
 
 
