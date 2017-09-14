@@ -11,7 +11,7 @@ module.exports = function () {
             var eventResults = [];
             Message.typingOn(senderId);
             Message.sendMessage(senderId, "Eventbrite Request !! ");
-            Message.typingOff(senderId);*/
+            Message.typingOff(senderId);
 
 
             var eventbriteAPI = require('node-eventbrite');
@@ -25,7 +25,7 @@ module.exports = function () {
                 console.log(error.message); // the options are missing, this function throws an error.
             }
 
-            
+
             api.owned_events({ user_id: 221981936048 }, function (error, data) {
                 if (error)
                     console.log(error.message);
@@ -35,7 +35,7 @@ module.exports = function () {
                 }
 
 
-            });
+            });*/
 
 
 
