@@ -22,34 +22,34 @@ module.exports = function () {
             var boletos =
                 [
                     {
-                        "titulo": "Early Bird Access - $20",
-                        "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_entrepreneur.png",
-                        "subtitulo": "Only $20  \"Limited Availability \"Be sure to bring lots of bussines cards!  Live the Sharktank Experience",
+                        "titulo": "Discount - Limited Time",
+                        "imagen": "https://botboletos-test.herokuapp.com/images/sharks_image_discount.jpg",
+                        "subtitulo": "Live the Sharks Tank experience. You can also pitch and Win 50K",
                         "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
 
                     },
 
 
                     {
-                        "titulo": "General Access - $30",
-                        "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
-                        "subtitulo": "Watch elite startups pitch innovative ideas and win. Network w VIP Tech",
-                        "url": "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702"
+                        "titulo": "General Admission",
+                        "imagen": "https://botboletos-test.herokuapp.com/images/sharks_tank_16sec_video_attendees.png",
+                        "subtitulo": "Bring cards and network w Bay Area investors and entrepreneurs",
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
 
                     },
                     {
-                        "titulo": "Pitch On Stage - Win 50K \"Bring your A-Game!\" - $150",
-                        "imagen": "http://cdn.images.express.co.uk/img/dynamic/78/590x/Great-White-shark-Evans-Head-595103.jpg",
-                        "subtitulo": "Get seed funding. Network w Investors and other succesful startups",
-                        "url": "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702"
+                        "titulo": "Startups",
+                        "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_participant.png",
+                        "subtitulo": "PPitch your idea and Win 50K. Get Funded this Friday.",
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
 
                     },
 
                     {
-                        "titulo": "Get Featured as Sponsor - $500",
-                        "imagen": "https://botboletos-test.herokuapp.com/images/shark_sponsors_medium.jpg",
-                        "subtitulo": "Get exposed to our networks. Get your VIP expositor table. Reach 50K leads ",
-                        "url": "https://www.marinahuerta.com/magicon"
+                        "titulo": "Sponsors",
+                        "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_sponsor.png",
+                        "subtitulo": "Get your logo in front of 50 thousand people. Get a VIP table and join the smashing party.",
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
 
                     }
 
