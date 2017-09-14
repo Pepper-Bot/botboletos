@@ -84,7 +84,7 @@ module.exports = function () {
 
 
 
-                console.log('events Results >>>>>>>>>>>>>>>' + eventResults[i].title);
+                console.log('events Results >>>>>>>>>>>>>>>' + eventResults[i].url);
             }
 
 
