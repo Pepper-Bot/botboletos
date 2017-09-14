@@ -35,7 +35,7 @@ module.exports = function () {
                         "titulo": "General Admission - $20",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_tank_16sec_video_attendees.png",
                         "subtitulo": "Bring cards and network w Bay Area investors and entrepreneurs",
-                       "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702" + '&id=' + senderId
+                       "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-51-with-50k-in-prizes-tickets-37138315702?1=1" + '&id=' + senderId
 
                     },
                     {
