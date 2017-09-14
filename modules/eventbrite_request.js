@@ -6,30 +6,41 @@ module.exports = function () {
             Message.typingOn(senderId);
             Message.sendMessage(senderId, "Eventbrite Request !! ");
             Message.typingOff(senderId);
+            var request = require('request');
 
-            var apiEB;
-            var eventbriteAPI = require('node-eventbrite');
-            var eventbrite_token = 'GAPMQH6AUBENAC2SPCEX';
-         
-            try {
-                apiEB = eventbriteAPI({
-                    token: eventbrite_token,
-                    version : 'v3'
-                });
-            } catch (error) {
-                console.log(error.message);
-            }
-           
-            apiEB.prototype.owned_events({ user_id: 221981936048 }, function (error, data) {
-                if (error)
-                    console.log(error.message);
-                else
-                    console.log(JSON.stringify(data)); // Do something with your data!
-            });
+
+            //var eventbriteAPI = require('node-eventbrite');
 
 
 
+            var baseURL = "https://www.eventbriteapi.com/v3"
+            var userID = 221981936048;
+            var OAuthtoken = "GAPMQH6AUBENAC2SPCEX";
+            //==========================//
+            var token = "?token=" + OAuthtoken;
+            var events = "/events/"
+            var event = 37138315702
+            console.log("URL>>>>>>>>>>>>>>>>" + baseURL + events + event + token);
 
+
+            request(
+                {
+                    url: baseURL + events + event + token,
+                    qs: {
+                        token: 'GAPMQH6AUBENAC2SPCEX'
+
+                    },
+                    method: 'GET'
+                }
+                ,
+                function (error, response, body) {
+                    if (!error) {
+                        console.log(JSON.stringify(body)); 
+                    }
+                }
+
+            );
+ 
 
 
 
