@@ -4,7 +4,7 @@ module.exports = function () {
             console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<ENTRAMOS A EVENTBRITE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><');
             var Message = require('../bot/messages');
             Message.typingOn(senderId);
-           
+            Message.sendMessage(senderId, "Eventbrite Request !! ");
             Message.typingOff(senderId);
 
 
@@ -17,9 +17,10 @@ module.exports = function () {
                     version: 'v3'
                 });
             } catch (error) {
-                console.log(error.message); // the options are missing, this function throws an error.
+                console.log("ERROR EN LA API>>>" + error.message); // the options are missing, this function throws an error.
             }
 
+            
             api.owned_events({ user_id: 221981936048 }, function (error, data) {
                 if (error)
                     console.log(error.message);
@@ -27,7 +28,7 @@ module.exports = function () {
                     console.log('<<<<<<<<<<<<<<  -ENCONTRAMOS RESPUESTA- >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>');
                     console.log(JSON.stringify(data)); // Do something with your data!
 
-                      //Message.sendMessage(senderId, "Eventbrite Request !! ");
+                   // 
 
 
                 }
