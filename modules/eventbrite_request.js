@@ -4,18 +4,18 @@ module.exports = function () {
 
         start: function (senderId) {
 
+            console.log("Este es el SenderID >>>>>>>>>>>>" + senderId);
 
-            var Message = require('../bot/messages');
+
+            /*var Message = require('../bot/messages');
             var eventResults = [];
             Message.typingOn(senderId);
             Message.sendMessage(senderId, "Eventbrite Request !! ");
-            Message.typingOff(senderId);
+            Message.typingOff(senderId);*/
 
 
-            /*var eventbriteAPI = require('node-eventbrite');
-
+            var eventbriteAPI = require('node-eventbrite');
             var token = 'GAPMQH6AUBENAC2SPCEX';
-
             try {
                 var api = eventbriteAPI({
                     token: token,
@@ -25,12 +25,17 @@ module.exports = function () {
                 console.log(error.message); // the options are missing, this function throws an error.
             }
 
+            
             api.owned_events({ user_id: 221981936048 }, function (error, data) {
                 if (error)
                     console.log(error.message);
-                else
+                else {
+                    console.log("Los datos obtenidos");
                     console.log(JSON.stringify(data)); // Do something with your data!
-            });*/
+                }
+
+
+            });
 
 
 
