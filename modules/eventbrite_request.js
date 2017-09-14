@@ -30,7 +30,8 @@ module.exports = function () {
                 ,
                 function (error, response, body) {
                     if (!error) {
-                        console.log(JSON.parse(body)); 
+                        var json = JSON.parse(body);
+                        Message.sendMessage(senderId, json.name.text);
                     }
                 }
 
