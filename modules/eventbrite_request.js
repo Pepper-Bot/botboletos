@@ -23,7 +23,7 @@ module.exports = function () {
             }
 
 
-            api.owned_events({ user_id: 221981936048 }, function (error, data) {
+            api.owned_events({ user_id: 30  }, function (error, data) {
                 if (error)
                     console.log(error.message);
                 else {
