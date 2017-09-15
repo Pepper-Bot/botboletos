@@ -12,7 +12,6 @@ module.exports = function () {
                    "",
                    "",
                    ""
-
             );
     
             Message.typingOn(senderId);
