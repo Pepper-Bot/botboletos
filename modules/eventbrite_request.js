@@ -43,10 +43,7 @@ module.exports = function () {
                             "subtitle": evento.description.text,
                             "default_action": {
                                 "type": "web_url",
-                                "url": baseURL + evento.url + ' ' + '&id=' + senderId/*,
-                              "messenger_extensions": true,
-                              "webview_height_ratio": "tall",
-                              "fallback_url": 'https://botboletos.herokuapp.com/redirect/?u='+json.restaurants[i].restaurant.url + '&id='+result.fbId*/
+                                "url": baseURL + evento.url + ' ' + '&id=' + senderId 
                             },
                             "buttons": [
                                 {
