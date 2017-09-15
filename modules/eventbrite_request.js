@@ -8,14 +8,13 @@ module.exports = function () {
             var ElementTemplate = require('../fbObjects/ElementTemplate');
             var ButtonTemplate =   require('../fbObjects/ButtonTemplate');
             var mensajeTemplate = require("../fbObjects/MensajeTemplate");
-           
+            
+            var elementTemplateArray = new Array();
             var buttonArray = new Array();
             var buttonTemplate = new ButtonTemplate(
                 "",
                 ""
             );
-            
-            buttonArray.push(buttonTemplate);
 
             var elementTemplate = new ElementTemplate(
                 "",
@@ -41,7 +40,6 @@ module.exports = function () {
             var event = 37138315702
             console.log("URL>>>>>>>>>>>>>>>>" + baseURL + events + event);
 
-
             request(
                 {
                     url: baseURL + events + event,
@@ -56,10 +54,23 @@ module.exports = function () {
                     if (!error) {
                         var evento = JSON.parse(body);
                         Message.typingOn(senderId);
-                        Message.sendMessage(senderId, evento.url);
+                        Message.sendMessage(senderId, evento.name.text);
                         Message.typingOff(senderId);
+                        elementTemplate.title = evento.name.text;
+                        elementTemplate.subtitle = evento.description.text;
+                        elementTemplate.item_url = evento.url;
+                        elementTemplate.image_url = evento.logo.original.url;
 
+                        buttonTemplate.type = 'web-url';
+                        buttonTemplate.title = 'Ver';
+                        buttonTemplate.url = evento.url;
+                        
+                        buttonArray.push(buttonTemplate);
+                        elementTemplate.buttons = buttonArray;
+                        elementTemplateArray.push(elementTemplate);
+                       
 
+                        Message.genericButton(senderId, elementTemplateArray);
 
                     }
                 }
