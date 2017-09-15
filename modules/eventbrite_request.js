@@ -1,13 +1,25 @@
+'use strict';
+
 module.exports = function () {
     return {
         start: function (senderId) {
             console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<ENTRAMOS A EVENTBRITE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><');
             var Message = require('../bot/messages');
+            var ElementTemplate = reqire('../fbObjects/ElementTemplate');
+            
+            var elementTemplate = new ElementTemplate(
+                   "",
+                   "",
+                   "",
+                   ""
+
+            );
+    
             Message.typingOn(senderId);
             Message.sendMessage(senderId, "Eventbrite Request !! ");
             Message.typingOff(senderId);
             var request = require('request');
-
+            
             var baseURL = "https://www.eventbriteapi.com/v3"
             var userID = 221981936048;
             var OAuthtoken = "GAPMQH6AUBENAC2SPCEX";
@@ -16,7 +28,7 @@ module.exports = function () {
             var events = "/events/"
             var event = 37138315702
             console.log("URL>>>>>>>>>>>>>>>>" + baseURL + events + event );
-
+            
 
             request(
                 {
@@ -30,10 +42,12 @@ module.exports = function () {
                 ,
                 function (error, response, body) {
                     if (!error) {
-                        var json = JSON.parse(body);
+                        var evento = JSON.parse(body);
                         Message.typingOn(senderId);
-                        Message.sendMessage(senderId, json.url);
+                        Message.sendMessage(senderId, evento.url);
                         Message.typingOff(senderId);
+
+
                      
                     }
                 }
