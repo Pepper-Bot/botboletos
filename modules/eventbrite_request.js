@@ -6,19 +6,32 @@ module.exports = function () {
             console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<ENTRAMOS A EVENTBRITE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><');
             var Message = require('../bot/messages');
             var ElementTemplate = require('../fbObjects/ElementTemplate');
-            
-            var elementTemplate = new ElementTemplate(
-                   "",
-                   "",
-                   "",
-                   ""
+            var ButtonTemplate =   require('../fbObjects/ButtonTemplate');
+            var mensajeTemplate = require("../fbObjects/MensajeTemplate");
+           
+            var buttonArray = new Array();
+            var buttonTemplate = new ButtonTemplate(
+                "",
+                ""
             );
-    
+            
+            buttonArray.push(buttonTemplate);
+
+            var elementTemplate = new ElementTemplate(
+                "",
+                "",
+                "",
+                "",
+                buttonArray
+            );
+
+
+
             Message.typingOn(senderId);
             Message.sendMessage(senderId, "Eventbrite Request !! ");
             Message.typingOff(senderId);
             var request = require('request');
-            
+
             var baseURL = "https://www.eventbriteapi.com/v3"
             var userID = 221981936048;
             var OAuthtoken = "GAPMQH6AUBENAC2SPCEX";
@@ -26,8 +39,8 @@ module.exports = function () {
             var token = "?token=" + OAuthtoken;
             var events = "/events/"
             var event = 37138315702
-            console.log("URL>>>>>>>>>>>>>>>>" + baseURL + events + event );
-            
+            console.log("URL>>>>>>>>>>>>>>>>" + baseURL + events + event);
+
 
             request(
                 {
@@ -47,12 +60,12 @@ module.exports = function () {
                         Message.typingOff(senderId);
 
 
-                     
+
                     }
                 }
 
             );
- 
+
 
 
 

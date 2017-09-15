@@ -1,4 +1,4 @@
- function MensajeTemplate(senderID, elementTemplateArray) {
+ function getMensajeTemplate(senderID, elementTemplateArray) {
     return messageData = {
         recipient: {
             id: senderID
