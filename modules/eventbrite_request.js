@@ -5,7 +5,7 @@ module.exports = function () {
         start: function (senderId) {
             console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<ENTRAMOS A EVENTBRITE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><');
             var Message = require('../bot/messages');
-            var ElementTemplate = reqire('../fbObjects/ElementTemplate');
+            var ElementTemplate = require('../fbObjects/ElementTemplate');
             
             var elementTemplate = new ElementTemplate(
                    "",
