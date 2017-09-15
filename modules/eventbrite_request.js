@@ -61,7 +61,7 @@ module.exports = function () {
                         elementTemplate.item_url = evento.url;
                         elementTemplate.image_url = evento.logo.original.url;
 
-                        buttonTemplate.type = 'web-url';
+                        buttonTemplate.type = 'web_url';
                         buttonTemplate.title = 'Ver';
                         buttonTemplate.url = evento.url;
 
@@ -69,7 +69,7 @@ module.exports = function () {
                         elementTemplate.buttons = buttonArray;
                         elementTemplateArray.push(elementTemplate);
 
-                        console.log("ELEMENT TEMPLATE ARRAY ARMADO: >>>>>>>>>>>>>>    " + elementTemplateArray);
+                        console.log("ELEMENT TEMPLATE ARRAY ARMADO: >>>>>>>>>>>>>>    " +JSON.parse(elementTemplateArray));
                         Message.genericButton(senderId, elementTemplateArray);
 
                     }
