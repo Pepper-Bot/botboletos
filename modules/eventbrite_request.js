@@ -53,7 +53,7 @@ module.exports = function () {
                                 }
                             ]
                         });
-                        Message.genericButton(senderId, elementTemplateArray);
+                        Message.genericButton(senderId, eventResults);
 
 
 
