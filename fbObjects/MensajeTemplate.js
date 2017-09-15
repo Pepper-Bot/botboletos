@@ -15,4 +15,4 @@
     }
 }
 
-module.exports = {MensajeTemplate};
+module.exports = {getMensajeTemplate};
