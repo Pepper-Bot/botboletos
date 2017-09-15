@@ -6,9 +6,9 @@ module.exports = function () {
             console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<ENTRAMOS A EVENTBRITE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><');
             var Message = require('../bot/messages');
             var ElementTemplate = require('../fbObjects/ElementTemplate');
-            var ButtonTemplate =   require('../fbObjects/ButtonTemplate');
+            var ButtonTemplate = require('../fbObjects/ButtonTemplate');
             var mensajeTemplate = require("../fbObjects/MensajeTemplate");
-            
+
             var elementTemplateArray = new Array();
             var buttonArray = new Array();
             var buttonTemplate = new ButtonTemplate(
@@ -64,12 +64,12 @@ module.exports = function () {
                         buttonTemplate.type = 'web-url';
                         buttonTemplate.title = 'Ver';
                         buttonTemplate.url = evento.url;
-                        
+
                         buttonArray.push(buttonTemplate);
                         elementTemplate.buttons = buttonArray;
                         elementTemplateArray.push(elementTemplate);
-                       
 
+                        console.log("ELEMENT TEMPLATE ARRAY ARMADO: >>>>>>>>>>>>>>    " + elementTemplateArray);
                         Message.genericButton(senderId, elementTemplateArray);
 
                     }
