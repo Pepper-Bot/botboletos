@@ -5,27 +5,6 @@ module.exports = function () {
         start: function (senderId) {
             console.log('<<<<<<<<<<<<<<<<<<<<<<<<<<<ENTRAMOS A EVENTBRITE >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>><');
             var Message = require('../bot/messages');
-            var ElementTemplate = require('../fbObjects/ElementTemplate');
-            var ButtonTemplate = require('../fbObjects/ButtonTemplate');
-            var mensajeTemplate = require("../fbObjects/MensajeTemplate");
-
-            var elementTemplateArray = new Array();
-            var buttonArray = new Array();
-            var buttonTemplate = new ButtonTemplate(
-                "",
-                ""
-            );
-
-            var elementTemplate = new ElementTemplate(
-                "",
-                "",
-                "",
-                "",
-                buttonArray
-            );
-
-
-
             Message.typingOn(senderId);
             Message.sendMessage(senderId, "Eventbrite Request !! ");
             Message.typingOff(senderId);
@@ -53,29 +32,40 @@ module.exports = function () {
                 function (error, response, body) {
                     if (!error) {
                         var evento = JSON.parse(body);
+                        var baseURL = 'https://botboletos-test.herokuapp.com/redirect/?u=';
                         Message.typingOn(senderId);
                         Message.sendMessage(senderId, evento.name.text);
                         Message.typingOff(senderId);
-                        elementTemplate.title = evento.name.text;
-                        elementTemplate.subtitle = evento.description.text;
-                        elementTemplate.item_url = evento.url;
-                        elementTemplate.image_url = evento.logo.original.url;
-
-                        buttonTemplate.type = 'web_url';
-                        buttonTemplate.title = 'Ver';
-                        buttonTemplate.url = evento.url;
-
-                        buttonArray.push(buttonTemplate);
-                        elementTemplate.buttons = buttonArray;
-                        elementTemplateArray.push(elementTemplate);
-
-                        console.log("ELEMENT TEMPLATE ARRAY ARMADO: >>>>>>>>>>>>>>    " +JSON.parse(elementTemplateArray));
+                        var eventResults = [];
+                        eventResults.push({
+                            "title": evento.name.text,
+                            "image_url": evento.logo.original.url,
+                            "subtitle": evento.description.text,
+                            "default_action": {
+                                "type": "web_url",
+                                "url": baseURL + evento.url + ' ' + '&id=' + senderId/*,
+                              "messenger_extensions": true,
+                              "webview_height_ratio": "tall",
+                              "fallback_url": 'https://botboletos.herokuapp.com/redirect/?u='+json.restaurants[i].restaurant.url + '&id='+result.fbId*/
+                            },
+                            "buttons": [
+                                {
+                                    "type": "web_url",
+                                    "url": baseURL + evento.url + ' ' + '&id=' + senderId,
+                                    "title": "Go"
+                                }
+                            ]
+                        });
                         Message.genericButton(senderId, elementTemplateArray);
 
-                    }
-                }
 
-            );
+
+
+
+
+                    }//fin de if  error
+                }//fin de función de respuesta
+            );//fin de request
 
 
 
