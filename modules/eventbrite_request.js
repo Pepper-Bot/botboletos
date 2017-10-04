@@ -13,22 +13,18 @@ module.exports = function () {
             var baseURL = "https://www.eventbriteapi.com/v3"
             var userID = 221981936048;
             var OAuthtoken = "GAPMQH6AUBENAC2SPCEX";
-            //==========================//
-            var token = "?token=" + OAuthtoken;
             var events = "/events/"
             var event = 37138315702
             console.log("URL>>>>>>>>>>>>>>>>" + baseURL + events + event);
 
-            request(
-                {
+            request({
                     url: baseURL + events + event,
                     qs: {
-                        token: 'GAPMQH6AUBENAC2SPCEX'
+                        token: OAuthtoken
 
                     },
                     method: 'GET'
-                }
-                ,
+                },
                 function (error, response, body) {
                     if (!error) {
                         var evento = JSON.parse(body);
@@ -43,15 +39,13 @@ module.exports = function () {
                             "subtitle": evento.description.text,
                             "default_action": {
                                 "type": "web_url",
-                                "url": baseURL + evento.url + ' ' + '&id=' + senderId 
+                                "url": baseURL + evento.url + ' ' + '&id=' + senderId
                             },
-                            "buttons": [
-                                {
-                                    "type": "web_url",
-                                    "url": baseURL + evento.url + ' ' + '&id=' + senderId,
-                                    "title": "Go"
-                                }
-                            ]
+                            "buttons": [{
+                                "type": "web_url",
+                                "url": baseURL + evento.url + ' ' + '&id=' + senderId,
+                                "title": "Go"
+                            }]
                         });
                         Message.genericButton(senderId, eventResults);
 
@@ -60,15 +54,16 @@ module.exports = function () {
 
 
 
-                    }//fin de if  error
-                }//fin de función de respuesta
-            );//fin de request
+                    } //fin de if  !error
+                } //fin de función de respuesta
+            ); //fin de request
 
 
 
 
 
-        }//cierre de la función Start
-    };//cierre del return
-}();//cierre de la exportación del modulo
+        } //cierre de la función Start
+    }; //cierre del return
+}(); //cierre de la exportación del modulo
+
 
