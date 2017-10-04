@@ -35,14 +35,14 @@ module.exports = function () {
                         "titulo": "General Admission - $20",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_tank_16sec_video_attendees.png",
                         "subtitulo": "Bring cards and network w Bay Area investors and entrepreneurs",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-52-with-50k-in-prizes-tickets-38447048156?discount=Entrepreneur " + '&id=' + senderId
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-52-with-50k-in-prizes-tickets-38447048156 " + '&id=' + senderId
 
                     },
                     {
                         "titulo": "Startups - $150",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_participant.png",
                         "subtitulo": "PPitch your idea and Win 50K. Get Funded this Friday.",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-52-with-50k-in-prizes-tickets-38447048156?discount=Entrepreneur " + '&id=' + senderId
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-52-with-50k-in-prizes-tickets-38447048156 " + '&id=' + senderId
 
                     },
 
