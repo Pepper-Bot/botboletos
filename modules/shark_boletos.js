@@ -50,7 +50,7 @@ module.exports = function () {
                         "titulo": "Sponsors - from $500",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_sponsor.png",
                         "subtitulo": "Get your logo in front of 50 thousand people. Get a VIP table and join the smashing party.",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-52-with-50k-in-prizes-tickets-38447048156?discount=Entrepreneur " + '&id=' + senderId
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-52-with-50k-in-prizes-tickets-38447048156 " + '&id=' + senderId
 
                     }
 
