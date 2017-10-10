@@ -3,6 +3,7 @@ var router = express.Router();
 var UserData2 = require('../schemas/userinfo');
 /* GET home page. */
 
+
 router.get('/', function(req, res) {
  	   
 	if(undefined == req.query.id)
@@ -39,5 +40,8 @@ router.get('/', function(req, res) {
 		});
  	});
 });
+
+
+
 
 module.exports = router;

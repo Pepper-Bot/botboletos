@@ -6,9 +6,7 @@ var UserData = require('../schemas/userinfo');
 var headHTML = '<!doctype html><html> <head> <script src="https://code.jquery.com/jquery-1.12.4.js"></script><link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet"><script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script><meta charset="utf-8"> <meta name="description" content=""> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>Pepper Bot Data</title> <link rel="stylesheet" href="css/style.css"> <link rel="author" href="humans.txt"> <!-- Latest compiled and minified CSS --><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><!-- Optional theme --><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> </head> <body> <div class="container"> <div class="page-header"> <h1>Peppers Bot Data</h1> </div> <div class="row"> <div class="col-xs-12"> <table cellpadding="1" cellspacing="2" class="table-responsive table-hover" style="width:100%;text-align:center;" id="datos"> <caption>Session Data</caption> <thead> <tr> <th>Picture</th> <th>FB ID</th> <th>First Name</th> <th>Last Name</th> <th>Locale</th> <th>Time Zone</th> <th>Gender</th> <th>Session Started</th> <th>Session End</th> <th>Location</th> <th>Options selected</th><th>Cards Selected</th> </tr> </thead> <tbody>';
 var footHTML = '</tbody> </table> </div> </div> </div> <script> var table = $("#datos").DataTable({"paging":   true,"ordering": false,"info":     false}); </script> <!-- Latest compiled and minified JavaScript --><script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script> </body></html>';
 router.get('/', function(req, res) {
- 	   
-
-
+ 	 
 	    UserData.find({},{}, { sort: { 'sessionStart' : 1 } }, function(err, result){
 	    	
 	    	console.log(result);
@@ -46,5 +44,20 @@ router.get('/', function(req, res) {
 
  
 });
+
+
+
+express.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin',
+        'X-API-KEY, Origin, X-Request-With, Content-Type, Accept, Access-Control-Request-Method');
+    res.header('Acces-Control-Allow-Methods', 'GET, POST, OPTION, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTION, PUT, DELETE');
+
+    next();
+
+});
+
+
 
 module.exports = router;
