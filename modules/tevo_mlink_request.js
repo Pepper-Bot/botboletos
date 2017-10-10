@@ -11,8 +11,11 @@ module.exports = function () {
             console.log(filtro);
 
             if (tevoClient) {
-                tevoClient.getJSON('https://api.ticketevolution.com/v9/events').then((json) => {
+                tevoClient.getJSON('https://api.ticketevolution.com/v9/events?ticket_group_id='
+                +filtro 
+            ).then((json) => {
                     Message.sendMessage(senderId, "Obteniendo Eventos:");
+
                     console.log('Got events from API.', json.total_entries, json.events);
                 }).catch((err) => {
                     console.err(err);

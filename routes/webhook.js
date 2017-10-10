@@ -572,8 +572,8 @@ function chooseReferral(referral, senderId) {
     var baseURL = 'https://botboletos-test.herokuapp.com/api/';
     var mlinks = 'mlinks/';
     var request = require('request');
-    var id_evento ='';
-    var id_mlink = '';
+   
+    
     console.log("URL CONSULTA>>>>>>>>>>>>>>>"+ baseURL + mlinks + referral);
     request({
         url: baseURL + mlinks + referral ,
@@ -586,9 +586,12 @@ function chooseReferral(referral, senderId) {
         if (!error) {
             var body = JSON.parse(body);   
             if(body.mlinks[0].mlink){
-                console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body.mlinks[0]._id);
+                var id_evento = body.mlinks[0].id_evento;
+                //console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body.mlinks[0].id_evento);
+                startTevoModule(senderId, id_evento);
+    
             }else{
-                console.log( "UNDEFINED: >>>>>>>>>>>>>");
+                console.log( "Records no found");
             } 
         }
 
@@ -653,5 +656,11 @@ function chooseReferral(referral, senderId) {
             break;
 
     }*/
+}
+
+
+function startTevoModule(senderId, filtro){
+    var TevoModule = require('../modules/tevo_mlink_request');
+    TevoModule.start(senderId, filtro);
 }
 module.exports = router;
