@@ -53,7 +53,7 @@ router.get("/api/saludar/:nombre?", MLinkController.saludar);
 router.get("/api/mlink/:id?", MLinkController.getMlink);
 router.get("/api/mlinks", MLinkController.getMlinks);
 
-api.get("/mlinks?mlink=:mlink", MLinkController.getMlinkByMLink);
+api.get("/mlinks/:mlink", MLinkController.getMlinkByMLink);
 
 router.post("/api/mlink", MLinkController.createMlink);
 router.put("/api/mlink/:id", MLinkController.updateMlink);
