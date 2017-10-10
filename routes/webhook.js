@@ -587,10 +587,12 @@ function chooseReferral(referral, senderId) {
             var mlinks = JSON.parse(body);   
       
             
+            if(mlinks){
+                console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body);
+            }
 
-
-            console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body);
-            console.log( "MLINKS CON EXITO: >>>>>>>>>>>>>"  +  mlinks[0].mlinks.mlink);
+           
+            
         }
 
     });
