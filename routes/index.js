@@ -49,11 +49,11 @@ router.get('/', function(req, res) {
 });
 
 
-router.get("/saludar/:nombre?", MLinkController.saludar);
-router.get("/mlink/:id?", MLinkController.getMlink);
-router.get("/mlinks", MLinkController.getMlinks);
-router.post("/mlink", MLinkController.createMlink);
-router.put("/mlink/:id", MLinkController.updateMlink);
-router.delete("/mlink/:id", MLinkController.deleteMlink);
+router.get("/api/saludar/:nombre?", MLinkController.saludar);
+router.get("/api/mlink/:id?", MLinkController.getMlink);
+router.get("/api/mlinks", MLinkController.getMlinks);
+router.post("/api/mlink", MLinkController.createMlink);
+router.put("/api/mlink/:id", MLinkController.updateMlink);
+router.delete("/api/mlink/:id", MLinkController.deleteMlink);
 
 module.exports = router;
