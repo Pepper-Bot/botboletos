@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var UserData = require('../schemas/userinfo');
-var MLinkController = require("../controllers/mlink.controller");
+var MLinkController = require("../dbAPI/controllers/mlink.controller");
 
 
 /* GET home page. */
