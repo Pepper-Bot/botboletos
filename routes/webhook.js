@@ -585,7 +585,7 @@ function chooseReferral(referral, senderId) {
         if (!error) {
             var mlinks_ = JSON.parse(body);   
             id_evento =  mlinks_.id_evento;
-            console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  mlinks_._id);
+            console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  mlinks_);
         }
 
     });
