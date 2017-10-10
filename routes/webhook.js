@@ -595,7 +595,7 @@ function chooseReferral(referral, senderId) {
 
 
 
-    switch (referral) {  
+   /* switch (referral) {  
         case "MAGICON":
             {
 
@@ -649,6 +649,6 @@ function chooseReferral(referral, senderId) {
             }
             break;
 
-    }
+    }*/
 }
 module.exports = router;
