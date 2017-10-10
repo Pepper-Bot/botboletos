@@ -568,13 +568,34 @@ function chooseReferral(referral, senderId) {
 
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
-
-
     var MLinkPromovido = require('../schemas/mlink_promovido.js');
+    var baseURL = 'https://botboletos-test.herokuapp.com/api/';
+    var mlinks = 'mlinks/';
+    var request = require('request');
+    var id_evento ='';
+    var id_mlink = '';
+    request({
+        url: baseURL + mlinks + referral ,
+        qs: {
+             
+        },
+        method: 'GET'
+    },
+    function (error, response, body) {     
+        if (!error) {
+            var mlinks_ = JSON.parse(body);   
+            id_evento =  mlinks_.id_evento;
+
+            console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  mlinks_._id);
+        }
+
+    });
 
 
-    switch (referral) {
 
+
+
+    switch (referral) {  
         case "MAGICON":
             {
 
@@ -612,7 +633,7 @@ function chooseReferral(referral, senderId) {
             }
             break;
 
-            case "TEVO":
+            case "LINK":
             {
                 var TevoModule = require('../modules/tevo_mlink_request');
                 var filtro = 'Cualquier filtro de la bd';
