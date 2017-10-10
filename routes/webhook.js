@@ -574,6 +574,7 @@ function chooseReferral(referral, senderId) {
     var request = require('request');
     var id_evento ='';
     var id_mlink = '';
+    console.log("URL CONSULTA>>>>>>>>>>>>>>>"+ baseURL + mlinks + referral);
     request({
         url: baseURL + mlinks + referral ,
         qs: {
