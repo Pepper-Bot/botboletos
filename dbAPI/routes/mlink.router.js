@@ -16,4 +16,3 @@ api.delete("/mlink/:id", MLinkController.deleteMlink);
 
 module.exports = api;
 
-

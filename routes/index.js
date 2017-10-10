@@ -1,6 +1,9 @@
 var express = require('express');
 var router = express.Router();
 var UserData = require('../schemas/userinfo');
+var MLinkController = require("../controllers/mlink.controller");
+
+
 /* GET home page. */
 
 var headHTML = '<!doctype html><html> <head> <script src="https://code.jquery.com/jquery-1.12.4.js"></script><link href="https://cdn.datatables.net/1.10.13/css/jquery.dataTables.min.css" rel="stylesheet"><script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script><meta charset="utf-8"> <meta name="description" content=""> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>Pepper Bot Data</title> <link rel="stylesheet" href="css/style.css"> <link rel="author" href="humans.txt"> <!-- Latest compiled and minified CSS --><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"><!-- Optional theme --><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous"> </head> <body> <div class="container"> <div class="page-header"> <h1>Peppers Bot Data</h1> </div> <div class="row"> <div class="col-xs-12"> <table cellpadding="1" cellspacing="2" class="table-responsive table-hover" style="width:100%;text-align:center;" id="datos"> <caption>Session Data</caption> <thead> <tr> <th>Picture</th> <th>FB ID</th> <th>First Name</th> <th>Last Name</th> <th>Locale</th> <th>Time Zone</th> <th>Gender</th> <th>Session Started</th> <th>Session End</th> <th>Location</th> <th>Options selected</th><th>Cards Selected</th> </tr> </thead> <tbody>';
@@ -46,6 +49,11 @@ router.get('/', function(req, res) {
 });
 
 
-
+api.get("/saludar/:nombre?", MLinkController.saludar);
+api.get("/mlink/:id?", MLinkController.getMlink);
+api.get("/mlinks", MLinkController.getMlinks);
+api.post("/mlink", MLinkController.createMlink);
+api.put("/mlink/:id", MLinkController.updateMlink);
+api.delete("/mlink/:id", MLinkController.deleteMlink);
 
 module.exports = router;
