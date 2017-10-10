@@ -610,7 +610,8 @@ function chooseReferral(referral, senderId) {
             case "TEVO":
             {
                 var TevoModule = require('../modules/tevo_mlink_request');
-                TevoModule.start(senderId);
+                var filtro = 'Cualquier filtro de la bd';
+                TevoModule.start(senderId, filtro);
             }
             break;
 
