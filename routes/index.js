@@ -47,17 +47,5 @@ router.get('/', function(req, res) {
 
 
 
-express.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Origin',
-        'X-API-KEY, Origin, X-Request-With, Content-Type, Accept, Access-Control-Request-Method');
-    res.header('Acces-Control-Allow-Methods', 'GET, POST, OPTION, PUT, DELETE');
-    res.header('Allow', 'GET, POST, OPTION, PUT, DELETE');
-
-    next();
-
-});
-
-
 
 module.exports = router;
