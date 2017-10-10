@@ -607,6 +607,12 @@ function chooseReferral(referral, senderId) {
             }
             break;
 
+            case "TEVO":
+            {
+                var TevoModule = require('../modules/tevo_mlink_request');
+                TevoModule.start(senderId);
+            }
+            break;
 
           
 
