@@ -568,7 +568,7 @@ function chooseReferral(referral, senderId) {
 
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
-    var MLinkPromovido = require('../schemas/mlink_promovido.js');
+   
     var baseURL = 'https://botboletos-test.herokuapp.com/api/';
     var mlinks = 'mlinks/';
     var request = require('request');
