@@ -587,10 +587,10 @@ function chooseReferral(referral, senderId) {
             var body = JSON.parse(body);   
       
             
-            if(body.mlinks[0]){
+            if(body.mlinks[0].mlink){
                 console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body);
             }else{
-                console.log( "UNDEFINED: >>>>>>>>>>>>>"  +  body.mlinks);
+                console.log( "UNDEFINED: >>>>>>>>>>>>>");
             }
 
            
