@@ -10,15 +10,19 @@ module.exports = function () {
                 apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
             });
 
-            console.log(filtro);
+          
+            var  urlApiTevo =   'https://api.ticketevolution.com/v9/ticket_groups/'+ filtro
 
+
+            
             if (tevoClient) {
-                tevoClient.getJSON('https://api.ticketevolution.com/v9/ticket_groups/'
-                +filtro 
-            ).then((json) => {
+                tevoClient.getJSON(urlApiTevo).then((json) => {
                     Message.sendMessage(senderId, "Obteniendo Eventos:");
 
-                    console.log('Got events from API.', json.total_entries, json.events);
+                    console.log('Got events from API.', json);
+
+
+
                 }).catch((err) => {
                     console.err(err);
                 });
