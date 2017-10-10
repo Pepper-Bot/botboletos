@@ -585,16 +585,11 @@ function chooseReferral(referral, senderId) {
     function (error, response, body) {     
         if (!error) {
             var body = JSON.parse(body);   
-      
-            
             if(body.mlinks[0].mlink){
-                console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body.mlinks[0].mlink);
+                console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body.mlinks[0]._id);
             }else{
                 console.log( "UNDEFINED: >>>>>>>>>>>>>");
-            }
-
-           
-            
+            } 
         }
 
     });
