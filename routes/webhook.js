@@ -585,8 +585,8 @@ function chooseReferral(referral, senderId) {
     function (error, response, body) {     
         if (!error) {
             var mlinks_ = JSON.parse(body);   
-            id_evento =  mlinks_.mlinks.id_evento;
-            id_evento =  mlinks_.mlinks.id_evento;
+            id_evento =  mlinks_[0].mlinks.id_evento;
+            id_evento =  mlinks_[0].mlinks.id_evento;
             
             
 
