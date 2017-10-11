@@ -1,21 +1,20 @@
 module.exports = function () {
     return {
         start: function (senderId, filtro) {
-            var TevoClient = require('ticketevolution-node');
             var Message = require('../bot/messages');
-
-
-
-
+            var TevoClient = require('ticketevolution-node');
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
                 apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
             });
 
+
+
             var imageCards = require('../modules/imageCards'); // Google images
             var image_url = '';
             imageCards("SHAKIRA", 2, function (err, images, index) {
                 image_url = images[0].url;
+                console.log("DENTRO DEL CONSOLE.LOG IMAGE URL>>>>>>>>>>>>" + image_url);
             });
             console.log("ESTA ES ÑA IRÑ QIE BUSCO" + image_url);
 
