@@ -96,19 +96,19 @@ function getTemplate(resultEvent, senderId){
             ]
         });
     }
-    var gButtons = eventButtons_;
-    console.log('igualamos antes del for de asignación de imagenes');
-   for(var z = 0, k = gButtons.length; z < k; z++)
+  
+    console.log('for de asignación de imagenes');
+   for(var z = 0, k = eventButtons_.length; z < k; z++)
     {
             console.log('entramos al for de asignación de imagenes');
-            imageCards(gButtons[z].title, z, function(err, images,index){
+            imageCards(eventButtons_[z].title, z, function(err, images,index){
                 console.log('Indice:'+index);
-                gButtons[index].image_url = images[0].url;
+                eventButtons_[index].image_url = images[0].url;
             });
             
     }
     
-  return  gButtons;
+  return  eventButtons_;
 }
 
 
