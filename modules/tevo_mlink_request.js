@@ -42,7 +42,7 @@ module.exports = function () {
 
 
                                     var eventButtons = crateTemplates(json, senderId)
-                                    console.log('Prueba 258==========>>>>>>>>>>>>>>' + eventButtons);
+                                    console.log('Prueba 259==========>>>>>>>>>>>>>>' + eventButtons);
 
 
 
@@ -104,7 +104,7 @@ function crateTemplates(resultEvent, senderId, callback) {
             }]
         });
     }
-    callback(eventButtons_);
+    return eventButtons_;
 
 }
 
