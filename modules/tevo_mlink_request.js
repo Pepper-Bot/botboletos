@@ -25,7 +25,7 @@ module.exports = function () {
                         Message.sendMessage(senderId, json.error);
                     }
                     else{
-                        console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> "+ json);
+                        console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> "+ json.event.id);
                         console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> "+  inspeccionar(json));
                     }
                             
