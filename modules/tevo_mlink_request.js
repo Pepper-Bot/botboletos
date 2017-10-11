@@ -10,14 +10,7 @@ module.exports = function () {
 
 
 
-            var imageCards = require('../modules/imageCards'); // Google images
-            var image_url = '';
-            imageCards("SHAKIRA", 2, function (err, images, index) {
-                image_url = images[0].url;
-                console.log("DENTRO DEL CONSOLE.LOG IMAGE URL>>>>>>>>>>>>" + image_url);
-            });
-            console.log("ESTA ES ÑA IRÑ QIE BUSCO" + image_url);
-
+           
 
             var urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups/' + filtro + "?ticket_list=true"
 
@@ -55,6 +48,10 @@ module.exports = function () {
                                     for (var j = 0, c = resultEvent.length; j < c; j++) {
 
 
+
+                                        getImageURL( resultEvent[j].name, (image_url)=>{
+                                              console.log('DENTRO DE MI CALLBACK '+ image_url);
+                                        });
 
 
                                         console.log("entramos al for");
@@ -113,8 +110,15 @@ function crateTemplates(resultEvent, senderId, imageCards) {
 
 }
 
-function getImageURL(imageCards, title) {
-
+function getImageURL(buscar, callback) {
+    var imageCards = require('../modules/imageCards'); // Google images
+    var image_url = '';
+    imageCards(buscar, 2, function (err, images, index) {
+        console.log("ESTA ES ÑA IRÑ QIE BUSCO" + image_url);     
+        image_url = images[0].url;
+        callback(image_url);
+    });
+   
 
     i
 }
