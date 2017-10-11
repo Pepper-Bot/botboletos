@@ -33,6 +33,7 @@ module.exports = function () {
 
 
                 if (event_id >0){
+                     console.log('encontré el evento:::::>>>>>>  '+event_id);
                     urlApiTevo = 'https://api.ticketevolution.com/v9/events/'+  event_id
                     tevoClient.getJSON(urlApiTevo).then((json) => {
                         Message.sendMessage(senderId, "Obteniendo Eventos parte 2:");
