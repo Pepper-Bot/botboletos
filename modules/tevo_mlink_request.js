@@ -42,17 +42,12 @@ module.exports = function () {
 
 
                                     var eventButtons = crateTemplates(json, senderId);
-                                
 
-                                    for (var j = 0, c = eventButtons.length; j < c; j++) {
 
-                                        console.log('EVENT BUTTONS ==========>>>>>>>>>>>>>>' + eventButtons);
-                                        getImageURL(eventButtons[j].name, (image_url) => {
-                                            eventButtons[j].image_url = image_url
-                                            console.log('OBTENIENDO URL==========>>>>>>>>>>>>>>' + eventButtons[j].image_url);
-                                        });
 
-                                    }
+
+                                    console.log('EVENT BUTTONS ==========>>>>>>>>>>>>>>' + eventButtons);
+                                    setImageURL(eventButtons);
 
 
 
@@ -117,13 +112,16 @@ function crateTemplates(json, senderId) {
 
 }
 
-function getImageURL(buscar, callback) {
+function setImageURL(eventButtons) {
     var imageCards = require('../modules/imageCards'); // Google images
     var image_url = '';
-    imageCards(buscar, 2, function (err, images, index) {
-        image_url = images[0].url;
-        callback(image_url);
-    });
+    for (var j = 0, c = eventButtons.length; j < c; j++) {
+        imageCards(eventButtons[j].title, 2, function (err, images, index) {
+          console.log("IMAGE URL VS 300>>>>>"+ images[0].url);
+             
+        });
+    }
+  
 }
 
 
