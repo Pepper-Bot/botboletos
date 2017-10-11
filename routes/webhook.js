@@ -47,22 +47,19 @@ router.post('/', function (req, res) {
                 if (event.postback) {
                     console.log('2');
                     processPostback(event);
-                }
-                else if (undefined !== event.message.quick_reply) {
+                } else if (undefined !== event.message.quick_reply) {
 
                     console.log('3');
                     processQuickReplies(event);
 
-                }
-                else if (undefined !== event.message.attachments /* && event.message.attachments[0].type == "location" */) {
+                } else if (undefined !== event.message.attachments /* && event.message.attachments[0].type == "location" */ ) {
                     console.log('4');
 
                     if ('location' == event.message.attachments[0].type) {
                         console.log('4.1');
                         processLocation(event.sender.id, event.message.attachments[0]);
                     }
-                }
-                else if (undefined !== event.message.text) {
+                } else if (undefined !== event.message.text) {
                     console.log('5');
                     processMessage(event.sender.id, event.message.text);
                 }
@@ -90,7 +87,13 @@ function processMessage(senderId, textMessage) {
 
                 var name = bodyObj.first_name;
 
-                UserData2.findOne({ fbId: senderId }, {}, { sort: { 'sessionStart': -1 } }, function (err, result) {
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, result) {
 
                     var greeting = "Hi " + name;
                     var messagetxt = greeting + ", what would you like to do?";
@@ -104,8 +107,7 @@ function processMessage(senderId, textMessage) {
             }
         });
 
-    }
-    else {
+    } else {
 
         var DefaultReply = require('../modules/defaultreply');
         DefaultReply.send(Message, senderId);
@@ -114,9 +116,16 @@ function processMessage(senderId, textMessage) {
         // Message.typingOff(senderId);
     }
 }
+
 function processLocation(senderId, locationData) {
 
-    UserData2.findOne({ fbId: senderId }, {}, { sort: { 'sessionStart': -1 } }, function (err, result) {
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, result) {
         //--
         if (!err) {
             if (result !== null) {
@@ -135,14 +144,12 @@ function processLocation(senderId, locationData) {
                     var Food = require('../modules/food');
                     Food.get(Message, result, locationData);
 
-                }
-                else if ('Events' == lastSelected) {
+                } else if ('Events' == lastSelected) {
 
                     var Events = require('../modules/events');
                     Events.get(Message, result, locationData);
 
-                }
-                else if ('Drinks' == lastSelected) {
+                } else if ('Drinks' == lastSelected) {
 
                     var Drink = require('../modules/drink');
                     Drink.get(Message, result, locationData);
@@ -156,8 +163,7 @@ function processLocation(senderId, locationData) {
                     if (!err) {
 
                         console.log('Guardamos la localizacion');
-                    }
-                    else {
+                    } else {
                         console.log('Error guardando selección')
                     }
                 });
@@ -167,6 +173,7 @@ function processLocation(senderId, locationData) {
     });
 
 }
+
 function processQuickReplies(event) {
 
 
@@ -186,7 +193,13 @@ function processQuickReplies(event) {
             break;
 
         case "TRYAGAIN_YES":
-            UserData2.findOne({ fbId: senderId }, {}, { sort: { 'sessionStart': -1 } }, function (err, result) {
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, result) {
 
                 var totalSelecteds = result.optionsSelected.length - 1;
                 var lastSelected = result.optionsSelected[totalSelecteds];
@@ -200,7 +213,13 @@ function processQuickReplies(event) {
                     Message.typingOn(senderId);
                     //sleep(1000);
                     console.log('Dentro de GET LOCATION FOOD');
-                    UserData2.findOne({ fbId: senderId }, {}, { sort: { 'sessionStart': -1 } }, function (err, result) {
+                    UserData2.findOne({
+                        fbId: senderId
+                    }, {}, {
+                        sort: {
+                            'sessionStart': -1
+                        }
+                    }, function (err, result) {
 
                         if (!err) {
 
@@ -211,8 +230,7 @@ function processQuickReplies(event) {
                                     if (!err) {
 
                                         console.log('Guardamos la seleccion de Drinks');
-                                    }
-                                    else {
+                                    } else {
                                         console.log('Error guardando selección')
                                     }
                                 });
@@ -222,8 +240,7 @@ function processQuickReplies(event) {
                     });
 
 
-                }
-                else if ('Events' == lastSelected) {
+                } else if ('Events' == lastSelected) {
 
 
                     Message.markSeen(senderId);
@@ -231,7 +248,13 @@ function processQuickReplies(event) {
 
                     Message.typingOn(senderId);
                     //sleep(1000);
-                    UserData2.findOne({ fbId: senderId }, {}, { sort: { 'sessionStart': -1 } }, function (err, result) {
+                    UserData2.findOne({
+                        fbId: senderId
+                    }, {}, {
+                        sort: {
+                            'sessionStart': -1
+                        }
+                    }, function (err, result) {
 
                         if (!err) {
 
@@ -242,8 +265,7 @@ function processQuickReplies(event) {
                                     if (!err) {
 
                                         console.log('Guardamos la seleccion de Drinks');
-                                    }
-                                    else {
+                                    } else {
                                         console.log('Error guardando selección')
                                     }
                                 });
@@ -251,8 +273,7 @@ function processQuickReplies(event) {
                         }
 
                     });
-                }
-                else if ('Drinks' == lastSelected) {
+                } else if ('Drinks' == lastSelected) {
 
 
                     Message.markSeen(senderId);
@@ -260,7 +281,13 @@ function processQuickReplies(event) {
                     Message.typingOn(senderId);
                     //sleep(1000);
 
-                    UserData2.findOne({ fbId: senderId }, {}, { sort: { 'sessionStart': -1 } }, function (err, result) {
+                    UserData2.findOne({
+                        fbId: senderId
+                    }, {}, {
+                        sort: {
+                            'sessionStart': -1
+                        }
+                    }, function (err, result) {
 
                         if (!err) {
 
@@ -270,8 +297,7 @@ function processQuickReplies(event) {
                                     if (!err) {
 
                                         console.log('Guardamos la seleccion de Drinks');
-                                    }
-                                    else {
+                                    } else {
                                         console.log('Error guardando selección')
                                     }
                                 });
@@ -293,7 +319,13 @@ function processQuickReplies(event) {
             Message.typingOn(senderId);
             //sleep(1000);
 
-            UserData2.findOne({ fbId: senderId }, {}, { sort: { 'sessionStart': -1 } }, function (err, result) {
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, result) {
 
                 if (!err) {
 
@@ -305,8 +337,7 @@ function processQuickReplies(event) {
                             if (!err) {
 
                                 console.log('Guardamos la seleccion de Drinks');
-                            }
-                            else {
+                            } else {
                                 console.log('Error guardando selección')
                             }
                         });
@@ -324,7 +355,13 @@ function processQuickReplies(event) {
             Message.getLocation(senderId, 'What location would you like to catch a show?');
             Message.typingOn(senderId);
             //sleep(1000);
-            UserData2.findOne({ fbId: senderId }, {}, { sort: { 'sessionStart': -1 } }, function (err, result) {
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, result) {
 
                 if (!err) {
                     if (null != result) {
@@ -333,8 +370,7 @@ function processQuickReplies(event) {
                             if (!err) {
 
                                 console.log('Guardamos la seleccion de Drinks');
-                            }
-                            else {
+                            } else {
                                 console.log('Error guardando selección')
                             }
                         });
@@ -353,7 +389,13 @@ function processQuickReplies(event) {
 
             console.log('Dentro de GET LOCATION FOOD');
             console.log('Sender ID: ' + senderId);
-            UserData2.findOne({ fbId: senderId }, {}, { sort: { 'sessionStart': -1 } }, function (err, result) {
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, result) {
 
                 if (!err) {
                     if (null != result) {
@@ -367,8 +409,7 @@ function processQuickReplies(event) {
                             if (!err) {
 
                                 console.log('Guardamos la seleccion de Drinks');
-                            }
-                            else {
+                            } else {
                                 console.log('Error guardando selección')
                             }
                         });
@@ -429,8 +470,7 @@ function processPostback(event) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
                 console.log('Dentro de referrals handler');
                 handleReferrals(event);
-            }
-            else {
+            } else {
                 // De lo contrario saludamos.
                 console.log('#######################################################################################');
                 console.log('saludamos');
@@ -468,8 +508,7 @@ function saluda(senderId) {
             console.log(result);
 
 
-            var User = new UserData2;
-            {
+            var User = new UserData2; {
                 User.fbId = senderId;
                 User.firstName = bodyObj.first_name;
                 User.LastName = bodyObj.last_name;
@@ -522,8 +561,7 @@ function handleReferrals(event) {
         // Obtenemos la referencia por "Start Button" o sea una conversación nueva.
         referral = event.postback.referral.ref;
         chooseReferral(referral, senderId);
-    }
-    else {
+    } else {
         // Msgr tiene un error, cuando detecta que ya es una conversacion abierta
         // envia 3 requests y por ende repite los mensajes, para evitar esto
         // se almacena el id en mongodb hasta la 3ra vuelta se envia la informacion 
@@ -532,23 +570,25 @@ function handleReferrals(event) {
 
         var FBSessions = require('../schemas/boletos');
         // Buscamos el id del usuario
-        FBSessions.find({ fbId: senderId }, {}, function (err, result) {
+        FBSessions.find({
+            fbId: senderId
+        }, {}, function (err, result) {
 
             if (!err) {
 
                 if (result.length < 2) {
                     // si estamos dentro del rango de dos peticiones guardamos el id
-                    var FBSession = new FBSessions;
-                    {
+                    var FBSession = new FBSessions; {
                         FBSession.fbId = senderId;
                         FBSession.save();
                     }
-                }
-                else {
+                } else {
                     // tercera peticion, mandamos a llamar a los boletos y elminamos los registros.
 
                     chooseReferral(referral, senderId);
-                    FBSessions.remove({ fbId: senderId }, function (err) {
+                    FBSessions.remove({
+                        fbId: senderId
+                    }, function (err) {
 
                     });
 
@@ -568,40 +608,7 @@ function chooseReferral(referral, senderId) {
 
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
-   
-    var baseURL = 'https://botboletos-test.herokuapp.com/api/';
-    var mlinks = 'mlinks/';
-    var request = require('request');
-   
-    
-    console.log("URL CONSULTA>>>>>>>>>>>>>>>"+ baseURL + mlinks + referral);
-    request({
-        url: baseURL + mlinks + referral ,
-        qs: {
-             
-        },
-        method: 'GET'
-    },
-    function (error, response, body) {     
-        if (!error) {
-            var body = JSON.parse(body);   
-            if(body.mlinks[0].mlink){
-                var id_evento = body.mlinks[0].id_evento;
-                //console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body.mlinks[0].id_evento);
-                startTevoModule(senderId, id_evento);
-    
-            }else{
-                console.log( "Records no found");
-            } 
-        }
-
-    });
-
-
-
-
-
-   /* switch (referral) {  
+    switch (referral) {
         case "MAGICON":
             {
 
@@ -639,28 +646,47 @@ function chooseReferral(referral, senderId) {
             }
             break;
 
-            case "LINK":
-            {
-                var TevoModule = require('../modules/tevo_mlink_request');
-                var filtro = 'Cualquier filtro de la bd';
-                TevoModule.start(senderId, filtro);
-            }
-            break;
-
-          
-
         default:
             {
-                // No hacemos nada por default.
+                searhMlink(referral, senderId);
             }
             break;
 
-    }*/
+    }
+}
+
+function searhMlink(referral, senderId) {
+
+    var baseURL = 'https://botboletos-test.herokuapp.com/api/';
+    var mlinks = 'mlinks/';
+    var request = require('request');
+
+
+    console.log("URL CONSULTA>>>>>>>>>>>>>>>" + baseURL + mlinks + referral);
+    request({
+            url: baseURL + mlinks + referral,
+            qs: {
+
+            },
+            method: 'GET'
+        },
+        function (error, response, body) {
+            if (!error) {
+                var body = JSON.parse(body);
+                if (body.mlinks[0].mlink) {
+                    var id_evento = body.mlinks[0].id_evento;
+                    //console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body.mlinks[0].id_evento);
+                    var TevoModule = require('../modules/tevo_mlink_request');
+                    TevoModule.start(senderId, id_evento);
+
+
+                } else {
+                    console.log("Records no found");
+                }
+            }
+
+        });
 }
 
 
-function startTevoModule(senderId, filtro){
-    var TevoModule = require('../modules/tevo_mlink_request');
-    TevoModule.start(senderId, filtro);
-}
 module.exports = router;
