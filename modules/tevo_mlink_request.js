@@ -41,16 +41,19 @@ module.exports = function () {
                                         inspeccionar(json));
 
 
-                                    var eventButtons = crateTemplates(json, senderId)
-                                    console.log('Prueba 259==========>>>>>>>>>>>>>>' + eventButtons);
+                                    var eventButtons = crateTemplates(json, senderId);
+                                
 
                                     for (var j = 0, c = eventButtons.length; j < c; j++) {
 
                                         console.log('EVENT BUTTONS ==========>>>>>>>>>>>>>>' + eventButtons);
-                                        
+                                        getImageURL(eventButtons[j].name, (image_url) => {
+                                            eventButtons[j].image_url = image_url
+                                            console.log('OBTENIENDO URL==========>>>>>>>>>>>>>>' + eventButtons[j].image_url);
+                                        });
 
                                     }
-                                        
+
 
 
 
