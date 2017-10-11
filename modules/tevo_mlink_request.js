@@ -30,8 +30,8 @@ module.exports = function () {
                 }).catch((err) => {
                     console.err(err);
                 });
-                
-               chilid();
+
+               child();
 
                 if (event_id >0){
                      console.log('encontré el evento:::::>>>>>>  '+event_id);
