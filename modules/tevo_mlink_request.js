@@ -79,7 +79,7 @@ function crateTemplates(resultEvent, senderId) {
     var eventButtons_ = [];
     var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for (var j = 0, c = resultEvent.length; j < c; j++) {
-        getImageURL( title);
+        getImageURL( resultEvent[j].name);
         console.log("entramos al for");
         eventButtons_.push({
             "title": resultEvent[j].name,
