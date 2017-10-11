@@ -640,28 +640,24 @@ function chooseReferral(referral, senderId) {
             {
                 var EventBriteModule = require('../modules/eventbrite_request');
                 EventBriteModule.start(senderId);
-
-
-
             }
             break;
 
         default:
             {
-                searhMlink(referral, senderId);
+                startTevoModuleWithMlink(referral, senderId);
             }
             break;
 
     }
 }
 
-function searhMlink(referral, senderId) {
 
+function startTevoModuleWithMlink(referral, senderId) {
+    //consultando la api donde se estan guardando los mlinks!!
     var baseURL = 'https://botboletos-test.herokuapp.com/api/';
     var mlinks = 'mlinks/';
     var request = require('request');
-
-
     console.log("URL CONSULTA>>>>>>>>>>>>>>>" + baseURL + mlinks + referral);
     request({
             url: baseURL + mlinks + referral,
