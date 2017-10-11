@@ -22,6 +22,9 @@ module.exports = function () {
                     if(json.error){
                         Message.sendMessage(senderId, json.error);
                     }
+                    else{
+                        console.log('RESPUESTA<<<<<<<<<<<<<<<<<<<' +json);
+                    }
                             
            
 
