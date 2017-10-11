@@ -99,12 +99,8 @@ function crateTemplates(resultEvent, senderId,imageCards) {
             }]
         });
 
-        var image_url = '';
-        imageCards(resultEvent[j].name, z, function (err, images, index) {
-            image_url =  images[0].url;  
-    
-        });
-        console.log("IMAGEEE URL>>>>>>>>>>>"+ image_url); 
+       
+        console.log("IMAGEEE URL>>>>>>>>>>>"+ resultEvent[j].name); 
 
     }
 
