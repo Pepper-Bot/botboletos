@@ -8,7 +8,7 @@ module.exports = function () {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
         
-            imageCards("SHAKIRA", z, function(err, images,index){
+            imageCards("SHAKIRA", 0, function(err, images,index){
                  console.log(images[0].url);  
             });
 
