@@ -117,12 +117,13 @@ function setImageURL(eventButtons) {
         console.log("entramos al for=======================================>>>>>>>>>>>>>>>>>>");
 
         imageCards(eventButtons[j].title, 2, function (err, images, index) {
-          console.log("IMAGE URL VS 300>>>>>"+ images[0].url);
-      
-             
+            eventButtons[j].image_url = images[0].url;
+            console.log("IMAGE URL VS 300>>>>>" + eventButtons[j].image_url );
+
+
         });
     }
-  
+
 }
 
 
