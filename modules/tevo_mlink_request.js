@@ -41,8 +41,7 @@ module.exports = function () {
                                          var resultEvent = [];
                                          resultEvent[0] = json;
                                          var eventButtons =  getTemplate(resultEvent, senderId);
-                                         console.log("INSPECCIONANDO EVENT BUTTONS:::::>>>>>>>>>>>>> " +
-                                         inspeccionar2(eventButtons));
+                                          
                                       
                                          
                                           
