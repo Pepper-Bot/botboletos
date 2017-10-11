@@ -8,14 +8,18 @@ module.exports = function () {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
         
-            imageCards("SHAKIRA", 0, function(err, images,index){
-                 console.log(images[0].url);  
-            });
+           
 
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
                 apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
             });
+
+
+            imageCards("SHAKIRA", 0, function(err, images,index){
+                console.log("ESTA ES ÑA IRÑ QIE BUSCO"+ images[0].url);  
+           });
+
 
 
             var urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups/' + filtro + "?ticket_list=true"
