@@ -1,5 +1,3 @@
-
-
 module.exports = function () {
     return {
         start: function (senderId, filtro) {
@@ -10,60 +8,86 @@ module.exports = function () {
                 apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
             });
 
-          
-            var  urlApiTevo =   'https://api.ticketevolution.com/v9/ticket_groups/'+ filtro+"?ticket_list=true"
+
+            var urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups/' + filtro + "?ticket_list=true"
 
 
-            
-            console.log('url api tevo>>>>>>>' +  urlApiTevo);
 
+            console.log('url api tevo>>>>>>>' + urlApiTevo);
+
+            var event_id = 0;
             if (tevoClient) {
-
                 tevoClient.getJSON(urlApiTevo).then((json) => {
                     Message.sendMessage(senderId, "Obteniendo Eventos:");
-                    if(json.error){
+                    if (json.error) {
                         Message.sendMessage(senderId, json.error);
+                    } else {
+                        event_id =json.event.id ;
+                        console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> " + event_id);
+
+                        // console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> "+  inspeccionar(json));
                     }
-                    else{
-                        console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> "+ json.event.id);
-                        console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> "+  inspeccionar(json));
-                    }
-                            
-           
-
-
-
                 }).catch((err) => {
                     console.err(err);
                 });
+
+
+                if (event_id >0){
+                    urlApiTevo = 'https://api.ticketevolution.com/v9/events/'+  event_id
+                    tevoClient.getJSON(urlApiTevo).then((json) => {
+                        Message.sendMessage(senderId, "Obteniendo Eventos parte 2:");
+                        if (json.error) {
+                            Message.sendMessage(senderId, json.error);
+                        } else {
+                            console.log("EVENTO PROPIEDADES PARTE DOS:::::>>>>>>>>>>>>> "
+                            +  inspeccionar(json));
+                            
+                        }
+                    }).catch((err) => {
+                        console.err(err);
+                    });
+
+
+
+
+                }
+                
+
+
+
+
+
             }
+
+            
+
+
+
+
+
+
+
+
         }
     }
 }();
 
 
 
-function inspeccionar(obj)
-{
-  var msg = '';
+function inspeccionar(obj) {
+    var msg = '';
 
-  for (var property in obj)
-  {
-    if (typeof obj[property] == 'function')
-    {
-      var inicio = obj[property].toString().indexOf('function');
-      var fin = obj[property].toString().indexOf(')')+1;
-      var propertyValue=obj[property].toString().substring(inicio,fin);
-      msg +=(typeof obj[property])+' '+property+' : '+propertyValue+' ;\n';
+    for (var property in obj) {
+        if (typeof obj[property] == 'function') {
+            var inicio = obj[property].toString().indexOf('function');
+            var fin = obj[property].toString().indexOf(')') + 1;
+            var propertyValue = obj[property].toString().substring(inicio, fin);
+            msg += (typeof obj[property]) + ' ' + property + ' : ' + propertyValue + ' ;\n';
+        } else if (typeof obj[property] == 'unknown') {
+            msg += 'unknown ' + property + ' : unknown ;\n';
+        } else {
+            msg += (typeof obj[property]) + ' ' + property + ' : ' + obj[property] + ' ;\n';
+        }
     }
-    else if (typeof obj[property] == 'unknown')
-    {
-      msg += 'unknown '+property+' : unknown ;\n';
-    }
-    else
-    {
-      msg +=(typeof obj[property])+' '+property+' : '+obj[property]+' ;\n';
-    }
-  }
-  return msg;
+    return msg;
 }
