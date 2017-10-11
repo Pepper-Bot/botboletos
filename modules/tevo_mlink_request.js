@@ -41,7 +41,7 @@ module.exports = function () {
                                          var resultEvent = [];
                                          resultEvent[0] = json;
                                          var eventButtons_ =  getTemplate(resultEvent, senderId);
-                                         //var gButtons =   setImageTemplate(eventButtons_);
+                                         var gButtons =   setImageTemplate(eventButtons_);
                                         //Message.genericButton(senderId, gButtons);
 
                                 }
@@ -70,7 +70,7 @@ function getTemplate(resultEvent, senderId){
     var baseURL =  'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for(var j = 0, c = resultEvent.length; j < c; j++)
     {
-        console.log('Entramos al for de los eventos>>>>>>>>>>>');
+         
         eventButtons_.push({
             "title": resultEvent[j].name,
             "image_url": '',
@@ -100,6 +100,7 @@ function setImageTemplate(eventButtons_){
     gButtons = eventButtons_;
     for(var z = 0, k = gButtons.length; z < k; z++)
     {
+            console.log('entramos al for de asignación de imagenes');
             imageCards(gButtons[z].title, z, function(err, images,index){
                 console.log('Indice:'+index);
                 gButtons[index].image_url = images[0].url;
