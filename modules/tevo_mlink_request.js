@@ -1,12 +1,12 @@
 
 
-var imageCards = require('../modules/imageCards'); // Google images
+
 module.exports = function () {
     return {
         start: function (senderId, filtro) {
             var TevoClient = require('ticketevolution-node');
             var Message = require('../bot/messages');
-
+            var imageCards = require('../modules/imageCards'); // Google images
            
 
             var tevoClient = new TevoClient({
@@ -74,12 +74,12 @@ module.exports = function () {
     }
 }();
 
-function crateTemplates(resultEvent, senderId) {
+function crateTemplates(resultEvent, senderId,imageCards) {
     // 
     var eventButtons_ = [];
     var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for (var j = 0, c = resultEvent.length; j < c; j++) {
-        getImageURL( resultEvent[j].name);
+         
         console.log("entramos al for");
         eventButtons_.push({
             "title": resultEvent[j].name,
@@ -98,18 +98,22 @@ function crateTemplates(resultEvent, senderId) {
                 "title": "Book"
             }]
         });
+
+        var image_url = '';
+        imageCards(resultEvent[j].name, z, function (err, images, index) {
+            image_url =  images[0].url;  
+    
+        });
+        console.log("IMAGEEE URL>>>>>>>>>>>"+ image_url); 
+
     }
 
 }
 
-function getImageURL( title) {
+function getImageURL(imageCards, title) {
   
-    var image_url = '';
-    imageCards(title, z, function (err, images, index) {
-        image_url =  images[0].url;  
-
-    });
-    console.log("IMAGEEE URL>>>>>>>>>>>"+ image_url); 
+   
+    i
 }
 
 
