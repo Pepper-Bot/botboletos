@@ -21,9 +21,8 @@ module.exports = function () {
 
                 tevoClient.getJSON(urlApiTevo).then((json) => {
                    
-
-                    Message.sendMessage(senderId, "ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> "+
-                    json.ticket_groups[0].event.id);
+                    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>grupo >>>>>>'+  json.ticket_groups[0] );
+                   
 
 
                       
