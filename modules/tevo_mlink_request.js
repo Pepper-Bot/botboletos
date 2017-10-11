@@ -84,7 +84,7 @@ module.exports = function () {
 
 function crateTemplates(json, senderId) {
     var resultEvent = [];
-    resultEvent = json;
+    resultEvent = json.events;
     var eventButtons_ = [];
     var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for (var j = 0, c = resultEvent.length; j < c; j++) {
