@@ -40,7 +40,7 @@ module.exports = function () {
 
                                          var resultEvent = [];
                                          resultEvent[0] = json;
-                                         var eventButtons =  getTemplate(resultEvent, senderId);
+                                         crateTemplates(resultEvent, senderId);
                                           
                                       
                                          
@@ -68,14 +68,14 @@ module.exports = function () {
     }
 }();
 
-function getTemplate(resultEvent, senderId){
+function crateTemplates(resultEvent, senderId){
     var imageCards = require('../modules/imageCards'); // Google images
     var eventButtons_ = [];
     var baseURL =  'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for(var j = 0, c = resultEvent.length; j < c; j++)
     {
         
-
+        console.log("entramos al for");
         eventButtons_.push({
             "title": resultEvent[j].name,
             "image_url": '',
@@ -97,9 +97,6 @@ function getTemplate(resultEvent, senderId){
         });
     }
   
- 
-    
-  return  eventButtons_;
 }
 
 
