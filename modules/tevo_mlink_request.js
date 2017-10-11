@@ -118,7 +118,7 @@ function setImageURL(eventButtons) {
 
         imageCards(eventButtons[j].title, j, function (err, images, index) {
             eventButtons[index].image_url = images[0].url;
-            console.log("IMAGE URL VS 300>>>>>" + eventButtons[j].image_url );
+            console.log("IMAGE URL VS 300>>>>>" + eventButtons[index].image_url );
 
 
         });
