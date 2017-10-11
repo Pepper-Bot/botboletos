@@ -44,6 +44,8 @@ module.exports = function () {
                                          console.log("INSPECCIONANDO EVENT BUTTONS:::::>>>>>>>>>>>>> " +
                                          inspeccionar2(eventButtons_));
                                          var gButtons =   setImageTemplate(eventButtons_);
+                                         
+                                          
                                         //Message.genericButton(senderId, gButtons);
 
                                 }
@@ -100,14 +102,15 @@ function setImageTemplate(eventButtons_){
     var imageCards = require('../modules/imageCards'); // Google images
    
     var gButtons = eventButtons_;
-    for(var z = 0, k = gButtons.length; z < k; z++)
+    console.log('igualamos antes del for de asignación de imagenes');
+    /*for(var z = 0, k = gButtons.length; z < k; z++)
     {
             console.log('entramos al for de asignación de imagenes');
             imageCards(gButtons[z].title, z, function(err, images,index){
                 console.log('Indice:'+index);
                 gButtons[index].image_url = images[0].url;
             });
-    }
+    }*/
     return gButtons;
 }
 
