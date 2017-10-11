@@ -41,14 +41,13 @@ module.exports = function () {
                                         inspeccionar(json));
 
 
-                                    crateTemplates(json, senderId, (eventButtons) => {
-                                        console.log('Prueba 257==========>>>>>>>>>>>>>>' + eventButtons);
+                                    var eventButtons = crateTemplates(json, senderId)
+                                    console.log('Prueba 258==========>>>>>>>>>>>>>>' + eventButtons);
 
 
 
 
-                                        
-                                    });
+
 
 
 
