@@ -51,30 +51,35 @@ module.exports = function () {
 
                                         getImageURL( resultEvent[j].name, (image_url)=>{
                                               console.log('DENTRO DE MI CALLBACK '+ image_url);
+
+                                              console.log("entramos al for");
+                                              eventButtons_.push({
+                                                  "title": resultEvent[j].name,
+                                                  "image_url": image_url,
+                                                  "subtitle": resultEvent[j].performances[0].performer.name,
+                                                  "default_action": {
+                                                      "type": "web_url",
+                                                      "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
+                                                      "messenger_extensions": true,
+                                                      "webview_height_ratio": "tall",
+                                                      "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
+                                                  },
+                                                  "buttons": [{
+                                                      "type": "web_url",
+                                                      "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
+                                                      "title": "Book"
+                                                  }]
+                                              });
+
+
+                                            console.log( "EVENTBUTTON . IMAGE_URL ===>>>>>" +  eventButtons_[0].image_url);
                                         });
 
 
-                                        console.log("entramos al for");
-                                        eventButtons_.push({
-                                            "title": resultEvent[j].name,
-                                            "image_url": resultEvent[j].image_url,
-                                            "subtitle": resultEvent[j].performances[0].performer.name,
-                                            "default_action": {
-                                                "type": "web_url",
-                                                "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
-                                                "messenger_extensions": true,
-                                                "webview_height_ratio": "tall",
-                                                "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
-                                            },
-                                            "buttons": [{
-                                                "type": "web_url",
-                                                "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
-                                                "title": "Book"
-                                            }]
-                                        });
+                                      
 
 
-                                        console.log("IMAGEEE URL>>>>>>>>>>>" + resultEvent[j].image_url);
+                                      
 
                                     }
 
@@ -114,13 +119,9 @@ function getImageURL(buscar, callback) {
     var imageCards = require('../modules/imageCards'); // Google images
     var image_url = '';
     imageCards(buscar, 2, function (err, images, index) {
-        console.log("ESTA ES ÑA IRÑ QIE BUSCO" + image_url);     
         image_url = images[0].url;
         callback(image_url);
     });
-   
-
-    i
 }
 
 
