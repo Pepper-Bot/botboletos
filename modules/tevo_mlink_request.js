@@ -10,7 +10,7 @@ module.exports = function () {
 
 
 
-           
+
 
             var urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups/' + filtro + "?ticket_list=true"
 
@@ -47,41 +47,38 @@ module.exports = function () {
                                     var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
                                     for (var j = 0, c = resultEvent.length; j < c; j++) {
 
-
-
-                                        getImageURL( resultEvent[j].name, (image_url)=>{
-                                              console.log('DENTRO DE MI CALLBACK '+ image_url);
-
-                                              console.log("entramos al for");
-                                              eventButtons_.push({
-                                                  "title": resultEvent[j].name,
-                                                  "image_url": image_url,
-                                                  "subtitle": resultEvent[j].performances[0].performer.name,
-                                                  "default_action": {
-                                                      "type": "web_url",
-                                                      "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
-                                                      "messenger_extensions": true,
-                                                      "webview_height_ratio": "tall",
-                                                      "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
-                                                  },
-                                                  "buttons": [{
-                                                      "type": "web_url",
-                                                      "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
-                                                      "title": "Book"
-                                                  }]
-                                              });
-
-
-                                            console.log( "EVENTBUTTON . IMAGE_URL ===>>>>>" +  eventButtons_[0].image_url);
+                                        console.log("entramos al for");
+                                        eventButtons_.push({
+                                            "title": resultEvent[j].name,
+                                            "image_url": '',
+                                            "subtitle": resultEvent[j].performances[0].performer.name,
+                                            "default_action": {
+                                                "type": "web_url",
+                                                "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
+                                                "messenger_extensions": true,
+                                                "webview_height_ratio": "tall",
+                                                "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
+                                            },
+                                            "buttons": [{
+                                                "type": "web_url",
+                                                "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
+                                                "title": "Book"
+                                            }]
                                         });
 
 
-                                      
-
-
-                                      
+                                        console.log("EVENTBUTTON . IMAGE_URL ===>>>>>" + eventButtons_[0].name);
 
                                     }
+
+                                    for (var j = 0, c = eventButtons_.length; j < c; j++) {
+                                        getImageURL(eventButtons_[j].name, (image_url) => {
+                                            eventButtons_[j].image_url = image_url;
+
+                                            console.log("EVENTBUTTON . IMAGE_URL ===>>>>>" +   eventButtons_[j].image_url);
+                                        });
+                                    }
+
 
 
 
