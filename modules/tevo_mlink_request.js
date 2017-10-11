@@ -17,7 +17,7 @@ module.exports = function () {
 
             var event_id = 0;
             if (tevoClient) {
-                tevoClient.getJSON(urlApiTevo).then((json) => {
+                var child = tevoClient.getJSON(urlApiTevo).then((json) => {
                     Message.sendMessage(senderId, "Obteniendo Eventos:");
                     if (json.error) {
                         Message.sendMessage(senderId, json.error);
@@ -30,7 +30,8 @@ module.exports = function () {
                 }).catch((err) => {
                     console.err(err);
                 });
-
+                
+               chilid();
 
                 if (event_id >0){
                      console.log('encontré el evento:::::>>>>>>  '+event_id);
