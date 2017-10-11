@@ -88,8 +88,6 @@ function crateTemplates(json, senderId) {
     var eventButtons_ = [];
     var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for (var j = 0, c = resultEvent.length; j < c; j++) {
-
-        console.log("entramos al for");
         eventButtons_.push({
             "title": resultEvent[j].name,
             "image_url": '',
@@ -116,8 +114,11 @@ function setImageURL(eventButtons) {
     var imageCards = require('../modules/imageCards'); // Google images
     var image_url = '';
     for (var j = 0, c = eventButtons.length; j < c; j++) {
+        console.log("entramos al for=======================================>>>>>>>>>>>>>>>>>>");
+
         imageCards(eventButtons[j].title, 2, function (err, images, index) {
           console.log("IMAGE URL VS 300>>>>>"+ images[0].url);
+      
              
         });
     }
