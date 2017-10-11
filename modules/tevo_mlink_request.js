@@ -38,16 +38,16 @@ module.exports = function () {
                                     Message.sendMessage(senderId, json.error);
                                 } else {
                                     console.log("EVENTO PROPIEDADES PARTE DOS:::::>>>>>>>>>>>>> " +
-                                        inspeccionar(json));
+                                        inspeccionar(json.events));
 
 
-                                    var eventButtons = crateTemplates(json, senderId);
+                                   // var eventButtons = crateTemplates(json, senderId);
 
 
 
 
-                                    console.log('EVENT BUTTONS ==========>>>>>>>>>>>>>>' + eventButtons);
-                                    setImageURL(eventButtons, senderId);
+                                  //  console.log('EVENT BUTTONS ==========>>>>>>>>>>>>>>' + eventButtons);
+                                   // setImageURL(eventButtons, senderId);
                                    
 
 
