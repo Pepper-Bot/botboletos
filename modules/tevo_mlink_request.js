@@ -17,43 +17,44 @@ module.exports = function () {
 
             var event_id = 0;
             if (tevoClient) {
-                var child = tevoClient.getJSON(urlApiTevo).then((json) => {
+                tevoClient.getJSON(urlApiTevo).then((json) => {
                     Message.sendMessage(senderId, "Obteniendo Eventos:");
                     if (json.error) {
                         Message.sendMessage(senderId, json.error);
                     } else {
-                        event_id =json.event.id ;
+                        event_id = json.event.id;
                         console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> " + event_id);
 
-                        // console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> "+  inspeccionar(json));
-                    }
+
+                        if (event_id > 0) {
+                            console.log('encontré el evento:::::>>>>>>  ' + event_id);
+                            urlApiTevo = 'https://api.ticketevolution.com/v9/events/' + event_id
+                            tevoClient.getJSON(urlApiTevo).then((json) => {
+                                Message.sendMessage(senderId, "Obteniendo Eventos parte 2:");
+                                if (json.error) {
+                                    Message.sendMessage(senderId, json.error);
+                                } else {
+                                    console.log("EVENTO PROPIEDADES PARTE DOS:::::>>>>>>>>>>>>> " +
+                                        inspeccionar(json));
+
+                                }
+                            }).catch((err) => {
+                                console.err(err);
+                            });
+                        }
+
+
+
+
+                    }//fin  de else json.error
                 }).catch((err) => {
                     console.err(err);
                 });
 
-               child();
-
-                if (event_id >0){
-                     console.log('encontré el evento:::::>>>>>>  '+event_id);
-                    urlApiTevo = 'https://api.ticketevolution.com/v9/events/'+  event_id
-                    tevoClient.getJSON(urlApiTevo).then((json) => {
-                        Message.sendMessage(senderId, "Obteniendo Eventos parte 2:");
-                        if (json.error) {
-                            Message.sendMessage(senderId, json.error);
-                        } else {
-                            console.log("EVENTO PROPIEDADES PARTE DOS:::::>>>>>>>>>>>>> "
-                            +  inspeccionar(json));
-                            
-                        }
-                    }).catch((err) => {
-                        console.err(err);
-                    });
 
 
 
 
-                }
-                
 
 
 
@@ -61,7 +62,7 @@ module.exports = function () {
 
             }
 
-            
+
 
 
 
