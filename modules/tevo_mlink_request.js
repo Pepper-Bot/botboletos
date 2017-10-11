@@ -23,7 +23,7 @@ module.exports = function () {
                         Message.sendMessage(senderId, json.error);
                     }
                     else{
-                        console.log('RESPUESTA<<<<<<<<<<<<<<<<<<<' +json);
+                        console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> "+   json.ticket_groups[0].event.id);
                     }
                             
            
