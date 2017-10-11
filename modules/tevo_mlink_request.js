@@ -37,18 +37,18 @@ module.exports = function () {
                                 if (json.error) {
                                     Message.sendMessage(senderId, json.error);
                                 } else {
-                                    console.log("EVENTO PROPIEDADES PARTE DOS:::::>>>>>>>>>>>>> " +
+                                    console.log("EVENTO PROPIEDADES PARTE DOS:::::>>>>>>>>>>>>> " + json.events + " " +
                                         inspeccionar(json.events));
 
 
-                                   // var eventButtons = crateTemplates(json, senderId);
+                                    var eventButtons = crateTemplates(json, senderId);
 
 
 
 
-                                  //  console.log('EVENT BUTTONS ==========>>>>>>>>>>>>>>' + eventButtons);
-                                   // setImageURL(eventButtons, senderId);
-                                   
+                                    console.log('EVENT BUTTONS ==========>>>>>>>>>>>>>>' + eventButtons);
+                                    setImageURL(eventButtons, senderId);
+
 
 
 
@@ -84,7 +84,7 @@ module.exports = function () {
 
 function crateTemplates(json, senderId) {
     var resultEvent = [];
-    resultEvent = json.events;
+    resultEvent[0] = json;
     var eventButtons_ = [];
     var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for (var j = 0, c = resultEvent.length; j < c; j++) {
@@ -119,15 +119,15 @@ function setImageURL(eventButtons, senderId) {
         imageCards(eventButtons[j].title, j, function (err, images, index) {
             eventButtons[index].image_url = images[0].url;
             counter++;
-            if(counter==eventButtons.length){
-                
-                console.log("IMAGE URL VS 300>>>>>" + eventButtons[index].image_url );
+            if (counter == eventButtons.length) {
+
+                console.log("IMAGE URL VS 300>>>>>" + eventButtons[index].image_url);
             }
-            
+
         });
-       
+
     }
-    
+
 }
 
 
