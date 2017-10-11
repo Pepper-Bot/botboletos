@@ -75,10 +75,16 @@ function getTemplate(resultEvent, senderId){
     var baseURL =  'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for(var j = 0, c = resultEvent.length; j < c; j++)
     {
-         
+        imageCards(resultEvent[j].title, j, function(err, images,index){
+            console.log('Indice:'+index);
+            resultEvent[index].image_url = images[0].url;
+        });
+
+        console.log('url de la imagen>>>>>>>>>>>>>>'+   resultEvent[j].image_url   );
+
         eventButtons_.push({
             "title": resultEvent[j].name,
-            "image_url": '',
+            "image_url": resultEvent[j].image_url,
             "subtitle": resultEvent[j].performances[0].performer.name,
             "default_action": {
               "type": "web_url",
@@ -97,16 +103,7 @@ function getTemplate(resultEvent, senderId){
         });
     }
   
-    console.log('for de asignación de imagenes');
-   for(var z = 0, k = eventButtons_.length; z < k; z++)
-    {
-            console.log('entramos al for de asignación de imagenes');
-            imageCards(eventButtons_[z].title, z, function(err, images,index){
-                console.log('Indice:'+index);
-                eventButtons_[index].image_url = images[0].url;
-            });
-            
-    }
+ 
     
   return  eventButtons_;
 }
