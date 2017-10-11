@@ -120,11 +120,12 @@ function setImageURL(eventButtons, senderId) {
             eventButtons[index].image_url = images[0].url;
             counter++;
             if(counter==eventButtons.length){
+                
                 console.log("IMAGE URL VS 300>>>>>" + eventButtons[index].image_url );
-                Message.genericButton(senderId, eventButtons);
             }
             
         });
+       
     }
     
 }
