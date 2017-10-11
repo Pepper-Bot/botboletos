@@ -1,8 +1,12 @@
+
 module.exports = function () {
     return {
         start: function (senderId, filtro) {
             var TevoClient = require('ticketevolution-node');
             var Message = require('../bot/messages');
+            
+            var imageCards = require('../modules/imageCards'); // Google images
+
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
                 apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
@@ -69,7 +73,7 @@ module.exports = function () {
 }();
 
 function crateTemplates(resultEvent, senderId){
-   // var imageCards = require('../modules/imageCards'); // Google images
+   // 
     var eventButtons_ = [];
     var baseURL =  'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for(var j = 0, c = resultEvent.length; j < c; j++)
