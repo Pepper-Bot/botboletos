@@ -16,7 +16,7 @@ module.exports = function () {
             });
 
 
-            imageCards("SHAKIRA", 0, function(err, images,index){
+            imageCards("SHAKIRA", 1, function(err, images,index){
                 console.log("ESTA ES ÑA IRÑ QIE BUSCO"+ images[0].url);  
            });
 
