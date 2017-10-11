@@ -44,7 +44,13 @@ module.exports = function () {
                                     var eventButtons = crateTemplates(json, senderId)
                                     console.log('Prueba 259==========>>>>>>>>>>>>>>' + eventButtons);
 
+                                    for (var j = 0, c = eventButtons.length; j < c; j++) {
 
+                                        console.log('EVENT BUTTONS ==========>>>>>>>>>>>>>>' + eventButtons);
+                                        
+
+                                    }
+                                        
 
 
 
