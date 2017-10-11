@@ -78,7 +78,7 @@ module.exports = function () {
     }
 }();
 
-function crateTemplates(resultEvent, senderId, callback) {
+function crateTemplates(json, senderId) {
     var resultEvent = [];
     resultEvent[0] = json;
     var eventButtons_ = [];
