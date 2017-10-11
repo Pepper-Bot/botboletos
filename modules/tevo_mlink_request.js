@@ -40,7 +40,7 @@ module.exports = function () {
 
                                          var resultEvent = [];
                                          resultEvent[0] = json;
-                                         crateTemplates(resultEvent, senderId);
+                                         crateTemplates(resultEvent, senderId); 
                                           
                                       
                                          
@@ -69,7 +69,7 @@ module.exports = function () {
 }();
 
 function crateTemplates(resultEvent, senderId){
-    var imageCards = require('../modules/imageCards'); // Google images
+   // var imageCards = require('../modules/imageCards'); // Google images
     var eventButtons_ = [];
     var baseURL =  'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for(var j = 0, c = resultEvent.length; j < c; j++)
