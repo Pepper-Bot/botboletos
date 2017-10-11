@@ -7,7 +7,10 @@ module.exports = function () {
             var TevoClient = require('ticketevolution-node');
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
-           
+        
+            imageCards("SHAKIRA", z, function(err, images,index){
+                 console.log(images[0].url);  
+            });
 
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
@@ -51,9 +54,7 @@ module.exports = function () {
                                     for (var j = 0, c = resultEvent.length; j < c; j++) {
                                          
 
-                                        imageCards(resultEvent[j].name, z, function(err, images,index){
-                                            resultEvent[j].image_url = images[0].url;  
-                                        });
+                                     
                                             
                                         console.log("entramos al for");
                                         eventButtons_.push({
