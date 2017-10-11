@@ -14,18 +14,20 @@ module.exports = function () {
             var  urlApiTevo =   'https://api.ticketevolution.com/v9/ticket_groups/'+ filtro+"?ticket_list=true"
 
 
-
+            
             console.log('url api tevo>>>>>>>' +  urlApiTevo);
 
             if (tevoClient) {
 
                 tevoClient.getJSON(urlApiTevo).then((json) => {
-                   
-                    console.log('>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>grupo >>>>>>'+  json.ticket_groups[0] );
-                   
-
-
-                      
+                    Message.sendMessage(senderId, "Obteniendo Eventos:");
+                    if(json.error){
+                        Message.sendMessage(senderId, json.error);
+                    }
+                    else{
+                        console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> "+ json);
+                    }
+                            
            
 
 
