@@ -116,8 +116,8 @@ function setImageURL(eventButtons) {
     for (var j = 0, c = eventButtons.length; j < c; j++) {
         console.log("entramos al for=======================================>>>>>>>>>>>>>>>>>>");
 
-        imageCards(eventButtons[j].title, 2, function (err, images, index) {
-            eventButtons[j].image_url = images[0].url;
+        imageCards(eventButtons[j].title, j, function (err, images, index) {
+            eventButtons[index].image_url = images[0].url;
             console.log("IMAGE URL VS 300>>>>>" + eventButtons[j].image_url );
 
 
