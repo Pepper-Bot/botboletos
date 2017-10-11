@@ -43,7 +43,7 @@ module.exports = function () {
                                          var eventButtons =  getTemplate(resultEvent, senderId);
                                          console.log("INSPECCIONANDO EVENT BUTTONS:::::>>>>>>>>>>>>> " +
                                          inspeccionar2(eventButtons));
-                                         var gButtons_ =   setImageTemplate(eventButtons);
+                                      
                                          
                                           
                                         //Message.genericButton(senderId, gButtons);
@@ -70,6 +70,7 @@ module.exports = function () {
 }();
 
 function getTemplate(resultEvent, senderId){
+    var imageCards = require('../modules/imageCards'); // Google images
     var eventButtons_ = [];
     var baseURL =  'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for(var j = 0, c = resultEvent.length; j < c; j++)
@@ -95,24 +96,22 @@ function getTemplate(resultEvent, senderId){
             ]
         });
     }
-  return  eventButtons_;
-}
-
-function setImageTemplate(eventButtons_){
-    var imageCards = require('../modules/imageCards'); // Google images
-   
     var gButtons = eventButtons_;
     console.log('igualamos antes del for de asignación de imagenes');
-    /*for(var z = 0, k = gButtons.length; z < k; z++)
+   for(var z = 0, k = gButtons.length; z < k; z++)
     {
             console.log('entramos al for de asignación de imagenes');
             imageCards(gButtons[z].title, z, function(err, images,index){
                 console.log('Indice:'+index);
                 gButtons[index].image_url = images[0].url;
             });
-    }*/
-    return gButtons;
+            
+    }
+    
+  return  gButtons;
 }
+
+
 
 function inspeccionar(obj) {
     var msg = '';
