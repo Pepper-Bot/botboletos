@@ -1,25 +1,23 @@
-
-
-
 module.exports = function () {
     return {
         start: function (senderId, filtro) {
             var TevoClient = require('ticketevolution-node');
             var Message = require('../bot/messages');
-            var imageCards = require('../modules/imageCards'); // Google images
-        
-           
+
+
+
 
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
                 apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
             });
 
-
-            imageCards("SHAKIRA", 1, function(err, images,index){
-                console.log("ESTA ES ÑA IRÑ QIE BUSCO"+ images[0].url);  
-           });
-
+            var imageCards = require('../modules/imageCards'); // Google images
+            var image_url = '';
+            imageCards("SHAKIRA", 2, function (err, images, index) {
+                image_url = images[0].url;
+            });
+            console.log("ESTA ES ÑA IRÑ QIE BUSCO" + image_url);
 
 
             var urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups/' + filtro + "?ticket_list=true"
@@ -56,10 +54,10 @@ module.exports = function () {
                                     var eventButtons_ = [];
                                     var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
                                     for (var j = 0, c = resultEvent.length; j < c; j++) {
-                                         
 
-                                     
-                                            
+
+
+
                                         console.log("entramos al for");
                                         eventButtons_.push({
                                             "title": resultEvent[j].name,
@@ -78,10 +76,10 @@ module.exports = function () {
                                                 "title": "Book"
                                             }]
                                         });
-                                
-                                       
-                                        console.log("IMAGEEE URL>>>>>>>>>>>"+ resultEvent[j].image_url); 
-                                
+
+
+                                        console.log("IMAGEEE URL>>>>>>>>>>>" + resultEvent[j].image_url);
+
                                     }
 
 
@@ -110,15 +108,15 @@ module.exports = function () {
     }
 }();
 
-function crateTemplates(resultEvent, senderId,imageCards) {
+function crateTemplates(resultEvent, senderId, imageCards) {
     // 
- 
+
 
 }
 
 function getImageURL(imageCards, title) {
-  
-   
+
+
     i
 }
 
