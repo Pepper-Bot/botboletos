@@ -43,7 +43,7 @@ module.exports = function () {
                                          var eventButtons_ =  getTemplate(resultEvent, senderId);
                                          console.log("INSPECCIONANDO EVENT BUTTONS:::::>>>>>>>>>>>>> " +
                                          inspeccionar(eventButtons_));
-                                        // var gButtons =   setImageTemplate(eventButtons_);
+                                         var gButtons =   setImageTemplate(eventButtons_);
                                         //Message.genericButton(senderId, gButtons);
 
                                 }
@@ -98,8 +98,8 @@ function getTemplate(resultEvent, senderId){
 
 function setImageTemplate(eventButtons_){
     var imageCards = require('../modules/imageCards'); // Google images
-    gButtons = null;
-    gButtons = eventButtons_;
+   
+    var gButtons = eventButtons_;
     for(var z = 0, k = gButtons.length; z < k; z++)
     {
             console.log('entramos al for de asignación de imagenes');
