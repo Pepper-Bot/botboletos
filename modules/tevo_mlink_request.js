@@ -43,7 +43,7 @@ module.exports = function () {
                                          var eventButtons =  getTemplate(resultEvent, senderId);
                                          console.log("INSPECCIONANDO EVENT BUTTONS:::::>>>>>>>>>>>>> " +
                                          inspeccionar2(eventButtons));
-                                         var gButtons =   setImageTemplate(eventButtons);
+                                         var gButtons_ =   setImageTemplate(eventButtons);
                                          
                                           
                                         //Message.genericButton(senderId, gButtons);
