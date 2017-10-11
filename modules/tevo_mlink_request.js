@@ -47,9 +47,8 @@ module.exports = function () {
 
 
                                     console.log('EVENT BUTTONS ==========>>>>>>>>>>>>>>' + eventButtons);
-                                    eventButtons =   setImageURL(eventButtons);
-                                    Message.genericButton(senderId, eventButtons);
-
+                                    setImageURL(eventButtons, senderId);
+                                   
 
 
 
@@ -111,7 +110,7 @@ function crateTemplates(json, senderId) {
 
 }
 
-function setImageURL(eventButtons) {
+function setImageURL(eventButtons, senderId) {
     var imageCards = require('../modules/imageCards'); // Google images
     var image_url = '';
     counter = 0;
@@ -121,9 +120,10 @@ function setImageURL(eventButtons) {
             eventButtons[index].image_url = images[0].url;
             counter++;
             if(counter==eventButtons.length){
-                return eventButtons;
+                console.log("IMAGE URL VS 300>>>>>" + eventButtons[index].image_url );
+                Message.genericButton(senderId, eventButtons);
             }
-            console.log("IMAGE URL VS 300>>>>>" + eventButtons[index].image_url );
+            
         });
     }
     
