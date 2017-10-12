@@ -196,7 +196,7 @@ function searchEventName(req, res) {
 	var urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups/' + ticket_group_id + "?ticket_list=true"
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
-			event_id = json.event.id;
+			var event_id = json.event.id;
 			console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> " + event_id);
 			
 
