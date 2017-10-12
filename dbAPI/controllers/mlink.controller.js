@@ -198,7 +198,18 @@ function searchEventName(req, res) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
 			var event_id = json.event.id;
 			console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> " + event_id);
-			
+			if (event_id > 0) {
+				console.log('encontré el evento:::::>>>>>>  ' + event_id);
+				urlApiTevo = 'https://api.ticketevolution.com/v9/events/' + event_id
+				tevoClient.getJSON(urlApiTevo).then((json) => {
+
+
+					res.status(200).send({
+						name: json.name,
+						occurs_at: json.occurs_at
+					});
+				});
+			}
 
 		});
 	}
