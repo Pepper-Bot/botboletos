@@ -189,8 +189,6 @@ function searchEventName(req, res) {
 	var ticket_group_id = req.params.ticket_group_id;
 	var TevoClient = require('ticketevolution-node');
 
-
-	
 	res.status(200).send({
 		message: 'vamos bien!!'
 	});
