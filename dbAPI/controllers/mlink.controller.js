@@ -213,11 +213,31 @@ function searchEventName(req, res) {
 
 		});
 	}
+}
 
 
 
 
+function searchEventByName(req, res) {
+	var name = req.params.name;
+	var TevoClient = require('ticketevolution-node');
 
+	var tevoClient = new TevoClient({
+		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
+		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
+	});
+
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?name' + name;
+	if (tevoClient) {
+		tevoClient.getJSON(urlApiTevo).then((json) => {
+
+			res.status(200).send({
+				largo: json.events.length
+			});
+
+
+		});
+	}
 }
 
 
@@ -232,6 +252,7 @@ module.exports = {
 	updateMlink,
 	deleteMlink,
 	getMlinkByMLink,
-	searchEventName
+	searchEventName,
+	searchEventByName
 
 }
