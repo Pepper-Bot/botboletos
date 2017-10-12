@@ -2,22 +2,15 @@ module.exports = function () {
     return {
         start: function (senderId, filtro) {
             var Message = require('../bot/messages');
+            var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
+            
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
                 apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
             });
-
-
-
-
-
             var urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups/' + filtro + "?ticket_list=true"
-
-
-
             console.log('url api tevo>>>>>>>' + urlApiTevo);
-
             var event_id = 0;
             if (tevoClient) {
                 tevoClient.getJSON(urlApiTevo).then((json) => {
@@ -41,23 +34,7 @@ module.exports = function () {
                                         inspeccionar(json.events));
 
 
-                                    var eventButtons = crateTemplates(json, senderId);
-
-
-
-
-                                    console.log('EVENT BUTTONS ==========>>>>>>>>>>>>>>' + eventButtons);
-                                    setImageURL(eventButtons, senderId, (gButtons)=>{
-                                        Message.genericButton(senderId, gButtons);
-                                    });
-
-
-
-
-
-
-
-
+                                        crateTemplates(json, senderId);
 
 
 
@@ -88,6 +65,7 @@ function crateTemplates(json, senderId) {
     var resultEvent = [];
     resultEvent[0] = json;
     var eventButtons_ = [];
+    var callsGis = 0;
     var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
     for (var j = 0, c = resultEvent.length; j < c; j++) {
         eventButtons_.push({
@@ -107,33 +85,34 @@ function crateTemplates(json, senderId) {
                 "title": "Book"
             }]
         });
-    }
-    console.log('FALL BACK!!!!>>>>>>>>'+ eventButtons_.default_action.fallback_url);
-    return eventButtons_;
 
-}
+        callsGis++;
+        if (callsGis == resultEvent.length) {
+            gButtons = null;
+            gButtons = eventButtons_;
+            counter = 0;
+            for (var z = 0, k = gButtons.length; z < k; z++) {
+                imageCards(gButtons[z].title, z, function (err, images, index) {
+                    gButtons[index].image_url = images[0].url;
+                    counter++;
+                    if(counter == gButtons.length)
+                    {
+                        console.log('10');
+                        Message.genericButton(senderId, gButtons);
+                    }
 
-function setImageURL(eventButtons, senderId, callback) {
-    var imageCards = require('../modules/imageCards'); // Google images
-    var image_url = '';
-    counter = 0;
-    for (var j = 0, c = eventButtons.length; j < c; j++) {
-        console.log("entramos al for=======================================>>>>>>>>>>>>>>>>>>");
-        imageCards(eventButtons[j].title, j, function (err, images, index) {
-            eventButtons[index].image_url = images[0].url;
-            counter++;
-            if (counter == eventButtons.length) {
 
-                console.log("IMAGE URL VS 300>>>>>" + eventButtons[index].image_url);
-                callback(eventButtons);
+                });
             }
+            callsGis = 0;
 
-        });
+        }
 
     }
+    
 
 }
-
+ 
 
 
 function inspeccionar(obj) {
