@@ -47,7 +47,9 @@ module.exports = function () {
 
 
                                     console.log('EVENT BUTTONS ==========>>>>>>>>>>>>>>' + eventButtons);
-                                    setImageURL(eventButtons, senderId);
+                                    setImageURL(eventButtons, senderId, (gButtons)=>{
+                                        Message.genericButton(senderId, gButtons);
+                                    });
 
 
 
@@ -106,11 +108,12 @@ function crateTemplates(json, senderId) {
             }]
         });
     }
+    console.log('FALL BACK!!!!>>>>>>>>'+ eventButtons_.default_action.fallback_url);
     return eventButtons_;
 
 }
 
-function setImageURL(eventButtons, senderId) {
+function setImageURL(eventButtons, senderId, callback) {
     var imageCards = require('../modules/imageCards'); // Google images
     var image_url = '';
     counter = 0;
@@ -122,6 +125,7 @@ function setImageURL(eventButtons, senderId) {
             if (counter == eventButtons.length) {
 
                 console.log("IMAGE URL VS 300>>>>>" + eventButtons[index].image_url);
+                callback(eventButtons);
             }
 
         });
