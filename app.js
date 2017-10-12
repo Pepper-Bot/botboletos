@@ -28,7 +28,7 @@ ChatBox.persistentMenu({
 var app = express();
 
 
-/*
+
 app.use(function(req, res, next) {
 
     res.header('Content-Type','application/vnd.api+json; charset=utf-8');
@@ -39,7 +39,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-*/
+
 
 // view engine setup
 /*app.set('views', path.join(__dirname, 'views'));
