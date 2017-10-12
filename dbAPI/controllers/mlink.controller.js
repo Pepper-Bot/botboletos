@@ -189,7 +189,14 @@ function searchEventName(req, res) {
 	var ticket_group_id = req.params.ticket_group_id;
 	var TevoClient = require('ticketevolution-node');
 
-	var tevoClient = new TevoClient({
+
+	
+	res.status(200).send({
+		message: 'vamos bien!!'
+	});
+
+
+	/*var tevoClient = new TevoClient({
 		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
 		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
 	});
@@ -216,7 +223,7 @@ function searchEventName(req, res) {
 				}
 			}
 		});
-	}
+	}*/
 
 
 
