@@ -4,7 +4,7 @@ module.exports = function () {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
-            
+
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
                 apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
@@ -34,7 +34,7 @@ module.exports = function () {
                                         inspeccionar(json.events));
 
 
-                                        crateTemplates(json, senderId);
+                                    crateTemplates(json, senderId);
 
 
 
@@ -85,34 +85,33 @@ function crateTemplates(json, senderId) {
                 "title": "Book"
             }]
         });
-
-        callsGis++;
-        if (callsGis == resultEvent.length) {
-            gButtons = null;
-            gButtons = eventButtons_;
-            counter = 0;
-            for (var z = 0, k = gButtons.length; z < k; z++) {
-                imageCards(gButtons[z].title, z, function (err, images, index) {
-                    gButtons[index].image_url = images[0].url;
-                    counter++;
-                    if(counter == gButtons.length)
-                    {
-                        console.log('10');
-                        Message.genericButton(senderId, gButtons);
-                    }
-
-
-                });
-            }
-            callsGis = 0;
-
-        }
-
     }
-    
+
+
+
+
+    gButtons = null;
+    gButtons = eventButtons_;
+    counter = 0;
+    for (var z = 0, k = gButtons.length; z < k; z++) {
+        imageCards(gButtons[z].title, z, function (err, images, index) {
+            gButtons[index].image_url = images[0].url;
+            counter++;
+            if (counter == gButtons.length) {
+                console.log('10');
+                Message.genericButton(senderId, gButtons);
+            }
+
+
+        });
+    }
+
+
+
+
 
 }
- 
+
 
 
 function inspeccionar(obj) {
