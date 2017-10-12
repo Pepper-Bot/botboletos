@@ -1,15 +1,20 @@
 module.exports = function () {
     return {
         start: function (senderId, filtro) {
-  
+            var Message = require('../bot/messages');
+            var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
 
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
                 apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
             });
+
+            
             var urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups/' + filtro + "?ticket_list=true"
+
             console.log('url api tevo>>>>>>>' + urlApiTevo);
+
             var event_id = 0;
             if (tevoClient) {
                 tevoClient.getJSON(urlApiTevo).then((json) => {
@@ -33,7 +38,50 @@ module.exports = function () {
                                         inspeccionar(json.events));
 
 
-                                    crateTemplates(json, senderId);
+                                    var resultEvent = [];
+                                    resultEvent[0] = json;
+                                    var eventButtons_ = [];
+                                    var callsGis = 0;
+                                    var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
+                                    for (var j = 0, c = resultEvent.length; j < c; j++) {
+                                        eventButtons_.push({
+                                            "title": resultEvent[j].name,
+                                            "image_url": '',
+                                            "subtitle": resultEvent[j].performances[0].performer.name,
+                                            "default_action": {
+                                                "type": "web_url",
+                                                "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
+                                                "messenger_extensions": true,
+                                                "webview_height_ratio": "tall",
+                                                "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
+                                            },
+                                            "buttons": [{
+                                                "type": "web_url",
+                                                "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
+                                                "title": "Book"
+                                            }]
+                                        });
+                                    }
+
+                                    gButtons = null;
+                                    gButtons = eventButtons_;
+                                    counter = 0;
+                                    for (var z = 0, k = gButtons.length; z < k; z++) {
+                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons.length );
+
+                                        imageCards(gButtons[z].title, z, function (err, images, index) {
+                                            gButtons[index].image_url = images[0].url;
+                                            counter++;
+                                            if (counter == gButtons.length) {
+                                                console.log('10');
+                                                Message.genericButton(senderId, gButtons);
+                                            }
+
+
+                                        });
+                                    }
+
+
 
 
 
@@ -61,48 +109,6 @@ module.exports = function () {
 }();
 
 function crateTemplates(json, senderId) {
-    var Message = require('../bot/messages');
-    var imageCards = require('../modules/imageCards'); // Google images
-    var resultEvent = [];
-    resultEvent[0] = json;
-    var eventButtons_ = [];
-    var callsGis = 0;
-    var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
-    for (var j = 0, c = resultEvent.length; j < c; j++) {
-        eventButtons_.push({
-            "title": resultEvent[j].name,
-            "image_url": '',
-            "subtitle": resultEvent[j].performances[0].performer.name,
-            "default_action": {
-                "type": "web_url",
-                "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
-                "messenger_extensions": true,
-                "webview_height_ratio": "tall",
-                "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
-            },
-            "buttons": [{
-                "type": "web_url",
-                "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
-                "title": "Book"
-            }]
-        });
-    }
-
-    gButtons = null;
-    gButtons = eventButtons_;
-    counter = 0;
-    for (var z = 0, k = gButtons.length; z < k; z++) {
-        imageCards(gButtons[z].title, z, function (err, images, index) {
-            gButtons[index].image_url = images[0].url;
-            counter++;
-            if (counter == gButtons.length) {
-                console.log('10');
-                Message.genericButton(senderId, gButtons);
-            }
-
-
-        });
-    }
 
 
 
