@@ -88,7 +88,21 @@ function crateTemplates(json, senderId) {
         });
     }
 
+    gButtons = null;
+    gButtons = eventButtons_;
+    counter = 0;
+    for (var z = 0, k = gButtons.length; z < k; z++) {
+        imageCards(gButtons[z].title, z, function (err, images, index) {
+            gButtons[index].image_url = images[0].url;
+            counter++;
+            if (counter == gButtons.length) {
+                console.log('10');
+                Message.genericButton(senderId, gButtons);
+            }
 
+
+        });
+    }
 
 
 
