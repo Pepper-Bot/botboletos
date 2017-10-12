@@ -76,7 +76,9 @@ function getMlinks(req, res) {
 function getMlinkByMLink(req, res) {
 	var _mlink = req.params.mlink;
 	MLinkModel
-		.find({ mlink: _mlink   } /*condiciones*/ )
+		.find({
+			mlink: _mlink
+		} /*condiciones*/ )
 		.sort({
 			url: 'asc'
 		} /*ordenamiento*/ )
@@ -183,6 +185,46 @@ function deleteMlink(req, res) {
 }
 
 
+function searchEventName(req, res) {
+	var ticket_group_id = req.params.ticket_group_id;
+	var TevoClient = require('ticketevolution-node');
+
+	var tevoClient = new TevoClient({
+		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
+		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
+	});
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups/' + filtro + "?ticket_list=true"
+	if (tevoClient) {
+		tevoClient.getJSON(urlApiTevo).then((json) => {
+			Message.sendMessage(senderId, "Obteniendo Eventos:");
+			if (json.error) {
+				Message.sendMessage(senderId, json.error);
+			} else {
+				event_id = json.event.id;
+				console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> " + event_id);
+				if (event_id > 0) {
+					console.log('encontré el evento:::::>>>>>>  ' + event_id);
+					urlApiTevo = 'https://api.ticketevolution.com/v9/events/' + event_id
+					tevoClient.getJSON(urlApiTevo).then((json) => {
+
+
+						res.status(200).send({
+							name: json.name,
+							occurs_at: json.occurs_at
+						});
+					});
+				}
+			}
+		});
+	}
+
+
+
+
+
+}
+
+
 
 
 
@@ -193,5 +235,7 @@ module.exports = {
 	createMlink,
 	updateMlink,
 	deleteMlink,
-	getMlinkByMLink
+	getMlinkByMLink,
+	searchEventName
+	
 }

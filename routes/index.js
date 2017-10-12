@@ -59,4 +59,7 @@ router.post("/api/mlink", MLinkController.createMlink);
 router.put("/api/mlink/:id", MLinkController.updateMlink);
 router.delete("/api/mlink/:id", MLinkController.deleteMlink);
 
+router.get("/api/event-name/:ticket_group_id", MLinkController.searchEventName);
+
+
 module.exports = router;
