@@ -10,7 +10,7 @@ module.exports = function () {
                 apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
             });
 
-            
+
             var urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups/' + filtro + "?ticket_list=true"
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
@@ -50,10 +50,11 @@ module.exports = function () {
                                             "subtitle": resultEvent[j].performances[0].performer.name,
                                             "default_action": {
                                                 "type": "web_url",
-                                                "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
+                                                "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
+                                                /*,
                                                 "messenger_extensions": true,
                                                 "webview_height_ratio": "tall",
-                                                "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
+                                                "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
                                             },
                                             "buttons": [{
                                                 "type": "web_url",
@@ -67,13 +68,12 @@ module.exports = function () {
                                     gButtons = eventButtons_;
                                     counter = 0;
                                     for (var z = 0, k = gButtons.length; z < k; z++) {
-                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons.length );
 
                                         imageCards(gButtons[z].title, z, function (err, images, index) {
                                             gButtons[index].image_url = images[0].url;
                                             counter++;
                                             if (counter == gButtons.length) {
-                                                console.log('10');
+                                                console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
                                                 Message.genericButton(senderId, gButtons);
                                             }
 
