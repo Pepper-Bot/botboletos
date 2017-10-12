@@ -196,25 +196,21 @@ function searchEventName(req, res) {
 	var urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups/' + ticket_group_id + "?ticket_list=true"
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
-			Message.sendMessage(senderId, "Obteniendo Eventos:");
-			if (json.error) {
-				Message.sendMessage(senderId, json.error);
-			} else {
-				event_id = json.event.id;
-				console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> " + event_id);
-				if (event_id > 0) {
-					console.log('encontré el evento:::::>>>>>>  ' + event_id);
-					urlApiTevo = 'https://api.ticketevolution.com/v9/events/' + event_id
-					tevoClient.getJSON(urlApiTevo).then((json) => {
+			event_id = json.event.id;
+			console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> " + event_id);
+			if (event_id > 0) {
+				console.log('encontré el evento:::::>>>>>>  ' + event_id);
+				urlApiTevo = 'https://api.ticketevolution.com/v9/events/' + event_id
+				tevoClient.getJSON(urlApiTevo).then((json) => {
 
 
-						res.status(200).send({
-							name: json.name,
-							occurs_at: json.occurs_at
-						});
+					res.status(200).send({
+						name: json.name,
+						occurs_at: json.occurs_at
 					});
-				}
+				});
 			}
+
 		});
 	}
 
