@@ -232,7 +232,7 @@ function searchEventByName(req, res) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
 
 			res.status(200).send({
-				largo: json.events.length
+				events: json
 			});
 
 
