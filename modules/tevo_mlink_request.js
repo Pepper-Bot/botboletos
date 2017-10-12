@@ -1,8 +1,7 @@
 module.exports = function () {
     return {
         start: function (senderId, filtro) {
-            var Message = require('../bot/messages');
-            var imageCards = require('../modules/imageCards'); // Google images
+  
             var TevoClient = require('ticketevolution-node');
 
             var tevoClient = new TevoClient({
@@ -62,6 +61,8 @@ module.exports = function () {
 }();
 
 function crateTemplates(json, senderId) {
+    var Message = require('../bot/messages');
+    var imageCards = require('../modules/imageCards'); // Google images
     var resultEvent = [];
     resultEvent[0] = json;
     var eventButtons_ = [];
@@ -90,21 +91,6 @@ function crateTemplates(json, senderId) {
 
 
 
-    gButtons = null;
-    gButtons = eventButtons_;
-    counter = 0;
-    for (var z = 0, k = gButtons.length; z < k; z++) {
-        imageCards(gButtons[z].title, z, function (err, images, index) {
-            gButtons[index].image_url = images[0].url;
-            counter++;
-            if (counter == gButtons.length) {
-                console.log('10');
-                Message.genericButton(senderId, gButtons);
-            }
-
-
-        });
-    }
 
 
 
