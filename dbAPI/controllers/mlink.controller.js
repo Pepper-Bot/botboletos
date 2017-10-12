@@ -227,7 +227,7 @@ function searchEventByName(req, res) {
 		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
 	});
 
-	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?name' + name;
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/events/search?name=' + name;
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
 
