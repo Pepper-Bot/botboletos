@@ -41,7 +41,7 @@ module.exports = function () {
                                 eventButtons_.push({
                                     "title": resultEvent[j].name,
                                     "image_url": '',
-                                    "subtitle": resultEvent[j].performances[0].performer.name + " "+ resultEvent[j].occurs_at,
+                                    "subtitle": resultEvent[j].performances[0].performer.name + " "+ toJSONLocal( resultEvent[j].occurs_at),
                                     "default_action": {
                                         "type": "web_url",
                                         "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
@@ -59,7 +59,7 @@ module.exports = function () {
                             }
 
 
-                            
+
 
                             gButtons = null;
                             gButtons = eventButtons_;
@@ -99,6 +99,14 @@ module.exports = function () {
         }
     }
 }();
+
+
+function toJSONLocal (date) {
+    var local = new Date(date);
+    local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
+}
+
 
 function crateTemplates(json, senderId) {
 
