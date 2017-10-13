@@ -226,8 +226,9 @@ function searchEventByName(req, res) {
 		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
 		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
 	});
-
-	var urlApiTevo = 'https://api.ticketevolution.com/v9/events/search?name='+ name +'&page=1&per_page=50&only_with_tickets=all'
+//	20.46957,-103.45400
+	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events/search?name='+ name +'&page=1&per_page=50&only_with_tickets=all'
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?lat='+20.46957+'&lon='+-103.45400+'&page=1&per_page=50&only_with_tickets=all'
 	console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
