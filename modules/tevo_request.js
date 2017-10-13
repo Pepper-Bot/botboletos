@@ -4,7 +4,7 @@ module.exports = function () {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
-            var dateFormat = require('dateFormat');
+            var dateFormat = require('dateformat');
 
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
