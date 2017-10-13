@@ -41,16 +41,17 @@ module.exports = function () {
                                 console.log('EVENTO ' + j + '--' + resultEvent[j].id + '>>>>>>>>>>>>>>>>');
 
 
-                                var date = resultEvent[j].occurs_at;
+                                var date = resultEvent[j].occurs_at_local;
                                 var now = new Date(date);
-                                dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+                                dateFormat(now, "dddd, mmmm d, yyyy, h:MM TT");
+                                
                                 
                                  
 
                                 
 
                                 eventButtons_.push({
-                                    "title": resultEvent[j].name,
+                                    "title": resultEvent[j].name + ' ' + resultEvent[j].venue.name ,
                                     "image_url": '',
                                     "subtitle": resultEvent[j].performances[0].performer.name + " "+  now,
                                     "default_action": {
