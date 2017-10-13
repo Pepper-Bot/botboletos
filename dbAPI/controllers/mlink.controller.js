@@ -228,6 +228,7 @@ function searchEventByName(req, res) {
 	});
 
 	var urlApiTevo = 'https://api.ticketevolution.com/v9/events/search?name='+ name +'&page=1&per_page=50&only_with_tickets=all'
+	console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
 			res.status(200).send({
