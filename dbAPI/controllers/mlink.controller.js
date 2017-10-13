@@ -233,9 +233,9 @@ function searchEventByName(req, res) {
 	console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
-			res.status(200).send({
-				events: json
-			});
+			res.status(200).send(
+				 json
+			);
 
 
 		});

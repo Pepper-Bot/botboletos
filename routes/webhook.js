@@ -670,10 +670,10 @@ function startTevoModuleWithMlink(referral, senderId) {
             if (!error) {
                 var body = JSON.parse(body);
                 if (body.mlinks[0].mlink) {
-                    var id_evento = body.mlinks[0].id_evento;
+                    var event_name = body.mlinks[0].mlink;
                     //console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body.mlinks[0].id_evento);
-                    var TevoModule = require('../modules/tevo_mlink_request');
-                    TevoModule.start(senderId, id_evento);
+                    var TevoModule = require('../modules/tevo_request');
+                    TevoModule.start(senderId, event_name);
 
 
                 } else {
