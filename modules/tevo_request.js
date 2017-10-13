@@ -26,7 +26,7 @@ module.exports = function () {
                         if (json.events.length > 0) {
                             console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<<<<<<<<<<<<<<<<')
                             var resultEvent = [];
-                            resultEvent = json;
+                            resultEvent = json.events;
                             var eventButtons_ = [];
                             var callsGis = 0;
                             var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
