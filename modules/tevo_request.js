@@ -23,14 +23,17 @@ module.exports = function () {
                         Message.sendMessage(senderId, json.error);
                     } else {
 
-                        console.log("ESTE ES EL ID DEL EVENTO>>>>>>>>>>>>> " + event_id);
-
                         if (json.events.length > 0) {
                             var resultEvent = [];
                             resultEvent = json;
                             var eventButtons_ = [];
                             var callsGis = 0;
                             var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
+
+                            if(resultEvent.length > 10){
+                                resultEvent.splice(10,resultEvent.length-10);
+                            }
+
                             for (var j = 0, c = resultEvent.length; j < c; j++) {
                                 eventButtons_.push({
                                     "title": resultEvent[j].name,
