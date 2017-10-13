@@ -4,6 +4,7 @@ module.exports = function () {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
+            var dateFormat = require('dateFormat');
 
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
@@ -41,16 +42,17 @@ module.exports = function () {
 
 
                                 var date = resultEvent[j].occurs_at;
-                                var local = new Date(date);
-                                local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-                                local.toJSON().slice(0, 10);
+                                var now = new Date(date);
+                                dateFormat(now, "dddd, mmmm dS, yyyy, h:MM:ss TT");
+                                
+                                 
 
                                 
 
                                 eventButtons_.push({
                                     "title": resultEvent[j].name,
                                     "image_url": '',
-                                    "subtitle": resultEvent[j].performances[0].performer.name + " "+  local,
+                                    "subtitle": resultEvent[j].performances[0].performer.name + " "+  now,
                                     "default_action": {
                                         "type": "web_url",
                                         "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
