@@ -24,17 +24,20 @@ module.exports = function () {
                     } else {
 
                         if (json.events.length > 0) {
+                            console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<<<<<<<<<<<<<<<<')
                             var resultEvent = [];
                             resultEvent = json;
                             var eventButtons_ = [];
                             var callsGis = 0;
                             var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 
-                            if(resultEvent.length > 10){
-                                resultEvent.splice(10,resultEvent.length-10);
+                            if (resultEvent.length > 10) {
+                                resultEvent.splice(10, resultEvent.length - 10);
                             }
+                            console.log('TENEMOS  ' + resultEvent.length + ' EVENTOS LUEGO DE RECORTARLOS    <<<<<<<<<<<<<<<<<<<<<<<<<<');
 
                             for (var j = 0, c = resultEvent.length; j < c; j++) {
+                                console.log('EVENTO ' + j + '--' + resultEvent[j].id + '>>>>>>>>>>>>>>>>');
                                 eventButtons_.push({
                                     "title": resultEvent[j].name,
                                     "image_url": '',
