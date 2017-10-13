@@ -41,8 +41,7 @@ module.exports = function () {
 
                                 var local = new Date(resultEvent[j].occurs_at);
                                 local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-                                local.toJSON().slice(0, 10);
-
+                     
                                 eventButtons_.push({
                                     "title": resultEvent[j].name,
                                     "image_url": '',
