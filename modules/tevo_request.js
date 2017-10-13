@@ -41,7 +41,7 @@ module.exports = function () {
                                 eventButtons_.push({
                                     "title": resultEvent[j].name,
                                     "image_url": '',
-                                    "subtitle": resultEvent[j].performances[0].performer.name,
+                                    "subtitle": resultEvent[j].performances[0].performer.name + " "+ resultEvent[j].occurs_at,
                                     "default_action": {
                                         "type": "web_url",
                                         "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
@@ -61,10 +61,14 @@ module.exports = function () {
                             gButtons = null;
                             gButtons = eventButtons_;
                             counter = 0;
+                            
                             for (var z = 0, k = gButtons.length; z < k; z++) {
 
                                 imageCards(gButtons[z].title, z, function (err, images, index) {
-                                    gButtons[index].image_url = images[0].url;
+                                    
+                                    var imageIndex = Math.round(Math.random()*images.length);
+
+                                    gButtons[index].image_url = images[imageIndex].url;
                                     counter++;
                                     if (counter == gButtons.length) {
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
@@ -73,6 +77,9 @@ module.exports = function () {
 
 
                                 });
+
+                            
+                            
                             }
 
                         }
