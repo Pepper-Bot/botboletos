@@ -228,7 +228,8 @@ function searchEventByName(req, res) {
 	});
 //	20.46957,-103.45400
 	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events/search?name='+ name +'&page=1&per_page=50&only_with_tickets=all'
-	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?lat='+40.6643+'&lon='+-73.9385+'&page=1&per_page=50&only_with_tickets=all'
+	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events?lat='+40.6643+'&lon='+-73.9385+'&page=1&per_page=50&only_with_tickets=all'
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q='+name+'&page=1&per_page=50&only_with_tickets=all'
 	console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
