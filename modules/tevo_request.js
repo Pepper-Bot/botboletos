@@ -38,10 +38,15 @@ module.exports = function () {
 
                             for (var j = 0, c = resultEvent.length; j < c; j++) {
                                 console.log('EVENTO ' + j + '--' + resultEvent[j].id + '>>>>>>>>>>>>>>>>');
+
+                                var local = new Date(resultEvent[j].occurs_at);
+                                local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
+                                local.toJSON().slice(0, 10);
+
                                 eventButtons_.push({
                                     "title": resultEvent[j].name,
                                     "image_url": '',
-                                    "subtitle": resultEvent[j].performances[0].performer.name + " "+ toJSONLocal( resultEvent[j].occurs_at),
+                                    "subtitle": resultEvent[j].performances[0].performer.name + " "+  local,
                                     "default_action": {
                                         "type": "web_url",
                                         "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
@@ -102,9 +107,7 @@ module.exports = function () {
 
 
 function toJSONLocal (date) {
-    var local = new Date(date);
-    local.setMinutes(date.getMinutes() - date.getTimezoneOffset());
-    return local.toJSON().slice(0, 10);
+  
 }
 
 
