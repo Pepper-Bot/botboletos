@@ -51,7 +51,7 @@ module.exports = function () {
                                 
 
                                 eventButtons_.push({
-                                    "title": resultEvent[j].name ,
+                                    "title": resultEvent[j].name +' '+ resultEvent[j].category.name,
                                     "image_url": '',
                                     "subtitle": resultEvent[j].performances[0].performer.name +  ' ' + resultEvent[j].venue.name  +" "+  now,
                                     "default_action": {
@@ -77,17 +77,17 @@ module.exports = function () {
                             gButtons = eventButtons_;
                             counter = 0;
                             
-                            for (var z = 0, k = eventButtons_.length; z < k; z++) {
+                            for (var z = 0, k = gButtons.length; z < k; z++) {
 
-                                imageCards(eventButtons_[z].title + " "+ eventButtons_[z].category.name, z, function (err, images, index) {
+                                imageCards(gButtons[z].title, z, function (err, images, index) {
                                     
                                     var imageIndex = Math.round(Math.random()*images.length);
 
-                                    eventButtons_[index].image_url = images[imageIndex].url;
+                                    gButtons[index].image_url = images[imageIndex].url;
                                     counter++;
-                                    if (counter == eventButtons_.length) {
-                                        console.log("ENTRE A eventButtons_:::::::>>>" + eventButtons_[index].image_url);
-                                        Message.genericButton(senderId, eventButtons_);
+                                    if (counter == gButtons.length) {
+                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
+                                        Message.genericButton(senderId, gButtons);
                                     }
 
 
