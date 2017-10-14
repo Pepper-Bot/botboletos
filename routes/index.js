@@ -61,6 +61,7 @@ router.delete("/api/mlink/:id", MLinkController.deleteMlink);
 
 router.get("/api/event-name/:ticket_group_id", MLinkController.searchEventName);
 router.get("/api/events/:name", MLinkController.searchEventByName);
+router.get("/api/events1/:name", MLinkController.searchEventByName1);
 
 
 module.exports = router;
