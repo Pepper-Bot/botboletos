@@ -82,8 +82,13 @@ module.exports = function () {
 
 
                                 imageCards('event ' + gButtons[z].title  + ' '+ gButtons[z].image_url, z, function (err, images, index) {
-                                    
-                                    var imageIndex = Math.round(Math.random()*30);
+                                    var imageIndex = 0 ;
+                                    if(images.length>=40){
+                                        imageIndex = Math.round(Math.random()*40);
+                                    }else{
+                                        imageIndex = Math.round(Math.random()*images.length);
+                                    }
+                                     
 
                                     gButtons[index].image_url = images[imageIndex].url;
                                     counter++;
