@@ -51,7 +51,7 @@ module.exports = function () {
                                 
 
                                 eventButtons_.push({
-                                    "title": resultEvent[j].name +' '+ resultEvent[j].category.name,
+                                    "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                                     "image_url": '',
                                     "subtitle": resultEvent[j].performances[0].performer.name +  ' ' + resultEvent[j].venue.name  +" "+  now,
                                     "default_action": {
@@ -79,7 +79,7 @@ module.exports = function () {
                             
                             for (var z = 0, k = gButtons.length; z < k; z++) {
 
-                                imageCards(gButtons[z].title, z, function (err, images, index) {
+                                imageCards(gButtons[z].title  + 'event', z, function (err, images, index) {
                                     
                                     var imageIndex = Math.round(Math.random()*images.length);
 
