@@ -659,9 +659,6 @@ function startTevoModuleWithMlink(referral, senderId) {
     var mlinks = 'mlinks/';
     var request = require('request');
     console.log("URL CONSULTA>>>>>>>>>>>>>>>" + baseURL + mlinks + referral);
-
-
-
     var TevoModule = require('../modules/tevo_request');
     TevoModule.start(senderId, referral);
 
