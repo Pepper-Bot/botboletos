@@ -52,7 +52,7 @@ module.exports = function () {
 
                                 eventButtons_.push({
                                     "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
-                                    "image_url": '',
+                                    "image_url": resultEvent[j].category.name,
                                     "subtitle": resultEvent[j].performances[0].performer.name +  ' ' + resultEvent[j].venue.name  +" "+  now,
                                     "default_action": {
                                         "type": "web_url",
@@ -78,8 +78,10 @@ module.exports = function () {
                             counter = 0;
                             
                             for (var z = 0, k = gButtons.length; z < k; z++) {
+                                
 
-                                imageCards(gButtons[z].title  + 'event', z, function (err, images, index) {
+
+                                imageCards(gButtons[z].title  + ' event ' + gButtons[z].image_url, z, function (err, images, index) {
                                     
                                     var imageIndex = Math.round(Math.random()*images.length);
 
