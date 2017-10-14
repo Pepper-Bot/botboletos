@@ -77,17 +77,17 @@ module.exports = function () {
                             gButtons = eventButtons_;
                             counter = 0;
                             
-                            for (var z = 0, k = gButtons.length; z < k; z++) {
+                            for (var z = 0, k = eventButtons_.length; z < k; z++) {
 
-                                imageCards(gButtons[z].title, z, function (err, images, index) {
+                                imageCards(eventButtons_[z].title + " "+ eventButtons_[z].category.name, z, function (err, images, index) {
                                     
                                     var imageIndex = Math.round(Math.random()*images.length);
 
-                                    gButtons[index].image_url = images[imageIndex].url;
+                                    eventButtons_[index].image_url = images[imageIndex].url;
                                     counter++;
-                                    if (counter == gButtons.length) {
-                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
-                                        Message.genericButton(senderId, gButtons);
+                                    if (counter == eventButtons_.length) {
+                                        console.log("ENTRE A eventButtons_:::::::>>>" + eventButtons_[index].image_url);
+                                        Message.genericButton(senderId, eventButtons_);
                                     }
 
 
