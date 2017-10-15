@@ -13,7 +13,7 @@ module.exports = function () {
 
 
             //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_tickets=all'
-            var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q='+ event_name+'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+            var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q='+ event_name+'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at DESC'
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
             var event_id = 0;
@@ -83,8 +83,8 @@ module.exports = function () {
 
                                 imageCards('event ' + gButtons[z].title  + ' '+ gButtons[z].image_url, z, function (err, images, index) {
                                     var imageIndex = 0 ;
-                                    if(images.length>=20){
-                                        imageIndex = Math.round(Math.random()*20);
+                                    if(images.length>=30){
+                                        imageIndex = Math.round(Math.random()*30);
                                     }else{
                                         imageIndex = Math.round(Math.random()*images.length);
                                     }
