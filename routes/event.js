@@ -40,7 +40,7 @@ router.get('/', function(req, res) {
 
 		// Llamos a la API de eventos y traemos un listado de fechas.
 		teClient.getJSON(process.env.API_URL+'events/?page=1&per_page=50&performer_id='+performer_id+'&venue_id='+venue_id+'&only_with_tickets=all').then((json) => {
-
+            console.log('ENTRE AL EVENTOO>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
 			var htmlHeader = '<!DOCTYPE html><html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no"> <base href="https://ticketdelivery.herokuapp.com/"> <title>Book</title><!--Import Google Icon Font--> <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!--Import materialize.css--> <link type="text/css" rel="stylesheet" href="https://ticketdelivery.herokuapp.com/css/materialize.min.css" media="screen,projection"/> <!--Let browser know website is optimized for mobile--> <meta name="viewport" content="width=device-width, initial-scale=1.0"/> </head> <body> <div class="container"> <div class="row left"> <h3 class="header left blue-text">{EVENT_NAME}</h3> <div class="section"> <div class="row">';
 			var boxEvent = ' <div class="col m12 m4"> <div class="card"> <div class="card-image"> <img src="{IMAGE_EVENT}"> <span style="display:none;" class="card-title">{EVENT_NAME}</span> </div> <div class="card-content"> <p>{EVENT_DESCRIPTION} </p> <div class="card-action"> <p><a class="btn blue" href="{URL_PURCHASE_TICKET}">Purchase Ticket</a></p> </div> </div> </div> </div>';
 
