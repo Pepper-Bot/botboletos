@@ -37,7 +37,7 @@ router.get('/', function(req, res) {
 	/*
 	UserData2.findOne({fbId: fbId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result)
 	{	*/
-
+        console.log('requestttttttttttttttttttttttt>>>>>>>>>>>>>>>>>>>>>>>>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
 		// Llamos a la API de eventos y traemos un listado de fechas.
 		teClient.getJSON(process.env.API_URL+'events/?page=1&per_page=50&performer_id='+performer_id+'&venue_id='+venue_id+'&only_with_tickets=all').then((json) => {
             console.log('ENTRE AL EVENTOO>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
