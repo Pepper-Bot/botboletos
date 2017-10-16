@@ -39,8 +39,8 @@ router.get('/', function (req, res) {
 
 
     API_URL  = API_URL+  consulta;
-    
-    console.log('API URL >>>>>>>>>>>>>>>>>' + consulta);
+
+    console.log('API URL >>>>>>>>>>>>>>>>>' + API_URL);
 
  
     teClient.getJSON(API_URL).then((json) => {
