@@ -33,7 +33,7 @@ router.get('/', function (req, res) {
         return;
     }
     var API_URL = 'https://api.ticketevolution.com/v9/';
-    API_URL += 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&only_with_tickets=all';
+    API_URL  = API_URL+ 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&only_with_tickets=all';
     console.log('API URL >>>>>>>>>>>>>>>>>' + API_URL);
 
  
