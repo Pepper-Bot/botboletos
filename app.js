@@ -11,6 +11,20 @@ var index = require('./routes/index');
 //var users = require('./routes/users');
 var webhook = require('./routes/webhook');
 var storeUrl = require('./routes/redirect');
+var ticketSales = require('./routes/event');
+
+var index = require('./routes/index');
+//var users = require('./routes/users');
+var webhook = require('./routes/webhook');
+var storeUrl = require('./routes/redirect');
+var ticketSales = require('./routes/event');
+var ticketGroups = require('./routes/groups');
+var checkout = require('./routes/checkout');
+var payment = require('./routes/pay');
+var finish = require('./routes/finish');
+var email = require('./routes/email');
+
+
 
 var ChatBox = require('./bot/chatbox');
 // prueba alexis
@@ -57,6 +71,15 @@ app.use('/', index);
 //app.use('/users', users);
 app.use('/webhook2/', webhook);
 app.use('/redirect/', storeUrl);
+app.use('/event/', ticketSales);
+
+app.use('/tickets/', ticketGroups);
+app.use('/checkout/',checkout);
+app.use('/pay/',payment);
+app.use('/finish/',finish); // finishing checkout / creating orders and payments
+app.use('/pruebamail/', email);
+
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
