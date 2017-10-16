@@ -32,15 +32,12 @@ router.get('/', function (req, res) {
         res.end();
         return;
     }
-    var API_URL = 'https://api.ticketevolution.com/v9/';
+    var API_URL = 'https://api.ticketevolution.com/v9/events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&only_with_tickets=all';
 
 
-    var consulta = 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&only_with_tickets=all';
+ 
 
-
-    API_URL  = API_URL+  consulta;
-
-    console.log('API URL >>>>>>>>>>>>>>>>>' + API_URL);
+    console.log('API URL >>>>>>>>>>>>>>>>>' + API_URL); 
 
  
     teClient.getJSON(API_URL).then((json) => {
