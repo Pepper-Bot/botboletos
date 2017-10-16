@@ -13,6 +13,7 @@ module.exports = function () {
 
 
             //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_tickets=all'
+            
             var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q='+ event_name+'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at DESC'
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
@@ -30,7 +31,8 @@ module.exports = function () {
                             resultEvent = json.events;
                             var eventButtons_ = [];
                             var callsGis = 0;
-                            var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
+                            //var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
+                            var baseURL = 'https://botboletos.herokuapp.com/event/?event_id=';
 
                             if (resultEvent.length > 10) {
                                 resultEvent.splice(10, resultEvent.length - 10);

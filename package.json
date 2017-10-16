@@ -13,9 +13,12 @@
     "debug": "~2.6.3",
     "dotenv": "^4.0.0",
     "express": "~4.15.2",
+    "g-i-s": "^2.0.0",
     "jade": "~1.11.0",
+    "moment": "^2.19.1",
     "mongoose": "^4.9.5",
     "morgan": "~1.8.1",
+    "nodemailer": "^4.2.0",
     "request": "^2.81.0",
     "serve-favicon": "~2.4.2",
     "ticketevolution-node": "^1.1.0"
