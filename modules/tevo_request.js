@@ -32,7 +32,7 @@ module.exports = function () {
                             var eventButtons_ = [];
                             var callsGis = 0;
                             //var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
-                            var baseURL = 'https://botboletos.herokuapp.com/event/?event_id=';
+                            var baseURL = 'https://botboletos-test.herokuapp.com/event/?event_id=';
 
                             if (resultEvent.length > 10) {
                                 resultEvent.splice(10, resultEvent.length - 10);
