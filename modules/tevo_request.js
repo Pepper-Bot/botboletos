@@ -20,7 +20,7 @@ module.exports = function () {
             var event_id = 0;
             if (tevoClient) {
                 tevoClient.getJSON(urlApiTevo).then((json) => {
-                    Message.sendMessage(senderId, "Obteniendo Eventos:");
+                    Message.sendMessage(senderId, "Getting Events:");
                     if (json.error) {
                         Message.sendMessage(senderId, json.error);
                     } else {
