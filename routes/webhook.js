@@ -111,7 +111,7 @@ function processMessage(senderId, textMessage) {
             }
         });
 
-    } else if ("Find my Event" === textMessage.toLowerCase()) {
+    } else if ("Find my event.." === textMessage.toLowerCase()) {
 
         UserData.getInfo(senderId, function (err, result) {
             console.log('Dentro de UserData');
