@@ -76,53 +76,70 @@ router.post('/', function (req, res) {
 });
 
 function processMessage(senderId, textMessage) {
-    if (!context) {
+    if (context) {
+        switch (context) {
+            case 'find_my_event':
+                {
+                    startTevoModuleWithMlink(textMessage, senderId);
+                }
+                break;
+            default:
+                {
 
-    } else {
-        if (context == 'find_my_event') {
-            startTevoModuleWithMlink(textMessage, senderId);  
+
+                }
+                break;
         }
     }
 
+
     if ('start again' === textMessage.toLowerCase()) {
-
-        UserData.getInfo(senderId, function (err, result) {
-            console.log('Dentro de UserData');
-            if (!err) {
-
-                var bodyObj = JSON.parse(result);
-                console.log(result);
-
-                var name = bodyObj.first_name;
-
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, result) {
-
-                    var greeting = "Hi " + name;
-                    var messagetxt = greeting + ", what would you like to do?";
-
-                    var GreetingsReply = require('../modules/greetings');
-                    GreetingsReply.send(Message, senderId, messagetxt);
-
-                });
-
-
-            }
-        });
+        startAgainFBResponse(senderId, textMessage)
     } else {
-
-        var DefaultReply = require('../modules/defaultreply');
-        DefaultReply.send(Message, senderId);
-
-
-        // Message.typingOff(senderId);
+        if (!context) {
+            if (context =='')
+            defaultReplayFBResponse(senderId);
+        }
     }
 }
+
+function startAgainFBResponse(senderId, textMessage) {
+
+    UserData.getInfo(senderId, function (err, result) {
+        console.log('Dentro de UserData');
+        if (!err) {
+
+            var bodyObj = JSON.parse(result);
+            console.log(result);
+
+            var name = bodyObj.first_name;
+
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, result) {
+
+                var greeting = "Hi " + name;
+                var messagetxt = greeting + ", what would you like to do?";
+
+                var GreetingsReply = require('../modules/greetings');
+                GreetingsReply.send(Message, senderId, messagetxt);
+
+            });
+        }
+    });
+
+}
+
+function defaultReplayFBResponse(senderId) {
+    var DefaultReply = require('../modules/defaultreply');
+    DefaultReply.send(Message, senderId);
+}
+
+
 
 function processLocation(senderId, locationData) {
 
