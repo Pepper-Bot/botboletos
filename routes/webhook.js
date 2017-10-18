@@ -115,7 +115,7 @@ function processMessage(senderId, textMessage) {
 
 
         console.log('Dentro de  FIND MY EVENT.........................>>>>>>>>>>>>>><<');
-      
+
 
     } else {
 
@@ -451,8 +451,8 @@ function processPostback(event) {
 
 
         case "FIND_MY_EVENT":
-            Message.sendMessage(senderId, 'entrando a buscar eventos...');
-            console.log(">>>>>>>>>FIND EVENTS<<<<<<<<<<");
+            find_my_event(senderId);
+
 
             break;
 
@@ -537,6 +537,46 @@ function saluda(senderId) {
     });
 };
 
+
+
+
+
+
+function find_my_event(senderId) {
+
+    // Metemos el ID
+    UserData.getInfo(senderId, function (err, result) {
+        if (!err) {
+
+            var bodyObj = JSON.parse(result);
+            console.log(result);
+
+
+            var User = new UserData2; {
+                User.fbId = senderId;
+                User.firstName = bodyObj.first_name;
+                User.LastName = bodyObj.last_name;
+                User.profilePic = bodyObj.profile_pic;
+                User.locale = bodyObj.locale;
+                User.timeZone = bodyObj.timezone;
+                User.gender = bodyObj.gender;
+                User.messageNumber = 1;
+
+                User.save();
+            }
+
+
+
+            var name = bodyObj.first_name;
+            var greeting = "Hi " + name;
+            var messagetxt = greeting + ", Pleas enter your favorite artist, sport  team or event.";
+
+             
+
+
+        }
+    });
+};
 
 function handleReferrals(event) {
     // Handle Referrals lo que hace  es verificar si el short link viene de una ventana nueva
