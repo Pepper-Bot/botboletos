@@ -77,6 +77,8 @@ router.post('/', function (req, res) {
 
 function processMessage(senderId, textMessage) {
     if (!context) {
+        Message.sendMessage(senderId, 'contexto en blanco');
+    }else{
         Message.sendMessage(senderId, 'este es el contexto' + context);
     }
 
