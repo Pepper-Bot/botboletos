@@ -571,6 +571,7 @@ function find_my_event(senderId) {
             var greeting = "Hi " + name;
             var messagetxt = greeting + ", Pleas enter your favorite artist, sport  team or event.";
 
+            context = 'find_my_event'
             Message.sendMessage(senderId, messagetxt);
 
 
