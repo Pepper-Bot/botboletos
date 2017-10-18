@@ -104,7 +104,6 @@ function processMessage(senderId, textMessage) {
 }
 
 function startAgainFBResponse(senderId, textMessage) {
-
     UserData.getInfo(senderId, function (err, result) {
         console.log('Dentro de UserData');
         if (!err) {
