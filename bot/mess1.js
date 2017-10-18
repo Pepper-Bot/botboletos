@@ -18,7 +18,7 @@ var _0x6b64 = [
     "exports"//15
 ];
 var BotMessages = function () {
-    var request = require(_0x6b64[0]);
+    var request = require('request');
     return {
         /**
          * @param {string} term
