@@ -113,34 +113,9 @@ function processMessage(senderId, textMessage) {
 
     } else if ("Find my event.." === textMessage.toLowerCase()) {
 
-        UserData.getInfo(senderId, function (err, result) {
-            console.log('Dentro de UserData');
-            if (!err) {
 
-                var bodyObj = JSON.parse(result);
-                console.log(result);
-
-                var name = bodyObj.first_name;
-
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, result) {
-
-                    var greeting = "Hi " + name;
-                    var messagetxt = greeting + ", Please Enter your favorite artist, sport  team or event...";
-                    Message.sendMessage(senderId, messagetxt);
-                    context = 'find_event'
-
-                });
-
-
-            }
-        });
-
+        console.log('Dentro de  FIND MY EVENT.........................>>>>>>>>>>>>>><<');
+      
 
     } else {
 
@@ -475,27 +450,11 @@ function processPostback(event) {
     switch (payload) {
 
 
-        case "TIBURON1":
-            Message.sendMessage(senderId, 'Le picaste al tiburon 1');
-            console.log(">>>>>>>>>TIBURON1<<<<<<<<<<");
-            break;
-        case "TIBURON2":
-            Message.sendMessage(senderId, 'Le picaste al tiburon 2');
-            console.log(">>>>>>>>>TIBURON2<<<<<<<<<<");
-            break;
-        case "TIBURON3":
-            Message.sendMessage(senderId, 'Le picaste al tiburon 3');
-            console.log(">>>>>>>>>TIBURON3<<<<<<<<<<");
-            break;
-        case "TIBURON4":
-            Message.sendMessage(senderId, 'Le picaste al tiburon 4');
-            console.log(">>>>>>>>>TIBURON4<<<<<<<<<<");
-            break;
-        case "TIBURON5":
-            Message.sendMessage(senderId, 'Le picaste al tiburon 5');
-            console.log(">>>>>>>>>TIBURON5<<<<<<<<<<");
-            break;
+        case "FIND_MY_EVENT":
+            Message.sendMessage(senderId, 'entrando a buscar eventos...');
+            console.log(">>>>>>>>>FIND EVENTS<<<<<<<<<<");
 
+            break;
 
 
 
