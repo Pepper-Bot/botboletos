@@ -4,6 +4,7 @@ var request = require('request');
 var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
+var context = '';
 //--
 
 var datos = {}; // Para saber si estamos o no con el ID
@@ -75,6 +76,9 @@ router.post('/', function (req, res) {
 });
 
 function processMessage(senderId, textMessage) {
+    if (!context) {
+        Message.sendMessage(senderId, 'este es el contexto' + context);
+    }
 
     if ('start again' === textMessage.toLowerCase()) {
 
@@ -106,6 +110,37 @@ function processMessage(senderId, textMessage) {
 
             }
         });
+
+    } else if ("Find my Event" === textMessage.toLowerCase()) {
+
+        UserData.getInfo(senderId, function (err, result) {
+            console.log('Dentro de UserData');
+            if (!err) {
+
+                var bodyObj = JSON.parse(result);
+                console.log(result);
+
+                var name = bodyObj.first_name;
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, result) {
+
+                    var greeting = "Hi " + name;
+                    var messagetxt = greeting + ", Please Enter your favorite artist, sport  team or event...";
+                    Message.sendMessage(senderId, messagetxt);
+                    context = 'find_event'
+
+                });
+
+
+            }
+        });
+
 
     } else {
 
@@ -663,29 +698,29 @@ function startTevoModuleWithMlink(referral, senderId) {
     TevoModule.start(senderId, referral);
 
 
-   /* request({
-            url: baseURL + mlinks + referral,
-            qs: {
+    /* request({
+             url: baseURL + mlinks + referral,
+             qs: {
 
-            },
-            method: 'GET'
-        },
-        function (error, response, body) {
-            if (!error) {
-                var body = JSON.parse(body);
-                if (body.mlinks[0].mlink) {
-                    var event_name = body.mlinks[0].mlink;
-                    //console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body.mlinks[0].id_evento);
-                    var TevoModule = require('../modules/tevo_request');
-                    TevoModule.start(senderId, event_name);
+             },
+             method: 'GET'
+         },
+         function (error, response, body) {
+             if (!error) {
+                 var body = JSON.parse(body);
+                 if (body.mlinks[0].mlink) {
+                     var event_name = body.mlinks[0].mlink;
+                     //console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body.mlinks[0].id_evento);
+                     var TevoModule = require('../modules/tevo_request');
+                     TevoModule.start(senderId, event_name);
 
 
-                } else {
-                    console.log("Records no found");
-                }
-            }
+                 } else {
+                     console.log("Records no found");
+                 }
+             }
 
-        });*/
+         });*/
 }
 
 
