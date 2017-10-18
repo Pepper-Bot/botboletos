@@ -28,8 +28,8 @@ var email = require('./routes/email');
 
 var ChatBox = require('./bot/chatbox');
 // prueba alexis
-
-ChatBox.unsetGreetingText(); // Reset Greetings
+ChatBox.composer_input_disabled(false);
+//ChatBox.unsetGreetingText(); // Reset Greetings
 ChatBox.startButton('Greetings');
 ChatBox.greetingText('Pepper automatically finds relevant restaurants & bars for you by learning your habits','default');
 
