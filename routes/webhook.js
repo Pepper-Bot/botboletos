@@ -77,9 +77,11 @@ router.post('/', function (req, res) {
 
 function processMessage(senderId, textMessage) {
     if (!context) {
-        Message.sendMessage(senderId, 'contexto en blanco');
-    }else{
-        Message.sendMessage(senderId, 'este es el contexto' + context);
+
+    } else {
+        if (context == 'find_my_event') {
+            startTevoModuleWithMlink(textMessage, senderId);  
+        }
     }
 
     if ('start again' === textMessage.toLowerCase()) {
@@ -112,13 +114,6 @@ function processMessage(senderId, textMessage) {
 
             }
         });
-
-    } else if ("Find my event.." === textMessage.toLowerCase()) {
-
-
-        console.log('Dentro de  FIND MY EVENT.........................>>>>>>>>>>>>>><<');
-
-
     } else {
 
         var DefaultReply = require('../modules/defaultreply');
