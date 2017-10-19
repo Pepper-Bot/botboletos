@@ -53,9 +53,34 @@ router.get('/calendar', function(req, res) {
   var html =  '<!doctype html> <html>'+
 	'<head>'+
 		'<title>calendar</title>'+
-		'<script src="https://code.jquery.com/jquery-1.12.4.js"></script>'+
+		'<script>'+
+
+
+				(function (d, s, id) {
+					var js, fjs = d.getElementsByTagName(s)[0];
+					if (d.getElementById(id)) {
+						return;
+					}
+					js = d.createElement(s);
+					js.id = id;
+					js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";
+					fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'Messenger'));
+			
+			
+				window.extAsyncInit = function () {
+					// the Messenger Extensions JS SDK is done loading 
+					MessengerExtensions.getUserID(function success(uids) {
+						var psid = uids.psid;
+			
+					}, function error(err) {
+			
+					});
+				};
+		 
+		 +'</script>'+
 	'</head>'+
-	'</html>'
+	'</html>';
 
 	res.status(200).send(html);
 
