@@ -556,8 +556,6 @@ function saluda(senderId) {
 
 
 function find_my_event(senderId) {
-
-    // Metemos el ID
     UserData.getInfo(senderId, function (err, result) {
         if (!err) {
 
@@ -578,19 +576,18 @@ function find_my_event(senderId) {
                 User.save();
             }
 
-
-
             var name = bodyObj.first_name;
             var greeting = "Hi " + name;
-            var messagetxt = greeting + ", Pleas enter your favorite artist, sport  team or event.";
+            var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
 
             context = 'find_my_event'
             Message.sendMessage(senderId, messagetxt);
 
-
         }
     });
 };
+
+
 
 function handleReferrals(event) {
     // Handle Referrals lo que hace  es verificar si el short link viene de una ventana nueva

@@ -1,10 +1,10 @@
 module.exports = function () {
     return {
-        start: function (senderId, event_name) {
+        start: function (senderId, event_name, locationData) {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
-            var dateFormat = require('dateformat');
+            var moment = require('moment');
 
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
@@ -13,8 +13,19 @@ module.exports = function () {
 
 
             //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_tickets=all'
+            var urlApiTevo ='';
+
+            if (event_name && !locationData) {
+                urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+            }
+            else if( !event_name &&  locationData){
+                urlApiTevo = 'https://api.ticketevolution.com/v9/events?lat=' + locationData.lat +'&lon='+locationData.lon+ '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+            }else if(!event_name &&  locationData){
+                urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&lat=' + locationData.lat +'&lon='+locationData.lon+ +'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+            }
             
-            var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q='+ event_name+'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at DESC'
+
+
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
             var event_id = 0;
@@ -31,8 +42,8 @@ module.exports = function () {
                             resultEvent = json.events;
                             var eventButtons_ = [];
                             var callsGis = 0;
-                            //var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
-                            var baseURL = 'https://botboletos-test.herokuapp.com/event/?event_id=';
+                            var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
+
 
                             if (resultEvent.length > 10) {
                                 resultEvent.splice(10, resultEvent.length - 10);
@@ -44,18 +55,17 @@ module.exports = function () {
 
 
                                 var date = resultEvent[j].occurs_at_local;
-                                var now = new Date(date);
-                                dateFormat(now, "dddd, mmmm d, yyyy, h:MM TT");
-                                
-                                
-                                 
+                                var now = moment(date).format('dddd') + ', ' + moment(date).format('MMMM Do YYYY, h:mm a')
 
-                                
+
+
+
+
 
                                 eventButtons_.push({
                                     "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                                     "image_url": resultEvent[j].category.name,
-                                    "subtitle": resultEvent[j].performances[0].performer.name +  ' ' + resultEvent[j].venue.name  +" "+  now,
+                                    "subtitle": resultEvent[j].venue.name + " " + now,
                                     "default_action": {
                                         "type": "web_url",
                                         "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
@@ -78,19 +88,19 @@ module.exports = function () {
                             gButtons = null;
                             gButtons = eventButtons_;
                             counter = 0;
-                            
+
                             for (var z = 0, k = gButtons.length; z < k; z++) {
-                                
 
 
-                                imageCards('event ' + gButtons[z].title  + ' '+ gButtons[z].image_url, z, function (err, images, index) {
-                                    var imageIndex = 0 ;
-                                    if(images.length>=30){
-                                        imageIndex = Math.round(Math.random()*30);
-                                    }else{
-                                        imageIndex = Math.round(Math.random()*images.length);
+
+                                imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
+                                    var imageIndex = 0;
+                                    if (images.length >= 30) {
+                                        imageIndex = Math.round(Math.random() * 30);
+                                    } else {
+                                        imageIndex = Math.round(Math.random() * images.length);
                                     }
-                                     
+
 
                                     gButtons[index].image_url = images[imageIndex].url;
                                     counter++;
@@ -102,10 +112,12 @@ module.exports = function () {
 
                                 });
 
-                            
-                            
+
+
                             }
 
+                        }else{
+                            //busqueda en la otra api
                         }
 
 
@@ -122,8 +134,8 @@ module.exports = function () {
 }();
 
 
-function toJSONLocal (date) {
-  
+function toJSONLocal(date) {
+
 }
 
 
