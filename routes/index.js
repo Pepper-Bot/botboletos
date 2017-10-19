@@ -50,7 +50,7 @@ router.get('/', function(req, res) {
 
 
 router.get('/calendar', function(req, res) {
-  var html =  " <html>"+
+  var html =  "<!doctype html> <html>"+
 	"<head>"+
 		"<title>calendar</title>"+
 		"<script>"+
@@ -60,7 +60,7 @@ router.get('/calendar', function(req, res) {
 					"return;"+
 				"}"+
 				"js = d.createElement(s);"+
-				"js.id = id;"
+				"js.id = id;"+
 				"js.src = '//connect.facebook.com/en_US/messenger.Extensions.js';"+
 				"fjs.parentNode.insertBefore(js, fjs);"+
 			"}(document, 'script', 'Messenger'));"+
@@ -75,13 +75,10 @@ router.get('/calendar', function(req, res) {
 	
 			"});"+
 		"};"+
-	
-		
 		"</script>"+
 	"</head>"+
-	
 	"</html>"+
-	
+
 	res.status(200).send(html);
 
 
