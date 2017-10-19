@@ -169,8 +169,14 @@ function processLocation(senderId, locationData) {
 
                 } else if ('Events' == lastSelected) {
 
-                    var Events = require('../modules/events');
-                    Events.get(Message, result, locationData);
+                   /* var Events = require('../modules/events');
+                    Events.get(Message, result, locationData);*/
+
+                    console.log('Se encuentra que guardó la selección de Events y se prosigue a buscar el evento');
+
+                    var Evo = require('../modules/ticketevo');
+                    Evo.get(Message, result, locationData);
+
 
                 } else if ('Drinks' == lastSelected) {
 
@@ -465,13 +471,18 @@ function processPostback(event) {
             {
 
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
+                context = 'find_my_event';
             }
             break;
 
             case "find_my_event_by_location":{
+
+
                 Message.markSeen(senderId);
                 Message.getLocation(senderId, 'What location would you like to catch a show?');
                 Message.typingOn(senderId);
+                saveUserSelection(senderId, 'Events');
+                context = 'find_my_event_by_location';
             
             }
             break;
@@ -514,6 +525,33 @@ function processPostback(event) {
 
 
 }
+function saveUserSelection( senderId, selection){
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, result) {
+    
+        if (!err) {
+            if (null != result) {
+                result.optionsSelected.push(selection);
+                result.save(function (err) {
+                    if (!err) {
+    
+                        console.log('Guardamos la seleccion de '+ selection );
+                    } else {
+                        console.log('Error guardando selección')
+                    }
+                });
+            }
+        }
+    
+    });
+}
+
+
 
 // sends message to user
 
