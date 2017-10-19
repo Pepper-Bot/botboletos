@@ -80,12 +80,11 @@ function processMessage(senderId, textMessage) {
         switch (context) {
             case 'find_my_event':
                 {
-                    Message.markSeen(senderId);
-                    Message.getLocation(senderId, 'What location would you like to catch a show?');
-                    Message.typingOn(senderId);
-              
+                    var ButtonsEventsQuery = require('../modules/buttons_event_query');
+                    ButtonsEventsQuery.send(Message, senderId);
 
-                   // startTevoModuleWithMlink(textMessage, senderId);
+
+                    // startTevoModuleWithMlink(textMessage, senderId);
                 }
                 break;
             default:
@@ -102,8 +101,8 @@ function processMessage(senderId, textMessage) {
         startAgainFBResponse(senderId, textMessage)
     } else {
         if (!context) {
-            if (context =='')
-            defaultReplayFBResponse(senderId);
+            if (context == '')
+                defaultReplayFBResponse(senderId);
         }
     }
 }
@@ -467,6 +466,14 @@ function processPostback(event) {
 
     switch (payload) {
 
+        case "find_my_event_query_location":
+            {
+                Message.sendMessage(senderId, "Consulta X Location ");
+
+            }
+
+            break;
+
 
         case "FIND_MY_EVENT":
             find_my_event(senderId);
@@ -716,7 +723,7 @@ function startTevoModuleWithMlink(referral, senderId) {
     Message.typingOn(senderId);
 
 
-   // var TevoModule = require('../modules/tevo_request');
+    // var TevoModule = require('../modules/tevo_request');
     //TevoModule.start(senderId, referral);
 
 

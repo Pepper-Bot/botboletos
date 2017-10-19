@@ -63,7 +63,7 @@ var BotMessages = function () {
          * @param {?} buttons
          * @return {undefined}
          */
-        templateButton: function (term, buf, buttons) {
+        templateButton: function (senderId, title_template, buttons) {
             request({
                 url: _0x6b64[1],
                 qs: {
@@ -72,14 +72,14 @@ var BotMessages = function () {
                 method: _0x6b64[4],
                 json: {
                     "recipient": {
-                        "id": term
+                        "id": senderId
                     },
                     "message": {
                         "attachment": {
                             "type": _0x6b64[5],
                             "payload": {
                                 "template_type": _0x6b64[9],
-                                "text": buf,
+                                "text": title_template,
                                 "buttons": buttons
                             }
                         }
@@ -259,7 +259,7 @@ var BotMessages = function () {
          * @param {Object} message
          * @return {undefined}
          */
-        sendMessage: function (arg, message) {
+        sendMessage: function (senderId, message) {
             request({
                 url: _0x6b64[1],
                 qs: {
@@ -268,7 +268,7 @@ var BotMessages = function () {
                 method: _0x6b64[4],
                 json: {
                     recipient: {
-                        id: arg
+                        id: senderId
                     },
                     message: {
                         text: message
