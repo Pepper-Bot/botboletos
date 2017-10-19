@@ -583,12 +583,12 @@ function find_my_event(senderId) {
 
             var name = bodyObj.first_name;
             var greeting = "Hi " + name;
-            var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
+            //var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
 
             context = 'find_my_event'
             Message.sendMessage(senderId, messagetxt);
             var ButtonsEventsQuery = require('../modules/buttons_event_query');
-            ButtonsEventsQuery.send(Message, senderId);
+            ButtonsEventsQuery.send(Message, senderId, greeting );
 
         }
     });

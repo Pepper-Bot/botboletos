@@ -2,33 +2,32 @@ module.exports = function () {
 
     return {
 
-        send: function (Message, senderId) {
-            console.log('Entre al SEND DE BUTTONS QUERY EVENTSS!!!! -......... ----->>>>>');
+        send: function (Message, senderId,greeting) {
+           
 
             Message.typingOn(senderId);
             Message.markSeen(senderId);
             Message.typingOn(senderId);
 
-            var buttons = [{
-                    "type": "postback",
-                    "title": "Location",
-                    "payload": "find_my_event_query_location"
-                },
+            var buttons = [
                 {
                     "type": "postback",
                     "title": "Event Name",
-                    "payload": "find_my_event_query_name"
+                    "payload": "find_my_event_by_name"
+                },
+                {
+                    "type": "postback",
+                    "title": "Location",
+                    "payload": "find_my_event_by_location"
                 },
                 {
                     "type": "postback",
                     "title": "Date",
-                    "payload": "find_my_event_query_date"
+                    "payload": "find_my_event_by_date"
                 }
             ];
 
-            
-            console.log('Esta es mi  template de bottones !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1'+ JSON.stringify(buttons) );
-            Message.templateButton(senderId, "You can make your query with:", buttons);
+            Message.templateButton(senderId,  greeting + "!. You can find  your  artist,  team or event, please choose a option:", buttons);
             Message.typingOff(senderId);
 
         }
