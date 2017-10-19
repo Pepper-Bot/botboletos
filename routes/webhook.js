@@ -80,10 +80,7 @@ function processMessage(senderId, textMessage) {
         switch (context) {
             case 'find_my_event':
                 {
-
-
-
-                    // startTevoModuleWithMlink(textMessage, senderId);
+                    startTevoModuleWithMlink(textMessage, senderId);
                 }
                 break;
             default:
@@ -464,8 +461,12 @@ function processPostback(event) {
     var payload = event.postback.payload;
 
     switch (payload) {
+        case "find_my_event_by_name":
+            {
 
-
+                Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
+            }
+            break;
 
 
         case "FIND_MY_EVENT":
@@ -588,7 +589,7 @@ function find_my_event(senderId) {
             context = 'find_my_event'
             Message.sendMessage(senderId, messagetxt);
             var ButtonsEventsQuery = require('../modules/buttons_event_query');
-            ButtonsEventsQuery.send(Message, senderId, greeting );
+            ButtonsEventsQuery.send(Message, senderId, greeting);
 
         }
     });
@@ -713,13 +714,9 @@ function startTevoModuleWithMlink(referral, senderId) {
     console.log("URL CONSULTA>>>>>>>>>>>>>>>" + baseURL + mlinks + referral);
 
 
-    Message.markSeen(senderId);
-    Message.getLocation(senderId, 'What location would you like to catch a show?');
-    Message.typingOn(senderId);
 
-
-    // var TevoModule = require('../modules/tevo_request');
-    //TevoModule.start(senderId, referral);
+    var TevoModule = require('../modules/tevo_request');
+    TevoModule.start(senderId, referral);
 
 
     /* request({
