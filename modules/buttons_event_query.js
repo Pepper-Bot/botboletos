@@ -16,11 +16,11 @@ module.exports = function () {
                 },
                 {
                     "type": "postback",
-                    "title": "event_name",
+                    "title": "Event Name",
                     "payload": "find_my_event_query_name"
                 },
                 {
-                    "content_type": "text",
+                    "type": "postback",
                     "title": "Date",
                     "payload": "find_my_event_query_date"
                 }
