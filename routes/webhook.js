@@ -80,6 +80,8 @@ function processMessage(senderId, textMessage) {
         switch (context) {
             case 'find_my_event':
                 {
+              
+
                     startTevoModuleWithMlink(textMessage, senderId);
                 }
                 break;
@@ -704,8 +706,15 @@ function startTevoModuleWithMlink(referral, senderId) {
     var mlinks = 'mlinks/';
     var request = require('request');
     console.log("URL CONSULTA>>>>>>>>>>>>>>>" + baseURL + mlinks + referral);
-    var TevoModule = require('../modules/tevo_request');
-    TevoModule.start(senderId, referral);
+
+
+    Message.markSeen(senderId);
+    Message.getLocation(senderId, 'What location would you like to catch a show?');
+    Message.typingOn(senderId);
+
+
+   // var TevoModule = require('../modules/tevo_request');
+    //TevoModule.start(senderId, referral);
 
 
     /* request({
