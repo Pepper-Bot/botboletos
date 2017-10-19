@@ -80,9 +80,12 @@ function processMessage(senderId, textMessage) {
         switch (context) {
             case 'find_my_event':
                 {
+                    Message.markSeen(senderId);
+                    Message.getLocation(senderId, 'What location would you like to catch a show?');
+                    Message.typingOn(senderId);
               
 
-                    startTevoModuleWithMlink(textMessage, senderId);
+                   // startTevoModuleWithMlink(textMessage, senderId);
                 }
                 break;
             default:
