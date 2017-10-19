@@ -25,7 +25,9 @@ module.exports = function () {
                     "payload": "find_my_event_query_date"
                 }
             ];
-            console.log('Esta es mi  template de bottones !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1'+ buttons);
+
+            
+            console.log('Esta es mi  template de bottones !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1'+ JSON.stringify(buttons) );
             Message.templateButton(senderId, "You can make your query with:", buttons);
             Message.typingOff(senderId);
 
