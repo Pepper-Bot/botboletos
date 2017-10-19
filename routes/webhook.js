@@ -80,8 +80,7 @@ function processMessage(senderId, textMessage) {
         switch (context) {
             case 'find_my_event':
                 {
-                    //var ButtonsEventsQuery = require('../modules/buttons_event_query');
-                    //ButtonsEventsQuery.send(Message, senderId);
+
 
 
                     // startTevoModuleWithMlink(textMessage, senderId);
@@ -588,6 +587,8 @@ function find_my_event(senderId) {
 
             context = 'find_my_event'
             Message.sendMessage(senderId, messagetxt);
+            var ButtonsEventsQuery = require('../modules/buttons_event_query');
+            ButtonsEventsQuery.send(Message, senderId);
 
         }
     });
