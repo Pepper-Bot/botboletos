@@ -63,7 +63,7 @@ router.get('/calendar', function(req, res) {
 					'}'+
 					'js = d.createElement(s);'+
 					'js.id = id;'+
-					'js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";'´+
+					'js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";'+
 					'fjs.parentNode.insertBefore(js, fjs);'
 				'}(document,'+ '"script"'+','+ '"Messenger"'+'));'+
 			
