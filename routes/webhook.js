@@ -80,8 +80,8 @@ function processMessage(senderId, textMessage) {
         switch (context) {
             case 'find_my_event':
                 {
-                    var ButtonsEventsQuery = require('../modules/buttons_event_query');
-                    ButtonsEventsQuery.send(Message, senderId);
+                    //var ButtonsEventsQuery = require('../modules/buttons_event_query');
+                    //ButtonsEventsQuery.send(Message, senderId);
 
 
                     // startTevoModuleWithMlink(textMessage, senderId);
@@ -466,13 +466,7 @@ function processPostback(event) {
 
     switch (payload) {
 
-        case "find_my_event_query_location":
-            {
-                Message.sendMessage(senderId, "Consulta X Location ");
 
-            }
-
-            break;
 
 
         case "FIND_MY_EVENT":
