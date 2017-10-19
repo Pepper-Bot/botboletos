@@ -468,6 +468,14 @@ function processPostback(event) {
             }
             break;
 
+            case "find_my_event_by_location":{
+                Message.markSeen(senderId);
+                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.typingOn(senderId);
+            
+            }
+            break;
+
 
         case "FIND_MY_EVENT":
             find_my_event(senderId);
