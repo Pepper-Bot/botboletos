@@ -27,7 +27,7 @@ module.exports = function () {
                 },
                 {
                     "type":"web_url",
-                    "url":"http://my_url_which_open_date_picker",
+                    "url":"https://extencion-bot.herokuapp.com/",
                     "title":"Select date",
                     "messenger_extensions": true,  
                     "webview_height_ratio": "compact"
