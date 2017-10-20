@@ -8,7 +8,7 @@ module.exports = function () {
 
 
             var repliesArray = [];
-            var monthsReplays = follow_months.follow_months(2).length;
+            var monthsReplays = follow_months.follow_months(2);
 
             for (var i = 0; i < monthsReplays.length; i++) {
                 repliesArray.push({
