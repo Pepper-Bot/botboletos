@@ -20,8 +20,14 @@ module.exports = function () {
                 }
 
                 currentDate = followMonth;
-                console.log('>>>>> MES DE FOLLOW_MONTHS' + moment(currentDate).format('MMM YYYY'));
+                
                 monthsReplays.push(currentDate);
+            }
+
+
+            for(var i = 0 ; i < monthsReplays.length; i ++){
+                console.log('>>>>> MES DE FOLLOW_MONTHS' + moment(monthsReplays[i]).format('MMM YYYY'));
+
             }
 
 
