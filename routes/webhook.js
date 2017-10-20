@@ -211,7 +211,7 @@ function processQuickReplies(event) {
     var payload = event.message.quick_reply.payload;
 
     var moment = require('moment');
-    var follow_months = require('../modules/follow_months')
+    var follow_months = require('../modules/follow_months');
 
 
     var monthsReplays = follow_months.follow_months(2);
@@ -224,6 +224,32 @@ function processQuickReplies(event) {
         }
 
     }
+
+    var tevo_categories = require('../modules/tevo_categories');
+    var repliesArray = [];
+    var parentCategories = tevo_categories.parentCategories();
+    var text = '';
+    for (var i = 0; i < parentCategories.length; i++) {
+
+        if (parentCategories[i].Sports) {
+            text = "Sports";
+        } else {
+            text = parentCategories[i].name;
+        }
+
+        if (payload == text) {
+            Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
+            break;
+
+        }
+
+
+
+    }
+
+
+
+
 
     switch (payload) {
 
@@ -473,35 +499,7 @@ function processQuickReplies(event) {
 }
 
 
-function inspeccionar2(obj) {
-    var msg = new Array();
 
-    for (var property in obj) {
-        if (typeof obj[property] == 'function') {
-            var inicio = obj[property].toString().indexOf('function');
-            var fin = obj[property].toString().indexOf(')') + 1;
-            var propertyValue = obj[property].toString().substring(inicio, fin);
-            msg[msg.length] = {
-                'type': (typeof obj[property]),
-                'name': property,
-                'value': propertyValue
-            };
-        } else if (typeof obj[property] == 'unknown') {
-            msg[msg.length] = {
-                'type': 'unknown',
-                'name': property,
-                value: 'unknown'
-            };
-        } else {
-            msg[msg.length] = {
-                'type': (typeof obj[property]),
-                'name': property,
-                'value': obj[property]
-            };
-        }
-    }
-    return msg;
-}
 
 function processPostback(event) {
 
