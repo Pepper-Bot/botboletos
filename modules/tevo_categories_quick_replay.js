@@ -12,7 +12,7 @@ module.exports = function () {
             for (var i = 0; i < parentCategories.length; i++) {
 
                 if (parentCategories[i].Sports) {
-                    text = parentCategories[i].Sports.name;
+                    text = "Sports";   
                 } else {
                     text = parentCategories[i].name;
                 }
