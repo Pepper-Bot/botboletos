@@ -39,7 +39,7 @@ module.exports = function () {
             var followMonthEnd;
             for (var i = 1; i <= 2; i++) {
 
-                var followMonth = moment(currentDate).add(1, 'M');
+                var followMonth = moment(currentDate).add(i, 'M');
                 var followMonthEnd = moment(followMonth).endOf('month');
 
                 if (currentDate.date() != followMonth.date() && followMonth.isSame(followMonthEnd.format('YYYY-MM-DD'))) {
