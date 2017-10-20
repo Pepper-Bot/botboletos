@@ -219,7 +219,7 @@ function processQuickReplies(event) {
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
             choosedMonth = moment(monthsReplays[i]).format('MMM YYYY')
-            Message.sendMessage(senderId, 'Mes escogido ' + monthsReplays[i]);
+            Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'));
             break;
         }
 
