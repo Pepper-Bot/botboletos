@@ -319,6 +319,31 @@ function searchParents(req, res) {
 
 
 
+function searchCategoriesByParentId(req, res) {
+	var parent_id = req.params.parent_id;
+	var TevoClient = require('ticketevolution-node');
+ 
+	var tevoClient = new TevoClient({
+		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
+		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
+	});
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/categories?parent_id='+parent_id 
+	console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
+	if (tevoClient) {
+		tevoClient.getJSON(urlApiTevo).then((json) => {
+			res.status(200).send(
+				 json
+			);
+ 
+ 
+		});
+	}
+ }
+
+ 
+
+
+
 
 
 
@@ -338,6 +363,8 @@ module.exports = {
 	searchEventByName,
 	searchEventByName1,
 	searchCategories,
-	searchParents
+	searchParents,
+	searchCategoriesByParentId
+	
 
 }
