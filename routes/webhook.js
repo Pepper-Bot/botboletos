@@ -169,8 +169,8 @@ function processLocation(senderId, locationData) {
 
                 } else if ('Events' == lastSelected) {
 
-                   /* var Events = require('../modules/events');
-                    Events.get(Message, result, locationData);*/
+                    /* var Events = require('../modules/events');
+                     Events.get(Message, result, locationData);*/
 
                     console.log('Se encuentra que guardó la selección de Events y se prosigue a buscar el evento');
 
@@ -210,8 +210,20 @@ function processQuickReplies(event) {
     var senderId = event.sender.id;
     var payload = event.message.quick_reply.payload;
 
-    console.log("PROPIEDADES DEL QUIK REPLY   "+inspeccionar2(event.message.quick_reply.text));
+    var moment = require('moment');
+    var follow_months = require('../modules/follow_months')
 
+
+    var monthsReplays = follow_months.follow_months(2);
+
+    for (var i = 0; i < monthsReplays.length; i++) {
+        if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
+            choosedMonth = moment(monthsReplays[i]).format('MMM YYYY')
+            Message.sendMessage(senderId, 'Mes escogido ' + choosedMonth);
+            break;
+        }
+
+    }
 
     switch (payload) {
 
@@ -505,7 +517,8 @@ function processPostback(event) {
             }
             break;
 
-            case "find_my_event_by_location":{
+        case "find_my_event_by_location":
+            {
 
 
                 Message.markSeen(senderId);
@@ -513,7 +526,7 @@ function processPostback(event) {
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
                 context = 'find_my_event_by_location';
-            
+
             }
             break;
 
@@ -555,7 +568,8 @@ function processPostback(event) {
 
 
 }
-function saveUserSelection( senderId, selection){
+
+function saveUserSelection(senderId, selection) {
     UserData2.findOne({
         fbId: senderId
     }, {}, {
@@ -563,21 +577,21 @@ function saveUserSelection( senderId, selection){
             'sessionStart': -1
         }
     }, function (err, result) {
-    
+
         if (!err) {
             if (null != result) {
                 result.optionsSelected.push(selection);
                 result.save(function (err) {
                     if (!err) {
-    
-                        console.log('Guardamos la seleccion de '+ selection );
+
+                        console.log('Guardamos la seleccion de ' + selection);
                     } else {
                         console.log('Error guardando selección')
                     }
                 });
             }
         }
-    
+
     });
 }
 
@@ -663,10 +677,10 @@ function find_my_event(senderId) {
             //var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
 
             context = 'find_my_event'
-           
+
             var ButtonsEventsQuery = require('../modules/months_replay');
             //var ButtonsEventsQuery = require('../modules/buttons_event_query');
-            
+
             ButtonsEventsQuery.send(Message, senderId, greeting);
 
         }
