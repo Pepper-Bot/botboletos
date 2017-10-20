@@ -17,6 +17,8 @@ module.exports = function () {
                     text = parentCategories[i].name;
                 }
 
+                console.log(">>>>>>>>>ESTE ES EL TEXT>>>>>>>"+text);
+
                 repliesArray.push({
                     "content_type": "text",
                     "title": text,
