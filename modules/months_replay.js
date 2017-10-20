@@ -23,7 +23,27 @@ module.exports = function () {
             console.log("la diferencia en dias es"+diferencia);  
 
 
+            var currMonthName  = moment().format('MMMM');
+            var prevMonthName  = moment().subtract(1, "month").format('MMMM');
             
+            console.log(currMonthName);
+            console.log(prevMonthName);
+
+
+            //var currentDate = moment('2015-10-30');
+            var currentDate = moment();
+            var futureMonth = moment(currentDate).add(1, 'M');
+            var futureMonthEnd = moment(futureMonth).endOf('month');
+            
+            if(currentDate.date() != futureMonth.date() && futureMonth.isSame(futureMonthEnd.format('YYYY-MM-DD'))) {
+                futureMonth = futureMonth.add(1, 'd');
+            }
+            
+            console.log(currentDate);
+            console.log(futureMonth);
+
+
+
 
 
 
