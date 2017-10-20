@@ -11,6 +11,7 @@ module.exports = function () {
             var followMonth;
             var followMonthEnd;
             for (var i = 1; i <= howmany; i++) {
+
                 followMonth = moment(currentDate).add(1, 'M');
                 followMonthEnd = moment(followMonth).endOf('month');
 
@@ -19,7 +20,7 @@ module.exports = function () {
                 }
 
                 currentDate = followMonth;
-
+                console.log('>>>>> MES DE FOLLOW_MONTHS' + currentDate);
                 monthsReplays.push(followMonth);
             }
 
