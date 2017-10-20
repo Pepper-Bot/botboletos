@@ -65,7 +65,7 @@ router.get("/api/events/:name", MLinkController.searchEventByName);
 router.get("/api/events1/:name", MLinkController.searchEventByName1);
 
 router.get("/api/categories", MLinkController.searchCategories);
-router.get("/api/parents", MLinkController.searchParents);
+router.get("/api/categories/:category_name", MLinkController.searchParents);
 
 
 
