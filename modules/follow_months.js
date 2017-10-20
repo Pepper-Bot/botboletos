@@ -2,16 +2,15 @@ module.exports = function () {
 
     return {
 
-        send: function (Message, senderId, messagetxt) {
+        follow_months: function (howmany) {
             var moment = require('moment');
-            var follow_months = require('./follow_months')
 
             var monthsReplays = new Array();
             var currentDate = moment();
             monthsReplays.push(currentDate);
             var followMonth;
             var followMonthEnd;
-            for (var i = 1; i <= 2; i++) {
+            for (var i = 1; i <= howmany; i++) {
                 followMonth = moment(currentDate).add(1, 'M');
                 followMonthEnd = moment(followMonth).endOf('month');
 
@@ -25,22 +24,7 @@ module.exports = function () {
             }
 
 
-            var repliesArray = [];
-            for (var i = 0; i < follow_months.follow_months(2).length; i++) {
-                repliesArray.push({
-                    "content_type": "text",
-                    "title": moment(monthsReplays[i]).format('MMM YYYY'),
-                    "payload": moment(monthsReplays[i]).format('MMM YYYY')
-                });
-            }
-
-
-            Message.markSeen(senderId);
-            Message.typingOn(senderId);
-
-
-            Message.quickReply(senderId, messagetxt, repliesArray);
-            Message.typingOff(senderId);
+            return monthsReplays;
         }
     }
 
