@@ -8,7 +8,9 @@ module.exports = function () {
 
 
             var repliesArray = [];
-            for (var i = 0; i < follow_months.follow_months(2).length; i++) {
+            var monthsReplays = follow_months.follow_months(2).length;
+            
+            for (var i = 0; i < monthsReplays; i++) {
                 repliesArray.push({
                     "content_type": "text",
                     "title": moment(monthsReplays[i]).format('MMM YYYY'),
