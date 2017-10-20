@@ -210,7 +210,7 @@ function processQuickReplies(event) {
     var senderId = event.sender.id;
     var payload = event.message.quick_reply.payload;
 
-    console.log("PROPIEDADES DEL QUIK REPLY   "+inspeccionar2(event.message.quick_reply));
+    console.log("PROPIEDADES DEL QUIK REPLY   "+inspeccionar2(event.message.quick_reply.title));
 
 
     switch (payload) {
