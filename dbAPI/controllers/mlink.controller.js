@@ -289,6 +289,8 @@ function searchCategories(req, res) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
 			var categories = json.categories;
 			for(var i = 0; i< categories.length; i++){
+				if(categories[i].parent)
+				if(categories[i].parent !=null)				
 				 console.log(categories[i].parent.id + ', '+ categories[i].parent.name);
 			}
 			res.status(200).send(
