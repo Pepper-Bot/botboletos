@@ -24,13 +24,7 @@ module.exports = function () {
                     "type": "postback",
                     "title": "Date",
                     "payload": "find_my_event_by_date"
-                },
-                {
-                    "type":"web_url",
-                    "url":"https://extencion-bot.herokuapp.com/",
-                    "title":"Select date",
-                    
-                  }
+                }
             ];
 
             Message.templateButton(senderId,  greeting + "!. You can find  your  artist, sport team or event, please choose a option:", buttons);
