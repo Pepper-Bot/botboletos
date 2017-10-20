@@ -49,43 +49,6 @@ router.get('/', function(req, res) {
 });
 
 
-router.get('/calendar', function(req, res) {
-  var html =  '<!doctype html> <html>'+
-	'<head>'+
-		'<title>calendar</title>'+
-		'<script>'+
-
-
-				'(function (d, s, id) {'+
-					'var js, fjs = d.getElementsByTagName(s)[0];'+
-					'if (d.getElementById(id)) {'+
-						'return;'+
-					'}'+
-					'js = d.createElement(s);'+
-					'js.id = id;'+
-					'js.src = "//connect.facebook.com/en_US/messenger.Extensions.js";'+
-					'fjs.parentNode.insertBefore(js, fjs);'
-				'}(document,'+ '"script"'+','+ '"Messenger"'+'));'+
-			
-			
-				'window.extAsyncInit = function () {'+
-					// the Messenger Extensions JS SDK is done loading 
-					'MessengerExtensions.getUserID(function success(uids) {'+
-						'var psid = uids.psid;'+
-			
-					'}, function error(err) {'+
-			
-					'});'+
-				'};'+
-		 
-		 +'</script>'+
-	'</head>'+
-	'</html>';
-
-	res.status(200).send(html);
-
-
-});
 
 router.get("/api/saludar/:nombre?", MLinkController.saludar);
 router.get("/api/mlink/:id?", MLinkController.getMlink);
@@ -100,6 +63,9 @@ router.delete("/api/mlink/:id", MLinkController.deleteMlink);
 router.get("/api/event-name/:ticket_group_id", MLinkController.searchEventName);
 router.get("/api/events/:name", MLinkController.searchEventByName);
 router.get("/api/events1/:name", MLinkController.searchEventByName1);
+
+router.get("/api/categories", MLinkController.searchCategories);
+
 
 
 module.exports = router;
