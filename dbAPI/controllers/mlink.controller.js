@@ -287,6 +287,10 @@ function searchCategories(req, res) {
 	console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
+			var categories = json.categories;
+			for(var i = 0; i< categories.length; i++){
+				 console.log(categories[i].parent.id + ', '+ categories[i].parent.name);
+			}
 			res.status(200).send(
 				 json
 			);
@@ -331,6 +335,7 @@ function searchCategoriesByParentId(req, res) {
 	console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
+			
 			res.status(200).send(
 				 json
 			);
