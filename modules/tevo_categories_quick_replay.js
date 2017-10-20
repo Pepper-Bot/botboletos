@@ -11,8 +11,8 @@ module.exports = function () {
             var text = '';
             for (var i = 0; i < parentCategories.length; i++) {
 
-                if (parentCategories[i].Sports != undefined) {
-                    text = parentCategories[i].Sport.name;
+                if (parentCategories[i].Sports) {
+                    text = parentCategories[i].Sports.name;
                 } else {
                     text = parentCategories[i].name;
                 }
