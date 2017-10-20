@@ -23,8 +23,8 @@ module.exports = function () {
             console.log("la diferencia en dias es"+diferencia);  
 
 
-            var currMonthName  = moment().format('MMMM');
-            var prevMonthName  = moment().subtract(1, "month").format('MMMM');
+            var currMonthName  = moment().format('MMM');
+            var prevMonthName  = moment().subtract(1, "month").format('MMM');
             
             console.log(currMonthName);
             console.log(prevMonthName);
