@@ -19,36 +19,10 @@ var searchCategoriesByParentId = (parent_id) => {
     });
 } //comic con convención de los comics...
 
+
 function searchCategoriesParents() {
-    let categoriesArray = [];
-    let parentCategories = tevo_categories.parentCategories();
-    for (let i = 0; i < parentCategories.length; i++) {
-        console.log('estoy en el for de parentCategories  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-        if (parentCategories[i].Sports) {
-            for (let j = 0; j < parentCategories[i].Sports.length; j++)
-
-                let parent_id = parentCategories[i].Sports[j].id;
-            let parent_name = parentCategories[i].Sports[j].name;
-
-            /* searchCategoriesByParentId(parent_id).then((resultado) => {
-            let parent_name = parentCategories[i].Sports[j].name;
-                console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name  + '  '+ resultado);
-
-                categoriesArray.push(parent_name);
-                
-            });*/
-
-            console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name);
-
-        } else {
-
-        }
-
-
-
-    }
-
-    console.log(" Este es mi categoriesArray length " + categoriesArray.length);
+    
+    console.log(" EsearchCategoriesParents" );
 
 
 
