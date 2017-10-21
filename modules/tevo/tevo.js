@@ -19,7 +19,7 @@ var searchCategoriesByParentId = (parent_id) => {
     });
 } //comic con convención de los comics...
 
-/*function searchCategoriesParents() {
+function searchCategoriesParents() {
     let categoriesArray = [];
     let parentCategories = tevo_categories.parentCategories();
     for (let i = 0; i < parentCategories.length; i++) {
@@ -36,7 +36,7 @@ var searchCategoriesByParentId = (parent_id) => {
 
                 categoriesArray.push(parent_name);
                 
-            });
+            });*/
 
             console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name);
 
@@ -54,10 +54,11 @@ var searchCategoriesByParentId = (parent_id) => {
 
 
 
-}*/
+}
 
 
 module.exports = {
-    searchCategoriesByParentId
+    searchCategoriesByParentId,
+    searchCategoriesParents
 
 }
