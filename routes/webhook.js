@@ -207,6 +207,38 @@ function processQuickReplies(event) {
 
     console.log('este es el quick replay  payload  '+ payload);
 
+    var tevo_categories = require('../modules/tevo/tevo_categories');
+    var repliesArray = [];
+    var parentCategories = tevo_categories.parentCategories();
+    var text = '';
+    for (var i = 0; i < parentCategories.length; i++) {
+
+        if (parentCategories[i].Sports) {
+            text = "Sports";
+        } else {
+            text = parentCategories[i].name;
+        }
+
+        if (payload == text) {
+
+            let tevo = require('../modules/tevo/tevo');
+            var respuesta = '';
+
+            /*tevo.searchCategoriesByParentId(1).then((resultado) => {
+                 console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
+                 
+             });
+            console.log('encima de search')*/
+            //tevo.searchCategoriesParents();
+
+
+            Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
+            break;
+
+        }
+
+    }
+
 
     switch (payload) {
 
