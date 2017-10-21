@@ -210,6 +210,8 @@ function processQuickReplies(event) {
     var senderId = event.sender.id;
     var payload = event.message.quick_reply.payload;
 
+
+
     var moment = require('moment');
     var follow_months = require('../modules/follow_months');
 
@@ -238,12 +240,17 @@ function processQuickReplies(event) {
         }
 
         if (payload == text) {
+
+            var tevo = require('../modules/tevo/tevo');
+            var json = '';
+            tevo.searchCategoriesByParentId(73,json);
+            console.log("searchCategoriesByParentId >>>>>>>"+ json);
+
+
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
             break;
 
         }
-
-
 
     }
 
