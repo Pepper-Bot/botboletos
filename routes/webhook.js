@@ -4,376 +4,398 @@ var request = require('request');
 var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
+var context = '';
 //--
 
-  var datos = {}; // Para saber si estamos o no con el ID
+var datos = {}; // Para saber si estamos o no con el ID
 
 var dbObj = require('../schemas/mongodb');
 dbObj.getConnection();
 
 
 
-router.get('/', function(req, res, next) {
+router.get('/', function (req, res, next) {
 
-    if (req.query['hub.verify_token'] ===  process.env.BOT_TOKEN) {
-      
+    if (req.query['hub.verify_token'] === process.env.BOT_TOKEN) {
+
         res.status(200).send(req.query['hub.challenge']);
     } else {
 
-        res.sendStatus(403);  
+        res.sendStatus(403);
     }
 
 });
 
-router.post('/', function (req, res) {  
+router.post('/', function (req, res) {
 
 
     if (req.body.object == "page") {
-    // Iterate over each entry
-    // There may be multiple entries if batched
-    req.body.entry.forEach(function(entry) {
-      // Iterate over each messaging event
-      entry.messaging.forEach(function(event) {
+        // Iterate over each entry
+        // There may be multiple entries if batched
+        req.body.entry.forEach(function (entry) {
+            // Iterate over each messaging event
+            entry.messaging.forEach(function (event) {
 
 
-        //console.log(event);
+                //console.log(event);
 
-            if(event.referral)
-            {
+                if (event.referral) {
 
-                console.log('0');
-               handleReferrals(event);
-            }
-            console.log('1');
-            if (event.postback) {
-                console.log('2');
-                processPostback(event);
-            }
-            else if (undefined !== event.message.quick_reply)
-            {
-
-                console.log('3');
-                processQuickReplies(event);       
-
-            }
-            else if( undefined !== event.message.attachments /* && event.message.attachments[0].type == "location" */)
-            {   
-                console.log('4');
-      
-                if('location' == event.message.attachments[0].type)
-                {
-                    console.log('4.1');
-                    processLocation(event.sender.id, event.message.attachments[0]);
+                    console.log('0');
+                    handleReferrals(event);
                 }
-            }
-            else if( undefined !== event.message.text )
-            {
-                console.log('5');
-                processMessage(event.sender.id, event.message.text);
-            }
-      });
-    });
+                console.log('1');
+                if (event.postback) {
+                    console.log('2');
+                    processPostback(event);
+                } else if (undefined !== event.message.quick_reply) {
 
-    res.sendStatus(200);
-    res.end();
-  }
-  else
-  {
+                    console.log('3');
+                    processQuickReplies(event);
 
-    res.sendStatus(200);
-    res.end();
-  }
-        console.log('#######################################################')
-        //console.log(event);
-        console.log('#######################################################')
+                } else if (undefined !== event.message.attachments /* && event.message.attachments[0].type == "location" */ ) {
+                    console.log('4');
+
+                    if ('location' == event.message.attachments[0].type) {
+                        console.log('4.1');
+                        processLocation(event.sender.id, event.message.attachments[0]);
+                    }
+                } else if (undefined !== event.message.text) {
+                    console.log('5');
+                    processMessage(event.sender.id, event.message.text);
+                }
+            });
+        });
+
+        res.sendStatus(200);
+        res.end();
+    } else {
+
+        res.sendStatus(200);
+        res.end();
+    }
+    console.log('#######################################################')
+    //console.log(event);
+    console.log('#######################################################')
 
 });
 
-function processMessage(senderId, textMessage)
-{
+function processMessage(senderId, textMessage) {
+    if (context) {
+        switch (context) {
+            case 'find_my_event':
+                {
+                    startTevoModuleWithMlink(textMessage, senderId);
+                }
+                break;
+            default:
+                {
 
-    if('start again' === textMessage.toLowerCase())
-    {
 
-        UserData.getInfo(senderId, function(err, result)
-        {
+                }
+                break;
+        }
+    }
+
+    if ('start again' === textMessage.toLowerCase()) {
+
+        UserData.getInfo(senderId, function (err, result) {
             console.log('Dentro de UserData');
-            if(!err){
+            if (!err) {
 
-                    var bodyObj = JSON.parse(result);
-                    console.log(result);
-                        
-                    var name = bodyObj.first_name;
-               
-                    UserData2.findOne({fbId: senderId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result) {
-     
-                            var greeting = "Hi " + name;
-                            var messagetxt = greeting + ", what would you like to do?";
-                            
-                            var GreetingsReply = require('../modules/greetings');
-                            GreetingsReply.send(Message,senderId, messagetxt);
+                var bodyObj = JSON.parse(result);
+                console.log(result);
 
-                    });
-                 
+                var name = bodyObj.first_name;
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, result) {
+
+                    var greeting = "Hi " + name;
+                    var messagetxt = greeting + ", what would you like to do?";
+
+                    var GreetingsReply = require('../modules/greetings');
+                    GreetingsReply.send(Message, senderId, messagetxt);
+
+                });
+
 
             }
         });
 
-    }
-    else
-    {
+    } else {
 
         var DefaultReply = require('../modules/defaultreply');
         DefaultReply.send(Message, senderId);
 
 
-         // Message.typingOff(senderId);
+        // Message.typingOff(senderId);
     }
 }
-function processLocation(senderId, locationData){
 
-            UserData2.findOne({fbId: senderId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result) {
-              //--
-                if(!err)
-                {
-                    if(result !== null)
-                    {
+function processLocation(senderId, locationData) {
 
-
-                        var totalElements = result.optionsSelected.length;
-                        if(totalElements < 1)
-                        {
-                            return; 
-                        }
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, result) {
+        //--
+        if (!err) {
+            if (result !== null) {
 
 
-
-                        var lastSelected = result.optionsSelected[totalElements -1];   
-                
-                        if('Food' == lastSelected)
-                        {
-                            var Food = require('../modules/food');
-                            Food.get(Message, result, locationData);
-                        
-                        }
-                        else if('Events' == lastSelected)
-                        {
-                            /* Llamamos al módulo de ventos */
-/*                           var Events = require('../modules/events');
-                            Events.get(Message, result, locationData);
-*/  
-                            var Evo = require('../modules/ticketevo');
-                            Evo.get(Message, result, locationData);
-
-                        }
-                        else if('Drinks' == lastSelected)
-                        {
-                          
-                            var Drink = require('../modules/drink');
-                            Drink.get(Message, result, locationData);
-
-                        }   
-
-
-                        result.location.coordinates = [locationData.payload.coordinates.lat, locationData.payload.coordinates.long];
-                        result.locationURL = locationData.url;
-                        result.save(function(err){
-                            if(!err){
-
-                                console.log('Guardamos la localizacion');
-                            }
-                            else
-                            {
-                                console.log('Error guardando selección')
-                            }
-                        });
-                    }
+                var totalElements = result.optionsSelected.length;
+                if (totalElements < 1) {
+                    return;
                 }
 
-            });
+
+
+                var lastSelected = result.optionsSelected[totalElements - 1];
+
+                if ('Food' == lastSelected) {
+                    var Food = require('../modules/food');
+                    Food.get(Message, result, locationData);
+
+                } else if ('Events' == lastSelected) {
+                    /* Llamamos al módulo de ventos */
+                    /*                           var Events = require('../modules/events');
+                                                Events.get(Message, result, locationData);
+                    */
+                    var Evo = require('../modules/ticketevo');
+                    Evo.get(Message, result, locationData);
+
+                } else if ('Drinks' == lastSelected) {
+
+                    var Drink = require('../modules/drink');
+                    Drink.get(Message, result, locationData);
+
+                }
+
+
+                result.location.coordinates = [locationData.payload.coordinates.lat, locationData.payload.coordinates.long];
+                result.locationURL = locationData.url;
+                result.save(function (err) {
+                    if (!err) {
+
+                        console.log('Guardamos la localizacion');
+                    } else {
+                        console.log('Error guardando selección')
+                    }
+                });
+            }
+        }
+
+    });
 
 }
+
 function processQuickReplies(event) {
 
 
 
-  var senderId = event.sender.id;
-  var payload = event.message.quick_reply.payload; 
+    var senderId = event.sender.id;
+    var payload = event.message.quick_reply.payload;
+
+    
+    console.log("payload del quickreply <<<<<<" + payload);
 
 
-
-    switch(payload)
-    {
+    switch (payload) {
 
         case "TRYAGAIN_NO":
-            Message.typingOn(senderId);          
+            Message.typingOn(senderId);
             Message.sendMessage(senderId, 'Ok, if you change your mind, type START AGAIN. See you Later.');
             Message.typingOff(senderId);
-        break;
+            break;
 
         case "TRYAGAIN_YES":
-             UserData2.findOne({fbId: senderId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result) {
-            
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, result) {
+
                 var totalSelecteds = result.optionsSelected.length - 1;
                 var lastSelected = result.optionsSelected[totalSelecteds];
 
 
-                    if('Food' == lastSelected)
-                    {
+                if ('Food' == lastSelected) {
 
-                        Message.markSeen(senderId);
-                        Message.getLocation(senderId, 'What location would you like to get a bite at?');
+                    Message.markSeen(senderId);
+                    Message.getLocation(senderId, 'What location would you like to get a bite at?');
 
-                        Message.typingOn(senderId);
-                         //sleep(1000);
-                        console.log('Dentro de GET LOCATION FOOD');
-                        UserData2.findOne({fbId: senderId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result) {
-                          
-                            if(!err){
+                    Message.typingOn(senderId);
+                    //sleep(1000);
+                    console.log('Dentro de GET LOCATION FOOD');
+                    UserData2.findOne({
+                        fbId: senderId
+                    }, {}, {
+                        sort: {
+                            'sessionStart': -1
+                        }
+                    }, function (err, result) {
 
-                                console.log(result);
-                                if(null != result)
-                                {
-                                    result.optionsSelected.push('Food');
-                                    result.save(function(err){
-                                        if(!err){
+                        if (!err) {
 
-                                            console.log('Guardamos la seleccion de Drinks');
-                                        }
-                                        else
-                                        {
-                                            console.log('Error guardando selección')
-                                        }
-                                    });
-                                }
+                            console.log(result);
+                            if (null != result) {
+                                result.optionsSelected.push('Food');
+                                result.save(function (err) {
+                                    if (!err) {
+
+                                        console.log('Guardamos la seleccion de Drinks');
+                                    } else {
+                                        console.log('Error guardando selección')
+                                    }
+                                });
                             }
+                        }
 
-                        });
-                       
-                     
-                    }
-                    else if('Events' == lastSelected)
-                    {
+                    });
 
-                      
-                        Message.markSeen(senderId);
-                        Message.getLocation(senderId,'What location would you like to catch a show?');
-                 
-                        Message.typingOn(senderId);
-                         //sleep(1000);
-                        UserData2.findOne({fbId: senderId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result) {
-                          
-                            if(!err){
 
-                                if(null != result)
-                                {
+                } else if ('Events' == lastSelected) {
 
-                                    result.optionsSelected.push('Events');
-                                    result.save(function(err){
-                                        if(!err){
 
-                                            console.log('Guardamos la seleccion de Drinks');
-                                        }
-                                        else
-                                        {
-                                            console.log('Error guardando selección')
-                                        }
-                                    });
-                                }
+                    Message.markSeen(senderId);
+                    Message.getLocation(senderId, 'What location would you like to catch a show?');
+
+                    Message.typingOn(senderId);
+                    //sleep(1000);
+                    UserData2.findOne({
+                        fbId: senderId
+                    }, {}, {
+                        sort: {
+                            'sessionStart': -1
+                        }
+                    }, function (err, result) {
+
+                        if (!err) {
+
+                            if (null != result) {
+
+                                result.optionsSelected.push('Events');
+                                result.save(function (err) {
+                                    if (!err) {
+
+                                        console.log('Guardamos la seleccion de Drinks');
+                                    } else {
+                                        console.log('Error guardando selección')
+                                    }
+                                });
                             }
+                        }
 
-                        });
-                    }
-                    else if('Drinks' == lastSelected)
-                    {
+                    });
+                } else if ('Drinks' == lastSelected) {
 
-           
-                        Message.markSeen(senderId);
-                        Message.getLocation(senderId,'What location would you like to get a drink at?');
-                        Message.typingOn(senderId);
-                        //sleep(1000);
 
-                        UserData2.findOne({fbId: senderId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result) {
-                          
-                            if(!err){
+                    Message.markSeen(senderId);
+                    Message.getLocation(senderId, 'What location would you like to get a drink at?');
+                    Message.typingOn(senderId);
+                    //sleep(1000);
 
-                                if(null != result)
-                                {
-                                    result.optionsSelected.push('Drinks');
-                                    result.save(function(err){
-                                        if(!err){
+                    UserData2.findOne({
+                        fbId: senderId
+                    }, {}, {
+                        sort: {
+                            'sessionStart': -1
+                        }
+                    }, function (err, result) {
 
-                                            console.log('Guardamos la seleccion de Drinks');
-                                        }
-                                        else
-                                        {
-                                            console.log('Error guardando selección')
-                                        }
-                                    });
-                                }
+                        if (!err) {
+
+                            if (null != result) {
+                                result.optionsSelected.push('Drinks');
+                                result.save(function (err) {
+                                    if (!err) {
+
+                                        console.log('Guardamos la seleccion de Drinks');
+                                    } else {
+                                        console.log('Error guardando selección')
+                                    }
+                                });
                             }
+                        }
 
-                        });
-                    }
+                    });
+                }
 
             });
 
-        break;
+            break;
         case "GET_LOCATION_DRINKS":
 
 
 
             Message.markSeen(senderId);
-            Message.getLocation(senderId,'What location would you like to get a drink at?');
+            Message.getLocation(senderId, 'What location would you like to get a drink at?');
             Message.typingOn(senderId);
-             //sleep(1000);
+            //sleep(1000);
 
-            UserData2.findOne({fbId: senderId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result) {
-              
-                if(!err){
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, result) {
 
-                    if(null != result)
-                    {
+                if (!err) {
+
+                    if (null != result) {
 
 
-                    result.optionsSelected.push('Drinks');
-                    result.save(function(err){
-                        if(!err){
+                        result.optionsSelected.push('Drinks');
+                        result.save(function (err) {
+                            if (!err) {
 
-                            console.log('Guardamos la seleccion de Drinks');
-                        }
-                        else
-                        {
-                            console.log('Error guardando selección')
-                        }
-                    });
+                                console.log('Guardamos la seleccion de Drinks');
+                            } else {
+                                console.log('Error guardando selección')
+                            }
+                        });
 
                     }
                 }
 
             });
-        break;
+            break;
 
         case "GET_LOCATION_EVENTS":
 
- 
+
             Message.markSeen(senderId);
-            Message.getLocation(senderId,'What location would you like to catch a show?');
+            Message.getLocation(senderId, 'What location would you like to catch a show?');
             Message.typingOn(senderId);
-                         //sleep(1000);
-            UserData2.findOne({fbId: senderId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result) {
-              
-                if(!err){
-                    if(null != result)
-                    {
+            //sleep(1000);
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, result) {
+
+                if (!err) {
+                    if (null != result) {
                         result.optionsSelected.push('Events');
-                        result.save(function(err){
-                            if(!err){
+                        result.save(function (err) {
+                            if (!err) {
 
                                 console.log('Guardamos la seleccion de Drinks');
-                            }
-                            else
-                            {
+                            } else {
                                 console.log('Error guardando selección')
                             }
                         });
@@ -381,35 +403,38 @@ function processQuickReplies(event) {
                 }
 
             });
-        break;
+            break;
 
         case "GET_LOCATION_FOOD":
 
             Message.markSeen(senderId);
             Message.getLocation(senderId, 'What location would you like to get a bite at?');
             Message.typingOn(senderId);
-                         //sleep(1000);
+            //sleep(1000);
 
             console.log('Dentro de GET LOCATION FOOD');
-            console.log('Sender ID: '+ senderId);
-            UserData2.findOne({fbId: senderId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result) {
-              
-                if(!err){
-                    if(null != result)
-                    {
+            console.log('Sender ID: ' + senderId);
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, result) {
+
+                if (!err) {
+                    if (null != result) {
 
                         console.log('Resultado de buscar senderId:');
                         console.log(result);
 
                         console.log('Guardando selección');
                         result.optionsSelected.push('Food');
-                        result.save(function(err){
-                            if(!err){
+                        result.save(function (err) {
+                            if (!err) {
 
                                 console.log('Guardamos la seleccion de Drinks');
-                            }
-                            else
-                            {
+                            } else {
                                 console.log('Error guardando selección')
                             }
                         });
@@ -418,15 +443,15 @@ function processQuickReplies(event) {
                 }
 
             });
-           
-         
 
-        break;
 
-        
+
+            break;
+
+
         default:
-        console.log('Llamamos a Default');
-        break;
+            console.log('Llamamos a Default');
+            break;
     }
 }
 
@@ -435,213 +460,242 @@ function processQuickReplies(event) {
 function processPostback(event) {
 
 
-
-
-
-   
     var senderId = event.sender.id;
-    var payload = event.postback.payload; 
-   
+    var payload = event.postback.payload;
 
 
-  switch(payload)
-  {
-    case "Greetings":
 
- if(undefined !== event.postback.referral )
-    {   
-        // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
-        console.log('Dentro de referrals handler');
-        handleReferrals(event);
+    switch (payload) {
+
+        case "FIND_MY_EVENT":
+            find_my_event(senderId);
+
+
+            break;
+
+
+
+        case "Greetings":
+
+            if (undefined !== event.postback.referral) {
+                // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
+                console.log('Dentro de referrals handler');
+                handleReferrals(event);
+            } else {
+                // De lo contrario saludamos.
+                console.log('#######################################################################################');
+                console.log('saludamos');
+                saluda(senderId);
+            }
+
+
+            break;
+
+
+        default:
+
+            //saluda(senderId);
+            console.log('Si no reconozco, saludo');
+
+            break;
+
     }
-    else
-    {
-            // De lo contrario saludamos.
-              console.log('#######################################################################################');
-              console.log('saludamos');
-            saluda(senderId);        
-    }
-
-
-    break;
-    
-
-    default:
-
-        //saluda(senderId);
-        console.log('Si no reconozco, saludo');
-
-    break;
-
-  }
 
 
 
 }
 
-// sends message to user
+function find_my_event(senderId) {
+    UserData.getInfo(senderId, function (err, result) {
+        if (!err) {
 
-function saluda(senderId){
-
-            console.log('Greetings Payload');
-        // Metemos el ID
-        UserData.getInfo(senderId, function(err, result)
-        {
-            console.log('Dentro de UserData');
-            if(!err){
-
-                    var bodyObj = JSON.parse(result);
-                    console.log(result);
-                        
-            
-                    var User = new UserData2;
-                    {
-                        User.fbId = senderId;
-                        User.firstName = bodyObj.first_name;
-                        User.LastName = bodyObj.last_name;
-                        User.profilePic = bodyObj.profile_pic;
-                        User.locale = bodyObj.locale;
-                        User.timeZone = bodyObj.timezone;
-                        User.gender = bodyObj.gender;
-                        User.messageNumber = 1;
-                        
-                        User.save();  
-                    } 
+            var bodyObj = JSON.parse(result);
+            console.log(result);
 
 
+            var User = new UserData2; {
+                User.fbId = senderId;
+                User.firstName = bodyObj.first_name;
+                User.LastName = bodyObj.last_name;
+                User.profilePic = bodyObj.profile_pic;
+                User.locale = bodyObj.locale;
+                User.timeZone = bodyObj.timezone;
+                User.gender = bodyObj.gender;
+                User.messageNumber = 1;
 
-                    var name = bodyObj.first_name;
-                    var greeting = "Hi " + name;
-                    var messagetxt = greeting + ", what would you like to do?";
-                    //Message.sendMessage(senderId, message);
-                    /* INSERT TO MONGO DB DATA FROM SESSION*/
-
-
-                    Message.markSeen(senderId);
-                    Message.typingOn2(senderId, function(error, response, body){
-
-                            var GreetingsReply = require('../modules/greetings');
-                            GreetingsReply.send(Message,senderId, messagetxt);
-
-                    });
-                      
-                  
+                User.save();
             }
-        });
+
+            var name = bodyObj.first_name;
+            var greeting = "Hi " + name;
+            //var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
+
+            context = 'find_my_event'
+
+            var ButtonsEventsQuery = require('../modules/tevo/tevo_categories_quick_replay');
+            //var ButtonsEventsQuery = require('../modules/buttons_event_query');
+
+            ButtonsEventsQuery.send(Message, senderId, greeting);
+
+        }
+    });
 };
 
 
-function handleReferrals(event)
-{
+function saluda(senderId) {
+
+    console.log('Greetings Payload');
+    // Metemos el ID
+    UserData.getInfo(senderId, function (err, result) {
+        console.log('Dentro de UserData');
+        if (!err) {
+
+            var bodyObj = JSON.parse(result);
+            console.log(result);
+
+
+            var User = new UserData2; {
+                User.fbId = senderId;
+                User.firstName = bodyObj.first_name;
+                User.LastName = bodyObj.last_name;
+                User.profilePic = bodyObj.profile_pic;
+                User.locale = bodyObj.locale;
+                User.timeZone = bodyObj.timezone;
+                User.gender = bodyObj.gender;
+                User.messageNumber = 1;
+
+                User.save();
+            }
+
+
+
+            var name = bodyObj.first_name;
+            var greeting = "Hi " + name;
+            var messagetxt = greeting + ", what would you like to do?";
+            //Message.sendMessage(senderId, message);
+            /* INSERT TO MONGO DB DATA FROM SESSION*/
+
+
+            Message.markSeen(senderId);
+            Message.typingOn2(senderId, function (error, response, body) {
+
+                var GreetingsReply = require('../modules/greetings');
+                GreetingsReply.send(Message, senderId, messagetxt);
+
+            });
+
+
+        }
+    });
+};
+
+
+function handleReferrals(event) {
     // Handle Referrals lo que hace  es verificar si el short link viene de una ventana nueva
     // o una conversación PRE-EXISTENTE.
 
-     var senderId = event.sender.id;
+    var senderId = event.sender.id;
     var referral;
 
     console.log('0.1');
-  
-   
 
-        console.log('0.2');
-    if(undefined !== event.postback)
-    {
-            console.log('0.3');
+
+
+    console.log('0.2');
+    if (undefined !== event.postback) {
+        console.log('0.3');
         // Obtenemos la referencia por "Start Button" o sea una conversación nueva.
-       referral = event.postback.referral.ref;
-       chooseReferral(referral, senderId);
-    }
-    else
-    {
+        referral = event.postback.referral.ref;
+        chooseReferral(referral, senderId);
+    } else {
         // Msgr tiene un error, cuando detecta que ya es una conversacion abierta
         // envia 3 requests y por ende repite los mensajes, para evitar esto
         // se almacena el id en mongodb hasta la 3ra vuelta se envia la informacion 
         // no se si esto es problema de msgr como tal o heroku (quiero pensar que es de msgr)        
         referral = event.referral.ref;
-    
-        var  FBSessions = require('../schemas/boletos');
+
+        var FBSessions = require('../schemas/boletos');
         // Buscamos el id del usuario
-        FBSessions.find({fbId: senderId}, {}, function(err, result) 
-        {   
+        FBSessions.find({
+            fbId: senderId
+        }, {}, function (err, result) {
 
-            if(!err){
+            if (!err) {
 
-                if(result.length < 2)
-                {
+                if (result.length < 2) {
                     // si estamos dentro del rango de dos peticiones guardamos el id
-                    var FBSession = new FBSessions;
-                    {
+                    var FBSession = new FBSessions; {
                         FBSession.fbId = senderId;
-                        FBSession.save();  
+                        FBSession.save();
                     }
-                }
-                else {
+                } else {
                     // tercera peticion, mandamos a llamar a los boletos y elminamos los registros.
 
-                    chooseReferral(referral,senderId);
-                    FBSessions.remove({fbId: senderId}, function(err){
+                    chooseReferral(referral, senderId);
+                    FBSessions.remove({
+                        fbId: senderId
+                    }, function (err) {
 
                     });
 
                 }
 
             }
-              
-            
+
+
         });
         // Ya tiene iniciada una conversacion el usuario con el robot
-      
+
     }
 
 }
 
-function chooseReferral(referral, senderId){
+function chooseReferral(referral, senderId) {
 
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
-    switch(referral)
-    {
+    switch (referral) {
 
         case "MAGICON":
-        {
+            {
 
-            console.log('0.5');
-            console.log('Sender ID:'+senderId);
-           
+                console.log('0.5');
+                console.log('Sender ID:' + senderId);
 
-            console.log('El sender id es:'+senderId);
-            console.log('Estamos dentro de Start');
-            
-            // llamamos al módulo de boletos y los enviamos.
-            var Magic = require('../modules/boletos');
-            Magic.start(senderId);
 
-        }
-        break;
+                console.log('El sender id es:' + senderId);
+                console.log('Estamos dentro de Start');
+
+                // llamamos al módulo de boletos y los enviamos.
+                var Magic = require('../modules/boletos');
+                Magic.start(senderId);
+
+            }
+            break;
 
         case "SHARKSTANK":
-        {
-            var Shark = require('../modules/shark_boletos');
-            Shark.start(senderId);
+            {
+                var Shark = require('../modules/shark_boletos');
+                Shark.start(senderId);
 
-        }
-        break;
+            }
+            break;
 
 
-    case "EVENTBRITE":
-        {
-            var EventBriteModule = require('../modules/eventbrite_request');
-            EventBriteModule.start(senderId);
-        }
-        break;
+        case "EVENTBRITE":
+            {
+                var EventBriteModule = require('../modules/eventbrite_request');
+                EventBriteModule.start(senderId);
+            }
+            break;
 
         default:
-        {
-            var TevoModule = require('../modules/tevo_request');
-            TevoModule.start(senderId, referral);
-        
-        }
-        break;
+            {
+                var TevoModule = require('../modules/tevo_request');
+                TevoModule.start(senderId, referral);
+
+            }
+            break;
 
     }
 }
