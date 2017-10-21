@@ -248,7 +248,7 @@ function processQuickReplies(event) {
                 console.log( 'searchCategoriesByParentId   >>>> ' +respuesta    );
                 
             });
-             aki
+            
             
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
