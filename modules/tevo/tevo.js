@@ -1,5 +1,5 @@
 var TevoClient = require('ticketevolution-node');
-//var tevo_categories = require('./tevo_categories')
+var tevo_categories = require('./tevo_categories')
 
 var tevoClient = new TevoClient({
     apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
@@ -21,7 +21,10 @@ var searchCategoriesByParentId = (parent_id) => {
 
 
 function searchCategoriesParents() {
-    
+    let categoriesArray = [];
+    let parentCategories = tevo_categories.parentCategories();
+
+
     console.log(" EsearchCategoriesParents" );
 
 
