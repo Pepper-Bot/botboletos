@@ -251,7 +251,7 @@ function processQuickReplies(event) {
             
             
 
-            Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
+           // Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
             break;
 
         }
