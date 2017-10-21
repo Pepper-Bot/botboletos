@@ -205,8 +205,8 @@ function processQuickReplies(event) {
     var senderId = event.sender.id;
     var payload = event.message.quick_reply.payload;
 
+
     
-    console.log("payload del quickreply <<<<<<" + payload);
 
 
     switch (payload) {
