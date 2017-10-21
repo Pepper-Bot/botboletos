@@ -244,10 +244,11 @@ function processQuickReplies(event) {
             let tevo = require('../modules/tevo/tevo');
             var respuesta = '';
             tevo.searchCategoriesByParentId(1).then((resultado) => {
-                respuesta = resultado;
+                console.log( 'searchCategoriesByParentId   >>>> ' +respuesta    );
+                
             });
              
-            console.log( 'searchCategoriesByParentId   >>>> ' +respuesta    );
+            
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
             break;
