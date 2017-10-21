@@ -25,10 +25,10 @@ module.exports = function () {
             }
 
 
-            for(var i = 0 ; i < monthsReplays.length; i ++){
+            /*for(var i = 0 ; i < monthsReplays.length; i ++){
                 console.log('>>>>> MES DE FOLLOW_MONTHS' + moment(monthsReplays[i]).format('MMM YYYY'));
 
-            }
+            }*/
 
 
             return monthsReplays;
