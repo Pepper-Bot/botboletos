@@ -8,17 +8,21 @@ function tevoClient() {
     return tevoClient;
 }
 
-function searchCategoriesByParentId(parent_id, resultado) {
-    var tevoClient = tevoClient();
-    var urlApiTevo = 'https://api.ticketevolution.com/v9/categories?parent_id=' + parent_id
-    console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
-    if (tevoClient) {
-        tevoClient.getJSON(urlApiTevo).then((json) => {
-            resultado = json;
 
-        });
-    }
-}//comic con convención de los comics...
+
+let searchCategoriesByParentId = (parent_id) => {
+    return new Promise((res, rej) => {
+        var tevoClient = tevoClient();
+        var urlApiTevo = 'https://api.ticketevolution.com/v9/categories?parent_id=' + parent_id
+        console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+        if (tevoClient) {
+            tevoClient.getJSON(urlApiTevo).then((json) => {
+               res(json);
+            });
+        }
+    });
+} //comic con convención de los comics...
+
 
 module.exports = {
     searchCategoriesByParentId

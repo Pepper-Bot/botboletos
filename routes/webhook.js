@@ -241,11 +241,13 @@ function processQuickReplies(event) {
 
         if (payload == text) {
 
-            var tevo = require('../modules/tevo/tevo');
-            var json = '';
-            tevo.searchCategoriesByParentId(73,json);
-            console.log("searchCategoriesByParentId >>>>>>>"+ json);
-
+            let tevo = require('../modules/tevo/tevo');
+            var respuesta = '';
+            tevo.searchCategoriesByParentId(1).then((resultado) => {
+                respuesta = resultado;
+            });
+             
+            console.log( 'searchCategoriesByParentId   >>>> ' +respuesta    );
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
             break;
