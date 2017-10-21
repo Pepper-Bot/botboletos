@@ -244,10 +244,12 @@ function processQuickReplies(event) {
             let TicketEvoClient = require('../modules/tevo/class_tevo');
            
             let  tevo = new TicketEvoClient();
-            tevo.searchCategoriesByParentId(1).then((resultado) => {
+            tevo.getTevo();
+
+            /*tevo.searchCategoriesByParentId(1).then((resultado) => {
                 console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
                 
-            });
+            });*/
             
             
 

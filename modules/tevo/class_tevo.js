@@ -16,6 +16,9 @@ module.exports = class TicketEvoClient {
         this.events = [];
 
     }
+    getTevo(){
+        console.log("Este es tevo >>>>>>>"+ this.tevo)
+    }
 
     searchCategoriesByParentId = (parent_id) => {
         return new Promise((res, rej) => {
