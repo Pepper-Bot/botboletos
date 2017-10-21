@@ -41,7 +41,7 @@ function cat() {
                     
                 });*/
 
-                onsole.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name);
+                console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name);
 
         } else {
 
