@@ -243,12 +243,11 @@ function processQuickReplies(event) {
         if (payload == text) {
 
             const TickevoClient = require('../modules/tevo/tevo');
-            var respuesta = '';
-
+          
             let tevo = new TickevoClient();
-            
+
             tevo.searchCategoriesByParentId(1).then((resultado) => {
-                console.log( 'searchCategoriesByParentId   >>>> ' +respuesta    );
+                console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
                 
             });
              
