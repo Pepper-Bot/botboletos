@@ -202,12 +202,10 @@ function processLocation(senderId, locationData) {
 }
 
 function processQuickReplies(event) {
-
-
-
     var senderId = event.sender.id;
     var payload = event.message.quick_reply.payload;
 
+    console.log('este es el quick replay  payload  '+ payload);
 
 
     switch (payload) {
@@ -530,7 +528,7 @@ function find_my_event(senderId) {
             var greeting = "Hi " + name;
             //var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
 
-            context = 'find_my_event'
+            //context = 'find_my_event'
 
             var ButtonsEventsQuery = require('../modules/tevo/tevo_categories_quick_replay');
             //var ButtonsEventsQuery = require('../modules/buttons_event_query');
