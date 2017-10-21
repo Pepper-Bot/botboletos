@@ -1,7 +1,7 @@
-var TevoClient = require('ticketevolution-node');
-var tevo_categories = require('./tevo_categories')
+let TevoClient = require('ticketevolution-node');
+let tevo_categories = require('./tevo_categories')
 
-var tevoClient = new TevoClient({
+let tevoClient = new TevoClient({
     apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
     apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
 });
@@ -9,7 +9,7 @@ var tevoClient = new TevoClient({
 
 let searchCategoriesByParentId = (parent_id) => {
     return new Promise((res, rej) => {
-        var urlApiTevo = 'https://api.ticketevolution.com/v9/categories?parent_id=' + parent_id
+        let urlApiTevo = 'https://api.ticketevolution.com/v9/categories?parent_id=' + parent_id
         console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
@@ -19,41 +19,38 @@ let searchCategoriesByParentId = (parent_id) => {
     });
 } //comic con convención de los comics...
 
-let searhCategoriesParents = () => {
-    return new Promise((res, rej) => {
-        console.log('entre a cat>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-        let categoriesArray = [];
-        let parentCategories = tevo_categories.parentCategories();
+function searchCategoriesParents() {
+    let categoriesArray = [];
+    let parentCategories = tevo_categories.parentCategories();
+    for (let i = 0; i < parentCategories.length; i++) {
+        console.log('estoy en el for de parentCategories  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+        if (parentCategories[i].Sports) {
+            for (let j = 0; j < parentCategories[i].Sports.length; j++)
 
-        for (let i = 0; i < parentCategories.length; i++) {
-            console.log('estoy en el for de parentCategories  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-            if (parentCategories[i].Sports) {
-                for (let j = 0; j < parentCategories[i].Sports.length; j++)
+                let parent_id = parentCategories[i].Sports[j].id;
+            let parent_name = parentCategories[i].Sports[j].name;
 
-                    let parent_id = parentCategories[i].Sports[j].id;
-                let parent_name = parentCategories[i].Sports[j].name;
+            /* searchCategoriesByParentId(parent_id).then((resultado) => {
+            let parent_name = parentCategories[i].Sports[j].name;
+                console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name  + '  '+ resultado);
 
-                /* searchCategoriesByParentId(parent_id).then((resultado) => {
-                let parent_name = parentCategories[i].Sports[j].name;
-                    console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name  + '  '+ resultado);
+                categoriesArray.push(parent_name);
+                
+            });*/
 
-                    categoriesArray.push(parent_name);
-                    
-                });*/
+            console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name);
 
-                console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name);
-
-            } else {
-
-            }
-
-
+        } else {
 
         }
 
-        console.log(" Este es mi categoriesArray length " + categoriesArray.length);
 
-    });
+
+    }
+
+    console.log(" Este es mi categoriesArray length " + categoriesArray.length);
+
+
 
 
 
@@ -62,5 +59,5 @@ let searhCategoriesParents = () => {
 
 module.exports = {
     searchCategoriesByParentId,
-    searhCategoriesParents
+    searchCategoriesParents
 }

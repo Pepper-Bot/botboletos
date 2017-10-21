@@ -248,10 +248,8 @@ function processQuickReplies(event) {
                 console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
                 
             });*/
-            
-            tevo.searhCategoriesParents().then(() =>{
-
-            }); 
+            console.log('encima de search')
+            tevo.searchCategoriesParents();
             
 
            // Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
