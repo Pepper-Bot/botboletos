@@ -249,7 +249,7 @@ function processQuickReplies(event) {
                  
              });
             console.log('encima de search')*/
-            tevo.searchCategoriesParents();
+            //tevo.searchCategoriesParents();
 
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
