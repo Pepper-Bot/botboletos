@@ -1,3 +1,4 @@
+'use strict';
 var express = require('express');
 var router = express.Router();
 var request = require('request');
@@ -241,8 +242,11 @@ function processQuickReplies(event) {
 
         if (payload == text) {
 
-            let tevo = require('../modules/tevo/tevo');
+            const TickevoClient = require('../modules/tevo/tevo');
             var respuesta = '';
+
+            let tevo = new TickevoClient();
+            
             tevo.searchCategoriesByParentId(1).then((resultado) => {
                 console.log( 'searchCategoriesByParentId   >>>> ' +respuesta    );
                 
