@@ -210,7 +210,7 @@ function processQuickReplies(event) {
     var senderId = event.sender.id;
     var payload = event.message.quick_reply.payload;
 
-
+    console.log("payload del quickreply <<<<<<" + payload);
 
     var moment = require('moment');
     var follow_months = require('../modules/follow_months');
@@ -244,7 +244,7 @@ function processQuickReplies(event) {
             let tevo = require('../modules/tevo/tevo');
             var respuesta = '';
 
-             /*tevo.searchCategoriesByParentId(1).then((resultado) => {
+            /*tevo.searchCategoriesByParentId(1).then((resultado) => {
                  console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
                  
              });
