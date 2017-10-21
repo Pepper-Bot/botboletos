@@ -1,4 +1,3 @@
-'use strict';
 var express = require('express');
 var router = express.Router();
 var request = require('request');
@@ -242,15 +241,14 @@ function processQuickReplies(event) {
 
         if (payload == text) {
 
-            const TickevoClient = require('../modules/tevo/tevo');
-          
-            let tevo = new TickevoClient();
+            let tevo = require('../modules/tevo/tevo');
+            var respuesta = '';
 
             tevo.searchCategoriesByParentId(1).then((resultado) => {
-                console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
+                console.log( 'searchCategoriesByParentId   >>>> ' +respuesta    );
                 
             });
-             
+             aki
             
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
