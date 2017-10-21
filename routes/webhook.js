@@ -241,15 +241,15 @@ function processQuickReplies(event) {
 
         if (payload == text) {
 
-            let tevo = require('../modules/tevo/tevo');
+            /*let tevo = require('../modules/tevo/tevo');
             var respuesta = '';
 
-            /* tevo.searchCategoriesByParentId(1).then((resultado) => {
+             tevo.searchCategoriesByParentId(1).then((resultado) => {
                  console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
                  
-             });*/
+             });
             console.log('encima de search')
-            tevo.searchCategoriesParents();
+            tevo.searchCategoriesParents();*/
 
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
