@@ -23,9 +23,11 @@ var searchCategoriesByParentId = (parent_id) => {
 function searchCategoriesParents() {
     let categoriesArray = [];
     let parentCategories = tevo_categories.parentCategories();
+    for (let i = 0; i < parentCategories.length; i++) {
+        console.log(" EsearchCategoriesParents");
+    }
 
 
-    console.log(" EsearchCategoriesParents" );
 
 
 
