@@ -21,21 +21,22 @@ let searchCategoriesByParentId = (parent_id) => {
 
 function cat() {
 
-    var repliesArray = [];
-    var parentCategories = tevo_categories.parentCategories();
-    var text = '';
-    for (var i = 0; i < parentCategories.length; i++) {
+    let categoriesArray = [];
+    let parentCategories = tevo_categories.parentCategories();
+   
+    for (let i = 0; i < parentCategories.length; i++) {
 
         if (parentCategories[i].Sports) {
-            for (var j = 0; j < parentCategories[i].Sports; j++)
+            for (let j = 0; j < parentCategories[i].Sports; j++)
 
                 let parent_id = parentCategories[i].Sports[j].id;
                  let parent_name = parentCategories[i].Sports[j].name;
 
                 searchCategoriesByParentId(parent_id).then((resultado) => {
-                    console.log('searchCategoriesByParentId   >>>> ' + resultado);
+                 let parent_name = parentCategories[i].Sports[j].name;
+                    console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name  + '  '+ resultado);
 
-                    
+                    categoriesArray.push(parent_name);
                     
                 });
 
@@ -47,6 +48,7 @@ function cat() {
 
     }
 
+    console.log(" Este es mi categoriesArray length "+categoriesArray.length);
 
 
 
@@ -54,5 +56,6 @@ function cat() {
 
 
 module.exports = {
-    searchCategoriesByParentId
+    searchCategoriesByParentId,
+    cat
 }
