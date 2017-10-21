@@ -241,9 +241,9 @@ function processQuickReplies(event) {
 
         if (payload == text) {
 
-            let tevo = require('../modules/tevo/tevo');
-            var respuesta = '';
-
+            let TicketEvoClient = require('../modules/tevo/class_tevo');
+           
+            let  tevo = new TicketEvoClient();
             tevo.searchCategoriesByParentId(1).then((resultado) => {
                 console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
                 
@@ -687,7 +687,7 @@ function find_my_event(senderId) {
 
             context = 'find_my_event'
 
-            var ButtonsEventsQuery = require('../modules/tevo_categories_quick_replay');
+            var ButtonsEventsQuery = require('../modules/tevo/tevo_categories_quick_replay');
             //var ButtonsEventsQuery = require('../modules/buttons_event_query');
 
             ButtonsEventsQuery.send(Message, senderId, greeting);
