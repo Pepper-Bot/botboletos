@@ -245,7 +245,7 @@ function processQuickReplies(event) {
             var respuesta = '';
 
             tevo.searchCategoriesByParentId(1).then((resultado) => {
-                console.log( 'searchCategoriesByParentId   >>>> ' +respuesta    );
+                console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
                 
             });
             
