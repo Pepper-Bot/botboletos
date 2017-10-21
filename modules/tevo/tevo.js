@@ -30,7 +30,7 @@ function searchCategoriesParents() {
                 let parent_name = parentCategories[i].Sports[j].name;
                 console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name);
 
-                tevo.searchCategoriesByParentId(parentCategories[i].Sports[j].id).then((resultado) => {
+                searchCategoriesByParentId(parentCategories[i].Sports[j].id).then((resultado) => {
                     console.log('searchCategoriesByParentId   >>>> ' + resultado);
 
                 });
