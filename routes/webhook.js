@@ -241,15 +241,13 @@ function processQuickReplies(event) {
 
         if (payload == text) {
 
-            let TicketEvoClient = require('../modules/tevo/class_tevo');
-           
-            let  tevo = new TicketEvoClient();
-            tevo.getTevo();
+            let tevo = require('../modules/tevo/tevo');
+            var respuesta = '';
 
-            /*tevo.searchCategoriesByParentId(1).then((resultado) => {
+            tevo.searchCategoriesByParentId(1).then((resultado) => {
                 console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
                 
-            });*/
+            });
             
             
 
