@@ -19,18 +19,18 @@ let searchCategoriesByParentId = (parent_id) => {
     });
 } //comic con convención de los comics...
 
-function cat() {
+let searhCategoriesParents = () => {
+    return new Promise((res, rej) => {
+        console.log('entre a cat>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+        let categoriesArray = [];
+        let parentCategories = tevo_categories.parentCategories();
 
-    console.log('entre a cat>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-    let categoriesArray = [];
-    let parentCategories = tevo_categories.parentCategories();
+        for (let i = 0; i < parentCategories.length; i++) {
+            console.log('estoy en el for de parentCategories  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
+            if (parentCategories[i].Sports) {
+                for (let j = 0; j < parentCategories[i].Sports.length; j++)
 
-    for (let i = 0; i < parentCategories.length; i++) {
-        console.log('estoy en el for de parentCategories  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>')
-        if (parentCategories[i].Sports) {
-            for (let j = 0; j < parentCategories[i].Sports.length; j++)
-
-                let parent_id = parentCategories[i].Sports[j].id;
+                    let parent_id = parentCategories[i].Sports[j].id;
                 let parent_name = parentCategories[i].Sports[j].name;
 
                 /* searchCategoriesByParentId(parent_id).then((resultado) => {
@@ -43,15 +43,17 @@ function cat() {
 
                 console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name);
 
-        } else {
+            } else {
+
+            }
+
+
 
         }
 
+        console.log(" Este es mi categoriesArray length " + categoriesArray.length);
 
-
-    }
-
-    console.log(" Este es mi categoriesArray length " + categoriesArray.length);
+    });
 
 
 
@@ -60,5 +62,5 @@ function cat() {
 
 module.exports = {
     searchCategoriesByParentId,
-    cat
+    searhCategoriesParents
 }

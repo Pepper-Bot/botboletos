@@ -249,7 +249,9 @@ function processQuickReplies(event) {
                 
             });*/
             
-            tevo.cat();
+            tevo.searhCategoriesParents().then(() =>{
+
+            }); 
             
 
            // Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
