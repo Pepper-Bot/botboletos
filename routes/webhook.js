@@ -227,7 +227,7 @@ function processQuickReplies(event) {
 
     }
 
-    var tevo_categories = require('../modules/tevo_categories');
+    var tevo_categories = require('../modules/tevo/tevo_categories');
     var repliesArray = [];
     var parentCategories = tevo_categories.parentCategories();
     var text = '';
@@ -241,15 +241,15 @@ function processQuickReplies(event) {
 
         if (payload == text) {
 
-            /*let tevo = require('../modules/tevo/tevo');
+            let tevo = require('../modules/tevo/tevo');
             var respuesta = '';
 
-             tevo.searchCategoriesByParentId(1).then((resultado) => {
+             /*tevo.searchCategoriesByParentId(1).then((resultado) => {
                  console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
                  
              });
-            console.log('encima de search')
-            tevo.searchCategoriesParents();*/
+            console.log('encima de search')*/
+            tevo.searchCategoriesParents();
 
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
