@@ -24,13 +24,18 @@ function searchCategoriesParents() {
     let categoriesArray = [];
     let parentCategories = tevo_categories.parentCategories();
     for (let i = 0; i < parentCategories.length; i++) {
-        console.log(" EsearchCategoriesParents");
-
         if (parentCategories[i].Sports) {
             for (let j = 0; j < parentCategories[i].Sports.length; j++) {
                 let parent_id = parentCategories[i].Sports[j].id;
                 let parent_name = parentCategories[i].Sports[j].name;
                 console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name);
+
+                tevo.searchCategoriesByParentId(parentCategories[i].Sports[j].id).then((resultado) => {
+                    console.log('searchCategoriesByParentId   >>>> ' + resultado);
+
+                });
+                console.log('encima de search')
+
 
             }
 
