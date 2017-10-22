@@ -27,31 +27,24 @@ function searchCategoriesParents() {
         if (parentCategories[i].Sports) {
             for (let j = 0; j < parentCategories[i].Sports.length; j++) {
                 let parent_id = parentCategories[i].Sports[j].id;
-                let parent_name = parentCategories[i].Sports[j].name;
-                console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parent_name);
-
-                searchCategoriesByParentId(parentCategories[i].Sports[j].id).then((resultado) => {
-                    console.log('searchCategoriesByParentId   >>>> ' + resultado);
+                searchCategoriesByParentId(parent_id).then((resultado) => {
                     let categories = resultado.categories;
                     for (let k = 0; k < categories.length; k++) {
+                        console.log('categories[k].name >>>> ' + categories[k].name);
                         categoriesArray.push({
                             "id": categories[k].id,
                             "name": categories[k].name
                         });
+
                     }
-
-
                 });
-
             }
-
         } else {
-            console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parentCategories[i].name);
-
             searchCategoriesByParentId(parentCategories[i].id).then((resultado) => {
-                console.log('searchCategoriesByParentId   >>>> ' + resultado);
                 let categories = resultado.categories;
                 for (let k = 0; k < categories.length; k++) {
+                    console.log('categories[k].name >>>> ' + categories[k].name);
+
                     categoriesArray.push({
                         "id": categories[k].id,
                         "name": categories[k].name
@@ -63,6 +56,10 @@ function searchCategoriesParents() {
     }
 
     console.log('CATEGORIAS LENGTH   >>>> PARENT NAME ' + categoriesArray.length);
+    // callback(categoriesArray);
+
+
+
 }
 
 
