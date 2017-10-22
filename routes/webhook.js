@@ -205,7 +205,7 @@ function processQuickReplies(event) {
     var senderId = event.sender.id;
     var payload = event.message.quick_reply.payload;
 
-    console.log('este es el quick replay  payload  '+ payload);
+    console.log('este es el quick replay  payload  ' + payload);
 
     var tevo_categories = require('../modules/tevo/tevo_categories');
     var repliesArray = [];
@@ -221,15 +221,22 @@ function processQuickReplies(event) {
 
         if (payload == text) {
 
-            var tevo = require('../modules/tevo/tevo');/*
-            var respuesta = '';
+            var tevo = require('../modules/tevo/tevo');
+            /*
+                        var respuesta = '';
 
-            tevo.searchCategoriesByParentId(1).then((resultado) => {
-                 console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
-                 
-             });
-            console.log('encima de search')*/
-              tevo.searchEventsByParentName(text);
+                        tevo.searchCategoriesByParentId(1).then((resultado) => {
+                             console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
+                             
+                         });
+                        console.log('encima de search')*/
+            var categoriesArray = [];
+
+
+            searchEventsByParentName(name, categoriesArray).then(function () {
+                console.log(" CategoriesArray impresión >>>>"+   categoriesArray);
+            })
+
 
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);

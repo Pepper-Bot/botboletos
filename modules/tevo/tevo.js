@@ -21,39 +21,71 @@ var searchCategoriesByParentId = (parent_id) => {
 } //comic con convención de los comics...
 
 
-function searchEventsByParentName(name) {
 
-    var parentCategories = tevo_categories.searchParentCategoryByName(name);
-    if (parentCategories.Sports) {
-        for (let j = 0; j < parentCategories.Sports.length; j++) {
-            let parent_id = parentCategories.Sports[j].id;
-            searchCategoriesByParentId(parent_id).then((resultado) => {
+
+
+function addToArray(data, array) {
+    const promise = new Promise(function (resolve, reject) {
+
+
+
+
+
+
+
+
+        if (!array) {
+            reject(new Error('No existe un array'))
+        }
+    });
+
+}
+
+
+
+function searchEventsByParentName(name, categoriesArray) {
+    const promise = new Promise(function (resolve, reject) {
+
+        var parentCategories = tevo_categories.searchParentCategoryByName(name);
+        if (parentCategories.Sports) {
+            for (let j = 0; j < parentCategories.Sports.length; j++) {
+                let parent_id = parentCategories.Sports[j].id;
+                searchCategoriesByParentId(parent_id).then((resultado) => {
+                    let categories = resultado.categories;
+                    for (let k = 0; k < categories.length; k++) {
+                        console.log('categories[k].name >>>> ' + categories[k].name);
+                        categoriesArray.push({
+                            "id": categories[k].id,
+                            "name": categories[k].name
+                        });
+
+                    }
+                });
+            }
+
+            resolve(categoriesArray);
+
+        } else {
+            searchCategoriesByParentId(parentCategories.id).then((resultado) => {
                 let categories = resultado.categories;
                 for (let k = 0; k < categories.length; k++) {
                     console.log('categories[k].name >>>> ' + categories[k].name);
-
+                    categoriesArray.push({
+                        "id": categories[k].id,
+                        "name": categories[k].name
+                    });
 
 
 
                 }
+
             });
-
+            resolve(categoriesArray);
         }
+    });
 
 
-    } else {
-        searchCategoriesByParentId(parentCategories.id).then((resultado) => {
-            let categories = resultado.categories;
-            for (let k = 0; k < categories.length; k++) {
-                console.log('categories[k].name >>>> ' + categories[k].name);
-
-
-
-
-            }
-
-        });
-    }
+    return promise
 
 }
 
