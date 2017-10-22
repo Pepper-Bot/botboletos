@@ -63,7 +63,8 @@ function searchEventsByParentName(name) {
 function searchCategoriesParents() {
     let categoriesArray = [];
     let parentCategories = tevo_categories.parentCategories();
-    /*for (let i = 0; i < parentCategories.length; i++) {
+    
+    for (let i = 0; i < parentCategories.length; i++) {
         if (parentCategories[i].Sports) {
             for (let j = 0; j < parentCategories[i].Sports.length; j++) {
                 let parent_id = parentCategories[i].Sports[j].id;
@@ -100,7 +101,7 @@ function searchCategoriesParents() {
     console.log('CATEGORIAS LENGTH   >>>> PARENT NAME ' + categoriesArray.length);
     // callback(categoriesArray);
 
-*/
+
 
 }
 
