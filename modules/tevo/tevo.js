@@ -53,15 +53,15 @@ function searchEventsByParentName(name) {
             }
 
         });
-    }
+    }*/
 
-}*/
+}
 
 
 
 
 function searchCategoriesParents() {
-    let categoriesArray = [];
+  /*  let categoriesArray = [];
     let parentCategories = tevo_categories.parentCategories();
     for (let i = 0; i < parentCategories.length; i++) {
         if (parentCategories[i].Sports) {
@@ -100,12 +100,12 @@ function searchCategoriesParents() {
     console.log('CATEGORIAS LENGTH   >>>> PARENT NAME ' + categoriesArray.length);
     // callback(categoriesArray);
 
-
+*/
 
 }
 
 function searchCategoriesParents2() {
-    let categoriesArray = [];
+    /*let categoriesArray = [];
     let parentCategories = tevo_categories.parentCategories();
     for (let i = 0; i < parentCategories.length; i++) {
         if (parentCategories[i].Sports) {
@@ -144,7 +144,7 @@ function searchCategoriesParents2() {
     console.log('CATEGORIAS LENGTH   >>>> PARENT NAME ' + categoriesArray.length);
     // callback(categoriesArray);
 
-
+*/
 
 }
 
