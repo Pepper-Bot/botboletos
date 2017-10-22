@@ -233,7 +233,7 @@ function processQuickReplies(event) {
             var categoriesArray = [];
 
 
-            searchEventsByParentName(name, categoriesArray).then(function () {
+            searchEventsByParentName(text, categoriesArray).then(function () {
                 console.log(" CategoriesArray impresión >>>>"+   categoriesArray);
             })
 
