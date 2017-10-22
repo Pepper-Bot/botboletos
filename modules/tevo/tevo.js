@@ -32,6 +32,14 @@ function searchCategoriesParents() {
 
                 searchCategoriesByParentId(parentCategories[i].Sports[j].id).then((resultado) => {
                     console.log('searchCategoriesByParentId   >>>> ' + resultado);
+                    let categories = resultado.categories;
+                    for (let k = 0; k < categories.length; k++) {
+                        categoriesArray.push({
+                            "id": categories[k].id,
+                            "name": categories[k].name
+                        });
+                    }
+
 
                 });
                 console.log('encima de search')
