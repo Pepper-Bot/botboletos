@@ -7,7 +7,7 @@ module.exports = function () {
 
 
             var repliesArray = [];
-            var parentCategories = tevo_categories.parentCategories();
+            var parentCategories = tevo_categories.getParentCategories();
             var text = '';
             for (var i = 0; i < parentCategories.length; i++) {
 
