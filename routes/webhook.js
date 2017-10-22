@@ -229,7 +229,7 @@ function processQuickReplies(event) {
                  
              });
             console.log('encima de search')*/
-            // tevo.searchEventsByParentName(text);
+              tevo.searchEventsByParentName(text);
 
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
