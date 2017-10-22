@@ -99,7 +99,7 @@
 
  function searchParentCategoryByName(name) {
      var parentCategories = parentCategories();
-     var temp = 0;
+     /*var temp = 0;
      for (var i = 0; i < parentCategories.length; i++) {
 
          if (parentCategories[i].Sports) {
@@ -113,7 +113,7 @@
              break;
          }
 
-     }
+     }*/
 
      return parentCategories[temp];
  }
