@@ -28,12 +28,6 @@ function addToArray(data, array) {
     const promise = new Promise(function (resolve, reject) {
 
 
-
-
-
-
-
-
         if (!array) {
             reject(new Error('No existe un array'))
         }
@@ -45,7 +39,6 @@ function addToArray(data, array) {
 
 function searchEventsByParentName(name, categoriesArray) {
     const promise = new Promise(function (resolve, reject) {
-
         var parentCategories = tevo_categories.searchParentCategoryByName(name);
         if (parentCategories.Sports) {
             for (let j = 0; j < parentCategories.Sports.length; j++) {
@@ -66,9 +59,6 @@ function searchEventsByParentName(name, categoriesArray) {
                     resolve(categoriesArray);
                 }
             }
-
-
-
         } else {
             searchCategoriesByParentId(parentCategories.id).then((resultado) => {
                 let categories = resultado.categories;

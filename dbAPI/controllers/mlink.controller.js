@@ -226,18 +226,18 @@ function searchEventByName(req, res) {
 		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
 		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
 	});
-//	20.46957,-103.45400
+	//	20.46957,-103.45400
 	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events/search?name='+ name +'&page=1&per_page=50&only_with_tickets=all'
 	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events?lat='+40.6643+'&lon='+-73.9385+'&page=1&per_page=50&only_with_tickets=all'
 	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q='+name+'&page=1&per_page=50&only_with_tickets=all'
 	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q='+event_name+'&only_with_available_tickets=true&order_by=events.occurs_at'
-	
-	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q='+ event_name+'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
-	console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
+
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+	console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
 			res.status(200).send(
-				 json
+				json
 			);
 
 
@@ -256,18 +256,18 @@ function searchEventByName1(req, res) {
 		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
 		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
 	});
-//	20.46957,-103.45400
+	//	20.46957,-103.45400
 	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events/search?name='+ name +'&page=1&per_page=50&only_with_tickets=all'
 	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events?lat='+40.6643+'&lon='+-73.9385+'&page=1&per_page=50&only_with_tickets=all'
 	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q='+name+'&page=1&per_page=50&only_with_tickets=all'
 	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q='+event_name+'&only_with_available_tickets=true&order_by=events.occurs_at'
-	
-    var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q='+event_name+'&page=1&per_page=50&only_with_tickets=all'
-	console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
+
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_tickets=all'
+	console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
 			res.status(200).send(
-				 json
+				json
 			);
 
 
@@ -276,25 +276,25 @@ function searchEventByName1(req, res) {
 }
 
 function searchCategories(req, res) {
-	 
+
 	var TevoClient = require('ticketevolution-node');
 
 	var tevoClient = new TevoClient({
 		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
 		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
 	});
-    var urlApiTevo = 'https://api.ticketevolution.com/v9/categories'
-	console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/categories'
+	console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
 			var categories = json.categories;
-			for(var i = 0; i< categories.length; i++){
-				if(categories[i].parent)
-				if(categories[i].parent !=null)				
-				 console.log(',' +categories[i].parent.id + ','+ categories[i].parent.name);
+			for (var i = 0; i < categories.length; i++) {
+				if (categories[i].parent)
+					if (categories[i].parent != null)
+						console.log(',' + categories[i].parent.id + ',' + categories[i].parent.name);
 			}
 			res.status(200).send(
-				 json
+				json
 			);
 
 
@@ -303,24 +303,24 @@ function searchCategories(req, res) {
 }
 
 function searchParents(req, res) {
-   var category_name = req.params.category_name;
-   var TevoClient = require('ticketevolution-node');
+	var category_name = req.params.category_name;
+	var TevoClient = require('ticketevolution-node');
 
-   var tevoClient = new TevoClient({
-	   apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
-	   apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
-   });
-   var urlApiTevo = 'https://api.ticketevolution.com/v9/categories/'+category_name 
-   console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
-   if (tevoClient) {
-	   tevoClient.getJSON(urlApiTevo).then((json) => {
-		   res.status(200).send(
+	var tevoClient = new TevoClient({
+		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
+		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
+	});
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/categories/' + category_name
+	console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+	if (tevoClient) {
+		tevoClient.getJSON(urlApiTevo).then((json) => {
+			res.status(200).send(
 				json
-		   );
+			);
 
 
-	   });
-   }
+		});
+	}
 }
 
 
@@ -328,26 +328,48 @@ function searchParents(req, res) {
 function searchCategoriesByParentId(req, res) {
 	var parent_id = req.params.parent_id;
 	var TevoClient = require('ticketevolution-node');
- 
+
 	var tevoClient = new TevoClient({
 		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
 		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
 	});
-	var urlApiTevo = 'https://api.ticketevolution.com/v9/categories?parent_id='+parent_id 
-	console.log('>>>>>>>>>>>>>>>>>url tevo' +urlApiTevo );
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/categories?parent_id=' + parent_id
+	console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
-			
+
 			res.status(200).send(
-				 json
+				json
 			);
- 
- 
+
+
 		});
 	}
- }
+}
 
- 
+function searchEventsByCategoryId(req, res) {
+	var category_id = req.params.category_id;
+	var TevoClient = require('ticketevolution-node');
+
+	var tevoClient = new TevoClient({
+		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
+		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
+	});
+	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all'
+	console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+	if (tevoClient) {
+		tevoClient.getJSON(urlApiTevo).then((json) => {
+
+			res.status(200).send(
+				json
+			);
+
+		});
+	}
+}
+
+
 
 
 
@@ -371,7 +393,9 @@ module.exports = {
 	searchEventByName1,
 	searchCategories,
 	searchParents,
-	searchCategoriesByParentId
-	
+	searchCategoriesByParentId,
+	searchEventsByCategoryId
+
+
 
 }
