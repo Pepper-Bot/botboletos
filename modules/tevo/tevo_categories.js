@@ -98,7 +98,7 @@
 
 
  function searchParentCategoryByName(name) {
-     /*var parentCategories = getParentCategories();
+     var parentCategories = getParentCategories();
      var temp = 0;
      for (var i = 0; i < parentCategories.length; i++) {
 
@@ -115,7 +115,7 @@
 
      }
 
-     return parentCategories[temp];*/
+     return parentCategories[temp];
  }
 
 
