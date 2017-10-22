@@ -222,6 +222,7 @@ module.exports = {
     searchCategoriesByParentId,
     searchCategoriesParents,
     searchEventsByParentName,
-    searchEventsByCategoryId
+    searchEventsByCategoryId,
+    searchEventsByParentNameSecondStep
 
 }
