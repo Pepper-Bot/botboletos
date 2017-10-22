@@ -62,7 +62,7 @@ function searchEventsByParentName(name) {
 
 function searchCategoriesParents() {
     let categoriesArray = [];
-    let parentCategories = tevo_categories.parentCategories();
+    let parentCategories = tevo_categories.getParentCategories();
     
     for (let i = 0; i < parentCategories.length; i++) {
         if (parentCategories[i].Sports) {

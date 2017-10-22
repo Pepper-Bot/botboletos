@@ -1,4 +1,4 @@
- function parentCategories() {
+ function getParentCategories() {
 
      /*1	Sports
      2	Baseball
@@ -98,7 +98,7 @@
 
 
  function searchParentCategoryByName(name) {
-     var parentCategories = parentCategories();
+     var parentCategories = getParentCategories();
      /*var temp = 0;
      for (var i = 0; i < parentCategories.length; i++) {
 
@@ -120,7 +120,7 @@
 
 
  module.exports = {
-     parentCategories,
+     getParentCategories,
      searchParentCategoryByName
 
  }
