@@ -21,6 +21,21 @@ var searchCategoriesByParentId = (parent_id) => {
 } //comic con convención de los comics...
 
 
+var searchEventsByCategoryId = (category_id) => {
+    return new Promise((res, rej) => {
+        //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
+        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all'
+        console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+        if (tevoClient) {
+            tevoClient.getJSON(urlApiTevo).then((json) => {
+                res(json);
+            });
+        }
+    });
+}
+
+
+
 
 
 
@@ -34,6 +49,31 @@ function addToArray(data, array) {
     });
 
 }
+
+
+
+
+function searchEventsByParentNameSecondStep(name, categoriesArray, eventsArray) {
+    const promise = new Promise(function (resolve, reject) {
+        searchEventsByParentName(name, categoriesArray).then(function () {
+            for (let i = 0; i < categoriesArray.length; i++) {
+                searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
+                    let events = resultado.events;
+                    for (let j = 0; j < events.length; i++) {
+                        console.log('events[j] >>>> ' + events[j].name);
+
+
+                    }
+
+                });
+            }
+
+        });
+
+    });
+    return promise;
+}
+
 
 
 
@@ -181,6 +221,7 @@ function searchCategoriesParents2() {
 module.exports = {
     searchCategoriesByParentId,
     searchCategoriesParents,
-    searchEventsByParentName
+    searchEventsByParentName,
+    searchEventsByCategoryId
 
 }
