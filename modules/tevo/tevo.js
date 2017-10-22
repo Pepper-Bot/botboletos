@@ -49,15 +49,22 @@ function searchCategoriesParents() {
 
         } else {
             console.log('searchCategoriesByParentId   >>>> PARENT NAME ' + parentCategories[i].name);
+
+            searchCategoriesByParentId(parentCategories[i].id).then((resultado) => {
+                console.log('searchCategoriesByParentId   >>>> ' + resultado);
+                let categories = resultado.categories;
+                for (let k = 0; k < categories.length; k++) {
+                    categoriesArray.push({
+                        "id": categories[k].id,
+                        "name": categories[k].name
+                    });
+                }
+
+            });
         }
     }
 
-
-
-
-
-
-
+    console.log('CATEGORIAS LENGTH   >>>> PARENT NAME ' + categoriesArray.length);
 }
 
 
