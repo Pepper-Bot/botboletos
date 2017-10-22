@@ -233,7 +233,7 @@ function processQuickReplies(event) {
             var categoriesArray = [];
 
 
-            searchEventsByParentName(text, categoriesArray).then(function () {
+            tevo.searchEventsByParentName(text, categoriesArray).then(function () {
                 console.log(" CategoriesArray impresión >>>>"+   categoriesArray);
             })
 
