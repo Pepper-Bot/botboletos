@@ -42,8 +42,6 @@ function searchCategoriesParents() {
 
 
                 });
-                console.log('encima de search')
-
 
             }
 
