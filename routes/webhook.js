@@ -222,21 +222,18 @@ function processQuickReplies(event) {
         if (payload == text) {
 
             var tevo = require('../modules/tevo/tevo');
-            /*
-                        var respuesta = '';
 
-                        tevo.searchCategoriesByParentId(1).then((resultado) => {
-                             console.log( 'searchCategoriesByParentId   >>>> ' +resultado    );
-                             
-                         });
-                        console.log('encima de search')*/
             var categoriesArray = [];
+            var eventsArray = [];
 
 
-            tevo.searchEventsByParentName(text, categoriesArray).then(function () {
+            /*tevo.searchEventsByParentName(text, categoriesArray).then(function () {
                 console.log(" CategoriesArray impresión >>>>"+   categoriesArray);
-            })
+            })*/
 
+            tevo.searchEventsByParentNameSecondStep(text, categoriesArray, eventsArray).then(function () {
+                console.log(" CategoriesArray impresión >>>>"+   eventsArray);
+            }) 
 
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
