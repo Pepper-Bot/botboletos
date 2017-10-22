@@ -61,9 +61,13 @@ function searchEventsByParentName(name, categoriesArray) {
 
                     }
                 });
+
+                if (j + 1 == parentCategories.Sports.length) {
+                    resolve(categoriesArray);
+                }
             }
 
-            resolve(categoriesArray);
+
 
         } else {
             searchCategoriesByParentId(parentCategories.id).then((resultado) => {
@@ -75,12 +79,14 @@ function searchEventsByParentName(name, categoriesArray) {
                         "name": categories[k].name
                     });
 
-
+                    if (k + 1 == categories.length) {
+                        resolve(categoriesArray);
+                    }
 
                 }
 
             });
-            resolve(categoriesArray);
+
         }
     });
 
