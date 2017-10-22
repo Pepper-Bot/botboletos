@@ -221,7 +221,7 @@ function processQuickReplies(event) {
 
         if (payload == text) {
 
-            /*var tevo = require('../modules/tevo/tevo');
+            var tevo = require('../modules/tevo/tevo');
             var respuesta = '';
 
             tevo.searchCategoriesByParentId(1).then((resultado) => {
