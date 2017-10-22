@@ -23,8 +23,8 @@ var searchCategoriesByParentId = (parent_id) => {
 
 function searchEventsByParentName(name) {
 
-    var parentCategories = tevo_categories.searchParentCategoryByName(name);
-   /* if (parentCategories.Sports) {
+    /*var parentCategories = tevo_categories.searchParentCategoryByName(name);
+    if (parentCategories.Sports) {
         for (let j = 0; j < parentCategories.Sports.length; j++) {
             let parent_id = parentCategories.Sports[j].id;
             searchCategoriesByParentId(parent_id).then((resultado) => {
