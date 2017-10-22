@@ -23,7 +23,7 @@ var searchCategoriesByParentId = (parent_id) => {
 
 function searchEventsByParentName(name) {
 
-    var parentCategories = tevo_categories.searchParentCategoryByName(name);/*
+    var parentCategories = tevo_categories.searchParentCategoryByName(name);
     if (parentCategories.Sports) {
         for (let j = 0; j < parentCategories.Sports.length; j++) {
             let parent_id = parentCategories.Sports[j].id;
@@ -34,26 +34,26 @@ function searchEventsByParentName(name) {
 
 
 
-                    
+
                 }
             });
 
-        } 
+        }
 
 
     } else {
-         /*searchCategoriesByParentId(parentCategories.id).then((resultado) => {
+        searchCategoriesByParentId(parentCategories.id).then((resultado) => {
             let categories = resultado.categories;
             for (let k = 0; k < categories.length; k++) {
                 console.log('categories[k].name >>>> ' + categories[k].name);
 
-                
+
 
 
             }
 
         });
-    } */
+    }
 
 }
 
@@ -63,7 +63,7 @@ function searchEventsByParentName(name) {
 function searchCategoriesParents() {
     let categoriesArray = [];
     let parentCategories = tevo_categories.getParentCategories();
-    
+
     for (let i = 0; i < parentCategories.length; i++) {
         if (parentCategories[i].Sports) {
             for (let j = 0; j < parentCategories[i].Sports.length; j++) {
