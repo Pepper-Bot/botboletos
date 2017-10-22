@@ -98,9 +98,9 @@
 
 
  function searchParentCategoryByName(name) {
-     var parentCategories = parentCategories();
+      /*var parentCategories = parentCategories();
     var temp = 0;
-      /*for (var i = 0; i < parentCategories.length; i++) {
+     for (var i = 0; i < parentCategories.length; i++) {
 
          if (parentCategories[i].Sports) {
              text = "Sports";
@@ -113,9 +113,9 @@
              break;
          }
 
-     }*/
+     }
 
-     return parentCategories[temp];
+     return parentCategories[temp];*/
  }
 
 
