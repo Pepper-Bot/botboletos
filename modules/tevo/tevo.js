@@ -130,11 +130,13 @@ function searchEventsByParentName(name, categoriesArray) {
                             "name": categories[k].name
                         });
 
+                        if (j + 1 == parentCategories.Sports.length && (k + 1) == categories.length) {
+                            console.log('categoriesArray.length >>>' + categoriesArray.length);
+                            resolve(categoriesArray);
+                        }
+
                     }
-                    if (j + 1 == parentCategories.Sports.length && (k + 1) == categories.length) {
-                        console.log('categoriesArray.length >>>' + categoriesArray.length);
-                        resolve(categoriesArray);
-                    }
+
                 });
 
 
