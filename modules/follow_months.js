@@ -36,6 +36,7 @@ function firstDayOfMonth(){
     const endOfMonth   = moment(currentDate, moment.ISO_8601).endOf('month').format();
 
     console.log("startOfMonth>>>>>>"+   startOfMonth)
+    console.log("endOfMonth>>>>>>"+   endOfMonth)
 }
 
 function getCurrentDate() {
