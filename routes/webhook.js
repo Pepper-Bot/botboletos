@@ -207,6 +207,22 @@ function processQuickReplies(event) {
 
     console.log('este es el quick replay  payload  ' + payload);
 
+
+    var moment = require('moment');
+    var follow_months = require('../modules/follow_months');
+
+
+    var monthsReplays = follow_months.follow_months(2);
+
+    for (var i = 0; i < monthsReplays.length; i++) {
+        if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
+            choosedMonth = moment(monthsReplays[i]).format('MMM YYYY')
+            Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'));
+            break;
+        }
+
+    }
+
     var tevo_categories = require('../modules/tevo/tevo_categories');
     var repliesArray = [];
     var parentCategories = tevo_categories.getParentCategories();
