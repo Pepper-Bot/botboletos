@@ -92,14 +92,11 @@ function searchEventsByParentNameSecondStep(name, categoriesArray, eventsArray) 
                      }
                 });
 
-                if (i + 1 == categoriesArray.length) {
-                     
-                    resolve(eventsArray);
-                }
+                 
             }
 
         });
-
+        resolve(eventsArray);
     });
     return promise;
 }
