@@ -92,7 +92,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    console.log(indice);
+                  
                     if ((indice + 1) == categoriesArray.length && (j + 1) == events.length) {
                         console.log('events.length >>>' + events.length);
                         eventsArray.orderByDate('occurs_at', 1);
@@ -134,12 +134,16 @@ function searchEventsByParentName(name, categoriesArray) {
                             "name": categories[k].name
                         });
 
-                        if (j + 1 == parentCategories.Sports.length && (k + 1) == categories.length) {
-                            console.log('categoriesArray.length >>>' + categoriesArray.length);
-                            resolve(categoriesArray);
-                        }
+                        
 
                     }
+
+                }).then(function(){
+                    if (j + 1 == parentCategories.Sports.length /*&& (k + 1) == categories.length*/) {
+                        console.log('categoriesArray.length >>>' + categoriesArray.length);
+                        resolve(categoriesArray);
+                    }
+
 
                 });
 
