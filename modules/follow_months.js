@@ -29,7 +29,7 @@ function follow_months(howmany) {
 
 function getCurrentDate() {
     var currentDate = moment();
-    console.log(" moment().date().toISOString()>>>>>> " + moment( currentDate, moment.ISO_8601));
+    console.log(" moment().date().toISOString()>>>>>> " + moment( currentDate, moment.ISO_8601).format());
     return currentDate;
 }
 
