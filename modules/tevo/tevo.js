@@ -132,6 +132,7 @@ function searchEventsByParentName(name, categoriesArray) {
 
                     }
                     if (j + 1 == parentCategories.Sports.length && (k + 1) == categories.length) {
+                        console.log('categoriesArray.length >>>' + categoriesArray.length);
                         resolve(categoriesArray);
                     }
                 });
