@@ -355,7 +355,7 @@ function searchEventsByCategoryId(req, res) {
 		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
 		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
 	});
-	 //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
+	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
 	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all&occurs_at.gte=2017-11-24T13:00:00Z&occurs_at.lte=2017-11-26T13:00:00Z&order_by=events.occurs_at'
 	console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
 	if (tevoClient) {
@@ -368,6 +368,33 @@ function searchEventsByCategoryId(req, res) {
 		});
 	}
 }
+
+
+function searchEventsByCategoryIdAndDate(req, res) {
+	var category_id = req.params.category_id;
+	var occurs_at_gte = req.params.occurs_at_gte; //fechas mayores a (se debe dar en formanto ISO 806)2017-11-24T13:00:00Z
+	var occurs_at_lte = req.params.occurs_at_lte; //fechas menores a (se debe dar en formanto ISO 806)
+
+	var TevoClient = require('ticketevolution-node');
+
+	var tevoClient = new TevoClient({
+		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
+		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
+	});
+	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
+	console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+	if (tevoClient) {
+		tevoClient.getJSON(urlApiTevo).then((json) => {
+
+			res.status(200).send(
+				json
+			);
+
+		});
+	}
+}
+
 
 
 
@@ -394,7 +421,8 @@ module.exports = {
 	searchCategories,
 	searchParents,
 	searchCategoriesByParentId,
-	searchEventsByCategoryId
+	searchEventsByCategoryId,
+	searchEventsByCategoryIdAndDate
 
 
 

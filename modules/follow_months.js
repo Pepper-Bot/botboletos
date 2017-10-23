@@ -27,22 +27,24 @@ function follow_months(howmany) {
     return monthsReplays;
 }
 
-function firstDayOfMonth(){
+function firstDayOfMonth() {
     var currentDate = moment();
-    //const startOfMonth = moment(currentDate).startOf('month').format('YYYY-MM-DD hh:mm');
-    //const endOfMonth   = moment(currentDate).endOf('month').format('YYYY-MM-DD hh:mm');
-
     const startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
-    const endOfMonth   = moment(currentDate, moment.ISO_8601).endOf('month').format();
+    console.log("startOfMonth>>>>>>" + startOfMonth)
+    return startOfMonth;
+}
 
-    console.log("startOfMonth>>>>>>"+   startOfMonth)
-    console.log("endOfMonth>>>>>>"+   endOfMonth)
+function finalDayOfMonth() {
+    var currentDate = moment();
+    const endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
+    console.log("endOfMonth>>>>>>" + endOfMonth)
+    return endOfMonth;
 }
 
 function getCurrentDate() {
     var currentDate = moment();
-    console.log(" moment().date().toISOString()>>>>>> " + moment( currentDate, moment.ISO_8601).format());
-    return moment( currentDate, moment.ISO_8601).format();
+    console.log(" moment().date().toISOString()>>>>>> " + moment(currentDate, moment.ISO_8601).format());
+    return moment(currentDate, moment.ISO_8601).format();
 }
 
 function getFollowMonth() {
@@ -53,8 +55,8 @@ function getFollowMonth() {
     if (currentDate.date() != followMonth.date() && followMonth.isSame(followMonthEnd.format('YYYY-MM-DD'))) {
         followMonth = followMonth.add(1, 'd');
     }
-    console.log(" moment().date().toISOString()>>>>>> " + moment( followMonth, moment.ISO_8601).format());
-    return moment( followMonth, moment.ISO_8601).format();
+    console.log(" moment().date().toISOString()>>>>>> " + moment(followMonth, moment.ISO_8601).format());
+    return moment(followMonth, moment.ISO_8601).format();
 }
 
 
@@ -63,7 +65,8 @@ module.exports = {
     follow_months,
     getCurrentDate,
     getFollowMonth,
-    firstDayOfMonth
+    firstDayOfMonth,
+    finalDayOfMonth
 
 
 }

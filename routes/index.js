@@ -68,8 +68,9 @@ router.get("/api/categories", MLinkController.searchCategories);
 router.get("/api/categories/:category_name", MLinkController.searchParents);
 router.get("/api/categories/parent/:parent_id", MLinkController.searchCategoriesByParentId);
 router.get("/api/events/category/:category_id", MLinkController.searchEventsByCategoryId);
+router.get("/api/events/category/:category_id/occurs_at_gte/:occurs_at_gte/occurs_at_lte/:occurs_at_lte", MLinkController.searchEventsByCategoryIdAndDate);
+
 
  
-
 
 module.exports = router;

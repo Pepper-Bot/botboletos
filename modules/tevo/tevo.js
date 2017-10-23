@@ -1,8 +1,8 @@
 var TevoClient = require('ticketevolution-node');
 var tevo_categories = require('./tevo_categories');
-
-
-
+var follow_months = require('../follow_months');
+var categoriesArray_g = [];
+var eventsArray_g = [];
 //let approved = students.filter(student => student.score >= 11);
 
 
@@ -38,6 +38,22 @@ var searchEventsByCategoryId = (category_id) => {
     });
 }
 
+var searchEventsByCategoryIdAndDate = (category_id, occurs_at_gte, occurs_at_lte) => {
+    return new Promise((res, rej) => {
+        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
+        console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+        if (tevoClient) {
+            tevoClient.getJSON(urlApiTevo).then((json) => {
+                res(json);
+            });
+        }
+    });
+}
+
+
+
+
+
 
 
 
@@ -65,11 +81,21 @@ function searchEventsByParentNameSecondStep(name, categoriesArray, eventsArray) 
                     let events = resultado.events;
                     for (let j = 0; j < events.length; j++) {
                         console.log('events[j] >>>> ' + events[j].name);
-
-
-                    }
-
+                        eventsArray.push({
+                            "id": events[j].id,
+                            "name": events[j].name,
+                            "category_name":events[j].category.name,
+                            "occurs_at": events[j].occurs_at,
+                            "performer_name": events[j].performances[0].performer.name,
+                            "venue_id":  resultEvent[j].venue.id
+                        });
+                     }
                 });
+
+                if (i + 1 == categoriesArray.length) {
+                    eventsArray_g = eventsArray
+                    resolve(eventsArray);
+                }
             }
 
         });
