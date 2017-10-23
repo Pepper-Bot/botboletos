@@ -124,7 +124,7 @@ function searchEventsByParentName(name, categoriesArray) {
                 searchCategoriesByParentId(parent_id).then((resultado) => {
                     let categories = resultado.categories;
                     for (let k = 0; k < categories.length; k++) {
-                        console.log('categories[k].name >>>> ' + categories[k].name);
+                        // console.log('categories[k].name >>>> ' + categories[k].name);
                         categoriesArray.push({
                             "id": categories[k].id,
                             "name": categories[k].name
@@ -145,13 +145,14 @@ function searchEventsByParentName(name, categoriesArray) {
             searchCategoriesByParentId(parentCategories.id).then((resultado) => {
                 let categories = resultado.categories;
                 for (let k = 0; k < categories.length; k++) {
-                    console.log('categories[k].name >>>> ' + categories[k].name);
+                    // console.log('categories[k].name >>>> ' + categories[k].name);
                     categoriesArray.push({
                         "id": categories[k].id,
                         "name": categories[k].name
                     });
 
                     if (k + 1 == categories.length) {
+                        console.log('categoriesArray.length >>>' + categoriesArray.length);
                         resolve(categoriesArray);
                     }
 
