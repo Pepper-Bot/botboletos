@@ -356,7 +356,7 @@ function searchEventsByCategoryId(req, res) {
 		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
 	});
 	 //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
-	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all&occurs_at=2017-10-26T13:00:00Z,2017-10-31T13:00:00Z'
+	var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all&occurs_at.lte=2017-10-26T13:00:00Z'
 	console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
 	if (tevoClient) {
 		tevoClient.getJSON(urlApiTevo).then((json) => {
