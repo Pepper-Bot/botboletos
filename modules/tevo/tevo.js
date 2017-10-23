@@ -81,7 +81,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
             searchEventsByCategoryId(categoriesArray[indice].id).then((resultado) => {
                 let events = resultado.events;
 
-                for (let jota = 0; jota < events.length; jota++) {
+                for (let j = 0; j < events.length; j++) {
                     //console.log('events[jota] >>>> ' + events[j].name);
                     eventsArray.push({
                         "id": events[j].id,
@@ -93,7 +93,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                     });
                     console.log("indice>>> " + indice + " categoriesArray.length>>>" + categoriesArray.length)
                     console.log("j>>> " + j + " events.length>>>" + categoriesArray.length)
-                    
+
                     if ((indice + 1) == categoriesArray.length && (j + 1) == events.length) {
                         console.log('events.length >>>' + events.length);
                         eventsArray.orderByDate('occurs_at', 1);
