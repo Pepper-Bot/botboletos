@@ -226,8 +226,7 @@ function processQuickReplies(event) {
             var categoriesArray = [];
             var eventsArray = [];
 
-            var months = require('../modules/follow_months');
-            months.getCurrentDate()
+            
 
             /*tevo.searchEventsByParentName(text, categoriesArray).then(function () {
                 console.log(" CategoriesArray impresión >>>>"+   categoriesArray);
