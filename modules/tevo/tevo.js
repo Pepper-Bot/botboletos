@@ -77,7 +77,7 @@ function addToArray(data, array) {
 function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
     return new Promise(function (resolve, reject) {
         for (let i = 0; i < categoriesArray.length; i++) {
-            console.log( 'i ' + i + ' vs '+     'categoriesArray.length  '+ categoriesArray.length );
+         
             searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
                 let events = resultado.events;
 
@@ -91,7 +91,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    console.log( 'POR DENTRO VALOR DE i ' + i + ' vs '+     'categoriesArray.length  '+ categoriesArray.length );
+                    console.log( 'i ' + i + ' vs '+     'categoriesArray.length  '+ categoriesArray.length );
                     if ((i + 1) == categoriesArray.length && (j + 1) == events.length) {
                         console.log('events.length >>>' + events.length);
                         eventsArray.orderByDate('occurs_at', 1);
