@@ -76,6 +76,7 @@ function addToArray(data, array) {
 
 function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
     return new Promise(function (resolve, reject) {
+        coonsole.log("<<<<categoriesArray.length>>>" + categoriesArray.length);
         for (let indice = 0; indice < categoriesArray.length; indice++) {
             searchEventsByCategoryId(categoriesArray[indice].id).then((resultado) => {
                 let events = resultado.events;
@@ -91,6 +92,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "venue_id": events[j].venue.id
                     });
                     console.log("indice>>> " + indice + " categoriesArray.length>>>" + categoriesArray.length)
+                    console.log("j>>> " + j + " events.length>>>" + categoriesArray.length)
                     
                     if ((indice + 1) == categoriesArray.length && (j + 1) == events.length) {
                         console.log('events.length >>>' + events.length);
