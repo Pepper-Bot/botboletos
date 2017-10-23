@@ -88,15 +88,15 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    if (i + 1 == categoriesArray.length) {
-                        
+                    if ((i + 1) == categoriesArray.length && (j + 1) == events.length) {
+
                         resolve(eventsArray);
-        
+
                     }
                 }
             });
 
-           
+
 
         }
     });
