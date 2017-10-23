@@ -28,8 +28,9 @@ function follow_months(howmany) {
 }
 
 function getCurrentDate() {
-    console.log(" moment().date().toISOString()>>>>>> "+  moment().date().toISOString());
-    return moment().date().toISOString();
+    var currentDate = moment();
+    console.log(" moment().date().toISOString()>>>>>> " + currentDate);
+    return currentDate;
 }
 
 function getFollowMonth() {
@@ -40,7 +41,7 @@ function getFollowMonth() {
     if (currentDate.date() != followMonth.date() && followMonth.isSame(followMonthEnd.format('YYYY-MM-DD'))) {
         followMonth = followMonth.add(1, 'd');
     }
-    return followMonth.date().toISOString();;
+    return followMonth;
 }
 
 
