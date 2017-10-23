@@ -246,10 +246,10 @@ function processQuickReplies(event) {
             months.firstDayOfMonth();
 
             tevo.searchEventsByParentName(text, categoriesArray).then(function () {
-                console.log(" CategoriesArray impresión >>>>" + categoriesArray);
-            }).then(tevo.searchEventsByParentNameSecondStep(categoriesArray, eventsArray).then(function () {
-                console.log(" CategoriesArray impresión >>>>" + eventsArray);
-            }))
+               tevo.searchEventsByParentNameSecondStep(categoriesArray, eventsArray).then(function () {
+                    console.log(" CategoriesArray impresión >>>>" + eventsArray);
+                });
+            });
 
             /* tevo.searchEventsByParentNameSecondStep(text, categoriesArray, eventsArray).then(function () {
                  console.log(" Events  impresión >>>>" + eventsArray);
