@@ -92,7 +92,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
             });
 
             if (i + 1 == categoriesArray.length) {
-                console.log('Estoy al final de categoriesArray');
+                console.log('Estoy al final de categoriesArray '+ i);
                 resolve(eventsArray);
 
             }
