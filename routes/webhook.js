@@ -247,9 +247,8 @@ function processQuickReplies(event) {
 
             tevo.searchEventsByParentName(text, categoriesArray).then(function () {
                 tevo.searchEventsByParentNameSecondStep(categoriesArray, eventsArray).then(function () {
-           
                     for (let i = 0; i < eventsArray.length; i++) {
-                          console.log("El evento ocurre el: " + eventsArray[i].occurs_at)
+                        console.log("El evento " + eventsArray[i].name + " ocurre el: " + eventsArray[i].occurs_at)
                     }
                 });
             });
