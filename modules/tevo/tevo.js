@@ -87,7 +87,7 @@ function searchEventsByParentNameSecondStep(name, categoriesArray, eventsArray) 
                             "category_name":events[j].category.name,
                             "occurs_at": events[j].occurs_at,
                             "performer_name": events[j].performances[0].performer.name,
-                            "venue_id":  resultEvent[j].venue.id
+                            "venue_id":  events[j].venue.id
                         });
                      }
                 });
