@@ -26,14 +26,14 @@ var searchCategoriesByParentId = (parent_id) => {
 } //comic con convención de los comics...
 
 
-var searchEventsByCategoryId = (category_id, i) => {
+var searchEventsByCategoryId = (category_id) => {
     return new Promise((res, rej) => {
         //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
         let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all'
         console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
-                res(json, i);
+                res(json);
             });
         }
     });
@@ -77,9 +77,9 @@ function addToArray(data, array) {
 function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
     return new Promise(function (resolve, reject) {
         let acum = 0;
-        for (let i = 0; i < categoriesArray.length; i++) {
+        for (let indice = 0; indice < categoriesArray.length; indice++) {
 
-            searchEventsByCategoryId(categoriesArray[i].id, i ).then((resultado, i ) => {
+            searchEventsByCategoryId(categoriesArray[indice].id ).then((resultado ) => {
                 let events = resultado.events;
 
                 for (let j = 0; j < events.length; j++) {
@@ -92,8 +92,8 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    console.log(i);
-                    if ((i + 1) == categoriesArray.length && (j + 1) == events.length) {
+                    console.log(indice);
+                    if ((indice + 1) == categoriesArray.length && (j + 1) == events.length) {
                         console.log('events.length >>>' + events.length);
                         eventsArray.orderByDate('occurs_at', 1);
                         resolve(eventsArray);
