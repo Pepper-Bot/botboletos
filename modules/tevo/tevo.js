@@ -79,7 +79,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
         let acum = 0;
         for (let indice = 0; indice < categoriesArray.length; indice++) {
 
-            searchEventsByCategoryId(categoriesArray[indice].id ).then((resultado ) => {
+            searchEventsByCategoryId(categoriesArray[indice].id).then((resultado) => {
                 let events = resultado.events;
 
                 for (let j = 0; j < events.length; j++) {
@@ -92,10 +92,10 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                  
-                    
+
+
                 }
-            }).then(function(){
+            }).then(function () {
                 if ((indice + 1) == categoriesArray.length) {
                     console.log('events.length >>>' + events.length);
                     eventsArray.orderByDate('occurs_at', 1);
@@ -136,12 +136,12 @@ function searchEventsByParentName(name, categoriesArray) {
                             "name": categories[k].name
                         });
 
-                        
+
 
                     }
 
-                }).then(function(){
-                    if (j + 1 == parentCategories.Sports.length && (k + 1) == categories.length) {
+                }).then(function () {
+                    if (j + 1 == parentCategories.Sports.length) {
                         console.log('categoriesArray.length >>>' + categoriesArray.length);
                         resolve(categoriesArray);
                     }
