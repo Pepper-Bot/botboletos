@@ -74,9 +74,10 @@ function addToArray(data, array) {
 
 
 function searchEventsByParentNameSecondStep(name, categoriesArray, eventsArray) {
-    searchEventsByParentName(name, categoriesArray).then(function (eventsArray) {
+    const promise = new Promise(function (resolve, reject) {
+        searchEventsByParentName(name, categoriesArray).then(function () {
 
-        const promise = new Promise(function (resolve, reject) {
+
 
             for (let i = 0; i < categoriesArray.length; i++) {
                 searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
@@ -100,11 +101,13 @@ function searchEventsByParentNameSecondStep(name, categoriesArray, eventsArray) 
                 }
 
             }
+
+
         });
-        return promise;
+
     });
 
-
+    return promise;
 
 }
 
