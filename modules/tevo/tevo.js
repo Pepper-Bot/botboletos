@@ -76,8 +76,8 @@ function addToArray(data, array) {
 
 function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
     return new Promise(function (resolve, reject) {
-        for (let i = 0; i < categoriesArray.length; i++) {
-            searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
+        for (let indice = 0; indice < categoriesArray.length; indice++) {
+            searchEventsByCategoryId(categoriesArray[indice].id).then((resultado) => {
                 let events = resultado.events;
 
                 for (let j = 0; j < events.length; j++) {
@@ -90,9 +90,9 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    console.log("i>>> " + i + " categoriesArray.length>>>" + categoriesArray.length)
+                    console.log("indice>>> " + indice + " categoriesArray.length>>>" + categoriesArray.length)
                     
-                    if ((i + 1) == categoriesArray.length && (j + 1) == events.length) {
+                    if ((indice + 1) == categoriesArray.length && (j + 1) == events.length) {
                         console.log('events.length >>>' + events.length);
                         eventsArray.orderByDate('occurs_at', 1);
                         resolve(eventsArray);
