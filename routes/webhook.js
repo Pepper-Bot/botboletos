@@ -245,11 +245,11 @@ function processQuickReplies(event) {
             var months = require('../modules/follow_months');
             months.firstDayOfMonth();
 
-            /*tevo.searchEventsByParentName(text, categoriesArray).then(function () {
+            tevo.searchEventsByParentName(text, categoriesArray).then(function () {
                 console.log(" CategoriesArray impresión >>>>"+   categoriesArray);
-            })*/
+            }) 
 
-            tevo.searchEventsByParentNameSecondStep(text, categoriesArray, eventsArray).then(function () {
+            tevo.searchEventsByParentNameSecondStep( eventsArray).then(function () {
                 console.log(" Events  impresión >>>>"+ eventsArray  );
             }) 
 
