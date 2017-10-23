@@ -78,8 +78,8 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
     return new Promise(function (resolve, reject) {
         let acum = 0;
         for (let i = 0; i < categoriesArray.length; i++) {
-            
-            searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
+
+            searchEventsByCategoryId(categoriesArray[i].id, i).then((resultado) => {
                 let events = resultado.events;
 
                 for (let j = 0; j < events.length; j++) {
@@ -92,8 +92,8 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    console.log( 'acum ' + acum + ' vs '+     'categoriesArray.length  '+ categoriesArray.length );
-                    if ((acum + 1) == categoriesArray.length && (j + 1) == events.length) {
+                    console.log('acum ' + i + ' vs ' + 'categoriesArray.length  ' + categoriesArray.length);
+                    if ((i + 1) == categoriesArray.length && (j + 1) == events.length) {
                         console.log('events.length >>>' + events.length);
                         eventsArray.orderByDate('occurs_at', 1);
                         resolve(eventsArray);
@@ -102,7 +102,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                 }
             });
 
-         acum +=1;
+            acum += 1;
 
         }
     });
