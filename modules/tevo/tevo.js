@@ -79,11 +79,11 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
         let acum = 0;
         for (let i = 0; i < categoriesArray.length; i++) {
 
-            searchEventsByCategoryId(categoriesArray[i].id).then((resultado, i) => {
+            searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
                 let events = resultado.events;
 
                 for (let j = 0; j < events.length; j++) {
-                    console.log('events[j] >>>> ' + events[j].name);
+                    //console.log('events[j] >>>> ' + events[j].name);
                     eventsArray.push({
                         "id": events[j].id,
                         "name": events[j].name,
@@ -92,7 +92,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    console.log(  i + ' vs ' +  categoriesArray.length);
+                    console.log(  j);
                     if ((i + 1) == categoriesArray.length && (j + 1) == events.length) {
                         console.log('events.length >>>' + events.length);
                         eventsArray.orderByDate('occurs_at', 1);
