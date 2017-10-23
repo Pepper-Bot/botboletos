@@ -93,7 +93,7 @@ function searchEventsByParentNameSecondStep(name, categoriesArray, eventsArray) 
                 });
 
                 if (i + 1 == categoriesArray.length) {
-                    eventsArray_g = eventsArray
+                     
                     resolve(eventsArray);
                 }
             }

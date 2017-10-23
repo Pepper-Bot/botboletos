@@ -250,7 +250,7 @@ function processQuickReplies(event) {
             })*/
 
             tevo.searchEventsByParentNameSecondStep(text, categoriesArray, eventsArray).then(function () {
-                console.log(" Events  impresión >>>>"+   eventsArray);
+                console.log(" Events  impresión >>>>"+ eventsArray  );
             }) 
 
 
