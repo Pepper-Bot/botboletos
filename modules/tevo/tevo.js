@@ -73,8 +73,11 @@ function addToArray(data, array) {
 
 
 
-function searchEventsByParentNameSecondStep(name, categoriesArray, eventsArray) {
+function searchEventsByParentNameSecondStep(name, categoriesArray) {
+    
     searchEventsByParentName(name, categoriesArray).then(function () {
+        var eventsArray = [];
+        
         for (let i = 0; i < categoriesArray.length; i++) {
             searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
                 let events = resultado.events;
