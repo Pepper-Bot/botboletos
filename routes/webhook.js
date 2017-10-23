@@ -249,8 +249,10 @@ function processQuickReplies(event) {
                  console.log(" CategoriesArray impresión >>>>"+   categoriesArray);
              }) */
 
-            eventsArray = tevo.searchEventsByParentNameSecondStep(text, categoriesArray);
-            console.log(" Events  impresión >>>>" + eventsArray);
+            tevo.searchEventsByParentNameSecondStep(text, categoriesArray, eventsArray).then(function () {
+                console.log(" Events  impresión >>>>" + eventsArray);
+            });
+
 
 
 

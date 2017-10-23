@@ -74,34 +74,34 @@ function addToArray(data, array) {
 
 
 function searchEventsByParentNameSecondStep(name, categoriesArray, eventsArray) {
-    searchEventsByParentName(name, categoriesArray).then(function () {
+    searchEventsByParentName(name, categoriesArray).then(function (eventsArray) {
 
+        const promise = new Promise(function (resolve, reject) {
 
+            for (let i = 0; i < categoriesArray.length; i++) {
+                searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
+                    let events = resultado.events;
+                    for (let j = 0; j < events.length; j++) {
+                        console.log('events[j] >>>> ' + events[j].name);
+                        eventsArray.push({
+                            "id": events[j].id,
+                            "name": events[j].name,
+                            "category_name": events[j].category.name,
+                            "occurs_at": events[j].occurs_at,
+                            "performer_name": events[j].performances[0].performer.name,
+                            "venue_id": events[j].venue.id
+                        });
+                    }
+                });
 
-        for (let i = 0; i < categoriesArray.length; i++) {
-            searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
-                let events = resultado.events;
-                for (let j = 0; j < events.length; j++) {
-                    console.log('events[j] >>>> ' + events[j].name);
-                    eventsArray.push({
-                        "id": events[j].id,
-                        "name": events[j].name,
-                        "category_name": events[j].category.name,
-                        "occurs_at": events[j].occurs_at,
-                        "performer_name": events[j].performances[0].performer.name,
-                        "venue_id": events[j].venue.id
-                    });
+                if (i + 1 == categoriesArray.length) {
+                    resolve(eventsArray);
+
                 }
-            });
-
-            if (i + 1 == categoriesArray.length) {
-                resolve(eventsArray);
 
             }
-
-        }
-
-
+        });
+        return promise;
     });
 
 
