@@ -92,7 +92,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    console.log(  j);
+                    console.log(i);
                     if ((i + 1) == categoriesArray.length && (j + 1) == events.length) {
                         console.log('events.length >>>' + events.length);
                         eventsArray.orderByDate('occurs_at', 1);
@@ -102,7 +102,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                 }
             });
 
-            
+
 
         }
     });
