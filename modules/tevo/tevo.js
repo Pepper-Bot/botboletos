@@ -74,9 +74,7 @@ function addToArray(data, array) {
 
 
 function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
-
-    const promise = new Promise(function (resolve, reject) {
-
+    return new Promise(function (resolve, reject) {
         for (let i = 0; i < categoriesArray.length; i++) {
             searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
                 let events = resultado.events;
@@ -94,18 +92,13 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
             });
 
             if (i + 1 == categoriesArray.length) {
+                console.log('Estoy al final de categoriesArray');
                 resolve(eventsArray);
 
             }
 
         }
     });
-
-
-    return promise
-
-
-
 }
 
 
