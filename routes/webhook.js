@@ -246,8 +246,11 @@ function processQuickReplies(event) {
             months.firstDayOfMonth();
 
             tevo.searchEventsByParentName(text, categoriesArray).then(function () {
-               tevo.searchEventsByParentNameSecondStep(categoriesArray, eventsArray).then(function () {
-                    console.log("  impresión de Events Array  >>>>" + eventsArray);
+                tevo.searchEventsByParentNameSecondStep(categoriesArray, eventsArray).then(function () {
+           
+                    for (let i = 0; i < eventsArray.length; i++) {
+                          console.log("El evento ocurre el: " + eventsArray[i].occurs_at)
+                    }
                 });
             });
 
