@@ -27,6 +27,17 @@ function follow_months(howmany) {
     return monthsReplays;
 }
 
+function firstDayOfMonth(){
+    var currentDate = moment();
+    //const startOfMonth = moment(currentDate).startOf('month').format('YYYY-MM-DD hh:mm');
+    //const endOfMonth   = moment(currentDate).endOf('month').format('YYYY-MM-DD hh:mm');
+
+    const startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
+    const endOfMonth   = moment(currentDate, moment.ISO_8601).endOf('month').format();
+
+    console.log("startOfMonth>>>>>>"+   startOfMonth)
+}
+
 function getCurrentDate() {
     var currentDate = moment();
     console.log(" moment().date().toISOString()>>>>>> " + moment( currentDate, moment.ISO_8601).format());
