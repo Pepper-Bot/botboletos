@@ -79,7 +79,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
         let acum = 0;
         for (let i = 0; i < categoriesArray.length; i++) {
 
-            searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
+            searchEventsByCategoryId(categoriesArray[i].id, i ).then((resultado, i ) => {
                 let events = resultado.events;
 
                 for (let j = 0; j < events.length; j++) {
