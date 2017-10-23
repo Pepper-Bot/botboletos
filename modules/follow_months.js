@@ -1,38 +1,52 @@
-module.exports = function () {
+var moment = require('moment');
 
-    return {
+function follow_months(howmany) {
+    var monthsReplays = new Array();
+    var currentDate = moment();
+    monthsReplays.push(currentDate);
+    var followMonth;
+    var followMonthEnd;
+    for (var i = 1; i <= howmany; i++) {
 
-        follow_months: function (howmany) {
-            var moment = require('moment');
+        followMonth = moment(currentDate).add(1, 'M');
+        followMonthEnd = moment(followMonth).endOf('month');
 
-            var monthsReplays = new Array();
-            var currentDate = moment();
-            monthsReplays.push(currentDate);
-            var followMonth;
-            var followMonthEnd;
-            for (var i = 1; i <= howmany; i++) {
-
-                followMonth = moment(currentDate).add(1, 'M');
-                followMonthEnd = moment(followMonth).endOf('month');
-
-                if (currentDate.date() != followMonth.date() && followMonth.isSame(followMonthEnd.format('YYYY-MM-DD'))) {
-                    followMonth = followMonth.add(1, 'd');
-                }
-
-                currentDate = followMonth;
-                
-                monthsReplays.push(currentDate);
-            }
-
-
-            /*for(var i = 0 ; i < monthsReplays.length; i ++){
-                console.log('>>>>> MES DE FOLLOW_MONTHS' + moment(monthsReplays[i]).format('MMM YYYY'));
-
-            }*/
-
-
-            return monthsReplays;
+        if (currentDate.date() != followMonth.date() && followMonth.isSame(followMonthEnd.format('YYYY-MM-DD'))) {
+            followMonth = followMonth.add(1, 'd');
         }
-    }
 
-}();
+        currentDate = followMonth;
+
+        monthsReplays.push(currentDate);
+    }
+    /*for(var i = 0 ; i < monthsReplays.length; i ++){
+        console.log('>>>>> MES DE FOLLOW_MONTHS' + moment(monthsReplays[i]).format('MMM YYYY'));
+
+    }*/
+
+    return monthsReplays;
+}
+
+function getCurrentDate() {
+    console.log(" moment().date().toISOString()>>>>>> "+  moment().date().toISOString());
+    return moment().date().toISOString();
+}
+
+function getFollowMonth() {
+    var currentDate = moment();
+    var followMonth = moment(currentDate).add(1, 'M');
+    var followMonthEnd = moment(followMonth).endOf('month');
+
+    if (currentDate.date() != followMonth.date() && followMonth.isSame(followMonthEnd.format('YYYY-MM-DD'))) {
+        followMonth = followMonth.add(1, 'd');
+    }
+    return followMonth.date().toISOString();;
+}
+
+
+
+module.exports = {
+    follow_months,
+
+
+}

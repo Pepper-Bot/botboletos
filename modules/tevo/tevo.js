@@ -1,6 +1,8 @@
 var TevoClient = require('ticketevolution-node');
 var tevo_categories = require('./tevo_categories');
 
+
+
 //let approved = students.filter(student => student.score >= 11);
 
 
@@ -175,49 +177,7 @@ function searchCategoriesParents() {
 
 }
 
-function searchCategoriesParents2() {
-    /*let categoriesArray = [];
-    let parentCategories = tevo_categories.parentCategories();
-    for (let i = 0; i < parentCategories.length; i++) {
-        if (parentCategories[i].Sports) {
-            for (let j = 0; j < parentCategories[i].Sports.length; j++) {
-                let parent_id = parentCategories[i].Sports[j].id;
-                searchCategoriesByParentId(parent_id).then((resultado) => {
-                    let categories = resultado.categories;
-                    for (let k = 0; k < categories.length; k++) {
-                        console.log('categories[k].name >>>> ' + categories[k].name);
-                        categoriesArray.push({
-                            "id": categories[k].id,
-                            "name": categories[k].name
-                        });
 
-                    }
-                });
-
-
-            }
-        } else {
-            searchCategoriesByParentId(parentCategories[i].id).then((resultado) => {
-                let categories = resultado.categories;
-                for (let k = 0; k < categories.length; k++) {
-                    console.log('categories[k].name >>>> ' + categories[k].name);
-
-                    categoriesArray.push({
-                        "id": categories[k].id,
-                        "name": categories[k].name
-                    });
-                }
-
-            });
-        }
-    }
-
-    console.log('CATEGORIAS LENGTH   >>>> PARENT NAME ' + categoriesArray.length);
-    // callback(categoriesArray);
-
-*/
-
-}
 
 
 module.exports = {
