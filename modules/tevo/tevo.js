@@ -73,11 +73,11 @@ function addToArray(data, array) {
 
 
 
-function searchEventsByParentNameSecondStep(name, categoriesArray) {
-    
+function searchEventsByParentNameSecondStep(name, categoriesArray, eventsArray) {
     searchEventsByParentName(name, categoriesArray).then(function () {
-        var eventsArray = [];
-        
+
+
+
         for (let i = 0; i < categoriesArray.length; i++) {
             searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
                 let events = resultado.events;
@@ -95,11 +95,12 @@ function searchEventsByParentNameSecondStep(name, categoriesArray) {
             });
 
             if (i + 1 == categoriesArray.length) {
-                return  eventsArray;
+                resolve(eventsArray);
 
             }
 
         }
+
 
     });
 
