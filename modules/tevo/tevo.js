@@ -76,25 +76,22 @@ function addToArray(data, array) {
 
 function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
     return new Promise(function (resolve, reject) {
-        coonsole.log("<<<<categoriesArray.length>>>" + categoriesArray.length);
-        for (let indice = 0; indice < categoriesArray.length; indice++) {
-            searchEventsByCategoryId(categoriesArray[indice].id).then((resultado) => {
+        for (let i = 0; i < categoriesArray.length; i++) {
+            searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
                 let events = resultado.events;
 
                 for (let j = 0; j < events.length; j++) {
-                    //console.log('events[jota] >>>> ' + events[j].name);
+                    console.log('events[j] >>>> ' + events[j].name);
                     eventsArray.push({
                         "id": events[j].id,
                         "name": events[j].name,
                         "category_name": events[j].category.name,
-                        "occurs_at": new Date(events[jota].occurs_at),
+                        "occurs_at": new Date(events[j].occurs_at),
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    console.log("indice>>> " + indice + " categoriesArray.length>>>" + categoriesArray.length)
-                    console.log("j>>> " + j + " events.length>>>" + categoriesArray.length)
 
-                    if ((indice + 1) == categoriesArray.length && (j + 1) == events.length) {
+                    if ((i + 1) == categoriesArray.length && (j + 1) == events.length) {
                         console.log('events.length >>>' + events.length);
                         eventsArray.orderByDate('occurs_at', 1);
                         resolve(eventsArray);
