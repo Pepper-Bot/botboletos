@@ -81,7 +81,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                 let events = resultado.events;
                 var j = 0;
                 for ( j = 0; j < events.length; j++) {
-                    //console.log('events[j] >>>> ' + events[j].name);
+                    console.log('events[j] >>>> ' + events[j].name);
                     eventsArray.push({
                         "id": events[j].id,
                         "name": events[j].name,
