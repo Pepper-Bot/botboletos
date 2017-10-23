@@ -81,13 +81,13 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
             searchEventsByCategoryId(categoriesArray[indice].id).then((resultado) => {
                 let events = resultado.events;
 
-                for (let j = 0; j < events.length; j++) {
-                    //console.log('events[j] >>>> ' + events[j].name);
+                for (let jota = 0; jota < events.length; jota++) {
+                    //console.log('events[jota] >>>> ' + events[j].name);
                     eventsArray.push({
                         "id": events[j].id,
                         "name": events[j].name,
                         "category_name": events[j].category.name,
-                        "occurs_at": new Date(events[j].occurs_at),
+                        "occurs_at": new Date(events[jota].occurs_at),
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
