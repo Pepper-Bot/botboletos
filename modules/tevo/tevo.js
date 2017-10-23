@@ -73,11 +73,10 @@ function addToArray(data, array) {
 
 
 
-function searchEventsByParentNameSecondStep(eventsArray) {
-    const promise = new Promise(function (resolve, reject) {
-
-        for (let i = 0; i < categoriesArray_g.length; i++) {
-            searchEventsByCategoryId(categoriesArray_g[i].id).then((resultado) => {
+function searchEventsByParentNameSecondStep(name, categoriesArray, eventsArray) {
+    searchEventsByParentName(name, categoriesArray).then(function () {
+        for (let i = 0; i < categoriesArray.length; i++) {
+            searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
                 let events = resultado.events;
                 for (let j = 0; j < events.length; j++) {
                     console.log('events[j] >>>> ' + events[j].name);
@@ -92,18 +91,17 @@ function searchEventsByParentNameSecondStep(eventsArray) {
                 }
             });
 
-            if (i + 1 == categoriesArray_g.length) {
-                resolve(eventsArray);
-
+            if (i + 1 == categoriesArray.length) {
+                return  eventsArray;
 
             }
 
         }
 
-
-
     });
-    return promise;
+
+
+
 }
 
 
@@ -129,7 +127,6 @@ function searchEventsByParentName(name, categoriesArray) {
 
                 if (j + 1 == parentCategories.Sports.length) {
                     resolve(categoriesArray);
-                    categoriesArray_g = categoriesArray;
                 }
             }
         } else {
@@ -144,7 +141,6 @@ function searchEventsByParentName(name, categoriesArray) {
 
                     if (k + 1 == categories.length) {
                         resolve(categoriesArray);
-                        categoriesArray_g = categoriesArray;
                     }
 
                 }
