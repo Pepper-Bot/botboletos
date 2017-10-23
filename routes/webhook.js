@@ -243,7 +243,7 @@ function processQuickReplies(event) {
             var eventsArray = [];
 
             var months = require('../modules/follow_months');
-            months.getFollowMonth();
+            months.firstDayOfMonth();
 
             /*tevo.searchEventsByParentName(text, categoriesArray).then(function () {
                 console.log(" CategoriesArray impresión >>>>"+   categoriesArray);
