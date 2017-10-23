@@ -85,13 +85,13 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "id": events[j].id,
                         "name": events[j].name,
                         "category_name": events[j].category.name,
-                        "occurs_at": new Date(events[j].occurs_at),
+                        "occurs_at": new Date( events[j].occurs_at),
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
                     if ((i + 1) == categoriesArray.length && (j + 1) == events.length) {
 
-                        eventsArray.orderByDate('occurs_at', 1);
+                        eventsArray.orderByDate('occurs_at',1);
                         resolve(eventsArray);
 
                     }
@@ -105,15 +105,13 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
 }
 
 
-Array.prototype.orderByDate = function (property, sortOrder) {
-    if (sortOrder != -1 && sortOrder != 1) sortOrder = 1;
-    this.sort(function (a, b) {
-        var dateA = new Date(a[property]),
-            dateB = new Date(b[property]);
-        //return (dateA-dateB)*sortOrder;
-        return (dateB - dateA) * sortOrder;
+Array.prototype.orderByDate=function(property,sortOrder){
+    if (sortOrder!=-1 && sortOrder!=1) sortOrder=1;
+    this.sort(function(a,b){
+      var dateA=new Date(a[property]),dateB=new Date(b[property]);
+      return (dateA-dateB)*sortOrder;
     })
-}
+  }
 
 
 function searchEventsByParentName(name, categoriesArray) {
