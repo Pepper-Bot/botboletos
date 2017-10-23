@@ -76,10 +76,10 @@ function addToArray(data, array) {
 
 function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
     return new Promise(function (resolve, reject) {
-        for (let  i = 0; i < categoriesArray.length; i++) {
+        for (let i = 0; i < categoriesArray.length; i++) {
             searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
                 let events = resultado.events;
-               
+
                 for (let j = 0; j < events.length; j++) {
                     console.log('events[j] >>>> ' + events[j].name);
                     eventsArray.push({
@@ -90,7 +90,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    
+
                     if ((i + 1) == categoriesArray.length ) {
                         console.log('events.length >>>' + events.length);
                         eventsArray.orderByDate('occurs_at', 1);
@@ -119,13 +119,13 @@ Array.prototype.orderByDate = function (property, sortOrder) {
 
 function searchEventsByParentName(name, categoriesArray) {
     const promise = new Promise(function (resolve, reject) {
-        var parentCategories = tevo_categories.searchParentCategoryByName(name);
+        let parentCategories = tevo_categories.searchParentCategoryByName(name);
         if (parentCategories.Sports) {
-            for (var j = 0; j < parentCategories.Sports.length; j++) {
+            for (let j = 0; j < parentCategories.Sports.length; j++) {
                 let parent_id = parentCategories.Sports[j].id;
                 searchCategoriesByParentId(parent_id).then((resultado) => {
                     let categories = resultado.categories;
-                    for (var k = 0; k < categories.length; k++) {
+                    for (let k = 0; k < categories.length; k++) {
                         // console.log('categories[k].name >>>> ' + categories[k].name);
                         categoriesArray.push({
                             "id": categories[k].id,
