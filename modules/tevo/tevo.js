@@ -76,10 +76,10 @@ function addToArray(data, array) {
 
 function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
     return new Promise(function (resolve, reject) {
-        for (let i = 0; i < categoriesArray.length; i++) {
+        for (var  i = 0; i < categoriesArray.length; i++) {
             searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
                 let events = resultado.events;
-                for (let j = 0; j < events.length; j++) {
+                for (var j = 0; j < events.length; j++) {
                     //console.log('events[j] >>>> ' + events[j].name);
                     eventsArray.push({
                         "id": events[j].id,
@@ -120,11 +120,11 @@ function searchEventsByParentName(name, categoriesArray) {
     const promise = new Promise(function (resolve, reject) {
         var parentCategories = tevo_categories.searchParentCategoryByName(name);
         if (parentCategories.Sports) {
-            for (let j = 0; j < parentCategories.Sports.length; j++) {
+            for (var j = 0; j < parentCategories.Sports.length; j++) {
                 let parent_id = parentCategories.Sports[j].id;
                 searchCategoriesByParentId(parent_id).then((resultado) => {
                     let categories = resultado.categories;
-                    for (let k = 0; k < categories.length; k++) {
+                    for (var k = 0; k < categories.length; k++) {
                         // console.log('categories[k].name >>>> ' + categories[k].name);
                         categoriesArray.push({
                             "id": categories[k].id,
