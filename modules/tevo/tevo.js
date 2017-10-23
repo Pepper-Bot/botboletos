@@ -91,7 +91,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                     });
                     if ((i + 1) == categoriesArray.length && (j + 1) == events.length) {
 
-                        eventsArray.orderByDate('occurs_at',-1);
+                        eventsArray.orderByDate('occurs_at', 1);
                         resolve(eventsArray);
 
                     }
