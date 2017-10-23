@@ -47,6 +47,8 @@ function getFollowMonth() {
 
 module.exports = {
     follow_months,
+    getCurrentDate,
+    getFollowMonth
 
 
 }
