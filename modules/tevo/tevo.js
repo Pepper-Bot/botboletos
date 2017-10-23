@@ -26,14 +26,14 @@ var searchCategoriesByParentId = (parent_id) => {
 } //comic con convención de los comics...
 
 
-var searchEventsByCategoryId = (category_id) => {
+var searchEventsByCategoryId = (category_id, i) => {
     return new Promise((res, rej) => {
         //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
         let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all'
         console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
-                res(json);
+                res(json, i);
             });
         }
     });
