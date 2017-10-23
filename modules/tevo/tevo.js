@@ -1,6 +1,8 @@
 var TevoClient = require('ticketevolution-node');
 var tevo_categories = require('./tevo_categories');
 
+//let approved = students.filter(student => student.score >= 11);
+
 
 var tevoClient = new TevoClient({
     apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
