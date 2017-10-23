@@ -79,8 +79,8 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
         for (var  i = 0; i < categoriesArray.length; i++) {
             searchEventsByCategoryId(categoriesArray[i].id).then((resultado) => {
                 var events = resultado.events;
-                var j = 0;
-                for ( j = 0; j < events.length; j++) {
+                
+                for (var j = 0; j < events.length; j++) {
                     console.log('events[j] >>>> ' + events[j].name);
                     eventsArray.push({
                         "id": events[j].id,
@@ -91,7 +91,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                         "venue_id": events[j].venue.id
                     });
                     
-                    if ((i + 1) == categoriesArray.length && (j + 1) == events.length) {
+                    if ((j + 1) == events.length) {
                         console.log('events.length >>>' + events.length);
                         eventsArray.orderByDate('occurs_at', 1);
                         resolve(eventsArray);
