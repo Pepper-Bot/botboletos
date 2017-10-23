@@ -103,7 +103,6 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
 
 
 
-
 function searchEventsByParentName(name, categoriesArray) {
     const promise = new Promise(function (resolve, reject) {
         var parentCategories = tevo_categories.searchParentCategoryByName(name);
