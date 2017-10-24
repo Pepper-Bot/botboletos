@@ -96,8 +96,16 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
 }
 
 
-var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
+var setImagesToEventsTemplate = (resultEvent, gButtons, counter, next = 0) => {
     gButtons = resultEvent;
+
+    if (gButtons.length >= 10) {
+
+
+    } else if (counter == 10) {
+
+
+    }
 
     return new Promise((resolve, reject) => {
 
@@ -117,17 +125,18 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
                         counter++;
 
                     }
+                    console.log(">> "+ counter + ' ' + gButtons.length);
+                    if (counter == gButtons.length) {
+                        resolve(gButtons);
+                    } else if (counter == 10) {
+
+                        resolve(gButtons);
+
+                    }
 
                 });
 
-            console.log(counter + ' ' + gButtons.length);
-            if (counter == gButtons.length) {
-                resolve(gButtons);
-            } else if (counter == 10) {
 
-                resolve(gButtons);
-
-            }
         }
     });
 
