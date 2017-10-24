@@ -98,7 +98,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                 return eventsArray
             }).then(function (eventsArray) {
                 acum++;
-                if (acum == categoriesArray.length) {
+                if (acum +1 == categoriesArray.length) {
                     resolve(eventsArray);
                 }
 
