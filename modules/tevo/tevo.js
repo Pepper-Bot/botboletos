@@ -95,6 +95,22 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
 
 }
 
+var getGoogleImage = (search) => {
+    return new Promise((resolve, reject) => {
+
+        var gis = require('g-i-s');
+        gis(search, logResults);
+
+        function logResults(error, results) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        }
+
+    });
+}
 
 var setImagesToEventsTemplate = (resultEvent, gButtons, counter, next = 0) => {
     gButtons = resultEvent;
@@ -110,35 +126,49 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, next = 0) => {
     return new Promise((resolve, reject) => {
 
         for (let z = 0, k = gButtons.length; z < k; z++) {
-            if (z + 10 * 0 <= 9 + 10 * 0)
-
-                imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
-                    let imageIndex = 0;
-                    if (images.length >= 10) {
-                        imageIndex = Math.round(Math.random() * 10);
-                    } else {
-                        imageIndex = Math.round(Math.random() * images.length);
+            if (z + 10 * 0 <= 9 + 10 * 0) {
+                let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
+                getGoogleImage(search).then((images) => {
+                    if (resultado) {
+                        if (resultado) {
+                            gButtons[z].image_url = images[0].url;
+                        }
                     }
-
-                    if (images[0].url) {
-                        gButtons[index].image_url = images[0].url;
-                        counter++;
-
-                    }
-                    console.log(">> " + counter + ' ' + gButtons.length);
-                    if (counter == gButtons.length) {
-                        return gButtons;
-
-                    } else if (counter == 10) {
-                        console.log('llegué')
-                        return gButtons;
-                    }
+                }).then(() => {
+                    counter = counter + 1;
 
                 });
+            }
 
             if (counter == 10) {
                 resolve(gButtons);
             }
+
+            /* imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
+                 let imageIndex = 0;
+                 if (images.length >= 10) {
+                     imageIndex = Math.round(Math.random() * 10);
+                 } else {
+                     imageIndex = Math.round(Math.random() * images.length);
+                 }
+
+                 if (images[0].url) {
+                     gButtons[index].image_url = images[0].url;
+                     counter++;
+
+                 }
+                 console.log(">> " + counter + ' ' + gButtons.length);
+                 if (counter == gButtons.length) {
+                     return gButtons;
+
+                 } else if (counter == 10) {
+                     console.log('llegué')
+                     return gButtons;
+                 }
+
+             });*/
+
+           
 
 
 
