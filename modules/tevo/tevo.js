@@ -124,7 +124,6 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, next = 0) => {
     }
 
     return new Promise((resolve, reject) => {
-
         for (let z = 0, k = gButtons.length; z < k; z++) {
             if (z + 10 * 0 <= 9 + 10 * 0) {
                 let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
@@ -137,42 +136,12 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, next = 0) => {
                     }
                 }).then(() => {
                     counter = counter + 1;
-
+                    if (counter == 10) {
+                        resolve(gButtons);
+                    }
                 });
             }
-
-            if (counter == 10) {
-                resolve(gButtons);
-            }
-
-            /* imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
-                 let imageIndex = 0;
-                 if (images.length >= 10) {
-                     imageIndex = Math.round(Math.random() * 10);
-                 } else {
-                     imageIndex = Math.round(Math.random() * images.length);
-                 }
-
-                 if (images[0].url) {
-                     gButtons[index].image_url = images[0].url;
-                     counter++;
-
-                 }
-                 console.log(">> " + counter + ' ' + gButtons.length);
-                 if (counter == gButtons.length) {
-                     return gButtons;
-
-                 } else if (counter == 10) {
-                     console.log('llegué')
-                     return gButtons;
-                 }
-
-             });*/
-
            
-
-
-
         }
     });
 
