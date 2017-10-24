@@ -104,25 +104,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
         for (let z = 0, k = gButtons.length; z < k; z++) {
 
             imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
-                let imageIndex = 0;
-                if (images.length >= 10) {
-                    imageIndex = Math.round(Math.random() * 10);
-                } else {
-                    imageIndex = Math.round(Math.random() * images.length);
-                }
-
-                if(!err){
-                    gButtons[index].image_url = images[imageIndex].url;
-                    counter++;
-                }
-              
-                if (counter == gButtons.length) {
-                    resolve(gButtons);
-                }else if ( counter == 10 ){
-                   
-                    resolve(gButtons);
-                    break;
-                }
+               //aki
             });
         }
     });
