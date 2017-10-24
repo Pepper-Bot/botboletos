@@ -92,7 +92,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    console.log(acum);
+                    console.log(acum+ ' '+ categoriesArray.length );
                     if (acum + 1 == categoriesArray.length) {
                         resolve(eventsArray);
                     }
