@@ -74,9 +74,9 @@ function addToArray(data, array) {
 
 
 
-function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
+function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) {
     return new Promise(function (resolve, reject) {
-        let acum = 0;
+
         for (let indice = 0; indice < categoriesArray.length; indice++) {
 
             searchEventsByCategoryId(categoriesArray[indice].id).then((resultado) => {
@@ -97,12 +97,16 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                 }
                 return eventsArray
             }).then(function (eventsArray) {
-                eventsArray.push(eventsArray);
+                acum++;
+                if (acum == categoriesArray.length) {
+                    resolve(eventsArray);
+                }
+
 
             });
 
         }
-        resolve(eventsArray);
+
     });
 }
 
