@@ -102,7 +102,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
     return new Promise((resolve, reject) => {
 
         for (let z = 0, k = gButtons.length; z < k; z++) {
-            if (z <= 10)
+            if (z <= 9)
                 imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
                     let imageIndex = 0;
                     if (images.length >= 10) {
