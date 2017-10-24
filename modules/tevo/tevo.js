@@ -120,13 +120,12 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
                 });
 
             console.log(counter + ' ' + gButtons.length);
-            if (counter + 1 == gButtons.length) {
+            if (counter  == gButtons.length) {
                 resolve(gButtons);
             } else if (counter == 10) {
 
                 resolve(gButtons);
-                break;
-
+             
             }
         }
     });
