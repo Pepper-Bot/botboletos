@@ -111,17 +111,17 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
                     imageIndex = Math.round(Math.random() * images.length);
                 }
 
-                if (!err) {
-                    gButtons[index].image_url = images[imageIndex].url;
-                    counter++;
-                }
+
+                gButtons[index].image_url = images[imageIndex].url;
+                counter++;
+
 
                 if (counter == gButtons.length) {
                     resolve(gButtons);
                 } else if (counter == 10) {
 
                     resolve(gButtons);
-                    break;
+                   
                 }
             });
         }
