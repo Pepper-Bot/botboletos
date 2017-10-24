@@ -102,7 +102,8 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
     return new Promise((resolve, reject) => {
 
         for (let z = 0, k = gButtons.length; z < k; z++) {
-            if (z <= 9)
+            if (z + 10 * 0 <= 9 + 10 * 0)
+
                 imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
                     let imageIndex = 0;
                     if (images.length >= 10) {
@@ -113,19 +114,19 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
 
                     if (images[0].url) {
                         gButtons[index].image_url = images[0].url;
+                        counter++;
 
-                        
                     }
-                    counter++;
+
                 });
 
             console.log(counter + ' ' + gButtons.length);
-            if (counter  == gButtons.length) {
+            if (counter == gButtons.length) {
                 resolve(gButtons);
             } else if (counter == 10) {
 
                 resolve(gButtons);
-             
+
             }
         }
     });
