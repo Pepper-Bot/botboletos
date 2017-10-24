@@ -60,9 +60,9 @@ var searchEventsByCategoryIdAndDate = (category_id, occurs_at_gte, occurs_at_lte
 }
 
 
-var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_,contador) => {
+var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, contador) => {
     return new Promise((resolve, reject) => {
-        for (let j = 0; j < resultEvent.length ; j++) {
+        for (let j = 0; j < resultEvent.length; j++) {
 
             let date = resultEvent[j].occurs_at;
             let occurs_at = moment(date).format('dddd') + ', ' + moment(date).format('MMMM Do YYYY, h:mm a')
@@ -85,9 +85,9 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_,contad
                     "title": "Book"
                 }]
             });
-            contador ++;
-            console.log(contador  + ' ' + resultEvent.length);
-            if (contador == resultEvent.length) {
+            contador++;
+            console.log(contador + ' ' + resultEvent.length);
+            if (contador + 1 == resultEvent.length) {
                 resolve(eventButtons_);
             }
         }
@@ -119,7 +119,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons) => {
                 }
             });
         }
-   });
+    });
 
 }
 
@@ -161,7 +161,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                         "venue_id": events[j].venue.id,
                         "venue_name": events[j].venue.name
                     });
-                    
+
                     if (acum + 1 == categoriesArray.length) {
                         resolve(eventsArray);
                     }
