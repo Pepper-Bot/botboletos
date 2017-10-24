@@ -131,6 +131,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, next = 0) => {
                 getGoogleImage(search).then((images) => {
                     if (images) {
                         if (images) {
+                            console.log('image >>' + images[0].url)
                             gButtons[z].image_url = images[0].url;
                         }
                     }
