@@ -69,8 +69,8 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_) => {
 
             eventButtons_.push({
                 "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
-                "image_url": resultEvent[j].category.name,
-                "subtitle": resultEvent[j].venue.name + " " + occurs_at,
+                "image_url": resultEvent[j].category_name,
+                "subtitle": resultEvent[j].venue_name + " " + occurs_at,
                 "default_action": {
                     "type": "web_url",
                     "url": processEventURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue_id + '&performer_id=' + resultEvent[j].performer_id + '&event_name=' + resultEvent[j].name
@@ -156,7 +156,8 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                         "occurs_at": new Date(events[j].occurs_at),
                         "performer_id": events[j].performances[0].performer.id,
                         "performer_name": events[j].performances[0].performer.name,
-                        "venue_id": events[j].venue.id
+                        "venue_id": events[j].venue.id,
+                        "venue_name": events[j].venue.name
                     });
                     console.log(acum + ' ' + categoriesArray.length);
                     if (acum + 1 == categoriesArray.length) {
