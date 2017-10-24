@@ -141,7 +141,7 @@ function searchEventsByParentName(name, categoriesArray) {
 
 
                     }
-
+                    return categoriesArray
                 }).then(function () {
                     return categoriesArray.push(categoriesArray);
                 });
