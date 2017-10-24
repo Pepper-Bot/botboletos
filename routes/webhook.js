@@ -263,7 +263,7 @@ function processQuickReplies(event) {
                         }
                         tevo.setImagesToEventsTemplate(eventsButtons_,gButtons, contador2).then(()=>{
                             for (let i = 0; i < gButtons.length; i++) {
-                                console.log(">>> " + gButtons[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+                                console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
                             }
                            
 

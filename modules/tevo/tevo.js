@@ -105,8 +105,8 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
 
             imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
                 let imageIndex = 0;
-                if (images.length >= 30) {
-                    imageIndex = Math.round(Math.random() * 30);
+                if (images.length >= 20) {
+                    imageIndex = Math.round(Math.random() * 20);
                 } else {
                     imageIndex = Math.round(Math.random() * images.length);
                 }
