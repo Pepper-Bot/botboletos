@@ -141,17 +141,16 @@ function searchEventsByParentName(name, categoriesArray) {
 
 
                     }
-                  
-                }).then(function (categoriesArray) {
-                    return categoriesArray.push(categoriesArray);
+
+                }).then(function () {
+                    if (j + 1 == parentCategories.Sports.length) {
+                        resolve(categoriesArray);
+                    }
                 });
 
 
 
-                if (j + 1 == parentCategories.Sports.length) {
 
-                    resolve(categoriesArray);
-                }
 
 
             }
