@@ -100,23 +100,23 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
     gButtons = resultEvent;
 
     return new Promise((resolve, reject) => {
-        
-        for (let z = 0, k = gButtons.length; z < k; z++) {
+
+        for (let z = 0; z < gButtons.length - (gButtons.length - 10); z++) {
 
             imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
                 let imageIndex = 0;
-                if (images.length >= 20) {
-                    imageIndex = Math.round(Math.random() * 20);
+                if (images.length >= 10) {
+                    imageIndex = Math.round(Math.random() * 10);
                 } else {
                     imageIndex = Math.round(Math.random() * images.length);
                 }
 
-                if(!err){
+                if (!err) {
                     gButtons[index].image_url = images[imageIndex].url;
                     counter++;
                 }
-              
-                if (counter == gButtons.length) {
+
+                if (counter == gButtons.length - (gButtons.length - 10)) {
                     resolve(gButtons);
                 }
             });
