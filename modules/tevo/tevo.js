@@ -119,8 +119,9 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
                 if (counter == gButtons.length) {
                     resolve(gButtons);
                 }else if ( counter == 10 ){
-                    break;
+                   
                     resolve(gButtons);
+                    break;
                 }
             });
         }
