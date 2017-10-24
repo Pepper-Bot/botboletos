@@ -78,7 +78,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
     return new Promise(function (resolve, reject) {
 
         for (let indice = 0; indice < categoriesArray.length; indice++) {
-
+            console.log(acum + ' ' + categoriesArray.length);
             searchEventsByCategoryId(categoriesArray[indice].id).then((resultado) => {
                 let events = resultado.events;
 
@@ -92,14 +92,14 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
-                    console.log(acum+ ' '+ categoriesArray.length );
+                    console.log(acum + ' ' + categoriesArray.length);
                     if (acum + 1 == categoriesArray.length) {
                         resolve(eventsArray);
                     }
                 }
 
             }).then(function () {
-                acum++;
+                acum  = acum +  1;
 
 
 
