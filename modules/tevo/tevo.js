@@ -96,14 +96,15 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
 
                 }
             }).then(function () {
-                console.log(indice + ' =>' + categoriesArray.length)
-                if (indice + 1 == categoriesArray.length) {
-                    console.log('events.length >>>' + eventsArray.length);
-                    eventsArray.orderByDate('occurs_at', 1);
-                    resolve(eventsArray);
-                }
+                eventsArray.push(eventsArray);
 
             });
+
+            if (indice + 1 == categoriesArray.length) {
+                console.log('events.length >>>' + eventsArray.length);
+                eventsArray.orderByDate('occurs_at', 1);
+                resolve(eventsArray);
+            }
 
 
         }
