@@ -101,7 +101,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                  eventsArray.orderByDate('occurs_at', 1);
                  resolve(eventsArray);*/
 
-                eventsArray.push(eventsArray);
+                return eventsArray.push(eventsArray);
             });
 
             if (indice == categoriesArray.length) {
@@ -143,11 +143,11 @@ function searchEventsByParentName(name, categoriesArray) {
                     }
 
                 }).then(function () {
-                    categoriesArray.push(categoriesArray);
+                    return categoriesArray.push(categoriesArray);
                 });
 
 
-                
+
                 if (j + 1 == parentCategories.Sports.length) {
 
                     resolve(categoriesArray);
