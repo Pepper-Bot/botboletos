@@ -241,7 +241,7 @@ function processQuickReplies(event) {
 
             var categoriesArray = [];
             var eventsArray = [];
-            var eventsButtons_ = [];
+         
             var gButtons = [];
             var events = [];
             var acum = 0;
@@ -257,17 +257,11 @@ function processQuickReplies(event) {
                     for (let i = 0; i < eventsArray.length; i++) {
                        // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
                     }
-                    tevo.convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
-                        for (let i = 0; i < eventsButtons_.length; i++) {
-                            console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+                    tevo.convertEventsToEventsTemplate(senderId, eventsArray, gButtons, contador).then(function () {
+                        for (let i = 0; i < gButtons.length; i++) {
+                            console.log(">>> " + gButtons[i].title + " ocurre el: " + gButtons[i].subtitle);
                         }
-                        tevo.setImagesToEventsTemplate(eventsButtons_,gButtons, contador2).then(()=>{
-                            for (let i = 0; i < gButtons.length; i++) {
-                                console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
-                            }
-                           
-
-                        }); 
+                       
                     });
 
                 });
