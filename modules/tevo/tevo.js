@@ -1,9 +1,17 @@
+/********************************************************************
+ * @module Ticket Evolutions Module.
+ * @author Leonardo Jaimes Estévez
+ * @version 1
+ */
+
 var TevoClient = require('ticketevolution-node');
 var tevo_categories = require('./tevo_categories');
 var follow_months = require('../follow_months');
+var imageCards = require('../imageCards'); // Google images
 var moment = require('moment');
 var categoriesArray_g = [];
 var eventsArray_g = [];
+var processEventURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 //let approved = students.filter(student => student.score >= 11);
 
 
@@ -52,8 +60,66 @@ var searchEventsByCategoryIdAndDate = (category_id, occurs_at_gte, occurs_at_lte
 }
 
 
+var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_) => {
+    return new Promise((resolve, reject) => {
+        for (var j = 0, c = resultEvent.length; j < c; j++) {
+
+            var date = resultEvent[j].occurs_at;
+            var occurs_at = moment(date).format('dddd') + ', ' + moment(date).format('MMMM Do YYYY, h:mm a')
+
+            eventButtons_.push({
+                "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
+                "image_url": resultEvent[j].category.name,
+                "subtitle": resultEvent[j].venue.name + " " + occurs_at,
+                "default_action": {
+                    "type": "web_url",
+                    "url": processEventURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue_id + '&performer_id=' + resultEvent[j].performer_id + '&event_name=' + resultEvent[j].name
+                    /*,
+                    "messenger_extensions": true,
+                    "webview_height_ratio": "tall",
+                    "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue_id + '&performer_id=' + resultEvent[j].performer_id + '&event_name=' + resultEvent[j].name*/
+                },
+                "buttons": [{
+                    "type": "web_url",
+                    "url": processEventURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue_id + '&performer_id=' + resultEvent[j].performer_id + '&event_name=' + resultEvent[j].name,
+                    "title": "Book"
+                }]
+            });
+            if (j + 1 == resultEvent.length) {
+                resolve(eventButtons_);
+            }
+        }
+    });
+
+}
 
 
+var setImagesToEventsTemplate = (resultEvent, gButtons) => {
+    gButtons = resultEvent;
+
+    return new Promise((resolve, reject) => {
+        var counter = 0;
+        for (var z = 0, k = gButtons.length; z < k; z++) {
+
+            imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
+                var imageIndex = 0;
+                if (images.length >= 30) {
+                    imageIndex = Math.round(Math.random() * 30);
+                } else {
+                    imageIndex = Math.round(Math.random() * images.length);
+                }
+
+
+                gButtons[index].image_url = images[imageIndex].url;
+                counter++;
+                if (counter == gButtons.length) {
+                    resolve(gButtons);
+                }
+            });
+        }
+   });
+
+}
 
 
 
@@ -76,9 +142,8 @@ function addToArray(data, array) {
 
 function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) {
     return new Promise(function (resolve, reject) {
-
         for (let indice = 0; indice < categoriesArray.length; indice++) {
-            
+
             searchEventsByCategoryId(categoriesArray[indice].id).then((resultado) => {
                 let events = resultado.events;
 
@@ -89,6 +154,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                         "name": events[j].name,
                         "category_name": events[j].category.name,
                         "occurs_at": new Date(events[j].occurs_at),
+                        "performer_id": events[j].performances[0].performer.id,
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id
                     });
@@ -98,9 +164,9 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                     }
                 }
 
-            }).then( () => {
-                acum  = acum +  1;
-                
+            }).then(() => {
+                acum = acum + 1;
+
 
 
             });
@@ -143,9 +209,9 @@ function searchEventsByParentName(name, categoriesArray, cuenta) {
 
                     }
 
-                }).then( () => {
-                    cuenta  = cuenta +1;
-                     
+                }).then(() => {
+                    cuenta = cuenta + 1;
+
                 });
 
 
@@ -237,6 +303,9 @@ module.exports = {
     searchCategoriesParents,
     searchEventsByParentName,
     searchEventsByCategoryId,
-    searchEventsByParentNameSecondStep
+    searchEventsByParentNameSecondStep,
+    convertEventsToEventsTemplate,
+    setImagesToEventsTemplate
+
 
 }

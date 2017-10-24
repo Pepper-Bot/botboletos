@@ -241,6 +241,7 @@ function processQuickReplies(event) {
 
             var categoriesArray = [];
             var eventsArray = [];
+            var events = [];
             var acum = 0;
             var cuenta = 0 ;
 
@@ -250,8 +251,14 @@ function processQuickReplies(event) {
             tevo.searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
                 tevo.searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
                     for (let i = 0; i < eventsArray.length; i++) {
-                        console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
+                      //  console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
                     }
+                    tevo.convertEventsToEventsTemplate(senderId,eventsArray,eventsButtons_ ).then(function(){
+                        for (let i = 0; i < eventsButtons_.length; i++) {
+                             console.log("El evento " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+                          }
+                    });
+
                 });
             });
 
