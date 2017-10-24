@@ -241,6 +241,7 @@ function processQuickReplies(event) {
 
             var categoriesArray = [];
             var eventsArray = [];
+            var eventsButtons_  = [];
             var events = [];
             var acum = 0;
             var cuenta = 0 ;
