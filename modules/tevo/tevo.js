@@ -97,7 +97,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                 }
             }).then(function () {
 
-                console.log('events.length >>>' + events.length);
+                console.log('events.length >>>' + eventsArray.length);
                 eventsArray.orderByDate('occurs_at', 1);
                 resolve(eventsArray);
 
