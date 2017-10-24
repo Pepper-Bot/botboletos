@@ -62,10 +62,10 @@ var searchEventsByCategoryIdAndDate = (category_id, occurs_at_gte, occurs_at_lte
 
 var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_) => {
     return new Promise((resolve, reject) => {
-        for (var j = 0, c = resultEvent.length; j < c; j++) {
+        for (let j = 0; j < resultEvent.length ; j++) {
 
-            var date = resultEvent[j].occurs_at;
-            var occurs_at = moment(date).format('dddd') + ', ' + moment(date).format('MMMM Do YYYY, h:mm a')
+            let date = resultEvent[j].occurs_at;
+            let occurs_at = moment(date).format('dddd') + ', ' + moment(date).format('MMMM Do YYYY, h:mm a')
 
             eventButtons_.push({
                 "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
