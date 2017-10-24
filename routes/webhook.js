@@ -241,13 +241,13 @@ function processQuickReplies(event) {
 
             var categoriesArray = [];
             var eventsArray = [];
-         
+
             var gButtons = [];
             var events = [];
             var acum = 0;
             var cuenta = 0;
             var contador = 0;
-            var  contador2 = 0;
+            var contador2 = 0;
 
             var months = require('../modules/follow_months');
             months.firstDayOfMonth();
@@ -255,13 +255,13 @@ function processQuickReplies(event) {
             tevo.searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
                 tevo.searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
                     for (let i = 0; i < eventsArray.length; i++) {
-                       // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
+                        // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
                     }
                     tevo.convertEventsToEventsTemplate(senderId, eventsArray, gButtons, contador).then(function () {
                         for (let i = 0; i < gButtons.length; i++) {
                             console.log(">>> " + gButtons[i].title + " ocurre el: " + gButtons[i].subtitle);
                         }
-                       
+
                     });
 
                 });
