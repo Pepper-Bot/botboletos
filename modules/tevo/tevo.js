@@ -60,9 +60,8 @@ var searchEventsByCategoryIdAndDate = (category_id, occurs_at_gte, occurs_at_lte
 }
 
 
-var convertEventsToEventsTemplate = (senderId, resultEvent, gButtons, callsGis) => {
+var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, contador) => {
     return new Promise((resolve, reject) => {
-        let eventButtons_ = [];
         for (let j = 0; j < resultEvent.length; j++) {
 
             let date = resultEvent[j].occurs_at;
@@ -86,42 +85,11 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, gButtons, callsGis) 
                     "title": "Book"
                 }]
             });
-            callsGis++;
-            console.log(callsGis + ' ' + resultEvent.length);
-
-            if (callsGis == resultEvent.length) {
-               
-                gButtons = null;
-                gButtons = eventButtons_;
-                console.log('6');
-                counter = 0;
-                for (let z = 0, k = gButtons.length; z < k; z++) {
-
-                    imageCards(gButtons[z].title, z, function (err, images, index) {
-
-
-                        gButtons[index].image_url = images[0].url;
-                        counter++;
-
-                        console.log('GbUTTONS len>>>' + gButtons.length);
-                        if (counter == gButtons.length) {
-                            
-                            resolve(gButtons);
-
-
-                        } else if (counter == 10) {
-
-                            resolve(gButtons);
-
-                        }
-
-                    });
-
-
-                }
+            contador++;
+            console.log(contador + ' ' + resultEvent.length);
+            if (contador + 1 == resultEvent.length) {
+                resolve(eventButtons_);
             }
-
-
         }
     });
 
@@ -132,7 +100,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
     gButtons = resultEvent;
 
     return new Promise((resolve, reject) => {
-
+        
         for (let z = 0, k = gButtons.length; z < k; z++) {
 
             imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
@@ -143,12 +111,15 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
                     imageIndex = Math.round(Math.random() * images.length);
                 }
 
-                if (!err) {
+                if(!err){
                     gButtons[index].image_url = images[imageIndex].url;
                     counter++;
                 }
-
+              
                 if (counter == gButtons.length) {
+                    resolve(gButtons);
+                }else if ( counter == 10 ){
+                    break;
                     resolve(gButtons);
                 }
             });
@@ -342,7 +313,7 @@ module.exports = {
     searchEventsByCategoryId,
     searchEventsByParentNameSecondStep,
     convertEventsToEventsTemplate,
-  
+    setImagesToEventsTemplate
 
 
 }
