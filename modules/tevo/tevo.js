@@ -96,7 +96,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
 }
 
 
-/*var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
+var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
     gButtons = resultEvent;
 
     return new Promise((resolve, reject) => {
@@ -126,7 +126,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
         }
     });
 
-}*/
+}
 
 
 
@@ -312,9 +312,8 @@ module.exports = {
     searchEventsByParentName,
     searchEventsByCategoryId,
     searchEventsByParentNameSecondStep,
-    convertEventsToEventsTemplate
-    //,
-    //setImagesToEventsTemplate
+    convertEventsToEventsTemplate,
+    setImagesToEventsTemplate
 
 
 }
