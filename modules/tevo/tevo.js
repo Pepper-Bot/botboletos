@@ -125,19 +125,19 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, next = 0) => {
                         counter++;
 
                     }
-
+                    console.log(">> " + counter + ' ' + gButtons.length);
                     if (counter == gButtons.length) {
-                        resolve(gButtons);
+                        return gButtons;
+
                     } else if (counter == 10) {
                         console.log('llegué')
-                        resolve(gButtons);
-
+                        return gButtons;
                     }
 
                 });
-            console.log(">> " + counter + ' ' + gButtons.length);
+
             if (counter == 10) {
-                break;
+                resolve(gButtons);
             }
 
 
