@@ -78,7 +78,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
     return new Promise(function (resolve, reject) {
 
         for (let indice = 0; indice < categoriesArray.length; indice++) {
-            console.log(  'categoriesArray.length>>> ' + categoriesArray.length);
+            
             searchEventsByCategoryId(categoriesArray[indice].id).then((resultado) => {
                 let events = resultado.events;
 
@@ -121,7 +121,7 @@ Array.prototype.orderByDate = function (property, sortOrder) {
 }
 
 
-function searchEventsByParentName(name, categoriesArray) {
+function searchEventsByParentName(name, categoriesArray, cuenta) {
     const promise = new Promise(function (resolve, reject) {
         let parentCategories = tevo_categories.searchParentCategoryByName(name);
         if (parentCategories.Sports) {
@@ -136,15 +136,16 @@ function searchEventsByParentName(name, categoriesArray) {
                             "name": categories[k].name
                         });
 
-
+                        if (cuenta + 1 == parentCategories.Sports.length) {
+                            console.log('categoriesArray.length >>>' + categoriesArray.length);
+                            resolve(categoriesArray);
+                        }
 
                     }
 
-                }).then(function () {
-                    if (j + 1 == parentCategories.Sports.length) {
-                        console.log('categoriesArray.length >>>' + categoriesArray.length);
-                        resolve(categoriesArray);
-                    }
+                }).then( () => {
+                    cuenta  = cuenta +1;
+                     
                 });
 
 

@@ -242,11 +242,12 @@ function processQuickReplies(event) {
             var categoriesArray = [];
             var eventsArray = [];
             var acum = 0;
+            var cuenta = 0 ;
 
             var months = require('../modules/follow_months');
             months.firstDayOfMonth();
 
-            tevo.searchEventsByParentName(text, categoriesArray).then(function () {
+            tevo.searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
                 tevo.searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
                     for (let i = 0; i < eventsArray.length; i++) {
                         console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
