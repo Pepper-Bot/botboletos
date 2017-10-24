@@ -85,6 +85,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_) => {
                     "title": "Book"
                 }]
             });
+            console.log(j  + ' ' + resultEvent.length);
             if (j + 1 == resultEvent.length) {
                 resolve(eventButtons_);
             }
@@ -159,7 +160,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                         "venue_id": events[j].venue.id,
                         "venue_name": events[j].venue.name
                     });
-                    console.log(acum + ' ' + categoriesArray.length);
+                    
                     if (acum + 1 == categoriesArray.length) {
                         resolve(eventsArray);
                     }
