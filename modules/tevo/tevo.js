@@ -98,7 +98,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                     }
                 }
                
-            }).then(function (eventsArray) {
+            }).then(function () {
                 acum++;
             
 
