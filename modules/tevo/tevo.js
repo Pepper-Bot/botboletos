@@ -97,16 +97,13 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
                 }
             }).then(function () {
 
-                /* console.log('events.length >>>' + events.length);
-                 eventsArray.orderByDate('occurs_at', 1);
-                 resolve(eventsArray);*/
+                console.log('events.length >>>' + events.length);
+                eventsArray.orderByDate('occurs_at', 1);
+                resolve(eventsArray);
 
-                return eventsArray.push(eventsArray);
+
             });
 
-            if (indice == categoriesArray.length) {
-                resolve(eventsArray);
-            }
 
         }
     });
@@ -144,6 +141,7 @@ function searchEventsByParentName(name, categoriesArray) {
 
                 }).then(function () {
                     if (j + 1 == parentCategories.Sports.length) {
+                        console.log('categoriesArray.length >>>' + categoriesArray.length);
                         resolve(categoriesArray);
                     }
                 });
