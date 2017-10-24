@@ -86,7 +86,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
                 }]
             });
             contador++;
-           // console.log(contador + ' ' + resultEvent.length);
+            // console.log(contador + ' ' + resultEvent.length);
             if (contador + 1 == resultEvent.length) {
                 resolve(eventButtons_);
             }
@@ -116,12 +116,13 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
 
             });
 
-            console.log(counter + ' ' + gButtons);
-            if (counter == gButtons.length) {
+            console.log(counter + ' ' + gButtons.length);
+            if (counter + 1 == gButtons.length) {
                 resolve(gButtons);
             } else if (counter == 10) {
 
                 resolve(gButtons);
+                break;
 
             }
         }
