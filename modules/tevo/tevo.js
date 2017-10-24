@@ -312,8 +312,9 @@ module.exports = {
     searchEventsByParentName,
     searchEventsByCategoryId,
     searchEventsByParentNameSecondStep,
-    convertEventsToEventsTemplate,
-    setImagesToEventsTemplate
+    convertEventsToEventsTemplate
+    //,
+    //setImagesToEventsTemplate
 
 
 }
