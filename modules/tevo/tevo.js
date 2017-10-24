@@ -60,7 +60,7 @@ var searchEventsByCategoryIdAndDate = (category_id, occurs_at_gte, occurs_at_lte
 }
 
 
-var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_) => {
+var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_,contador) => {
     return new Promise((resolve, reject) => {
         for (let j = 0; j < resultEvent.length ; j++) {
 
@@ -85,8 +85,9 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_) => {
                     "title": "Book"
                 }]
             });
-            console.log(j  + ' ' + resultEvent.length);
-            if (j + 1 == resultEvent.length) {
+            contador ++;
+            console.log(contador  + ' ' + resultEvent.length);
+            if (contador == resultEvent.length) {
                 resolve(eventButtons_);
             }
         }
