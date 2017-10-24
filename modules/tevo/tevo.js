@@ -111,7 +111,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
                     imageIndex = Math.round(Math.random() * images.length);
                 }
 
-                gButtons[index].image_url = images[imageIndex].url;
+                gButtons[index].image_url = images[0].url;
                 counter++;
 
             });
