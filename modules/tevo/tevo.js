@@ -95,7 +95,8 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
 
 
                 }
-            }).then(function () {
+                return eventsArray
+            }).then(function (eventsArray) {
                 eventsArray.push(eventsArray);
 
             });
