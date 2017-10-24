@@ -78,7 +78,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
     return new Promise(function (resolve, reject) {
 
         for (let indice = 0; indice < categoriesArray.length; indice++) {
-            console.log(acum + ' ' + categoriesArray.length);
+            console.log(  'categoriesArray.length>>> ' + categoriesArray.length);
             searchEventsByCategoryId(categoriesArray[indice].id).then((resultado) => {
                 let events = resultado.events;
 
@@ -98,9 +98,9 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                     }
                 }
 
-            }).then(function () {
+            }).then( () => {
                 acum  = acum +  1;
-
+                
 
 
             });
