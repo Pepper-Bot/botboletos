@@ -102,19 +102,22 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
     return new Promise((resolve, reject) => {
 
         for (let z = 0, k = gButtons.length; z < k; z++) {
+            if (z <= 10)
+                imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
+                    let imageIndex = 0;
+                    if (images.length >= 10) {
+                        imageIndex = Math.round(Math.random() * 10);
+                    } else {
+                        imageIndex = Math.round(Math.random() * images.length);
+                    }
 
-            imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
-                let imageIndex = 0;
-                if (images.length >= 10) {
-                    imageIndex = Math.round(Math.random() * 10);
-                } else {
-                    imageIndex = Math.round(Math.random() * images.length);
-                }
+                    if (images[0].url) {
+                        gButtons[index].image_url = images[0].url;
 
-                gButtons[index].image_url = images[0].url;
-                counter++;
-
-            });
+                        
+                    }
+                    counter++;
+                });
 
             console.log(counter + ' ' + gButtons.length);
             if (counter + 1 == gButtons.length) {
