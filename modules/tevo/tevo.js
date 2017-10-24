@@ -96,7 +96,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
 }
 
 
-var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
+/*var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
     gButtons = resultEvent;
 
     return new Promise((resolve, reject) => {
@@ -126,7 +126,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter) => {
         }
     });
 
-}
+}*/
 
 
 
