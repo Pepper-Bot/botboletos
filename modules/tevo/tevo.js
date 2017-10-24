@@ -101,14 +101,8 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray) {
 
             });
 
-            if (indice + 1 == categoriesArray.length) {
-                console.log('events.length >>>' + eventsArray.length);
-                eventsArray.orderByDate('occurs_at', 1);
-                resolve(eventsArray);
-            }
-
-
         }
+        resolve(eventsArray);
     });
 }
 
