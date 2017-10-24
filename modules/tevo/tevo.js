@@ -129,8 +129,8 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, next = 0) => {
             if (z + 10 * 0 <= 9 + 10 * 0) {
                 let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
                 getGoogleImage(search).then((images) => {
-                    if (resultado) {
-                        if (resultado) {
+                    if (images) {
+                        if (images) {
                             gButtons[z].image_url = images[0].url;
                         }
                     }
