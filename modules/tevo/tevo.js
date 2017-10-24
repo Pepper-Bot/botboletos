@@ -93,14 +93,14 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                         "venue_id": events[j].venue.id
                     });
 
-
+                    if (acum  == categoriesArray.length) {
+                        resolve(eventsArray);
+                    }
                 }
-                return eventsArray
+               
             }).then(function (eventsArray) {
                 acum++;
-                if (acum  == categoriesArray.length) {
-                    resolve(eventsArray);
-                }
+            
 
 
             });
