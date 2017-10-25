@@ -215,21 +215,7 @@ function processQuickReplies(event) {
     var monthsReplays = follow_months.follow_months(2);
     
     
-    var date = moment('2017-10-27T19:30:00Z', moment.ISO_8601).format();
-    var now = moment(date).format('dddd') + ', ' + moment(date).format('MMMM Do YYYY, h:mm a')
-    console.log('>>>>> FECHA' + now) ;
-
-
-
-    var occurs_atISO = moment('2017-10-27T19:30:00Z', moment.ISO_8601).format();
-    var occurs_at = moment(occurs_atISO).format('dddd') + ', ' + moment.utc(occurs_atISO).format('MMMM Do YYYY, h:mm a')
-
-    console.log("FECHA>>>" + resultEvent[j].occurs_at + " compare To: "+occurs_at );
-
-
-
-
-    for (var i = 0; i < monthsReplays.length; i++) {
+     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
             choosedMonth = moment(monthsReplays[i]).format('MMM YYYY')
             Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'));

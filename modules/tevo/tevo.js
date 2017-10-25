@@ -65,8 +65,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
         for (let j = 0; j < resultEvent.length; j++) {
 
             let date = resultEvent[j].occurs_at;
-            let occurs_at = moment(date).format('dddd') + ', ' + moment(date).format('MMMM Do YYYY, h:mm a')
-
+            let occurs_at =  follow_months.getDateWithoutZone();
             eventButtons_.push({
                 "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                 "image_url": resultEvent[j].category_name,

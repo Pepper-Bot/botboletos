@@ -13,17 +13,16 @@ module.exports = function () {
 
 
             //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_tickets=all'
-            var urlApiTevo ='';
+            var urlApiTevo = '';
 
             if (event_name && !locationData) {
                 urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+            } else if (!event_name && locationData) {
+                urlApiTevo = 'https://api.ticketevolution.com/v9/events?lat=' + locationData.lat + '&lon=' + locationData.lon + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+            } else if (!event_name && locationData) {
+                urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&lat=' + locationData.lat + '&lon=' + locationData.lon + +'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
             }
-            else if( !event_name &&  locationData){
-                urlApiTevo = 'https://api.ticketevolution.com/v9/events?lat=' + locationData.lat +'&lon='+locationData.lon+ '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
-            }else if(!event_name &&  locationData){
-                urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&lat=' + locationData.lat +'&lon='+locationData.lon+ +'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
-            }
-            
+
 
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
@@ -54,9 +53,10 @@ module.exports = function () {
                                 console.log('EVENTO ' + j + '--' + resultEvent[j].id + '>>>>>>>>>>>>>>>>');
 
 
-                                var date = resultEvent[j].occurs_at_local;
-                                var now = moment(date).format('dddd') + ', ' + moment(date).format('MMMM Do YYYY, h:mm a')
+                                var occurs_at = resultEvent[j].occurs_at;
+                                occurs_at = occurs_at.substring(0, occurs_at.length - 4)
 
+                                var occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
 
 
@@ -65,7 +65,7 @@ module.exports = function () {
                                 eventButtons_.push({
                                     "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                                     "image_url": resultEvent[j].category.name,
-                                    "subtitle": resultEvent[j].venue.name + " " + now,
+                                    "subtitle": resultEvent[j].venue.name + " " +occurs_at,
                                     "default_action": {
                                         "type": "web_url",
                                         "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
@@ -116,7 +116,7 @@ module.exports = function () {
 
                             }
 
-                        }else{
+                        } else {
                             //busqueda en la otra api
                         }
 

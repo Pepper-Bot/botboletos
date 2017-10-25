@@ -27,6 +27,14 @@ function follow_months(howmany) {
     return monthsReplays;
 }
 
+function getDateWithoutZone(occurs_at) {
+    occurs_at = occurs_at.substring(0, occurs_at.length - 4)
+    occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+
+    return occurs_at;
+
+}
+
 function firstDayOfMonth() {
     var currentDate = moment();
     const startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
@@ -66,7 +74,8 @@ module.exports = {
     getCurrentDate,
     getFollowMonth,
     firstDayOfMonth,
-    finalDayOfMonth
+    finalDayOfMonth,
+    getDateWithoutZone
 
 
 }
