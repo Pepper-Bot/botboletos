@@ -114,7 +114,7 @@ var getGoogleImage = (search) => {
 }
 
 var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) => {
-   
+
     return new Promise((resolve, reject) => {
         gButtons = resultEvent;
         if (position * 10 > gButtons.length) {
@@ -132,19 +132,21 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
             let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
             getGoogleImage(search).then((images) => {
                 if (images) {
-                    if (images) {
-                        console.log('image >>' + images[0].url)
+                    if (images.length > 0) {
                         gButtons[z].image_url = images[0].url;
+                        console.log('image >>' + gButtons[z].image_url )
                     }
                 }
-            }).then(() => {
                 counter = counter + 1;
-
+                if (counter == gButtons.length) {
+                    resolve(gButtons);
+                }
+            }).then(() => {
+                
+                
             });
 
-            if (counter == 10) {
-                resolve(gButtons);
-            }
+          
         }
     });
 
