@@ -260,7 +260,7 @@ function processQuickReplies(event) {
                     }
                     tevo.convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
                         for (let i = 0; i < eventsButtons_.length; i++) {
-                            // console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+                            console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
                         }
                         tevo.setImagesToEventsTemplate(eventsButtons_, gButtons, contador2).then(() => {
                             console.log("gButtons.length >>> " + gButtons.length);

@@ -65,7 +65,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
         for (let j = 0; j < resultEvent.length; j++) {
 
             let date = resultEvent[j].occurs_at;
-            let occurs_at =  follow_months.getDateWithoutZone();
+            let occurs_at = follow_months.getDateWithoutZone();
             eventButtons_.push({
                 "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                 "image_url": resultEvent[j].category_name,
@@ -111,19 +111,22 @@ var getGoogleImage = (search) => {
     });
 }
 
-var setImagesToEventsTemplate = (resultEvent, gButtons, counter, next = 0) => {
+var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) => {
+
     gButtons = resultEvent;
 
+    if (position * 10 > gButtons.length) {
+        position = 0;
+    }
     if (gButtons.length >= 10) {
-
-
-    } else if (counter == 10) {
-
-
+        gButtons.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
+        if (position - 1 >= 0)
+            gButtons.splice(0, 10 * (position));
     }
 
+
     return new Promise((resolve, reject) => {
-        for (let z = 0, k = gButtons.length; z < k; z++) {
+        for (let z = 0; k < gButtons.length; z++) {
             if (z + 10 * 0 <= 9 + 10 * 0) {
                 let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
                 getGoogleImage(search).then((images) => {
