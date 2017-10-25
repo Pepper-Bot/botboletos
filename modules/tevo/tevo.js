@@ -112,7 +112,6 @@ var getGoogleImage = (search) => {
 }
 
 var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) => {
-
     gButtons = resultEvent;
 
     if (position * 10 > gButtons.length) {
@@ -124,32 +123,32 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
             gButtons.splice(0, 10 * (position));
     }
 
+    console.log('gButtons.length>>' + gButtons.length)
 
-    return new Promise((resolve, reject) => {
-        for (let z = 0; k < gButtons.length; z++) {
-            if (z + 10 * 0 <= 9 + 10 * 0) {
-                let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
-                getGoogleImage(search).then((images) => {
-                    if (images) {
-                        if (images) {
-                            console.log('image >>' + images[0].url)
-                            gButtons[z].image_url = images[0].url;
-                        }
-                    }
-                }).then(() => {
-                    counter = counter + 1;
+    /*  return new Promise((resolve, reject) => {
+          for (let z = 0; k < gButtons.length; z++) {
+              if (z + 10 * 0 <= 9 + 10 * 0) {
+                  let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
+                  getGoogleImage(search).then((images) => {
+                      if (images) {
+                          if (images) {
+                              console.log('image >>' + images[0].url)
+                              gButtons[z].image_url = images[0].url;
+                          }
+                      }
+                  }).then(() => {
+                      counter = counter + 1;
 
-                });
+                  });
+
+                  if (counter == 10) {
+                      resolve(gButtons);
+                  }
+              }
 
 
-                if (counter == 10) {
-                    resolve(gButtons);
-                }
-            }
-
-
-        }
-    });
+          }
+      });*/
 
 }
 
