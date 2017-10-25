@@ -125,7 +125,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
             if (position - 1 >= 0)
                 gButtons.splice(0, 10 * (position));
         }
-        console.log('gButtons.length>>' + gButtons.length)
+        //console.log('gButtons.length>>' + gButtons.length)
 
         for (let z = 0; z < gButtons.length; z++) {
 
@@ -135,12 +135,14 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
                     if (images.length > 0) {
                         gButtons[z].image_url = images[0].url;
                         console.log('image >>' + gButtons[z].image_url )
+
+                        counter = counter + 1;
+                        if (counter == gButtons.length) {
+                            resolve(gButtons);
+                        }
                     }
                 }
-                counter = counter + 1;
-                if (counter == gButtons.length) {
-                    resolve(gButtons);
-                }
+               
             }).then(() => {
                 
                 
