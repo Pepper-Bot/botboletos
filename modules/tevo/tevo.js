@@ -136,12 +136,16 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, next = 0) => {
                     }
                 }).then(() => {
                     counter = counter + 1;
-                    if (counter == 10) {
-                        resolve(gButtons);
-                    }
+
                 });
+
+
+                if (counter == 10) {
+                    resolve(gButtons);
+                }
             }
-           
+
+
         }
     });
 

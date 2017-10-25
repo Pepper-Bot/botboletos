@@ -213,6 +213,11 @@ function processQuickReplies(event) {
 
 
     var monthsReplays = follow_months.follow_months(2);
+    
+    
+    var date = moment('2017-10-27T19:30:00Z', moment.ISO_8601).format();
+    var now = moment(date).format('dddd') + ', ' + moment(date).format('MMMM Do YYYY, h:mm a')
+    console.log('>>>>> FECHA' + now);
 
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
@@ -247,7 +252,7 @@ function processQuickReplies(event) {
             var acum = 0;
             var cuenta = 0;
             var contador = 0;
-            var  contador2 = 0;
+            var contador2 = 0;
 
             var months = require('../modules/follow_months');
             months.firstDayOfMonth();
@@ -255,19 +260,20 @@ function processQuickReplies(event) {
             tevo.searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
                 tevo.searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
                     for (let i = 0; i < eventsArray.length; i++) {
-                       // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
+                        // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
                     }
                     tevo.convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
                         for (let i = 0; i < eventsButtons_.length; i++) {
-                           // console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+                            // console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
                         }
-                       tevo.setImagesToEventsTemplate(eventsButtons_,gButtons, contador2).then(()=>{
+                        tevo.setImagesToEventsTemplate(eventsButtons_, gButtons, contador2).then(() => {
+                            console.log("gButtons.length >>> " + gButtons.length);
                             for (let i = 0; i < gButtons.length; i++) {
                                 console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
                             }
-                           
 
-                        }); 
+
+                        });
                     });
 
                 });
