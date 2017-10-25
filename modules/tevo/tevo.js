@@ -117,7 +117,6 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
    
     return new Promise((resolve, reject) => {
         gButtons = resultEvent;
-
         if (position * 10 > gButtons.length) {
             position = 0;
         }
@@ -127,7 +126,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
                 gButtons.splice(0, 10 * (position));
         }
         console.log('gButtons.length>>' + gButtons.length)
-
+        
         for (let z = 0; k < gButtons.length; z++) {
 
             let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
