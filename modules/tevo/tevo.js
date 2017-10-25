@@ -64,7 +64,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
     return new Promise((resolve, reject) => {
         for (let j = 0; j < resultEvent.length; j++) {
 
-            let occurs_at = resultEvent[j].occurs_at;
+            var occurs_at = resultEvent[j].occurs_at;
             occurs_at = follow_months.getDateWithoutZone(occurs_at);
             eventButtons_.push({
                 "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
