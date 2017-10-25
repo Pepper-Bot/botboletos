@@ -125,7 +125,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
 
     console.log('gButtons.length>>' + gButtons.length)
 
-    /*  return new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
           for (let z = 0; k < gButtons.length; z++) {
               if (z + 10 * 0 <= 9 + 10 * 0) {
                   let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
@@ -148,7 +148,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
 
 
           }
-      });*/
+      });
 
 }
 
