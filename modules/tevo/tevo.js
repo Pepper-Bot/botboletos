@@ -127,7 +127,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
         }
         console.log('gButtons.length>>' + gButtons.length)
 
-        for (let z = 0; k < gButtons.length; z++) {
+        for (let z = 0; z < gButtons.length; z++) {
 
             let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
             getGoogleImage(search).then((images) => {
