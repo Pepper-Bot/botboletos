@@ -65,8 +65,8 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
         for (let j = 0; j < resultEvent.length; j++) {
 
             var occurs_at = resultEvent[j].occurs_at;
-            occurs_at = occurs_at.substring(0, occurs_at.length - 4)
-            occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+            //occurs_at = occurs_at.substring(0, occurs_at.length - 4)
+            //occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
             eventButtons_.push({
                 "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
@@ -126,7 +126,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
                 gButtons.splice(0, 10 * (position));
         }
         console.log('gButtons.length>>' + gButtons.length)
-        
+
         for (let z = 0; k < gButtons.length; z++) {
 
             let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
