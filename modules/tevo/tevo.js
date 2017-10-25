@@ -64,8 +64,8 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
     return new Promise((resolve, reject) => {
         for (let j = 0; j < resultEvent.length; j++) {
 
-            let date = resultEvent[j].occurs_at;
-            let occurs_at = follow_months.getDateWithoutZone();
+            let occurs_at = resultEvent[j].occurs_at;
+            occurs_at = follow_months.getDateWithoutZone(occurs_at);
             eventButtons_.push({
                 "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                 "image_url": resultEvent[j].category_name,
@@ -125,30 +125,30 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
 
     console.log('gButtons.length>>' + gButtons.length)
 
-      return new Promise((resolve, reject) => {
-          for (let z = 0; k < gButtons.length; z++) {
-              if (z + 10 * 0 <= 9 + 10 * 0) {
-                  let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
-                  getGoogleImage(search).then((images) => {
-                      if (images) {
-                          if (images) {
-                              console.log('image >>' + images[0].url)
-                              gButtons[z].image_url = images[0].url;
-                          }
-                      }
-                  }).then(() => {
-                      counter = counter + 1;
+    return new Promise((resolve, reject) => {
+        for (let z = 0; k < gButtons.length; z++) {
+            if (z + 10 * 0 <= 9 + 10 * 0) {
+                let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
+                getGoogleImage(search).then((images) => {
+                    if (images) {
+                        if (images) {
+                            console.log('image >>' + images[0].url)
+                            gButtons[z].image_url = images[0].url;
+                        }
+                    }
+                }).then(() => {
+                    counter = counter + 1;
 
-                  });
+                });
 
-                  if (counter == 10) {
-                      resolve(gButtons);
-                  }
-              }
+                if (counter == 10) {
+                    resolve(gButtons);
+                }
+            }
 
 
-          }
-      });
+        }
+    });
 
 }
 
