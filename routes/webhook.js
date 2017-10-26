@@ -4,7 +4,7 @@ var request = require('request');
 var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
-var context = '';
+var context = 'find_my_event';
 //--
 
 var datos = {}; // Para saber si estamos o no con el ID
