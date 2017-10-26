@@ -136,7 +136,7 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
                         console.log('image >>' + gButtons[z].image_url)
 
                         counter = counter + 1;
-                        console.log(counter + '' + gButtons.length)
+                        console.log(counter + ' ' + gButtons.length)
                         if (counter == gButtons.length) {
                             resolve(gButtons);
                         }
