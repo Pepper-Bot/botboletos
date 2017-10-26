@@ -137,14 +137,14 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
 
                         counter = counter + 1;
                         console.log(counter + ' ' + gButtons.length)
-                        if (counter == gButtons.length) {
-                            resolve(gButtons);
-                        }
+
                     }
                 }
 
             });
-
+            if (z + 1 == gButtons.length) {
+                resolve(gButtons);
+            }
 
         }
     });
