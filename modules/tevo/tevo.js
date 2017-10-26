@@ -12,7 +12,7 @@ var moment = require('moment');
 var categoriesArray_g = [];
 var eventsArray_g = [];
 var processEventURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
-var Message = require('../bot/messages');
+var Message = require('../../bot/messages');
 
 //let approved = students.filter(student => student.score >= 11);
 
