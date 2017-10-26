@@ -536,9 +536,23 @@ function processPostback(event) {
 
         case "find_my_event_by_category":
             {
-                var tevoCategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');  
-                tevoCategoriesQuickReplay.send(Message, senderId, greeting);
 
+                UserData.getInfo(senderId, function (err, result) {
+                    console.log('Dentro de UserData');
+                    if (!err) {
+                        var bodyObj = JSON.parse(result);
+                       
+                        var name = bodyObj.first_name;
+                        var greeting =  name;
+                        var messagetxt = greeting + ", Please choose the category what you are looking for";
+
+                        var tevoCategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
+                        tevoCategoriesQuickReplay.send(Message, senderId, greeting);
+        
+                    }
+                });
+
+              
 
 
             }
@@ -616,6 +630,33 @@ function find_my_event(senderId) {
         }
     });
 };
+
+
+function saveUserSelection(senderId, selection) {
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, result) {
+
+        if (!err) {
+            if (null != result) {
+                result.optionsSelected.push(selection);
+                result.save(function (err) {
+                    if (!err) {
+
+                        console.log('Guardamos la seleccion de ' + selection);
+                    } else {
+                        console.log('Error guardando selección')
+                    }
+                });
+            }
+        }
+
+    });
+}
 
 function saluda(senderId) {
 
