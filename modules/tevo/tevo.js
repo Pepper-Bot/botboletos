@@ -69,7 +69,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
             //occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
             eventButtons_.push({
-                "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
+                "title": resultEvent[j].name, 
                 "image_url": resultEvent[j].category_name,
                 "subtitle": resultEvent[j].venue_name + " " + occurs_at,
                 "default_action": {
@@ -132,9 +132,9 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
 
                 gButtons[z].image_url = images[0].url;
                 console.log('image >>' + gButtons[z].image_url)
-
-            }).then(() => {
                 counter = counter + 1;
+            }).then(() => {
+              
                 console.log(counter + ' ' + gButtons.length)
                 
 
