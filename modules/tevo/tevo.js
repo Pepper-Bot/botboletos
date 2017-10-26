@@ -96,7 +96,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
 
 }
 
-var getGoogleImage = (search) => {
+var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 
         var gis = require('g-i-s');
@@ -106,7 +106,7 @@ var getGoogleImage = (search) => {
             if (error) {
                 reject(error);
             } else {
-                resolve(results);
+                resolve(results, matriz);
             }
         }
 
@@ -128,21 +128,24 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
 
         for (let z = 0; z < gButtons.length; z++) {
             let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
-            getGoogleImage(search).then((images) => {
+            getGoogleImage(search, gButtons).then((images) => {
 
                 gButtons[z].image_url = images[0].url;
                 console.log('image >>' + gButtons[z].image_url)
 
-            }).then(function () {
-                counter = counter + 1;
                 console.log(counter + ' ' + gButtons.length)
+                if (counter == gButtons.length) {
+                    resolve(gButtons);
+                }
+                
 
-                return counter;
+            }).then( ()=> {
+                counter = counter + 1;
+        
             });
+            
             console.log(counter + 'FOR ' + gButtons.length)
-            if (counter == gButtons.length) {
-                resolve(gButtons);
-            }
+            
 
         }
     });
