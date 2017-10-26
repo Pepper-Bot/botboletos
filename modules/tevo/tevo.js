@@ -13,6 +13,7 @@ var categoriesArray_g = [];
 var eventsArray_g = [];
 var processEventURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 var Message = require('../../bot/messages');
+var arraySort = require('array-sort');
 
 //let approved = students.filter(student => student.score >= 11);
 
@@ -121,9 +122,12 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
 
     return new Promise((resolve, reject) => {
         //delete myObj.test.key1;
-        resultEvent.orderByDate('occurs_at', 1);
+      
 
-        gButtons = resultEvent;
+        var resultEvent_ = arraySort(resultEvent, 'occurs_at');
+
+
+        gButtons = resultEvent_;
         if (position * 10 > gButtons.length) {
             position = 0;
         }

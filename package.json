@@ -6,6 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
+    "array-sort": "^0.1.4",
     "body-parser": "~1.17.1",
     "cheerio": "^1.0.0-rc.2",
     "cookie-parser": "~1.4.3",
