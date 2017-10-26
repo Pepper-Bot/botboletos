@@ -124,7 +124,9 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
     return new Promise((resolve, reject) => {
         //delete myObj.test.key1;
 
-
+        if (eventsArray_g.length > 0) {
+            console.log("eventsArray_g.length>>> + eventsArray_g.length");
+        }
         var resultEvent_ = arraySort(resultEvent, 'occurs_at');
 
 
