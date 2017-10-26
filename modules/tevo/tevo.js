@@ -230,14 +230,6 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
 }
 
 
-Array.prototype.orderByDate = function (property, sortOrder) {
-    if (sortOrder != -1 && sortOrder != 1) sortOrder = 1;
-    this.sort(function (a, b) {
-        var dateA = new Date(a[property]),
-            dateB = new Date(b[property]);
-        return (dateA - dateB) * sortOrder;
-    })
-}
 
 function searchEventsByParentName(name, categoriesArray, cuenta) {
     const promise = new Promise(function (resolve, reject) {
@@ -362,7 +354,7 @@ function startByParentsCategories(senderId, text, position) {
     var contador2 = 0;
 
 
-
+    catetegorySelected = text;
     searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
         searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
             //return eventsArray

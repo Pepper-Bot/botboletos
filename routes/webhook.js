@@ -242,7 +242,7 @@ function processQuickReplies(event) {
             var tevo = require('../modules/tevo/tevo');
             var position = 1;
             
-
+            context = 'find_my_event'
             tevo.startByParentsCategories(senderId, text, position)
              
 
