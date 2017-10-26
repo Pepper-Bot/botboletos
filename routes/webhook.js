@@ -213,9 +213,9 @@ function processQuickReplies(event) {
 
 
     var monthsReplays = follow_months.follow_months(2);
-    
-    
-     for (var i = 0; i < monthsReplays.length; i++) {
+
+
+    for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
             choosedMonth = moment(monthsReplays[i]).format('MMM YYYY')
             Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'));
@@ -262,7 +262,7 @@ function processQuickReplies(event) {
                         for (let i = 0; i < eventsButtons_.length; i++) {
                             console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
                         }
-                        tevo.setImagesToEventsTemplate(eventsButtons_, gButtons, contador2).then(function() {
+                        tevo.setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2).then(function () {
                             console.log("gButtons.length >>> " + gButtons.length);
                             for (let i = 0; i < gButtons.length; i++) {
                                 console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);

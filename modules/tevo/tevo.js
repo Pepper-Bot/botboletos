@@ -12,6 +12,8 @@ var moment = require('moment');
 var categoriesArray_g = [];
 var eventsArray_g = [];
 var processEventURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
+var Message = require('../bot/messages');
+
 //let approved = students.filter(student => student.score >= 11);
 
 
@@ -113,7 +115,7 @@ var getGoogleImage = (search, matriz = []) => {
     });
 }
 
-var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) => {
+var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, position = 0) => {
 
     return new Promise((resolve, reject) => {
         gButtons = resultEvent;
@@ -131,12 +133,13 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
             getGoogleImage(search, gButtons).then((images) => {
 
                 gButtons[z].image_url = images[0].url;
-                
+
 
                 console.log(counter + ' ' + gButtons.length)
                 if (counter + 1 == gButtons.length) {
                     console.log('image >>' + gButtons[z].image_url)
-                    resolve(gButtons);
+                    Message.genericButton(senderId, gButtons);
+                   
                 }
 
 
