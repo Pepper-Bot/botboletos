@@ -75,6 +75,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
                 "title": resultEvent[j].name,
                 "image_url": resultEvent[j].category_name,
                 "subtitle": resultEvent[j].venue_name + " " + occurs_at,
+                "occurs_at": occurs_at,
                 "default_action": {
                     "type": "web_url",
                     "url": processEventURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue_id + '&performer_id=' + resultEvent[j].performer_id + '&event_name=' + resultEvent[j].name
@@ -119,6 +120,8 @@ var getGoogleImage = (search, matriz = []) => {
 var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, position = 0) => {
 
     return new Promise((resolve, reject) => {
+        //delete myObj.test.key1;
+        resultEvent.orderByDate('occurs_at', 1);
 
         gButtons = resultEvent;
         if (position * 10 > gButtons.length) {
@@ -135,6 +138,7 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
             getGoogleImage(search, gButtons).then((images) => {
 
                 gButtons[z].image_url = images[0].url;
+                delete gButtons[z].occurs_at;
 
 
                 console.log(counter + ' ' + gButtons.length)
