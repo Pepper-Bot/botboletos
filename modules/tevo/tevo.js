@@ -121,14 +121,14 @@ var getGoogleImage = (search, matriz = []) => {
 var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, position = 0) => {
 
     return new Promise((resolve, reject) => {
-       
+
 
         eventsArray_g = resultEvent_;
         var resultEvent_ = arraySort(resultEvent, 'occurs_at');
 
 
         gButtons = resultEvent_;
-       
+
         if (position * 10 > gButtons.length) {
             position = 0;
         }
@@ -362,27 +362,20 @@ function startByParentsCategories(senderId, text, position) {
     var contador2 = 0;
 
 
-    if (eventsArray_g.length > 0 && catetegorySelected == text) {
-        console.log("eventsArray_g.length>>>" + eventsArray_g.length);
-        setImagesToEventsTemplate(senderId, eventsArray_g, gButtons, contador2, position).then(function () {
-            // return gButtons
-        });
 
-    } else {
-        catetegorySelected = text;
-        searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
-            searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
-                //return eventsArray
-                convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
-                    // return eventsButtons_
-                    setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
-                        // return gButtons
-                    });
+    searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
+        searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
+            //return eventsArray
+            convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
+                // return eventsButtons_
+                setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
+                    // return gButtons
                 });
-
             });
+
         });
-    }
+    });
+
 }
 
 
