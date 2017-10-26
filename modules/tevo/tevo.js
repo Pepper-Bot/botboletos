@@ -125,28 +125,24 @@ var setImagesToEventsTemplate = (resultEvent, gButtons, counter, position = 0) =
             if (position - 1 >= 0)
                 gButtons.splice(0, 10 * (position));
         }
-     
+
         for (let z = 0; z < gButtons.length; z++) {
             let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
             getGoogleImage(search).then((images) => {
-                if (images) {
-                    if (images.length > 0) {
-                        gButtons[z].image_url = images[0].url;
-                        console.log('image >>' + gButtons[z].image_url)
 
-
-                    }
-                }
+                gButtons[z].image_url = images[0].url;
+                console.log('image >>' + gButtons[z].image_url)
 
             }).then(() => {
                 counter = counter + 1;
                 console.log(counter + ' ' + gButtons.length)
-                if (counter == gButtons.length) {
-                    resolve(gButtons);
-                }
+                
 
             });
-
+            console.log(counter + 'FOR ' + gButtons.length)
+            if (counter == gButtons.length) {
+                resolve(gButtons);
+            }
 
         }
     });
