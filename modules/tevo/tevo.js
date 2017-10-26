@@ -69,13 +69,11 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
 
             var occurs_at = resultEvent[j].occurs_at;
 
-            occurs_at = occurs_at.substring(0, occurs_at.length - 4)
-            occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
             eventButtons_.push({
                 "title": resultEvent[j].name,
                 "image_url": resultEvent[j].category_name,
-                "subtitle": resultEvent[j].venue_name + " " + occurs_at,
+                "subtitle": resultEvent[j].venue_name,
                 "occurs_at": occurs_at,
                 "default_action": {
                     "type": "web_url",
@@ -122,7 +120,7 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
 
     return new Promise((resolve, reject) => {
         //delete myObj.test.key1;
-      
+
 
         var resultEvent_ = arraySort(resultEvent, 'occurs_at');
 
@@ -142,6 +140,12 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
             getGoogleImage(search, gButtons).then((images) => {
 
                 gButtons[z].image_url = images[0].url;
+                
+                var occurs_at = gButtons[z].occurs_at
+                occurs_at = occurs_at.substring(0, occurs_at.length - 4)
+                occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+               
+                gButtons[z].subtitle = gButtons[z].subtitle + ' ' + occurs_at;
                 delete gButtons[z].occurs_at;
 
 
