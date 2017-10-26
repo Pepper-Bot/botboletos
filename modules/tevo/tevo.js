@@ -11,6 +11,7 @@ var imageCards = require('../imageCards'); // Google images
 var moment = require('moment');
 var categoriesArray_g = [];
 var eventsArray_g = [];
+var catetegorySelected = '';
 var processEventURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 var Message = require('../../bot/messages');
 var arraySort = require('array-sort');
@@ -116,17 +117,13 @@ var getGoogleImage = (search, matriz = []) => {
     });
 }
 
-function getEventsArray() {
-    return eventsArray_g;
-}
+
 var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, position = 0) => {
 
     return new Promise((resolve, reject) => {
-        //delete myObj.test.key1;
+       
 
-        if (eventsArray_g.length > 0) {
-            console.log("eventsArray_g.length>>> + eventsArray_g.length");
-        }
+
         var resultEvent_ = arraySort(resultEvent, 'occurs_at');
 
 
@@ -365,28 +362,27 @@ function startByParentsCategories(senderId, text, position) {
     var contador2 = 0;
 
 
-
-    searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
-        searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
-            //for (let i = 0; i < eventsArray.length; i++) {
-            // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
-            //}
-            convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
-                //for (let i = 0; i < eventsButtons_.length; i++) {
-                //  console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
-                //}
-                setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
-                    //  console.log("gButtons.length >>> " + gButtons.length);
-                    //  for (let i = 0; i < gButtons.length; i++) {
-                    //      console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
-                    //  }
-
-
-                });
-            });
-
+    if (eventsArray_g.length > 0 && catetegorySelected == text) {
+        console.log("eventsArray_g.length>>>" + eventsArray_g.length);
+        setImagesToEventsTemplate(senderId, eventsArray_g, gButtons, contador2, position).then(function () {
+            // return gButtons
         });
-    });
+
+    } else {
+        catetegorySelected = text;
+        searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
+            searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
+                //return eventsArray
+                convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
+                    // return eventsButtons_
+                    setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
+                        // return gButtons
+                    });
+                });
+
+            });
+        });
+    }
 }
 
 
@@ -400,7 +396,6 @@ module.exports = {
     searchEventsByParentNameSecondStep,
     convertEventsToEventsTemplate,
     setImagesToEventsTemplate,
-    getEventsArray,
     startByParentsCategories
 
 
