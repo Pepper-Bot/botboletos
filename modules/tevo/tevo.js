@@ -123,12 +123,12 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
     return new Promise((resolve, reject) => {
        
 
-
+        eventsArray_g = resultEvent_;
         var resultEvent_ = arraySort(resultEvent, 'occurs_at');
 
 
         gButtons = resultEvent_;
-        eventsArray_g = resultEvent_;
+       
         if (position * 10 > gButtons.length) {
             position = 0;
         }
