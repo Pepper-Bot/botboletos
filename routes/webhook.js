@@ -241,10 +241,10 @@ function processQuickReplies(event) {
 
             var tevo = require('../modules/tevo/tevo');
             var position = 1;
-            
+
             context = 'find_my_event'
             tevo.startByParentsCategories(senderId, text, position)
-             
+
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
             break;
@@ -512,6 +512,37 @@ function processPostback(event) {
 
     switch (payload) {
 
+
+        case "find_my_event_by_name":
+            {
+
+                Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
+                context = 'find_my_event';
+            }
+            break;
+
+        case "find_my_event_by_location":
+            {
+
+
+                Message.markSeen(senderId);
+                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.typingOn(senderId);
+                saveUserSelection(senderId, 'Events');
+                context = 'find_my_event_by_location';
+
+            }
+            break;
+
+        case "find_my_event_by_date":
+            {
+
+
+
+
+            }
+            break;
+
         case "FIND_MY_EVENT":
             find_my_event(senderId);
 
@@ -572,14 +603,14 @@ function find_my_event(senderId) {
 
             var name = bodyObj.first_name;
             var greeting = "Hi " + name;
-            //var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
+            var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
 
-            //context = 'find_my_event'
+            context = 'find_my_event'
 
-            var ButtonsEventsQuery = require('../modules/tevo/tevo_categories_quick_replay');
-            //var ButtonsEventsQuery = require('../modules/buttons_event_query');
 
-            ButtonsEventsQuery.send(Message, senderId, greeting);
+            var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
+
+            ButtonsEventsQuery.send(Message, senderId, messagetxt);
 
         }
     });
