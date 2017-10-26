@@ -228,7 +228,6 @@ Array.prototype.orderByDate = function (property, sortOrder) {
     })
 }
 
-
 function searchEventsByParentName(name, categoriesArray, cuenta) {
     const promise = new Promise(function (resolve, reject) {
         let parentCategories = tevo_categories.searchParentCategoryByName(name);
