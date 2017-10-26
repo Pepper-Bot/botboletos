@@ -6,7 +6,7 @@
 
 var TevoClient = require('ticketevolution-node');
 var tevo_categories = require('./tevo_categories');
-var follow_months = require('../follow_months');
+var follow_months = require('./follow_months');
 var imageCards = require('../imageCards'); // Google images
 var moment = require('moment');
 var categoriesArray_g = [];

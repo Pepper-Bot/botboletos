@@ -22,8 +22,8 @@ module.exports = function () {
                 },
                 {
                     "type": "postback",
-                    "title": "Date",
-                    "payload": "find_my_event_by_date"
+                    "title": "Category",
+                    "payload": "find_my_event_by_category"
                 }
             ];
 

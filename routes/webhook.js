@@ -534,9 +534,10 @@ function processPostback(event) {
             }
             break;
 
-        case "find_my_event_by_date":
+        case "find_my_event_by_category":
             {
-
+                var tevoCategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');  
+                tevoCategoriesQuickReplay.send(Message, senderId, greeting);
 
 
 
