@@ -67,8 +67,9 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
         for (let j = 0; j < resultEvent.length; j++) {
 
             var occurs_at = resultEvent[j].occurs_at;
-            //occurs_at = occurs_at.substring(0, occurs_at.length - 4)
-            //occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+
+            occurs_at = occurs_at.substring(0, occurs_at.length - 4)
+            occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
             eventButtons_.push({
                 "title": resultEvent[j].name,
@@ -118,6 +119,7 @@ var getGoogleImage = (search, matriz = []) => {
 var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, position = 0) => {
 
     return new Promise((resolve, reject) => {
+
         gButtons = resultEvent;
         if (position * 10 > gButtons.length) {
             position = 0;
@@ -139,7 +141,7 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
                 if (counter + 1 == gButtons.length) {
                     console.log('image >>' + gButtons[z].image_url)
                     Message.genericButton(senderId, gButtons);
-                   
+
                 }
 
 
@@ -188,7 +190,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                         "id": events[j].id,
                         "name": events[j].name,
                         "category_name": events[j].category.name,
-                        "occurs_at": new Date(events[j].occurs_at),
+                        "occurs_at": events[j].occurs_at,
                         "performer_id": events[j].performances[0].performer.id,
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id,

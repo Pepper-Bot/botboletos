@@ -12,6 +12,8 @@ var moment = require('moment');
 var categoriesArray_g = [];
 var eventsArray_g = [];
 var processEventURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
+var Message = require('../../bot/messages');
+
 //let approved = students.filter(student => student.score >= 11);
 
 
@@ -64,11 +66,12 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
     return new Promise((resolve, reject) => {
         for (let j = 0; j < resultEvent.length; j++) {
 
-            let date = resultEvent[j].occurs_at;
-            let occurs_at = moment(date).format('dddd') + ', ' + moment(date).format('MMMM Do YYYY, h:mm a')
+            var occurs_at = resultEvent[j].occurs_at;
+            //occurs_at = occurs_at.substring(0, occurs_at.length - 4)
+            //occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
             eventButtons_.push({
-                "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
+                "title": resultEvent[j].name,
                 "image_url": resultEvent[j].category_name,
                 "subtitle": resultEvent[j].venue_name + " " + occurs_at,
                 "default_action": {
@@ -95,7 +98,7 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
 
 }
 
-var getGoogleImage = (search) => {
+var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 
         var gis = require('g-i-s');
@@ -105,45 +108,47 @@ var getGoogleImage = (search) => {
             if (error) {
                 reject(error);
             } else {
-                resolve(results);
+                resolve(results, matriz);
             }
         }
 
     });
 }
 
-var setImagesToEventsTemplate = (resultEvent, gButtons, counter, next = 0) => {
-    gButtons = resultEvent;
-
-    if (gButtons.length >= 10) {
-
-
-    } else if (counter == 10) {
-
-
-    }
+var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, position = 0) => {
 
     return new Promise((resolve, reject) => {
-        for (let z = 0, k = gButtons.length; z < k; z++) {
-            if (z + 10 * 0 <= 9 + 10 * 0) {
-                let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
-                getGoogleImage(search).then((images) => {
-                    if (images) {
-                        if (images) {
-                            console.log('image >>' + images[0].url)
-                            gButtons[z].image_url = images[0].url;
-                        }
-                    }
-                }).then(() => {
-                    counter = counter + 1;
+        gButtons = resultEvent;
+        if (position * 10 > gButtons.length) {
+            position = 0;
+        }
+        if (gButtons.length >= 10) {
+            gButtons.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
+            if (position - 1 >= 0)
+                gButtons.splice(0, 10 * (position));
+        }
 
-                });
+        for (let z = 0; z < gButtons.length; z++) {
+            let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
+            getGoogleImage(search, gButtons).then((images) => {
+
+                gButtons[z].image_url = images[0].url;
 
 
-                if (counter == 10) {
-                    resolve(gButtons);
+                console.log(counter + ' ' + gButtons.length)
+                if (counter + 1 == gButtons.length) {
+                    console.log('image >>' + gButtons[z].image_url)
+                    Message.genericButton(senderId, gButtons);
+                   
                 }
-            }
+
+
+            }).then(() => {
+                counter = counter + 1;
+
+            });
+
+            console.log(counter + 'FOR ' + gButtons.length)
 
 
         }
