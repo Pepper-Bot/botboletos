@@ -116,6 +116,9 @@ var getGoogleImage = (search, matriz = []) => {
     });
 }
 
+function getEventsArray() {
+    return eventsArray_g;
+}
 var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, position = 0) => {
 
     return new Promise((resolve, reject) => {
@@ -126,6 +129,7 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
 
 
         gButtons = resultEvent_;
+        eventsArray_g = resultEvent_;
         if (position * 10 > gButtons.length) {
             position = 0;
         }
@@ -140,11 +144,11 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
             getGoogleImage(search, gButtons).then((images) => {
 
                 gButtons[z].image_url = images[0].url;
-                
+
                 var occurs_at = gButtons[z].occurs_at
                 occurs_at = occurs_at.substring(0, occurs_at.length - 4)
                 occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
-               
+
                 gButtons[z].subtitle = gButtons[z].subtitle + ' ' + occurs_at;
                 delete gButtons[z].occurs_at;
 
@@ -344,6 +348,45 @@ function searchCategoriesParents() {
 
 }
 
+function startByParentsCategories(senderId, text, position) {
+
+
+
+    var categoriesArray = [];
+    var eventsArray = [];
+    var eventsButtons_ = [];
+    var gButtons = [];
+    var events = [];
+    var acum = 0;
+    var cuenta = 0;
+    var contador = 0;
+    var contador2 = 0;
+
+
+
+    searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
+        searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
+            //for (let i = 0; i < eventsArray.length; i++) {
+            // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
+            //}
+            convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
+                //for (let i = 0; i < eventsButtons_.length; i++) {
+                //  console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+                //}
+                setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
+                    //  console.log("gButtons.length >>> " + gButtons.length);
+                    //  for (let i = 0; i < gButtons.length; i++) {
+                    //      console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
+                    //  }
+
+
+                });
+            });
+
+        });
+    });
+}
+
 
 
 
@@ -354,7 +397,9 @@ module.exports = {
     searchEventsByCategoryId,
     searchEventsByParentNameSecondStep,
     convertEventsToEventsTemplate,
-    setImagesToEventsTemplate
+    setImagesToEventsTemplate,
+    getEventsArray,
+    startByParentsCategories
 
 
 }

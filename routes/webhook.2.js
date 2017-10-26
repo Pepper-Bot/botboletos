@@ -238,11 +238,46 @@ function processQuickReplies(event) {
 
         if (payload == text) {
 
-
             var tevo = require('../modules/tevo/tevo');
-            var position = 1;
 
-            tevo.startByParentsCategories(senderId, text, position)
+            var categoriesArray = [];
+            var eventsArray = [];
+            var eventsButtons_ = [];
+            var gButtons = [];
+            var events = [];
+            var acum = 0;
+            var cuenta = 0;
+            var contador = 0;
+            var contador2 = 0;
+
+            var months = require('../modules/follow_months');
+            months.firstDayOfMonth();
+
+            tevo.searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
+                tevo.searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
+                    for (let i = 0; i < eventsArray.length; i++) {
+                        // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
+                    }
+                    tevo.convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
+                        for (let i = 0; i < eventsButtons_.length; i++) {
+                            console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+                        }
+                        tevo.setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2).then(function () {
+                            console.log("gButtons.length >>> " + gButtons.length);
+                            for (let i = 0; i < gButtons.length; i++) {
+                                console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
+                            }
+
+
+                        });
+                    });
+
+                });
+            });
+
+
+
+
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
             break;
