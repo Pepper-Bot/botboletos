@@ -400,7 +400,31 @@ function searchEventsByCategoryIdAndDate(req, res) {
 
 
 
+function searchEventByNameAndDate(req, res) {
+	var event_name = req.params.name;
+	var occurs_at_gte = req.params.occurs_at_gte;
+	var occurs_at_lte = req.params.occurs_at_lte;
 
+	var TevoClient = require('ticketevolution-node');
+
+	var tevoClient = new TevoClient({
+		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
+		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
+	});
+
+
+	urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
+	console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+	if (tevoClient) {
+		tevoClient.getJSON(urlApiTevo).then((json) => {
+			res.status(200).send(
+				json
+			);
+
+
+		});
+	}
+}
 
 
 
@@ -422,7 +446,8 @@ module.exports = {
 	searchParents,
 	searchCategoriesByParentId,
 	searchEventsByCategoryId,
-	searchEventsByCategoryIdAndDate
+	searchEventsByCategoryIdAndDate,
+	searchEventByNameAndDate
 
 
 
