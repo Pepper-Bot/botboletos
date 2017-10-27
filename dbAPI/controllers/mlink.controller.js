@@ -391,6 +391,10 @@ function searchEventsByCategoryIdAndDate(req, res) {
 				json
 			);
 
+		}).catch((err) => {
+			res.status(300).send(
+				err
+			);
 		});
 	}
 }
