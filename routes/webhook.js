@@ -87,7 +87,7 @@ function processMessage(senderId, textMessage) {
         switch (context) {
             case 'find_my_event':
                 {
- 
+
                     startTevoModuleWithMlink(textMessage, senderId);
                 }
                 break;
@@ -289,14 +289,31 @@ function processQuickReplies(event) {
             console.log("endOfMonth>>>>>>" + endOfMonth)
 
 
-             var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
-            TevoModule.start(senderId, event_name_wrote, endOfMonth, startOfMonth);
+
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, result) {
+
+                var totalSelecteds = result.optionsSelected.length - 1;
+                var lastSelected = result.optionsSelected[totalSelecteds];
+                
+                var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
+                TevoModule.start(senderId, lastSelected, endOfMonth, startOfMonth);
+
+
+            });
 
 
 
 
 
-          
+
+
+
             Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'));
 
 
@@ -925,11 +942,12 @@ function startTevoModuleWithMlink(referral, senderId) {
     console.log("URL CONSULTA>>>>>>>>>>>>>>>" + baseURL + mlinks + referral);
 
 
-    event_name_wrote = referral
+
+    saveUsuarioAndLastSelected(senderId, referral);
     var TevoModule = require('../modules/tevo_request');
     TevoModule.start(senderId, referral);
 
-   
+
     /* request({
              url: baseURL + mlinks + referral,
              qs: {
@@ -953,6 +971,71 @@ function startTevoModuleWithMlink(referral, senderId) {
              }
 
          });*/
+}
+
+function saveUsuarioAndLastSelected(senderId, lastSelected) {
+
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, result) {
+
+        if (!err) {
+
+            console.log(result);
+            if (null != result) {
+
+                result.optionsSelected.push(lastSelected);
+                result.save(function (err) {
+                    if (!err) {
+
+                        console.log('Guardamos la seleccion de Drinks');
+                    } else {
+                        console.log('Error guardando selección')
+                    }
+                });
+            } else {
+
+                UserData.getInfo(senderId, function (err, result) {
+                    console.log('Dentro de UserData');
+                    if (!err) {
+
+                        var bodyObj = JSON.parse(result);
+                        console.log(result);
+
+                        var User = new UserData2; {
+                            User.fbId = senderId;
+                            User.firstName = bodyObj.first_name;
+                            User.LastName = bodyObj.last_name;
+                            User.profilePic = bodyObj.profile_pic;
+                            User.locale = bodyObj.locale;
+                            User.timeZone = bodyObj.timezone;
+                            User.gender = bodyObj.gender;
+                            User.messageNumber = 1;
+
+                            result.optionsSelected.push(lastSelected);
+
+                            User.save();
+                        }
+
+
+
+                        var name = bodyObj.first_name;
+                        var greeting = "Hi " + name;
+                        var messagetxt = greeting + ", what would you like to do?";
+                        //Message.sendMessage(senderId, message);
+                        /* INSERT TO MONGO DB DATA FROM SESSION*/
+
+
+                    }
+                });
+            }
+        }
+
+    });
 }
 
 
