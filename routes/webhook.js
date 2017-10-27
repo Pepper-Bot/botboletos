@@ -267,7 +267,7 @@ function processQuickReplies(event) {
 
 
     var moment = require('moment');
-    var follow_months = require('../modules/follow_months');
+    var follow_months = require('../modules/tevo/follow_months');
 
 
     var monthsReplays = follow_months.follow_months(2);
@@ -303,7 +303,7 @@ function processQuickReplies(event) {
 
     }
 
-    /* var tevo_categories = require('../modules/tevo/tevo_categories');
+     var tevo_categories = require('../modules/tevo/tevo_categories');
     var repliesArray = [];
     var parentCategories = tevo_categories.getParentCategories();
     var text = '';
@@ -330,7 +330,7 @@ function processQuickReplies(event) {
 
         }
 
-    }*/
+    } 
 
 
     switch (payload) {
