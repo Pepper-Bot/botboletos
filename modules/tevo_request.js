@@ -23,8 +23,7 @@ module.exports = function () {
                 urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&lat=' + locationData.lat + '&lon=' + locationData.lon + +'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
             }
 
-            saveUsuarioAndEventSearchLastSelected(senderId, event_name)
-
+           
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
@@ -111,7 +110,8 @@ module.exports = function () {
 
                                         //var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
                                         // ShowMeMoreQuickReply.send(Message, senderId);
-
+                                        saveUsuarioAndEventSearchLastSelected(senderId, event_name)
+                                        
                                         var GenericButton = require('../bot/generic_buttton');
                                         //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
                                         GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
