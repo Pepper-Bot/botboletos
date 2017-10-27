@@ -65,7 +65,7 @@ module.exports = function () {
                                 eventButtons_.push({
                                     "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                                     "image_url": resultEvent[j].category.name,
-                                    "subtitle": resultEvent[j].venue.name + " " +occurs_at,
+                                    "subtitle": resultEvent[j].venue.name + " " + occurs_at,
                                     "default_action": {
                                         "type": "web_url",
                                         "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
@@ -106,11 +106,13 @@ module.exports = function () {
                                     counter++;
                                     if (counter == gButtons.length) {
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
-                                        Message.genericButton(senderId, gButtons);
-                                       
-                                        var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
-                                        ShowMeMoreQuickReply.send(Message, senderId);
-                                        
+                                        //Message.genericButton(senderId, gButtons);
+
+                                        //var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
+                                        //ShowMeMoreQuickReply.send(Message, senderId);
+
+                                        genericButtonAndShowReplays(senderId, gButtons);
+
                                     }
 
 
@@ -138,8 +140,13 @@ module.exports = function () {
 }();
 
 
-function toJSONLocal(date) {
-
+function genericButtonAndShowReplays(senderId, gButtons) {
+  return new Promise(function (resolve, reject) {
+        Message.genericButton(senderId, gButtons);
+    }).then(()=>{
+        var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
+        ShowMeMoreQuickReply.send(Message, senderId);
+    })
 }
 
 

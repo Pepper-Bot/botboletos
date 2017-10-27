@@ -12,14 +12,9 @@ module.exports = function () {
             });
 
 
- 
+
             var urlApiTevo = '';
             urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
-
-            
-
-
-
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
@@ -91,14 +86,14 @@ module.exports = function () {
 
                                 imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
                                     var imageIndex = 0;
-                                    if (images.length >= 30) {
-                                        imageIndex = Math.round(Math.random() * 30);
+                                    if (images.length >= 10) {
+                                        imageIndex = Math.round(Math.random() * 10);
                                     } else {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
 
 
-                                    gButtons[index].image_url = images[imageIndex].url;
+                                    gButtons[index].image_url = images[0].url;
                                     counter++;
                                     if (counter == gButtons.length) {
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
