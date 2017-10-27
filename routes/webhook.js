@@ -300,7 +300,9 @@ function processQuickReplies(event) {
 
                 var totalSelecteds = result.optionsSelected.length - 1;
                 var lastSelected = result.optionsSelected[totalSelecteds];
-                
+
+
+
                 var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
                 TevoModule.start(senderId, lastSelected, endOfMonth, startOfMonth);
 
@@ -1016,7 +1018,7 @@ function saveUsuarioAndLastSelected(senderId, lastSelected) {
                             User.gender = bodyObj.gender;
                             User.messageNumber = 1;
 
-                            result.optionsSelected.push(lastSelected);
+                            User.optionsSelected.push(lastSelected);
 
                             User.save();
                         }
