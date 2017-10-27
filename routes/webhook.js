@@ -300,7 +300,10 @@ function processQuickReplies(event) {
 
                 var totalSelecteds = result.eventSearchSelected.length - 1;
                 var lastSelected = result.eventSearchSelected[totalSelecteds];
-
+                if (lastSelected != "SHAKIRA") {
+                    result.eventSearchSelected.push("SHAKIRA")
+                    UserData2.save();
+                }
 
 
                 var TevoModule = require('../modules/tevo/tevo_request_by_name_date');

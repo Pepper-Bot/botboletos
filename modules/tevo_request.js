@@ -166,7 +166,7 @@ function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
                 result.save(function (err) {
                     if (!err) {
 
-                        console.log('Guardamos la seleccion de Drinks');
+                        console.log('Guardamos la seleccion' +  lastSelected      );
                     } else {
                         console.log('Error guardando selección')
                     }
