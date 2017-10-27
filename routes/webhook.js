@@ -318,7 +318,7 @@ function processQuickReplies(event) {
         if (payload == text) {
 
 
-            var tevo = require('../modules/tevo/tevo');
+            /*var tevo = require('../modules/tevo/tevo');
             var position = 1;
 
             context = 'find_my_event'
@@ -326,7 +326,7 @@ function processQuickReplies(event) {
 
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
-            break;
+            break;*/
 
         }
 
@@ -598,7 +598,7 @@ function processPostback(event) {
 
             }
             break;
-            
+
         case "find_my_event_search_event":
             {
                 var SearchQuickReply = require('../modules/tevo/search_quick_replay');
