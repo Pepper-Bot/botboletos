@@ -591,7 +591,21 @@ function processPostback(event) {
 
     switch (payload) {
 
+        case "find_my_event_show_me_more":
+            {
+                var MonthsQuickReply = require('../modules/tevo/months_replay');
+                MonthsQuickReply.send(Message, senderId, "Please choose month...");
 
+            }
+            break;
+            
+        case "find_my_event_search_event":
+            {
+                var SearchQuickReply = require('../modules/tevo/search_quick_replay');
+                SearchQuickReply.send(Message, senderId);
+
+            }
+            break;
 
         case "find_my_event_by_name":
             {
