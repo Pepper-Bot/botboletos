@@ -23,7 +23,7 @@ module.exports = function () {
                 urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&lat=' + locationData.lat + '&lon=' + locationData.lon + +'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
             }
 
-           
+
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
@@ -110,8 +110,9 @@ module.exports = function () {
 
                                         //var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
                                         // ShowMeMoreQuickReply.send(Message, senderId);
+                                        console.log("luego del GButons event_name >>>>> " + event_name);
                                         saveUsuarioAndEventSearchLastSelected(senderId, event_name)
-                                        
+
                                         var GenericButton = require('../bot/generic_buttton');
                                         //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
                                         GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
@@ -159,14 +160,12 @@ function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
 
         if (!err) {
 
-            console.log("result.fbId>>>> "+ result.fbId);
             if (null != result) {
-
                 result.eventSearchSelected.push(lastSelected);
                 result.save(function (err) {
                     if (!err) {
-
-                        console.log('Guardamos la seleccion' +  lastSelected      );
+                        console.log("Consulto y Actualizo el result.fbId>>>> " + result.fbId);
+                        console.log('Guardamos la seleccion' + lastSelected);
                     } else {
                         console.log('Error guardando selección')
                     }
@@ -193,6 +192,7 @@ function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
                             User.eventSearchSelected.push(lastSelected);
 
                             User.save();
+                            console.log("Guardé el senderId result.fbId>>>> " + result.fbId);
                         }
 
 
