@@ -303,7 +303,7 @@ function processQuickReplies(event) {
 
     }
 
-     var tevo_categories = require('../modules/tevo/tevo_categories');
+    /* var tevo_categories = require('../modules/tevo/tevo_categories');
     var repliesArray = [];
     var parentCategories = tevo_categories.getParentCategories();
     var text = '';
@@ -330,7 +330,7 @@ function processQuickReplies(event) {
 
         }
 
-    } 
+    } */
 
 
     switch (payload) {
