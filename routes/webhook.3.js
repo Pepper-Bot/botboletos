@@ -205,63 +205,7 @@ function processQuickReplies(event) {
     var senderId = event.sender.id;
     var payload = event.message.quick_reply.payload;
 
-
     console.log('este es el quick replay  payload  ' + payload);
-
-
-
-    switch (payload) {
-
-
-
-        case "find_my_event_show_me_more":
-            {
-                //la accion find_my_event_show_me_more me more muestra los meses
-                var MonthsQuickReply = require('../modules/tevo/months_replay');
-                MonthsQuickReply.send(Message, senderId, "Please choose month...");
-            }
-
-            break;
-
-
-        case "find_my_event_search_event":
-            {
-                //este pay load de quick replay abre 2 quick replais más, by name y by category
-                var SearchQuickReply = require('../modules/tevo/search_quick_replay');
-                SearchQuickReply.send(Message, senderId);
-                //find_my_event_by_category"
-                //find_my_event_by_name 
-            }
-
-            break;
-
-        case "find_my_event_by_category":
-            {
-
-                var CategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
-                //var ButtonsEventsQuery = require('../modules/buttons_event_query');
-                CategoriesQuickReplay.send(Message, senderId, "Please choose category....");
-            }
-
-            break;
-
-        case "find_my_event_by_name":
-            {
-                Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                context = 'find_my_event';
-            }
-
-            break;
-
-
-        default:
-            {
-
-            }
-            break;
-    }
-
-
 
 
     var moment = require('moment');
@@ -273,25 +217,8 @@ function processQuickReplies(event) {
 
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
-
-            var currentDate = moment(monthsReplays[i]);
-            var startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
-            console.log("startOfMonth>>>>>>" + startOfMonth)
-
-            currentDate = moment(monthsReplays[i]);
-            var endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
-            console.log("endOfMonth>>>>>>" + endOfMonth)
-
-
-
-            
-
             choosedMonth = moment(monthsReplays[i]).format('MMM YYYY')
             Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'));
-
-
-
-
             break;
         }
 
@@ -586,7 +513,6 @@ function processPostback(event) {
     switch (payload) {
 
 
-
         case "find_my_event_by_name":
             {
 
@@ -615,23 +541,22 @@ function processPostback(event) {
                     console.log('Dentro de UserData');
                     if (!err) {
                         var bodyObj = JSON.parse(result);
-
+                       
                         var name = bodyObj.first_name;
-                        var greeting = name;
+                        var greeting =  name;
                         var messagetxt = greeting + ", Please choose the category what you are looking for";
 
                         var tevoCategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
                         tevoCategoriesQuickReplay.send(Message, senderId, messagetxt);
-
+        
                     }
                 });
 
-
+              
 
 
             }
             break;
-
 
         case "FIND_MY_EVENT":
             find_my_event(senderId);
