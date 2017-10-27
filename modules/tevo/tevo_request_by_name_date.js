@@ -16,7 +16,7 @@ module.exports = function () {
             var urlApiTevo = '';
             urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
 
-            console.log('url api tevo>>>>>>>' + urlApiTevo);
+            console.log('url api tevo BY DATE >>>>>>>' + urlApiTevo);
 
             var event_id = 0;
             if (tevoClient) {

@@ -296,16 +296,36 @@ function processQuickReplies(event) {
                 sort: {
                     'sessionStart': -1
                 }
-            }, function (err, result) {
+            }, function (err, foundUser) {
+                if (!err) {
+                    if (foundUser) {
+                        console.log(
+                            "foundUser.fbId " + foundUser.fbId + "\n" +
+                            "foundUser.firstName " + foundUser.firstName + "\n" +
+                            "foundUser.LastName " + foundUser.LastName + "\n" +
+                            "foundUser.profilePic " + foundUser.profilePic + "\n" +
+                            "foundUser.locale " + foundUser.locale + "\n" +
+                            "foundUser.timeZone " + foundUser.timeZone + "\n" +
+                            "foundUser.gender " + foundUser.gender + "\n" +
+                            "foundUser.sessionStart " + foundUser.sessionStart + "\n" +
+                            "foundUser.eventSearchSelected " + foundUser.eventSearchSelected.length + "\n"
+                        );
 
-                var totalSelecteds = result.eventSearchSelected.length - 1;
-                var lastSelected = result.eventSearchSelected[totalSelecteds];
 
-                console.log('lastSelected>>>>' + lastSelected );
+                        var totalSelecteds = result.eventSearchSelected.length - 1;
+                        var lastSelected = result.eventSearchSelected[totalSelecteds];
+
+                        console.log('lastSelected>>>>' + lastSelected);
 
 
-                var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
-                TevoModule.start(senderId, lastSelected, endOfMonth, startOfMonth);
+                        var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
+                        TevoModule.start(senderId, lastSelected, endOfMonth, startOfMonth);
+
+                    }
+
+
+                }
+
 
 
             });
