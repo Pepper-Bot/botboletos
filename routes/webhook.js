@@ -278,10 +278,14 @@ function processQuickReplies(event) {
 
             var currentDate = moment(monthsReplays[i]);
             var startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
+            startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)
+
             console.log("startOfMonth>>>>>>" + startOfMonth)
 
             currentDate = moment(monthsReplays[i]);
             var endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
+            endOfMonth = endOfMonth.substring(0, endOfMonth.length - 6)
+
             console.log("endOfMonth>>>>>>" + endOfMonth)
 
 
