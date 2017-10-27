@@ -311,22 +311,32 @@ function processQuickReplies(event) {
                             "foundUser.eventSearchSelected " + foundUser.eventSearchSelected.length + "\n"
                         );
 
+                        if (foundUser.eventSearchSelected) {
+                            if (foundUser.eventSearchSelected.length > 0) {
+                                var totalSelecteds = foundUser.eventSearchSelected.length - 1;
+                                var lastSelected = foundUser.eventSearchSelected[totalSelecteds];
 
-                        var totalSelecteds = result.eventSearchSelected.length - 1;
-                        var lastSelected = result.eventSearchSelected[totalSelecteds];
-
-                        console.log('lastSelected>>>>' + lastSelected);
+                                console.log('lastSelected>>>>' + lastSelected);
 
 
-                        var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
-                        TevoModule.start(senderId, lastSelected, endOfMonth, startOfMonth);
-
+                                var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
+                                TevoModule.start(senderId, lastSelected, endOfMonth, startOfMonth);
+                                
+                            } else {
+                                console.log('En este la propiedad eventSearchSelected no tiene nada')
+                            }
+                        } else {
+                            console.log('Este registro no tiene  eventSearchSelected')
+                        }
+                    } else {
+                        console.log('No encontré el senderId >' + senderId);
                     }
 
 
+                } else {
+
+                    console.log('Tenemos un error >' + err);
                 }
-
-
 
             });
 
