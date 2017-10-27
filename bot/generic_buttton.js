@@ -35,6 +35,31 @@ var getGoogleImage = (search, matriz = []) => {
     });
 }
 
+function quickReply(term, buf, dataAndEvents) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            "recipient": {
+                "id": term
+            },
+            "message": {
+                "text": buf,
+                "quick_replies": dataAndEvents
+            }
+        }
+    }, function (dataAndEvents, deepDataAndEvents, ignoreMethodDoesntExist) {
+        if (dataAndEvents) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+}
+
 function genericButton(term, elts) {
     return new Promise((resolve, reject) => {
         request({
@@ -64,7 +89,9 @@ function genericButton(term, elts) {
             if (x) {
                 return false;
             } else {
-                return true;
+
+                resolve(true);
+                return;
             }
         });
     });
