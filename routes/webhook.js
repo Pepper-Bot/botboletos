@@ -87,7 +87,7 @@ function processMessage(senderId, textMessage) {
         switch (context) {
             case 'find_my_event':
                 {
-                    event_name_wrote = textMessage
+ 
                     startTevoModuleWithMlink(textMessage, senderId);
                 }
                 break;
