@@ -285,8 +285,8 @@ function processQuickReplies(event) {
             console.log("endOfMonth>>>>>>" + endOfMonth)
 
 
-           // var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
-            //TevoModule.start(senderId, event_name_wrote, endOfMonth, startOfMonth);
+             var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
+            TevoModule.start(senderId, event_name_wrote, endOfMonth, startOfMonth);
 
 
 
@@ -921,11 +921,11 @@ function startTevoModuleWithMlink(referral, senderId) {
     console.log("URL CONSULTA>>>>>>>>>>>>>>>" + baseURL + mlinks + referral);
 
 
-
+    event_name_wrote = referral
     var TevoModule = require('../modules/tevo_request');
     TevoModule.start(senderId, referral);
 
-
+   
     /* request({
              url: baseURL + mlinks + referral,
              qs: {

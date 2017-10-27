@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        start: function (senderId, event_name, endOfMonth, startOfMonth) {
+        start: function (senderId, event_name, occurs_at_gte, occurs_at_lte) {
             var Message = require('../../bot/messages');
             var imageCards = require('../../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
@@ -97,10 +97,12 @@ module.exports = function () {
                                     counter++;
                                     if (counter == gButtons.length) {
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
-                                        Message.genericButton(senderId, gButtons);
+                                       
 
-                                        var ShowMeMoreQuickReply = require('./show_me_more_quick_replay');
-                                        ShowMeMoreQuickReply.send(Message, senderId);
+                                        var GenericButton = require('../../bot/generic_buttton');
+                                        //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
+                                        GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
+                                       
 
                                     }
 
