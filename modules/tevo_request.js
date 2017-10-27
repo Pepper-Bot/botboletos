@@ -113,7 +113,7 @@ module.exports = function () {
                                       
                                        var GenericButton = require('../bot/generic_buttton');
                                        //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
-                                       GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "Choose Option: ")
+                                       GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "")
                                        
                                     }
 
