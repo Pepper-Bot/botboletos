@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        start: function (senderId, event_name,       ) {
+        start: function (senderId, event_name, endOfMonth, startOfMonth) {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
@@ -12,17 +12,12 @@ module.exports = function () {
             });
 
 
-            //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_tickets=all'
+ 
             var urlApiTevo = '';
+            urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
 
-            if (event_name && !locationData) {
-                urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
-            } else if (!event_name && locationData) {
-                urlApiTevo = 'https://api.ticketevolution.com/v9/events?lat=' + locationData.lat + '&lon=' + locationData.lon + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
-            } else if (!event_name && locationData) {
-                urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&lat=' + locationData.lat + '&lon=' + locationData.lon + +'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
-            }
             
+
 
 
 
@@ -66,7 +61,7 @@ module.exports = function () {
                                 eventButtons_.push({
                                     "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                                     "image_url": resultEvent[j].category.name,
-                                    "subtitle": resultEvent[j].venue.name + " " +occurs_at,
+                                    "subtitle": resultEvent[j].venue.name + " " + occurs_at,
                                     "default_action": {
                                         "type": "web_url",
                                         "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
@@ -108,10 +103,10 @@ module.exports = function () {
                                     if (counter == gButtons.length) {
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
                                         Message.genericButton(senderId, gButtons);
-                                       
+
                                         var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
                                         ShowMeMoreQuickReply.send(Message, senderId);
-                                        
+
                                     }
 
 

@@ -5,6 +5,7 @@ var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
 var context = 'find_my_event';
+var event_name_wrote = '';
 //--
 
 var datos = {}; // Para saber si estamos o no con el ID
@@ -86,6 +87,7 @@ function processMessage(senderId, textMessage) {
         switch (context) {
             case 'find_my_event':
                 {
+                    event_name_wrote = textMessage
                     startTevoModuleWithMlink(textMessage, senderId);
                 }
                 break;
@@ -283,8 +285,12 @@ function processQuickReplies(event) {
             console.log("endOfMonth>>>>>>" + endOfMonth)
 
 
+            var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
+            TevoModule.start(senderId, event_name_wrote, endOfMonth, startOfMonth);
 
-            
+
+
+
 
             choosedMonth = moment(monthsReplays[i]).format('MMM YYYY')
             Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'));
