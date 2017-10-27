@@ -77,25 +77,27 @@ function genericButtonQuickReplay(senderId, gButtons, messageText) {
             return false;
         } else {
 
-            Message.typingOn(senderId);
-            Message.markSeen(senderId);
-            Message.typingOn(senderId);
-
-
-            var replies = [{
-                    "content_type": "text",
-                    "title": "Show me more",
-                    "payload": "find_my_event_by_category"
-
-                },
-                {
-                    "content_type": "text",
-                    "title": "Search Event",
-                    "payload": "find_my_event_by_name"
-                }
-            ];
-            quickReply(senderId, messageText, replies)
+          return true;
         }
+
+        Message.typingOn(senderId);
+        Message.markSeen(senderId);
+        Message.typingOn(senderId);
+
+
+        var replies = [{
+                "content_type": "text",
+                "title": "Show me more",
+                "payload": "find_my_event_by_category"
+
+            },
+            {
+                "content_type": "text",
+                "title": "Search Event",
+                "payload": "find_my_event_by_name"
+            }
+        ];
+        quickReply(senderId, messageText, replies)
     });
 
 }
