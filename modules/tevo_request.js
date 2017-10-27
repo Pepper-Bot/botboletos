@@ -162,8 +162,24 @@ function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
 
             if (null != result) {
                 result.eventSearchSelected.push(lastSelected);
-                result.save(function (err) {
+
+                result.save(function (err, userSaved) {
                     if (!err) {
+                        console.log(userSaved)
+                        console.log(
+                            "userSaved.fbId " + userSaved.fbId + "\n" +
+                            "userSaved.firstName " + userSaved.firstName + "\n" +
+                            "userSaved.LastName " + userSaved.LastName + "\n" +
+                            "userSaved.profilePic " + userSaved.profilePic + "\n" +
+                            "userSaved.locale " + userSaved.locale + "\n" +
+                            "userSaved.timeZone " + userSaved.timeZone + "\n" +
+                            "userSaved.gender " + userSaved.gender + "\n" +
+                            "userSaved.sessionStart " + userSaved.sessionStart + "\n" +
+                            "userSaved.eventSearchSelected " + userSaved.eventSearchSelected.length + "\n"
+                        );
+
+
+
                         console.log("Consulto y Actualizo el result.fbId>>>> " + result.fbId);
                         console.log('Guardamos la seleccion' + lastSelected);
                     } else {
