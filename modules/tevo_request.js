@@ -22,7 +22,7 @@ module.exports = function () {
             } else if (!event_name && locationData) {
                 urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&lat=' + locationData.lat + '&lon=' + locationData.lon + +'&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
             }
-
+            saveUsuarioAndLastSelected(senderId, event_name) 
 
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
@@ -142,26 +142,72 @@ module.exports = function () {
 }();
 
 
-function genericButtonAndShowReplays(senderId, gButtons) {
-  return new Promise(function (resolve, reject) {
-        Message.genericButton(senderId, gButtons);
-    }).then(()=>{
-        var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
-        ShowMeMoreQuickReply.send(Message, senderId);
-
-    })
-}
 
 
-function crateTemplates(json, senderId) {
-
-
-
-
-
-
-
-}
+function saveUsuarioAndLastSelected(senderId, lastSelected) {
+    
+        UserData2.findOne({
+            fbId: senderId
+        }, {}, {
+            sort: {
+                'sessionStart': -1
+            }
+        }, function (err, result) {
+    
+            if (!err) {
+    
+                console.log(result);
+                if (null != result) {
+    
+                    result.optionsSelected.push(lastSelected);
+                    result.save(function (err) {
+                        if (!err) {
+    
+                            console.log('Guardamos la seleccion de Drinks');
+                        } else {
+                            console.log('Error guardando selección')
+                        }
+                    });
+                } else {
+    
+                    UserData.getInfo(senderId, function (err, result) {
+                        console.log('Dentro de UserData');
+                        if (!err) {
+    
+                            var bodyObj = JSON.parse(result);
+                            console.log(result);
+    
+                            var User = new UserData2; {
+                                User.fbId = senderId;
+                                User.firstName = bodyObj.first_name;
+                                User.LastName = bodyObj.last_name;
+                                User.profilePic = bodyObj.profile_pic;
+                                User.locale = bodyObj.locale;
+                                User.timeZone = bodyObj.timezone;
+                                User.gender = bodyObj.gender;
+                                User.messageNumber = 1;
+    
+                                User.optionsSelected.push(lastSelected);
+    
+                                User.save();
+                            }
+    
+    
+    
+                            var name = bodyObj.first_name;
+                            var greeting = "Hi " + name;
+                            var messagetxt = greeting + ", what would you like to do?";
+                            //Message.sendMessage(senderId, message);
+                            /* INSERT TO MONGO DB DATA FROM SESSION*/
+    
+    
+                        }
+                    });
+                }
+            }
+    
+        });
+    }
 
 
 
