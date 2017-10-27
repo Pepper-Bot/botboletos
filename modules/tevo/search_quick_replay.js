@@ -21,8 +21,8 @@ module.exports = function () {
                     "payload": "find_my_event_by_name"
                 }
             ];
-            //Message.quickReply(senderId, "Sorry, I didn't quite get that.", replies);
-            //Message.typingOff(senderId);
+            Message.quickReply(senderId, "Choose options", replies);
+            Message.typingOff(senderId);
 
         }
     }

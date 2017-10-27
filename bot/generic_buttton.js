@@ -17,25 +17,12 @@ var _0x6b64 = [
     "getTime", //14
     "exports" //15
 ];
+var request = require('request');
 
-var getGoogleImage = (search, matriz = []) => {
-    return new Promise((resolve, reject) => {
 
-        var gis = require('g-i-s');
-        gis(search, logResults);
 
-        function logResults(error, results) {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(results, matriz);
-            }
-        }
 
-    });
-}
-
-function quickReply(term, buf, dataAndEvents) {
+function quickReply(senderId, messageText, replies) {
     request({
         url: _0x6b64[1],
         qs: {
@@ -44,15 +31,15 @@ function quickReply(term, buf, dataAndEvents) {
         method: _0x6b64[4],
         json: {
             "recipient": {
-                "id": term
+                "id": senderId
             },
             "message": {
-                "text": buf,
-                "quick_replies": dataAndEvents
+                "text": messageText,
+                "quick_replies": replies
             }
         }
-    }, function (dataAndEvents, deepDataAndEvents, ignoreMethodDoesntExist) {
-        if (dataAndEvents) {
+    }, function (replies, deepreplies, ignoreMethodDoesntExist) {
+        if (replies) {
             return false;
         } else {
             return true;
@@ -60,44 +47,62 @@ function quickReply(term, buf, dataAndEvents) {
     });
 }
 
-function genericButton(term, elts) {
-    return new Promise((resolve, reject) => {
-        request({
-            url: _0x6b64[1],
-            qs: {
-                access_token: process[_0x6b64[3]][_0x6b64[2]]
+function genericButtonQuickReplay(senderId, gButtons, messageText) {
+
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            "recipient": {
+                "id": senderId
             },
-            method: _0x6b64[4],
-            json: {
-                "recipient": {
-                    "id": term
-                },
-                "message": {
-                    "attachment": {
-                        "type": _0x6b64[5],
-                        "payload": {
-                            "template_type": _0x6b64[6],
-                            "elements": elts
-                        }
+            "message": {
+                "attachment": {
+                    "type": _0x6b64[5],
+                    "payload": {
+                        "template_type": _0x6b64[6],
+                        "elements": elts
                     }
                 }
             }
-        }, function (x, message, dataAndEvents) {
-            console[_0x6b64[8]](_0x6b64[7]);
-            console[_0x6b64[8]](x);
-            console[_0x6b64[8]](message);
-            if (x) {
-                return false;
-            } else {
+        }
+    }, function (x, message, dataAndEvents) {
+        console[_0x6b64[8]](_0x6b64[7]);
+        console[_0x6b64[8]](x);
+        console[_0x6b64[8]](message);
+        if (x) {
+            return false;
+        } else {
 
-                resolve(true);
-                return;
-            }
-        });
+            Message.typingOn(senderId);
+            Message.markSeen(senderId);
+            Message.typingOn(senderId);
+
+
+            var replies = [{
+                    "content_type": "text",
+                    "title": "Show me more",
+                    "payload": "find_my_event_by_category"
+
+                },
+                {
+                    "content_type": "text",
+                    "title": "Search Event",
+                    "payload": "find_my_event_by_name"
+                }
+            ];
+            quickReply(senderId, messageText, replies)
+        }
     });
+
 }
 
+
+
 module.exports = {
-    genericButton
+    genericButtonQuickReplay
 
 }

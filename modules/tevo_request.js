@@ -106,11 +106,13 @@ module.exports = function () {
                                     counter++;
                                     if (counter == gButtons.length) {
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
-                                        Message.genericButton(senderId, gButtons);
+                                       // Message.genericButton(senderId, gButtons);
 
-                                        var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
-                                        ShowMeMoreQuickReply.send(Message, senderId);
-
+                                        //var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
+                                       // ShowMeMoreQuickReply.send(Message, senderId);
+                                      
+                                       var GenericButton = require('../bot/generic_buttton');
+                                       GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
                                     }
 
 
