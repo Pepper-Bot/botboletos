@@ -159,7 +159,7 @@ function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
 
         if (!err) {
 
-            console.log(result);
+            console.log("result.fbId>>>> "+ result.fbId);
             if (null != result) {
 
                 result.eventSearchSelected.push(lastSelected);
