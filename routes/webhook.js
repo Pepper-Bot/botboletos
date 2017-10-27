@@ -292,7 +292,7 @@ function processQuickReplies(event) {
 
 
 
-            choosedMonth = moment(monthsReplays[i]).format('MMM YYYY')
+          
             Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'));
 
 
