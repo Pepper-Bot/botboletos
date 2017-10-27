@@ -18,8 +18,7 @@ var _0x6b64 = [
     "exports" //15
 ];
 var request = require('request');
-
-
+var Message = require('../bot/messages');
 
 
 function quickReply(senderId, messageText, replies) {
