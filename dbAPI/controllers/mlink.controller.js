@@ -426,6 +426,10 @@ function searchEventByNameAndDate(req, res) {
 			);
 
 
+		}).catch((err) => {
+			res.status(300).send(
+				err
+			);
 		});
 	}
 }
