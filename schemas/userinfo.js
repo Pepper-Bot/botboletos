@@ -16,7 +16,8 @@ var UserData = mongoose.Schema({
 	urlsVisited: [],
 	location :  { type: {type:String}, coordinates: [Number]},
 	locationURL: String,
-	messageNumber: {type: Number, default: 0}
+	messageNumber: {type: Number, default: 0},
+	eventSearchSelected: []
 	
 });
 

@@ -144,7 +144,7 @@ module.exports = function () {
 
 
 
-function saveUsuarioAndLastSelected(senderId, lastSelected) {
+function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
     
         UserData2.findOne({
             fbId: senderId
@@ -159,7 +159,7 @@ function saveUsuarioAndLastSelected(senderId, lastSelected) {
                 console.log(result);
                 if (null != result) {
     
-                    result.optionsSelected.push(lastSelected);
+                    result.eventSearchSelected.push(lastSelected);
                     result.save(function (err) {
                         if (!err) {
     
@@ -187,7 +187,7 @@ function saveUsuarioAndLastSelected(senderId, lastSelected) {
                                 User.gender = bodyObj.gender;
                                 User.messageNumber = 1;
     
-                                User.optionsSelected.push(lastSelected);
+                                User.eventSearchSelected.push(lastSelected);
     
                                 User.save();
                             }

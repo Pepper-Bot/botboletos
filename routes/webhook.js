@@ -298,8 +298,8 @@ function processQuickReplies(event) {
                 }
             }, function (err, result) {
 
-                var totalSelecteds = result.optionsSelected.length - 1;
-                var lastSelected = result.optionsSelected[totalSelecteds];
+                var totalSelecteds = result.eventSearchSelected.length - 1;
+                var lastSelected = result.eventSearchSelected[totalSelecteds];
 
 
 
