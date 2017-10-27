@@ -1,8 +1,8 @@
 module.exports = function () {
     return {
         start: function (senderId, event_name, endOfMonth, startOfMonth) {
-            var Message = require('../bot/messages');
-            var imageCards = require('../modules/imageCards'); // Google images
+            var Message = require('../../bot/messages');
+            var imageCards = require('../../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
             var moment = require('moment');
 
@@ -104,7 +104,7 @@ module.exports = function () {
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
                                         Message.genericButton(senderId, gButtons);
 
-                                        var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
+                                        var ShowMeMoreQuickReply = require('./show_me_more_quick_replay');
                                         ShowMeMoreQuickReply.send(Message, senderId);
 
                                     }
