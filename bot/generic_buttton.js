@@ -38,6 +38,7 @@ function quickReply(senderId, messageText, replies) {
             }
         }
     }, function (replies, deepreplies, ignoreMethodDoesntExist) {
+        console.log("luis")
         if (replies) {
             return false;
         } else {
