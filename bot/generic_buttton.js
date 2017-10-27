@@ -37,12 +37,12 @@ function quickReply(senderId, messageText, replies) {
                 "quick_replies": replies
             }
         }
-    }, function (replies, deepreplies, ignoreMethodDoesntExist) {
-        console.log("luis")
-        if (replies) {
-            return false;
+    },  function (error, response, body) {
+        console.log(response)
+        if (error) {
+           console.log("MAL")
         } else {
-            return true;
+            console.log("BIEN")
         }
     });
 }
@@ -69,22 +69,9 @@ function genericButtonQuickReplay(senderId, gButtons, messageText) {
                 }
             }
         }
-    }, function (x, message, dataAndEvents) {
-        console[_0x6b64[8]](_0x6b64[7]);
-        console[_0x6b64[8]](x);
-        console[_0x6b64[8]](message);
-        if (x) {
-            return false;
-        } else {
-
-          return true;
-        }
-
-        Message.typingOn(senderId);
-        Message.markSeen(senderId);
-        Message.typingOn(senderId);
-
-
+    },  function (error, response, body) {
+        console.log(response);
+        
         var replies = [{
                 "content_type": "text",
                 "title": "Show me more",
