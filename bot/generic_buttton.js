@@ -37,15 +37,20 @@ function quickReply(senderId, messageText, replies) {
                 "quick_replies": replies
             }
         }
-    },  function (error, response, body) {
+    }, function (error, response, body) {
         console.log(response)
         if (error) {
-           console.log("MAL")
+            console.log("MAL")
         } else {
             console.log("BIEN")
         }
     });
 }
+
+
+
+
+
 
 function genericButtonQuickReplay(senderId, gButtons, messageText) {
 
@@ -69,9 +74,9 @@ function genericButtonQuickReplay(senderId, gButtons, messageText) {
                 }
             }
         }
-    },  function (error, response, body) {
+    }, function (error, response, body) {
         console.log(response);
-        
+
         var replies = [{
                 "content_type": "text",
                 "title": "Show me more",
@@ -91,7 +96,81 @@ function genericButtonQuickReplay(senderId, gButtons, messageText) {
 
 
 
+function genericButtonAndTemplateButtons(senderId, gButtons, title_template) {
+
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            "recipient": {
+                "id": senderId
+            },
+            "message": {
+                "attachment": {
+                    "type": _0x6b64[5],
+                    "payload": {
+                        "template_type": _0x6b64[6],
+                        "elements": gButtons
+                    }
+                }
+            }
+        }
+    }, function (error, response, body) {
+
+        var buttons = [{
+                "type": "postback",
+                "title": "Show me more",
+                "payload": "find_my_event_show_me_more"
+            },
+            {
+                "type": "postback",
+                "title": "Search Event",
+                "payload": "find_my_event_search_event"
+            }
+        ];
+
+        templateButton(senderId, title_template, buttons)
+    });
+
+}
+
+function templateButton(senderId, title_template, buttons) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            "recipient": {
+                "id": senderId
+            },
+            "message": {
+                "attachment": {
+                    "type": _0x6b64[5],
+                    "payload": {
+                        "template_type": _0x6b64[9],
+                        "text": title_template,
+                        "buttons": buttons
+                    }
+                }
+            }
+        }
+    }, function (error, response, body) {
+
+    });
+}
+
+
+
+
+
 module.exports = {
-    genericButtonQuickReplay
+    genericButtonQuickReplay,
+    genericButtonAndTemplateButtons
+    
 
 }

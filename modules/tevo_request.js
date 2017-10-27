@@ -112,7 +112,9 @@ module.exports = function () {
                                        // ShowMeMoreQuickReply.send(Message, senderId);
                                       
                                        var GenericButton = require('../bot/generic_buttton');
-                                       GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
+                                       //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
+                                       GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "Choose Option: ")
+                                       
                                     }
 
 
