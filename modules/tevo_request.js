@@ -106,12 +106,10 @@ module.exports = function () {
                                     counter++;
                                     if (counter == gButtons.length) {
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
-                                        //Message.genericButton(senderId, gButtons);
+                                        Message.genericButton(senderId, gButtons);
 
-                                        //var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
-                                        //ShowMeMoreQuickReply.send(Message, senderId);
-
-                                        genericButtonAndShowReplays(senderId, gButtons);
+                                        var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
+                                        ShowMeMoreQuickReply.send(Message, senderId);
 
                                     }
 
@@ -142,7 +140,7 @@ module.exports = function () {
 
 function genericButtonAndShowReplays(senderId, gButtons) {
   return new Promise(function (resolve, reject) {
-        Message.genericButton(senderId, gButtons);
+       resolve(  Message.genericButton(senderId, gButtons));
     }).then(()=>{
         var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
         ShowMeMoreQuickReply.send(Message, senderId);
