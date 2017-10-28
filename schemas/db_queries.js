@@ -18,17 +18,16 @@ var getFinalFBUserSession = (senderId, foundUser) => {
                         "foundUser.locale " + foundUser.locale + "\n" +
                         "foundUser.timeZone " + foundUser.timeZone + "\n" +
                         "foundUser.gender " + foundUser.gender + "\n" +
-                        "foundUser.sessionStart " + foundUser.sessionStart + "\n" +
-                        "foundUser.eventSearchSelected " + foundUser.eventSearchSelected.length + "\n"
+                        "foundUser.sessionStart " + foundUser.sessionStart + "\n"
                     );
 
                     resolve(foundUser);
-                }
-                else{
-                    console.log("No user found!!")
+                } else {
+                    reject(new Error('No user found!!'))
+
                 }
             } else {
-
+                reject(new Error('No existe un array'))
             }
         });
     });

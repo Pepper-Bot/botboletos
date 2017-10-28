@@ -311,7 +311,7 @@ function processQuickReplies(event) {
                 } else {
                     console.log('Este registro no tiene  eventSearchSelected')
                 }
-            });
+            }).catch(err => console.log("No user found error >> " + err.message));
 
 
             break;
