@@ -276,8 +276,8 @@ function processQuickReplies(event) {
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
 
-            Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') );
-            var currentDate = moment(monthsReplays[i]);
+       
+            let currentDate = moment(monthsReplays[i]);
             UserData2.findOne({
                 fbId: senderId
             }, {}, {
@@ -301,27 +301,26 @@ function processQuickReplies(event) {
 
                         if (foundUser.eventSearchSelected) {
                             if (foundUser.eventSearchSelected.length > 0) {
-                                var totalSelecteds = foundUser.eventSearchSelected.length - 1;
-                                var lastSelected = foundUser.eventSearchSelected[totalSelecteds];
+                                let  totalSelecteds = foundUser.eventSearchSelected.length - 1;
+                                let  lastSelected = foundUser.eventSearchSelected[totalSelecteds];
 
                                 console.log('lastSelected>>>>' + lastSelected);
                                
 
-
+                                Message.sendMessage(senderId, 'Mes escogido ' + moment(currentDate).format('MMM YYYY') );
                               
-                                var startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
+                                let startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
                                 startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)
 
                                 console.log("startOfMonth>>>>>>" + startOfMonth)
-
-                                currentDate = moment(monthsReplays[i]);
-                                var endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
+ 
+                                let endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
                                 endOfMonth = endOfMonth.substring(0, endOfMonth.length - 6)
 
                                 console.log("endOfMonth>>>>>>" + endOfMonth)
 
                               
-                                var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
+                                var   TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
                                 TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth);
 
                             } else {
