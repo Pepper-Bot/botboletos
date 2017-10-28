@@ -1,4 +1,4 @@
-var getFinalFBUserSession = (senderId, User) => {
+var getFinalFBUserSession = (senderId, foundUser) => {
 	return new Promise((resolve, reject) => {
 		var UserData2 = require('../schemas/userinfo')
 		UserData2.findOne({
