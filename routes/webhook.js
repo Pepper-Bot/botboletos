@@ -322,9 +322,9 @@ function processQuickReplies(event) {
                     
                                 console.log("endOfMonth>>>>>>" + endOfMonth)
 
-                                
+
                                 var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
-                                TevoModuleByMonth.start(senderId, lastSelected, endOfMonth, startOfMonth);
+                                TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, endOfMonth, startOfMonth);
 
                             } else {
                                 console.log('En este la propiedad eventSearchSelected no tiene nada')

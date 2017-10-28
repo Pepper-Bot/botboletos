@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        start: function (senderId, event_name, occurs_at_gte, occurs_at_lte) {
+         showEventsByNameAndDate: function (senderId, event_name, occurs_at_gte, occurs_at_lte) {
             var Message = require('../../bot/messages');
             var imageCards = require('../../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
