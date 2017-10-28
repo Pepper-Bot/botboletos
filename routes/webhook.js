@@ -317,7 +317,7 @@ function processQuickReplies(event) {
                                 var lastSelected = foundUser.eventSearchSelected[totalSelecteds];
 
                                 console.log('lastSelected>>>>' + lastSelected);
-                                Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'), " evento buscado " + lastSelected );
+                                Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') + " evento buscado " + lastSelected );
 
                                 //var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
                                 //TevoModule.start(senderId, lastSelected, endOfMonth, startOfMonth);
