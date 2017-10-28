@@ -250,7 +250,7 @@ function processQuickReplies(event) {
         case "find_my_event_by_name":
             {
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                // context = 'find_my_event';
+                context = 'find_my_event';
             }
 
             break;
@@ -275,8 +275,6 @@ function processQuickReplies(event) {
 
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
-
-
             UserData2.findOne({
                 fbId: senderId
             }, {}, {
@@ -342,17 +340,6 @@ function processQuickReplies(event) {
             });
 
 
-
-
-
-
-
-
-
-
-
-
-
             break;
         }
 
@@ -376,7 +363,7 @@ function processQuickReplies(event) {
             var tevo = require('../modules/tevo/tevo');
             var position = 1;
 
-            context = 'find_my_event'
+
             tevo.startByParentsCategories(senderId, text, position)
 
 
