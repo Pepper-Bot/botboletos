@@ -319,8 +319,8 @@ function processQuickReplies(event) {
                                 console.log('lastSelected>>>>' + lastSelected);
                                 Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') + " evento buscado " + lastSelected );
 
-                                //var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
-                                //TevoModule.start(senderId, lastSelected, endOfMonth, startOfMonth);
+                                var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
+                                 TevoModule.start(senderId, lastSelected, endOfMonth, startOfMonth);
 
                             } else {
                                 console.log('En este la propiedad eventSearchSelected no tiene nada')

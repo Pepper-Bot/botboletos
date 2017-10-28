@@ -21,7 +21,7 @@ module.exports = function () {
             var event_id = 0;
             if (tevoClient) {
                 tevoClient.getJSON(urlApiTevo).then((json) => {
-                    Message.sendMessage(senderId, "Getting Events:");
+                   
                     if (json.error) {
                         Message.sendMessage(senderId, json.error);
                     } else {
@@ -98,7 +98,7 @@ module.exports = function () {
                                     if (counter == gButtons.length) {
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
                                        
-
+                                        Message.sendMessage(senderId, "Getting Events:");
                                         var GenericButton = require('../../bot/generic_buttton');
                                         //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
                                         GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
@@ -114,13 +114,14 @@ module.exports = function () {
                             }
 
                         } else {
-                            //busqueda en la otra api
+                            Message.sendMessage(senderId, "No Events");
                         }
 
 
                     } //fin  de else json.error
                 }).catch((err) => {
                     console.err(err);
+                    Message.sendMessage(senderId, "Error " + err);
                 });
 
 
