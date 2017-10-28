@@ -4,7 +4,7 @@ var request = require('request');
 var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
-var context = 'find_my_event';
+var context = '';
 var event_name_wrote = '';
 //--
 
@@ -250,7 +250,7 @@ function processQuickReplies(event) {
         case "find_my_event_by_name":
             {
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                context = 'find_my_event';
+               // context = 'find_my_event';
             }
 
             break;
@@ -669,7 +669,7 @@ function processPostback(event) {
             {
 
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                context = 'find_my_event';
+                //context = 'find_my_event';
             }
             break;
 
@@ -681,7 +681,7 @@ function processPostback(event) {
                 Message.getLocation(senderId, 'What location would you like to catch a show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                context = 'find_my_event_by_location';
+                //context = 'find_my_event_by_location';
 
             }
             break;
@@ -773,7 +773,7 @@ function find_my_event(senderId) {
             var greeting = "Hi " + name;
             var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
 
-            context = 'find_my_event'
+            //context = 'find_my_event'
 
 
             var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
