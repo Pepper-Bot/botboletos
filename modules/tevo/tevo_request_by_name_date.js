@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-         showEventsByNameAndDate: function (senderId, event_name, occurs_at_gte, occurs_at_lte) {
+        start: function (senderId, event_name, occurs_at_gte, occurs_at_lte) {
             var Message = require('../../bot/messages');
             var imageCards = require('../../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
@@ -12,19 +12,15 @@ module.exports = function () {
             });
 
 
-            //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_tickets=all'
-            var urlApiTevo = '';
-
+ 
             var urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
 
-
-
-            console.log('url api tevo by date >>>>>>>' + urlApiTevo);
+            console.log('url api tevo BY DATE >>>>>>>' + urlApiTevo);
 
             var event_id = 0;
             if (tevoClient) {
                 tevoClient.getJSON(urlApiTevo).then((json) => {
-                    Message.sendMessage(senderId, "Getting Events:");
+                   
                     if (json.error) {
                         Message.sendMessage(senderId, json.error);
                     } else {
@@ -89,27 +85,23 @@ module.exports = function () {
 
                                 imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
                                     var imageIndex = 0;
-                                    if (images.length >= 30) {
-                                        imageIndex = Math.round(Math.random() * 30);
+                                    if (images.length >= 10) {
+                                        imageIndex = Math.round(Math.random() * 10);
                                     } else {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
 
 
-                                    gButtons[index].image_url = images[imageIndex].url;
+                                    gButtons[index].image_url = images[0].url;
                                     counter++;
                                     if (counter == gButtons.length) {
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
-                                        // Message.genericButton(senderId, gButtons);
-
-                                        //var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
-                                        // ShowMeMoreQuickReply.send(Message, senderId);
-                                        console.log("luego del GButons event_name >>>>> " + event_name);
-                                        saveUsuarioAndEventSearchLastSelected(senderId, event_name);
-
+                                       
+                                        Message.sendMessage(senderId, "Getting Events:");
                                         var GenericButton = require('../../bot/generic_buttton');
-                                       //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
+                                        //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
                                         GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
+                                       
 
                                     }
 
@@ -121,13 +113,14 @@ module.exports = function () {
                             }
 
                         } else {
-                            //busqueda en la otra api
+                            Message.sendMessage(senderId, "No Events");
                         }
 
 
                     } //fin  de else json.error
                 }).catch((err) => {
                     console.err(err);
+                    Message.sendMessage(senderId, "Error " + err);
                 });
 
 
@@ -138,88 +131,19 @@ module.exports = function () {
 }();
 
 
+function toJSONLocal(date) {
+
+}
 
 
-function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
-    var UserData = require('../bot/userinfo');
-    var UserData2 = require('../schemas/userinfo');
-
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, result) {
-
-        if (!err) {
-
-            if (null != result) {
-                result.eventSearchSelected.push(lastSelected);
-
-                result.save(function (err, userSaved) {
-                    if (!err) {
-                        console.log(userSaved)
-                        console.log(
-                            "userSaved.fbId " + userSaved.fbId + "\n" +
-                            "userSaved.firstName " + userSaved.firstName + "\n" +
-                            "userSaved.LastName " + userSaved.LastName + "\n" +
-                            "userSaved.profilePic " + userSaved.profilePic + "\n" +
-                            "userSaved.locale " + userSaved.locale + "\n" +
-                            "userSaved.timeZone " + userSaved.timeZone + "\n" +
-                            "userSaved.gender " + userSaved.gender + "\n" +
-                            "userSaved.sessionStart " + userSaved.sessionStart + "\n" +
-                            "userSaved.eventSearchSelected " + userSaved.eventSearchSelected.length + "\n"
-                        );
+function crateTemplates(json, senderId) {
 
 
 
-                        console.log("Consulto y Actualizo el result.fbId>>>> " + result.fbId);
-                        console.log('Guardamos la seleccion' + lastSelected);
-                    } else {
-                        console.log('Error guardando selección')
-                    }
-                });
-            } else {
-
-                UserData.getInfo(senderId, function (err, result) {
-                    console.log('Dentro de UserData');
-                    if (!err) {
-
-                        var bodyObj = JSON.parse(result);
-                        console.log(result);
-
-                        var User = new UserData2; {
-                            User.fbId = senderId;
-                            User.firstName = bodyObj.first_name;
-                            User.LastName = bodyObj.last_name;
-                            User.profilePic = bodyObj.profile_pic;
-                            User.locale = bodyObj.locale;
-                            User.timeZone = bodyObj.timezone;
-                            User.gender = bodyObj.gender;
-                            User.messageNumber = 1;
-
-                            User.eventSearchSelected.push(lastSelected);
-
-                            User.save();
-                            console.log("Guardé el senderId result.fbId>>>> " + result.fbId);
-                        }
 
 
 
-                        var name = bodyObj.first_name;
-                        var greeting = "Hi " + name;
-                        var messagetxt = greeting + ", what would you like to do?";
-                        //Message.sendMessage(senderId, message);
-                        /* INSERT TO MONGO DB DATA FROM SESSION*/
 
-
-                    }
-                });
-            }
-        }
-
-    });
 }
 
 
