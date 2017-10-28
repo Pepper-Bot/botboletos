@@ -317,11 +317,11 @@ function processQuickReplies(event) {
                                 var lastSelected = foundUser.eventSearchSelected[totalSelecteds];
 
                                 console.log('lastSelected>>>>' + lastSelected);
+                                Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'));
 
+                                //var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
+                                //TevoModule.start(senderId, lastSelected, endOfMonth, startOfMonth);
 
-                                var TevoModule = require('../modules/tevo/tevo_request_by_name_date');
-                                TevoModule.start(senderId, lastSelected, endOfMonth, startOfMonth);
-                                
                             } else {
                                 console.log('En este la propiedad eventSearchSelected no tiene nada')
                             }
@@ -347,7 +347,7 @@ function processQuickReplies(event) {
 
 
 
-            Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'));
+            
 
 
 
