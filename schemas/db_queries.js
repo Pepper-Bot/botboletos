@@ -24,6 +24,9 @@ var getFinalFBUserSession = (senderId, foundUser) => {
 
                     resolve(foundUser);
                 }
+                else{
+                    console.log("No user found!!")
+                }
             } else {
 
             }

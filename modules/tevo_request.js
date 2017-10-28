@@ -149,7 +149,7 @@ module.exports = function () {
 function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
     var UserData = require('../bot/userinfo');
     var UserData2 = require('../schemas/userinfo');
-b
+ 
     UserData2.findOne({
         fbId: senderId
     }, {}, {
