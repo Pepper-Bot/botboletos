@@ -275,6 +275,11 @@ function processQuickReplies(event) {
 
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
+
+
+
+            Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') );
+
             UserData2.findOne({
                 fbId: senderId
             }, {}, {
@@ -317,7 +322,7 @@ function processQuickReplies(event) {
 
                                 console.log("endOfMonth>>>>>>" + endOfMonth)
 
-                                Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') + " evento buscado " + lastSelected);
+                              
                                 var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
                                 TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth);
 
