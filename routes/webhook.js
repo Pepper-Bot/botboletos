@@ -302,7 +302,7 @@ function processQuickReplies(event) {
                                 var lastSelected = foundUser.eventSearchSelected[totalSelecteds];
 
                                 console.log('lastSelected>>>>' + lastSelected);
-                                Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') + " evento buscado " + lastSelected);
+                               
 
 
                                 var currentDate = moment(monthsReplays[i]);
@@ -317,7 +317,7 @@ function processQuickReplies(event) {
 
                                 console.log("endOfMonth>>>>>>" + endOfMonth)
 
-
+                                Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') + " evento buscado " + lastSelected);
                                 var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
                                 TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth);
 

@@ -73,8 +73,7 @@ module.exports = {
     follow_months,
     getCurrentDate,
     getFollowMonth,
-    firstDayOfMonth,
-    finalDayOfMonth,
+
     getDateWithoutZone
 
 
