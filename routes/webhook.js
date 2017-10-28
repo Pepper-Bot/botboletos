@@ -276,7 +276,7 @@ function processQuickReplies(event) {
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
 
-   
+
 
 
 
@@ -307,24 +307,24 @@ function processQuickReplies(event) {
                                 var lastSelected = foundUser.eventSearchSelected[totalSelecteds];
 
                                 console.log('lastSelected>>>>' + lastSelected);
-                                Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') + " evento buscado " + lastSelected );
+                                Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') + " evento buscado " + lastSelected);
 
 
                                 var currentDate = moment(monthsReplays[i]);
                                 var startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
                                 startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)
-                    
+
                                 console.log("startOfMonth>>>>>>" + startOfMonth)
-                    
+
                                 currentDate = moment(monthsReplays[i]);
                                 var endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
                                 endOfMonth = endOfMonth.substring(0, endOfMonth.length - 6)
-                    
+
                                 console.log("endOfMonth>>>>>>" + endOfMonth)
 
 
-                               // var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
-                                //TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, endOfMonth, startOfMonth);
+                                var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
+                                TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, endOfMonth, startOfMonth);
 
                             } else {
                                 console.log('En este la propiedad eventSearchSelected no tiene nada')
@@ -351,7 +351,7 @@ function processQuickReplies(event) {
 
 
 
-            
+
 
 
 
