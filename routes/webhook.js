@@ -276,10 +276,8 @@ function processQuickReplies(event) {
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
 
-
-
             Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') );
-
+            var currentDate = moment(monthsReplays[i]);
             UserData2.findOne({
                 fbId: senderId
             }, {}, {
@@ -310,7 +308,7 @@ function processQuickReplies(event) {
                                
 
 
-                                var currentDate = moment(monthsReplays[i]);
+                              
                                 var startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
                                 startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)
 
