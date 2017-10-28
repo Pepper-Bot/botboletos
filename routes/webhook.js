@@ -250,7 +250,7 @@ function processQuickReplies(event) {
         case "find_my_event_by_name":
             {
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-               // context = 'find_my_event';
+                // context = 'find_my_event';
             }
 
             break;
@@ -324,7 +324,7 @@ function processQuickReplies(event) {
 
 
                                 var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
-                                TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, endOfMonth, startOfMonth);
+                                TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth);
 
                             } else {
                                 console.log('En este la propiedad eventSearchSelected no tiene nada')
