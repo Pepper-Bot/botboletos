@@ -11,13 +11,13 @@ module.exports = function () {
 
             var replies = [{
                     "content_type": "text",
-                    "title": "Show me more",
+                    "title": "By Category",
                     "payload": "find_my_event_by_category"
 
                 },
                 {
                     "content_type": "text",
-                    "title": "Search Event",
+                    "title": "By name ",
                     "payload": "find_my_event_by_name"
                 }
             ];

@@ -276,84 +276,42 @@ function processQuickReplies(event) {
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
 
+            var foundUser;
+            var dbQueries = require('../schemas/db_queries');
+
+            dbQueries.getFinalFBUserSession(senderId, foundUser).then(() => {
+                if (foundUser.eventSearchSelected) {
+                    if (foundUser.eventSearchSelected.length > 0) {
+                        var totalSelecteds = foundUser.eventSearchSelected.length - 1;
+                        var lastSelected = foundUser.eventSearchSelected[totalSelecteds];
+
+                        console.log('lastSelected>>>>' + lastSelected);
+                        Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') + " evento buscado " + lastSelected);
 
 
+                        var currentDate = moment(monthsReplays[i]);
+                        var startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
+                        startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)
+
+                        console.log("startOfMonth>>>>>>" + startOfMonth)
+
+                        currentDate = moment(monthsReplays[i]);
+                        var endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
+                        endOfMonth = endOfMonth.substring(0, endOfMonth.length - 6)
+
+                        console.log("endOfMonth>>>>>>" + endOfMonth)
 
 
-            UserData2.findOne({
-                fbId: senderId
-            }, {}, {
-                sort: {
-                    'sessionStart': -1
-                }
-            }, function (err, foundUser) {
-                if (!err) {
-                    if (foundUser) {
-                        console.log(
-                            "foundUser.fbId " + foundUser.fbId + "\n" +
-                            "foundUser.firstName " + foundUser.firstName + "\n" +
-                            "foundUser.LastName " + foundUser.LastName + "\n" +
-                            "foundUser.profilePic " + foundUser.profilePic + "\n" +
-                            "foundUser.locale " + foundUser.locale + "\n" +
-                            "foundUser.timeZone " + foundUser.timeZone + "\n" +
-                            "foundUser.gender " + foundUser.gender + "\n" +
-                            "foundUser.sessionStart " + foundUser.sessionStart + "\n" +
-                            "foundUser.eventSearchSelected " + foundUser.eventSearchSelected.length + "\n"
-                        );
+                        var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
+                        TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth);
 
-                        if (foundUser.eventSearchSelected) {
-                            if (foundUser.eventSearchSelected.length > 0) {
-                                var totalSelecteds = foundUser.eventSearchSelected.length - 1;
-                                var lastSelected = foundUser.eventSearchSelected[totalSelecteds];
-
-                                console.log('lastSelected>>>>' + lastSelected);
-                                Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') + " evento buscado " + lastSelected);
-
-
-                                var currentDate = moment(monthsReplays[i]);
-                                var startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
-                                startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)
-
-                                console.log("startOfMonth>>>>>>" + startOfMonth)
-
-                                currentDate = moment(monthsReplays[i]);
-                                var endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
-                                endOfMonth = endOfMonth.substring(0, endOfMonth.length - 6)
-
-                                console.log("endOfMonth>>>>>>" + endOfMonth)
-
-
-                                var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
-                                TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth);
-
-                            } else {
-                                console.log('En este la propiedad eventSearchSelected no tiene nada')
-                            }
-                        } else {
-                            console.log('Este registro no tiene  eventSearchSelected')
-                        }
                     } else {
-                        console.log('No encontré el senderId >' + senderId);
+                        console.log('En este la propiedad eventSearchSelected no tiene nada')
                     }
-
-
                 } else {
-
-                    console.log('Tenemos un error >' + err);
+                    console.log('Este registro no tiene  eventSearchSelected')
                 }
-
             });
-
-
-
-
-
-
-
-
-
-
-
 
 
             break;

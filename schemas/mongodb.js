@@ -1,9 +1,8 @@
-
-var Database = (function(){
+var Database = (function () {
 
 	var dbObject;
 
-	function openConnection(){
+	function openConnection() {
 		var mongoose = require('mongoose');
 		var connectionString = process.env.MONGODB_URI;
 
@@ -13,13 +12,41 @@ var Database = (function(){
 	}
 
 	return {
-		getConnection: function(){
-			if(!dbObject) {
-					dbObject = openConnection();
+		getConnection: function () {
+			if (!dbObject) {
+				dbObject = openConnection();
 			}
 			return dbObject;
 		}
 	}
 })();
 
-module.exports = Database;
+
+
+var getFinalFBUserSession = (senderId, User) => {
+	return new Promise((resolve, reject) => {
+		var UserData2 = require('../schemas/userinfo')
+		UserData2.findOne({
+			fbId: senderId
+		}, {}, {
+			sort: {
+				'sessionStart': -1
+			}
+		}, function (err, userConsultado) {
+			if (!err) {
+				resolve(userConsultado);
+			} else {
+
+			}
+		});
+	});
+}
+
+
+
+module.exports = {
+	Database,
+    getFinalFBUserSession
+
+
+};

@@ -4,7 +4,8 @@ var request = require('request');
 var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
-var context = 'find_my_event';
+var context = '';
+var event_name_wrote = '';
 //--
 
 var datos = {}; // Para saber si estamos o no con el ID
@@ -86,6 +87,7 @@ function processMessage(senderId, textMessage) {
         switch (context) {
             case 'find_my_event':
                 {
+
                     startTevoModuleWithMlink(textMessage, senderId);
                 }
                 break;
@@ -205,11 +207,67 @@ function processQuickReplies(event) {
     var senderId = event.sender.id;
     var payload = event.message.quick_reply.payload;
 
+
     console.log('este es el quick replay  payload  ' + payload);
 
 
+
+    switch (payload) {
+
+
+
+        case "find_my_event_show_me_more":
+            {
+                //la accion find_my_event_show_me_more me more muestra los meses
+                var MonthsQuickReply = require('../modules/tevo/months_replay');
+                MonthsQuickReply.send(Message, senderId, "Please choose month...");
+            }
+
+            break;
+
+
+        case "find_my_event_search_event":
+            {
+                //este pay load de quick replay abre 2 quick replais más, by name y by category
+                var SearchQuickReply = require('../modules/tevo/search_quick_replay');
+                SearchQuickReply.send(Message, senderId);
+                //find_my_event_by_category"
+                //find_my_event_by_name 
+            }
+
+            break;
+
+        case "find_my_event_by_category":
+            {
+
+                var CategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
+                //var ButtonsEventsQuery = require('../modules/buttons_event_query');
+                CategoriesQuickReplay.send(Message, senderId, "Please choose category....");
+            }
+
+            break;
+
+        case "find_my_event_by_name":
+            {
+                Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
+                // context = 'find_my_event';
+            }
+
+            break;
+
+
+        default:
+            {
+
+            }
+            break;
+    }
+
+
+
+
     var moment = require('moment');
-    var follow_months = require('../modules/follow_months');
+    var follow_months = require('../modules/tevo/follow_months');
 
 
     var monthsReplays = follow_months.follow_months(2);
@@ -217,14 +275,93 @@ function processQuickReplies(event) {
 
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
-            choosedMonth = moment(monthsReplays[i]).format('MMM YYYY')
-            Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY'));
+
+
+
+
+
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, foundUser) {
+                if (!err) {
+                    if (foundUser) {
+                        console.log(
+                            "foundUser.fbId " + foundUser.fbId + "\n" +
+                            "foundUser.firstName " + foundUser.firstName + "\n" +
+                            "foundUser.LastName " + foundUser.LastName + "\n" +
+                            "foundUser.profilePic " + foundUser.profilePic + "\n" +
+                            "foundUser.locale " + foundUser.locale + "\n" +
+                            "foundUser.timeZone " + foundUser.timeZone + "\n" +
+                            "foundUser.gender " + foundUser.gender + "\n" +
+                            "foundUser.sessionStart " + foundUser.sessionStart + "\n" +
+                            "foundUser.eventSearchSelected " + foundUser.eventSearchSelected.length + "\n"
+                        );
+
+                        if (foundUser.eventSearchSelected) {
+                            if (foundUser.eventSearchSelected.length > 0) {
+                                var totalSelecteds = foundUser.eventSearchSelected.length - 1;
+                                var lastSelected = foundUser.eventSearchSelected[totalSelecteds];
+
+                                console.log('lastSelected>>>>' + lastSelected);
+                                Message.sendMessage(senderId, 'Mes escogido ' + moment(monthsReplays[i]).format('MMM YYYY') + " evento buscado " + lastSelected);
+
+
+                                var currentDate = moment(monthsReplays[i]);
+                                var startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
+                                startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)
+
+                                console.log("startOfMonth>>>>>>" + startOfMonth)
+
+                                currentDate = moment(monthsReplays[i]);
+                                var endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
+                                endOfMonth = endOfMonth.substring(0, endOfMonth.length - 6)
+
+                                console.log("endOfMonth>>>>>>" + endOfMonth)
+
+
+                                var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
+                                TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth);
+
+                            } else {
+                                console.log('En este la propiedad eventSearchSelected no tiene nada')
+                            }
+                        } else {
+                            console.log('Este registro no tiene  eventSearchSelected')
+                        }
+                    } else {
+                        console.log('No encontré el senderId >' + senderId);
+                    }
+
+
+                } else {
+
+                    console.log('Tenemos un error >' + err);
+                }
+
+            });
+
+
+
+
+
+
+
+
+
+
+
+
+
             break;
         }
 
     }
 
-    var tevo_categories = require('../modules/tevo/tevo_categories');
+    /* var tevo_categories = require('../modules/tevo/tevo_categories');
     var repliesArray = [];
     var parentCategories = tevo_categories.getParentCategories();
     var text = '';
@@ -239,7 +376,7 @@ function processQuickReplies(event) {
         if (payload == text) {
 
 
-            var tevo = require('../modules/tevo/tevo');
+           var tevo = require('../modules/tevo/tevo');
             var position = 1;
 
             context = 'find_my_event'
@@ -251,7 +388,7 @@ function processQuickReplies(event) {
 
         }
 
-    }
+    } */
 
 
     switch (payload) {
@@ -512,12 +649,27 @@ function processPostback(event) {
 
     switch (payload) {
 
+        case "find_my_event_show_me_more":
+            {
+                var MonthsQuickReply = require('../modules/tevo/months_replay');
+                MonthsQuickReply.send(Message, senderId, "Please choose month...");
+
+            }
+            break;
+
+        case "find_my_event_search_event":
+            {
+                var SearchQuickReply = require('../modules/tevo/search_quick_replay');
+                SearchQuickReply.send(Message, senderId);
+
+            }
+            break;
 
         case "find_my_event_by_name":
             {
 
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                context = 'find_my_event';
+                //context = 'find_my_event';
             }
             break;
 
@@ -529,7 +681,7 @@ function processPostback(event) {
                 Message.getLocation(senderId, 'What location would you like to catch a show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                context = 'find_my_event_by_location';
+                //context = 'find_my_event_by_location';
 
             }
             break;
@@ -541,22 +693,23 @@ function processPostback(event) {
                     console.log('Dentro de UserData');
                     if (!err) {
                         var bodyObj = JSON.parse(result);
-                       
+
                         var name = bodyObj.first_name;
-                        var greeting =  name;
+                        var greeting = name;
                         var messagetxt = greeting + ", Please choose the category what you are looking for";
 
                         var tevoCategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
                         tevoCategoriesQuickReplay.send(Message, senderId, messagetxt);
-        
+
                     }
                 });
 
-              
+
 
 
             }
             break;
+
 
         case "FIND_MY_EVENT":
             find_my_event(senderId);
@@ -620,7 +773,7 @@ function find_my_event(senderId) {
             var greeting = "Hi " + name;
             var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
 
-            context = 'find_my_event'
+            //context = 'find_my_event'
 
 
             var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
@@ -826,7 +979,6 @@ function startTevoModuleWithMlink(referral, senderId) {
     console.log("URL CONSULTA>>>>>>>>>>>>>>>" + baseURL + mlinks + referral);
 
 
-
     var TevoModule = require('../modules/tevo_request');
     TevoModule.start(senderId, referral);
 
@@ -855,6 +1007,8 @@ function startTevoModuleWithMlink(referral, senderId) {
 
          });*/
 }
+
+
 
 
 module.exports = router;
