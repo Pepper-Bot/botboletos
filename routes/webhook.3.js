@@ -306,7 +306,7 @@ function processQuickReplies(event) {
                                 console.log('lastSelected>>>>' + lastSelected);
                                
 
-                                Message.sendMessage(senderId, 'Mes escogido ' + moment(currentDate).format('MMM YYYY') );
+                                Message.sendMessage(senderId, 'Mes escogido ' + moment(currentDate).format('MMM YYYY') + 'evento ' + lastSelected );
                               
                                 let startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
                                 startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)

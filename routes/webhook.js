@@ -221,6 +221,7 @@ function processQuickReplies(event) {
                 //la accion find_my_event_show_me_more me more muestra los meses
                 var MonthsQuickReply = require('../modules/tevo/months_replay');
                 MonthsQuickReply.send(Message, senderId, "Please choose month...");
+                context = '';
             }
 
             break;
@@ -243,6 +244,7 @@ function processQuickReplies(event) {
                 var CategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
                 //var ButtonsEventsQuery = require('../modules/buttons_event_query');
                 CategoriesQuickReplay.send(Message, senderId, "Please choose category....");
+                context = '';
             }
 
             break;
@@ -250,7 +252,7 @@ function processQuickReplies(event) {
         case "find_my_event_by_name":
             {
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                // context = 'find_my_event';
+                context = 'find_my_event';
             }
 
             break;
@@ -275,7 +277,7 @@ function processQuickReplies(event) {
 
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
-
+            context = 'find_my_event_by_month';
             let currentDate = moment(monthsReplays[i]);
             UserData2.findOne({
                 fbId: senderId
@@ -357,7 +359,7 @@ function processQuickReplies(event) {
         } else {
             text = parentCategories[i].name;
         }
-
+        context = 'find_my_event_by_category';
         if (payload == text) {
 
 
@@ -370,7 +372,7 @@ function processQuickReplies(event) {
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
             break;
-
+           
         }
 
     }
@@ -966,7 +968,7 @@ function startTevoModuleWithMlink(referral, senderId) {
 
     var TevoModule = require('../modules/tevo_request');
     TevoModule.start(senderId, referral);
-
+    context = 'find_my_event';
 
     /* request({
              url: baseURL + mlinks + referral,
