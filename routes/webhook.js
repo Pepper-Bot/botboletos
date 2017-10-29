@@ -634,7 +634,73 @@ function processPostback(event) {
 
     switch (payload) {
 
-   
+        case "find_my_event_show_me_more":
+            {
+                var MonthsQuickReply = require('../modules/tevo/months_replay');
+                MonthsQuickReply.send(Message, senderId, "Please choose month...");
+
+            }
+            break;
+
+        case "find_my_event_search_event":
+            {
+                var SearchQuickReply = require('../modules/tevo/search_quick_replay');
+                SearchQuickReply.send(Message, senderId);
+
+            }
+            break;
+
+        case "find_my_event_by_name":
+            {
+
+                Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
+                //context = 'find_my_event';
+            }
+            break;
+
+        case "find_my_event_by_location":
+            {
+
+
+                Message.markSeen(senderId);
+                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.typingOn(senderId);
+                saveUserSelection(senderId, 'Events');
+                //context = 'find_my_event_by_location';
+
+            }
+            break;
+
+        case "find_my_event_by_category":
+            {
+
+                UserData.getInfo(senderId, function (err, result) {
+                    console.log('Dentro de UserData');
+                    if (!err) {
+                        var bodyObj = JSON.parse(result);
+
+                        var name = bodyObj.first_name;
+                        var greeting = name;
+                        var messagetxt = greeting + ", Please choose the category what you are looking for";
+
+                        var tevoCategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
+                        tevoCategoriesQuickReplay.send(Message, senderId, messagetxt);
+
+                    }
+                });
+
+
+
+
+            }
+            break;
+
+
+        case "FIND_MY_EVENT":
+            find_my_event(senderId);
+
+
+            break;
 
 
         case "Greetings":
