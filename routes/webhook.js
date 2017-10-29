@@ -663,7 +663,7 @@ function processPostback(event) {
     
                                     var TevoModule = require('../modules/tevo_request');
                                     position += 1;
-                                    TevoModule.start(senderId, lastSelected, postion);
+                                    TevoModule.start(senderId, lastSelected, position);
                                     
                     
                                     context = '';
