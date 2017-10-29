@@ -6,13 +6,14 @@
 
 var TevoClient = require('ticketevolution-node');
 var tevo_categories = require('./tevo_categories');
-var follow_months = require('../follow_months');
-var imageCards = require('../imageCards'); // Google images
+var follow_months = require('./follow_months');
 var moment = require('moment');
 var categoriesArray_g = [];
 var eventsArray_g = [];
+var catetegorySelected = '';
 var processEventURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 var Message = require('../../bot/messages');
+var arraySort = require('array-sort');
 
 //let approved = students.filter(student => student.score >= 11);
 
@@ -67,13 +68,13 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
         for (let j = 0; j < resultEvent.length; j++) {
 
             var occurs_at = resultEvent[j].occurs_at;
-            //occurs_at = occurs_at.substring(0, occurs_at.length - 4)
-            //occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+
 
             eventButtons_.push({
                 "title": resultEvent[j].name,
                 "image_url": resultEvent[j].category_name,
-                "subtitle": resultEvent[j].venue_name + " " + occurs_at,
+                "subtitle": resultEvent[j].venue_name,
+                "occurs_at": occurs_at,
                 "default_action": {
                     "type": "web_url",
                     "url": processEventURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue_id + '&performer_id=' + resultEvent[j].performer_id + '&event_name=' + resultEvent[j].name
@@ -115,10 +116,18 @@ var getGoogleImage = (search, matriz = []) => {
     });
 }
 
+
 var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, position = 0) => {
 
     return new Promise((resolve, reject) => {
-        gButtons = resultEvent;
+
+
+        eventsArray_g = resultEvent_;
+        var resultEvent_ = arraySort(resultEvent, 'occurs_at');
+
+
+        gButtons = resultEvent_;
+
         if (position * 10 > gButtons.length) {
             position = 0;
         }
@@ -134,12 +143,19 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
 
                 gButtons[z].image_url = images[0].url;
 
+                var occurs_at = gButtons[z].occurs_at
+                occurs_at = occurs_at.substring(0, occurs_at.length - 4)
+                occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+
+                gButtons[z].subtitle = gButtons[z].subtitle + ' ' + occurs_at;
+                delete gButtons[z].occurs_at;
+
 
                 console.log(counter + ' ' + gButtons.length)
                 if (counter + 1 == gButtons.length) {
                     console.log('image >>' + gButtons[z].image_url)
                     Message.genericButton(senderId, gButtons);
-                   
+
                 }
 
 
@@ -188,7 +204,7 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
                         "id": events[j].id,
                         "name": events[j].name,
                         "category_name": events[j].category.name,
-                        "occurs_at": new Date(events[j].occurs_at),
+                        "occurs_at": events[j].occurs_at,
                         "performer_id": events[j].performances[0].performer.id,
                         "performer_name": events[j].performances[0].performer.name,
                         "venue_id": events[j].venue.id,
@@ -212,15 +228,6 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
     });
 }
 
-
-Array.prototype.orderByDate = function (property, sortOrder) {
-    if (sortOrder != -1 && sortOrder != 1) sortOrder = 1;
-    this.sort(function (a, b) {
-        var dateA = new Date(a[property]),
-            dateB = new Date(b[property]);
-        return (dateA - dateB) * sortOrder;
-    })
-}
 
 
 function searchEventsByParentName(name, categoriesArray, cuenta) {
@@ -331,6 +338,37 @@ function searchCategoriesParents() {
 
 }
 
+function startByParentsCategories(senderId, text, position) {
+
+
+
+    var categoriesArray = [];
+    var eventsArray = [];
+    var eventsButtons_ = [];
+    var gButtons = [];
+    var events = [];
+    var acum = 0;
+    var cuenta = 0;
+    var contador = 0;
+    var contador2 = 0;
+
+
+    catetegorySelected = text;
+    searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
+        searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
+            //return eventsArray
+            convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
+                // return eventsButtons_
+                setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
+                    // return gButtons
+                });
+            });
+
+        });
+    });
+
+}
+
 
 
 
@@ -341,7 +379,8 @@ module.exports = {
     searchEventsByCategoryId,
     searchEventsByParentNameSecondStep,
     convertEventsToEventsTemplate,
-    setImagesToEventsTemplate
+    setImagesToEventsTemplate,
+    startByParentsCategories
 
 
 }

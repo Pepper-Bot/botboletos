@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        start: function (senderId, event_name, locationData) {
+        start: function (senderId, event_name, locationData, position = 0) {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
@@ -44,9 +44,20 @@ module.exports = function () {
                             var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 
 
-                            if (resultEvent.length > 10) {
-                                resultEvent.splice(10, resultEvent.length - 10);
+                            //if (resultEvent.length > 10) {
+                            //    resultEvent.splice(10, resultEvent.length - 10);
+                            //}
+
+                            position = 1;
+                            if (position * 10 > resultEvent.length) {
+                                position = 0;
                             }
+                            if (resultEvent.length >= 10) {
+                                resultEvent.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
+                                if (position - 1 >= 0)
+                                    resultEvent.splice(0, 10 * (position));
+                            }
+
                             console.log('TENEMOS  ' + resultEvent.length + ' EVENTOS LUEGO DE RECORTARLOS    <<<<<<<<<<<<<<<<<<<<<<<<<<');
 
                             for (var j = 0, c = resultEvent.length; j < c; j++) {
@@ -114,7 +125,7 @@ module.exports = function () {
                                         saveUsuarioAndEventSearchLastSelected(senderId, event_name);
 
                                         var GenericButton = require('../bot/generic_buttton');
-                                       //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
+                                        //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
                                         GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
 
                                     }
@@ -149,7 +160,7 @@ module.exports = function () {
 function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
     var UserData = require('../bot/userinfo');
     var UserData2 = require('../schemas/userinfo');
- 
+
     UserData2.findOne({
         fbId: senderId
     }, {}, {
