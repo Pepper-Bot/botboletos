@@ -5,7 +5,8 @@ var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
 var context = '';
-var event_name_wrote = '';
+var position = -1;
+var positionCategory = -1;
 //--
 
 var datos = {}; // Para saber si estamos o no con el ID
@@ -219,8 +220,13 @@ function processQuickReplies(event) {
         case "find_my_event_show_me_more":
             {
                 //la accion find_my_event_show_me_more me more muestra los meses
-                var MonthsQuickReply = require('../modules/tevo/months_replay');
-                MonthsQuickReply.send(Message, senderId, "Please choose month...");
+                /*var MonthsQuickReply = require('../modules/tevo/months_replay');
+                MonthsQuickReply.send(Message, senderId, "Please choose month...");*/
+                var TevoModule = require('../modules/tevo_request');
+                position += 1;
+                TevoModule.start(senderId, referral, postion);
+                context = 'find_my_event';
+
                 context = '';
             }
 
@@ -302,26 +308,26 @@ function processQuickReplies(event) {
 
                         if (foundUser.eventSearchSelected) {
                             if (foundUser.eventSearchSelected.length > 0) {
-                                let  totalSelecteds = foundUser.eventSearchSelected.length - 1;
-                                let  lastSelected = foundUser.eventSearchSelected[totalSelecteds];
+                                let totalSelecteds = foundUser.eventSearchSelected.length - 1;
+                                let lastSelected = foundUser.eventSearchSelected[totalSelecteds];
 
                                 console.log('lastSelected>>>>' + lastSelected);
-                               
 
-                                Message.sendMessage(senderId, 'Mes escogido ' + moment(currentDate).format('MMM YYYY') + 'evento ' + lastSelected );
-                              
+
+                                Message.sendMessage(senderId, 'Mes escogido ' + moment(currentDate).format('MMM YYYY') + 'evento ' + lastSelected);
+
                                 let startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
                                 startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)
 
                                 console.log("startOfMonth>>>>>>" + startOfMonth)
- 
+
                                 let endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
                                 endOfMonth = endOfMonth.substring(0, endOfMonth.length - 6)
 
                                 console.log("endOfMonth>>>>>>" + endOfMonth)
 
-                              
-                                var   TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
+                                ;
+                                var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
                                 TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth);
 
                             } else {
@@ -364,15 +370,15 @@ function processQuickReplies(event) {
 
 
             var tevo = require('../modules/tevo/tevo');
-            var position = 1;
 
-          
-            tevo.startByParentsCategories(senderId, text, position)
+
+            positionCategory += 1;
+            tevo.startByParentsCategories(senderId, text, positionCategory)
 
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
             break;
-           
+
         }
 
     }
@@ -656,7 +662,7 @@ function processPostback(event) {
             {
 
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                //context = 'find_my_event';
+                context = 'find_my_event';
             }
             break;
 
@@ -967,7 +973,8 @@ function startTevoModuleWithMlink(referral, senderId) {
 
 
     var TevoModule = require('../modules/tevo_request');
-    TevoModule.start(senderId, referral);
+    position += 1;
+    TevoModule.start(senderId, referral, postion);
     context = 'find_my_event';
 
     /* request({

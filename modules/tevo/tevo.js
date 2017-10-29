@@ -154,7 +154,11 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
                 console.log(counter + ' ' + gButtons.length)
                 if (counter + 1 == gButtons.length) {
                     console.log('image >>' + gButtons[z].image_url)
-                    Message.genericButton(senderId, gButtons);
+                    //Message.genericButton(senderId, gButtons);
+                    Message.sendMessage(senderId, "Getting Events:");
+                    var GenericButton = require('../../bot/generic_buttton');
+                    //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
+                    GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
 
                 }
 

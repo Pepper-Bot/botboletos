@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        showEventsByNameAndDate: function (senderId, event_name, occurs_at_gte, occurs_at_lte) {
+        showEventsByNameAndDate: function (senderId, event_name, occurs_at_gte, occurs_at_lte, position  = 0) {
             var Message = require('../../bot/messages');
             var imageCards = require('../../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
@@ -34,9 +34,16 @@ module.exports = function () {
                             var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 
 
-                            if (resultEvent.length > 10) {
-                                resultEvent.splice(10, resultEvent.length - 10);
+                            if (position * 10 > resultEvent.length) {
+                                position = 0;
                             }
+                            if (resultEvent.length >= 10) {
+                                resultEvent.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
+                                if (position - 1 >= 0)
+                                    resultEvent.splice(0, 10 * (position));
+                            }
+
+
                             console.log('TENEMOS  ' + resultEvent.length + ' EVENTOS LUEGO DE RECORTARLOS    <<<<<<<<<<<<<<<<<<<<<<<<<<');
 
                             for (var j = 0, c = resultEvent.length; j < c; j++) {
