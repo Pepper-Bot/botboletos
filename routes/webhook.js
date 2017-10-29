@@ -644,8 +644,14 @@ function processPostback(event) {
 
         case "find_my_event_show_me_more":
             {
-                var MonthsQuickReply = require('../modules/tevo/months_replay');
-                MonthsQuickReply.send(Message, senderId, "Please choose month...");
+                //var MonthsQuickReply = require('../modules/tevo/months_replay');
+                //MonthsQuickReply.send(Message, senderId, "Please choose month...");
+                var TevoModule = require('../modules/tevo_request');
+                position += 1;
+                TevoModule.start(senderId, referral, postion);
+                context = 'find_my_event';
+
+                context = '';
 
             }
             break;
