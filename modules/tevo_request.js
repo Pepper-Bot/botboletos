@@ -46,7 +46,7 @@ module.exports = function () {
 
 
 
-                            if (position * 10 > resultEvent.length - 1) {
+                            if ((position * 10) > resultEvent.length - 10) {
                                 position = 0;
                                 UserData2.findOne({
                                     fbId: senderId
