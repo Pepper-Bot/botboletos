@@ -20,7 +20,10 @@ module.exports = function () {
             var event_id = 0;
             if (tevoClient) {
                 tevoClient.getJSON(urlApiTevo).then((json) => {
-                   
+                    Message.typingOn(senderId);
+                    Message.sendMessage(senderId, "Getting Events:");
+                    Message.markSeen(senderId);
+                    Message.typingOn(senderId);
                     if (json.error) {
                         Message.sendMessage(senderId, json.error);
                     } else {
@@ -34,8 +37,29 @@ module.exports = function () {
                             var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 
 
-                            if (position * 10 > resultEvent.length) {
+                            if ((position * 10) > resultEvent.length - 10) {
                                 position = 0;
+                                UserData2.findOne({
+                                    fbId: senderId
+                                }, {}, {
+                                    sort: {
+                                        'sessionStart': -1
+                                    }
+                                }, function (err, foundUser) {
+                                    if (!err) {
+                                        if (null != foundUser) {
+                                            foundUser.showMemore.index2 = 0
+                                            foundUser.save(function (err) {
+                                                if (!err) {
+                                                    console.log("index1 en cero");
+                                                } else {
+                                                    console.log("error al actualizar el index 0");
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                });
                             }
                             if (resultEvent.length >= 10) {
                                 resultEvent.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
@@ -104,11 +128,11 @@ module.exports = function () {
                                     if (counter == gButtons.length) {
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
                                        
-                                        Message.sendMessage(senderId, "Getting Events:");
+                                        saveUsuarioAndEventSearchLastSelected(senderId, event_name);
                                         var GenericButton = require('../../bot/generic_buttton');
                                         //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
                                         GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
-                                       
+                                        Message.typingOff(senderId);
 
                                     }
 
@@ -120,7 +144,7 @@ module.exports = function () {
                             }
 
                         } else {
-                            Message.sendMessage(senderId, "No Events");
+                            Message.sendMessage(senderId, "No Found Events");
                         }
 
 
@@ -138,19 +162,87 @@ module.exports = function () {
 }();
 
 
-function toJSONLocal(date) {
 
-}
+function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
+    var UserData = require('../../bot/userinfo');
+    var UserData2 = require('../../schemas/userinfo');
+
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, result) {
+
+        if (!err) {
+
+            if (null != result) {
+                result.eventSearchSelected.push(lastSelected);
+
+                result.save(function (err, userSaved) {
+                    if (!err) {
+                        console.log(userSaved)
+                        console.log(
+                            "userSaved.fbId " + userSaved.fbId + "\n" +
+                            "userSaved.firstName " + userSaved.firstName + "\n" +
+                            "userSaved.LastName " + userSaved.LastName + "\n" +
+                            "userSaved.profilePic " + userSaved.profilePic + "\n" +
+                            "userSaved.locale " + userSaved.locale + "\n" +
+                            "userSaved.timeZone " + userSaved.timeZone + "\n" +
+                            "userSaved.gender " + userSaved.gender + "\n" +
+                            "userSaved.sessionStart " + userSaved.sessionStart + "\n" +
+                            "userSaved.eventSearchSelected " + userSaved.eventSearchSelected.length + "\n"
+                        );
 
 
-function crateTemplates(json, senderId) {
+
+                        console.log("Consulto y Actualizo el result.fbId>>>> " + result.fbId);
+                        console.log('Guardamos la seleccion' + lastSelected);
+                    } else {
+                        console.log('Error guardando selección')
+                    }
+                });
+            } else {
+
+                UserData.getInfo(senderId, function (err, result) {
+                    console.log('Dentro de UserData');
+                    if (!err) {
+
+                        var bodyObj = JSON.parse(result);
+                        console.log(result);
+
+                        var User = new UserData2; {
+                            User.fbId = senderId;
+                            User.firstName = bodyObj.first_name;
+                            User.LastName = bodyObj.last_name;
+                            User.profilePic = bodyObj.profile_pic;
+                            User.locale = bodyObj.locale;
+                            User.timeZone = bodyObj.timezone;
+                            User.gender = bodyObj.gender;
+                            User.messageNumber = 1;
+
+                            User.eventSearchSelected.push(lastSelected);
+
+                            User.save();
+                            console.log("Guardé el senderId result.fbId>>>> " + result.fbId);
+                        }
 
 
 
+                        var name = bodyObj.first_name;
+                        var greeting = "Hi " + name;
+                        var messagetxt = greeting + ", what would you like to do?";
+                        //Message.sendMessage(senderId, message);
+                        /* INSERT TO MONGO DB DATA FROM SESSION*/
 
 
+                    }
+                });
+            }
+        }
 
-
+    });
 }
 
 

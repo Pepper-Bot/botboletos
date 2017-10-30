@@ -20,6 +20,12 @@ module.exports = function () {
                     "title": "By name ",
                     "payload": "find_my_event_by_name"
                 }
+                ,
+                {
+                    "content_type": "text",
+                    "title": "By month ",
+                    "payload": "find_my_event_by_month"
+                }
             ];
             Message.quickReply(senderId, "Choose options", replies);
             Message.typingOff(senderId);

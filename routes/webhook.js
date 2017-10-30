@@ -214,7 +214,12 @@ function processQuickReplies(event) {
 
     switch (payload) {
 
-
+        case "find_my_event_by_month":
+            {
+                var MonthsQuickReply = require('../modules/tevo/months_replay');
+                MonthsQuickReply.send(Message, senderId, "Please choose month...");
+            }
+            break;
 
         case "find_my_event_show_me_more":
             {
@@ -289,23 +294,26 @@ function processQuickReplies(event) {
             }, function (err, foundUser) {
                 if (!err) {
                     if (foundUser) {
-                        console.log(
-                            "foundUser.fbId " + foundUser.fbId + "\n" +
-                            "foundUser.firstName " + foundUser.firstName + "\n" +
-                            "foundUser.LastName " + foundUser.LastName + "\n" +
-                            "foundUser.profilePic " + foundUser.profilePic + "\n" +
-                            "foundUser.locale " + foundUser.locale + "\n" +
-                            "foundUser.timeZone " + foundUser.timeZone + "\n" +
-                            "foundUser.gender " + foundUser.gender + "\n" +
-                            "foundUser.sessionStart " + foundUser.sessionStart + "\n" +
-                            "foundUser.eventSearchSelected " + foundUser.eventSearchSelected.length + "\n"
-                        );
+                        console.log("foundUser.fbId " + foundUser.fbId + "\n");
 
                         if (foundUser.eventSearchSelected) {
                             if (foundUser.eventSearchSelected.length > 0) {
                                 let totalSelecteds = foundUser.eventSearchSelected.length - 1;
                                 let lastSelected = foundUser.eventSearchSelected[totalSelecteds];
+                                var position = 0;
 
+                                if (foundUser.eventSearchSelected.length >= 2) {
+                                    let anterior = foundUser.eventSearchSelected.length - 2;
+                                    let actual = foundUser.eventSearchSelected.length - 1;
+
+                                    let anteriorS = foundUser.eventSearchSelected[anterior];
+                                    let actualS = foundUser.eventSearchSelected[actual];
+
+                                    if (actualS == anteriorS) {
+                                        foundUser.showMemore.index2 = foundUser.showMemore.index2 + 1
+                                        position = foundUser.showMemore.index2
+                                    }
+                                }
                                 console.log('lastSelected>>>>' + lastSelected);
 
 
@@ -319,11 +327,11 @@ function processQuickReplies(event) {
                                 let endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
                                 endOfMonth = endOfMonth.substring(0, endOfMonth.length - 6)
 
-                                console.log("endOfMonth>>>>>>" + endOfMonth)
+                                console.log("endOfMonth>>>>>>" + endOfMonth);
 
-                                ;
+
                                 var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
-                                TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth);
+                                TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth, position);
 
                             } else {
                                 console.log('En este la propiedad eventSearchSelected no tiene nada')
@@ -366,7 +374,7 @@ function processQuickReplies(event) {
 
             var tevo = require('../modules/tevo/tevo');
 
- 
+
             tevo.startByParentsCategories(senderId, text, 0)
 
 
@@ -972,7 +980,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
         if (!err) {
             if (null != foundUser) {
                 var position = 0;
-                if (mlink == 0){
+                if (mlink == 0) {
                     if (foundUser.eventSearchSelected) {
                         if (foundUser.eventSearchSelected.length >= 2) {
                             let anterior = foundUser.eventSearchSelected.length - 2;
@@ -988,7 +996,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
                         }
                     }
 
-                }else{
+                } else {
                     foundUser.showMemore.index1 = 0;
                 }
 

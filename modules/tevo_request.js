@@ -158,7 +158,7 @@ module.exports = function () {
                             }
 
                         } else {
-                            //busqueda en la otra api
+                            Message.sendMessage(senderId, "No Found Events");
                         }
 
 
