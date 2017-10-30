@@ -245,7 +245,7 @@ function processQuickReplies(event) {
                 var CategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
                 //var ButtonsEventsQuery = require('../modules/buttons_event_query');
                 CategoriesQuickReplay.send(Message, senderId, "Please choose category....");
-               
+
             }
 
             break;
@@ -253,7 +253,7 @@ function processQuickReplies(event) {
         case "find_my_event_by_name":
             {
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-               
+
             }
 
             break;
@@ -360,7 +360,7 @@ function processQuickReplies(event) {
         } else {
             text = parentCategories[i].name;
         }
-     
+
         if (payload == text) {
 
 
@@ -660,7 +660,7 @@ function processPostback(event) {
             {
 
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-           
+
             }
             break;
 
@@ -672,7 +672,7 @@ function processPostback(event) {
                 Message.getLocation(senderId, 'What location would you like to catch a show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-           
+
 
             }
             break;
@@ -764,7 +764,7 @@ function find_my_event(senderId) {
             var greeting = "Hi " + name;
             var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
 
-         
+
 
 
             var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
@@ -985,10 +985,16 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
                         }
                     }
 
-                let TevoModule = require('../modules/tevo_request');
+                
 
+                if (event_name == '') {
+                    let actual = foundUser.eventSearchSelected.length - 1;
+                    event_name = foundUser.eventSearchSelected[actual];
+                }
+                
+                var TevoModule = require('../modules/tevo_request');
                 TevoModule.start(senderId, event_name, position);
-              
+
 
                 foundUser.save(function (err) {
                     if (!err) {
@@ -1023,7 +1029,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
                             let TevoModule = require('../modules/tevo_request');
                             let position = 0;
                             TevoModule.start(senderId, referral, position);
-                  
+
 
 
                         }
