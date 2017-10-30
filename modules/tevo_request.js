@@ -71,7 +71,7 @@ module.exports = function () {
                                 });
                             }
                             if (resultEvent.length >= 10) {
-                                if (10 * (position + 1) < resultEvent.length)
+                                if (10 * (position + 1) < resultEvent.length + 1)
                                     resultEvent.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
                                 if (position - 1 >= 0)
                                     resultEvent.splice(0, 10 * (position));
