@@ -295,13 +295,13 @@ function processQuickReplies(event) {
                 if (!err) {
                     if (foundUser) {
                         console.log("foundUser.fbId " + foundUser.fbId + "\n");
-
+                        var position = 0;
                         if (foundUser.eventSearchSelected) {
                             if (foundUser.eventSearchSelected.length > 0) {
                                 let totalSelecteds = foundUser.eventSearchSelected.length - 1;
                                 let lastSelected = foundUser.eventSearchSelected[totalSelecteds];
-                                var position = 0;
-
+                                
+                              
                                 if (foundUser.eventSearchSelected.length >= 2) {
                                     let anterior = foundUser.eventSearchSelected.length - 2;
                                     let actual = foundUser.eventSearchSelected.length - 1;
@@ -329,7 +329,16 @@ function processQuickReplies(event) {
 
                                 console.log("endOfMonth>>>>>>" + endOfMonth);
 
+                                foundUser.save(function (err, userSaved) {
+                                    if (!err) {
+                                        console.log("se actualiza el index 1 userSaved.showMemore.index1 " + userSaved.showMemore.index2)
+                
+                                    } else {
+                                        console.log("error al actualizar el index 1 ")
+                                    }
+                                });
 
+                                
                                 var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
                                 TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth, position);
 

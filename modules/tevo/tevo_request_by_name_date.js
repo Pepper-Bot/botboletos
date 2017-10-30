@@ -51,9 +51,9 @@ module.exports = function () {
                                             foundUser.showMemore.index2 = 0
                                             foundUser.save(function (err) {
                                                 if (!err) {
-                                                    console.log("index1 en cero");
+                                                    console.log("index2 en cero");
                                                 } else {
-                                                    console.log("error al actualizar el index 0");
+                                                    console.log("error al actualizar el index2 0");
                                                 }
                                             });
                                         }
