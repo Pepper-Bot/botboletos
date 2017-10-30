@@ -5,6 +5,7 @@ module.exports = function () {
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
             var moment = require('moment');
+
             var UserData = require('../bot/userinfo');
             var UserData2 = require('../schemas/userinfo');
 
@@ -44,6 +45,27 @@ module.exports = function () {
 
                             if (position * 10 > resultEvent.length) {
                                 position = 0;
+                                UserData2.findOne({
+                                    fbId: senderId
+                                }, {}, {
+                                    sort: {
+                                        'sessionStart': -1
+                                    }
+                                }, function (err, foundUser) {
+                                    if (!err) {
+                                        if (null != foundUser) {
+                                            foundUser.showMemore.index1 = 0
+                                            foundUser.save(function (err) {
+                                                if (!err) {
+                                                    console.log("index1 en cero");
+                                                } else {
+                                                    console.log("error al actualizar el index 0");
+                                                }
+                                            });
+                                        }
+                                    }
+
+                                });
                             }
                             if (resultEvent.length >= 10) {
                                 resultEvent.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
@@ -148,7 +170,7 @@ module.exports = function () {
 }();
 
 
- 
+
 
 function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
     var UserData = require('../bot/userinfo');
