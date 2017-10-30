@@ -366,9 +366,8 @@ function processQuickReplies(event) {
 
             var tevo = require('../modules/tevo/tevo');
 
-
-            positionCategory += 1;
-            tevo.startByParentsCategories(senderId, text, positionCategory)
+ 
+            tevo.startByParentsCategories(senderId, text, 0)
 
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
