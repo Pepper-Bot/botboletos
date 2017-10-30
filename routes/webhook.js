@@ -1001,7 +1001,7 @@ function startTevoModuleWithMlink(referral, senderId) {
 
     var TevoModule = require('../modules/tevo_request');
     position += 1;
-    TevoModule.start(senderId, referral, postion);
+    TevoModule.start(senderId, referral, position);
     context = 'find_my_event';
 
     /* request({

@@ -5,6 +5,8 @@ module.exports = function () {
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
             var moment = require('moment');
+            var UserData = require('../bot/userinfo');
+            var UserData2 = require('../schemas/userinfo');
 
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
@@ -12,13 +14,13 @@ module.exports = function () {
             });
 
 
-            
+
             var urlApiTevo = '';
 
 
             urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
 
-     
+
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
@@ -97,8 +99,8 @@ module.exports = function () {
 
                                 imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
                                     var imageIndex = 0;
-                                    if (images.length >= 30) {
-                                        imageIndex = Math.round(Math.random() * 30);
+                                    if (images.length >= 5) {
+                                        imageIndex = Math.round(Math.random() * 5);
                                     } else {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
@@ -146,7 +148,7 @@ module.exports = function () {
 }();
 
 
-
+ 
 
 function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
     var UserData = require('../bot/userinfo');
