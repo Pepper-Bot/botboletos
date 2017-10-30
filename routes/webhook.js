@@ -646,31 +646,8 @@ function processPostback(event) {
                 //var MonthsQuickReply = require('../modules/tevo/months_replay');
                 //MonthsQuickReply.send(Message, senderId, "Please choose month...");
 
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    if (!err) {
-                        if (foundUser) {
-                            if (foundUser.eventSearchSelected) {
-                                if (foundUser.eventSearchSelected.length > 0) {
-                                    let totalSelecteds = foundUser.eventSearchSelected.length - 1;
-                                    let lastSelected = foundUser.eventSearchSelected[totalSelecteds];
-
-                                    var TevoModule = require('../modules/tevo_request');
-                                    position += 1;
-                                    TevoModule.start(senderId, lastSelected, position);
-
-
-                                    context = '';
-                                }
-                            }
-                        }
-                    }
-                });
+                var TevoModule = require('../modules/tevo_request');
+                TevoModule.start(senderId, referral);
 
 
             }
