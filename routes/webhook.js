@@ -972,25 +972,24 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
     }, function (err, foundUser) {
         if (!err) {
             if (null != foundUser) {
-                let position = 0;
+                var position = 0;
                 if (mlink == 0)
                     if (foundUser.eventSearchSelected) {
                         if (foundUser.eventSearchSelected.length >= 2) {
                             let anterior = foundUser.eventSearchSelected.length - 2;
                             let actual = foundUser.eventSearchSelected.length - 1;
 
-                            let anteriorS =  foundUser.eventSearchSelected[anterior];  
-                            let actualS =  foundUser.eventSearchSelected[actual];  
+                            let anteriorS = foundUser.eventSearchSelected[anterior];
+                            let actualS = foundUser.eventSearchSelected[actual];
 
                             if (actualS == anteriorS) {
-                                position = foundUser.showMemore.index1
                                 foundUser.showMemore.index1 = foundUser.showMemore.index1 + 1
-                                
+                                position = foundUser.showMemore.index1
                             }
                         }
                     }
 
-                
+
 
                 if (event_name == '') {
                     let actual = foundUser.eventSearchSelected.length - 1;
@@ -1003,7 +1002,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
 
                 foundUser.save(function (err, userSaved) {
                     if (!err) {
-                        console.log("se actualiza el index 1 userSaved.showMemore.index1 " + userSaved.showMemore.index1 )
+                        console.log("se actualiza el index 1 userSaved.showMemore.index1 " + userSaved.showMemore.index1)
 
                     } else {
                         console.log("error al actualizar el index 1 ")
