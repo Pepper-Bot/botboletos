@@ -978,9 +978,14 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
                         if (foundUser.eventSearchSelected.length >= 2) {
                             let anterior = foundUser.eventSearchSelected.length - 2;
                             let actual = foundUser.eventSearchSelected.length - 1;
-                            if (actual == anterior) {
+
+                            let anteriorS =  foundUser.eventSearchSelected[anterior];  
+                            let actualS =  foundUser.eventSearchSelected[actual];  
+
+                            if (actualS == anteriorS) {
                                 position = foundUser.showMemore.index1
                                 foundUser.showMemore.index1 = foundUser.showMemore.index1 + 1
+                                
                             }
                         }
                     }
