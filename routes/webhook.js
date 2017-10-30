@@ -221,12 +221,8 @@ function processQuickReplies(event) {
                 //la accion find_my_event_show_me_more me more muestra los meses
                 /*var MonthsQuickReply = require('../modules/tevo/months_replay');
                 MonthsQuickReply.send(Message, senderId, "Please choose month...");*/
-                var TevoModule = require('../modules/tevo_request');
-                position += 1;
-                TevoModule.start(senderId, referral, postion);
-                context = 'find_my_event';
-
-                context = '';
+                var busqueda = ''
+                startTevoModuleWithMlink(busqueda, senderId);
             }
 
             break;
@@ -249,7 +245,7 @@ function processQuickReplies(event) {
                 var CategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
                 //var ButtonsEventsQuery = require('../modules/buttons_event_query');
                 CategoriesQuickReplay.send(Message, senderId, "Please choose category....");
-                context = '';
+               
             }
 
             break;
@@ -257,7 +253,7 @@ function processQuickReplies(event) {
         case "find_my_event_by_name":
             {
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                context = 'find_my_event';
+               
             }
 
             break;
@@ -282,7 +278,7 @@ function processQuickReplies(event) {
 
     for (var i = 0; i < monthsReplays.length; i++) {
         if (payload == moment(monthsReplays[i]).format('MMM YYYY')) {
-            context = 'find_my_event_by_month';
+
             let currentDate = moment(monthsReplays[i]);
             UserData2.findOne({
                 fbId: senderId
@@ -364,7 +360,7 @@ function processQuickReplies(event) {
         } else {
             text = parentCategories[i].name;
         }
-        context = 'find_my_event_by_category';
+     
         if (payload == text) {
 
 
@@ -664,7 +660,7 @@ function processPostback(event) {
             {
 
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                context = 'find_my_event';
+           
             }
             break;
 
@@ -676,7 +672,7 @@ function processPostback(event) {
                 Message.getLocation(senderId, 'What location would you like to catch a show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                //context = 'find_my_event_by_location';
+           
 
             }
             break;
@@ -768,7 +764,7 @@ function find_my_event(senderId) {
             var greeting = "Hi " + name;
             var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
 
-            //context = 'find_my_event'
+         
 
 
             var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
@@ -966,7 +962,7 @@ function chooseReferral(referral, senderId) {
 
 
 
-function startTevoModuleWithMlink(referral, senderId, mlink = 0) {
+function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
     UserData2.findOne({
         fbId: senderId
     }, {}, {
@@ -991,8 +987,8 @@ function startTevoModuleWithMlink(referral, senderId, mlink = 0) {
 
                 let TevoModule = require('../modules/tevo_request');
 
-                TevoModule.start(senderId, referral, position);
-                context = 'find_my_event';
+                TevoModule.start(senderId, event_name, position);
+              
 
                 foundUser.save(function (err) {
                     if (!err) {
@@ -1027,8 +1023,7 @@ function startTevoModuleWithMlink(referral, senderId, mlink = 0) {
                             let TevoModule = require('../modules/tevo_request');
                             let position = 0;
                             TevoModule.start(senderId, referral, position);
-                            context = 'find_my_event';
-
+                  
 
 
                         }
