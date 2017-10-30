@@ -85,10 +85,11 @@ function processMessage(senderId, textMessage) {
 
     if (context) {
         switch (context) {
-            case 'find_my_event':
+            case 'find_my_event_by_name':
                 {
 
                     startTevoModuleWithMlink(textMessage, senderId);
+                    context = ''
                 }
                 break;
             default:
@@ -134,12 +135,12 @@ function processMessage(senderId, textMessage) {
         });
 
     } else {
-
-        var DefaultReply = require('../modules/defaultreply');
-        DefaultReply.send(Message, senderId);
-
-
-        // Message.typingOff(senderId);
+        if (context != 'find_my_event_by_name'){
+            var DefaultReply = require('../modules/defaultreply');
+            DefaultReply.send(Message, senderId);
+    
+        }
+    
     }
 }
 
@@ -218,6 +219,7 @@ function processQuickReplies(event) {
             {
                 var MonthsQuickReply = require('../modules/tevo/months_replay');
                 MonthsQuickReply.send(Message, senderId, "Please choose month...");
+                context = ''
             }
             break;
 
@@ -228,6 +230,7 @@ function processQuickReplies(event) {
                 MonthsQuickReply.send(Message, senderId, "Please choose month...");*/
                 var busqueda = ''
                 startTevoModuleWithMlink(busqueda, senderId);
+                context = ''
             }
 
             break;
@@ -240,6 +243,7 @@ function processQuickReplies(event) {
                 SearchQuickReply.send(Message, senderId);
                 //find_my_event_by_category"
                 //find_my_event_by_name 
+                context = ''
             }
 
             break;
@@ -250,6 +254,7 @@ function processQuickReplies(event) {
                 var CategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
                 //var ButtonsEventsQuery = require('../modules/buttons_event_query');
                 CategoriesQuickReplay.send(Message, senderId, "Please choose category....");
+                context = 'find_my_event_by_category'
 
             }
 
@@ -257,8 +262,9 @@ function processQuickReplies(event) {
 
         case "find_my_event_by_name":
             {
-                Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
 
+                Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
+                context = 'find_my_event_by_name'
             }
 
             break;
@@ -300,8 +306,8 @@ function processQuickReplies(event) {
                             if (foundUser.eventSearchSelected.length > 0) {
                                 let totalSelecteds = foundUser.eventSearchSelected.length - 1;
                                 let lastSelected = foundUser.eventSearchSelected[totalSelecteds];
-                                
-                              
+
+
                                 if (foundUser.eventSearchSelected.length >= 2) {
                                     let anterior = foundUser.eventSearchSelected.length - 2;
                                     let actual = foundUser.eventSearchSelected.length - 1;
@@ -332,13 +338,13 @@ function processQuickReplies(event) {
                                 foundUser.save(function (err, userSaved) {
                                     if (!err) {
                                         console.log("se actualiza el index 1 userSaved.showMemore.index1 " + userSaved.showMemore.index2)
-                
+
                                     } else {
                                         console.log("error al actualizar el index 1 ")
                                     }
                                 });
 
-                                
+
                                 var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
                                 TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth, position);
 
@@ -659,7 +665,7 @@ function processPostback(event) {
                 //MonthsQuickReply.send(Message, senderId, "Please choose month...");
                 var busqueda = ''
                 startTevoModuleWithMlink(busqueda, senderId)
-
+                context = ''
 
             }
             break;
@@ -668,7 +674,7 @@ function processPostback(event) {
             {
                 var SearchQuickReply = require('../modules/tevo/search_quick_replay');
                 SearchQuickReply.send(Message, senderId);
-
+                context = ''
             }
             break;
 
@@ -676,7 +682,7 @@ function processPostback(event) {
             {
 
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-
+                context = 'find_my_event_by_name'
             }
             break;
 
@@ -688,7 +694,7 @@ function processPostback(event) {
                 Message.getLocation(senderId, 'What location would you like to catch a show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-
+                context = ''
 
             }
             break;
@@ -710,7 +716,7 @@ function processPostback(event) {
 
                     }
                 });
-
+                context = ''
 
 
 
