@@ -973,7 +973,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
         if (!err) {
             if (null != foundUser) {
                 var position = 0;
-                if (mlink == 0)
+                if (mlink == 0){
                     if (foundUser.eventSearchSelected) {
                         if (foundUser.eventSearchSelected.length >= 2) {
                             let anterior = foundUser.eventSearchSelected.length - 2;
@@ -988,6 +988,11 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
                             }
                         }
                     }
+
+                }else{
+                    foundUser.showMemore.index1 = 0;
+                }
+
 
 
 
