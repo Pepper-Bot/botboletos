@@ -5,6 +5,8 @@ module.exports = function () {
             var imageCards = require('../../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
             var moment = require('moment');
+            var UserData = require('../../bot/userinfo');
+            var UserData2 = require('../../schemas/userinfo');
 
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
