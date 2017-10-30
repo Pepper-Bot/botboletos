@@ -645,9 +645,8 @@ function processPostback(event) {
             {
                 //var MonthsQuickReply = require('../modules/tevo/months_replay');
                 //MonthsQuickReply.send(Message, senderId, "Please choose month...");
-
-                var TevoModule = require('../modules/tevo_request');
-                TevoModule.start(senderId, referral);
+                var busqueda = ''
+                startTevoModuleWithMlink(busqueda, senderId)
 
 
             }
@@ -956,8 +955,8 @@ function chooseReferral(referral, senderId) {
 
         default:
             {
-                var TevoModule = require('../modules/tevo_request');
-                TevoModule.start(senderId, referral);
+
+                startTevoModuleWithMlink(referral, senderId, 1);
 
             }
             break;
@@ -967,7 +966,7 @@ function chooseReferral(referral, senderId) {
 
 
 
-function startTevoModuleWithMlink(referral, senderId) {
+function startTevoModuleWithMlink(referral, senderId, mlink = 0) {
     UserData2.findOne({
         fbId: senderId
     }, {}, {
@@ -977,18 +976,18 @@ function startTevoModuleWithMlink(referral, senderId) {
     }, function (err, foundUser) {
         if (!err) {
             if (null != foundUser) {
-                let position =0;
-
-                if (foundUser.eventSearchSelected) {
-                    if (foundUser.eventSearchSelected.length >= 2) {
-                        let anterior = foundUser.eventSearchSelected.length - 2;
-                        let actual = foundUser.eventSearchSelected.length - 1;
-                        if(actual == anterior){
-                            position = foundUser.showMemore.index1
-                            foundUser.showMemore.index1 = foundUser.showMemore.index1 + 1
+                let position = 0;
+                if (mlink == 0)
+                    if (foundUser.eventSearchSelected) {
+                        if (foundUser.eventSearchSelected.length >= 2) {
+                            let anterior = foundUser.eventSearchSelected.length - 2;
+                            let actual = foundUser.eventSearchSelected.length - 1;
+                            if (actual == anterior) {
+                                position = foundUser.showMemore.index1
+                                foundUser.showMemore.index1 = foundUser.showMemore.index1 + 1
+                            }
                         }
                     }
-                }
 
                 let TevoModule = require('../modules/tevo_request');
 
