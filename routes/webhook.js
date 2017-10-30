@@ -991,14 +991,14 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
                     let actual = foundUser.eventSearchSelected.length - 1;
                     event_name = foundUser.eventSearchSelected[actual];
                 }
-                
+
                 var TevoModule = require('../modules/tevo_request');
                 TevoModule.start(senderId, event_name, position);
 
 
-                foundUser.save(function (err) {
+                foundUser.save(function (err, userSaved) {
                     if (!err) {
-                        console.log("se actualiza el index 1 ")
+                        console.log("se actualiza el index 1 userSaved.showMemore.index1 " + userSaved.showMemore.index1 )
 
                     } else {
                         console.log("error al actualizar el index 1 ")
