@@ -28,6 +28,9 @@ module.exports = function () {
             var event_id = 0;
             if (tevoClient) {
                 tevoClient.getJSON(urlApiTevo).then((json) => {
+                    Message.typingOn(senderId);
+                    Message.markSeen(senderId);
+                    Message.typingOn(senderId);
                     Message.sendMessage(senderId, "Getting Events:");
                     if (json.error) {
                         Message.sendMessage(senderId, json.error);
@@ -68,7 +71,8 @@ module.exports = function () {
                                 });
                             }
                             if (resultEvent.length >= 10) {
-                                resultEvent.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
+                                if (10 * (position + 1) < resultEvent.length)
+                                    resultEvent.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
                                 if (position - 1 >= 0)
                                     resultEvent.splice(0, 10 * (position));
                             }
@@ -143,6 +147,7 @@ module.exports = function () {
                                         //GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
                                         GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
 
+                                        Message.typingOff(senderId);
                                     }
 
 
