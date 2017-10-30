@@ -82,7 +82,7 @@ router.post('/', function (req, res) {
 });
 
 function processMessage(senderId, textMessage) {
-
+    console.log("context >>> " + context);
     if (context) {
         switch (context) {
             case 'find_my_event_by_name':
@@ -135,12 +135,12 @@ function processMessage(senderId, textMessage) {
         });
 
     } else {
-        if (context != 'find_my_event_by_name'){
+        if (context != 'find_my_event_by_name') {
             var DefaultReply = require('../modules/defaultreply');
             DefaultReply.send(Message, senderId);
-    
+
         }
-    
+
     }
 }
 
