@@ -118,7 +118,7 @@ module.exports = function () {
                                         "subtitle":"more",
                                         "default_action": {
                                             "type": "web_url",
-                                            "url":  "http://www.malle-fuer-alle.net/images/ME.jpg"
+                                            "url":  "https://www.google.com.mx/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjK4afVlZvXAhUP52MKHfpKDK4QjRwIBw&url=http%3A%2F%2Fwww.sacculturalhub.com%2Furban-weekly%2Fissue-august-5-2015&psig=AOvVaw1xsCuzQLsTGh_N3IG1CDPb&ust=1509549870805859"
                                             /*,
                                             "messenger_extensions": true,
                                             "webview_height_ratio": "tall",
@@ -126,7 +126,7 @@ module.exports = function () {
                                         },
                                         "buttons": [{
                                             "type": "web_url",
-                                            "url": "Start Chatting",
+                                            "url": "https://www.google.com.mx/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjK4afVlZvXAhUP52MKHfpKDK4QjRwIBw&url=http%3A%2F%2Fwww.sacculturalhub.com%2Furban-weekly%2Fissue-august-5-2015&psig=AOvVaw1xsCuzQLsTGh_N3IG1CDPb&ust=1509549870805859",
                                             "title": "DEVELOPER_DEFINED_PAYLOAD"
                                         }]
                                     });
