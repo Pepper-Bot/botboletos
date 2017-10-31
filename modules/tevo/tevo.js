@@ -254,7 +254,7 @@ function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum,
                 let events = resultado.events;
 
                 for (let j = 0; j < events.length; j++) {
-                    //console.log('events[j] >>>> ' + events[j].name);
+                    console.log('events[j] >>>> ' + events[j].name);
                     eventsArray.push({
                         "id": events[j].id,
                         "name": events[j].name,
@@ -442,7 +442,7 @@ function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon)
     searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
         searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {
             //return eventsArray
-            if (!eventsButtons_.length > 0) {
+            if (eventsButtons_.length <= 0) {
                 console.log(">>> No Events XD ");
                 Message.sendMessage(senderId, "No Found Events ");
             }
