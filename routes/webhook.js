@@ -4,7 +4,6 @@ var request = require('request');
 var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
-var context = '';
 
 //--
 
@@ -95,6 +94,10 @@ function processMessage(senderId, textMessage) {
         if (foundUser.context = 'find_my_event_by_name') {
             startTevoModuleWithMlink(textMessage, senderId);
         }
+        else{
+            find_my_event(senderId);
+
+        }
         foundUser.context = '';
         foundUser.save();
 
@@ -132,14 +135,10 @@ function processMessage(senderId, textMessage) {
             }
         });
 
-    } else {
-        if (context != 'find_my_event_by_name') {
-            var DefaultReply = require('../modules/defaultreply');
-            DefaultReply.send(Message, senderId);
-
-        }
-
-    }
+    } 
+    //aaki iba esta respuesta por default
+    //var DefaultReply = require('../modules/defaultreply');
+    //DefaultReply.send(Message, senderId);
 }
 
 function processLocation(senderId, locationData) {
@@ -906,8 +905,8 @@ function find_my_event(senderId) {
 
 
 
-            var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
-
+            //var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
+            var ButtonsEventsQuery = require('../modules/tevo/buttons_choise_again');
             ButtonsEventsQuery.send(Message, senderId, messagetxt);
 
         }
