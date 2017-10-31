@@ -164,7 +164,7 @@ function processLocation(senderId, locationData) {
                     let lon = locationData.payload.coordinates.long;
 
                     var tevo = require('../modules/tevo/tevo');
-                    tevo.startByParentsCategoriesAndLocation(senderId, category, 0, lat, long)
+                    tevo.startByParentsCategoriesAndLocation(senderId, category, 0, lat, lon)
                     saveContext(senderId, "");
 
 
