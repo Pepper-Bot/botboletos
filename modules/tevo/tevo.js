@@ -58,7 +58,7 @@ var searchEventsByCategoryIdAndLocation = (category_id, lat, lon) => {
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
                 res(json);
-            });
+            }).catch(err => console.log("Error en la function searchEventsByCategoryIdAndLocation  " + err.message));
         }
     });
 }
@@ -271,8 +271,8 @@ function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum,
                             resolve(eventsArray);
                         }
                     }
-                }else{
-                    console.log('Sin resultados por category '+ categoriesArray[indice].id + ' Latitid: '+ lat  + ' Longitud: ' + lon   )
+                } else {
+                    console.log('Sin resultados por category ' + categoriesArray[indice].id + ' Latitid: ' + lat + ' Longitud: ' + lon)
                 }
 
             }).then(() => {
