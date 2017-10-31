@@ -251,23 +251,25 @@ function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum,
         for (let indice = 0; indice < categoriesArray.length; indice++) {
 
             searchEventsByCategoryIdAndLocation(categoriesArray[indice].id, lat, lon).then((resultado) => {
-                let events = resultado.events;
+                if (resultado.events) {
+                    let events = resultado.events;
 
-                for (let j = 0; j < events.length; j++) {
-                    console.log('events[j] >>>> ' + events[j].name);
-                    eventsArray.push({
-                        "id": events[j].id,
-                        "name": events[j].name,
-                        "category_name": events[j].category.name,
-                        "occurs_at": events[j].occurs_at,
-                        "performer_id": events[j].performances[0].performer.id,
-                        "performer_name": events[j].performances[0].performer.name,
-                        "venue_id": events[j].venue.id,
-                        "venue_name": events[j].venue.name
-                    });
+                    for (let j = 0; j < events.length; j++) {
+                        console.log('events[j] >>>> ' + events[j].name);
+                        eventsArray.push({
+                            "id": events[j].id,
+                            "name": events[j].name,
+                            "category_name": events[j].category.name,
+                            "occurs_at": events[j].occurs_at,
+                            "performer_id": events[j].performances[0].performer.id,
+                            "performer_name": events[j].performances[0].performer.name,
+                            "venue_id": events[j].venue.id,
+                            "venue_name": events[j].venue.name
+                        });
 
-                    if (acum + 1 == categoriesArray.length) {
-                        resolve(eventsArray);
+                        if (acum + 1 == categoriesArray.length) {
+                            resolve(eventsArray);
+                        }
                     }
                 }
 
