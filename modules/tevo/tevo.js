@@ -447,18 +447,21 @@ function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon)
     searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
         searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {
             //return eventsArray
-            if (eventsButtons_.length <= 0) {
-                console.log(">>> No Events XD ");
-                Message.sendMessage(senderId, "No Found Events ");
+            if(eventsArray.length<=0){
+                Message.sendMessage(senderId, "No Events Found Near Your Given Location");
             }
-
-            for (let i = 0; i < eventsButtons_.length; i++) {
-                console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+            for (let i = 0; i < eventsArray.length; i++) {
+                // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
             }
             convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
-                // return eventsButtons_
+               /* for (let i = 0; i < eventsButtons_.length; i++) {
+                    console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+                }*/
                 setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
-                    // return gButtons
+                   /* console.log("gButtons.length >>> " + gButtons.length);
+                    for (let i = 0; i < gButtons.length; i++) {
+                        console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
+                    }*/
                 });
             });
 
