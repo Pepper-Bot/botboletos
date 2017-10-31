@@ -82,26 +82,23 @@ router.post('/', function (req, res) {
 });
 
 function processMessage(senderId, textMessage) {
-   
-    console.log("context >>> " + context);
-    if (context) {
-        switch (context) {
-            case 'find_my_event_by_name':
-                {
-
-                    startTevoModuleWithMlink(textMessage, senderId);
-                    context = ''
-                }
-                break;
-            default:
-                {
 
 
-                }
-                break;
+
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
         }
-    }
+    }, function (err, foundUser) {
+        if (foundUser.context = 'find_my_event_by_name') {
+            startTevoModuleWithMlink(textMessage, senderId);
+        }
+        foundUser.context = '';
+        foundUser.save();
 
+    });
 
 
     if ('start again' === textMessage.toLowerCase()) {
@@ -220,7 +217,7 @@ function processQuickReplies(event) {
             {
                 var MonthsQuickReply = require('../modules/tevo/months_replay');
                 MonthsQuickReply.send(Message, senderId, "Please choose month...");
-               
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -228,7 +225,7 @@ function processQuickReplies(event) {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    foundUser.context = '' 
+                    foundUser.context = ''
                     foundUser.save();
                 });
 
@@ -250,7 +247,7 @@ function processQuickReplies(event) {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    foundUser.context = '' 
+                    foundUser.context = ''
                     foundUser.save();
                 });
 
@@ -274,7 +271,7 @@ function processQuickReplies(event) {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    foundUser.context = '' 
+                    foundUser.context = ''
                     foundUser.save();
                 });
 
@@ -296,7 +293,7 @@ function processQuickReplies(event) {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    foundUser.context = '' 
+                    foundUser.context = ''
                     foundUser.save();
                 });
 
@@ -307,8 +304,8 @@ function processQuickReplies(event) {
         case "find_my_event_by_name":
             {
 
-                Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-               
+
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -316,8 +313,22 @@ function processQuickReplies(event) {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    foundUser.context = 'find_my_event_by_name' 
-                    foundUser.save();
+                    foundUser.context = 'find_my_event_by_name'
+                    foundUser.save(function (err, userSaved) {
+                        if (!err) {
+                            console.log("se actualiza el index 1 foundUser.context " + foundUser.context)
+
+                            Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
+
+
+                        } else {
+                            console.log("error al actualizar el index 1 ")
+                        }
+                    });
+
+
+
+
                 });
             }
 
@@ -727,7 +738,7 @@ function processPostback(event) {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    foundUser.context = '' 
+                    foundUser.context = ''
                     foundUser.save();
                 });
 
@@ -746,7 +757,7 @@ function processPostback(event) {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    foundUser.context = '' 
+                    foundUser.context = ''
                     foundUser.save();
                 });
 
@@ -766,7 +777,7 @@ function processPostback(event) {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    foundUser.context = 'find_my_event_by_name' 
+                    foundUser.context = 'find_my_event_by_name'
                     foundUser.save();
                 });
 
@@ -789,7 +800,7 @@ function processPostback(event) {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    foundUser.context = '' 
+                    foundUser.context = ''
                     foundUser.save();
                 });
             }
@@ -821,7 +832,7 @@ function processPostback(event) {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    foundUser.context = '' 
+                    foundUser.context = ''
                     foundUser.save();
                 });
 
