@@ -4,8 +4,7 @@ var request = require('request');
 var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
-var context = '';
-var event_name_wrote = '';
+
 //--
 
 var datos = {}; // Para saber si estamos o no con el ID
@@ -83,23 +82,26 @@ router.post('/', function (req, res) {
 
 function processMessage(senderId, textMessage) {
 
-    if (context) {
-        switch (context) {
-            case 'find_my_event':
-                {
-
-                    startTevoModuleWithMlink(textMessage, senderId);
-                }
-                break;
-            default:
-                {
 
 
-                }
-                break;
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
         }
-    }
+    }, function (err, foundUser) {
+        if (foundUser.context === 'find_my_event_by_name') {
+            console.log(foundUser.context);
+            startTevoModuleWithMlink(textMessage, senderId);
+        } else {
+            find_my_event(senderId);
 
+        }
+        foundUser.context = '';
+        foundUser.save();
+
+    });
 
 
     if ('start again' === textMessage.toLowerCase()) {
@@ -133,14 +135,10 @@ function processMessage(senderId, textMessage) {
             }
         });
 
-    } else {
-
-        var DefaultReply = require('../modules/defaultreply');
-        DefaultReply.send(Message, senderId);
-
-
-        // Message.typingOff(senderId);
     }
+    //aaki iba esta respuesta por default
+    //var DefaultReply = require('../modules/defaultreply');
+    //DefaultReply.send(Message, senderId);
 }
 
 function processLocation(senderId, locationData) {
@@ -214,13 +212,44 @@ function processQuickReplies(event) {
 
     switch (payload) {
 
+        case "find_my_event_by_month":
+            {
+                var MonthsQuickReply = require('../modules/tevo/months_replay');
+                MonthsQuickReply.send(Message, senderId, "Please choose month...");
 
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
+            }
+            break;
 
         case "find_my_event_show_me_more":
             {
                 //la accion find_my_event_show_me_more me more muestra los meses
-                var MonthsQuickReply = require('../modules/tevo/months_replay');
-                MonthsQuickReply.send(Message, senderId, "Please choose month...");
+                /*var MonthsQuickReply = require('../modules/tevo/months_replay');
+                MonthsQuickReply.send(Message, senderId, "Please choose month...");*/
+                var busqueda = ''
+                startTevoModuleWithMlink(busqueda, senderId);
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
             }
 
             break;
@@ -233,6 +262,18 @@ function processQuickReplies(event) {
                 SearchQuickReply.send(Message, senderId);
                 //find_my_event_by_category"
                 //find_my_event_by_name 
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
             }
 
             break;
@@ -243,14 +284,51 @@ function processQuickReplies(event) {
                 var CategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
                 //var ButtonsEventsQuery = require('../modules/buttons_event_query');
                 CategoriesQuickReplay.send(Message, senderId, "Please choose category....");
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
             }
 
             break;
 
         case "find_my_event_by_name":
             {
-                Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                // context = 'find_my_event';
+
+
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = 'find_my_event_by_name'
+                    foundUser.save(function (err, userSaved) {
+                        if (!err) {
+                            console.log("se actualiza el index 1 foundUser.context " + foundUser.context)
+
+                            Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
+
+
+                        } else {
+                            console.log("error al actualizar el index 1 ")
+                        }
+                    });
+
+
+
+
+                });
             }
 
             break;
@@ -286,41 +364,53 @@ function processQuickReplies(event) {
             }, function (err, foundUser) {
                 if (!err) {
                     if (foundUser) {
-                        console.log(
-                            "foundUser.fbId " + foundUser.fbId + "\n" +
-                            "foundUser.firstName " + foundUser.firstName + "\n" +
-                            "foundUser.LastName " + foundUser.LastName + "\n" +
-                            "foundUser.profilePic " + foundUser.profilePic + "\n" +
-                            "foundUser.locale " + foundUser.locale + "\n" +
-                            "foundUser.timeZone " + foundUser.timeZone + "\n" +
-                            "foundUser.gender " + foundUser.gender + "\n" +
-                            "foundUser.sessionStart " + foundUser.sessionStart + "\n" +
-                            "foundUser.eventSearchSelected " + foundUser.eventSearchSelected.length + "\n"
-                        );
-
+                        console.log("foundUser.fbId " + foundUser.fbId + "\n");
+                        var position = 0;
                         if (foundUser.eventSearchSelected) {
                             if (foundUser.eventSearchSelected.length > 0) {
-                                let  totalSelecteds = foundUser.eventSearchSelected.length - 1;
-                                let  lastSelected = foundUser.eventSearchSelected[totalSelecteds];
+                                let totalSelecteds = foundUser.eventSearchSelected.length - 1;
+                                let lastSelected = foundUser.eventSearchSelected[totalSelecteds];
 
+
+                                if (foundUser.eventSearchSelected.length >= 2) {
+                                    let anterior = foundUser.eventSearchSelected.length - 2;
+                                    let actual = foundUser.eventSearchSelected.length - 1;
+
+                                    let anteriorS = foundUser.eventSearchSelected[anterior];
+                                    let actualS = foundUser.eventSearchSelected[actual];
+
+                                    if (actualS == anteriorS) {
+                                        foundUser.showMemore.index2 = foundUser.showMemore.index2 + 1
+                                        position = foundUser.showMemore.index2
+                                    }
+                                }
                                 console.log('lastSelected>>>>' + lastSelected);
-                               
 
-                                Message.sendMessage(senderId, 'Mes escogido ' + moment(currentDate).format('MMM YYYY') + 'evento ' + lastSelected );
-                              
+
+                                Message.sendMessage(senderId, 'Mes escogido ' + moment(currentDate).format('MMM YYYY') + 'evento ' + lastSelected);
+
                                 let startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
                                 startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)
 
                                 console.log("startOfMonth>>>>>>" + startOfMonth)
- 
+
                                 let endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
                                 endOfMonth = endOfMonth.substring(0, endOfMonth.length - 6)
 
-                                console.log("endOfMonth>>>>>>" + endOfMonth)
+                                console.log("endOfMonth>>>>>>" + endOfMonth);
 
-                              
-                                var   TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
-                                TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth);
+                                foundUser.save(function (err, userSaved) {
+                                    if (!err) {
+                                        console.log("se actualiza el index 1 userSaved.showMemore.index1 " + userSaved.showMemore.index2)
+
+                                    } else {
+                                        console.log("error al actualizar el index 1 ")
+                                    }
+                                });
+
+
+                                var TevoModuleByMonth = require('../modules/tevo/tevo_request_by_name_date');
+                                TevoModuleByMonth.showEventsByNameAndDate(senderId, lastSelected, startOfMonth, endOfMonth, position);
 
                             } else {
                                 console.log('En este la propiedad eventSearchSelected no tiene nada')
@@ -362,10 +452,9 @@ function processQuickReplies(event) {
 
 
             var tevo = require('../modules/tevo/tevo');
-            var position = 1;
 
-          
-            tevo.startByParentsCategories(senderId, text, position)
+
+            tevo.startByParentsCategories(senderId, text, 0)
 
 
             Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
@@ -634,10 +723,45 @@ function processPostback(event) {
 
     switch (payload) {
 
+        case "find_my_event_see_more_events":
+            {
+                var busqueda = ''
+                startTevoModuleWithMlink(busqueda, senderId)
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
+            }
+            break;
+
         case "find_my_event_show_me_more":
             {
-                var MonthsQuickReply = require('../modules/tevo/months_replay');
-                MonthsQuickReply.send(Message, senderId, "Please choose month...");
+                var aki = ""
+                //var MonthsQuickReply = require('../modules/tevo/months_replay');
+                //MonthsQuickReply.send(Message, senderId, "Please choose month...");
+                Message.markSeen(senderId);
+                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.typingOn(senderId);
+                saveUserSelection(senderId, 'Events');
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
 
             }
             break;
@@ -646,6 +770,17 @@ function processPostback(event) {
             {
                 var SearchQuickReply = require('../modules/tevo/search_quick_replay');
                 SearchQuickReply.send(Message, senderId);
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
 
             }
             break;
@@ -654,7 +789,19 @@ function processPostback(event) {
             {
 
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                //context = 'find_my_event';
+                context = 'find_my_event_by_name'
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = 'find_my_event_by_name'
+                    foundUser.save();
+                });
+
             }
             break;
 
@@ -666,8 +813,17 @@ function processPostback(event) {
                 Message.getLocation(senderId, 'What location would you like to catch a show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                //context = 'find_my_event_by_location';
-
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
             }
             break;
 
@@ -688,8 +844,18 @@ function processPostback(event) {
 
                     }
                 });
+                context = ''
 
-
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
 
 
             }
@@ -758,11 +924,11 @@ function find_my_event(senderId) {
             var greeting = "Hi " + name;
             var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
 
-            //context = 'find_my_event'
 
 
-            var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
 
+            //var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
+            var ButtonsEventsQuery = require('../modules/tevo/buttons_choise_again');
             ButtonsEventsQuery.send(Message, senderId, messagetxt);
 
         }
@@ -945,8 +1111,8 @@ function chooseReferral(referral, senderId) {
 
         default:
             {
-                var TevoModule = require('../modules/tevo_request');
-                TevoModule.start(senderId, referral);
+
+                startTevoModuleWithMlink(referral, senderId, 1);
 
             }
             break;
@@ -956,41 +1122,107 @@ function chooseReferral(referral, senderId) {
 
 
 
-function startTevoModuleWithMlink(referral, senderId) {
-    //consultando la api donde se estan guardando los mlinks!!
-    var baseURL = 'https://botboletos-test.herokuapp.com/api/';
-    var mlinks = 'mlinks/';
-    var request = require('request');
-    console.log("URL CONSULTA>>>>>>>>>>>>>>>" + baseURL + mlinks + referral);
+function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, foundUser) {
+        if (!err) {
+            if (null != foundUser) {
+                var position = 0;
+                if (mlink == 0) {
+                    if (foundUser.eventSearchSelected) {
+                        if (foundUser.eventSearchSelected.length >= 2) {
+                            let anterior = foundUser.eventSearchSelected.length - 2;
+                            let actual = foundUser.eventSearchSelected.length - 1;
+
+                            let anteriorS = foundUser.eventSearchSelected[anterior];
+                            let actualS = foundUser.eventSearchSelected[actual];
+
+                            if (actualS == anteriorS) {
+                                foundUser.showMemore.index1 = foundUser.showMemore.index1 + 1
+                                position = foundUser.showMemore.index1
+                            }
+                        }
+                    }
+
+                } else {
+                    foundUser.showMemore.index1 = 0;
+                }
 
 
-    var TevoModule = require('../modules/tevo_request');
-    TevoModule.start(senderId, referral);
 
 
-    /* request({
-             url: baseURL + mlinks + referral,
-             qs: {
+                if (event_name == '') {
+                    let actual = foundUser.eventSearchSelected.length - 1;
+                    event_name = foundUser.eventSearchSelected[actual];
+                }
 
-             },
-             method: 'GET'
-         },
-         function (error, response, body) {
-             if (!error) {
-                 var body = JSON.parse(body);
-                 if (body.mlinks[0].mlink) {
-                     var event_name = body.mlinks[0].mlink;
-                     //console.log( "ID CONSULTADO CON EXITO: >>>>>>>>>>>>>"  +  body.mlinks[0].id_evento);
-                     var TevoModule = require('../modules/tevo_request');
-                     TevoModule.start(senderId, event_name);
+                var TevoModule = require('../modules/tevo_request');
+                TevoModule.start(senderId, event_name, position);
 
 
-                 } else {
-                     console.log("Records no found");
-                 }
-             }
+                foundUser.save(function (err, userSaved) {
+                    if (!err) {
+                        console.log("se actualiza el index 1 userSaved.showMemore.index1 " + userSaved.showMemore.index1)
 
-         });*/
+                    } else {
+                        console.log("error al actualizar el index 1 ")
+                    }
+                });
+            } else {
+                UserData.getInfo(senderId, function (err, result) {
+                    console.log('Dentro de UserData');
+                    if (!err) {
+
+                        var bodyObj = JSON.parse(result);
+                        console.log(result);
+
+                        var User = new UserData2; {
+                            User.fbId = senderId;
+                            User.firstName = bodyObj.first_name;
+                            User.LastName = bodyObj.last_name;
+                            User.profilePic = bodyObj.profile_pic;
+                            User.locale = bodyObj.locale;
+                            User.timeZone = bodyObj.timezone;
+                            User.gender = bodyObj.gender;
+                            User.messageNumber = 1;
+
+
+                            User.save();
+                            console.log("Guardé el senderId result.fbId>>>> " + result.fbId);
+
+                            let TevoModule = require('../modules/tevo_request');
+                            let position = 0;
+                            TevoModule.start(senderId, referral, position);
+
+
+
+                        }
+
+
+
+                        var name = bodyObj.first_name;
+                        var greeting = "Hi " + name;
+                        var messagetxt = greeting + ", what would you like to do?";
+                        //Message.sendMessage(senderId, message);
+                        /* INSERT TO MONGO DB DATA FROM SESSION*/
+
+
+                    }
+                });
+
+
+
+            }
+        }
+
+    });
+
+
 }
 
 

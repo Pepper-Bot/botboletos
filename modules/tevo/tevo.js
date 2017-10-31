@@ -50,6 +50,20 @@ var searchEventsByCategoryId = (category_id) => {
     });
 }
 
+var searchEventsByCategoryIdAndLocation = (category_id, lat, lon) => {
+    return new Promise((res, rej) => {
+        //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
+        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&lat=' + lat + '&lon=' + lon + '&only_with_tickets=all'
+        console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+        if (tevoClient) {
+            tevoClient.getJSON(urlApiTevo).then((json) => {
+                res(json);
+            });
+        }
+    });
+}
+
+
 var searchEventsByCategoryIdAndDate = (category_id, occurs_at_gte, occurs_at_lte) => {
     return new Promise((res, rej) => {
         let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
@@ -232,6 +246,44 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
     });
 }
 
+function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon) {
+    return new Promise(function (resolve, reject) {
+        for (let indice = 0; indice < categoriesArray.length; indice++) {
+
+            searchEventsByCategoryIdAndLocation(categoriesArray[indice].id, lat, lon).then((resultado) => {
+                let events = resultado.events;
+
+                for (let j = 0; j < events.length; j++) {
+                    //console.log('events[j] >>>> ' + events[j].name);
+                    eventsArray.push({
+                        "id": events[j].id,
+                        "name": events[j].name,
+                        "category_name": events[j].category.name,
+                        "occurs_at": events[j].occurs_at,
+                        "performer_id": events[j].performances[0].performer.id,
+                        "performer_name": events[j].performances[0].performer.name,
+                        "venue_id": events[j].venue.id,
+                        "venue_name": events[j].venue.name
+                    });
+
+                    if (acum + 1 == categoriesArray.length) {
+                        resolve(eventsArray);
+                    }
+                }
+
+            }).then(() => {
+                acum = acum + 1;
+
+
+
+            });
+
+        }
+
+    });
+}
+
+
 
 
 function searchEventsByParentName(name, categoriesArray, cuenta) {
@@ -360,6 +412,35 @@ function startByParentsCategories(senderId, text, position) {
     catetegorySelected = text;
     searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
         searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum).then(function () {
+            //return eventsArray
+            convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
+                // return eventsButtons_
+                setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
+                    // return gButtons
+                });
+            });
+
+        });
+    });
+
+}
+
+function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon) {
+
+    var categoriesArray = [];
+    var eventsArray = [];
+    var eventsButtons_ = [];
+    var gButtons = [];
+    var events = [];
+    var acum = 0;
+    var cuenta = 0;
+    var contador = 0;
+    var contador2 = 0;
+
+
+    catetegorySelected = text;
+    searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
+        searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {
             //return eventsArray
             convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
                 // return eventsButtons_

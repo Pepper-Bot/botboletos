@@ -31,7 +31,7 @@ module.exports = function () {
                     Message.typingOn(senderId);
                     Message.markSeen(senderId);
                     Message.typingOn(senderId);
-                    Message.sendMessage(senderId, "Getting Events:");
+                    Message.sendMessage(senderId, "Book " + event_name  + " Events");
                     if (json.error) {
                         Message.sendMessage(senderId, json.error);
                     } else {
@@ -116,7 +116,7 @@ module.exports = function () {
                             }
 
                             eventButtons_.push({
-                                "title": "See more events", 
+                                "title": "See more events",
                                 "buttons": [{
                                     "type": "postback",
                                     "title": "See more events",
@@ -141,7 +141,7 @@ module.exports = function () {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
 
-                                    if (index < 9)
+                                    if (index < gButtons.length - 1)
                                         gButtons[index].image_url = images[imageIndex].url;
                                     counter++;
                                     if (counter == gButtons.length) {

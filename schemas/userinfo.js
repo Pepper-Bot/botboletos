@@ -46,7 +46,8 @@ var UserData = mongoose.Schema({
 			default: 0
 		}
 	},
-	context: String
+	context: String,
+	categorySearchSelected: []
 
 });
 

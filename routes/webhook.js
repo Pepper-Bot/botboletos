@@ -451,6 +451,14 @@ function processQuickReplies(event) {
         if (payload == text) {
 
 
+
+            Message.markSeen(senderId);
+            Message.getLocation(senderId, 'What location would you like to catch a show?');
+            Message.typingOn(senderId);
+            saveUserSelection(senderId, 'Events');
+
+
+
             var tevo = require('../modules/tevo/tevo');
 
 
@@ -748,9 +756,20 @@ function processPostback(event) {
                 //var MonthsQuickReply = require('../modules/tevo/months_replay');
                 //MonthsQuickReply.send(Message, senderId, "Please choose month...");
                 Message.markSeen(senderId);
-                Message.getLocation(senderId, 'What location would you like to get a bite at?');
+                Message.getLocation(senderId, 'What location would you like to catch a show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
 
             }
             break;
@@ -950,6 +969,33 @@ function saveUserSelection(senderId, selection) {
 
     });
 }
+
+function saveCategorySelection(senderId, category) {
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, result) {
+         
+        if (!err) {
+            if (null != result) {
+                result.context = 'find_my_event_by_category'
+                result.categorySearchSelected.push(category);
+                result.save(function (err) {
+                    if (!err) {
+                        console.log('Guardamos la categoria seleccionada' + category);
+                    } else {
+                        console.log('Error guardando la categoria')
+                    }
+                });
+            }
+        }
+
+    });
+}
+
 
 function saluda(senderId) {
 
