@@ -6,8 +6,8 @@ module.exports = function () {
             var TevoClient = require('ticketevolution-node');
             var moment = require('moment');
 
-      
-            
+
+
 
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
@@ -110,6 +110,17 @@ module.exports = function () {
                                         "title": "Book"
                                     }]
                                 });
+
+                                if (j + 1 == resultEvent.length)
+                                    eventButtons_.push({
+                                        "title": "See more events",
+
+                                        "buttons": [{
+                                            "type": "postback",
+                                            "title": "Start Chatting",
+                                            "payload": "DEVELOPER_DEFINED_PAYLOAD"
+                                        }]
+                                    });
                             }
 
 
@@ -137,15 +148,7 @@ module.exports = function () {
                                     if (counter == gButtons.length) {
 
 
-                                        gButtons.push({
-                                            "title": "See more events",  
-                                            
-                                            "buttons": [{
-                                                "type":"postback",
-                                                "title":"Start Chatting",
-                                                "payload":"DEVELOPER_DEFINED_PAYLOAD"
-                                            }]
-                                        });
+
 
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
                                         // Message.genericButton(senderId, gButtons);
