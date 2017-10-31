@@ -116,21 +116,14 @@ module.exports = function () {
                             }
 
                             eventButtons_.push({
-                                "title": "See more events", // +' '+ resultEvent[0].category.name,
-                                "image_url": resultEvent[0].category.name,
-                                "subtitle": resultEvent[0].venue.name + " " + occurs_at,
-                                "default_action": {
-                                    "type": "web_url",
-                                    "url": baseURL + resultEvent[0].id + '&uid=' + senderId + '&venue_id=' + resultEvent[0].venue.id + '&performer_id=' + resultEvent[0].performances[0].performer.id + '&event_name=' + resultEvent[0].name
-                                    /*,
-                                    "messenger_extensions": true,
-                                    "webview_height_ratio": "tall",
-                                    "fallback_url": baseURL + resultEvent[0].id + '&uid=' + senderId + '&venue_id=' + resultEvent[0].venue.id + '&performer_id=' + resultEvent[0].performances[0].performer.id + '&event_name=' + resultEvent[0].name*/
-                                },
+                                "title": "See more" +resultEvent[0].name + " events", // +' '+ resultEvent[0].category.name,
+                                "image_url": "",
+                                
+                              
                                 "buttons": [{
-                                    "type": "web_url",
-                                    "url": baseURL + resultEvent[0].id + '&uid=' + senderId + '&venue_id=' + resultEvent[0].venue.id + '&performer_id=' + resultEvent[0].performances[0].performer.id + '&event_name=' + resultEvent[0].name,
-                                    "title": "Book"
+                                    "type": "postback",
+                                    "title": "See more events",
+                                    "payload": "find_my_event_see_more_events"
                                 }]
                             });
 
