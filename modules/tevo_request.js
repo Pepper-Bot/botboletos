@@ -116,9 +116,9 @@ module.exports = function () {
                                         "title": "See more events",
 
                                         "buttons": [{
-                                            "type": "postback",
-                                            "title": "Start Chatting",
-                                            "payload": "DEVELOPER_DEFINED_PAYLOAD"
+                                            "type": "web_url",
+                                            "url": "Start Chatting",
+                                            "title": "DEVELOPER_DEFINED_PAYLOAD"
                                         }]
                                     });
                             }
