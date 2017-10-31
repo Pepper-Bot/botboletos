@@ -252,29 +252,27 @@ function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum,
         for (let indice = 0; indice < categoriesArray.length; indice++) {
 
             searchEventsByCategoryIdAndLocation(categoriesArray[indice].id, lat, lon).then((resultado) => {
-                if (resultado.events.length > 0) {
-                    let events = resultado.events;
 
-                    for (let j = 0; j < events.length; j++) {
-                        console.log('events[j] >>>> ' + events[j].name);
-                        eventsArray.push({
-                            "id": events[j].id,
-                            "name": events[j].name,
-                            "category_name": events[j].category.name,
-                            "occurs_at": events[j].occurs_at,
-                            "performer_id": events[j].performances[0].performer.id,
-                            "performer_name": events[j].performances[0].performer.name,
-                            "venue_id": events[j].venue.id,
-                            "venue_name": events[j].venue.name
-                        });
+                let events = resultado.events;
 
-                        if (acum + 1 == categoriesArray.length) {
-                            resolve(eventsArray);
-                        }
+                for (let j = 0; j < events.length; j++) {
+                    console.log('events[j] >>>> ' + events[j].name);
+                    eventsArray.push({
+                        "id": events[j].id,
+                        "name": events[j].name,
+                        "category_name": events[j].category.name,
+                        "occurs_at": events[j].occurs_at,
+                        "performer_id": events[j].performances[0].performer.id,
+                        "performer_name": events[j].performances[0].performer.name,
+                        "venue_id": events[j].venue.id,
+                        "venue_name": events[j].venue.name
+                    });
+
+                    if (acum + 1 == categoriesArray.length) {
+                        resolve(eventsArray);
                     }
-                } else {
-                    console.log('Sin resultados por category ' + categoriesArray[indice].id + ' Latitid: ' + lat + ' Longitud: ' + lon)
                 }
+
 
             }).then(() => {
                 acum = acum + 1;
@@ -447,21 +445,21 @@ function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon)
     searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
         searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {
             //return eventsArray
-            if(eventsArray.length<=0){
+            if (eventsArray.length <= 0) {
                 Message.sendMessage(senderId, "No Events Found Near Your Given Location");
             }
             for (let i = 0; i < eventsArray.length; i++) {
                 // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
             }
             convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
-               /* for (let i = 0; i < eventsButtons_.length; i++) {
-                    console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
-                }*/
+                /* for (let i = 0; i < eventsButtons_.length; i++) {
+                     console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+                 }*/
                 setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
-                   /* console.log("gButtons.length >>> " + gButtons.length);
-                    for (let i = 0; i < gButtons.length; i++) {
-                        console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
-                    }*/
+                    /* console.log("gButtons.length >>> " + gButtons.length);
+                     for (let i = 0; i < gButtons.length; i++) {
+                         console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
+                     }*/
                 });
             });
 
