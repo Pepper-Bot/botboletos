@@ -116,7 +116,7 @@ module.exports = function () {
                             }
 
                             eventButtons_.push({
-                                "title": "See more" + resultEvent[0].name + " events", // +' '+ resultEvent[0].category.name,
+                                "title": "See more " + resultEvent[0].name + " events", // +' '+ resultEvent[0].category.name,
 
 
 
@@ -144,7 +144,7 @@ module.exports = function () {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
 
-                                    if (index < 10)
+                                    if (index < 9)
                                         gButtons[index].image_url = images[imageIndex].url;
                                     counter++;
                                     if (counter == gButtons.length) {
