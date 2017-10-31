@@ -111,25 +111,7 @@ module.exports = function () {
                                     }]
                                 });
 
-                                if (j + 1 == resultEvent.length)
-                                    eventButtons_.push({
-                                        "title": "See more events",
-                                        "image_url": "http://www.malle-fuer-alle.net/images/ME.jpg",
-                                        "subtitle":"more",
-                                        "default_action": {
-                                            "type": "web_url",
-                                            "url":  "https://www.google.com.mx/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjK4afVlZvXAhUP52MKHfpKDK4QjRwIBw&url=http%3A%2F%2Fwww.sacculturalhub.com%2Furban-weekly%2Fissue-august-5-2015&psig=AOvVaw1xsCuzQLsTGh_N3IG1CDPb&ust=1509549870805859"
-                                            /*,
-                                            "messenger_extensions": true,
-                                            "webview_height_ratio": "tall",
-                                            "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
-                                        },
-                                        "buttons": [{
-                                            "type": "web_url",
-                                            "url": "https://www.google.com.mx/url?sa=i&rct=j&q=&esrc=s&source=images&cd=&cad=rja&uact=8&ved=0ahUKEwjK4afVlZvXAhUP52MKHfpKDK4QjRwIBw&url=http%3A%2F%2Fwww.sacculturalhub.com%2Furban-weekly%2Fissue-august-5-2015&psig=AOvVaw1xsCuzQLsTGh_N3IG1CDPb&ust=1509549870805859",
-                                            "title": "DEVELOPER_DEFINED_PAYLOAD"
-                                        }]
-                                    });
+                               
                             }
 
 
