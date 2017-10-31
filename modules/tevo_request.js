@@ -116,10 +116,7 @@ module.exports = function () {
                             }
 
                             eventButtons_.push({
-                                "title": "See more " + resultEvent[0].name + " events", // +' '+ resultEvent[0].category.name,
-
-
-
+                                "title": "See more events", 
                                 "buttons": [{
                                     "type": "postback",
                                     "title": "See more events",

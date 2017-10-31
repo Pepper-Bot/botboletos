@@ -723,10 +723,8 @@ function processPostback(event) {
 
     switch (payload) {
 
-        case "find_my_event_show_me_more":
+        case "find_my_event_see_more_events":
             {
-                //var MonthsQuickReply = require('../modules/tevo/months_replay');
-                //MonthsQuickReply.send(Message, senderId, "Please choose month...");
                 var busqueda = ''
                 startTevoModuleWithMlink(busqueda, senderId)
                 context = ''
@@ -740,6 +738,19 @@ function processPostback(event) {
                     foundUser.context = ''
                     foundUser.save();
                 });
+
+            }
+            break;
+
+        case "find_my_event_show_me_more":
+            {
+                var aki = ""
+                //var MonthsQuickReply = require('../modules/tevo/months_replay');
+                //MonthsQuickReply.send(Message, senderId, "Please choose month...");
+                Message.markSeen(senderId);
+                Message.getLocation(senderId, 'What location would you like to get a bite at?');
+                Message.typingOn(senderId);
+                saveUserSelection(senderId, 'Events');
 
             }
             break;
