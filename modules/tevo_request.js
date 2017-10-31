@@ -111,26 +111,7 @@ module.exports = function () {
                                     }]
                                 });
 
-                                if (j + 1 == resultEvent.length)
-                                    eventButtons_.push({
-                                        "title": "See more", 
-                                        "image_url": "More",
-                                        "subtitle": resultEvent[0].venue.name,
-                                        "default_action": {
-                                            "type": "web_url",
-                                            "url": baseURL + resultEvent[0].id + '&uid=' + senderId + '&venue_id=' + resultEvent[0].venue.id + '&performer_id=' + resultEvent[0].performances[0].performer.id + '&event_name=' + resultEvent[0].name
-                                            /*,
-                                            "messenger_extensions": true,
-                                            "webview_height_ratio": "tall",
-                                            "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
-                                        },
-                                        "buttons": [{
-                                            "type": "web_url",
-                                            "url": baseURL + resultEvent[0].id + '&uid=' + senderId + '&venue_id=' + resultEvent[0].venue.id + '&performer_id=' + resultEvent[0].performances[0].performer.id + '&event_name=' + resultEvent[0].name,
-                                            "title": "Book"
-                                        }]
-                                    });
-
+                               
 
                             }
 
