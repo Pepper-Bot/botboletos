@@ -271,6 +271,8 @@ function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum,
                             resolve(eventsArray);
                         }
                     }
+                }else{
+                    console.log('Sin resultados por category '+ categoriesArray[indice].id + ' Latitid: '+ lat  + ' Longitud: ' + lon   )
                 }
 
             }).then(() => {
