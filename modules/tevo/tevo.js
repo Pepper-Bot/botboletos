@@ -54,7 +54,7 @@ var searchEventsByCategoryIdAndLocation = (category_id, lat, lon) => {
     return new Promise((res, rej) => {
         //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
         let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&lat=' + lat + '&lon=' + lon + '&only_with_tickets=all'
-    
+
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
                 console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
@@ -252,7 +252,7 @@ function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum,
         for (let indice = 0; indice < categoriesArray.length; indice++) {
 
             searchEventsByCategoryIdAndLocation(categoriesArray[indice].id, lat, lon).then((resultado) => {
-                if (resultado.events) {
+                if (resultado.events.length > 0) {
                     let events = resultado.events;
 
                     for (let j = 0; j < events.length; j++) {
