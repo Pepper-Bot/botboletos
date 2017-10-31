@@ -40,7 +40,7 @@ var searchCategoriesByParentId = (parent_id) => {
 var searchEventsByCategoryId = (category_id) => {
     return new Promise((res, rej) => {
         //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
-        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all'
+        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_available_tickets=true'
         console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
@@ -53,7 +53,7 @@ var searchEventsByCategoryId = (category_id) => {
 var searchEventsByCategoryIdAndLocation = (category_id, lat, lon) => {
     return new Promise((res, rej) => {
         //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
-        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&lat=' + lat + '&lon=' + lon + '&only_with_tickets=all'
+        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&lat=' + lat + '&lon=' + lon + '&only_with_available_tickets=true&within=100'
 
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
@@ -67,7 +67,7 @@ var searchEventsByCategoryIdAndLocation = (category_id, lat, lon) => {
 
 var searchEventsByCategoryIdAndDate = (category_id, occurs_at_gte, occurs_at_lte) => {
     return new Promise((res, rej) => {
-        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
+        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
         console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
