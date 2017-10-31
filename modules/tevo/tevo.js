@@ -54,9 +54,10 @@ var searchEventsByCategoryIdAndLocation = (category_id, lat, lon) => {
     return new Promise((res, rej) => {
         //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
         let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&lat=' + lat + '&lon=' + lon + '&only_with_tickets=all'
-        console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+       // console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
+
                 res(json);
             }).catch(err => console.log("Error en la function searchEventsByCategoryIdAndLocation  " + err.message));
         }
