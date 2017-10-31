@@ -139,20 +139,11 @@ module.exports = function () {
 
                                         gButtons.push({
                                             "title": "See more events",  
-                                            "image_url": "http://www.malle-fuer-alle.net/images/ME.jpg",
-                                            "subtitle": "More events",
-                                            "default_action": {
-                                                "type": "web_url",
-                                                "url": "http://www.malle-fuer-alle.net/images/ME.jpg"
-                                                /*,
-                                                "messenger_extensions": true,
-                                                "webview_height_ratio": "tall",
-                                                "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
-                                            },
+                                            
                                             "buttons": [{
-                                                "type": "postback",
-                                                "title": "See more events",
-                                                "payload": "find_my_event_see_more_events"
+                                                "type":"postback",
+                                                "title":"Start Chatting",
+                                                "payload":"DEVELOPER_DEFINED_PAYLOAD"
                                             }]
                                         });
 
