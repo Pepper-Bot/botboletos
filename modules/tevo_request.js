@@ -138,12 +138,12 @@ module.exports = function () {
 
 
                                         gButtons.push({
-                                            "title": "",  
-                                            "image_url": "",
-                                            "subtitle": "",
+                                            "title": "See more events",  
+                                            "image_url": "http://www.malle-fuer-alle.net/images/ME.jpg",
+                                            "subtitle": "More events",
                                             "default_action": {
                                                 "type": "web_url",
-                                                "url": ""
+                                                "url": "http://www.malle-fuer-alle.net/images/ME.jpg"
                                                 /*,
                                                 "messenger_extensions": true,
                                                 "webview_height_ratio": "tall",
