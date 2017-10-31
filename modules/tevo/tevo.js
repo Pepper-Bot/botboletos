@@ -465,7 +465,8 @@ module.exports = {
     searchEventsByParentNameSecondStep,
     convertEventsToEventsTemplate,
     setImagesToEventsTemplate,
-    startByParentsCategories
+    startByParentsCategories,
+    startByParentsCategoriesAndLocation
 
 
 }

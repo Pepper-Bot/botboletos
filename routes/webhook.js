@@ -155,33 +155,53 @@ function processLocation(senderId, locationData) {
             if (result !== null) {
 
 
-                var totalElements = result.optionsSelected.length;
-                if (totalElements < 1) {
-                    return;
+
+
+                if (result.context == "find_my_event_by_category") {
+                    var category = result.categorySearchSelected[totalElements - 1];
+
+                    let lat = locationData.payload.coordinates.lat;
+                    let lon = locationData.payload.coordinates.long;
+
+                    var tevo = require('../modules/tevo/tevo');
+                    tevo.startByParentsCategoriesAndLocation(senderId, category, 0, lat, long)
+                    saveContext(senderId, "");
+
+
+                } else {
+                    var totalElements = result.optionsSelected.length;
+                    if (totalElements < 1) {
+                        return;
+                    }
+
+                    var lastSelected = result.optionsSelected[totalElements - 1];
+
+                    if ('Food' == lastSelected) {
+                        var Food = require('../modules/food');
+                        Food.get(Message, result, locationData);
+
+                    } else if ('Events' == lastSelected) {
+                        /* Llamamos al módulo de ventos */
+                        /*                           var Events = require('../modules/events');
+                                                    Events.get(Message, result, locationData);
+                        */
+                        var Evo = require('../modules/ticketevo');
+                        Evo.get(Message, result, locationData);
+
+                    } else if ('Drinks' == lastSelected) {
+
+                        var Drink = require('../modules/drink');
+                        Drink.get(Message, result, locationData);
+
+                    }
+
+
                 }
 
 
 
-                var lastSelected = result.optionsSelected[totalElements - 1];
 
-                if ('Food' == lastSelected) {
-                    var Food = require('../modules/food');
-                    Food.get(Message, result, locationData);
 
-                } else if ('Events' == lastSelected) {
-                    /* Llamamos al módulo de ventos */
-                    /*                           var Events = require('../modules/events');
-                                                Events.get(Message, result, locationData);
-                    */
-                    var Evo = require('../modules/ticketevo');
-                    Evo.get(Message, result, locationData);
-
-                } else if ('Drinks' == lastSelected) {
-
-                    var Drink = require('../modules/drink');
-                    Drink.get(Message, result, locationData);
-
-                }
 
 
                 result.location.coordinates = [locationData.payload.coordinates.lat, locationData.payload.coordinates.long];
@@ -451,21 +471,15 @@ function processQuickReplies(event) {
         if (payload == text) {
 
 
-
+            //aki2
             Message.markSeen(senderId);
             Message.getLocation(senderId, 'What location would you like to catch a show?');
             Message.typingOn(senderId);
-            saveUserSelection(senderId, 'Events');
+            saveCategorySelection(senderId, text);
 
 
 
-            var tevo = require('../modules/tevo/tevo');
 
-
-            tevo.startByParentsCategories(senderId, text, 0)
-
-
-            Message.sendMessage(senderId, 'Categoría Padre escogida ' + text);
             break;
 
         }
@@ -944,6 +958,34 @@ function find_my_event(senderId) {
 };
 
 
+function saveContext(senderId, context) {
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, result) {
+
+        if (!err) {
+            if (null != result) {
+                result.context = context;
+                result.save(function (err) {
+                    if (!err) {
+
+                        console.log('Guardamos el context de ' + context);
+                    } else {
+                        console.log('Error guardando context')
+                    }
+                });
+            }
+        }
+
+    });
+}
+
+
+
 function saveUserSelection(senderId, selection) {
     UserData2.findOne({
         fbId: senderId
@@ -978,7 +1020,7 @@ function saveCategorySelection(senderId, category) {
             'sessionStart': -1
         }
     }, function (err, result) {
-         
+
         if (!err) {
             if (null != result) {
                 result.context = 'find_my_event_by_category'
