@@ -46,7 +46,7 @@ module.exports = function () {
 
 
 
-                            if ((position * 10) > resultEvent.length - 10) {
+                            if ((position * 9) > resultEvent.length - 9) {
                                 position = 0;
                                 UserData2.findOne({
                                     fbId: senderId
@@ -70,11 +70,11 @@ module.exports = function () {
 
                                 });
                             }
-                            if (resultEvent.length >= 10) {
-                                if (10 * (position + 1) < resultEvent.length + 1)
-                                    resultEvent.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
+                            if (resultEvent.length >= 9) {
+                                if (9 * (position + 1) < resultEvent.length + 1)
+                                    resultEvent.splice(9 * (position + 1), resultEvent.length - 9 * (position + 1));
                                 if (position - 1 >= 0)
-                                    resultEvent.splice(0, 10 * (position));
+                                    resultEvent.splice(0, 9 * (position));
                             }
 
                             console.log('TENEMOS  ' + resultEvent.length + ' EVENTOS LUEGO DE RECORTARLOS    <<<<<<<<<<<<<<<<<<<<<<<<<<');
@@ -115,7 +115,24 @@ module.exports = function () {
 
                             }
 
-
+                            eventButtons_.push({
+                                "title": "See more events", // +' '+ resultEvent[0].category.name,
+                                "image_url": resultEvent[0].category.name,
+                                "subtitle": resultEvent[0].venue.name + " " + occurs_at,
+                                "default_action": {
+                                    "type": "web_url",
+                                    "url": baseURL + resultEvent[0].id + '&uid=' + senderId + '&venue_id=' + resultEvent[0].venue.id + '&performer_id=' + resultEvent[0].performances[0].performer.id + '&event_name=' + resultEvent[0].name
+                                    /*,
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": baseURL + resultEvent[0].id + '&uid=' + senderId + '&venue_id=' + resultEvent[0].venue.id + '&performer_id=' + resultEvent[0].performances[0].performer.id + '&event_name=' + resultEvent[0].name*/
+                                },
+                                "buttons": [{
+                                    "type": "web_url",
+                                    "url": baseURL + resultEvent[0].id + '&uid=' + senderId + '&venue_id=' + resultEvent[0].venue.id + '&performer_id=' + resultEvent[0].performances[0].performer.id + '&event_name=' + resultEvent[0].name,
+                                    "title": "Book"
+                                }]
+                            });
 
 
                             gButtons = null;
