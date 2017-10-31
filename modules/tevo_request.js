@@ -117,7 +117,7 @@ module.exports = function () {
                             eventButtons_.push({
                                 "title": resultEvent[0].name, // +' '+ resultEvent[j].category.name,
                                 "image_url": resultEvent[0].category.name,
-                                "subtitle": resultEvent[0].venue.name + " " + occurs_at,
+                                "subtitle": resultEvent[0].venue.name ,
                                 "default_action": {
                                     "type": "web_url",
                                     "url": baseURL + resultEvent[0].id + '&uid=' + senderId + '&venue_id=' + resultEvent[0].venue.id + '&performer_id=' + resultEvent[0].performances[0].performer.id + '&event_name=' + resultEvent[0].name
