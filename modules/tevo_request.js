@@ -37,7 +37,7 @@ module.exports = function () {
                     } else {
 
                         if (json.events.length > 0) {
-                            console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<POSITION > '  + position);
+                            console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<POSITION > ' + position);
                             var resultEvent = [];
                             resultEvent = json.events;
                             var eventButtons_ = [];
@@ -111,15 +111,15 @@ module.exports = function () {
                                     }]
                                 });
 
-                               
+
 
                             }
 
                             eventButtons_.push({
-                                "title": "See more" +resultEvent[0].name + " events", // +' '+ resultEvent[0].category.name,
-                                "image_url": "",
-                                
-                              
+                                "title": "See more" + resultEvent[0].name + " events", // +' '+ resultEvent[0].category.name,
+
+
+
                                 "buttons": [{
                                     "type": "postback",
                                     "title": "See more events",
@@ -144,8 +144,8 @@ module.exports = function () {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
 
-
-                                    gButtons[index].image_url = images[imageIndex].url;
+                                    if (index < 10)
+                                        gButtons[index].image_url = images[imageIndex].url;
                                     counter++;
                                     if (counter == gButtons.length) {
 
