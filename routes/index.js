@@ -75,7 +75,8 @@ router.get("/api/events/category/:category_id/occurs_at_gte/:occurs_at_gte/occur
 router.get("/api/events/:name/occurs_at_gte/:occurs_at_gte/occurs_at_lte/:occurs_at_lte",
 	MLinkController.searchEventByNameAndDate);
 
-
+router.get("/api/events/category/:category_id/lat/:lat/lon/:lon",
+	MLinkController.searchEventsByCategoryIdAndLocation);
 
 
 
