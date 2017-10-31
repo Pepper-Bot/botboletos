@@ -114,11 +114,11 @@ module.exports = function () {
                                 if (j + 1 == resultEvent.length)
                                     eventButtons_.push({
                                         "title": "See more events",
-                                        "image_url": "more",
+                                        "image_url": "http://www.malle-fuer-alle.net/images/ME.jpg",
                                         "subtitle":"more",
                                         "default_action": {
                                             "type": "web_url",
-                                            "url":  ""
+                                            "url":  "http://www.malle-fuer-alle.net/images/ME.jpg"
                                             /*,
                                             "messenger_extensions": true,
                                             "webview_height_ratio": "tall",
