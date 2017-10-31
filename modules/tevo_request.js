@@ -138,7 +138,7 @@ module.exports = function () {
                             gButtons = null;
                             gButtons = eventButtons_;
                             counter = 0;
-
+    console.log('gButtons.length> '+ gButtons.length);
                             for (var z = 0, k = gButtons.length ; z < k; z++) {
 
 
