@@ -82,6 +82,7 @@ router.post('/', function (req, res) {
 });
 
 function processMessage(senderId, textMessage) {
+   
     console.log("context >>> " + context);
     if (context) {
         switch (context) {
@@ -219,7 +220,18 @@ function processQuickReplies(event) {
             {
                 var MonthsQuickReply = require('../modules/tevo/months_replay');
                 MonthsQuickReply.send(Message, senderId, "Please choose month...");
-                context = ''
+               
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = '' 
+                    foundUser.save();
+                });
+
             }
             break;
 
@@ -231,6 +243,17 @@ function processQuickReplies(event) {
                 var busqueda = ''
                 startTevoModuleWithMlink(busqueda, senderId);
                 context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = '' 
+                    foundUser.save();
+                });
+
             }
 
             break;
@@ -244,6 +267,17 @@ function processQuickReplies(event) {
                 //find_my_event_by_category"
                 //find_my_event_by_name 
                 context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = '' 
+                    foundUser.save();
+                });
+
             }
 
             break;
@@ -254,7 +288,17 @@ function processQuickReplies(event) {
                 var CategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
                 //var ButtonsEventsQuery = require('../modules/buttons_event_query');
                 CategoriesQuickReplay.send(Message, senderId, "Please choose category....");
-                context = 'find_my_event_by_category'
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = '' 
+                    foundUser.save();
+                });
 
             }
 
@@ -264,7 +308,17 @@ function processQuickReplies(event) {
             {
 
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
-                context = 'find_my_event_by_name'
+               
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = 'find_my_event_by_name' 
+                    foundUser.save();
+                });
             }
 
             break;
@@ -666,6 +720,16 @@ function processPostback(event) {
                 var busqueda = ''
                 startTevoModuleWithMlink(busqueda, senderId)
                 context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = '' 
+                    foundUser.save();
+                });
 
             }
             break;
@@ -675,6 +739,17 @@ function processPostback(event) {
                 var SearchQuickReply = require('../modules/tevo/search_quick_replay');
                 SearchQuickReply.send(Message, senderId);
                 context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = '' 
+                    foundUser.save();
+                });
+
             }
             break;
 
@@ -683,6 +758,18 @@ function processPostback(event) {
 
                 Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
                 context = 'find_my_event_by_name'
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = 'find_my_event_by_name' 
+                    foundUser.save();
+                });
+
             }
             break;
 
@@ -695,7 +782,16 @@ function processPostback(event) {
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
                 context = ''
-
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = '' 
+                    foundUser.save();
+                });
             }
             break;
 
@@ -718,6 +814,16 @@ function processPostback(event) {
                 });
                 context = ''
 
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = '' 
+                    foundUser.save();
+                });
 
 
             }

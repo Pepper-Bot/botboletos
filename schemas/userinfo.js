@@ -46,7 +46,7 @@ var UserData = mongoose.Schema({
 			default: 0
 		}
 	},
-	context: []
+	context: String
 
 });
 

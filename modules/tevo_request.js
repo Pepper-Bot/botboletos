@@ -6,8 +6,8 @@ module.exports = function () {
             var TevoClient = require('ticketevolution-node');
             var moment = require('moment');
 
-            var UserData = require('../bot/userinfo');
-            var UserData2 = require('../schemas/userinfo');
+      
+            
 
             var tevoClient = new TevoClient({
                 apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
@@ -135,6 +135,27 @@ module.exports = function () {
                                     gButtons[index].image_url = images[imageIndex].url;
                                     counter++;
                                     if (counter == gButtons.length) {
+
+
+                                        gButtons.push({
+                                            "title": "",  
+                                            "image_url": "",
+                                            "subtitle": "",
+                                            "default_action": {
+                                                "type": "web_url",
+                                                "url": ""
+                                                /*,
+                                                "messenger_extensions": true,
+                                                "webview_height_ratio": "tall",
+                                                "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
+                                            },
+                                            "buttons": [{
+                                                "type": "postback",
+                                                "title": "See more events",
+                                                "payload": "find_my_event_see_more_events"
+                                            }]
+                                        });
+
                                         console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
                                         // Message.genericButton(senderId, gButtons);
 
