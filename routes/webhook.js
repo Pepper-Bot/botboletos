@@ -91,10 +91,10 @@ function processMessage(senderId, textMessage) {
             'sessionStart': -1
         }
     }, function (err, foundUser) {
-        if (foundUser.context = 'find_my_event_by_name') {
+        if (foundUser.context === 'find_my_event_by_name') {
+            console.log(foundUser.context);
             startTevoModuleWithMlink(textMessage, senderId);
-        }
-        else{
+        } else {
             find_my_event(senderId);
 
         }
@@ -135,7 +135,7 @@ function processMessage(senderId, textMessage) {
             }
         });
 
-    } 
+    }
     //aaki iba esta respuesta por default
     //var DefaultReply = require('../modules/defaultreply');
     //DefaultReply.send(Message, senderId);

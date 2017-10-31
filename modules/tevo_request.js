@@ -37,7 +37,7 @@ module.exports = function () {
                     } else {
 
                         if (json.events.length > 0) {
-                            console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<<<<<<<<<<<<<<<<')
+                            console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<POSITION > '  + position);
                             var resultEvent = [];
                             resultEvent = json.events;
                             var eventButtons_ = [];
