@@ -442,6 +442,14 @@ function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon)
     searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
         searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {
             //return eventsArray
+            if (!eventsButtons_.length > 0) {
+                console.log(">>> No Events XD ");
+                Message.sendMessage(senderId, "No Found Events ");
+            }
+
+            for (let i = 0; i < eventsButtons_.length; i++) {
+                console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+            }
             convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
                 // return eventsButtons_
                 setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
