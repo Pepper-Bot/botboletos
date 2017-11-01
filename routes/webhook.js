@@ -156,8 +156,9 @@ function processLocation(senderId, locationData) {
 
 
 
-
                 if (result.context == "find_my_event_by_category") {
+
+                    var totalElements = result.categorySearchSelected.length;
                     var category = result.categorySearchSelected[totalElements - 1];
 
                     let lat = locationData.payload.coordinates.lat;
@@ -459,16 +460,16 @@ function processQuickReplies(event) {
     var tevo_categories = require('../modules/tevo/tevo_categories');
     var repliesArray = [];
     var parentCategories = tevo_categories.getParentCategories();
-    var text = '';
+   
     for (var i = 0; i < parentCategories.length; i++) {
-
+        let categoria = '';
         if (parentCategories[i].Sports) {
-            text = "Sports";
+            categoria = "Sports";
         } else {
-            text = parentCategories[i].name;
+            categoria = parentCategories[i].name;
         }
 
-        if (payload == text) {
+        if (payload == categoria) {
 
 
             //aki2
@@ -486,10 +487,10 @@ function processQuickReplies(event) {
                 if (!err) {
                     if (null != result) {
                         result.context = 'find_my_event_by_category'
-                        result.categorySearchSelected.push(text);
+                        result.categorySearchSelected.push(categoria);
                         result.save(function (err) {
                             if (!err) {
-                                console.log('Guardamos laa categoria ' + text);
+                                console.log('Guardamos laa categoria ' + categoria);
                                 Message.markSeen(senderId);
                                 Message.getLocation(senderId, 'What location would you like to catch a show?');
                                 Message.typingOn(senderId);
