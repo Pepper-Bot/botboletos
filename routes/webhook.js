@@ -472,8 +472,8 @@ function processQuickReplies(event) {
 
 
             //aki2
-            
-          
+
+
 
             UserData2.findOne({
                 fbId: senderId
@@ -482,14 +482,14 @@ function processQuickReplies(event) {
                     'sessionStart': -1
                 }
             }, function (err, result) {
-        
+
                 if (!err) {
                     if (null != result) {
                         result.context = 'find_my_event_by_category'
                         result.categorySearchSelected.push(text);
                         result.save(function (err) {
                             if (!err) {
-                                console.log('Guardamos laa categoria '+ text);
+                                console.log('Guardamos laa categoria ' + text);
                                 Message.markSeen(senderId);
                                 Message.getLocation(senderId, 'What location would you like to catch a show?');
                                 Message.typingOn(senderId);
@@ -499,7 +499,7 @@ function processQuickReplies(event) {
                         });
                     }
                 }
-        
+
             });
 
 
