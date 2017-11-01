@@ -281,6 +281,9 @@ function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum,
 
             });
 
+            if (acum + 1 == categoriesArray.length) {
+                resolve(eventsArray);
+            }
         }
 
     });
