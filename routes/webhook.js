@@ -1011,7 +1011,7 @@ function find_my_event(senderId) {
 
             var name = bodyObj.first_name;
             var greeting = "Hi " + name;
-            var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
+            var messagetxt = greeting; //+ ", Please enter your favorite artist, sport  team or event.";
 
 
 

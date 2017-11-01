@@ -10,11 +10,7 @@ module.exports = function () {
                 Message.typingOn(senderId);
     
                 var buttons = [
-                    {
-                        "type": "postback",
-                        "title": "Show me more",
-                        "payload": "find_my_event_show_me_more"
-                    },
+                    
                     {
                         "type": "postback",
                         "title": "Search Event",
