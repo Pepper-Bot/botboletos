@@ -31,7 +31,7 @@ module.exports = function () {
                     Message.typingOn(senderId);
                     Message.markSeen(senderId);
                     Message.typingOn(senderId);
-                    Message.sendMessage(senderId, "Book " + event_name  + " Events");
+                    Message.sendMessage(senderId, "Book " + event_name + " Events");
                     if (json.error) {
                         Message.sendMessage(senderId, json.error);
                     } else {
@@ -45,32 +45,32 @@ module.exports = function () {
                             var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 
 
-
-                            if ((position * 9) > resultEvent.length - 9) {
-                                position = 0;
-                                UserData2.findOne({
-                                    fbId: senderId
-                                }, {}, {
-                                    sort: {
-                                        'sessionStart': -1
-                                    }
-                                }, function (err, foundUser) {
-                                    if (!err) {
-                                        if (null != foundUser) {
-                                            foundUser.showMemore.index1 = 0
-                                            foundUser.save(function (err) {
-                                                if (!err) {
-                                                    console.log("index1 en cero");
-                                                } else {
-                                                    console.log("error al actualizar el index 0");
-                                                }
-                                            });
-                                        }
-                                    }
-
-                                });
-                            }
                             if (resultEvent.length >= 9) {
+                                if ((position * 9) > resultEvent.length - 9) {
+                                    position = 0;
+                                    UserData2.findOne({
+                                        fbId: senderId
+                                    }, {}, {
+                                        sort: {
+                                            'sessionStart': -1
+                                        }
+                                    }, function (err, foundUser) {
+                                        if (!err) {
+                                            if (null != foundUser) {
+                                                foundUser.showMemore.index1 = 0
+                                                foundUser.save(function (err) {
+                                                    if (!err) {
+                                                        console.log("index1 en cero");
+                                                    } else {
+                                                        console.log("error al actualizar el index 0");
+                                                    }
+                                                });
+                                            }
+                                        }
+
+                                    });
+                                }
+
                                 if (9 * (position + 1) < resultEvent.length + 1)
                                     resultEvent.splice(9 * (position + 1), resultEvent.length - 9 * (position + 1));
                                 if (position - 1 >= 0)
@@ -158,8 +158,8 @@ module.exports = function () {
                                         saveUsuarioAndEventSearchLastSelected(senderId, event_name);
 
                                         var GenericButton = require('../bot/generic_buttton');
-                                       GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
-                                       //GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
+                                        GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
+                                        //GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
 
                                         Message.typingOff(senderId);
                                     }
