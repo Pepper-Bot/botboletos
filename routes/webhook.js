@@ -247,7 +247,7 @@ function processQuickReplies(event) {
                 //var MonthsQuickReply = require('../modules/tevo/months_replay');
                 //MonthsQuickReply.send(Message, senderId, "Please choose month...");
                 Message.markSeen(senderId);
-                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.getLocation(senderId, 'Where would you like to see an event?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
                 context = ''
@@ -399,7 +399,7 @@ function processQuickReplies(event) {
 
 
                 Message.markSeen(senderId);
-                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.getLocation(senderId, 'Where would you like to see an event?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
                 context = ''
@@ -554,7 +554,7 @@ function processQuickReplies(event) {
                             if (!err) {
                                 console.log('Guardamos laa categoria ' + categoria);
                                 Message.markSeen(senderId);
-                                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                                Message.getLocation(senderId, 'Where would you like to see an event?');
                                 Message.typingOn(senderId);
                             } else {
                                 console.log('Error guardando la categoria')
@@ -600,7 +600,7 @@ function processQuickReplies(event) {
                 if ('Food' == lastSelected) {
 
                     Message.markSeen(senderId);
-                    Message.getLocation(senderId, 'What location would you like to get a bite at?');
+                    Message.getLocation(senderId, 'Where would you like to see an event?');
 
                     Message.typingOn(senderId);
                     //sleep(1000);
@@ -859,7 +859,7 @@ function processPostback(event) {
                 //var MonthsQuickReply = require('../modules/tevo/months_replay');
                 //MonthsQuickReply.send(Message, senderId, "Please choose month...");
                 Message.markSeen(senderId);
-                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.getLocation(senderId, 'Where would you like to see an event?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
                 context = ''
@@ -921,7 +921,7 @@ function processPostback(event) {
 
 
                 Message.markSeen(senderId);
-                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.getLocation(senderId, 'Where would you like to see an event?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
                 context = ''
