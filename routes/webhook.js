@@ -240,14 +240,14 @@ function processQuickReplies(event) {
 
         case "find_my_event_yes":
             {
-                serData2.findOne({
+                UserData2.findOne({
                     fbId: senderId
                 }, {}, {
                     sort: {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    startTevoModuleWithMlink(foundUser.context, senderId);
+                    startTevoModuleWithMlink( foundUser.context, senderId);
 
                 });
             }
