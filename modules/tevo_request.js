@@ -28,16 +28,17 @@ module.exports = function () {
             var event_id = 0;
             if (tevoClient) {
                 tevoClient.getJSON(urlApiTevo).then((json) => {
-                    Message.typingOn(senderId);
-                    Message.markSeen(senderId);
-                    Message.typingOn(senderId);
-                    Message.sendMessage(senderId, "Book " + event_name + " Events");
-                    Message.typingOn(senderId);
                     if (json.error) {
                         Message.sendMessage(senderId, json.error);
                     } else {
 
                         if (json.events.length > 0) {
+                            Message.typingOn(senderId);
+                            Message.markSeen(senderId);
+                            Message.typingOn(senderId);
+                            Message.sendMessage(senderId, "Book " + event_name + " Events");
+                            Message.typingOn(senderId);
+
                             console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<POSITION > ' + position);
                             var resultEvent = [];
                             resultEvent = json.events;
