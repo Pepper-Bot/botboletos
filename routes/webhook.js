@@ -394,6 +394,28 @@ function processQuickReplies(event) {
 
             break;
 
+            case "find_my_event_by_location":
+            {
+
+
+                Message.markSeen(senderId);
+                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.typingOn(senderId);
+                saveUserSelection(senderId, 'Events');
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+            }
+            break;
+
 
         default:
             {
