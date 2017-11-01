@@ -9,18 +9,21 @@ module.exports = function () {
             Message.markSeen(senderId);
             Message.typingOn(senderId);
 
-            var replies = [{
-                    "content_type": "text",
-                    "title": "By Category",
-                    "payload": "find_my_event_by_category"
-
-                },
+            var replies = [
+                
                 {
                     "content_type": "text",
                     "title": "By name ",
                     "payload": "find_my_event_by_name"
                 }
                 ,
+                {
+                    "content_type": "text",
+                    "title": "By Category",
+                    "payload": "find_my_event_by_category"
+
+                },
+                
                 {
                     "content_type": "text",
                     "title": "By Location ",
