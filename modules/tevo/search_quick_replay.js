@@ -23,8 +23,8 @@ module.exports = function () {
                 ,
                 {
                     "content_type": "text",
-                    "title": "By month ",
-                    "payload": "find_my_event_by_month"
+                    "title": "By Location ",
+                    "payload": "find_my_event_by_location"
                 }
             ];
             Message.quickReply(senderId, "Choose options", replies);
