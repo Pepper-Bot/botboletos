@@ -472,10 +472,36 @@ function processQuickReplies(event) {
 
 
             //aki2
-            Message.markSeen(senderId);
-            Message.getLocation(senderId, 'What location would you like to catch a show?');
-            Message.typingOn(senderId);
-            saveCategorySelection(senderId, text);
+            
+          
+
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, result) {
+        
+                if (!err) {
+                    if (null != result) {
+                        result.context = 'find_my_event_by_category'
+                        result.categorySearchSelected.push(text);
+                        result.save(function (err) {
+                            if (!err) {
+                                console.log('Guardamos laa categoria '+ text);
+                                Message.markSeen(senderId);
+                                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                                Message.typingOn(senderId);
+                            } else {
+                                console.log('Error guardando la categoria')
+                            }
+                        });
+                    }
+                }
+        
+            });
+
 
 
 
