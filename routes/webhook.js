@@ -158,8 +158,8 @@ function processLocation(senderId, locationData) {
 
                 if (result.context == "find_my_event_by_category") {
 
-                    var totalElements = result.categorySearchSelected.length;
-                    var category = result.categorySearchSelected[totalElements - 1];
+                    let totalElements = result.categorySearchSelected.length;
+                    let category = result.categorySearchSelected[totalElements - 1];
 
                     let lat = locationData.payload.coordinates.lat;
                     let lon = locationData.payload.coordinates.long;
