@@ -274,7 +274,7 @@ function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum,
                 }
 
                 if (acum + 1 == categoriesArray.length) {
-                    if (eventsArray.lengthv  === 0) {
+                    if (eventsArray.length  === 0) {
                         resolve(eventsArray);
                     }
                 }
