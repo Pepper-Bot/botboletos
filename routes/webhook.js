@@ -259,7 +259,7 @@ function processQuickReplies(event) {
 
         case "find_my_event_no":
             {
-                serData2.findOne({
+                UserData2.findOne({
                     fbId: senderId
                 }, {}, {
                     sort: {
