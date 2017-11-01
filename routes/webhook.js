@@ -241,6 +241,50 @@ function processQuickReplies(event) {
 
     switch (payload) {
 
+        case "find_my_event_show_me_more":
+            {
+                var aki = ""
+                //var MonthsQuickReply = require('../modules/tevo/months_replay');
+                //MonthsQuickReply.send(Message, senderId, "Please choose month...");
+                Message.markSeen(senderId);
+                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.typingOn(senderId);
+                saveUserSelection(senderId, 'Events');
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
+            }
+            break;
+
+        case "find_my_event_search_event":
+            {
+                var SearchQuickReply = require('../modules/tevo/search_quick_replay');
+                SearchQuickReply.send(Message, senderId);
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
+            }
+            break;
+
+
         case "find_my_event_yes":
             {
                 UserData2.findOne({
@@ -292,52 +336,8 @@ function processQuickReplies(event) {
             }
             break;
 
-        case "find_my_event_show_me_more":
-            {
-                //la accion find_my_event_show_me_more me more muestra los meses
-                /*var MonthsQuickReply = require('../modules/tevo/months_replay');
-                MonthsQuickReply.send(Message, senderId, "Please choose month...");*/
-                var busqueda = ''
-                startTevoModuleWithMlink(busqueda, senderId);
-                context = ''
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    foundUser.context = ''
-                    foundUser.save();
-                });
-
-            }
-
-            break;
 
 
-        case "find_my_event_search_event":
-            {
-                //este pay load de quick replay abre 2 quick replais más, by name y by category
-                var SearchQuickReply = require('../modules/tevo/search_quick_replay');
-                SearchQuickReply.send(Message, senderId);
-                //find_my_event_by_category"
-                //find_my_event_by_name 
-                context = ''
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    foundUser.context = ''
-                    foundUser.save();
-                });
-
-            }
-
-            break;
 
         case "find_my_event_by_category":
             {
@@ -394,7 +394,7 @@ function processQuickReplies(event) {
 
             break;
 
-            case "find_my_event_by_location":
+        case "find_my_event_by_location":
             {
 
 
