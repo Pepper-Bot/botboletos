@@ -94,12 +94,17 @@ function processMessage(senderId, textMessage) {
         if (foundUser.context === 'find_my_event_by_name') {
             console.log(foundUser.context);
             startTevoModuleWithMlink(textMessage, senderId);
+            foundUser.context = '';
+            foundUser.save();
         } else {
-            find_my_event(senderId);
+            var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
+            //find_my_event(senderId);
+            yes_no.send(Message, senderId, textMessage);
+            foundUser.context = textMessage
+            foundUser.save();
 
         }
-        foundUser.context = '';
-        foundUser.save();
+
 
     });
 
@@ -232,6 +237,37 @@ function processQuickReplies(event) {
 
 
     switch (payload) {
+
+        case "find_my_event_yes":
+            {
+                serData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    startTevoModuleWithMlink(foundUser.context, senderId);
+
+                });
+            }
+            break;
+
+        case "find_my_event_no":
+            {
+                serData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    Message.sendMessage(senderId, "Ok!");
+
+                });
+            }
+            break;
 
         case "find_my_event_by_month":
             {
@@ -460,7 +496,7 @@ function processQuickReplies(event) {
     var tevo_categories = require('../modules/tevo/tevo_categories');
     var repliesArray = [];
     var parentCategories = tevo_categories.getParentCategories();
-   
+
     for (var i = 0; i < parentCategories.length; i++) {
         let categoria = '';
         if (parentCategories[i].Sports) {
