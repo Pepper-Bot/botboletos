@@ -252,6 +252,7 @@ function processQuickReplies(event) {
                 });
             }
             break;
+            
 
         case "find_my_event_no":
             {
