@@ -455,7 +455,7 @@ function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon)
         searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {
             //return eventsArray
             if (eventsArray.length <= 0) {
-                Message.sendMessage(senderId, "No Events Found Near Your Given Location");
+                Message.sendMessage(senderId, "No " + text + " Events Found Near Your Given Location");
             }
             for (let i = 0; i < eventsArray.length; i++) {
                 // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
