@@ -80,13 +80,13 @@ function genericButtonQuickReplay(senderId, gButtons, messageText) {
         var replies = [{
                 "content_type": "text",
                 "title": "Show me more",
-                "payload": "find_my_event_by_category"
+                "payload": "find_my_event_show_me_more"
 
             },
             {
                 "content_type": "text",
                 "title": "Search Event",
-                "payload": "find_my_event_by_name"
+                "payload": "find_my_event_search_event"
             }
         ];
         quickReply(senderId, messageText, replies)
