@@ -18,7 +18,7 @@ module.exports = function () {
                     }
                 ];
     
-                Message.templateButton(senderId,  greeting + "!. You can find  your  artist, sport team or event, please choose a option:", buttons);
+                Message.templateButton(senderId,  greeting + "!. You can find  your  artist, sport team or event", buttons);
                 Message.typingOff(senderId);
     
             }
