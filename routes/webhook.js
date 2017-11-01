@@ -97,11 +97,14 @@ function processMessage(senderId, textMessage) {
             foundUser.context = '';
             foundUser.save();
         } else {
-            var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
             //find_my_event(senderId);
-            yes_no.send(Message, senderId, textMessage);
-            foundUser.context = textMessage
-            foundUser.save();
+            if (textMessage) {
+                var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
+                yes_no.send(Message, senderId, textMessage);
+                foundUser.context = textMessage
+                foundUser.save();
+            }
+
 
         }
 
@@ -247,12 +250,12 @@ function processQuickReplies(event) {
                         'sessionStart': -1
                     }
                 }, function (err, foundUser) {
-                    startTevoModuleWithMlink( foundUser.context, senderId);
+                    startTevoModuleWithMlink(foundUser.context, senderId);
 
                 });
             }
             break;
-            
+
 
         case "find_my_event_no":
             {
