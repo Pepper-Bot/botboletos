@@ -32,6 +32,7 @@ module.exports = function () {
                     Message.markSeen(senderId);
                     Message.typingOn(senderId);
                     Message.sendMessage(senderId, "Book " + event_name + " Events");
+                    Message.typingOn(senderId);
                     if (json.error) {
                         Message.sendMessage(senderId, json.error);
                     } else {
