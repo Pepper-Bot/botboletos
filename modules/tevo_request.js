@@ -5,7 +5,9 @@ module.exports = function () {
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
             var moment = require('moment');
-
+            var UserData = require('../bot/userinfo');
+            var UserData2 = require('../schemas/userinfo');
+        
 
 
 
@@ -47,7 +49,7 @@ module.exports = function () {
                             var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 
 
-                            if (resultEvent.length >= 9 * position) {
+                            if (resultEvent.length >= 9 * (position + 1)    ) {
                                 if ((position * 9) > resultEvent.length - 9) {
                                     position = 0;
                                     UserData2.findOne({
