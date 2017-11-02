@@ -842,9 +842,7 @@ function processPostback(event) {
 
         case "find_my_event_see_more_events_by_location":
             {
-                var busqueda = ''
-                startTevoModuleWithMlink(busqueda, senderId)
-                context = ''
+                              
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
