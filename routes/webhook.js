@@ -200,7 +200,7 @@ function processLocation(senderId, locationData) {
                         let lat = locationData.payload.coordinates.lat;
                         let lon = locationData.payload.coordinates.long;
 
-    
+                        startTevoModuleByLocation(senderId, lat, lon);
 
                     } else if ('Drinks' == lastSelected) {
 
