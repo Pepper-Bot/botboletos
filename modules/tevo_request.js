@@ -72,12 +72,14 @@ module.exports = function () {
 
                                     });
                                 }
-
-                                if (9 * (position + 1) < resultEvent.length + 1)
-                                    resultEvent.splice(9 * (position + 1), resultEvent.length - 9 * (position + 1));
-                                if (position - 1 >= 0)
-                                    if (9 * (position) < resultEvent.length + 1)
-                                        resultEvent.splice(0, 9 * (position));
+                                if (resultEvent.length >= 9) {
+                                    console.log("position: " + position);
+                                    if (9 * (position + 1) < resultEvent.length + 1)
+                                        resultEvent.splice(9 * (position + 1), resultEvent.length - 9 * (position + 1));
+                                    if (position - 1 >= 0)
+                                        if (9 * (position) < resultEvent.length + 1)
+                                            resultEvent.splice(0, 9 * (position));
+                                }
                             }
 
                             console.log('TENEMOS  ' + resultEvent.length + ' EVENTOS LUEGO DE RECORTARLOS    <<<<<<<<<<<<<<<<<<<<<<<<<<');
