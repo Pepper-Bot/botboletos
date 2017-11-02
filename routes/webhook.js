@@ -1453,7 +1453,7 @@ function startTevoModuleByLocation(senderId, lat, lon) {
                 var ticketEvoByLocation = require('../modules/tevo/tevo_request_by_location');
                 ticketEvoByLocation.startTevoRequestByLocation(senderId, lat, lon, position);
 
-
+                foundUser.context = ''
                 foundUser.save(function (err, userSaved) {
                     if (!err) {
                         console.log("se actualiza el index 1 userSaved.showMemore.index2 " + userSaved.showMemore.index2)
