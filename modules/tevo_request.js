@@ -76,7 +76,8 @@ module.exports = function () {
                                 if (9 * (position + 1) < resultEvent.length + 1)
                                     resultEvent.splice(9 * (position + 1), resultEvent.length - 9 * (position + 1));
                                 if (position - 1 >= 0)
-                                    resultEvent.splice(0, 9 * (position));
+                                    if (9 * (position) < resultEvent.length + 1)
+                                        resultEvent.splice(0, 9 * (position));
                             }
 
                             console.log('TENEMOS  ' + resultEvent.length + ' EVENTOS LUEGO DE RECORTARLOS    <<<<<<<<<<<<<<<<<<<<<<<<<<');
