@@ -1070,7 +1070,7 @@ function find_my_event(senderId) {
             //var ButtonsEventsQuery = require('../modules/tevo/buttons_choise_again');
             //ButtonsEventsQuery.send(Message, senderId, messagetxt);
 
-            var SearchQuickReply = require('../modules/tevo/search_quick_replay');
+            var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
             SearchQuickReply.send(Message, senderId, messagetxt + ", please choose option for find your artist, sport team or event.");
             context = ''
             UserData2.findOne({

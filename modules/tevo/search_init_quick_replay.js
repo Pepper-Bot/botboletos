@@ -21,6 +21,12 @@ module.exports = function () {
                     "title": "By Category",
                     "payload": "find_my_event_by_category"
 
+                },
+
+                {
+                    "content_type": "text",
+                    "title": "By Location ",
+                    "payload": "find_my_event_by_location"
                 }
             ];
             Message.quickReply(senderId, title, replies);
