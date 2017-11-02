@@ -49,7 +49,7 @@ module.exports = function () {
                             var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 
 
-                            if (resultEvent.length >= 9 * (position + 1)    ) {
+                            if (resultEvent.length > 9 * (position + 1)    ) {
                                 if ((position * 9) > resultEvent.length - 9) {
                                     position = 0;
                                     UserData2.findOne({
