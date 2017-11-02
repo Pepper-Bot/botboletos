@@ -193,9 +193,14 @@ function processLocation(senderId, locationData) {
                         /* Llamamos al módulo de ventos */
                         /*                           var Events = require('../modules/events');
                                                     Events.get(Message, result, locationData);
-                        */
+
                         var Evo = require('../modules/ticketevo');
                         Evo.get(Message, result, locationData);
+                        */
+                        let lat = locationData.payload.coordinates.lat;
+                        let lon = locationData.payload.coordinates.long;
+
+    
 
                     } else if ('Drinks' == lastSelected) {
 
@@ -411,6 +416,7 @@ function processQuickReplies(event) {
                     }
                 }, function (err, foundUser) {
                     foundUser.context = ''
+                    foundUser.showMemore.index2 = -1;
                     foundUser.save();
                 });
             }
@@ -933,6 +939,7 @@ function processPostback(event) {
                     }
                 }, function (err, foundUser) {
                     foundUser.context = ''
+                    foundUser.showMemore.index2 = -1;
                     foundUser.save();
                 });
             }
@@ -1043,7 +1050,7 @@ function find_my_event(senderId) {
             //ButtonsEventsQuery.send(Message, senderId, messagetxt);
 
             var SearchQuickReply = require('../modules/tevo/search_quick_replay');
-            SearchQuickReply.send(Message, senderId, messagetxt  +  ", please choose option for find your artist, sport team or event." );
+            SearchQuickReply.send(Message, senderId, messagetxt + ", please choose option for find your artist, sport team or event.");
             context = ''
             UserData2.findOne({
                 fbId: senderId
@@ -1407,6 +1414,81 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
 }
 
 
+function startTevoModuleByLocation(senderId, lat, lon) {
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, foundUser) {
+        if (!err) {
+            if (null != foundUser) {
+                foundUser.showMemore.index2 = foundUser.showMemore.index2 + 1
+                let position = foundUser.showMemore.index2
+                
+                var ticketEvoByLocation = require('../modules/tevo/tevo_request_by_location');
+                ticketEvoByLocation.startTevoRequestByLocation(senderId, lat, lon, position);
 
+
+                foundUser.save(function (err, userSaved) {
+                    if (!err) {
+                        console.log("se actualiza el index 1 userSaved.showMemore.index2 " + userSaved.showMemore.index2)
+
+                    } else {
+                        console.log("error al actualizar el index 2 ")
+                    }
+                });
+            } else {
+                UserData.getInfo(senderId, function (err, result) {
+                    console.log('Dentro de UserData');
+                    if (!err) {
+
+                        var bodyObj = JSON.parse(result);
+                        console.log(result);
+
+                        var User = new UserData2; {
+                            User.fbId = senderId;
+                            User.firstName = bodyObj.first_name;
+                            User.LastName = bodyObj.last_name;
+                            User.profilePic = bodyObj.profile_pic;
+                            User.locale = bodyObj.locale;
+                            User.timeZone = bodyObj.timezone;
+                            User.gender = bodyObj.gender;
+                            User.messageNumber = 1;
+
+
+                            User.save();
+                            console.log("Guardé el senderId result.fbId>>>> " + result.fbId);
+
+                            let TevoModule = require('../modules/tevo_request');
+                            let position = 0;
+                            TevoModule.start(senderId, referral, position);
+
+
+
+                        }
+
+
+
+                        var name = bodyObj.first_name;
+                        var greeting = "Hi " + name;
+                        var messagetxt = greeting + ", what would you like to do?";
+                        //Message.sendMessage(senderId, message);
+                        /* INSERT TO MONGO DB DATA FROM SESSION*/
+
+
+                    }
+                });
+
+
+
+            }
+        }
+
+    });
+
+
+}
 
 module.exports = router;

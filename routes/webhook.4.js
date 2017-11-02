@@ -97,11 +97,14 @@ function processMessage(senderId, textMessage) {
             foundUser.context = '';
             foundUser.save();
         } else {
-            var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
             //find_my_event(senderId);
-            yes_no.send(Message, senderId, textMessage);
-            foundUser.context = textMessage
-            foundUser.save();
+            if (textMessage) {
+                var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
+                yes_no.send(Message, senderId, textMessage);
+                foundUser.context = textMessage
+                foundUser.save();
+            }
+
 
         }
 
@@ -190,9 +193,17 @@ function processLocation(senderId, locationData) {
                         /* Llamamos al módulo de ventos */
                         /*                           var Events = require('../modules/events');
                                                     Events.get(Message, result, locationData);
-                        */
+
                         var Evo = require('../modules/ticketevo');
                         Evo.get(Message, result, locationData);
+                        */
+                        let lat = locationData.payload.coordinates.lat;
+                        let lon = locationData.payload.coordinates.long;
+
+                        var ticketEvoByLocation = require('../modules/tevo/tevo_request_by_location');
+                        ticketEvoByLocation.startTevoRequestByLocation(senderId, lat, lon, );
+
+                        
 
                     } else if ('Drinks' == lastSelected) {
 
@@ -238,9 +249,53 @@ function processQuickReplies(event) {
 
     switch (payload) {
 
+        case "find_my_event_show_me_more":
+            {
+                var aki = ""
+                //var MonthsQuickReply = require('../modules/tevo/months_replay');
+                //MonthsQuickReply.send(Message, senderId, "Please choose month...");
+                Message.markSeen(senderId);
+                Message.getLocation(senderId, 'Where would you like to see an event?');
+                Message.typingOn(senderId);
+                saveUserSelection(senderId, 'Events');
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
+            }
+            break;
+
+        case "find_my_event_search_event":
+            {
+                var SearchQuickReply = require('../modules/tevo/search_quick_replay');
+                SearchQuickReply.send(Message, senderId);
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
+            }
+            break;
+
+
         case "find_my_event_yes":
             {
-                serData2.findOne({
+                UserData2.findOne({
                     fbId: senderId
                 }, {}, {
                     sort: {
@@ -253,9 +308,10 @@ function processQuickReplies(event) {
             }
             break;
 
+
         case "find_my_event_no":
             {
-                serData2.findOne({
+                UserData2.findOne({
                     fbId: senderId
                 }, {}, {
                     sort: {
@@ -288,52 +344,8 @@ function processQuickReplies(event) {
             }
             break;
 
-        case "find_my_event_show_me_more":
-            {
-                //la accion find_my_event_show_me_more me more muestra los meses
-                /*var MonthsQuickReply = require('../modules/tevo/months_replay');
-                MonthsQuickReply.send(Message, senderId, "Please choose month...");*/
-                var busqueda = ''
-                startTevoModuleWithMlink(busqueda, senderId);
-                context = ''
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    foundUser.context = ''
-                    foundUser.save();
-                });
-
-            }
-
-            break;
 
 
-        case "find_my_event_search_event":
-            {
-                //este pay load de quick replay abre 2 quick replais más, by name y by category
-                var SearchQuickReply = require('../modules/tevo/search_quick_replay');
-                SearchQuickReply.send(Message, senderId);
-                //find_my_event_by_category"
-                //find_my_event_by_name 
-                context = ''
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    foundUser.context = ''
-                    foundUser.save();
-                });
-
-            }
-
-            break;
 
         case "find_my_event_by_category":
             {
@@ -388,6 +400,28 @@ function processQuickReplies(event) {
                 });
             }
 
+            break;
+
+        case "find_my_event_by_location":
+            {
+
+
+                Message.markSeen(senderId);
+                Message.getLocation(senderId, 'Where would you like to see an event?');
+                Message.typingOn(senderId);
+                saveUserSelection(senderId, 'Events');
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+            }
             break;
 
 
@@ -528,7 +562,7 @@ function processQuickReplies(event) {
                             if (!err) {
                                 console.log('Guardamos laa categoria ' + categoria);
                                 Message.markSeen(senderId);
-                                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                                Message.getLocation(senderId, 'Where would you like to see an event?');
                                 Message.typingOn(senderId);
                             } else {
                                 console.log('Error guardando la categoria')
@@ -574,7 +608,7 @@ function processQuickReplies(event) {
                 if ('Food' == lastSelected) {
 
                     Message.markSeen(senderId);
-                    Message.getLocation(senderId, 'What location would you like to get a bite at?');
+                    Message.getLocation(senderId, 'Where would you like to see an event?');
 
                     Message.typingOn(senderId);
                     //sleep(1000);
@@ -833,7 +867,7 @@ function processPostback(event) {
                 //var MonthsQuickReply = require('../modules/tevo/months_replay');
                 //MonthsQuickReply.send(Message, senderId, "Please choose month...");
                 Message.markSeen(senderId);
-                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.getLocation(senderId, 'Where would you like to see an event?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
                 context = ''
@@ -895,7 +929,7 @@ function processPostback(event) {
 
 
                 Message.markSeen(senderId);
-                Message.getLocation(senderId, 'What location would you like to catch a show?');
+                Message.getLocation(senderId, 'Where would you like to see an event?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
                 context = ''
@@ -1007,14 +1041,29 @@ function find_my_event(senderId) {
 
             var name = bodyObj.first_name;
             var greeting = "Hi " + name;
-            var messagetxt = greeting + ", Please enter your favorite artist, sport  team or event.";
+            var messagetxt = greeting; //+ ", Please enter your favorite artist, sport  team or event.";
 
 
 
 
             //var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
-            var ButtonsEventsQuery = require('../modules/tevo/buttons_choise_again');
-            ButtonsEventsQuery.send(Message, senderId, messagetxt);
+            //var ButtonsEventsQuery = require('../modules/tevo/buttons_choise_again');
+            //ButtonsEventsQuery.send(Message, senderId, messagetxt);
+
+            var SearchQuickReply = require('../modules/tevo/search_quick_replay');
+            SearchQuickReply.send(Message, senderId, messagetxt  +  ", please choose option for find your artist, sport team or event." );
+            context = ''
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, foundUser) {
+                foundUser.context = ''
+                foundUser.save();
+            });
+
 
         }
     });

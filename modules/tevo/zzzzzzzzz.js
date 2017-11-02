@@ -172,8 +172,8 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
                     //Message.genericButton(senderId, gButtons);
                     Message.sendMessage(senderId, "Getting Events:");
                     var GenericButton = require('../../bot/generic_buttton');
-                   GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
-                   // GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
+                    GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
+                    // GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
 
                 }
 
@@ -269,6 +269,12 @@ function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum,
                     });
 
                     if (acum + 1 == categoriesArray.length) {
+                        resolve(eventsArray);
+                    }
+                }
+
+                if (acum + 1 == categoriesArray.length) {
+                    if (eventsArray.length  === 0) {
                         resolve(eventsArray);
                     }
                 }
@@ -449,7 +455,7 @@ function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon)
         searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {
             //return eventsArray
             if (eventsArray.length <= 0) {
-                Message.sendMessage(senderId, "No Events Found Near Your Given Location");
+                Message.sendMessage(senderId, "No " + text + " Events Found Near Your Given Location");
             }
             for (let i = 0; i < eventsArray.length; i++) {
                 // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
