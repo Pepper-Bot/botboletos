@@ -47,32 +47,32 @@ module.exports = function () {
                             var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 
 
-                            //if (resultEvent.length >= 9) {
-                            if ((position * 9) > resultEvent.length - 9) {
-                                position = 0;
-                                UserData2.findOne({
-                                    fbId: senderId
-                                }, {}, {
-                                    sort: {
-                                        'sessionStart': -1
-                                    }
-                                }, function (err, foundUser) {
-                                    if (!err) {
-                                        if (null != foundUser) {
-                                            foundUser.showMemore.index1 = 0
-                                            foundUser.save(function (err) {
-                                                if (!err) {
-                                                    console.log("index1 en cero");
-                                                } else {
-                                                    console.log("error al actualizar el index 0");
-                                                }
-                                            });
+                            if (resultEvent.length >= 9 * position) {
+                                if ((position * 9) > resultEvent.length - 9) {
+                                    position = 0;
+                                    UserData2.findOne({
+                                        fbId: senderId
+                                    }, {}, {
+                                        sort: {
+                                            'sessionStart': -1
                                         }
-                                    }
+                                    }, function (err, foundUser) {
+                                        if (!err) {
+                                            if (null != foundUser) {
+                                                foundUser.showMemore.index1 = 0
+                                                foundUser.save(function (err) {
+                                                    if (!err) {
+                                                        console.log("index1 en cero");
+                                                    } else {
+                                                        console.log("error al actualizar el index 0");
+                                                    }
+                                                });
+                                            }
+                                        }
 
-                                });
-                            }
-                            if (resultEvent.length >= 9) {
+                                    });
+                                }
+
                                 console.log("position: " + position);
                                 if (9 * (position + 1) < resultEvent.length + 1)
                                     resultEvent.splice(9 * (position + 1), resultEvent.length - 9 * (position + 1));
