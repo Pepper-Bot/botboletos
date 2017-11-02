@@ -840,6 +840,29 @@ function processPostback(event) {
 
     switch (payload) {
 
+        case "find_my_event_see_more_events_by_location":
+            {
+                var busqueda = ''
+                startTevoModuleWithMlink(busqueda, senderId)
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    let lat = foundUser.location.coordinates[0];
+                    let lon = foundUser.location.coordinates[1];
+                    startTevoModuleByLocation(senderId, lat, lon);
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
+            }
+            break;
+
+
         case "find_my_event_see_more_events":
             {
                 var busqueda = ''
@@ -1426,7 +1449,7 @@ function startTevoModuleByLocation(senderId, lat, lon) {
             if (null != foundUser) {
                 foundUser.showMemore.index2 = foundUser.showMemore.index2 + 1
                 let position = foundUser.showMemore.index2
-                
+
                 var ticketEvoByLocation = require('../modules/tevo/tevo_request_by_location');
                 ticketEvoByLocation.startTevoRequestByLocation(senderId, lat, lon, position);
 
