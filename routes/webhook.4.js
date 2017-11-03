@@ -173,7 +173,7 @@ function processLocation(senderId, locationData) {
                     let lon = locationData.payload.coordinates.long;
 
                     var tevo = require('../modules/tevo/tevo');
-                    tevo.startByParentsCategoriesAndLocation(senderId, category, 0, lat, lon)
+                    tevo.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
                     saveContext(senderId, "");
 
 
@@ -200,10 +200,7 @@ function processLocation(senderId, locationData) {
                         let lat = locationData.payload.coordinates.lat;
                         let lon = locationData.payload.coordinates.long;
 
-                        var ticketEvoByLocation = require('../modules/tevo/tevo_request_by_location');
-                        ticketEvoByLocation.startTevoRequestByLocation(senderId, lat, lon, );
-
-                        
+                        startTevoModuleByLocation(senderId, lat, lon);
 
                     } else if ('Drinks' == lastSelected) {
 
@@ -362,6 +359,7 @@ function processQuickReplies(event) {
                     }
                 }, function (err, foundUser) {
                     foundUser.context = ''
+                    foundUser.showMemore.index3 = -1;
                     foundUser.save();
                 });
 
@@ -419,6 +417,7 @@ function processQuickReplies(event) {
                     }
                 }, function (err, foundUser) {
                     foundUser.context = ''
+                    foundUser.showMemore.index2 = -1;
                     foundUser.save();
                 });
             }
@@ -558,6 +557,7 @@ function processQuickReplies(event) {
                     if (null != result) {
                         result.context = 'find_my_event_by_category'
                         result.categorySearchSelected.push(categoria);
+                        result.showMemore.index3 = -1;
                         result.save(function (err) {
                             if (!err) {
                                 console.log('Guardamos laa categoria ' + categoria);
@@ -842,6 +842,54 @@ function processPostback(event) {
 
     switch (payload) {
 
+        case "find_my_event_see_more_events_by_cat_loc":
+            {
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    let lat = foundUser.location.coordinates[0];
+                    let lon = foundUser.location.coordinates[1];
+
+                    let totalElements = foundUser.categorySearchSelected.length;
+                    let category = foundUser.categorySearchSelected[totalElements - 1];
+
+                    var tevo = require('../modules/tevo/tevo');
+                    tevo.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
+            }
+            break;
+
+
+
+        case "find_my_event_see_more_events_by_location":
+            {
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    let lat = foundUser.location.coordinates[0];
+                    let lon = foundUser.location.coordinates[1];
+                    startTevoModuleByLocation(senderId, lat, lon);
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
+            }
+            break;
+
+
         case "find_my_event_see_more_events":
             {
                 var busqueda = ''
@@ -941,6 +989,7 @@ function processPostback(event) {
                     }
                 }, function (err, foundUser) {
                     foundUser.context = ''
+                    foundUser.showMemore.index2 = -1;
                     foundUser.save();
                 });
             }
@@ -1050,8 +1099,8 @@ function find_my_event(senderId) {
             //var ButtonsEventsQuery = require('../modules/tevo/buttons_choise_again');
             //ButtonsEventsQuery.send(Message, senderId, messagetxt);
 
-            var SearchQuickReply = require('../modules/tevo/search_quick_replay');
-            SearchQuickReply.send(Message, senderId, messagetxt  +  ", please choose option for find your artist, sport team or event." );
+            var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
+            SearchQuickReply.send(Message, senderId, messagetxt + ", please choose option for find your artist, sport team or event.");
             context = ''
             UserData2.findOne({
                 fbId: senderId
@@ -1415,6 +1464,81 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
 }
 
 
+function startTevoModuleByLocation(senderId, lat, lon) {
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, foundUser) {
+        if (!err) {
+            if (null != foundUser) {
+                foundUser.showMemore.index2 = foundUser.showMemore.index2 + 1
+                let position = foundUser.showMemore.index2
 
+                var ticketEvoByLocation = require('../modules/tevo/tevo_request_by_location');
+                ticketEvoByLocation.startTevoRequestByLocation(senderId, lat, lon, position);
+
+                foundUser.context = ''
+                foundUser.save(function (err, userSaved) {
+                    if (!err) {
+                        console.log("se actualiza el index 1 userSaved.showMemore.index2 " + userSaved.showMemore.index2)
+
+                    } else {
+                        console.log("error al actualizar el index 2 ")
+                    }
+                });
+            } else {
+                UserData.getInfo(senderId, function (err, result) {
+                    console.log('Dentro de UserData');
+                    if (!err) {
+
+                        var bodyObj = JSON.parse(result);
+                        console.log(result);
+
+                        var User = new UserData2; {
+                            User.fbId = senderId;
+                            User.firstName = bodyObj.first_name;
+                            User.LastName = bodyObj.last_name;
+                            User.profilePic = bodyObj.profile_pic;
+                            User.locale = bodyObj.locale;
+                            User.timeZone = bodyObj.timezone;
+                            User.gender = bodyObj.gender;
+                            User.messageNumber = 1;
+
+
+                            User.save();
+                            console.log("Guardé el senderId result.fbId>>>> " + result.fbId);
+
+                            let TevoModule = require('../modules/tevo_request');
+                            let position = 0;
+                            TevoModule.start(senderId, referral, position);
+
+
+
+                        }
+
+
+
+                        var name = bodyObj.first_name;
+                        var greeting = "Hi " + name;
+                        var messagetxt = greeting + ", what would you like to do?";
+                        //Message.sendMessage(senderId, message);
+                        /* INSERT TO MONGO DB DATA FROM SESSION*/
+
+
+                    }
+                });
+
+
+
+            }
+        }
+
+    });
+
+
+}
 
 module.exports = router;
