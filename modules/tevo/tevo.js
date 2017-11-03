@@ -492,8 +492,9 @@ function startByParentsCategoriesAndLocation(senderId, text, lat, lon, position 
     var cuenta = 0;
     var contador = 0;
     var contador2 = 0;
-
+ 
     catetegorySelected = text;
+
     UserData2.findOne({
         fbId: senderId
     }, {}, {
@@ -506,7 +507,7 @@ function startByParentsCategoriesAndLocation(senderId, text, lat, lon, position 
                 foundUser.showMemore.index3 = foundUser.showMemore.index3 + 1
                 position = foundUser.showMemore.index3
 
-                
+
 
                 searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
                     searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {

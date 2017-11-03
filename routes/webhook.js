@@ -854,6 +854,10 @@ function processPostback(event) {
                 }, function (err, foundUser) {
                     let lat = foundUser.location.coordinates[0];
                     let lon = foundUser.location.coordinates[1];
+
+                    let totalElements = result.categorySearchSelected.length;
+                    let category = result.categorySearchSelected[totalElements - 1];
+                    
                     var tevo = require('../modules/tevo/tevo');
                     tevo.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
                     foundUser.context = ''
