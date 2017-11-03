@@ -173,7 +173,7 @@ function processLocation(senderId, locationData) {
                     let lon = locationData.payload.coordinates.long;
 
                     var tevo = require('../modules/tevo/tevo');
-                    tevo.startByParentsCategoriesAndLocation(senderId, category, 0, lat, lon)
+                    tevo.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
                     saveContext(senderId, "");
 
 
@@ -359,6 +359,7 @@ function processQuickReplies(event) {
                     }
                 }, function (err, foundUser) {
                     foundUser.context = ''
+                    foundUser.showMemore.index3 = -1;
                     foundUser.save();
                 });
 
@@ -556,6 +557,7 @@ function processQuickReplies(event) {
                     if (null != result) {
                         result.context = 'find_my_event_by_category'
                         result.categorySearchSelected.push(categoria);
+                        result.showMemore.index3 = -1;
                         result.save(function (err) {
                             if (!err) {
                                 console.log('Guardamos laa categoria ' + categoria);
@@ -840,9 +842,32 @@ function processPostback(event) {
 
     switch (payload) {
 
+        case "find_my_event_see_more_events_by_cat_loc":
+            {
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    let lat = foundUser.location.coordinates[0];
+                    let lon = foundUser.location.coordinates[1];
+                    var tevo = require('../modules/tevo/tevo');
+                    tevo.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
+                    foundUser.context = ''
+                    foundUser.save();
+                });
+
+            }
+            break;
+
+
+
         case "find_my_event_see_more_events_by_location":
             {
-                              
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {

@@ -14,6 +14,10 @@ var catetegorySelected = '';
 var processEventURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 var Message = require('../../bot/messages');
 var arraySort = require('array-sort');
+var UserData = require('../../bot/userinfo');
+var UserData2 = require('../../schemas/userinfo');
+
+
 
 //let approved = students.filter(student => student.score >= 11);
 
@@ -157,7 +161,7 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
                 }, function (err, foundUser) {
                     if (!err) {
                         if (null != foundUser) {
-                            foundUser.showMemore.index1 = 0
+                            foundUser.showMemore.index3 = 0
                             foundUser.save(function (err) {
                                 if (!err) {
                                     console.log("index1 en cero");
@@ -477,7 +481,7 @@ function startByParentsCategories(senderId, text, position) {
 
 }
 
-function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon) {
+function startByParentsCategoriesAndLocation(senderId, text, lat, lon, position = 0) {
 
     var categoriesArray = [];
     var eventsArray = [];
@@ -489,31 +493,63 @@ function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon)
     var contador = 0;
     var contador2 = 0;
 
-
     catetegorySelected = text;
-    searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
-        searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {
-            //return eventsArray
-            if (eventsArray.length <= 0) {
-                Message.sendMessage(senderId, "No " + text + " Events Found Near Your Given Location");
-            }
-            for (let i = 0; i < eventsArray.length; i++) {
-                // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
-            }
-            convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
-                /* for (let i = 0; i < eventsButtons_.length; i++) {
-                     console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
-                 }*/
-                setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
-                    /* console.log("gButtons.length >>> " + gButtons.length);
-                     for (let i = 0; i < gButtons.length; i++) {
-                         console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
-                     }*/
-                });
-            });
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, foundUser) {
+        if (!err) {
+            if (null != foundUser) {
+                foundUser.showMemore.index3 = foundUser.showMemore.index3 + 1
+                position = foundUser.showMemore.index3
 
-        });
+                
+
+                searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
+                    searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {
+                        //return eventsArray
+                        if (eventsArray.length <= 0) {
+                            Message.sendMessage(senderId, "No " + text + " Events Found Near Your Given Location");
+                        }
+                        for (let i = 0; i < eventsArray.length; i++) {
+                            // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
+                        }
+                        convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
+                            /* for (let i = 0; i < eventsButtons_.length; i++) {
+                                 console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+                             }*/
+                            setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
+                                /* console.log("gButtons.length >>> " + gButtons.length);
+                                 for (let i = 0; i < gButtons.length; i++) {
+                                     console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
+                                 }*/
+                            });
+                        });
+
+                    });
+                });
+
+
+                foundUser.context = ''
+                foundUser.save(function (err, userSaved) {
+                    if (!err) {
+                        console.log("se actualiza el index 1 userSaved.showMemore.index3 " + userSaved.showMemore.index3)
+
+                    } else {
+                        console.log("error al actualizar el index 3 ")
+                    }
+                });
+            }
+        }
     });
+
+
+
+
+
 
 }
 

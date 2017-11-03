@@ -14,6 +14,10 @@ var catetegorySelected = '';
 var processEventURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 var Message = require('../../bot/messages');
 var arraySort = require('array-sort');
+var UserData = require('../../bot/userinfo');
+var UserData2 = require('../../schemas/userinfo');
+
+
 
 //let approved = students.filter(student => student.score >= 11);
 
@@ -143,34 +147,74 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
 
         gButtons = resultEvent_;
 
-        if (position * 10 > gButtons.length) {
-            position = 0;
-        }
-        if (gButtons.length >= 10) {
-            gButtons.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
+
+
+        if (gButtons.length > 9 * (position - 1)) {
+            if ((position * 9) > gButtons.length - 9) {
+                position = 0;
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    if (!err) {
+                        if (null != foundUser) {
+                            foundUser.showMemore.index3 = 0
+                            foundUser.save(function (err) {
+                                if (!err) {
+                                    console.log("index1 en cero");
+                                } else {
+                                    console.log("error al actualizar el index 0");
+                                }
+                            });
+                        }
+                    }
+
+                });
+            }
+
+            console.log("position: " + position);
+            if (9 * (position + 1) < gButtons.length + 1)
+                gButtons.splice(9 * (position + 1), gButtons.length - 9 * (position + 1));
             if (position - 1 >= 0)
-                gButtons.splice(0, 10 * (position));
+                if (9 * (position) < gButtons.length + 1)
+                    gButtons.splice(0, 9 * (position));
         }
+
+        gButtons.push({
+            "title": "See more events",
+            "buttons": [{
+                "type": "postback",
+                "title": "See more events",
+                "payload": "find_my_event_see_more_events_by_cat_loc"
+            }]
+        });
+
+
+
 
         for (let z = 0; z < gButtons.length; z++) {
             let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
             getGoogleImage(search, gButtons).then((images) => {
 
-                gButtons[z].image_url = images[0].url;
 
-                var occurs_at = gButtons[z].occurs_at
-                occurs_at = occurs_at.substring(0, occurs_at.length - 4)
-                occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+                if (z < gButtons.length - 1) {
+                    gButtons[z].image_url = images[0].url;
+                    var occurs_at = gButtons[z].occurs_at
+                    occurs_at = occurs_at.substring(0, occurs_at.length - 4)
+                    occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
-                gButtons[z].subtitle = gButtons[z].subtitle + ' ' + occurs_at;
-                delete gButtons[z].occurs_at;
-
+                    gButtons[z].subtitle = gButtons[z].subtitle + ' ' + occurs_at;
+                    delete gButtons[z].occurs_at;
+                }
 
                 console.log(counter + ' ' + gButtons.length)
                 if (counter + 1 == gButtons.length) {
                     console.log('image >>' + gButtons[z].image_url)
                     //Message.genericButton(senderId, gButtons);
-                    Message.sendMessage(senderId, "Getting Events:");
+                    Message.sendMessage(senderId, "Book Events:");
                     var GenericButton = require('../../bot/generic_buttton');
                     GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
                     // GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
@@ -274,7 +318,7 @@ function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum,
                 }
 
                 if (acum + 1 == categoriesArray.length) {
-                    if (eventsArray.length  === 0) {
+                    if (eventsArray.length === 0) {
                         resolve(eventsArray);
                     }
                 }
@@ -437,7 +481,7 @@ function startByParentsCategories(senderId, text, position) {
 
 }
 
-function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon) {
+function startByParentsCategoriesAndLocation(senderId, text,  lat, lon) {
 
     var categoriesArray = [];
     var eventsArray = [];
@@ -449,8 +493,35 @@ function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon)
     var contador = 0;
     var contador2 = 0;
 
-
     catetegorySelected = text;
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, foundUser) {
+        if (!err) {
+            if (null != foundUser) {
+                foundUser.showMemore.index3 = foundUser.showMemore.index3 + 1
+                let position = foundUser.showMemore.index3
+
+                foundUser.context = ''
+                foundUser.save(function (err, userSaved) {
+                    if (!err) {
+                        console.log("se actualiza el index 1 userSaved.showMemore.index3 " + userSaved.showMemore.index3)
+
+                    } else {
+                        console.log("error al actualizar el index 3 ")
+                    }
+                });
+            }
+        }
+    });
+
+
+
+ 
     searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
         searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {
             //return eventsArray
