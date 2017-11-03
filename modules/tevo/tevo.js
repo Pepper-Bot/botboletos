@@ -195,21 +195,22 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
             let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
             getGoogleImage(search, gButtons).then((images) => {
 
-                gButtons[z].image_url = images[0].url;
 
-                var occurs_at = gButtons[z].occurs_at
-                occurs_at = occurs_at.substring(0, occurs_at.length - 4)
-                occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+                if (z < gButtons.length - 1) {
+                    gButtons[z].image_url = images[0].url;
+                    var occurs_at = gButtons[z].occurs_at
+                    occurs_at = occurs_at.substring(0, occurs_at.length - 4)
+                    occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
-                gButtons[z].subtitle = gButtons[z].subtitle + ' ' + occurs_at;
-                delete gButtons[z].occurs_at;
-
+                    gButtons[z].subtitle = gButtons[z].subtitle + ' ' + occurs_at;
+                    delete gButtons[z].occurs_at;
+                }
 
                 console.log(counter + ' ' + gButtons.length)
                 if (counter + 1 == gButtons.length) {
                     console.log('image >>' + gButtons[z].image_url)
                     //Message.genericButton(senderId, gButtons);
-                    Message.sendMessage(senderId, "Getting Events:");
+                    Message.sendMessage(senderId, "Book Events:");
                     var GenericButton = require('../../bot/generic_buttton');
                     GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
                     // GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
