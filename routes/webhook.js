@@ -94,7 +94,6 @@ function processMessage(senderId, textMessage) {
         if (foundUser.context === 'find_my_event_by_name') {
             console.log(foundUser.context);
             startTevoModuleWithMlink(textMessage, senderId);
-            foundUser.showMemore.index1 = -1;
             foundUser.context = '';
             foundUser.save();
         } else {
@@ -301,9 +300,7 @@ function processQuickReplies(event) {
                     }
                 }, function (err, foundUser) {
                     startTevoModuleWithMlink(foundUser.context, senderId);
-                    foundUser.showMemore.index1 = -1;
-                    foundUser.context  = '';
-                    foundUser.save();
+
                 });
             }
             break;
@@ -906,7 +903,7 @@ function processPostback(event) {
                     }
                 }, function (err, foundUser) {
                     foundUser.context = ''
-                   foundUser.save();
+                    foundUser.save();
                 });
 
             }
@@ -1376,7 +1373,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
                 var position = 0;
                 if (mlink == 0) {
                     if (foundUser.eventSearchSelected) {
-                        /*if (foundUser.eventSearchSelected.length >= 2) {
+                        if (foundUser.eventSearchSelected.length >= 2) {
                             let anterior = foundUser.eventSearchSelected.length - 2;
                             let actual = foundUser.eventSearchSelected.length - 1;
 
@@ -1387,16 +1384,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
                                 foundUser.showMemore.index1 = foundUser.showMemore.index1 + 1
                                 position = foundUser.showMemore.index1
                             }
-                        }*/
-                        if (foundUser.eventSearchSelected.length >= 1) {
-                            let actual = foundUser.eventSearchSelected.length - 1;
-                            let actualS = foundUser.eventSearchSelected[actual];
-                            if (actualS == event_name) {
-                                foundUser.showMemore.index1 = foundUser.showMemore.index1 + 1
-                                position = foundUser.showMemore.index1
-                            }
                         }
-
                     }
 
                 } else {
