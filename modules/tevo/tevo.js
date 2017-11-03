@@ -143,14 +143,53 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
 
         gButtons = resultEvent_;
 
-        if (position * 10 > gButtons.length) {
-            position = 0;
-        }
-        if (gButtons.length >= 10) {
-            gButtons.splice(10 * (position + 1), resultEvent.length - 10 * (position + 1));
+
+
+        if (gButtons.length > 9 * (position - 1)) {
+            if ((position * 9) > gButtons.length - 9) {
+                position = 0;
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    if (!err) {
+                        if (null != foundUser) {
+                            foundUser.showMemore.index1 = 0
+                            foundUser.save(function (err) {
+                                if (!err) {
+                                    console.log("index1 en cero");
+                                } else {
+                                    console.log("error al actualizar el index 0");
+                                }
+                            });
+                        }
+                    }
+
+                });
+            }
+
+            console.log("position: " + position);
+            if (9 * (position + 1) < gButtons.length + 1)
+                gButtons.splice(9 * (position + 1), gButtons.length - 9 * (position + 1));
             if (position - 1 >= 0)
-                gButtons.splice(0, 10 * (position));
+                if (9 * (position) < gButtons.length + 1)
+                    gButtons.splice(0, 9 * (position));
         }
+
+        gButtons.push({
+            "title": "See more events",
+            "buttons": [{
+                "type": "postback",
+                "title": "See more events",
+                "payload": "find_my_event_see_more_events_by_cat_loc"
+            }]
+        });
+
+
+
 
         for (let z = 0; z < gButtons.length; z++) {
             let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
@@ -274,7 +313,7 @@ function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum,
                 }
 
                 if (acum + 1 == categoriesArray.length) {
-                    if (eventsArray.length  === 0) {
+                    if (eventsArray.length === 0) {
                         resolve(eventsArray);
                     }
                 }

@@ -7,7 +7,6 @@
 var TevoClient = require('ticketevolution-node');
 var tevo_categories = require('./tevo_categories');
 var follow_months = require('./follow_months');
-var imageCards = require('../imageCards'); // Google images
 var moment = require('moment');
 var categoriesArray_g = [];
 var eventsArray_g = [];
@@ -41,7 +40,7 @@ var searchCategoriesByParentId = (parent_id) => {
 var searchEventsByCategoryId = (category_id) => {
     return new Promise((res, rej) => {
         //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
-        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all'
+        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_available_tickets=true'
         console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
@@ -51,9 +50,24 @@ var searchEventsByCategoryId = (category_id) => {
     });
 }
 
+var searchEventsByCategoryIdAndLocation = (category_id, lat, lon) => {
+    return new Promise((res, rej) => {
+        //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
+        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&lat=' + lat + '&lon=' + lon + '&only_with_available_tickets=true&within=100'
+
+        if (tevoClient) {
+            tevoClient.getJSON(urlApiTevo).then((json) => {
+                console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+                res(json);
+            }).catch(err => console.log("Error en la function searchEventsByCategoryIdAndLocation  " + err.message));
+        }
+    });
+}
+
+
 var searchEventsByCategoryIdAndDate = (category_id, occurs_at_gte, occurs_at_lte) => {
     return new Promise((res, rej) => {
-        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_tickets=all&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
+        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
         console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
@@ -155,7 +169,11 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
                 console.log(counter + ' ' + gButtons.length)
                 if (counter + 1 == gButtons.length) {
                     console.log('image >>' + gButtons[z].image_url)
-                    Message.genericButton(senderId, gButtons);
+                    //Message.genericButton(senderId, gButtons);
+                    Message.sendMessage(senderId, "Getting Events:");
+                    var GenericButton = require('../../bot/generic_buttton');
+                    GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
+                    // GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
 
                 }
 
@@ -228,6 +246,55 @@ function searchEventsByParentNameSecondStep(categoriesArray, eventsArray, acum) 
 
     });
 }
+
+function searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon) {
+    return new Promise(function (resolve, reject) {
+        for (let indice = 0; indice < categoriesArray.length; indice++) {
+
+            searchEventsByCategoryIdAndLocation(categoriesArray[indice].id, lat, lon).then((resultado) => {
+
+                let events = resultado.events;
+
+                for (let j = 0; j < events.length; j++) {
+                    console.log('events[j] >>>> ' + events[j].name);
+                    eventsArray.push({
+                        "id": events[j].id,
+                        "name": events[j].name,
+                        "category_name": events[j].category.name,
+                        "occurs_at": events[j].occurs_at,
+                        "performer_id": events[j].performances[0].performer.id,
+                        "performer_name": events[j].performances[0].performer.name,
+                        "venue_id": events[j].venue.id,
+                        "venue_name": events[j].venue.name
+                    });
+
+                    if (acum + 1 == categoriesArray.length) {
+                        resolve(eventsArray);
+                    }
+                }
+
+                if (acum + 1 == categoriesArray.length) {
+                    if (eventsArray.length  === 0) {
+                        resolve(eventsArray);
+                    }
+                }
+
+
+            }).then(() => {
+                acum = acum + 1;
+
+
+
+            });
+
+            // if (acum + 1 == categoriesArray.length) {
+            //   resolve(eventsArray);
+            //}
+        }
+
+    });
+}
+
 
 
 
@@ -370,6 +437,46 @@ function startByParentsCategories(senderId, text, position) {
 
 }
 
+function startByParentsCategoriesAndLocation(senderId, text, position, lat, lon) {
+
+    var categoriesArray = [];
+    var eventsArray = [];
+    var eventsButtons_ = [];
+    var gButtons = [];
+    var events = [];
+    var acum = 0;
+    var cuenta = 0;
+    var contador = 0;
+    var contador2 = 0;
+
+
+    catetegorySelected = text;
+    searchEventsByParentName(text, categoriesArray, cuenta).then(function () {
+        searchEventsByParentNameAndLocation(categoriesArray, eventsArray, acum, lat, lon).then(function () {
+            //return eventsArray
+            if (eventsArray.length <= 0) {
+                Message.sendMessage(senderId, "No " + text + " Events Found Near Your Given Location");
+            }
+            for (let i = 0; i < eventsArray.length; i++) {
+                // console.log("El evento " + eventsArray[i].name + " ocurre el: " + moment(eventsArray[i].occurs_at, moment.ISO_8601).format())
+            }
+            convertEventsToEventsTemplate(senderId, eventsArray, eventsButtons_, contador).then(function () {
+                /* for (let i = 0; i < eventsButtons_.length; i++) {
+                     console.log(">>> " + eventsButtons_[i].title + " ocurre el: " + eventsButtons_[i].subtitle);
+                 }*/
+                setImagesToEventsTemplate(senderId, eventsButtons_, gButtons, contador2, position).then(function () {
+                    /* console.log("gButtons.length >>> " + gButtons.length);
+                     for (let i = 0; i < gButtons.length; i++) {
+                         console.log(">>> " + gButtons[i].title + " imageURL " + gButtons[i].image_url);
+                     }*/
+                });
+            });
+
+        });
+    });
+
+}
+
 
 
 
@@ -381,7 +488,8 @@ module.exports = {
     searchEventsByParentNameSecondStep,
     convertEventsToEventsTemplate,
     setImagesToEventsTemplate,
-    startByParentsCategories
+    startByParentsCategories,
+    startByParentsCategoriesAndLocation
 
 
 }
