@@ -148,8 +148,13 @@ module.exports = function () {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
 
-                                    if (index < gButtons.length - 1)
+                                    if (index < gButtons.length - 1){
                                         gButtons[index].image_url = images[imageIndex].url;
+                                    }
+                                    else {
+                                        gButtons[index].image_url =   "https://cdn.pixabay.com/photo/2013/07/12/19/18/sticky-note-154504_960_720.png"
+                                    }
+                                       
                                     counter++;
                                     if (counter == gButtons.length) {
 
