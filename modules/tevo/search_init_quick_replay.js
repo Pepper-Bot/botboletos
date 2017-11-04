@@ -2,7 +2,7 @@ module.exports = function () {
 
     return {
 
-        send: function (Message, senderId, title = "Choose options") {
+        send: function (Message, senderId, title = "You can search by") {
 
 
             Message.typingOn(senderId);
