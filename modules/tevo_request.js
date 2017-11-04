@@ -152,7 +152,7 @@ module.exports = function () {
                                         gButtons[index].image_url = images[imageIndex].url;
                                     }
                                     else {
-                                        gButtons[index].image_url =   "https://data.pixiz.com/output/user/frame/preview/400x400/1/1/8/3/1713811_09879.jpg"
+                                        gButtons[index].image_url =   "http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
                                        
                                     counter++;
