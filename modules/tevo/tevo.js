@@ -210,7 +210,7 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
                     delete gButtons[z].occurs_at;
                 }
 
-                if  ( z < gButtons.length  ){
+                if (z == gButtons.length - 1) {
                     gButtons[z].image_url = 'http://www.ideosyncmedia.org/index_htm_files/196.png'
                 }
 
@@ -496,7 +496,7 @@ function startByParentsCategoriesAndLocation(senderId, text, lat, lon, position 
     var cuenta = 0;
     var contador = 0;
     var contador2 = 0;
- 
+
     catetegorySelected = text;
 
     UserData2.findOne({
