@@ -148,8 +148,13 @@ module.exports = function () {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
 
-                                    if (index < gButtons.length - 1)
+                                    if (index < gButtons.length - 1) {
                                         gButtons[index].image_url = images[imageIndex].url;
+                                    } else {
+                                        gButtons[index].image_url = "http://www.ideosyncmedia.org/index_htm_files/196.png"
+                                    }
+
+
                                     counter++;
                                     if (counter == gButtons.length) {
 
@@ -178,7 +183,7 @@ module.exports = function () {
                             }
 
                         } else {
-                           // Message.sendMessage(senderId, "No Found Events");
+                            // Message.sendMessage(senderId, "No Found Events");
                             //Buscar en tiquet master
                             var ticketMaster = require('./ticket_master_request');
                             ticketMaster.get(Message, senderId, lat, lon);
@@ -200,7 +205,7 @@ module.exports = function () {
 
 
 
-function saveLocationSelected (senderId, lat, lon ) {
+function saveLocationSelected(senderId, lat, lon) {
     var UserData = require('../../bot/userinfo');
     var UserData2 = require('../../schemas/userinfo');
 
