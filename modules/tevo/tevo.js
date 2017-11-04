@@ -210,7 +210,7 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
                     delete gButtons[z].occurs_at;
                 }
 
-                if  ( z == gButtons.length  ){
+                if  ( z < gButtons.length  ){
                     gButtons[z].image_url = 'http://www.ideosyncmedia.org/index_htm_files/196.png'
                 }
 
