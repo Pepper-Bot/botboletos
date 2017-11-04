@@ -38,7 +38,7 @@ module.exports = function () {
                             Message.typingOn(senderId);
                             Message.markSeen(senderId);
                             Message.typingOn(senderId);
-                            Message.sendMessage(senderId, "Book " + event_name + " Events");
+                            Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
                             Message.typingOn(senderId);
 
                             console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<POSITION > ' + position);
