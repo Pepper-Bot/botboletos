@@ -349,7 +349,7 @@ function processQuickReplies(event) {
 
                 var CategoriesQuickReplay = require('../modules/tevo/tevo_categories_quick_replay');
                 //var ButtonsEventsQuery = require('../modules/buttons_event_query');
-                CategoriesQuickReplay.send(Message, senderId, "Please choose category....");
+                CategoriesQuickReplay.send(Message, senderId, "Pick a category:");
 
                 UserData2.findOne({
                     fbId: senderId
