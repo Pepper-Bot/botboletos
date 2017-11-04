@@ -384,7 +384,7 @@ function processQuickReplies(event) {
                         if (!err) {
                             console.log("se actualiza el index 1 foundUser.context " + foundUser.context)
 
-                            Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
+                            Message.sendMessage(senderId, "What is the artist, sport team or event name?");
 
 
                         } else {
@@ -955,7 +955,7 @@ function processPostback(event) {
         case "find_my_event_by_name":
             {
 
-                Message.sendMessage(senderId, "Please enter your favorite artist, sport  team or event");
+                Message.sendMessage(senderId, "What is the artist, sport team or event name?t");
                 context = 'find_my_event_by_name'
 
                 UserData2.findOne({

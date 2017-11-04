@@ -13,19 +13,19 @@ module.exports = function () {
 
                 {
                     "content_type": "text",
-                    "title": "By name ",
+                    "title": "Performer Name",
                     "payload": "find_my_event_by_name"
                 },
                 {
                     "content_type": "text",
-                    "title": "By Category",
+                    "title": "Event Categories",
                     "payload": "find_my_event_by_category"
 
                 },
 
                 {
                     "content_type": "text",
-                    "title": "By Location ",
+                    "title": "Events Near Me",
                     "payload": "find_my_event_by_location"
                 }
             ];

@@ -184,10 +184,10 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
         }
 
         gButtons.push({
-            "title": "See more events",
+            "title": "More event times",
             "buttons": [{
                 "type": "postback",
-                "title": "See more events",
+                "title": "More event times",
                 "payload": "find_my_event_see_more_events_by_cat_loc"
             }]
         });
@@ -210,13 +210,17 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
                     delete gButtons[z].occurs_at;
                 }
 
+                if  ( z == gButtons.length  ){
+                    gButtons[z].image_url = 'http://www.ideosyncmedia.org/index_htm_files/196.png'
+                }
+
                 console.log(counter + ' ' + gButtons.length)
                 if (counter + 1 == gButtons.length) {
                     console.log('image >>' + gButtons[z].image_url)
                     //Message.genericButton(senderId, gButtons);
                     Message.sendMessage(senderId, "Book Events:");
                     var GenericButton = require('../../bot/generic_buttton');
-                    GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
+                    GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
                     // GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
 
                 }
