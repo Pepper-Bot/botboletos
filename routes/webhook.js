@@ -1100,7 +1100,7 @@ function find_my_event(senderId) {
             //ButtonsEventsQuery.send(Message, senderId, messagetxt);
 
             var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
-            SearchQuickReply.send(Message, senderId, messagetxt + ", please choose option for find your artist, sport team or event.");
+            SearchQuickReply.send(Message, senderId, messagetxt + ", you can search by");
             context = ''
             UserData2.findOne({
                 fbId: senderId
