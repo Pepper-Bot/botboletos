@@ -123,10 +123,10 @@ module.exports = function () {
                             }
 
                             eventButtons_.push({
-                                "title": "See more events",
+                                "title": "More event times",
                                 "buttons": [{
                                     "type": "postback",
-                                    "title": "See more events",
+                                    "title": "More event times",
                                     "payload": "find_my_event_see_more_events_by_location"
                                 }]
                             });
@@ -164,7 +164,7 @@ module.exports = function () {
 
 
                                         var GenericButton = require('../../bot/generic_buttton');
-                                        GenericButton.genericButtonQuickReplay(senderId, gButtons, "Choose Option: ")
+                                        GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
                                         //GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
 
                                         Message.typingOff(senderId);
