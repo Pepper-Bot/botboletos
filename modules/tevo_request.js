@@ -152,7 +152,7 @@ module.exports = function () {
                                         gButtons[index].image_url = images[imageIndex].url;
                                     }
                                     else {
-                                        gButtons[index].image_url =   "https://cdn.pixabay.com/photo/2013/07/12/19/18/sticky-note-154504_960_720.png"
+                                        gButtons[index].image_url =   "https://data.pixiz.com/output/user/frame/preview/400x400/1/1/8/3/1713811_09879.jpg"
                                     }
                                        
                                     counter++;
