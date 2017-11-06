@@ -111,8 +111,7 @@ module.exports = function () {
                                         "webview_height_ratio": "tall",
                                         "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
                                     },
-                                    "buttons": [
-                                        {
+                                    "buttons": [{
                                             "type": "web_url",
                                             "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
                                             "title": "Book"
@@ -134,6 +133,7 @@ module.exports = function () {
 
                             eventButtons_.push({
                                 "title": "More event times",
+                                "subtitle": "",
                                 "buttons": [{
                                     "type": "postback",
                                     "title": "More event times",
@@ -180,12 +180,12 @@ module.exports = function () {
 
                                         var GenericButton = require('../bot/generic_buttton');
                                         GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
-                                      
 
 
-                                       // GenericButton.listTemplateButtons(senderId, gButtons);
 
-                               
+                                        // GenericButton.listTemplateButtons(senderId, gButtons);
+
+
                                         Message.typingOff(senderId);
                                     }
 
