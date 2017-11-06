@@ -44,7 +44,7 @@ function quickReply(senderId, messageText, replies) {
         } else {
             console.log("BIEN")
             //sendYoutubeVideo(senderId)
-            sendVideoMessage(senderId);
+            //sendVideoMessage(senderId);
         }
     });
 }

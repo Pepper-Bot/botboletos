@@ -7,7 +7,7 @@ module.exports = function () {
             var moment = require('moment');
             var UserData = require('../bot/userinfo');
             var UserData2 = require('../schemas/userinfo');
-        
+
 
 
 
@@ -49,7 +49,7 @@ module.exports = function () {
                             var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
 
 
-                            if (resultEvent.length > 9 * (position - 1)    ) {
+                            if (resultEvent.length > 9 * (position - 1)) {
                                 if ((position * 9) > resultEvent.length - 9) {
                                     position = 0;
                                     UserData2.findOne({
@@ -111,14 +111,21 @@ module.exports = function () {
                                         "webview_height_ratio": "tall",
                                         "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
                                     },
-                                    "buttons": [{
-                                        "type": "web_url",
-                                        "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
-                                        "title": "Book"
-                                    },
-                                    {
-                                        "type": "element_share"
-                                    }]
+                                    "buttons": [
+                                        {
+                                            "type": "web_url",
+                                            "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
+                                            "title": "Book"
+                                        },
+                                        {
+                                            "type": "element_share"
+                                        },
+                                        {
+                                            "type": "postback",
+                                            "title": "Details",
+                                            "payload": resultEvent[j].id
+                                        }
+                                    ]
                                 });
 
 
@@ -151,13 +158,12 @@ module.exports = function () {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
 
-                                    if (index < gButtons.length - 1){
+                                    if (index < gButtons.length - 1) {
                                         gButtons[index].image_url = images[imageIndex].url;
+                                    } else {
+                                        gButtons[index].image_url = "http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
-                                    else {
-                                        gButtons[index].image_url =   "http://www.ideosyncmedia.org/index_htm_files/196.png"
-                                    }
-                                       
+
                                     counter++;
                                     if (counter == gButtons.length) {
 
