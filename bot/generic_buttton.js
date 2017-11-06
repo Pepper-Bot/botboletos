@@ -43,6 +43,7 @@ function quickReply(senderId, messageText, replies) {
             console.log("MAL")
         } else {
             console.log("BIEN")
+            sendVideoMessage(senderId )
         }
     });
 }
@@ -192,7 +193,7 @@ function sendVideoMessage(senderId ) {
         if (error) {
             console.log("MAL")
         } else {
-            console.log("BIEN")
+            console.log(" sendVideoMessage BIEN")
         }
     });
 }
