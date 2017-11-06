@@ -218,10 +218,14 @@ function sendYoutubeVideo(senderId) {
                                 "url": "https://www.youtube.com/watch?v=y9A1MEbgLyA"
                             },
                             {
-                                "type": "postback",
-                                "title": "Show me more",
-                                "payload": "find_my_event_show_me_more"
+                                "buttons": [{
+                                    "type": "postback",
+                                    "title": "More event times",
+                                    "payload": "find_my_event_see_more_events"
+                                }]
+
                             }
+
 
                         ]
                     }
