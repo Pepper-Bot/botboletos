@@ -43,7 +43,8 @@ function quickReply(senderId, messageText, replies) {
             console.log("MAL")
         } else {
             console.log("BIEN")
-            sendYoutubeVideo(senderId)
+            //sendYoutubeVideo(senderId)
+            sendVideoMessage(senderId);
         }
     });
 }
@@ -183,7 +184,7 @@ function sendVideoMessage(senderId) {
                 "attachment": {
                     "type": "video",
                     "payload": {
-                        "url": "https://www.youtube.com/watch?v=FJj3pUz3q_U"
+                        "url": "https://botboletos-test.herokuapp.com/videos/transformer.mp4"
                     }
                 }
             }
@@ -215,12 +216,7 @@ function sendYoutubeVideo(senderId) {
                     "payload": {
                         "template_type": "open_graph",
                         "elements": [{
-                                "url": "https://www.youtube.com/watch?v=y9A1MEbgLyA",
-                                "buttons": [{
-                                    "type": "postback",
-                                    "title": "More event times",
-                                    "payload": "find_my_event_see_more_events"
-                                }]
+                                "url": "https://www.youtube.com/watch?v=y9A1MEbgLyA"
                             }
 
 
