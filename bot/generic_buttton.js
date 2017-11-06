@@ -215,15 +215,12 @@ function sendYoutubeVideo(senderId) {
                     "payload": {
                         "template_type": "open_graph",
                         "elements": [{
-                                "url": "https://www.youtube.com/watch?v=y9A1MEbgLyA"
-                            },
-                            {
+                                "url": "https://www.youtube.com/watch?v=y9A1MEbgLyA",
                                 "buttons": [{
                                     "type": "postback",
                                     "title": "More event times",
                                     "payload": "find_my_event_see_more_events"
                                 }]
-
                             }
 
 
