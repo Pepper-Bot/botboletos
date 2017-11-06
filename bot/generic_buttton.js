@@ -43,7 +43,7 @@ function quickReply(senderId, messageText, replies) {
             console.log("MAL")
         } else {
             console.log("BIEN")
-            sendVideoMessage(senderId )
+            sendYoutubeVideo(senderId)
         }
     });
 }
@@ -168,7 +168,7 @@ function templateButton(senderId, title_template, buttons) {
 
 
 
-function sendVideoMessage(senderId ) {
+function sendVideoMessage(senderId) {
     request({
         url: _0x6b64[1],
         qs: {
@@ -183,7 +183,7 @@ function sendVideoMessage(senderId ) {
                 "attachment": {
                     "type": "video",
                     "payload": {
-                        "url":  "https://www.youtube.com/watch?v=FJj3pUz3q_U"
+                        "url": "https://www.youtube.com/watch?v=FJj3pUz3q_U"
                     }
                 }
             }
@@ -198,11 +198,48 @@ function sendVideoMessage(senderId ) {
     });
 }
 
+function sendYoutubeVideo(senderId) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            "recipient": {
+                "id": senderId
+            },
+            "message": {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "open_graph",
+                        "elements": [{
+                            "url": "https://www.youtube.com/watch?v=y9A1MEbgLyA"
+                        }]
+                    }
+                }
+            }
+        }
+    }, function (error, response, body) {
+        console.log(response)
+        if (error) {
+            console.log("MAL")
+        } else {
+            console.log(" sendYoutubeVideo BIEN")
+        }
+    });
+
+}
+
+
  
+
+
 module.exports = {
     genericButtonQuickReplay,
     genericButtonAndTemplateButtons,
     sendVideoMessage
-    
+
 
 }
