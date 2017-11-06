@@ -100,7 +100,6 @@ function genericButtonQuickReplay(senderId, gButtons, messageText) {
 
 
 function genericButtonAndTemplateButtons(senderId, gButtons, title_template) {
-
     request({
         url: _0x6b64[1],
         qs: {
@@ -237,13 +236,89 @@ function sendYoutubeVideo(senderId) {
 }
 
 
+function sendYoutubeVideo(senderId) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            "recipient": {
+                "id": senderId
+            },
+            "message": {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "open_graph",
+                        "elements": [{
+                                "url": "https://www.youtube.com/watch?v=y9A1MEbgLyA"
+                            }
+
+
+                        ]
+                    }
+                }
+            }
+        }
+    }, function (error, response, body) {
+        console.log(response)
+        if (error) {
+            console.log("MAL")
+        } else {
+            console.log(" sendYoutubeVideo BIEN")
+        }
+    });
+
+}
+
+
+
+
+function listTemplateButtons(senderId, gButtons) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            "recipient": {
+                "id": senderId
+            },
+            "message": {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "list",
+                        "top_element_style": "compact",
+                        "elements": gButtons
+                    }
+                }
+            }
+        }
+    }, function (error, response, body) {
+        console.log(response)
+        if (error) {
+            console.log("MAL")
+        } else {
+            console.log(" genericListTemplateButtons BIEN")
+        }
+        
+    });
+
+}
+
+ 
 
 
 
 module.exports = {
     genericButtonQuickReplay,
     genericButtonAndTemplateButtons,
-    sendVideoMessage
+    sendVideoMessage,
+    listTemplateButtons
 
 
 }
