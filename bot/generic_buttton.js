@@ -167,7 +167,50 @@ function templateButton(senderId, title_template, buttons) {
 
 
 
+function sendVideoMessage(senderId ) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            "recipient": {
+                "id": senderId
+            },
+            "message": {
+                "attachment": {
+                    "type": "video",
+                    "payload": {
+                        "url":  "https://www.youtube.com/watch?v=FJj3pUz3q_U"
+                    }
+                }
+            }
+        }
+    }, function (error, response, body) {
+        console.log(response)
+        if (error) {
+            console.log("MAL")
+        } else {
+            console.log("BIEN")
+        }
+    });
+}
 
+function sendVideoMessage(recipientId, videoName) {
+    var messageData = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            attachment: {
+                type: "video",
+                payload: {
+                    url: config.SERVER_URL + videoName
+                }
+            }
+        }
+    };
 
 module.exports = {
     genericButtonQuickReplay,
