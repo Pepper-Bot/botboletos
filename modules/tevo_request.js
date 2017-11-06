@@ -179,11 +179,11 @@ module.exports = function () {
                                         saveUsuarioAndEventSearchLastSelected(senderId, event_name);
 
                                         var GenericButton = require('../bot/generic_buttton');
-                                       // GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
+                                        GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
                                       
 
 
-                                        GenericButton.listTemplateButtons(senderId, gButtons);
+                                       // GenericButton.listTemplateButtons(senderId, gButtons);
 
                                
                                         Message.typingOff(senderId);
