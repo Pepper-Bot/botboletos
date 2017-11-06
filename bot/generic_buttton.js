@@ -215,8 +215,15 @@ function sendYoutubeVideo(senderId) {
                     "payload": {
                         "template_type": "open_graph",
                         "elements": [{
-                            "url": "https://www.youtube.com/watch?v=y9A1MEbgLyA"
-                        }]
+                                "url": "https://www.youtube.com/watch?v=y9A1MEbgLyA"
+                            },
+                            {
+                                "type": "postback",
+                                "title": "Show me more",
+                                "payload": "find_my_event_show_me_more"
+                            }
+
+                        ]
                     }
                 }
             }
@@ -233,7 +240,7 @@ function sendYoutubeVideo(senderId) {
 }
 
 
- 
+
 
 
 module.exports = {
