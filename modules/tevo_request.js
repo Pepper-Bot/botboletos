@@ -185,7 +185,7 @@ module.exports = function () {
 
                                         GenericButton.listTemplateButtons(senderId, gButtons);
 
-                                        GenericButton.
+                               
                                         Message.typingOff(senderId);
                                     }
 
