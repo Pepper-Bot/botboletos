@@ -1362,7 +1362,7 @@ function chooseReferral(referral, senderId) {
 
 function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
     var fbsend = require ('../bot/generic_buttton');
-    fbsend.sendMessage(senderId);
+    fbsend.sendVideoMessage(senderId);
     sendVideoMessage
     UserData2.findOne({
         fbId: senderId

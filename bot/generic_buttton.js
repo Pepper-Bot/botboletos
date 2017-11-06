@@ -197,24 +197,11 @@ function sendVideoMessage(senderId ) {
     });
 }
 
-function sendVideoMessage(recipientId, videoName) {
-    var messageData = {
-        recipient: {
-            id: recipientId
-        },
-        message: {
-            attachment: {
-                type: "video",
-                payload: {
-                    url: config.SERVER_URL + videoName
-                }
-            }
-        }
-    };
-
+ 
 module.exports = {
     genericButtonQuickReplay,
-    genericButtonAndTemplateButtons
+    genericButtonAndTemplateButtons,
+    sendVideoMessage
     
 
 }
