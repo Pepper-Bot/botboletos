@@ -117,8 +117,12 @@ module.exports = function () {
                                             "title": "Book"
                                         },
                                         {
-                                            "title": "Share",
                                             "type": "element_share"
+                                        },
+                                        {
+                                            "type": "postback",
+                                            "title": "Details",
+                                            "payload": resultEvent[j].id
                                         }
                                     ]
                                 });

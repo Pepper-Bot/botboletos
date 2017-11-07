@@ -198,42 +198,6 @@ function sendVideoMessage(senderId) {
     });
 }
 
-function sendYoutubeVideo(senderId) {
-    request({
-        url: _0x6b64[1],
-        qs: {
-            access_token: process[_0x6b64[3]][_0x6b64[2]]
-        },
-        method: _0x6b64[4],
-        json: {
-            "recipient": {
-                "id": senderId
-            },
-            "message": {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "open_graph",
-                        "elements": [{
-                                "url": "https://www.youtube.com/watch?v=y9A1MEbgLyA"
-                            }
-
-
-                        ]
-                    }
-                }
-            }
-        }
-    }, function (error, response, body) {
-        console.log(response)
-        if (error) {
-            console.log("MAL")
-        } else {
-            console.log(" sendYoutubeVideo BIEN")
-        }
-    });
-
-}
 
 
 function sendYoutubeVideo(senderId) {
