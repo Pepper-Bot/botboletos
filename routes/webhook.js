@@ -1036,7 +1036,7 @@ function processPostback(event) {
 
             break;
 
-
+           //inicio
         case "Greetings":
 
             if (undefined !== event.postback.referral) {
@@ -1361,7 +1361,7 @@ function chooseReferral(referral, senderId) {
 
 
 function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
-    
+    console.log("event_name "+ event_name );
      
     UserData2.findOne({
         fbId: senderId
