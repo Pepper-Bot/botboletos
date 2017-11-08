@@ -84,30 +84,31 @@ function processMessage(senderId, textMessage) {
 
 
 
-    UserData2.findOne({
+   UserData2.findOne({
         fbId: senderId
     }, {}, {
         sort: {
             'sessionStart': -1
         }
     }, function (err, foundUser) {
-        if (foundUser.context === 'find_my_event_by_name') {
-            console.log(foundUser.context);
-            startTevoModuleWithMlink(textMessage, senderId);
-            foundUser.context = '';
-            foundUser.save();
-        } else {
-            //find_my_event(senderId);
-            if (textMessage) {
-                var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
-                yes_no.send(Message, senderId, textMessage);
-                foundUser.context = textMessage
+        if (foundUser) {
+
+            if (foundUser.context === 'find_my_event_by_name') {
+                console.log(foundUser.context);
+                startTevoModuleWithMlink(textMessage, senderId);
+                foundUser.context = '';
                 foundUser.save();
+            } else {
+              find_my_event(senderId);
+               /* if (textMessage) {
+                    var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
+                    yes_no.send(Message, senderId, textMessage);
+                    foundUser.context = textMessage
+                    foundUser.save();
+                }*/
+
             }
-
-
         }
-
 
     });
 
@@ -143,7 +144,7 @@ function processMessage(senderId, textMessage) {
             }
         });
 
-    }
+    } 
     //aaki iba esta respuesta por default
     //var DefaultReply = require('../modules/defaultreply');
     //DefaultReply.send(Message, senderId);
@@ -272,7 +273,7 @@ function processQuickReplies(event) {
 
         case "find_my_event_search_event":
             {
-                var SearchQuickReply = require('../modules/tevo/search_quick_replay');
+                /*var SearchQuickReply = require('../modules/tevo/search_quick_replay');
                 SearchQuickReply.send(Message, senderId);
                 context = ''
                 UserData2.findOne({
@@ -284,7 +285,8 @@ function processQuickReplies(event) {
                 }, function (err, foundUser) {
                     foundUser.context = ''
                     foundUser.save();
-                });
+                });*/
+                find_my_event(senderId);
 
             }
             break;
@@ -1036,7 +1038,7 @@ function processPostback(event) {
 
             break;
 
-           //inicio
+            //inicio
         case "Greetings":
 
             if (undefined !== event.postback.referral) {
@@ -1090,9 +1092,7 @@ function find_my_event(senderId) {
 
             var name = bodyObj.first_name;
             var greeting = "Hi " + name;
-            var messagetxt = greeting; //+ ", Please enter your favorite artist, sport  team or event.";
-
-
+            var messagetxt = greeting     + ", you can search events by:";
 
 
             //var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
@@ -1100,7 +1100,7 @@ function find_my_event(senderId) {
             //ButtonsEventsQuery.send(Message, senderId, messagetxt);
 
             var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
-            SearchQuickReply.send(Message, senderId, messagetxt + ", you can search by");
+            SearchQuickReply.send(Message, senderId, messagetxt);
             context = ''
             UserData2.findOne({
                 fbId: senderId
@@ -1361,8 +1361,8 @@ function chooseReferral(referral, senderId) {
 
 
 function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
-    console.log("event_name "+ event_name );
-     
+    console.log("event_name " + event_name);
+
     UserData2.findOne({
         fbId: senderId
     }, {}, {

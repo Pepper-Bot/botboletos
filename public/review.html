@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <base href="https://ticketdelivery.herokuapp.com/">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Review order</title>
+      <link href="css/bootstrap.min.css" rel="stylesheet">
+      <link href="css/style.css" rel="stylesheet">
+   </head>
+   <body>
+      <div class="container-fluid">
+         <div class="row">
+            <div class="col-md-12">
+               <div class="page-header">
+                  <h1>Review Order.</h1>
+               </div>
+               <form action="/finish" method="post">
+               <input type="hidden" value="" name="ticket_group_id">
+               <input type="hidden" value="" name="price_per_ticket">
+               <input type="hidden" value="" name="quantity">
+               <input type="hidden" value="0" name="fee">
+               <input type="hidden" value="" name="address_id">
+               <input type="hidden" value="" name="name">
+               <input type="hidden" value="" name="shipping_price">
+               <input type="hidden" value="" name="service_type">
+               <input type="hidden" value="" name="provider">
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Seats</th>
+                        <th> Quantity</th>
+                        <th>Price Each</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>St. Louis Cardinals at New York Mets
+                       
+                        </td>
+                        <td>July 16th 2017, 1:10:00 pm </td>
+                        <td><b>Section:</b> 128
+                           <br> <b>Row</b> : 15<br>
+                        </td>
+                        <td>2</td>
+                        <td>$470</td>
+                     </tr>
+                     <tr>
+                        <td> <b>Ticket Type: </b><label class="label label-success">Physical</label></td>
+                        <td colspan="2"></td>
+                        <td><strong>Subtotal</strong></td>
+                        <td>$940</td>
+                     </tr>
+                       <tr>
+                        <td colspan="3"></td>
+                        <td><strong>Shipping</strong><br><span style="">FeDex next day</span></td>
+                        <td>$15</td>
+                     </tr>
+                       <tr>
+                        <td colspan="3"></td>
+                        <td><strong>Total</strong></td>
+                        <td>$940</td>
+                     </tr>
+                  </tbody>
+               </table>
+               <button type="submit"  style="width:100%" class="btn btn-danger">Finish Checkout</button>
+               </form>
+            </div>
+         </div>
+      </div>
+      <script src="js/jquery.min.js"></script> 
+      <script src="js/bootstrap.min.js"></script> 
+      <script src="js/scripts.js"></script> 
+   </body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <base href="https://ticketdelivery.herokuapp.com/">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Ticket Checkout</title>
+  <base href="https://ticketdelivery.herokuapp.com">
+         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+       <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+            <!--Let browser know website is optimized for mobile-->
+
+   </head>
+   <body>
+      <div class="container">
+         <div class="section">
+         <div class="row">
+            <div class="col m12 m4">
+              
+                  <h4 class="header left blue-text">Checkout Process</small></h4>
+               <table class="table-responsive ">
+                  <thead>
+                     <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Seats</th>
+                        <th> Quantity</th>
+                        <th>Price Each</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <tr>
+                        <td>Jimmy Buffett</td>
+                        <td>August 15th 2017, 3:00:00 pm </td>
+                        <td><b>Section:</b> 27
+                           <br> <b>Row</b> : K
+                        </td>
+                        <td>1</td>
+                        <td>$71</td>
+                     </tr>
+                     <tr>
+                        <td><b>Ticket Type: </b>
+                           <span class="new badge green">Eticket
+                           </<span>
+                        </td>
+                        <td colspan="2"></td>
+                        <td><strong>Total</strong></td>
+                        <td>$71</td>
+                     </tr>
+                  </tbody>
+               </table>
+            </div>
+         </div>
+         </div>
+
+
+         <div class="row">
+            <div class="col m12 m4">
+               <form action="/pay/?uid=1529264627114912" method="post" class="col s12">
+                  <input type="hidden" value="2017-08-15T20:00:00Z" name="event_date">
+                  <input type="hidden" value="27" name="section">
+                  <input type="hidden" value="K" name="row">
+                  <input type="hidden" value="Jimmy Buffett" name="event_name">
+                  <input type="hidden" value="71" name="price">
+                  <input type="hidden" value="1" name="quantity">
+                  <input type="hidden" value="Eticket" name="format">
+                  <input type="hidden" value="351304009" name="groupticket_id">
+                     
+                     <div class="row">
+                     <h5 class="blue-text">Billing Information.</h5 class="blue-text">
+                       <div class="input-field col s12">
+                           <input id="firstname" name="firstname" type="text" class="validate">
+                           <label for="firstname">Fist Name</label>
+                       </div>
+                     </div>
+                     <div class="row">
+                       <div class="input-field col s12">
+                           <input id="lastname" name="lastname" type="text" class="validate">
+                           <label for="lastname">Last Name</label>
+                       </div>
+                     </div>
+                     <div class="row">
+                       <div class="input-field col s12">
+                           <input id="billing_address" name="billing_address" type="text" class="validate">
+                           <label for="billing_address">Billing Address</label>
+                       </div>
+                     </div>                    
+                     <div class="row">
+                       <div class="input-field col s12">
+                           <input id="billing_city" name="billing_city" type="text" class="validate">
+                           <label for="billing_city">City</label>
+                       </div>
+                     </div>                    
+
+                     <div class="row">
+                          <div class="input-field col s12">
+                            
+                            <input type="text" id="billing_country" name="billing_country" class="autocomplete">
+                            <label for="billing_country">Country</label>
+                          </div>
+                     </div>
+                    
+                     
+                        <div class="row">
+                       <div class="input-field col s12">
+                           <input id="billing_zipcode" name="billing_zipcode" type="text" class="validate">
+                           <label for="billing_zipcode">Zip Code</label>
+                       </div>
+                     </div>   
+                     <!-- Select Basic --> 
+
+
+         
+                     <div class="row">
+                        <label for="billing_state">State 
+                        </label> 
+                        <div class="input-field col s12">
+                           <select id="billing_state" name="billing_state" class="form-control">
+                              <option value="" selected="selected">Select…</option>
+                              <option value="Outside the U.S.">Outside the U.S.</option>
+                              <option value="AL">Alabama</option>
+                              <option value="AK">Alaska</option>
+                              <option value="AZ">Arizona</option>
+                              <option value="AR">Arkansas</option>
+                              <option value="CA">California</option>
+                              <option value="CO">Colorado</option>
+                              <option value="CT">Connecticut</option>
+                              <option value="DE">Delaware</option>
+                              <option value="DC">District Of Columbia</option>
+                              <option value="FL">Florida</option>
+                              <option value="GA">Georgia</option>
+                              <option value="HI">Hawaii</option>
+                              <option value="ID">Idaho</option>
+                              <option value="IL">Illinois</option>
+                              <option value="IN">Indiana</option>
+                              <option value="IA">Iowa</option>
+                              <option value="KS">Kansas</option>
+                              <option value="KY">Kentucky</option>
+                              <option value="LA">Louisiana</option>
+                              <option value="ME">Maine</option>
+                              <option value="MD">Maryland</option>
+                              <option value="MA">Massachusetts</option>
+                              <option value="MI">Michigan</option>
+                              <option value="MN">Minnesota</option>
+                              <option value="MS">Mississippi</option>
+                              <option value="MO">Missouri</option>
+                              <option value="MT">Montana</option>
+                              <option value="NE">Nebraska</option>
+                              <option value="NV">Nevada</option>
+                              <option value="NH">New Hampshire</option>
+                              <option value="NJ">New Jersey</option>
+                              <option value="NM">New Mexico</option>
+                              <option value="NY">New York</option>
+                              <option value="NC">North Carolina</option>
+                              <option value="ND">North Dakota</option>
+                              <option value="OH">Ohio</option>
+                              <option value="OK">Oklahoma</option>
+                              <option value="OR">Oregon</option>
+                              <option value="PA">Pennsylvania</option>
+                              <option value="RI">Rhode Island</option>
+                              <option value="SC">South Carolina</option>
+                              <option value="SD">South Dakota</option>
+                              <option value="TN">Tennessee</option>
+                              <option value="TX">Texas</option>
+                              <option value="UT">Utah</option>
+                              <option value="VT">Vermont</option>
+                              <option value="VA">Virginia</option>
+                              <option value="WA">Washington</option>
+                              <option value="WV">West Virginia</option>
+                              <option value="WI">Wisconsin</option>
+                              <option value="WY">Wyoming</option>
+                           </select>
+                        </div>
+                     </div>
+                     <h5 class="blue-text">Shipping Information.</h5 class="blue-text">
+                     <!-- Text input--> 
+
+                     <div class="row">
+                        
+                        <div> 
+                           <input type="checkbox" value="1" id="same_as_ship" name="same_as_ship" /> 
+                           <label  for="same_as_ship">Same as Billing Address</label> 
+                        </div>
+                     </div>
+                     <div id="shipping_form">
+                        <div class="row">
+                         
+                           <div class="input-field col s12"> 
+                              <input id="ship_address" name="ship_address" type="text"  class="validate" value=" " required=""> 
+                                <label for="ship_address">Shipping Address</label> 
+                           </div>
+                        </div>
+                        <!-- Text input--> 
+                        <div class="row">
+                        
+                           <div class="input-field col s12"> 
+                              <input id="city" name="city" type="text"  class="validate" value=" " required=""> 
+                                 <label for="city">City</label> 
+                           </div>
+                        </div>
+                        <!-- Select Basic --> 
+                        <div class="row">
+                        
+                           <div class="input-field col s12">
+                                           
+                            <input type="text" id="country" name="country" class="autocomplete">
+                            <label for="country">Country</label>
+                           </div>
+                        </div>
+                        <!-- Text input--> 
+                        <div class="row">
+                        
+                           <div class="input-field col s12"> 
+                              <input id="zipcode" name="zipcode" value=" " type="text" class="validate" required=""> 
+                                 <label for="zipcode">Zip Code 
+                           </label> 
+                           </div>
+                        </div>
+                        <!-- Select Basic --> 
+                        <div class="row">
+                           <label for="state">State 
+                           </label> 
+                           <div class="input-field col s12">
+                              <select id="state" name="state" class="form-control">
+                                 <option value=" " selected="selected">Select…</option>
+                                 <option value="Outside the U.S.">Outside the U.S.</option>
+                                 <option value="AL">Alabama</option>
+                                 <option value="AK">Alaska</option>
+                                 <option value="AZ">Arizona</option>
+                                 <option value="AR">Arkansas</option>
+                                 <option value="CA">California</option>
+                                 <option value="CO">Colorado</option>
+                                 <option value="CT">Connecticut</option>
+                                 <option value="DE">Delaware</option>
+                                 <option value="DC">District Of Columbia</option>
+                                 <option value="FL">Florida</option>
+                                 <option value="GA">Georgia</option>
+                                 <option value="HI">Hawaii</option>
+                                 <option value="ID">Idaho</option>
+                                 <option value="IL">Illinois</option>
+                                 <option value="IN">Indiana</option>
+                                 <option value="IA">Iowa</option>
+                                 <option value="KS">Kansas</option>
+                                 <option value="KY">Kentucky</option>
+                                 <option value="LA">Louisiana</option>
+                                 <option value="ME">Maine</option>
+                                 <option value="MD">Maryland</option>
+                                 <option value="MA">Massachusetts</option>
+                                 <option value="MI">Michigan</option>
+                                 <option value="MN">Minnesota</option>
+                                 <option value="MS">Mississippi</option>
+                                 <option value="MO">Missouri</option>
+                                 <option value="MT">Montana</option>
+                                 <option value="NE">Nebraska</option>
+                                 <option value="NV">Nevada</option>
+                                 <option value="NH">New Hampshire</option>
+                                 <option value="NJ">New Jersey</option>
+                                 <option value="NM">New Mexico</option>
+                                 <option value="NY">New York</option>
+                                 <option value="NC">North Carolina</option>
+                                 <option value="ND">North Dakota</option>
+                                 <option value="OH">Ohio</option>
+                                 <option value="OK">Oklahoma</option>
+                                 <option value="OR">Oregon</option>
+                                 <option value="PA">Pennsylvania</option>
+                                 <option value="RI">Rhode Island</option>
+                                 <option value="SC">South Carolina</option>
+                                 <option value="SD">South Dakota</option>
+                                 <option value="TN">Tennessee</option>
+                                 <option value="TX">Texas</option>
+                                 <option value="UT">Utah</option>
+                                 <option value="VT">Vermont</option>
+                                 <option value="VA">Virginia</option>
+                                 <option value="WA">Washington</option>
+                                 <option value="WV">West Virginia</option>
+                                 <option value="WI">Wisconsin</option>
+                                 <option value="WY">Wyoming</option>
+                              </select>
+                           </div>
+                        </div>
+                     </div>
+                     <h5 class="blue-text">Contact Information.</h5 class="blue-text">
+                     <!-- Text input-->
+                     <div class="row">
+                    
+                        <div class="input-field col s12"> 
+                           <input id="email" name="email" type="text"  class="validate" required="">    
+                           <label for="email">Email</label> 
+                        </div>
+                     </div>
+                     <!-- Text input-->
+                     <div class="row">
+                        
+                        <div class="input-field col s12"> 
+                           <input id="phone" name="phone" type="text"  class="validate" required=""> 
+                        <label for="phone">Daytime phone</label> 
+                        </div>
+                     </div>
+                     <!-- Select Basic -->
+                     <h5 class="blue-text">Payment Information.</h5 class="blue-text">
+                     <div class="row">
+                       
+                        <div class="input-field col s12"> 
+                           <input id="cc" name="cc" type="text"  class="validate" required=""> 
+                            <label for="cc">Credit Card #
+                        </label> 
+                        </div>
+                     </div>
+                     <div class="row">
+                       
+                        <div class="input-field col s12">
+                           <select id="exp_month" name="exp_month" class="form-control">
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                           </select>
+                            <label for="exp_month">Exp Month
+                        </label> 
+                        </div>
+                     </div>
+                     <!-- Select Basic -->
+                     <div class="row">
+                     
+                        <div class="input-field col s12">
+                           <select id="exp_year" name="exp_year" class="form-control">
+                              <option value="2017">2017</option>
+                              <option value="2018">2018</option>
+                              <option value="2019">2019</option>
+                              <option value="2020">2020</option>
+                              <option value="2021">2021</option>
+                              <option value="2022">2022</option>
+                              <option value="2023">2023</option>
+                              <option value="2024">2024</option>
+                              <option value="2025">2025</option>
+                              <option value="2026">2026</option>
+                              <option value="2027">2027</option>
+                              <option value="2028">2028</option>
+                              <option value="2029">2029</option>
+                              <option value="2030">2030</option>
+                              <option value="2031">2031</option>
+                              <option value="2032">2032</option>
+                           </select>
+                              <label for="exp_year">Exp Year
+                        </label> 
+                        </div>
+                     </div>
+                     <div class="row">
+
+                        <div class="input-field col s12"> 
+                           <input id="cvv" name="cvv" type="text" placeholder="Security Code / CVV" class="text-blue" required=""> 
+                           <label for="cvv">Security Code
+                           </label> 
+                        </div>   
+
+                     </div>
+                     <div class="row">
+                 
+                        <div class="col-md-4"> <button id="checkout" name="checkout" class="btn blue">Check out</button> </div>
+                     </div>
+                  
+               </form>
+            </div>
+         </div>
+      </div>
+   
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+
+      <script>$(document).ready(function() { 
+          $('select').material_select();
+
+          $('input.autocomplete').autocomplete({
+             data: 
+            {
+                  "United States":'US',
+                  "Afghanistan":'AF',
+                  "Albania": 'AL',
+                  "Algeria":'DZ',
+                  "American Samoa":'AS',
+                  "Andorra":'AD',
+                  "Angola":'AO',
+                  "Anguilla":'AI',
+                  "Antarctica":'AQ',
+                  "Antigua And Barbuda":'AG',
+                  "Argentina":'AR',
+                  "Armenia":'AM',
+                  "Aruba":'AW',
+                  "Australia":'AU',
+                  "Austria":'AT',
+                  "Azerbaijan":'AZ',
+                  "Bahamas":'BS',
+                  "Bahrain":'BH',
+                  "Bangladesh":'BD',
+                  "Barbados":'BB',
+                  "Belarus":'BY',
+                  "Belgium":'BE',
+                  "Belize":'BZ',
+                  "Benin":'BJ',
+                  "Bermuda":'BM',
+                  "Bhutan":'BT',
+                  "Bolivia":'BO',
+                  "Bosnia And Herzegovina":'BA',
+                  "Botswana":'BW',
+                  "Bouvet Island":'BV',
+                  "Brazil":'BR',
+                  "British Indian Ocean Territory":'IO',
+                  "Brunei Darussalam":'BN',
+                  "Bulgaria":'BG',
+                  "Burkina Faso":'BF',
+                  "Burundi":'BI',
+                  "Cambodia":'KH',
+                  "Cameroon":'CM',
+                  "Canada":'CA',
+                  "Cape Verde":'CV',
+                  "Cayman Islands":'KY',
+                  "Central African Republic":'CF',
+                  "Chad":'TD',
+                  "Chile":'CL',
+                  "China":'CN',
+                  "Christmas Island":'CX',
+                  "Cocos (Keeling) Islands":'CC',
+                  "Colombia":'CO',
+                  "Comoros":'KM',
+                  "Congo":'CG',
+                  "The Democratic Republic Of The Congo":'CD',
+                  "Cook Islands":'CK',
+                  "Costa Rica":'CR',
+                  "Cote D Ivoire":'CI',
+                  "Croatia":'HR',
+                  "Cuba":'CU',
+                  "Cyprus":'CY',
+                  "Czech Republic":'CZ',
+                  "Denmark":'DK',
+                  "Djibouti":'DJ',
+                  "Dominica":'DM',
+                  "Dominican Republic":'DO',
+                  "East Timor":'TP',
+                  "Ecuador":'EC',
+                  "Egypt":'EG',
+                  "El Salvador":'SV',
+                  "Equatorial Guinea":'GQ',
+                  "Eritrea":'ER',
+                  "Estonia":'EE',
+                  "Ethiopia":'ET',
+                  "Falkland Islands (Malvinas)":'FK',
+                  "Faroe Islands":'FO',
+                  "Fiji":'FJ',
+                  "Finland":'FI',
+                  "France":'FR',
+                  "French Guiana":'GF',
+                  "French Polynesia":'PF',
+                  "French Southern Territories":'TF',
+                  "Gabon":'GA',
+                  "Gambia":'GM',
+                  "Georgia":'GE',
+                  "Germany":'DE',
+                  "Ghana":'GH',
+                  "Gibraltar":'GI',
+                  "Greece":'GR',
+                  "Greenland":'GL',
+                  "Grenada":'GD',
+                  "Guadeloupe":'GP',
+                  "Guam":'GU',
+                  "Guatemala":'GT',
+                  "Guinea":'GN',
+                  "Guinea-Bissau":'GW',
+                  "Guyana":'GY',
+                  "Haiti":'HT',
+                  "Heard Island And Mcdonald Islands":'HM',
+                  "Holy See (Vatican City State)":'VA',
+                  "Honduras":'HN',
+                  "Hong Kong":'HK',
+                  "Hungary":'HU',
+                  "Iceland":'IS',
+                  "India":'IN',
+                  "Indonesia":'ID',
+                  "Islamic Republic Of Iran":'IR',
+                  "Iraq":'IQ',
+                  "Ireland":'IE',
+                  "Israel":'IL',
+                  "Italy":'IT',
+                  "Jamaica":'JM',
+                  "Japan":'JP',
+                  "Jordan":'JO',
+                  "Kazakstan":'KZ',
+                  "Kenya":'KE',
+                  "Kiribati":'KI',
+                  "Democratic Peoples Republic Of Korea":'KP',
+                  "Korean Republic":'KR',
+                  "Kuwait":'KW',
+                  "Kyrgyzstan":'KG',
+                  "Lao Peoples Democratic Republic":'LA',
+                  "Latvia":'LV',
+                  "Lebanon":'LB',
+                  "Lesotho":'LS',
+                  "Liberia":'LR',
+                  "Libyan Arab Jamahiriya":'LY',
+                  "Liechtenstein":'LI',
+                  "Lithuania":'LT',
+                  "Luxembourg":'LU',
+                  "Macau":'MO',
+                  "The Former Yugoslav Republic Of Macedonia":'MK',
+                  "Madagascar":'MG',
+                  "Malawi":'MW',
+                  "Malaysia":'MY',
+                  "Maldives":'MV',
+                  "Mali":'ML',
+                  "Malta":'MT',
+                  "Marshall Islands":'MH',
+                  "Martinique":'MQ',
+                  "Mauritania":'MR',
+                  "Mauritius":'MU',
+                  "Mayotte":'YT',
+                  "Mexico":'MX',
+                  "Federated States Of Micronesia":'FM',
+                  "Republic of Moldova":'MD',
+                  "Monaco":'MC',
+                  "Mongolia":'MN',
+                  "Montserrat":'MS',
+                  "Morocco":'MA',
+                  "Mozambique":'MZ',
+                  "Myanmar":'MM',
+                  "Namibia":'NA',
+                  "Nauru":'NR',
+                  "Nepal":'NP',
+                  "Netherlands":'NL',
+                  "Netherlands Antilles":'AN',
+                  "New Caledonia":'NC',
+                  "New Zealand":'NZ',
+                  "Nicaragua":'NI',
+                  "Niger":'NE',
+                  "Nigeria":'NG',
+                  "Niue":'NU',
+                  "Norfolk Island":'NF',
+                  "Northern Mariana Islands":'MP',
+                  "Norway":'NO',
+                  "Oman":'OM',
+                  "Pakistan":'PK',
+                  "Palau":'PW',
+                  "Palestinian Territory":'PS',
+                  "Panama":'PA',
+                  "Papua New Guinea":'PG',
+                  "Paraguay":'PY',
+                  "Peru":'PE',
+                  "Philippines":'PH',
+                  "Pitcairn":'PN',
+                  "Poland":'PL',
+                  "Portugal":'PT',
+                  "Puerto Rico":'PR',
+                  "Qatar":'QA',
+                  "Reunion":'RE',
+                  "Romania":'RO',
+                  "Russian Federation":'RU',
+                  "Rwanda":'RW',
+                  "Saint Helena":'SH',
+                  "Saint Kitts And Nevis":'KN',
+                  "Saint Lucia":'LC',
+                  "Saint Pierre And Miquelon":'PM',
+                  "Saint Vincent And The Grenadines":'VC',
+                  "Samoa":'WS',
+                  "San Marino":'SM',
+                  "Sao Tome And Principe":'ST',
+                  "Saudi Arabia":'SA',
+                  "Senegal":'SN',
+                  "Seychelles":'SC',
+                  "Sierra Leone":'SL',
+                  "Singapore":'SG',
+                  "Slovakia":'SK',
+                  "Slovenia":'SI',
+                  "Solomon Islands":'SB',
+                  "Somalia":'SO',
+                  "South Africa":'ZA',
+                  "South Georgia And The South Sandwich Islands":'GS',
+                  "Spain":'ES',
+                  "Sri Lanka":'LK',
+                  "Sudan":'SD',
+                  "Suriname":'SR',
+                  "Svalbard And Jan Mayen":'SJ',
+                  "Swaziland":'SZ',
+                  "Sweden":'SE',
+                  "Switzerland":'CH',
+                  "Syrian Arab Republic":'SY',
+                  "Province Of China Taiwan":'TW',
+                  "Tajikistan":'TJ',
+                  "United Republic Of Tanzania":'TZ',
+                  "Thailand":'TH',
+                  "Togo":'TG',
+                  "Tokelau":'TK',
+                  "Tonga":'TO',
+                  "Trinidad And Tobago":'TT',
+                  "Tunisia":'TN',
+                  "Turkey":'TR',
+                  "Turkmenistan":'TM',
+                  "Turks And Caicos Islands":'TC',
+                  "Tuvalu":'TV',
+                  "Uganda":'UG',
+                  "Ukraine":'UA',
+                  "United Arab Emirates":'AE',
+                  "United Kingdom":'GB',
+                  "United States Minor Outlying Islands":'UM',
+                  "Uruguay":'UY',
+                  "Uzbekistan":'UZ',
+                  "Vanuatu":'VU',
+                  "Venezuela":'VE',
+                  "Viet Nam":'VN',
+                  "Virgin Islands, British":'VG',
+                  "Virgin Islands, U.S.":'VI',
+                  "Wallis And Futuna":'WF',
+                  "Western Sahara":'EH',
+                  "Yemen":'YE',
+                  "Yugoslavia":'YU',
+                  "Zambia":'ZM',
+                  "Zimbabwe":'ZW'
+            },
+             limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+             onAutocomplete: function(val) {
+               // Callback function when value is autcompleted.
+             },
+             minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+           });
+        
+       });
+         </script> 
+      <script> $(document).ready(function(){ $("#same_as_ship").on("click", function(e){ if($(this).is(":checked")) { $("#shipping_form").hide(); } else { $("#shipping_form").show(); } }); }); </script>
+   </body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <base href="https://ticketdelivery.herokuapp.com/">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Review order</title>
+      <base href="https://ticketdelivery.herokuapp.com">
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+      <!--Import materialize.css-->
+      <link type="text/css" rel="stylesheet" href="css/materialize.min.css"  media="screen,projection"/>
+         <!--Let browser know website is optimized for mobile-->
+   </head>
+   <body>
+      <div class="container">
+         <div class="row">
+            <div class="col m12 m4">
+             
+                  <h4 class="header left blue-text">Review Order.</h4>
+        
+               <form action="/finish?uid=1529264627114912" method="post">
+                  <input type="hidden" value="amir@aptem.mx" name="email_id">
+                  <input type="hidden" value="Eticket" name="format">
+                  <input type="hidden" value="356465466" name="ticket_group_id"> 
+                  <input type="hidden" value="75.75" name="price_per_ticket"> 
+                  <input type="hidden" value="1" name="quantity"> 
+                  <input type="hidden" value="0" name="fee"> 
+                  <input type="hidden" value="639479" name="address_id"> 
+                  <input type="hidden" value="Amir Canto" name="name"> 
+                  <input type="hidden" value="Eticket" name="service_type"> 
+                  <input type="hidden" value="Eticket" name="provider">
+                  <input type="hidden" value="0" name="shipping_price">
+                  <table class="table-responsive">
+                     <thead>
+                        <tr>
+                           <th>Event</th>
+                           <th>Date</th>
+                           <th>Seats</th>
+                           <th> Quantity</th>
+                           <th>Price Each</th>
+                        </tr>
+                     </thead>
+                     <tbody>
+                        <tr>
+                           <td>Ted Nugent</td>
+                           <td> August 16th 2017, 3:00:00 pm </td>
+                           <td><b>Section:</b> FLOOR 
+                              <br> <b>Row:</b> GA5
+                              <br> 
+                           </td>
+                           <td>1</td>
+                           <td>$75.75</td>
+                        </tr>
+                        <tr>
+                           <td> <b>Ticket Type: </b>
+                               <span class="new badge green">Eticket
+                              </label>
+                           </td>
+                           <td colspan="2"></td>
+                           <td><strong>Subtotal</strong></td>
+                           <td>$	75.75</td>
+                        </tr>
+                        <tr>
+                           <td colspan="3"></td>
+                           <td><strong>Shipping</strong>
+                              <br>
+                              <span style="">Eticket
+                              </span>
+                           </td>
+                           <td>$0</td>
+                        </tr>
+                        <tr>
+                           <td colspan="3"></td>
+                           <td><strong>Total</strong></td>
+                           <td>$75.75</td>
+                        </tr>
+                     </tbody>
+                  </table>
+                  <button type="submit" style="width:100%" class="btn blue">Finish Checkout</button> 
+               </form>
+            </div>
+         </div>
+      </div>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+      <script type="text/javascript" src="js/materialize.min.js"></script>
+
+   </body>
+</html>

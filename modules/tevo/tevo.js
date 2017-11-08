@@ -106,7 +106,13 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
                     "type": "web_url",
                     "url": processEventURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue_id + '&performer_id=' + resultEvent[j].performer_id + '&event_name=' + resultEvent[j].name,
                     "title": "Book"
-                }]
+                },
+                {
+                  
+                    "type": "element_share"
+                }
+            
+            ]
             });
             contador++;
             // console.log(contador + ' ' + resultEvent.length);
@@ -184,7 +190,7 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
         }
 
         gButtons.push({
-            "title": "More event times",
+            "title": "Can’t make any of these times?",
             "buttons": [{
                 "type": "postback",
                 "title": "More event times",
@@ -211,7 +217,7 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
                 }
 
                 if (z == gButtons.length - 1) {
-                    gButtons[z].image_url = 'http://www.ideosyncmedia.org/index_htm_files/196.png'
+                    gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"//"http://www.ideosyncmedia.org/index_htm_files/196.png"
                 }
 
                 console.log(counter + ' ' + gButtons.length)

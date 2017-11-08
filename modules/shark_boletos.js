@@ -11,7 +11,7 @@ module.exports = function () {
             Message.typingOn(senderId);
             // simulamos el tipeado
             // enviamos el mensaje    
-            Message.sendMessage(senderId, "Sharks Tank EnVivo® Episode 51 - with $50k in prizes!");
+            Message.sendMessage(senderId, "Sharks Tank EnVivo® Episode 53 - with $50k in prizes!");
             Message.typingOff(senderId);
 
             // tipeado off
@@ -19,13 +19,15 @@ module.exports = function () {
             // Guarda el url cada vez que el usuario hace click en la tarjeta
             var URLAplication = "https://botboletos-test.herokuapp.com/redirect/?u="
             //configuramos los boletos
+            
+ 
             var boletos =
                 [
                     {
                         "titulo": "Discount - Limited Time",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_image_discount.jpg",
                         "subtitulo": "Live the Sharks Tank experience. You can also pitch and Win 50K",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-52-with-50k-in-prizes-tickets-38447048156?discount=Entrepreneur " + '&id=' + senderId
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-53-with-50k-in-prizes-tickets-39644885921?discount=Entrepreneur " + '&id=' + senderId
                                                
 												
                     },
@@ -35,14 +37,14 @@ module.exports = function () {
                         "titulo": "General Admission - $20",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_tank_16sec_video_attendees.png",
                         "subtitulo": "Bring cards and network w Bay Area investors and entrepreneurs",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-52-with-50k-in-prizes-tickets-38447048156 " + '&id=' + senderId
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-53-with-50k-in-prizes-tickets-39644885921 " + '&id=' + senderId
 
                     },
                     {
                         "titulo": "Startups - $150",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_participant.png",
                         "subtitulo": "PPitch your idea and Win 50K. Get Funded this Friday.",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-52-with-50k-in-prizes-tickets-38447048156 " + '&id=' + senderId
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-53-with-50k-in-prizes-tickets-39644885921 " + '&id=' + senderId
 
                     },
 
@@ -50,7 +52,7 @@ module.exports = function () {
                         "titulo": "Sponsors - from $500",
                         "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_sponsor.png",
                         "subtitulo": "Get your logo in front of 50 thousand people. Get a VIP table and join the smashing party.",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-52-with-50k-in-prizes-tickets-38447048156 " + '&id=' + senderId
+                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-53-with-50k-in-prizes-tickets-39644885921 " + '&id=' + senderId
 
                     }
 
@@ -78,6 +80,9 @@ module.exports = function () {
                             "url": boletos[i].url,
                             "title": "Reservar"
                             //"payload": "TIBURON" + (i + 1)
+                        },
+                        {
+                              "type": "element_share"
                         }
                     ]
                 });
@@ -95,7 +100,11 @@ module.exports = function () {
             // se las enviamos al cliente
 
             //enviarMensajeTemplate(senderId);
-            Message.genericButton(senderId, eventResults);
+            //Message.genericButton(senderId, eventResults);
+
+
+            var GenericButton = require('../bot/generic_buttton');
+            GenericButton.genericButtonQuickReplay(senderId, eventResults, "Find something else? ", "horizontal")
 
 
             // dejamos de tipear
