@@ -25,7 +25,7 @@ var payment = require('./routes/pay');
 var finish = require('./routes/finish');
 var email = require('./routes/email');
 
-//var login = require('./routes/handlers-views/login');
+var login = require('./routes/handlers-views/login');
 
 /*var ChatBox = require('./bot/chatbox');
 // prueba alexis
@@ -95,7 +95,7 @@ app.use('/pay/', payment);
 app.use('/finish/', finish); // finishing checkout / creating orders and payments
 
 
-//app.use('/login/', login);
+app.use('/login/', login);
 
 
 // catch 404 and forward to error handler

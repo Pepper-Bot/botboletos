@@ -2,7 +2,6 @@ var express = require('express');
 var router = express.Router();
 
 
-
 let personas = [{
         id: 1,
         nombre: "Mariel"
@@ -26,6 +25,5 @@ router.get('/', (req, res) => {
 
 });
 
-module.exports = {
-    router
-}
+module.exports = router;
+
