@@ -25,7 +25,7 @@ var payment = require('./routes/pay');
 var finish = require('./routes/finish');
 var email = require('./routes/email');
 
-var login = require('./routes/handlers-views/login');
+//var login = require('./routes/handlers-views/login');
 
 /*var ChatBox = require('./bot/chatbox');
 // prueba alexis
