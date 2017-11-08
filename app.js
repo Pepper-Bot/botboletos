@@ -44,6 +44,15 @@ ChatBox.persistentMenu({
 
 var app = express();
 
+//############MANEJO DE PLANTILLAS express-handlebars####################
+app.engine('.hbs', hbs({
+  defaultLayout: 'default',
+  ext: '.hbs'
+
+}));
+
+app.set('view engine', '.hbs');
+//############MANEJO DE PLANTILLAS####################
 
 
 
@@ -110,15 +119,6 @@ app.use(function (err, req, res, next) {
 });
 
 
-//############MANEJO DE PLANTILLAS express-handlebars####################
-app.engine('.hbs', hbs({
-  defaultLayout: 'default',
-  ext: '.hbs'
-
-}));
-
-app.set('view engine', '.hbs');
-//############MANEJO DE PLANTILLAS####################
 
 
 
