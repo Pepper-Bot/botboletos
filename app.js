@@ -13,7 +13,7 @@ var webhook = require('./routes/webhook');
 var storeUrl = require('./routes/redirect');
 var ticketSales = require('./routes/event');
 var ticketGroups = require('./routes/groups');
-//var checkout = require('./routes/checkout');
+var checkoutBuy = require('./routes/checkout');
 var payment = require('./routes/pay');
 var finish = require('./routes/finish');
 var email = require('./routes/email');
@@ -62,6 +62,10 @@ app.use('/redirect/', storeUrl);
 app.use('/event/', ticketSales);
 app.use('/tickets/', ticketGroups);
 //app.use('/checkout/', checkout);
+
+app.post('/checkout/', urlencodedParser,  checkoutBuy.checkout);
+
+
 app.use('/pay/', payment);
 app.use('/finish/', finish); // finishing checkout / creating orders and payments
 app.use('/pruebamail/', email);
