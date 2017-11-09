@@ -17,6 +17,7 @@
     "express-handlebars": "^3.0.0",
     "g-i-s": "^2.0.0",
     "jade": "~1.11.0",
+    "mailcomposer": "^4.0.2",
     "mailgun-js": "^0.13.1",
     "materialize-css": "^0.100.1",
     "moment": "^2.19.1",
