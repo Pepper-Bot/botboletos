@@ -9,8 +9,8 @@ var moment = require('moment');
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var teClient = new TevoClient(
 {
-	apiToken: process.env.API_TOKEN,
-	apiSecretKey: process.env.API_SECRET_KEY
+	apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
+    apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
 });
 
 
