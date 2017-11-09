@@ -46,7 +46,7 @@ module.exports = function () {
                             resultEvent = json.events;
                             var eventButtons_ = [];
                             var callsGis = 0;
-                            var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
+                            var baseURL = 'https://botboletos-test.herokuapp.com/event/?event_id=';
 
 
                             if (resultEvent.length > 9 * (position - 1)) {

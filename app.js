@@ -67,7 +67,15 @@ app.set('view engine', '.hbs');
   next();
 });*/
 
-
+app.use(function (req, res, next) {
+  
+    //res.header('Content-Type', 'application/vnd.api+json; charset=utf-8');
+    //res.header("Access-Control-Allow-Origin", '*');
+    res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
+    //res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Access-Control-Allow-Headers, Authorization, X-Requested-With, Content-Type, Accept, Connection, Content-Length, Cookie, Host, Keep-Alive, Referer, Upgrade, Transfer-Encoding");
+  
+    next();
+  });
 
 // view engine setup
 /*app.set('views', path.join(__dirname, 'views'));
