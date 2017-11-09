@@ -45,11 +45,11 @@ app.use(function(req, res, next) {
 });
 
 */
- 
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
+var urlencodedParser = app.use(bodyParser.urlencoded({
   extended: false
 }));
 app.use(cookieParser());
@@ -61,7 +61,7 @@ app.use('/webhook2/', webhook);
 app.use('/redirect/', storeUrl);
 app.use('/event/', ticketSales);
 app.use('/tickets/', ticketGroups);
-app.use('/checkout/', checkout);
+app.use('/checkout/', urlencodedParser, checkout);
 app.use('/pay/', payment);
 app.use('/finish/', finish); // finishing checkout / creating orders and payments
 app.use('/pruebamail/', email);
