@@ -6,7 +6,7 @@ var gis = require('g-i-s'); // Google images
 var moment = require('moment');
 /* GET home page. */
 
- 
+
 
 router.post('/', function(req, res) {
 
