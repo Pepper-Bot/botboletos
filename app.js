@@ -63,7 +63,7 @@ app.use('/event/', ticketSales);
 app.use('/tickets/', ticketGroups);
 //app.use('/checkout/', checkout);
 
-app.post('/checkout/', urlencodedParser,  checkoutBuy.checkout);
+app.post('/checkout/', checkoutBuy.checkout);
 
 
 app.use('/pay/', payment);
