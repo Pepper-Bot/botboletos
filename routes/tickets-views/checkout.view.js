@@ -23,6 +23,9 @@ function checkout(req, res) {
     var eticket = params.eticket;
     var groupticket_id = params.groupticket_id;
 
+    var total = params.userticketsquantity * params.priceticket;
+    var totals = "$"+ total 
+
     var noeticket = false;
     if (params.format != 'Eticket') {
         noeticket = true;
@@ -59,8 +62,8 @@ function checkout(req, res) {
                     section: params.section,
                     row: params.row,
                     quantity: params.userticketsquantity,
-                    price: params.priceticket,
-                    total: params.userticketsquantity * params.priceticket,
+                    price: '$'+ params.priceticket,
+                    total: totals,
                     format: params.format,
                     noeticket: noeticket,
                     eticket: params.eticket,
