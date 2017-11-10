@@ -23,6 +23,10 @@ function checkout(req, res) {
     var eticket = params.eticket;
     var groupticket_id = params.groupticket_id;
 
+    var noeticket = false;
+    if (params.format != 'Eticket') {
+        noeticket  = true;
+    }
 
     if (undefined == params.uid) {
         res.status(200);
@@ -57,6 +61,7 @@ function checkout(req, res) {
                     price: params.priceticket,
                     total: params.userticketsquantity * params.priceticket,
                     format: params.format,
+                    noeticket : noeticket,
                     eticket: params.eticket,
                     groupticket_id: params.groupticket_id,
                     firstName: result.firstName,
