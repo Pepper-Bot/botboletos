@@ -41,29 +41,7 @@ function checkout(req, res) {
 
         if (result) {
 
-            res.render(
-                './layouts/tickets/3_checkout', {
-                    titulo: "Your tickets are on its way!",
-                    event_id: params.event_id,
-                    fbId: params.uid,
-                    venue_id: params.venue_id,
-                    event_name: params.event_name,
-                    performer_id: params.performer_id,
-                    event_date: params.event_date,
-                    section: params.section,
-                    row: params.row,
-                    quantity: params.userticketsquantity,
-                    price: params.priceticket,
-                    format: params.format,
-                    eticket: params.eticket,
-                    groupticket_id: params.groupticket_id,
-                    firstName: result.firstName,
-                    LastName: result.LastName
-
-
-
-                }
-            );
+            res.send("Hola !!");
 
 
 
