@@ -1,4 +1,8 @@
  function checkout(req, res) {
+
+ 	var UserData = require('../bot/userinfo');
+ 	var UserData2 = require('../schemas/userinfo');
+ 	var moment = require('moment');
  	var params = req.body;
 
 
