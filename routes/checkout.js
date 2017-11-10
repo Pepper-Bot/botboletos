@@ -6,9 +6,6 @@
  	var params = req.body;
 
 
- 	var event_id = params.event_id;
- 	console.log("params.event_id;" + event_id);
-
 
 
  	var event_id = params.event_id;
@@ -23,6 +20,7 @@
  	var price = params.priceticket;
  	var format = params.format;
  	var eticket = params.eticket;
+ 	var groupticket_id = params.groupticket_id;
 
 
  	if (undefined == params.uid) {
