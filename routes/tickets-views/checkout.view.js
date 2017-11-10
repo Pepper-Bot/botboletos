@@ -27,8 +27,8 @@ function checkout(req, res) {
     if (params.format != 'Eticket') {
         noeticket = true;
     }
-    event_date = moment(event_date).format('MMMM Do YYYY, h:mm:ss a');
-    
+  
+
     if (undefined == params.uid) {
         res.status(200);
         res.send('Error trying to access');
@@ -55,7 +55,7 @@ function checkout(req, res) {
                     venue_id: params.venue_id,
                     event_name: params.event_name,
                     performer_id: params.performer_id,
-                    event_date: params.event_date,
+                    event_date: moment(event_date).format('MMMM Do YYYY, h:mm:ss a'),
                     section: params.section,
                     row: params.row,
                     quantity: params.userticketsquantity,
