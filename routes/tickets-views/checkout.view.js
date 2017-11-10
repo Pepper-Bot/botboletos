@@ -1,8 +1,8 @@
 function checkout(req, res) {
     var express = require('express');
     var router = express.Router();
-    var UserData = require('../bot/userinfo');
-    var UserData2 = require('../schemas/userinfo');
+    var UserData = require('../../bot/userinfo');
+    var UserData2 = require('../../schemas/userinfo');
     var moment = require('moment');
     var params = req.body;
 
@@ -41,8 +41,30 @@ function checkout(req, res) {
 
         if (result) {
 
-            res.send("Hola !!");
+          
+            res.render(
+                './layouts/tickets/3_checkout', {
+                    titulo: "Your tickets are on its way!",
+                    event_id: params.event_id,
+                    fbId: params.uid,
+                    venue_id: params.venue_id,
+                    event_name: params.event_name,
+                    performer_id: params.performer_id,
+                    event_date: params.event_date,
+                    section: params.section,
+                    row: params.row,
+                    quantity: params.userticketsquantity,
+                    price: params.priceticket,
+                    format: params.format,
+                    eticket: params.eticket,
+                    groupticket_id: params.groupticket_id,
+                    firstName: result.firstName,
+                    LastName: result.LastName
 
+
+
+                }
+            );
 
 
         }
