@@ -6,6 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var hbs = require('express-handlebars');
 
 var index = require('./routes/index');
 //var users = require('./routes/users');
@@ -46,6 +47,18 @@ app.use(function(req, res, next) {
 });
 
 */
+
+//############MANEJO DE PLANTILLAS express-handlebars####################
+app.engine('.hbs', hbs({
+  defaultLayout: 'default',
+  ext: '.hbs'
+
+}));
+
+app.set('view engine', '.hbs');
+//############MANEJO DE PLANTILLAS####################
+
+
  
 
 app.use(logger('dev'));
