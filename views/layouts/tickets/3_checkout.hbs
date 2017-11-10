@@ -96,6 +96,57 @@
                         <label for="billing_state">State </label>
                     </div>
                 </div>
+                <!-- akit-->
+                {{#if format != 'Eticket'}}
+
+                <h5 class="blue-text"> Shipping Information.</h5 class="blue-text">
+                <!-- Text input-->
+                <div class="row">
+                    <div>
+                        <input type="checkbox" value="1" id="same_as_ship" name="same_as_ship" />
+                        <label for="same_as_ship">Same as Billing Address </label>
+                    </div>
+                </div>
+                <div id="shipping_form">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="ship_address" name="ship_address" type="text" class="validate" value=" " required="">
+                            <label for="ship_address">Shipping Address </label>
+                        </div>
+                    </div>
+                    <!-- Text input-->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="zipcode" name="zipcode" value=" " type="number" class="validate" required="">
+                            <label for="zipcode">Zip Code </label>
+                        </div>
+                    </div>
+                    <!-- fin shipping address -->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="city" name="city" type="text" class="validate" value=" " required="">
+                            <label for="city">City </label>
+                        </div>
+                    </div>
+                    <!-- Select Basic -->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" id="country" name="country" class="autocomplete">
+                            <label for="country">Country </label>
+                        </div>
+                    </div>
+                    <!-- Text input-->
+                    <!-- Select Basic -->
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" class="validate" required="" id="state" name="state" class="form-control">
+                            <label for="state">State </label>
+                        </div>
+                    </div>
+                </div>
+
+                {{/if}}
+
                 <h5 class="blue-text"> Contact Information.</h5 class="blue-text">
                 <!-- Text input-->
                 <div class="row">
