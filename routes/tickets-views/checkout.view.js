@@ -55,6 +55,7 @@ function checkout(req, res) {
                     row: params.row,
                     quantity: params.userticketsquantity,
                     price: params.priceticket,
+                    total: params.userticketsquantity * params.priceticket,
                     format: params.format,
                     eticket: params.eticket,
                     groupticket_id: params.groupticket_id,
