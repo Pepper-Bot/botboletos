@@ -3,7 +3,7 @@
 
 function checkout(req, res) {
 
-
+      console.log("req.query.event_id;" + req.query.event_id);
 	/* var event_id = req.query.event_id;
 	 	 var fbId = req.query.uid;
 	 	 var venue_id = req.query.venue_id;
