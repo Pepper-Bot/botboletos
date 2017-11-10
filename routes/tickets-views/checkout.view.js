@@ -25,9 +25,10 @@ function checkout(req, res) {
 
     var noeticket = false;
     if (params.format != 'Eticket') {
-        noeticket  = true;
+        noeticket = true;
     }
-
+    event_date = moment(event_date).format('MMMM Do YYYY, h:mm:ss a');
+    
     if (undefined == params.uid) {
         res.status(200);
         res.send('Error trying to access');
@@ -45,7 +46,7 @@ function checkout(req, res) {
 
         if (result) {
 
-          
+
             res.render(
                 './layouts/tickets/3_checkout', {
                     titulo: "Your tickets are on its way!",
@@ -61,7 +62,7 @@ function checkout(req, res) {
                     price: params.priceticket,
                     total: params.userticketsquantity * params.priceticket,
                     format: params.format,
-                    noeticket : noeticket,
+                    noeticket: noeticket,
                     eticket: params.eticket,
                     groupticket_id: params.groupticket_id,
                     firstName: result.firstName,
