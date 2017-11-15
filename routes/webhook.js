@@ -236,6 +236,21 @@ function processLocation(senderId, locationData) {
 
 }
 
+function processQuickReplayBox(senderId) {
+
+    console.log("Rigondeaux  Lomachenko   ")
+    Message.markSeen(senderId);
+
+    Message.sendMessage(senderId, "Results:");
+    //resultados...
+    var rigovslomaQuickReplay = require('../modules/quiz/rigo_vs_loma_quick_replay');
+    rigovslomaQuickReplay.send(Message, senderId);
+
+}
+
+
+
+
 function processQuickReplies(event) {
     var senderId = event.sender.id;
     var payload = event.message.quick_reply.payload;
@@ -247,16 +262,15 @@ function processQuickReplies(event) {
 
     switch (payload) {
 
-        case "Rigondeaux" || "Lomachenko":
+        case "Rigondeaux":
             {
-                console.log("Rigondeaux  Lomachenko   ")
-                Message.markSeen(senderId);
+                processQuickReplayBox(senderId);
 
-                Message.sendMessage(senderId, "Results:");
-                //resultados...
-                var rigovslomaQuickReplay = require('../modules/quiz/rigo_vs_loma_quick_replay');
-                rigovslomaQuickReplay.send(Message, senderId);
-
+            }
+            break;
+        case "Lomachenko":
+            {
+                processQuickReplayBox(senderId);
             }
             break;
 
