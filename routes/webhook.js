@@ -84,7 +84,7 @@ function processMessage(senderId, textMessage) {
 
 
 
-   UserData2.findOne({
+    UserData2.findOne({
         fbId: senderId
     }, {}, {
         sort: {
@@ -99,13 +99,13 @@ function processMessage(senderId, textMessage) {
                 foundUser.context = '';
                 foundUser.save();
             } else {
-              find_my_event(senderId);
-               /* if (textMessage) {
-                    var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
-                    yes_no.send(Message, senderId, textMessage);
-                    foundUser.context = textMessage
-                    foundUser.save();
-                }*/
+                find_my_event(senderId);
+                /* if (textMessage) {
+                     var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
+                     yes_no.send(Message, senderId, textMessage);
+                     foundUser.context = textMessage
+                     foundUser.save();
+                 }*/
 
             }
         }
@@ -144,7 +144,7 @@ function processMessage(senderId, textMessage) {
             }
         });
 
-    } 
+    }
     //aaki iba esta respuesta por default
     //var DefaultReply = require('../modules/defaultreply');
     //DefaultReply.send(Message, senderId);
@@ -844,6 +844,12 @@ function processPostback(event) {
 
     switch (payload) {
 
+        case "Rigondeaux" || "Lomachenko":
+            {
+                console.log("Rigondeaux  Lomachenko   ")
+            }
+            break;
+
         case "find_my_event_see_more_events_by_cat_loc":
             {
 
@@ -1092,7 +1098,7 @@ function find_my_event(senderId) {
 
             var name = bodyObj.first_name;
             var greeting = "Hi " + name;
-            var messagetxt = greeting     + ", you can search events by:";
+            var messagetxt = greeting + ", you can search events by:";
 
 
             //var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
@@ -1314,6 +1320,13 @@ function chooseReferral(referral, senderId) {
     // y llamando a su modulo correspondiente.
     switch (referral) {
 
+        case "PEPPER_QUIZ":
+            {
+
+            }
+            break;
+
+
         case "MAGICON":
             {
 
@@ -1359,6 +1372,12 @@ function chooseReferral(referral, senderId) {
 }
 
 
+
+function startPepperQUiz(senderId) {
+    var QuizModule = require('../modules/quiz/quiz')
+    QuizModule.start(senderId);
+
+}
 
 function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
     console.log("event_name " + event_name);

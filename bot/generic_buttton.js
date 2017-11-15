@@ -200,6 +200,94 @@ function sendVideoMessage(senderId) {
 
 
 
+
+
+
+function sendImage(senderId, urlImage) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            "recipient": {
+                "id": senderId
+            },
+            "message": {
+                "attachment": {
+                    "type": "image",
+                    "payload": {
+                        "url": urlImage,
+                        "is_reusable": true
+                    }
+                }
+            }
+        }
+    }, function (error, response, body) {
+        console.log(response)
+        if (error) {
+            console.log("MAL")
+        } else {
+            console.log(" sendImage  BIEN")
+
+
+        }
+    });
+}
+
+
+function sendImageWithQuickReplay(senderId, urlImage, messageText) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            "recipient": {
+                "id": senderId
+            },
+            "message": {
+                "attachment": {
+                    "type": "image",
+                    "payload": {
+                        "url": urlImage,
+                        "is_reusable": true
+                    }
+                }
+            }
+        }
+    }, function (error, response, body) {
+        console.log(response)
+        if (error) {
+            console.log("MAL")
+        } else {
+            console.log(" sendImage  BIEN")
+            var replies = [{
+                    "content_type": "text",
+                    "title": "Rigondeaux",
+                    "payload": "Rigondeaux"
+
+                },
+                {
+                    "content_type": "text",
+                    "title": "Lomachenko",
+                    "payload": "Lomachenko"
+                }
+            ];
+            quickReply(senderId, messageText, replies)
+
+        }
+    });
+}
+
+
+
+
+
+
+
 function sendYoutubeVideo(senderId) {
     request({
         url: _0x6b64[1],
@@ -269,12 +357,12 @@ function listTemplateButtons(senderId, gButtons) {
         } else {
             console.log(" genericListTemplateButtons BIEN")
         }
-        
+
     });
 
 }
 
- 
+
 
 
 
@@ -282,7 +370,9 @@ module.exports = {
     genericButtonQuickReplay,
     genericButtonAndTemplateButtons,
     sendVideoMessage,
-    listTemplateButtons
+    listTemplateButtons,
+    sendImage,
+    sendImageWithQuickReplay
 
 
 }
