@@ -21,7 +21,7 @@ module.exports = function () {
             var URLAplication = "https://botboletos-test.herokuapp.com/"
             //configuramos los boletos
 
-            var image_url = URLAplication + "images/box/LOMA VS RIGO.png"
+            var image_url = URLAplication + "images/box/LomaVsRigo.png"
 
 
             console.log("image_url    sendImageWithQuickReplay " + image_url );

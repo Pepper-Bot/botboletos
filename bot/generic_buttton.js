@@ -252,8 +252,7 @@ function sendImageWithQuickReplay(senderId, urlImage, messageText) {
                 "attachment": {
                     "type": "image",
                     "payload": {
-                        "url": urlImage,
-                        "is_reusable": true
+                        "url": urlImage 
                     }
                 }
             }
