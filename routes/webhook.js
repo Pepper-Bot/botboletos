@@ -1322,7 +1322,7 @@ function chooseReferral(referral, senderId) {
 
         case "PEPPER_QUIZ":
             {
-
+                startPepperQUiz(senderId);
             }
             break;
 
