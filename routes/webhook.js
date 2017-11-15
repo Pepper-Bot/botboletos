@@ -264,7 +264,7 @@ function processQuickReplies(event) {
             {
                 startTevoModuleWithMlink("Top Rank Boxing: Vasyl Lomachenko vs. Guillermo Rigondeaux", senderId);
             }
-
+            break;
         case "find_my_event_show_me_more":
             {
 
