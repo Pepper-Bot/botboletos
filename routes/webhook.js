@@ -247,9 +247,27 @@ function processQuickReplies(event) {
 
     switch (payload) {
 
+        case "Rigondeaux" || "Lomachenko":
+            {
+                console.log("Rigondeaux  Lomachenko   ")
+                Message.markSeen(senderId);
+
+                Message.sendMessage(senderId, "Results:");
+                //resultados...
+                var rigovslomaQuickReplay = require('../modules/quiz/rigo_vs_loma_quick_replay');
+                rigovslomaQuickReplay.send(Message, senderId);
+
+            }
+            break;
+
+        case "find_my_event_rigo_vs_loma":
+            {
+                startTevoModuleWithMlink("Top Rank Boxing: Vasyl Lomachenko vs. Guillermo Rigondeaux", senderId);
+            }
+
         case "find_my_event_show_me_more":
             {
-                var aki = ""
+
                 //var MonthsQuickReply = require('../modules/tevo/months_replay');
                 //MonthsQuickReply.send(Message, senderId, "Please choose month...");
                 Message.markSeen(senderId);
