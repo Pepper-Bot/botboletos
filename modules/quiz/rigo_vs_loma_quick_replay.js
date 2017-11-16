@@ -46,7 +46,7 @@ module.exports = function () {
                         {
                           "title": boletos[i].subtitulo,
                           "type": "web_url",
-                          "url": "https://www.messenger.com/t/pepperSharks?ref=RIGOVSLOMA",
+                          "url": "https://www.messenger.com/t/pepperSharks?ref=Rigondeaux%20vs%20Lomachenko",
                                 
                         }
                       ]
