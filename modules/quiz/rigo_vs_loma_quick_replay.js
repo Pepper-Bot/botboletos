@@ -20,7 +20,7 @@ module.exports = function () {
             var boletos = [{
                     "titulo": "Rigondeaux",
                     "imagen": "https://botboletos-test.herokuapp.com/images/box/rigo-larga.png",
-                    "subtitulo": "",
+                    "subtitulo": "4.700",
                     "url": ""
 
                 },
@@ -28,7 +28,7 @@ module.exports = function () {
                 {
                     "titulo": "Lomachenko",
                     "imagen": "https://botboletos-test.herokuapp.com/images/box/loma-larga.png",
-                    "subtitulo": "",
+                    "subtitulo": "1.225",
                     "url": ""
                 }
 
