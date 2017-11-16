@@ -276,7 +276,7 @@ function processQuickReplies(event) {
 
         case "find_my_event_rigo_vs_loma":
             {
-                startTevoModuleWithMlink("Top Rank Boxing: Vasyl Lomachenko vs. Guillermo Rigondeaux", senderId);
+                //startTevoModuleWithMlink("Top Rank Boxing: Vasyl Lomachenko vs. Guillermo Rigondeaux", senderId);
             }
             break;
         case "find_my_event_show_me_more":
@@ -1352,7 +1352,7 @@ function chooseReferral(referral, senderId) {
     // y llamando a su modulo correspondiente.
     switch (referral) {
 
-        case "PEPPER_QUIZ":
+        case "RIGOVSLOMA":
             {
                 startPepperQUiz(senderId);
             }

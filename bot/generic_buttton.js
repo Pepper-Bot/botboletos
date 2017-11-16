@@ -354,7 +354,7 @@ function listTemplateButtons(senderId, gButtons) {
         if (error) {
             console.log("MAL")
         } else {
-            console.log(" genericListTemplateButtons BIEN")
+            console.log(" listTemplateButtons  BIEN")
         }
 
     });
@@ -362,7 +362,29 @@ function listTemplateButtons(senderId, gButtons) {
 }
 
 
-
+ function sendResultsMessageImageAndButton(senderId, message) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            recipient: {
+                id: senderId
+            },
+            message: {
+                text: message
+            }
+        }
+    }, function (dataAndEvents, deepDataAndEvents, ignoreMethodDoesntExist) {
+        if (dataAndEvents) {
+            return false;
+        } else {
+            return true;
+        }
+    });
+}
 
 
 module.exports = {
