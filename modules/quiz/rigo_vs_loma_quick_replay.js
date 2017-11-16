@@ -44,9 +44,10 @@ module.exports = function () {
                     //"item_url": boletos[i].url,
                     "buttons": [
                         {
-                            "type": "postback",
-                            "title": boletos[i].subtitulo,
-                            "payload": boletos[i].subtitulo
+                          "title": boletos[i].subtitulo,
+                          "type": "web_url",
+                          "url": "https://www.messenger.com/t/pepperSharks?ref=RIGOVSLOMA",
+                                
                         }
                       ]
                     
