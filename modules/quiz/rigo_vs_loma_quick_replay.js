@@ -48,17 +48,7 @@ module.exports = function () {
                         //"messenger_extensions": true//,
                         // "webview_height_ratio": "tall",
                         // "fallback_url": boletos[i].url
-                    },
-                    "buttons": [{
-                            "type": "web_url",
-                            "url": boletos[i].url,
-                            "title": "Reservar"
-                            //"payload": "TIBURON" + (i + 1)
-                        },
-                        {
-                            "type": "element_share"
-                        }
-                    ]
+                    }
                 });
 
 
