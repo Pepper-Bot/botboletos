@@ -44,12 +44,9 @@ module.exports = function () {
                     //"item_url": boletos[i].url,
                     "buttons": [
                         {
-                          "title": "View",
-                          "type": "web_url",
-                          "url": "https://peterssendreceiveapp.ngrok.io/collection",
-                          "messenger_extensions": true,
-                          "webview_height_ratio": "tall",
-                          "fallback_url": "https://peterssendreceiveapp.ngrok.io/"            
+                            "type": "postback",
+                            "title": boletos[i].subtitulo,
+                            "payload": boletos[i].subtitulo
                         }
                       ]
                     
