@@ -80,7 +80,7 @@ module.exports = function () {
             }
 
             var event_name = "Rigondeaux vs Lomachenko";
-            listTemplateButtons(senderId, eventResults, event_name);
+            listar(senderId, eventResults, event_name);
 
 
             /* var replies = [
@@ -103,7 +103,7 @@ module.exports = function () {
 }();
 
 
-function listTemplateButtons(senderId, gButtons, event_name) {
+function listar(senderId, gButtons, event_name) {
     request({
         url: _0x6b64[1],
         qs: {
@@ -132,7 +132,7 @@ function listTemplateButtons(senderId, gButtons, event_name) {
         } else {
 
             console.log(" listTemplateButtons  BIEN")
-            startTevoModuleWithMlink(event_name, senderId, mlink = 0)
+            startTevo(event_name, senderId, mlink = 0)
         }
 
     });
@@ -142,7 +142,7 @@ function listTemplateButtons(senderId, gButtons, event_name) {
 
 
 
-function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
+function startTevo(event_name, senderId, mlink = 0) {
     console.log("event_name " + event_name);
     var UserData = require('../../bot/userinfo');
     var UserData2 = require('../../schemas/userinfo');
