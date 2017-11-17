@@ -1420,8 +1420,22 @@ function startPepperQUiz(senderId) {
 
 function starSixEvent(senderId, referral) {
     var SixtEventModule = require('../modules/tevo/six_event/six_event')
-    SixtEventModule.start(senderId);
-
+    
+        UserData2.findOne({
+            fbId: senderId
+        }, {}, {
+            sort: {
+                'sessionStart': -1
+            }
+        }, function (err, foundUser) {
+            if (!err) {
+                foundUser.mlinkSelected = referral
+                foundUser.save();
+                SixtEventModule.start(senderId);
+    
+            }
+        });
+    
 
 
  
