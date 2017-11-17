@@ -1594,4 +1594,4 @@ function startTevoModuleByLocation(senderId, lat, lon) {
 
 }
 
-module.exports = router;
+module.exports ={ router, startTevoModuleWithMlink };

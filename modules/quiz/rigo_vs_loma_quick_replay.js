@@ -59,7 +59,7 @@ module.exports = function () {
             }
 
 
-            Message2.listTemplateButtons(senderId, eventResults);
+            Message2.listTemplateButtons(senderId, eventResults, event_name);
 
 
             /* var replies = [
