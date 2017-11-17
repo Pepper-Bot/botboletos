@@ -1352,6 +1352,13 @@ function chooseReferral(referral, senderId) {
     // y llamando a su modulo correspondiente.
     switch (referral) {
 
+        case "BLACK_FRIDAY":
+            {
+
+                starSixEvent(senderId, referral);
+            }
+
+            break;
         case "RIGOVSLOMA":
             {
                 startPepperQUiz(senderId);
@@ -1410,6 +1417,28 @@ function startPepperQUiz(senderId) {
     QuizModule.start(senderId);
 
 }
+
+function starSixEvent(senderId, referral) {
+    var SixtEventModule = require('../modules/tevo/six_event/six_event')
+
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, foundUser) {
+        if (!err) {
+            foundUser.mlinkSelected = referral
+            foundUser.save();
+            SixtEventModule.start(senderId);
+
+        }
+    });
+
+
+}
+
 
 function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
     console.log("event_name " + event_name);
