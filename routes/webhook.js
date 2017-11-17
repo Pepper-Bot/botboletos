@@ -870,26 +870,7 @@ function processPostback(event) {
     var senderId = event.sender.id;
     var payload = event.postback.payload;
 
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, foundUser) {
-        if (!err) {
-            if (foundUser) {
-                if (foundUser.mlinkSelected == "SIX_EVENT") {
-                    startTevoModuleWithMlink(payload, senderId);
 
-                    foundUser.mlinkSelected = "";
-                    founder.save()
-                  
-                }
-            }
-        }
-
-    });
 
     switch (payload) {
 
