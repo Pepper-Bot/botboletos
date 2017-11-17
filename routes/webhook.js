@@ -1097,7 +1097,7 @@ function processPostback(event) {
         default:
 
             //saluda(senderId);
-            console.log('Si no reconozco, saludo');
+            console.log('Si no reconozco, saludo << '+ payload);
 
             break;
 
