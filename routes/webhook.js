@@ -1113,9 +1113,6 @@ function processPostback(event) {
                         if (foundUser.mlinkSelected == "BLACK_FRIDAY") {
                             startTevoModuleWithMlink(payload, senderId);
 
-                            foundUser.mlinkSelected = "";
-                            foundUser.save()
-
                         }
                     }
                 }
