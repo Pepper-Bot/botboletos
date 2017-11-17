@@ -83,7 +83,7 @@ module.exports = function () {
 
             }
             for (let i = 0; i < eventResults.length; i++) {
-                let serach = eventResults[i].title;
+                let search = eventResults[i].title;
                 googleImage(search).then((images) => {
                     eventResults[i].image_url = images[0].url;
 
