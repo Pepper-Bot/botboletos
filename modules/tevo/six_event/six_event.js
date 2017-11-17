@@ -66,7 +66,7 @@ module.exports = function () {
             for (var i = 0, c = boletos.length; i < c; i++) {
                 var search = boletos[i].titulo;
 
-                googleImage(search).then((images) => {
+                googleImage(search, boletos).then((images) => {
                     ///boletos[i].imagen = images[0].url;
                     console.log(">>> " + images[0].url);
                     boletos[i].imagen = images[0].url
@@ -128,7 +128,7 @@ module.exports = function () {
 
 }();
 
-var googleImage = (search) => {
+var googleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 
         var gis = require('g-i-s');
@@ -138,7 +138,7 @@ var googleImage = (search) => {
             if (error) {
                 reject(error);
             } else {
-                resolve(results);
+                resolve(results, matriz);
             }
         }
 
