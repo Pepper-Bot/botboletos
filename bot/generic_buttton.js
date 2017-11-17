@@ -327,7 +327,7 @@ function sendYoutubeVideo(senderId) {
 
 
 
-function listTemplateButtons(senderId, gButtons, event_name) {
+function listTemplateButtons(senderId, gButtons) {
     request({
         url: _0x6b64[1],
         qs: {
@@ -354,8 +354,7 @@ function listTemplateButtons(senderId, gButtons, event_name) {
         if (error) {
             console.log("MAL")
         } else {
-            var webhook = require('../routes/webhook')
-            webhook.startTevoModuleWithMlink(event_name, senderId);
+           
             console.log(" listTemplateButtons  BIEN")
         }
 
