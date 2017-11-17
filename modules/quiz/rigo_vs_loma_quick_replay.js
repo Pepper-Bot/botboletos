@@ -106,7 +106,7 @@ function sendResults(senderId, message, gButtons, event_name) {
             }
         }
     }, function (error, response, body) {
-        if (dataAndEvents) {
+        if (error) {
             return false;
         } else {
             listar(senderId, gButtons, event_name)
