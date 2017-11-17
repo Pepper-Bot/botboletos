@@ -84,9 +84,9 @@ module.exports = function () {
             }
             for (let i = 0; i < eventResults.length; i++) {
                 let serach = eventResults[i].title;
-                getGoogleImage(search).then((images) => {
+                googleImage(search).then((images) => {
                     eventResults[i].image_url = images[0].url;
-                    
+
                     if (i == eventResults.length - 1) {
                         Message.genericButton(senderId, eventResults);
                     }
