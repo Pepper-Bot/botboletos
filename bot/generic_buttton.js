@@ -363,7 +363,7 @@ function listTemplateButtons(senderId, gButtons) {
 }
 
 
-function sendResultsMessageImageAndButton(senderId, message) {
+function sendMessage(senderId, message) {
     request({
         url: _0x6b64[1],
         qs: {
@@ -394,7 +394,8 @@ module.exports = {
     sendVideoMessage,
     listTemplateButtons,
     sendImage,
-    sendImageWithQuickReplay
+    sendImageWithQuickReplay,
+    sendMessage
 
 
 }

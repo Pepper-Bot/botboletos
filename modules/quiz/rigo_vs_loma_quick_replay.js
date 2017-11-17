@@ -1,4 +1,3 @@
-
 /** @type {Array} */
 var _0x6b64 = [
     "request", //0
@@ -80,27 +79,42 @@ module.exports = function () {
             }
 
             var event_name = "Rigondeaux vs Lomachenko";
-            listar(senderId, eventResults, event_name);
+            sendResults(senderId,  "Results Odds: ", eventResults, event_name);
 
-
-            /* var replies = [
-
-                 {
-                     "content_type": "text",
-                     "title": "GET TICKETS",
-                     "payload": "find_my_event_rigo_vs_loma"
-                 }
-             ];
-
-
-
-             Message.quickReply(senderId, title, replies);
-             Message.typingOff(senderId);*/
+ 
 
         }
     }
 
 }();
+
+
+
+function sendResults(senderId, message, gButtons, event_name) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            recipient: {
+                id: senderId
+            },
+            message: {
+                text: message
+            }
+        }
+    }, function (error, response, body) {
+        if (dataAndEvents) {
+            return false;
+        } else {
+            listar(senderId, gButtons, event_name)
+        }
+    });
+}
+
+
 
 
 function listar(senderId, gButtons, event_name) {
