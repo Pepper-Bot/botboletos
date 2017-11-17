@@ -1358,7 +1358,6 @@ function chooseReferral(referral, senderId) {
             }
             break;
 
-
         case "RIGOVSLOMA":
             {
                 startPepperQUiz(senderId);
