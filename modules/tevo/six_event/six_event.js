@@ -63,42 +63,34 @@ module.exports = function () {
             ];
 
             // creamos las tarjetas
-            for (var i = 0, c = boletos.length; i < c; i++) {
-                var search = boletos[i].titulo;
+            for (let i = 0, c = boletos.length; i < c; i++) {
+                eventResults.push({
+                    "title": boletos[i].titulo,
+                    "image_url": boletos[i].imagen,
+                    "subtitle": boletos[i].subtitulo,
 
-                googleImage(search, boletos).then((images, boletos) => {
-                    ///boletos[i].imagen = images[0].url;
-                    console.log(">>> " + images[0].url);
-                    boletos[i].imagen = images[0].url
+                    "buttons": [{
+                            "type": "postback",
+                            "title": boletos[i].titulo,
+                            "payload": boletos[i].titulo
 
-                    eventResults.push({
-                        "title": boletos[i].titulo,
-                        "image_url": boletos[i].imagen,
-                        "subtitle": boletos[i].subtitulo,
+                        },
+                        {
+                            "type": "element_share"
+                        }
+                    ]
+                })
 
-                        "buttons": [{
-                                "type": "postback",
-                                "title": boletos[i].titulo,
-                                "payload": boletos[i].titulo
-
-                            },
-                            {
-                                "type": "element_share"
-                            }
-                        ]
-                    })
-                    if (i == boletos.length - 1) {
-                        Message.genericButton(senderId, eventResults)
+            }
+            for (let i = 0; i < eventResults.length; i++) {
+                let serach = eventResults[i].title;
+                getGoogleImage(search).then((images) => {
+                    eventResults[i].image_url = images[0].url;
+                    
+                    if (i == eventResults.length - 1) {
+                        Message.genericButton(senderId, eventResults);
                     }
-                }).then(() => {
-
                 });
-
-
-
-
-
-                // console.log('events Results >>>>>>>>>>>>>>>' + eventResults[i].image_url);
             }
 
 
@@ -128,7 +120,7 @@ module.exports = function () {
 
 }();
 
-var googleImage = (search, matriz = []) => {
+var googleImage = (search) => {
     return new Promise((resolve, reject) => {
 
         var gis = require('g-i-s');
@@ -138,7 +130,7 @@ var googleImage = (search, matriz = []) => {
             if (error) {
                 reject(error);
             } else {
-                resolve(results, matriz);
+                resolve(results);
             }
         }
 
