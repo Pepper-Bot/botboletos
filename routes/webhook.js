@@ -881,6 +881,9 @@ function processPostback(event) {
             if (foundUser) {
                 if (foundUser.mlinkSelected == "SIX_EVENT") {
                     startTevoModuleWithMlink(payload, senderId);
+
+                    foundUser.mlinkSelected = "";
+                    founder.save()
                     break;
                 }
             }
