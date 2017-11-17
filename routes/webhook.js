@@ -867,20 +867,27 @@ function processQuickReplies(event) {
 
 
 function processPostback(event) {
-
-
     var senderId = event.sender.id;
     var payload = event.postback.payload;
 
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, foundUser) {
+        if (!err) {
+            if (foundUser) {
+                if (foundUser.mlinkSelected == "SIX_EVENT") {
+                    startTevoModuleWithMlink(payload, senderId);
+                }
+            }
+        }
 
+    });
 
     switch (payload) {
-
-        case "Rigondeaux" || "Lomachenko":
-            {
-                console.log("Rigondeaux  Lomachenko   ")
-            }
-            break;
 
         case "find_my_event_see_more_events_by_cat_loc":
             {
@@ -1354,7 +1361,7 @@ function chooseReferral(referral, senderId) {
 
         case "SIX_EVENT":
             {
-                starSixEvent(senderId);
+                starSixEvent(senderId, referral);
             }
             break;
 
@@ -1424,9 +1431,24 @@ function startPepperQUiz(senderId) {
 
 }
 
-function starSixEvent(senderId) {
+function starSixEvent(senderId, referral) {
     var SixtEventModule = require('../modules/tevo/six_event/six_event')
-    SixtEventModule.start(senderId);
+
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, foundUser) {
+        if (!err) {
+            foundUser.mlinkSelected = referral
+            foundUser.save();
+            SixtEventModule.start(senderId);
+
+        }
+    });
+
 
 }
 
