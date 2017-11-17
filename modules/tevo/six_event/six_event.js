@@ -69,7 +69,8 @@ module.exports = function () {
                 googleImage(search).then((images) => {
                     ///boletos[i].imagen = images[0].url;
                     console.log(">>> " + images[0].url);
-                }).then(() => {
+                    boletos[i].imagen = images[0].url
+
                     eventResults.push({
                         "title": boletos[i].titulo,
                         "image_url": boletos[i].imagen,
@@ -89,6 +90,8 @@ module.exports = function () {
                     if (i == boletos.length - 1) {
                         Message.genericButton(senderId, eventResults)
                     }
+                }).then(() => {
+
                 });
 
 
