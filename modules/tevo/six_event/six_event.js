@@ -82,12 +82,13 @@ module.exports = function () {
                 })
 
             }
+            let counter = 0;
             for (let i = 0; i < eventResults.length; i++) {
                 let search = eventResults[i].title;
                 googleImage(search).then((images) => {
                     eventResults[i].image_url = images[0].url;
-
-                    if (i == eventResults.length - 1) {
+                    counter++;
+                    if (counter == eventResults.length - 1) {
                         Message.genericButton(senderId, eventResults);
                     }
                 });
