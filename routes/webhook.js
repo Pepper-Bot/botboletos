@@ -1096,26 +1096,8 @@ function processPostback(event) {
 
         default:
 
-            UserData2.findOne({
-                fbId: senderId
-            }, {}, {
-                sort: {
-                    'sessionStart': -1
-                }
-            }, function (err, foundUser) {
-                if (!err) {
-                    if (foundUser) {
-                        if (foundUser.mlinkSelected == "BLACK_FRIDAY") {
-                            startTevoModuleWithMlink(payload, senderId);
-
-                            foundUser.mlinkSelected = "";
-                            founder.save()
-
-                        }
-                    }
-                }
-
-            });
+            //saluda(senderId);
+            console.log('Si no reconozco, saludo');
 
             break;
 
@@ -1438,25 +1420,25 @@ function startPepperQUiz(senderId) {
 
 function starSixEvent(senderId, referral) {
     var SixtEventModule = require('../modules/tevo/six_event/six_event')
+    
+        UserData2.findOne({
+            fbId: senderId
+        }, {}, {
+            sort: {
+                'sessionStart': -1
+            }
+        }, function (err, foundUser) {
+            if (!err) {
+                foundUser.mlinkSelected = referral
+                foundUser.save();
+                SixtEventModule.start(senderId);
+    
+            }
+        });
+    
 
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, foundUser) {
-        if (!err) {
-            foundUser.mlinkSelected = referral
-            foundUser.save();
-            SixtEventModule.start(senderId);
 
-        }
-    });
-
-
-
-
+ 
 
 
 }
