@@ -67,8 +67,8 @@ module.exports = function () {
                 var search = boletos[i].titulo;
 
                 googleImage(search).then((images) => {
-                    boletos[i].imagen = images[0].url;
-
+                    ///boletos[i].imagen = images[0].url;
+                    console.log(">>> " + images[0].url);
                 }).then(() => {
                     eventResults.push({
                         "title": boletos[i].titulo,
@@ -95,7 +95,7 @@ module.exports = function () {
 
 
 
-               // console.log('events Results >>>>>>>>>>>>>>>' + eventResults[i].image_url);
+                // console.log('events Results >>>>>>>>>>>>>>>' + eventResults[i].image_url);
             }
 
 
