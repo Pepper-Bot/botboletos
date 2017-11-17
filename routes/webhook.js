@@ -1114,7 +1114,7 @@ function processPostback(event) {
                             startTevoModuleWithMlink(payload, senderId);
 
                             foundUser.mlinkSelected = "";
-                            founder.save()
+                            foundUser.save()
 
                         }
                     }
