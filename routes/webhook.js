@@ -884,7 +884,7 @@ function processPostback(event) {
 
                     foundUser.mlinkSelected = "";
                     founder.save()
-                    break;
+                  
                 }
             }
         }
