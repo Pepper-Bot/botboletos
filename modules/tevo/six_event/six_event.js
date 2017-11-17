@@ -66,7 +66,7 @@ module.exports = function () {
             for (var i = 0, c = boletos.length; i < c; i++) {
                 var search = boletos[i].titulo;
 
-                googleImage(search, boletos).then((images) => {
+                googleImage(search, boletos).then((images, boletos) => {
                     ///boletos[i].imagen = images[0].url;
                     console.log(">>> " + images[0].url);
                     boletos[i].imagen = images[0].url
