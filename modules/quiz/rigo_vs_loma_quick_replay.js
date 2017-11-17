@@ -185,7 +185,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
                     event_name = foundUser.eventSearchSelected[actual];
                 }
 
-                var TevoModule = require('../modules/tevo_request');
+                var TevoModule = require('../../modules/tevo_request');
                 TevoModule.start(senderId, event_name, position);
 
 
