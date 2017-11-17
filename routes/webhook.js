@@ -1352,6 +1352,20 @@ function chooseReferral(referral, senderId) {
     // y llamando a su modulo correspondiente.
     switch (referral) {
 
+        case "SIX_EVENT":
+            {
+                starSixEvent(senderId);
+            }
+            break;
+
+
+        case "RIGOVSLOMA":
+            {
+                startPepperQUiz(senderId);
+            }
+            break;
+
+
         case "RIGOVSLOMA":
             {
                 startPepperQUiz(senderId);
@@ -1410,6 +1424,13 @@ function startPepperQUiz(senderId) {
     QuizModule.start(senderId);
 
 }
+
+function starSixEvent(senderId) {
+    var SixtEventModule = require('../modules/tevo/six_event/six_event')
+    SixtEventModule.start(senderId);
+
+}
+
 
 function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
     console.log("event_name " + event_name);
