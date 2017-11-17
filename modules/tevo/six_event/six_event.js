@@ -95,7 +95,7 @@ module.exports = function () {
 
 
 
-                console.log('events Results >>>>>>>>>>>>>>>' + eventResults[i].image_url);
+               // console.log('events Results >>>>>>>>>>>>>>>' + eventResults[i].image_url);
             }
 
 
