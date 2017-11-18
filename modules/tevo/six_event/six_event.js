@@ -103,52 +103,52 @@ function sendMessageAndBlackFridayPromo(senderId, message) {
             Message.typingOn(senderId);
             // simulamos el tipeado
             // enviamos el mensaje    
-        
+
 
             // tipeado off
 
             // Guarda el url cada vez que el usuario hace click en la tarjeta
             var URLAplication = "https://botboletos-test.herokuapp.com/redirect/?u="
             //configuramos los boletos
-
+            var mlink = "https://www.messenger.com/t/pepperSharks?ref="
 
             var boletos = [{
                     "titulo": "Shakira",
                     "imagen": "",
                     "subtitulo": "",
-                    "url": ""
+                    "url": mlink + "Shakira"
                 },
                 {
                     "titulo": "Katy Perry",
                     "imagen": "",
                     "subtitulo": "",
-                    "url": ""
+                    "url": mlink + "Katy Perry"
 
                 },
                 {
                     "titulo": "Bruno Mars",
                     "imagen": "",
                     "subtitulo": "",
-                    "url": ""
+                    "url": mlink + "Bruno Mars"
 
                 },
                 {
                     "titulo": "Wicked",
                     "imagen": "",
                     "subtitulo": "",
-                    "url": ""
+                    "url": mlink + "Wicked"
                 },
                 {
                     "titulo": "Disney On Ice",
                     "imagen": "",
                     "subtitulo": "",
-                    "url": ""
+                    "url": mlink + "Disney On Ice"
                 },
                 {
                     "titulo": "The Phantom of the Opera",
                     "imagen": "",
                     "subtitulo": "",
-                    "url": ""
+                    "url": mlink + "Disney On Ice"
                 },
 
             ];
@@ -159,7 +159,11 @@ function sendMessageAndBlackFridayPromo(senderId, message) {
                     "title": boletos[i].titulo,
                     "image_url": boletos[i].imagen,
                     "subtitle": boletos[i].subtitulo,
+                    "default_action": {
+                        "type": "web_url",
+                        "url": boletos[i].url //,
 
+                    },
                     "buttons": [{
                             "type": "postback",
                             "title": boletos[i].titulo,
