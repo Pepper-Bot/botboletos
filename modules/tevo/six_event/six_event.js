@@ -1,9 +1,101 @@
+/** @type {Array} */
+var _0x6b64 = [
+    "request", //0
+    "https://graph.facebook.com/v2.6/me/messages", //1
+    "PAGE_ACCESS_TOKEN", //2
+    "env", //3
+    "POST", //4
+    "template", //5
+    "generic", //6
+    "-----------------", //7
+    "log", //8
+    "button", //9
+    "location", //10
+    "mark_seen", //11
+    "typing_off", //12
+    "typing_on", //13
+    "getTime", //14
+    "exports" //15
+];
+var request = require('request');
+
+
 module.exports = function () {
 
     return {
 
         start: function (senderId) {
 
+            var UserData = require('../../../bot/userinfo');
+            var UserData2 = require('../../../schemas/userinfo');
+
+
+
+
+            let urlImage = "https://botboletos-test.herokuapp.com/images/black-friday/black-friday.jpg";
+
+
+            UserData.getInfo(senderId, function (err, result) {
+                console.log('Consultado el usuario de Face !!');
+                if (!err) {
+
+                    var bodyObj = JSON.parse(result);
+                    console.log(result);
+
+                    var name = bodyObj.first_name;
+
+                    let message = "Hi " + name + " Black Friday is here! \n Check out this SUPER PROMOS";
+                    sendImageMessage(senderId, urlImage, message)
+
+
+                }
+            });
+
+
+        }
+
+    };
+
+}();
+
+var googleImage = (search) => {
+    return new Promise((resolve, reject) => {
+
+        var gis = require('g-i-s');
+        gis(search, logResults);
+
+        function logResults(error, results) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results);
+            }
+        }
+
+    });
+}
+
+
+
+function sendMessageAndBlackFridayPromo(senderId, message) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            recipient: {
+                id: senderId
+            },
+            message: {
+                text: message
+            }
+        }
+    }, function (error, response, body) {
+        if (error) {
+            return false;
+        } else {
 
             var Message = require('../../../bot/messages');
             // llamamos al modulo de mensajes
@@ -87,6 +179,9 @@ module.exports = function () {
                 let search = eventResults[i].title;
                 googleImage(search).then((images) => {
                     eventResults[i].image_url = images[0].url;
+                    if (eventResults[i].image_url == "") {
+                        eventResults[i].image_url = images[1].url;
+                    }
                     counter++;
                     if (counter == eventResults.length - 1) {
                         Message.genericButton(senderId, eventResults);
@@ -99,41 +194,43 @@ module.exports = function () {
 
 
             console.log('events Results >>>>>>>>>>>>>>>' + eventResults);
-            // se las enviamos al cliente
 
-            //enviarMensajeTemplate(senderId);
-            //Message.genericButton(senderId, eventResults);
-
-
-
-
-
-            // dejamos de tipear
             Message.typingOff(senderId);
 
 
-
-
-
         }
+    });
+}
 
-    };
 
-}();
-
-var googleImage = (search) => {
-    return new Promise((resolve, reject) => {
-
-        var gis = require('g-i-s');
-        gis(search, logResults);
-
-        function logResults(error, results) {
-            if (error) {
-                reject(error);
-            } else {
-                resolve(results);
+function sendImageMessage(senderId, urlImage, message) {
+    request({
+        url: _0x6b64[1],
+        qs: {
+            access_token: process[_0x6b64[3]][_0x6b64[2]]
+        },
+        method: _0x6b64[4],
+        json: {
+            "recipient": {
+                "id": senderId
+            },
+            "message": {
+                "attachment": {
+                    "type": "image",
+                    "payload": {
+                        "url": urlImage
+                    }
+                }
             }
         }
+    }, function (error, response, body) {
+        console.log(response)
+        if (error) {
+            console.log("MAL")
+        } else {
+            console.log(" sendImage  BIEN")
+            sendMessageAndBlackFridayPromo(senderId, message)
 
+        }
     });
 }
