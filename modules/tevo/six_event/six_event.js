@@ -44,7 +44,7 @@ module.exports = function () {
 
                     var name = bodyObj.first_name;
 
-                    let message = "Hi " + name + " Black Friday is here! \n Check out this SUPER PROMOS";
+                    let message = "Hi " + name + " Black Friday is here! Check out this SUPER PROMOS";
                     sendImageMessage(senderId, urlImage, message)
 
 
@@ -103,8 +103,7 @@ function sendMessageAndBlackFridayPromo(senderId, message) {
             Message.typingOn(senderId);
             // simulamos el tipeado
             // enviamos el mensaje    
-            Message.sendMessage(senderId, "SIX EVENTS");
-            Message.typingOff(senderId);
+        
 
             // tipeado off
 
