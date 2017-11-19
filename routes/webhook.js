@@ -98,7 +98,7 @@ router.post('/', function (req, res) {
 
 function sendToApiAi(sender, text) {
 
-    Message.typingOn(senderId);
+    Message.typingOn(sender);
 
     let apiaiRequest = apiAiService.textRequest(text, {
         sessionId: sessionIds.get(sender)
@@ -106,7 +106,7 @@ function sendToApiAi(sender, text) {
 
     apiaiRequest.on('response', (response) => {
         if (isDefined(response.result)) {
-            s(sender, response);
+            handleApiAiResponse(sender, response);
         }
     });
 
