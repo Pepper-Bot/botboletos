@@ -7,6 +7,21 @@ var UserData2 = require('../schemas/userinfo');
 
 //--
 
+
+const apiai = require('apiai');
+const uuid = require('uuid');
+const config = require('../modules/api_ai/config');
+
+const apiAiService = apiai(config.API_AI_CLIENT_ACCESS_TOKEN, {
+    language: "en",
+    requestSource: "fb"
+});
+const sessionIds = new Map();
+
+
+
+
+
 var datos = {}; // Para saber si estamos o no con el ID
 
 var dbObj = require('../schemas/mongodb');
@@ -80,8 +95,47 @@ router.post('/', function (req, res) {
 
 });
 
+
+function sendToApiAi(sender, text) {
+
+    Message.typingOn(senderId);
+
+    let apiaiRequest = apiAiService.textRequest(text, {
+        sessionId: sessionIds.get(sender)
+    });
+
+    apiaiRequest.on('response', (response) => {
+        if (isDefined(response.result)) {
+            s(sender, response);
+        }
+    });
+
+    apiaiRequest.on('error', (error) => console.error(error));
+    apiaiRequest.end();
+}
+
+function handleApiAiResponse(sender, response) {
+    let responseText = response.result.fulfillment.speech;
+    let responseData = response.result.fulfillment.data;
+    let messages = response.result.fulfillment.messages;
+    let action = response.result.action;
+    let contexts = response.result.contexts;
+    let parameters = response.result.parameters;
+
+    if (isDefined(responseText)) {
+        Message.sendMessage(sender, responseText);
+    }
+
+}
+
+
+
 function processMessage(senderId, textMessage) {
 
+
+    if (!sessionIds.has(senderId)) {
+        sessionIds.set(senderId, uuid.v1());
+    }
 
 
     UserData2.findOne({
@@ -99,7 +153,9 @@ function processMessage(senderId, textMessage) {
                 foundUser.context = '';
                 foundUser.save();
             } else {
-                find_my_event(senderId);
+                sendToApiAi(senderId, textMessage) ;
+               // find_my_event(senderId);
+
                 /* if (textMessage) {
                      var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
                      yes_no.send(Message, senderId, textMessage);
