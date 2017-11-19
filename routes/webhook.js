@@ -96,6 +96,18 @@ router.post('/', function (req, res) {
 });
 
 
+function isDefined(obj) {
+    if (typeof obj == 'undefined') {
+        return false;
+    }
+
+    if (!obj) {
+        return false;
+    }
+
+    return obj != null;
+}
+
 function sendToApiAi(sender, text) {
 
     Message.typingOn(sender);
@@ -153,8 +165,8 @@ function processMessage(senderId, textMessage) {
                 foundUser.context = '';
                 foundUser.save();
             } else {
-                sendToApiAi(senderId, textMessage) ;
-               // find_my_event(senderId);
+                sendToApiAi(senderId, textMessage);
+                // find_my_event(senderId);
 
                 /* if (textMessage) {
                      var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
