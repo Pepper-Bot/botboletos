@@ -49,7 +49,7 @@ app.use(function(req, res, next) {
 
 
 //############MANEJO DE PLANTILLAS express-handlebars####################
-app.engine('.hbs', hbs({
+/*app.engine('.hbs', hbs({
   defaultLayout: 'default',
   ext: '.hbs'
 
@@ -59,13 +59,13 @@ app.set('view engine', '.hbs');
 //############MANEJO DE PLANTILLAS####################
 
 app.use(sassMiddleware({
-  /* Options */
+   Options  
   src: __dirname,
   dest: path.join(__dirname, 'public'),
   debug: true,
   outputStyle: 'compressed',
   prefix:  '/prefix'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
-}));
+}));*/
 
  
 
