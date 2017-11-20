@@ -164,7 +164,7 @@ function processMessage(senderId, textMessage) {
                 var TevoModule = require('../modules/tevo/tevo');
 
                 if (textMessage) {
-                    TevoModule.searchEventsByCategoryId(textMessage).then((resultado) => {
+                    TevoModule.searchEventsByName(textMessage).then((resultado) => {
                         Message.sendMessage(snederId, "Eventos");
                         console.log(resultado);
                     })
