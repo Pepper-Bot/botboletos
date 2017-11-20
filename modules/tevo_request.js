@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        start: function (senderId, event_name, position = 0) {
+        start: function (senderId, event_name, position = 0, cool = 0) {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
@@ -38,7 +38,24 @@ module.exports = function () {
                             Message.typingOn(senderId);
                             Message.markSeen(senderId);
                             Message.typingOn(senderId);
-                            Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
+                            switch (cool) {
+                                case 0:
+                                    {
+                                        Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
+                                    }
+                                    break;
+                                case 1:
+                                    {
+                                        Message.sendMessage(senderId, 'Cool, I looked for "' + event_name + '"  Book a ticket:');
+                                    }
+                                    break;
+                                default:
+                                    {
+                                        Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
+                                    }
+                                    break;
+                            }
+
                             Message.typingOn(senderId);
 
                             console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<POSITION > ' + position);
@@ -117,7 +134,7 @@ module.exports = function () {
                                             "title": "Book"
                                         },
                                         {
-                                          
+
                                             "type": "element_share"
                                         }
                                     ]
@@ -193,7 +210,9 @@ module.exports = function () {
                             }
 
                         } else {
-                            Message.sendMessage(senderId, "No Found Events");
+                           
+                            Message.sendMessage(senderId, 'Oops, I looked for: "' + event_name + '" but found no events');
+                            find_my_event(senderId);
                         }
 
 
@@ -209,6 +228,56 @@ module.exports = function () {
     }
 }();
 
+function find_my_event(senderId) {
+    var UserData = require('../bot/userinfo');
+    var UserData2 = require('../schemas/userinfo');
+    UserData.getInfo(senderId, function (err, result) {
+        if (!err) {
+
+            var bodyObj = JSON.parse(result);
+            console.log(result);
+
+
+            var User = new UserData2; {
+                User.fbId = senderId;
+                User.firstName = bodyObj.first_name;
+                User.LastName = bodyObj.last_name;
+                User.profilePic = bodyObj.profile_pic;
+                User.locale = bodyObj.locale;
+                User.timeZone = bodyObj.timezone;
+                User.gender = bodyObj.gender;
+                User.messageNumber = 1;
+
+                User.save();
+            }
+
+            var name = bodyObj.first_name;
+            var greeting =  name;
+            var messagetxt = greeting + ", you can search events by:";
+
+
+            //var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
+            //var ButtonsEventsQuery = require('../modules/tevo/buttons_choise_again');
+            //ButtonsEventsQuery.send(Message, senderId, messagetxt);
+
+            var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
+            SearchQuickReply.send(Message, senderId, messagetxt);
+            context = ''
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, foundUser) {
+                foundUser.context = ''
+                foundUser.save();
+            });
+
+
+        }
+    });
+};
 
 
 

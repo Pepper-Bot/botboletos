@@ -129,18 +129,18 @@ function processMessage(senderId, textMessage) {
                         if (resultado.events) {
                             if (resultado.events.length > 0) {
                                 //Cool, I looked for:”Luis Miguel”. Book a ticket:
-
+                                startTevoModuleWithMlink(textMessage, senderId, 1);
 
                             } else {
-                                
+
                                 Message.sendMessage('Oops, I looked for: "' + textMessage + '" but found no events');
-                                find_my_event(senderId);
+                                find_my_event(senderId, 1);
                             }
 
 
                         } else {
                             Message.sendMessage('Oops, I looked for: "' + textMessage + '" but found no events');
-                            find_my_event(senderId);
+                            find_my_event(senderId, 1);
                         }
 
                     })
@@ -1178,7 +1178,7 @@ function processPostback(event) {
 
 }
 
-function find_my_event(senderId) {
+function find_my_event(senderId, hi = 0) {
     UserData.getInfo(senderId, function (err, result) {
         if (!err) {
 
@@ -1200,7 +1200,11 @@ function find_my_event(senderId) {
             }
 
             var name = bodyObj.first_name;
+
             var greeting = "Hi " + name;
+            if (hi == 1) {
+                greeting = name;
+            }
             var messagetxt = greeting + ", you can search events by:";
 
 
@@ -1515,7 +1519,7 @@ function starSixEvent(senderId, referral) {
 }
 
 
-function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
+function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0) {
     console.log("event_name " + event_name);
 
     UserData2.findOne({
@@ -1557,7 +1561,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0) {
                 }
 
                 var TevoModule = require('../modules/tevo_request');
-                TevoModule.start(senderId, event_name, position);
+                TevoModule.start(senderId, event_name, position, cool);
 
 
                 foundUser.save(function (err, userSaved) {
