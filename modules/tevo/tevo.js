@@ -40,6 +40,21 @@ var searchCategoriesByParentId = (parent_id) => {
     });
 } //comic con convención de los comics...
 
+var searchEventsByName = (event_name) => {
+    return new Promise((res, rej) => {
+        //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
+        let urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&only_with_available_tickets=true'
+        console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+        if (tevoClient) {
+            tevoClient.getJSON(urlApiTevo).then((json) => {
+                res(json);
+            });
+        }
+    });
+}
+
+
+
 
 var searchEventsByCategoryId = (category_id) => {
     return new Promise((res, rej) => {
@@ -103,16 +118,16 @@ var convertEventsToEventsTemplate = (senderId, resultEvent, eventButtons_, conta
                     "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue_id + '&performer_id=' + resultEvent[j].performer_id + '&event_name=' + resultEvent[j].name*/
                 },
                 "buttons": [{
-                    "type": "web_url",
-                    "url": processEventURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue_id + '&performer_id=' + resultEvent[j].performer_id + '&event_name=' + resultEvent[j].name,
-                    "title": "Book"
-                },
-                {
-                  
-                    "type": "element_share"
-                }
-            
-            ]
+                        "type": "web_url",
+                        "url": processEventURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue_id + '&performer_id=' + resultEvent[j].performer_id + '&event_name=' + resultEvent[j].name,
+                        "title": "Book"
+                    },
+                    {
+
+                        "type": "element_share"
+                    }
+
+                ]
             });
             contador++;
             // console.log(contador + ' ' + resultEvent.length);
@@ -191,6 +206,15 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
 
         gButtons.push({
             "title": "Can’t make any of these times?",
+            "subtitle": "My Pepper Bot",
+            "default_action": {
+                "type": "web_url",
+                "url": "https://www.facebook.com/mypepperbot/"
+                /*,
+                "messenger_extensions": true,
+                "webview_height_ratio": "tall",
+                "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
+            },
             "buttons": [{
                 "type": "postback",
                 "title": "More event times",
@@ -210,14 +234,16 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
                     gButtons[z].image_url = images[0].url;
                     var occurs_at = gButtons[z].occurs_at
                     occurs_at = occurs_at.substring(0, occurs_at.length - 4)
-                    occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+                    //occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+                    occurs_at = moment(occurs_at).format('MMM Do YYYY, h:mm a')
+
 
                     gButtons[z].subtitle = gButtons[z].subtitle + ' ' + occurs_at;
                     delete gButtons[z].occurs_at;
                 }
 
                 if (z == gButtons.length - 1) {
-                    gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"//"http://www.ideosyncmedia.org/index_htm_files/196.png"
+                    gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                 }
 
                 console.log(counter + ' ' + gButtons.length)
@@ -576,7 +602,9 @@ module.exports = {
     convertEventsToEventsTemplate,
     setImagesToEventsTemplate,
     startByParentsCategories,
-    startByParentsCategoriesAndLocation
+    startByParentsCategoriesAndLocation,
+    searchEventsByName
+
 
 
 }

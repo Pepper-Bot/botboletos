@@ -36,7 +36,7 @@ ChatBox.persistentMenu({
 var app = express();
 
 
-
+/*
 app.use(function(req, res, next) {
 
     res.header('Content-Type','application/vnd.api+json; charset=utf-8');
@@ -47,9 +47,10 @@ app.use(function(req, res, next) {
   next();
 });
 
+*/
 
 //############MANEJO DE PLANTILLAS express-handlebars####################
-/*app.engine('.hbs', hbs({
+app.engine('.hbs', hbs({
   defaultLayout: 'default',
   ext: '.hbs'
 
@@ -59,13 +60,13 @@ app.set('view engine', '.hbs');
 //############MANEJO DE PLANTILLAS####################
 
 app.use(sassMiddleware({
-   Options  
+  /* Options */
   src: __dirname,
   dest: path.join(__dirname, 'public'),
   debug: true,
   outputStyle: 'compressed',
   prefix:  '/prefix'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
-}));*/
+}));
 
  
 
