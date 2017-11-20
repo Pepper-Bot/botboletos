@@ -159,16 +159,16 @@ function processMessage(senderId, textMessage) {
                 foundUser.save();
             } else {
                 //sendToApiAi(senderId, textMessage);
-                find_my_event(senderId);
+                //find_my_event(senderId);
 
-              /*   var TevoModule = require('../modules/tevo/tevo');
+                var TevoModule = require('../modules/tevo/tevo');
 
                 if (textMessage) {
                     TevoModule.searchEventsByCategoryId(textMessage).then((resultado) => {
                         Message.sendMessage(snederId, "Eventos");
                         console.log(resultado);
                     })
-                }
+                }/*
                 if (textMessage) {
                      var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
                      yes_no.send(Message, senderId, textMessage);
