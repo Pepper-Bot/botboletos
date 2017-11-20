@@ -130,17 +130,12 @@ function processMessage(senderId, textMessage) {
                             if (resultado.events.length > 0) {
                                 //Cool, I looked for:”Luis Miguel”. Book a ticket:
                                 startTevoModuleWithMlink(textMessage, senderId, 0, 1);
-
                             } else {
-
-                                Message.sendMessage('Oops, I looked for: "' + textMessage + '" but found no events');
-                                find_my_event(senderId, 1);
+                                find_my_event(senderId, 1, textMessage);
                             }
 
-
                         } else {
-                            Message.sendMessage('Oops, I looked for: "' + textMessage + '" but found no events');
-                            find_my_event(senderId, 1);
+                            find_my_event(senderId, 1, textMessage);
                         }
 
                     })
@@ -1178,7 +1173,7 @@ function processPostback(event) {
 
 }
 
-function find_my_event(senderId, hi = 0) {
+function find_my_event(senderId, hi = 0, event_name = '') {
     UserData.getInfo(senderId, function (err, result) {
         if (!err) {
 
@@ -1202,10 +1197,12 @@ function find_my_event(senderId, hi = 0) {
             var name = bodyObj.first_name;
 
             var greeting = "Hi " + name;
+            var messagetxt = greeting + ", you can search events by:";
             if (hi == 1) {
+                messagetxt = 'Oops, I looked for: "' + event_name + '" but found no events. ' + name + ", you can search events by:";
                 greeting = name;
             }
-            var messagetxt = greeting + ", you can search events by:";
+
 
 
             //var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
