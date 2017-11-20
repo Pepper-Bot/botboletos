@@ -161,12 +161,16 @@ function processMessage(senderId, textMessage) {
                 //sendToApiAi(senderId, textMessage);
                 //find_my_event(senderId);
 
-                var TevoModule = require('../modules/tevo/tevo');
+               
 
                 if (textMessage) {
+                    var TevoModule = require('../modules/tevo/tevo');
                     TevoModule.searchEventsByName(textMessage).then((resultado) => {
-                        Message.sendMessage(snederId, "Eventos");
-                        console.log(resultado);
+                       // Message.sendMessage(snederId, "Eventos");
+
+                        //Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
+
+                        console.log("resultado");
                     })
                 }/*
                 if (textMessage) {
