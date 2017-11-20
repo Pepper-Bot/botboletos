@@ -137,7 +137,7 @@ function processMessage(senderId, textMessage) {
 
             }
         });
-        break;
+        ///break;
     }
     //aaki iba esta respuesta por default
     //var DefaultReply = require('../modules/defaultreply');
@@ -168,7 +168,7 @@ function processMessage(senderId, textMessage) {
                     TevoModule.searchEventsByName(textMessage).then((resultado) => {
                        // Message.sendMessage(snederId, "Eventos");
 
-                        //Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
+                       // Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
 
                         console.log("resultado");
                     })
