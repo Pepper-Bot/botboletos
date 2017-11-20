@@ -123,22 +123,26 @@ function processMessage(senderId, textMessage) {
                 console.log("Entré al else<<<")
                 //find_my_event(senderId);
 
-
-
                 if (textMessage) {
                     var TevoModule = require('../modules/tevo/tevo');
                     TevoModule.searchEventsByName(textMessage).then((resultado) => {
-                        // Message.sendMessage(snederId, "Eventos");
-
-                        // Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
-
-                        if (resultado.events)
+                        if (resultado.events) {
                             if (resultado.events.length > 0) {
-                                      console.log("Encontré Eventos")
-                            }else {
+                                //Cool, I looked for:”Luis Miguel”. Book a ticket:
 
-                                console.log("Opppssss!!!")
+
+                            } else {
+                                
+                                Message.sendMessage('Oops, I looked for: "' + textMessage + '" but found no events');
+                                find_my_event(senderId);
                             }
+
+
+                        } else {
+                            Message.sendMessage('Oops, I looked for: "' + textMessage + '" but found no events');
+                            find_my_event(senderId);
+                        }
+
                     })
                 }
                 /* 
