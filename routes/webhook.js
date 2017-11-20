@@ -103,7 +103,7 @@ function isDefined(obj) {
 
 
 function processMessage(senderId, textMessage) {
-    
+
     UserData2.findOne({
         fbId: senderId
     }, {}, {
@@ -121,26 +121,27 @@ function processMessage(senderId, textMessage) {
             } else {
                 //sendToApiAi(senderId, textMessage);
                 console.log("Entré al else<<<")
-                 find_my_event(senderId);
+                //find_my_event(senderId);
 
-               
 
-              /*  if (textMessage) {
+
+                if (textMessage) {
                     var TevoModule = require('../modules/tevo/tevo');
                     TevoModule.searchEventsByName(textMessage).then((resultado) => {
-                       // Message.sendMessage(snederId, "Eventos");
+                        // Message.sendMessage(snederId, "Eventos");
 
-                       // Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
+                        // Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
 
-                        console.log("resultado");
+                        console.log("resultado"+ resultado);
                     })
                 }
-                if (textMessage) {
-                     var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
-                     yes_no.send(Message, senderId, textMessage);
-                     foundUser.context = textMessage
-                     foundUser.save();
-                 }*/
+                /* 
+                               if (textMessage) {
+                                    var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
+                                    yes_no.send(Message, senderId, textMessage);
+                                    foundUser.context = textMessage
+                                    foundUser.save();
+                                }*/
 
             }
         }
@@ -185,7 +186,7 @@ function processMessage(senderId, textMessage) {
     //var DefaultReply = require('../modules/defaultreply');
     //DefaultReply.send(Message, senderId);
 
-   
+
 }
 
 function processLocation(senderId, locationData) {
