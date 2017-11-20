@@ -165,8 +165,8 @@ function processMessage(senderId, textMessage) {
                 foundUser.context = '';
                 foundUser.save();
             } else {
-                sendToApiAi(senderId, textMessage);
-                // find_my_event(senderId);
+                //sendToApiAi(senderId, textMessage);
+                 find_my_event(senderId);
 
                 /* if (textMessage) {
                      var yes_no = require('../modules/tevo/yes_no_find_quick_replay')

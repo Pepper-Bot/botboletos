@@ -166,7 +166,7 @@ function sendMessageAndBlackFridayPromo(senderId, message) {
                     },
                     "buttons": [{
                             "type": "postback",
-                            "title": boletos[i].titulo,
+                            "title":  boletos[i].titulo,
                             "payload": boletos[i].titulo
 
                         },
