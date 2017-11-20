@@ -134,7 +134,10 @@ function processMessage(senderId, textMessage) {
 
                         if (resultado.events)
                             if (resultado.events.length > 0) {
+                                      console.log("Encontré Eventos")
+                            }else {
 
+                                console.log("Opppssss!!!")
                             }
                     })
                 }
