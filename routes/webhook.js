@@ -132,7 +132,10 @@ function processMessage(senderId, textMessage) {
 
                         // Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
 
-                        console.log("resultado"+ resultado);
+                        if (resultado.events)
+                            if (resultado.events.length > 0) {
+
+                            }
                     })
                 }
                 /* 
