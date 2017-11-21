@@ -115,20 +115,31 @@ function processMessage(senderId, textMessage) {
 
             if (foundUser.context === 'find_my_event_by_name') {
                 console.log(foundUser.context);
-                startTevoModuleWithMlink(textMessage, senderId);
+                var TevoModule = require('../modules/tevo/tevo');
+                TevoModule.searchEventsByName(textMessage).then((resultado) => {
+                    if (resultado.events) {
+                        if (resultado.events.length > 0) {
+                            startTevoModuleWithMlink(textMessage, senderId, 0, 0);
+                        } else {
+                            find_my_event(senderId, 1, textMessage);
+                        }
+
+                    } else {
+                        find_my_event(senderId, 1, textMessage);
+                    }
+
+                })
                 foundUser.context = '';
                 foundUser.save();
             } else {
                 //sendToApiAi(senderId, textMessage);
-                console.log("Entré al else<<<")
-                //find_my_event(senderId);
+
 
                 if (textMessage) {
                     var TevoModule = require('../modules/tevo/tevo');
                     TevoModule.searchEventsByName(textMessage).then((resultado) => {
                         if (resultado.events) {
                             if (resultado.events.length > 0) {
-                                //Cool, I looked for:”Luis Miguel”. Book a ticket:
                                 startTevoModuleWithMlink(textMessage, senderId, 0, 1);
                             } else {
                                 find_my_event(senderId, 1, textMessage);
@@ -920,6 +931,12 @@ function processPostback(event) {
 
     switch (payload) {
 
+        case "BLACK_FRIDAY":{
+            starSixEvent(senderId, "BLACK_FRIDAY");
+        }
+        break;
+
+
         case "Rigondeaux" || "Lomachenko":
             {
                 console.log("Rigondeaux  Lomachenko   ")
@@ -1140,9 +1157,6 @@ function processPostback(event) {
 
         default:
 
-            //saluda(senderId);
-            console.log('Si no reconozco, saludo << ' + payload);
-
 
             UserData2.findOne({
                 fbId: senderId
@@ -1153,10 +1167,12 @@ function processPostback(event) {
             }, function (err, foundUser) {
                 if (!err) {
                     if (foundUser) {
-                        console.log('Found User  << ' + payload);
+                        console.log('Found User  BLACK_FRIDAY<< ' + payload);
                         if (foundUser.mlinkSelected == "BLACK_FRIDAY") {
                             startTevoModuleWithMlink(payload, senderId);
 
+                        } else {
+                            console.log('No guardé el mlink ?? O_O << ' + foundUser.mlinkSelected);
                         }
                     }
                 }
@@ -1501,10 +1517,55 @@ function starSixEvent(senderId, referral) {
         }
     }, function (err, foundUser) {
         if (!err) {
-            foundUser.mlinkSelected = referral
-            foundUser.save();
-            SixtEventModule.start(senderId);
+            if (foundUser) {
+                foundUser.mlinkSelected = referral
+                foundUser.save((err, foundUserBefore) => {
+                    if (err) {
+                        console.log('Error al guardar el usuario');
+                    } else {
+                        console.log('usuario actualizado:' +  foundUser.mlinkSelected);
+                        SixtEventModule.start(senderId);
+                    }
 
+                });
+
+            } else {
+                UserData.getInfo(senderId, function (err, result) {
+                    console.log('Dentro de UserData');
+                    if (!err) {
+
+                        var bodyObj = JSON.parse(result);
+                        console.log(result);
+
+                        var User = new UserData2; {
+                            User.fbId = senderId;
+                            User.firstName = bodyObj.first_name;
+                            User.LastName = bodyObj.last_name;
+                            User.profilePic = bodyObj.profile_pic;
+                            User.locale = bodyObj.locale;
+                            User.timeZone = bodyObj.timezone;
+                            User.gender = bodyObj.gender;
+                            User.messageNumber = 1;
+                            User.mlinkSelected = referral
+
+                            User.save();
+                            SixtEventModule.start(senderId);
+
+                            User.save((err, foundUserBefore) => {
+                                if (err) {
+                                    console.log('Error al guardar el usuario ');
+                                } else {
+                                    console.log('usuario guardado:' + foundUserBefore.mlinkSelected );
+                                    SixtEventModule.start(senderId);
+                                }
+            
+                            });
+
+
+                        }
+                    }
+                });
+            }
         }
     });
 
@@ -1593,7 +1654,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0) {
 
                             let TevoModule = require('../modules/tevo_request');
                             let position = 0;
-                            TevoModule.start(senderId, referral, position);
+                            TevoModule.start(senderId, referral, position, cool);
 
 
 
