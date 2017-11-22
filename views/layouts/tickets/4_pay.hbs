@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <base href="https://ticketdelivery.herokuapp.com/">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Review order</title>
+    <base href="https://ticketdelivery.herokuapp.com">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" /> </head>
+
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col m12 m4">
+                <h4 class="header left blue-text">Review Order.</h4>
+                <form action="/finish?uid='+req.query.uid+'" method="post">
+
+
+                    <input type="hidden" name="name2" value="'+req.body.firstname+' ' + req.body.lastname+ '">
+                    <input type="hidden" name="street_address" value="'+direccionEnvio.street_address+'">
+                    <input type="hidden" name="extended_address" value="">
+                    <input type="hidden" name="locality" value="'+direccionEnvio.locality+'">
+                    <input type="hidden" name="region" value="'+direccionEnvio.region+'">
+                    <input type="hidden" name="country_code" value="'+direccionEnvio.country_code+'">
+                    <input type="hidden" name="postal_code" value="'+direccionEnvio.postal_code+'">
+                    <input type="hidden" name="label" value="shipping">
+                    <input type="hidden" value="'+req.body.email+'" name="email_id">
+                    <input type="hidden" value="'+req.body.format+'" name="format">
+                    <input type="hidden" value="'+req.body.groupticket_id+'" name="ticket_group_id">
+                    <input type="hidden" value="'+req.body.price+'" name="price_per_ticket">
+                    <input type="hidden" value="'+req.body.quantity+'" name="quantity">
+                    <input type="hidden" value="0" name="fee">
+                    <input type="hidden" value="'+address_id+'" name="address_id">
+                    <input type="hidden" value="'+ req.body.firstname + ' ' + req.body.lastname +'" name="name">
+
+
+                    <!-- shiping info -->
+                    <input type="hidden" value="'+json.service_type+'" name="service_type">
+                    <input type="hidden" value="'+json.provider+'" name="provider">
+                    <input type="hidden" value="'+json.price+'" name="shipping_price">
+
+
+                    <!-- dataHTML1 -->
+                    <table class="table-responsive">
+                        <thead>
+                            <tr>
+                                <th>Event</th>
+                                <th>Date</th>
+                                <th>Seats</th>
+                                <th> Quantity</th>
+                                <th>Price Each</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>'+req.body.event_name+'</td>
+                                <td> '+moment(req.body.event_date).format('MMMM Do YYYY, h:mm:ss a')+' </td>
+                                <td>
+                                    <b>Section:</b> '+req.body.section+'
+                                    <br>
+                                    <b>Row:</b> '+req.body.row+'
+                                    <br> </td>
+                                <td>'+req.body.quantity+'</td>
+                                <td>$'+req.body.price+'</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <b>Ticket Type: </b>
+                                    <span class="new badge green">'+req.body.format+'</span>
+                                </td>
+                                <td colspan="2"></td>
+                                <td>
+                                    <strong>Subtotal</strong>
+                                </td>
+                                <td>$ '+(req.body.price * req.body.quantity)+'</td>
+                            </tr>
+
+                            <!-- shiping table -->
+                            <tr>
+                                <td colspan="3"></td>
+                                <td>
+                                    <strong>Shipping</strong>
+                                    <br>
+                                    <span style="">'+json.name+'</span>
+                                </td>
+                                <td>$'+json.price+'</td>
+                            </tr>
+
+
+                            <!-- dataHTML2-->
+
+                            <tr>
+                                <td colspan="3"></td>
+                                <td>
+                                    <strong>Total</strong>
+                                </td>
+                                <td>$'+((req.body.price * req.body.quantity) + shipPrice) +'</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button type="submit" style="width:100%" class="btn green">Finish Checkout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/materialize.min.js"></script> </body>
+
+</html>

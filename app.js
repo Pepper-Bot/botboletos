@@ -15,6 +15,10 @@ var webhook = require('./routes/webhook');
 var storeUrl = require('./routes/redirect');
 var ticketSales = require('./routes/event');
 var ticketGroups = require('./routes/groups');
+
+var paypal_test = require('./routes/paypal_test');
+
+
 //var checkoutBuy = require('./routes/checkout');
 var checkoutBuy = require('./routes/tickets-views/checkout.view');
 var payment = require('./routes/pay');
@@ -87,6 +91,9 @@ app.use('/tickets/', ticketGroups);
 //app.use('/checkout/', checkout);
 
 app.post('/checkout/', checkoutBuy.checkout);
+
+app.use('/paypal_test/', paypal_test);
+
 
 
 app.use('/pay/', payment);
