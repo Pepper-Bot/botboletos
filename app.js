@@ -62,6 +62,8 @@ app.engine('.hbs', hbs({
 app.set('view engine', '.hbs');
 //############MANEJO DE PLANTILLAS####################
 
+
+
 app.use(sassMiddleware({
   /* Options */
   src: __dirname,
@@ -90,8 +92,8 @@ app.use('/tickets/', ticketGroups);
 //app.use('/checkout/', checkout);
 
 app.post('/checkout/', checkoutBuy.checkout);
-
- 
+app.use('/paypal_success/', checkoutBuy.paypal_success);
+app.use('/paypal_cancel/', checkoutBuy.paypal_cancel); 
 
 
 
