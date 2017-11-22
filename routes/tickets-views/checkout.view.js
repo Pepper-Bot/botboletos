@@ -104,8 +104,8 @@ function paypal_pay(req, res) {
 
 
     var event_name = params.event_name;
-    var quantity = params.userticketsquantity;
-    var price = params.priceticket;
+    var quantity = params.quantity;
+    var price = params.price;
 
 
 
