@@ -70,7 +70,7 @@ function checkout(req, res) {
                     groupticket_id: params.groupticket_id,
                     firstName: result.firstName,
                     LastName: result.LastName,
-                    
+
 
                 }
             );
@@ -99,24 +99,15 @@ function paypal_pay(req, res) {
     var UserData = require('../../bot/userinfo');
     var UserData2 = require('../../schemas/userinfo');
     var moment = require('moment');
+    var params = req.body;
 
 
-    var event_id = params.event_id;
-    var fbId = params.uid;
-    var venue_id = params.venue_id;
+
     var event_name = params.event_name;
-    var performer_id = params.performer_id;
-    var event_date = params.event_date;
-    var section = params.section;
-    var row = params.row;
     var quantity = params.userticketsquantity;
     var price = params.priceticket;
-    var format = params.format;
-    var eticket = params.eticket;
-    var groupticket_id = params.groupticket_id;
 
-    var total = params.userticketsquantity * params.priceticket;
-    var totals = "$" + total
+
 
 
 
@@ -147,7 +138,7 @@ function paypal_pay(req, res) {
                 "currency": "USD",
                 "total": price
             },
-            "description": event_name + " row " + row
+            "description": event_name
         }]
 
 
