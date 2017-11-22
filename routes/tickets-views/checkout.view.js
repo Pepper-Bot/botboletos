@@ -100,6 +100,27 @@ function paypal_pay(req, res) {
     var UserData2 = require('../../schemas/userinfo');
     var moment = require('moment');
 
+
+    var event_id = params.event_id;
+    var fbId = params.uid;
+    var venue_id = params.venue_id;
+    var event_name = params.event_name;
+    var performer_id = params.performer_id;
+    var event_date = params.event_date;
+    var section = params.section;
+    var row = params.row;
+    var quantity = params.userticketsquantity;
+    var price = params.priceticket;
+    var format = params.format;
+    var eticket = params.eticket;
+    var groupticket_id = params.groupticket_id;
+
+    var total = params.userticketsquantity * params.priceticket;
+    var totals = "$" + total
+
+
+
+
     var aplicationURL = "https://botboletos-test.herokuapp.com";
 
 
@@ -115,18 +136,18 @@ function paypal_pay(req, res) {
         "transactions": [{
             "item_list": {
                 "items": [{
-                    "name": "Red Sox Hat",
+                    "name": event_name,
                     "sku": "001",
-                    "price": "25.00",
+                    "price": price,
                     "currency": "USD",
-                    "quantity": 1
+                    "quantity": quantity
                 }]
             },
             "amount": {
                 "currency": "USD",
-                "total": "25.00"
+                "total": price
             },
-            "description": "Hat for the best team ever"
+            "description": event_name + " row " + row
         }]
 
 
