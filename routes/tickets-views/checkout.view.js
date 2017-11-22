@@ -108,11 +108,12 @@ function paypal_pay(req, res) {
     var price = params.price;
 
 
+console.log("event_name" + event_name     )
+console.log("quantity" + quantity     )
+console.log("price" + price     )
 
 
-
-
-    var aplicationURL = "https://botboletos-test.herokuapp.com";
+    /*var aplicationURL = "https://botboletos-test.herokuapp.com";
 
 
     const create_payment_json = {
@@ -157,7 +158,7 @@ function paypal_pay(req, res) {
                 }
             }
         }
-    });
+    });*/
 }
 
 
