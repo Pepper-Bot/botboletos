@@ -16,7 +16,6 @@ var storeUrl = require('./routes/redirect');
 var ticketSales = require('./routes/event');
 var ticketGroups = require('./routes/groups');
 
-var paypal_test = require('./routes/paypal_test');
 
 
 //var checkoutBuy = require('./routes/checkout');
@@ -92,7 +91,7 @@ app.use('/tickets/', ticketGroups);
 
 app.post('/checkout/', checkoutBuy.checkout);
 
-app.use('/paypal_test/', paypal_test);
+ 
 
 
 
