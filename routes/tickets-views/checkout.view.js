@@ -70,10 +70,7 @@ function checkout(req, res) {
                     groupticket_id: params.groupticket_id,
                     firstName: result.firstName,
                     LastName: result.LastName,
-                    helpers: {
-                        paypal_pay: paypal_payF
-                    }
-
+                    
 
                 }
             );
@@ -96,7 +93,7 @@ paypal.configure({
 });
 
 
-function paypal_payF() {
+function paypal_pay(req, res) {
     var express = require('express');
     var router = express.Router();
     var UserData = require('../../bot/userinfo');
@@ -142,8 +139,9 @@ function paypal_payF() {
         } else {
             for (let i = 0; i < payment.links.length; i++) {
                 if (payment.links[i].rel === 'approval_url') {
-                    // res.redirect(payment.links[i].href);
                     console.log("payment.links[i].href <<  " + payment.links[i].href)
+                    res.redirect(payment.links[i].href);
+
                 }
             }
         }
@@ -186,5 +184,6 @@ function paypal_cancel(req, res) {
 module.exports = {
     checkout,
     paypal_success,
-    paypal_cancel
+    paypal_cancel,
+    paypal_pay
 }

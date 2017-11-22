@@ -92,6 +92,7 @@ app.use('/tickets/', ticketGroups);
 //app.use('/checkout/', checkout);
 
 app.post('/checkout/', checkoutBuy.checkout);
+app.post('/checkout/paypal_pay/', checkoutBuy.paypal_pay);
 app.use('/paypal_success/', checkoutBuy.paypal_success);
 app.use('/paypal_cancel/', checkoutBuy.paypal_cancel); 
 
