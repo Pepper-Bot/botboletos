@@ -137,7 +137,7 @@ function paypal_pay(req, res) {
             },
             "amount": {
                 "currency": "USD",
-                "total": price
+                "total": price * quantity
             },
             "description": event_name
         }]
