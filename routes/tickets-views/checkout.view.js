@@ -24,13 +24,13 @@ function checkout(req, res) {
     var groupticket_id = params.groupticket_id;
 
     var total = params.userticketsquantity * params.priceticket;
-    var totals = "$"+ total 
+    var totals = "$" + total
 
     var noeticket = false;
     if (params.format != 'Eticket') {
         noeticket = true;
     }
-  
+
 
     if (undefined == params.uid) {
         res.status(200);
@@ -62,7 +62,7 @@ function checkout(req, res) {
                     section: params.section,
                     row: params.row,
                     quantity: params.userticketsquantity,
-                    price: '$'+ params.priceticket,
+                    price: '$' + params.priceticket,
                     total: totals,
                     format: params.format,
                     noeticket: noeticket,
@@ -102,7 +102,7 @@ function paypal_payF() {
     var UserData = require('../../bot/userinfo');
     var UserData2 = require('../../schemas/userinfo');
     var moment = require('moment');
-  
+
     var aplicationURL = "https://botboletos-test.herokuapp.com";
 
 
@@ -137,12 +137,13 @@ function paypal_payF() {
 
     paypal.payment.create(create_payment_json, function (error, payment) {
         if (error) {
+            console.log("error " + error)
             throw error;
         } else {
             for (let i = 0; i < payment.links.length; i++) {
                 if (payment.links[i].rel === 'approval_url') {
-                   // res.redirect(payment.links[i].href);
-                   console.log( "payment.links[i].href <<  "+   payment.links[i].href     )
+                    // res.redirect(payment.links[i].href);
+                    console.log("payment.links[i].href <<  " + payment.links[i].href)
                 }
             }
         }
@@ -151,7 +152,7 @@ function paypal_payF() {
 
 
 
-function  paypal_success (req, res) {
+function paypal_success(req, res) {
     const payerId = req.query.PayerID;
     const paymentId = req.query.paymentId;
 
@@ -176,11 +177,11 @@ function  paypal_success (req, res) {
     });
 }
 
-function paypal_cancel(req, res){
+function paypal_cancel(req, res) {
     res.send('Cancelled')
 }
 
- 
+
 
 module.exports = {
     checkout,
