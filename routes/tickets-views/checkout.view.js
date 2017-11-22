@@ -62,7 +62,7 @@ function checkout(req, res) {
                     section: params.section,
                     row: params.row,
                     quantity: params.userticketsquantity,
-                    price: '$' + params.priceticket,
+                    price: params.priceticket,
                     total: totals,
                     format: params.format,
                     noeticket: noeticket,
@@ -108,9 +108,9 @@ function paypal_pay(req, res) {
     var price = params.price;
 
 
-console.log("event_name" + event_name     )
-console.log("quantity" + quantity     )
-console.log("price" + price     )
+    console.log("event_name" + event_name)
+    console.log("quantity" + quantity)
+    console.log("price" + price)
 
 
     /*var aplicationURL = "https://botboletos-test.herokuapp.com";
