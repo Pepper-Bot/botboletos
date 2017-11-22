@@ -71,7 +71,7 @@ function checkout(req, res) {
                     firstName: result.firstName,
                     LastName: result.LastName,
                     helpers: {
-                        paypal_pay: paypal_pay
+                        paypal_pay: paypal_payF
                     }
 
 
@@ -96,7 +96,7 @@ paypal.configure({
 });
 
 
-function paypal_pay() {
+function paypal_payF() {
     var express = require('express');
     var router = express.Router();
     var UserData = require('../../bot/userinfo');
