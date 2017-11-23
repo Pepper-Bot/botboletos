@@ -93,7 +93,8 @@ app.use(session({
   store: new RedisStore(),
   secret: 'rerewrewrewrvrgstrtsrssrtsrtet4e5ddghdf',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: true,
+  cookie: { secure: !true }
 }));
 
 
