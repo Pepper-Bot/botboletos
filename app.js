@@ -101,7 +101,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var sess = {
   name: 'session',
-  secret: "rewrerew32439bknkfsfmkritrhifmskgfgmsfksdh",
+  secret: "some secret",
   cookie: {
     path: '/',
     httpOnly: true,
@@ -112,7 +112,9 @@ var sess = {
   resave: false,
   saveUninitialized: true,
   store: new RedisStore({
-   
+    host: 'ec2-34-227-234-245.compute-1.amazonaws.com',
+    port: 29239,
+    db: 0,
     cookie: { maxAge: (3600*1000*30)}, // 30 Days in ms
     client: redisClient
   })
