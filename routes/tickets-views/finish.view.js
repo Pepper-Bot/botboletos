@@ -9,11 +9,11 @@ function finish(req, res) {
 
         }
     );
-    sendEmail();
+    sendEmailSenGrid();
 }
 
 
-function sendEmailSenGrid(subject, content) {
+function sendEmailSenGrid() {
 
     var nombreCliente = '';
     var eventoNombre = '';
