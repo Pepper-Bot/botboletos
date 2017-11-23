@@ -97,18 +97,24 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //midleware para ssessions...
 
-app.use(session({
+ 
+
+var sess = {
   store: new RedisStore(),
   secret: 'rerewrewrewrvrgstrtsrssrtsrtet4e5ddghdf',
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: true
+    secure: false
   }
-}));
+}
 
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
 
-
+app.use(session(sess))
 
 
 //app.use(express.static(__dirname + '/public'));
