@@ -199,7 +199,11 @@ function paypal_success(req, res) {
             throw error;
         } else {
             console.log(JSON.stringify(payment));
-            res.send('Success');
+
+            //res.send('Success');
+            var finishModule = require('./finish.view');
+            finishModule.finish(req, res);
+
         }
     });
 }
@@ -207,6 +211,9 @@ function paypal_success(req, res) {
 function paypal_cancel(req, res) {
     res.send('Cancelled')
 }
+
+
+
 
 
 
