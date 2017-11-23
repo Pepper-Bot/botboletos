@@ -152,6 +152,8 @@ app.use(function (req, res, next) {
 app.use(function (req, res, next) {
   if (!req.session) {
     return next(new Error('oh no')) // handle error
+  }else {
+    console.log("req.session"+  req.session   )
   }
   next() // otherwise continue
 })
