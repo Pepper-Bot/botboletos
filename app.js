@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
+var redisClient = require('redis').createClient(process.env.REDIS_URL);
 var RedisStore = require('connect-redis')(session)
 
 var index = require('./routes/index');
@@ -97,20 +98,26 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //midleware para ssessions...
 
-  
+
 var sess = {
   name: 'session',
   secret: "some secret",
   cookie: {
-      path: '/',
-      httpOnly: true,
-      secure: true,
-      maxAge: 24 * 60 * 60 * 1000,
-      signed: false
+    path: '/',
+    httpOnly: true,
+    secure: true,
+    maxAge: 24 * 60 * 60 * 1000,
+    signed: false
   },
   resave: false,
   saveUninitialized: true,
-  store: new RedisStore()
+  store: new RedisStore({
+    host: 'ec2-34-227-234-245.compute-1.amazonaws.com',
+    port: 29239,
+    db: 0,
+    cookie: { maxAge: (24*3600*1000*30)}, // 30 Days in ms
+    client: redisClient
+  })
 }
 
 if (app.get('env') === 'production') {
@@ -152,8 +159,8 @@ app.use(function (req, res, next) {
 app.use(function (req, res, next) {
   if (!req.session) {
     return next(new Error('oh no')) // handle error
-  }else {
-    console.log("req.session"+  req.session   )
+  } else {
+    console.log("req.session" + req.session)
   }
   next() // otherwise continue
 })
