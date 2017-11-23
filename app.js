@@ -9,7 +9,7 @@ var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
-var RedisStore = require('connect-redis')(session )
+var RedisStore = require('connect-redis')(session)
 
 var index = require('./routes/index');
 //var users = require('./routes/users');
@@ -53,6 +53,14 @@ app.use(function(req, res, next) {
 });
 
 */
+app.use(function (req, res, next) {
+
+  res.header('Access-Control-Allow-Credentials', true);
+  res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+  // res.header("Access-Control-Allow-Origin", "http://localhost");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
 
 //############MANEJO DE PLANTILLAS express-handlebars####################
 app.engine('.hbs', hbs({
@@ -74,10 +82,10 @@ app.use(sassMiddleware({
   dest: path.join(__dirname, 'public'),
   debug: true,
   outputStyle: 'compressed',
-  prefix:  '/prefix'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
+  prefix: '/prefix' // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
 }));
 
- 
+
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -94,7 +102,9 @@ app.use(session({
   secret: 'rerewrewrewrvrgstrtsrssrtsrtet4e5ddghdf',
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: !true }
+  cookie: {
+    secure: !true
+  }
 }));
 
 
@@ -111,7 +121,7 @@ app.use('/tickets/', ticketGroups);
 app.post('/checkout/', checkoutBuy.checkout);
 app.post('/checkout/paypal_pay/', checkoutBuy.paypal_pay);
 app.use('/paypal_success/', checkoutBuy.paypal_success);
-app.use('/paypal_cancel/', checkoutBuy.paypal_cancel); 
+app.use('/paypal_cancel/', checkoutBuy.paypal_cancel);
 
 
 
