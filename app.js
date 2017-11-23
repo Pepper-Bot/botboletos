@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
+var RedisStore = require('connect-redis')(session )
 
 var index = require('./routes/index');
 //var users = require('./routes/users');
@@ -89,13 +90,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 //midleware para ssessions...
 
 var sess = {
-  secret: 'keyboard cat',
-  cookie: {}
-}
-
-if (app.get('env') === 'production') {
-  app.set('trust proxy', 1) // trust first proxy
-  sess.cookie.secure = true // serve secure cookies
+  secret: 'kgfgsfdksrr4435345mnerktrnektwertjkeektr435p354',
+  store : new RedisStore()
 }
 
 
