@@ -30,7 +30,7 @@ function checkout(req, res) {
         req.session.event_id = event_id;
         req.session.price = price;
         req.session.quantity = quantity;
-        req.session.total = total;
+        req.session.total = price * quantity;
         console.log("Yes !!!")
     } else {
         console.log("Verdes !!!")
