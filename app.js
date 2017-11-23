@@ -90,7 +90,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //midleware para ssessions...
 
 app.use(session({
-  store: new RedisStore(options),
+  store: new RedisStore(),
   secret: 'rerewrewrewrvrgstrtsrssrtsrtet4e5ddghdf',
   resave: false
 }));
