@@ -97,16 +97,20 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //midleware para ssessions...
 
- 
-app.use(express.cookieParser());
+  
 var sess = {
-  store: new RedisStore(),
-  secret: 'rerewrewrewrvrgstrtsrssrtsrtet4e5ddghdf',
+  name: 'session',
+  secret: "some secret",
+  cookie: {
+      path: '/',
+      httpOnly: true,
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+      signed: false
+  },
   resave: false,
   saveUninitialized: true,
-  cookie: {
-    secure: false
-  }
+  store: new RedisStore()
 }
 
 if (app.get('env') === 'production') {
