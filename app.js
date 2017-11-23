@@ -8,6 +8,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('express-handlebars');
 var sassMiddleware = require('node-sass-middleware');
+var session = require('express-session');
 
 var index = require('./routes/index');
 //var users = require('./routes/users');
@@ -85,10 +86,12 @@ var urlencodedParser = app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-
-app.use(express.cookieParser());
-app.use(express.bodyParser());
-app.use(express.session({secret: 'mi secreto'}));
+//midleware para ssessions...
+app.use(session(
+  {
+    secret: "madfkamowerewr324324324fdsmkafkads"
+  }
+));
 
 
 //app.use(express.static(__dirname + '/public'));
