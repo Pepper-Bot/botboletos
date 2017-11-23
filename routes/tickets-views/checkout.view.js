@@ -23,10 +23,21 @@ function checkout(req, res) {
     var eticket = params.eticket;
     var groupticket_id = params.groupticket_id;
 
-    
+
+    req.session.fbId = fbId;
+    req.session.event_id = event_id;
+    req.session.event_name = event_name;
+    req.session.event_id = event_id;
+    req.session.price = price;
+    req.session.quantity = quantity;
+    req.session.total  = total;
+
+
 
     var total = params.userticketsquantity * params.priceticket;
     var totals = "$" + total
+
+
 
     var noeticket = false;
     if (params.format != 'Eticket') {
@@ -110,7 +121,7 @@ function paypal_pay(req, res) {
     var price = params.price;
 
 
-    console.log("event_name" + event_name)
+    console.log(" req.session.fbId >" +  req.session.fbId)
     console.log("quantity" + quantity)
     console.log("price" + price)
 
