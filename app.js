@@ -92,7 +92,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(session({
   store: new RedisStore(),
   secret: 'rerewrewrewrvrgstrtsrssrtsrtet4e5ddghdf',
-  resave: false
+  resave: false,
+  saveUninitialized: true
 }));
 
 

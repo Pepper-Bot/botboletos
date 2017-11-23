@@ -23,15 +23,17 @@ function checkout(req, res) {
     var eticket = params.eticket;
     var groupticket_id = params.groupticket_id;
 
-
-    req.session.fbId = fbId;
-    req.session.event_id = event_id;
-    req.session.event_name = event_name;
-    req.session.event_id = event_id;
-    req.session.price = price;
-    req.session.quantity = quantity;
-    req.session.total = total;
-
+    if (req.session) {
+        req.session.fbId = fbId;
+        req.session.event_id = event_id;
+        req.session.event_name = event_name;
+        req.session.event_id = event_id;
+        req.session.price = price;
+        req.session.quantity = quantity;
+        req.session.total = total;
+    } else {
+        console.log("Verdes !!!")
+    }
 
 
     var total = params.userticketsquantity * params.priceticket;
