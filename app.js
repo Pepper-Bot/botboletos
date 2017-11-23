@@ -103,7 +103,7 @@ app.use(session({
   resave: false,
   saveUninitialized: true,
   cookie: {
-    secure: !true
+    secure: true
   }
 }));
 
@@ -134,6 +134,8 @@ app.use(function (req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
 
 app.use(function (req, res, next) {
   if (!req.session) {
