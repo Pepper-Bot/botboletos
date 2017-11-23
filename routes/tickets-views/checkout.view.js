@@ -30,7 +30,7 @@ function checkout(req, res) {
     req.session.event_id = event_id;
     req.session.price = price;
     req.session.quantity = quantity;
-    req.session.total  = total;
+    req.session.total = total;
 
 
 
@@ -121,7 +121,7 @@ function paypal_pay(req, res) {
     var price = params.price;
 
 
-    console.log(" req.session.fbId >" +  req.session.fbId)
+    console.log(" req.session.fbId >" + req.session.fbId)
     console.log("quantity" + quantity)
     console.log("price" + price)
 

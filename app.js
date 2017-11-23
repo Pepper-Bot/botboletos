@@ -92,8 +92,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 var sess = {
   secret: 'kgfgsfdksrr4435345mnerktrnektwertjkeektr435p354',
   store : new RedisStore(),
-  resave: false,
-  saveUninitialized : false
+  resave: true,
+  saveUninitialized : true
 }
 
 
