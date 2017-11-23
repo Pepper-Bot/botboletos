@@ -87,12 +87,20 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 //midleware para ssessions...
+
+var sess = {
+  secret: 'keyboard cat',
+  cookie: {}
+}
+
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+
+
 app.use(session(
-  {
-    secret: "madfkamowerewr324324324fdsmkafkads",
-    resave: true,
-    saveUninitialized: true
-  }
+  sess
 ));
 
 
