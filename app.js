@@ -101,7 +101,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 var sess = {
   name: 'session',
-  secret: "some secret",
+  secret: "rewrerew32439bknkfsfmkritrhifmskgfgmsfksdh",
   cookie: {
     path: '/',
     httpOnly: true,
