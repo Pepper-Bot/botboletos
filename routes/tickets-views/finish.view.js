@@ -68,7 +68,7 @@ function sendEmailSenGrid() {
 
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-    const msg = {
+    var msg = {
         to: 'angelamariel88@gmail.com',
         from: 'leo777jaimes@gmail.com',
         subject: 'Sending with SendGrid is Fun',
