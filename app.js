@@ -62,9 +62,7 @@ app.engine('.hbs', hbs({
 app.set('view engine', '.hbs');
 //############MANEJO DE PLANTILLAS####################
 
-app.use(express.cookieParser());
-app.use(express.bodyParser());
-app.use(express.session({secret: 'mi secreto'}));
+
 
 
 
@@ -86,6 +84,13 @@ var urlencodedParser = app.use(bodyParser.urlencoded({
 }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use(express.cookieParser());
+app.use(express.bodyParser());
+app.use(express.session({secret: 'mi secreto'}));
+
+
 //app.use(express.static(__dirname + '/public'));
 app.use('/dashboard', index);
 //app.use('/users', users);
