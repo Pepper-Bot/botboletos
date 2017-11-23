@@ -188,7 +188,7 @@ function paypal_success(req, res) {
         "transactions": [{
             "amount": {
                 "currency": "USD",
-                "total": "25.00"
+                "total": req.session.total
             }
         }]
     };
