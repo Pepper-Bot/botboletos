@@ -23,6 +23,8 @@ function checkout(req, res) {
     var eticket = params.eticket;
     var groupticket_id = params.groupticket_id;
 
+    
+
     var total = params.userticketsquantity * params.priceticket;
     var totals = "$" + total
 

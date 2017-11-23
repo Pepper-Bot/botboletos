@@ -62,6 +62,10 @@ app.engine('.hbs', hbs({
 app.set('view engine', '.hbs');
 //############MANEJO DE PLANTILLAS####################
 
+app.use(express.cookieParser());
+app.use(express.bodyParser());
+app.use(express.session({secret: 'mi secreto'}));
+
 
 
 app.use(sassMiddleware({
