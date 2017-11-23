@@ -98,7 +98,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 //midleware para ssessions...
 
  
-
+app.use(express.cookieParser());
 var sess = {
   store: new RedisStore(),
   secret: 'rerewrewrewrvrgstrtsrssrtsrtet4e5ddghdf',
