@@ -89,7 +89,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 //midleware para ssessions...
 app.use(session(
   {
-    secret: "madfkamowerewr324324324fdsmkafkads"
+    secret: "madfkamowerewr324324324fdsmkafkads",
+    resave: true,
+    saveUninitialized: true
   }
 ));
 
