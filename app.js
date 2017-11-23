@@ -89,19 +89,13 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 //midleware para ssessions...
 
-var sess = {
-  secret: 'kgfgsfdksrr4435345mnerktrnektwertjkeektr435p354',
-  store : new RedisStore(),
-  resave: true,
-  saveUninitialized : true
-}
+app.use(session({
+  store: new RedisStore(options),
+  secret: 'rerewrewrewrvrgstrtsrssrtsrtet4e5ddghdf',
+  resave: false
+}));
 
-app.configure(function(){
-  app.use(express.cookieParser());
-  app.use(session(sess));
-})
 
- 
 
 //app.use(express.static(__dirname + '/public'));
 app.use('/dashboard', index);
@@ -129,7 +123,12 @@ app.use(function (req, res, next) {
   next(err);
 });
 
-
+app.use(function (req, res, next) {
+  if (!req.session) {
+    return next(new Error('oh no')) // handle error
+  }
+  next() // otherwise continue
+})
 
 // error handler
 app.use(function (err, req, res, next) {
