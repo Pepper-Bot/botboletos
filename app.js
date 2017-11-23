@@ -96,11 +96,12 @@ var sess = {
   saveUninitialized : true
 }
 
+app.configure(function(){
+  app.use(express.cookieParser());
+  app.use(session(sess));
+})
 
-app.use(session(
-  sess
-));
-
+ 
 
 //app.use(express.static(__dirname + '/public'));
 app.use('/dashboard', index);
