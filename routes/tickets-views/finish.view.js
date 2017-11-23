@@ -75,7 +75,7 @@ function sendEmailSenGrid() {
         text: 'and easy to do anywhere, even with Node.js',
         html: '<strong>and easy to do anywhere, even with Node.js</strong>',
     };
-    msg = {
+    /*msg = {
         "personalizations": [{
             "to": [{
                     "email": "angelamariel88@gmail.com"
@@ -94,7 +94,7 @@ function sendEmailSenGrid() {
             "type": "text/html",
             "value": templateHTML
         }
-    }
+    }*/
     sgMail.send(msg);
 }
 
