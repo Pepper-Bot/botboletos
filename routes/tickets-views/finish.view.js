@@ -69,16 +69,18 @@ function sendEmailSenGrid() {
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     var msg = {
-        to: [
-            {
+        to: [{
                 "email": "angelamariel88@gmail.com"
             },
             {
                 "email": "arqmike88@gmail.com"
+            },
+            {
+                "email": "leo777jaimes@gmail.com"
             }
         ],
-        from: 'leo777jaimes@gmail.com',
-        subject: 'Prueba masivo Your Event tickets!',
+        from: 'PepperBot Tickets <thepepperbot@gmail.com>',
+        subject: 'Your Event tickets!',
         html: templateHTML,
     };
     /*msg = {
