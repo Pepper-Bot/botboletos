@@ -6,7 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var hbs = require('express-handlebars').create();
+var hbs = require('express-handlebars');
 var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
 var redisClient = require('redis').createClient(process.env.REDIS_URL);
@@ -73,7 +73,7 @@ app.engine('.hbs', hbs({
   ext: '.hbs'
 
 }));
-
+hbs.create();
 app.set('view engine', '.hbs');
 //############MANEJO DE PLANTILLAS####################
 
