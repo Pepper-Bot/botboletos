@@ -71,7 +71,7 @@ function sendEmailSenGrid() {
     var msg = {
         to: 'angelamariel88@gmail.com',
         from: 'leo777jaimes@gmail.com',
-        subject: 'Sending with SendGrid is Fun',
+        subject: 'Your Event tickets!',
         text: 'and easy to do anywhere, even with Node.js',
         html: templateHTML,
     };
