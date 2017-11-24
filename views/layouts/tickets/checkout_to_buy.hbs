@@ -1,0 +1,42 @@
+<div class="section">
+    <div class="row">
+        <div class="col m12 m4">
+            <h4 class="header left blue-text">Checkout Process</small>
+            </h4>
+            <table class="table-responsive ">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Seats</th>
+                        <th> Quantity</th>
+                        <th>Price Each</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{{event_name}}}</td>
+                        <td>{{{event_date}}}</td>
+                        <td>
+                            <b>Section:</b>{{{section}}}
+                            <br>
+                            <b>Row</b>: {{{row}}} </td>
+                        <td>{{{quantity}}}</td>
+                        <td>${{{price}}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Ticket Type: </b>
+                            <span class="new badge green">{{{format}}} </span>
+                        </td>
+                        <td colspan="2"></td>
+                        <td>
+                            <strong>Total</strong>
+                        </td>
+                        <td>{{{ total }}} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

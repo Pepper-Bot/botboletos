@@ -72,7 +72,6 @@ function checkout(req, res) {
 
         if (result) {
 
-
             res.render(
                 './layouts/tickets/3_checkout', {
                     titulo: "Your tickets are on its way!",
