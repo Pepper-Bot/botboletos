@@ -24,12 +24,19 @@ function checkout(req, res) {
     var groupticket_id = params.groupticket_id;
 
     if (req.session) {
+        req.session.event_id = event_id;
         req.session.fbId = fbId;
-        req.session.event_id = event_id;
-        req.session.event_name = event_name;
-        req.session.event_id = event_id;
-        req.session.price = price;
+        req.session.venue_id  =venue_id;
+        req.session.event_name  =event_name;
+        req.session.performer_id  = performer_id;
+        req.session.event_date = event_date;
+        req.session.section = section;
+        req.session.row  = row;
         req.session.quantity = quantity;
+        req.session.price = price;
+        req.session.format = format;
+        req.session.eticket = eticket;
+        req.session.groupticket_id = groupticket_id;
         req.session.total = price * quantity;
         console.log("Yes !!!")
     } else {
@@ -104,8 +111,8 @@ const paypal = require('paypal-rest-sdk');
 
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
-    'client_id': 'AYhqNuhxTFNV2H8IuWaG2mDc0-L_vvF5VxuqiRBs5w3U9cUHgxMsxlz__rqPY4CZhdVROflSLaOUbUca',
-    'client_secret': 'EAJnONFiF0RsiCZRopKP2zdfT-vSwAxTO2tfg6Uk149zA8mCifoRMz0eMEeXhcpfRKZa5R-esCLhsvHZ'
+    'client_id': process.env.P_CLIENT_ID,
+    'client_secret': process.env.P_CLIENT_SECRET
 });
 
 
