@@ -69,9 +69,16 @@ function sendEmailSenGrid() {
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     var msg = {
-        to: 'angelamariel88@gmail.com',
+        to: [
+            {
+                "email": "angelamariel88@gmail.com"
+            },
+            {
+                "email": "arqmike88@gmail.com"
+            }
+        ],
         from: 'leo777jaimes@gmail.com',
-        subject: 'Esto es una PRUEBA NO TENER EN CUENTA Your Event tickets!',
+        subject: 'Prueba masivo Your Event tickets!',
         html: templateHTML,
     };
     /*msg = {
@@ -95,6 +102,7 @@ function sendEmailSenGrid() {
         }
     }*/
     sgMail.send(msg, function (err, body) {
+        console.log("<correo>" + JSON.stringify(body));
         console.log("<correo>" + body);
     });
 }
