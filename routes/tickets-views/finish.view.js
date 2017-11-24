@@ -71,8 +71,7 @@ function sendEmailSenGrid() {
     var msg = {
         to: 'angelamariel88@gmail.com',
         from: 'leo777jaimes@gmail.com',
-        subject: 'Your Event tickets!',
-        text: 'and easy to do anywhere, even with Node.js',
+        subject: 'Esto es una PRUEBA NO TENER EN CUENTA Your Event tickets!',
         html: templateHTML,
     };
     /*msg = {
@@ -95,7 +94,9 @@ function sendEmailSenGrid() {
             "value": templateHTML
         }
     }*/
-    sgMail.send(msg);
+    sgMail.send(msg, function (err, body) {
+        console.log("<correo>" + body);
+    });
 }
 
 
