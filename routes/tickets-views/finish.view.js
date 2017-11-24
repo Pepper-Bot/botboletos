@@ -53,9 +53,7 @@ function sendEmailSenGrid() {
     templateHTML = templateHTML.replace('&lt;orderDate&gt;', fechaOrden);
     templateHTML = templateHTML.replace('&lt;Customer&gt;', clienteId);
     templateHTML = templateHTML.replace('&lt;Location&gt;', venueEvento);
-    //			res.send('<!DOCTYPE html><html lang="en"> <head> <meta charset="utf-8"> <base href="https://ticketdelivery.herokuapp.com/"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1"> <title>finished</title> <link href="css/bootstrap.min.css" rel="stylesheet"> <link href="css/style.css" rel="stylesheet"> </head> <body> <div class="container-fluid"> <div class="row"> <div class="col-md-12"> <div class="jumbotron"> <h2> Finished Checkout </h2> <p> You have completed the process of acquiring tickets we have sent an email with the order. If you have any questions please feel free to contact us at .... </p> </div> </div> </div></div> <script src="js/jquery.min.js"></script> <script src="js/bootstrap.min.js"></script> <script src="js/scripts.js"></script> </body></html>');
 
-    // Mas informacion relativa al tipo de ticket.
     if (format == 'Eticket') {
         templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'Eticket - Email with PDF');
 
@@ -83,26 +81,7 @@ function sendEmailSenGrid() {
         subject: 'Your Event tickets!',
         html: templateHTML,
     };
-    /*msg = {
-        "personalizations": [{
-            "to": [{
-                    "email": "angelamariel88@gmail.com"
-                },
-                {
-                    "email": "arqmike88@gmail.com"
-                }
-            ],
-            "subject": "Esto es una PRUEBA NO TENER EN CUENTA Your Event tickets!",
-            "send_at": 1459728000
-        }],
-        "from": {
-            "email": "leo777jaimes@gmail.com"
-        },
-        "content": {
-            "type": "text/html",
-            "value": templateHTML
-        }
-    }*/
+
     sgMail.send(msg, function (err, body) {
         console.log("<correo>" + JSON.stringify(body));
         console.log("<correo>" + body);
