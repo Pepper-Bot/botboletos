@@ -11,7 +11,7 @@ var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
 var redisClient = require('redis').createClient(process.env.REDIS_URL);
 var RedisStore = require('connect-redis')(session)
-var fs = require('fs');
+
 
 var index = require('./routes/index');
 //var users = require('./routes/users');
@@ -66,8 +66,8 @@ app.use(function (req, res, next) {
 
 //############MANEJO DE PLANTILLAS express-handlebars####################
 
-//hbs.registerPartial('partial', fs.readFileSync(__dirname + '/views/layouts/ partial.hbs', 'utf8'));
-hbs.registerPartials(__dirname + '/views/layouts/tickets');
+
+
 app.engine('.hbs', hbs({
   defaultLayout: 'default',
   ext: '.hbs'
