@@ -6,7 +6,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var hbs = require('express-handlebars');
+var exphbs = require('express-handlebars');
 var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
 var redisClient = require('redis').createClient(process.env.REDIS_URL);
@@ -68,15 +68,23 @@ app.use(function (req, res, next) {
 
 
 
-app.engine('.hbs', hbs({
+var hbs = exphbs.create({
+  defaultLayout: 'default',
+
+  partialsDir: [
+    
+      'views/partials/checkout'
+  ]
+});
+
+
+/*app.engine('.hbs', exphbs({
   defaultLayout: 'default',
   ext: '.hbs',
-  partialsDir: [
-    'views/partials/checkout'
-  ]
+ 
 
-}));
-
+}));*/
+app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 //############MANEJO DE PLANTILLAS####################
 
