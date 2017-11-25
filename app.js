@@ -70,10 +70,13 @@ app.use(function (req, res, next) {
 
 app.engine('.hbs', hbs({
   defaultLayout: 'default',
-  ext: '.hbs'
+  ext: '.hbs',
+  partialsDir: [
+    'views/partials/checkout'
+  ]
 
 }));
-hbs.create();
+
 app.set('view engine', '.hbs');
 //############MANEJO DE PLANTILLAS####################
 
