@@ -71,7 +71,7 @@ app.use(function (req, res, next) {
 
 var hbs = exphbs.create({
   defaultLayout: 'default',
-
+  extname: '.hbs',
   partialsDir: [
     
       'views/partials/'
