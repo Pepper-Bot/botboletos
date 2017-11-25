@@ -73,7 +73,7 @@ var hbs = exphbs.create({
 
   partialsDir: [
     
-      'views/partials/checkout'
+      'views/partials/'
   ]
 });
 
