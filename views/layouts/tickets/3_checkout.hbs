@@ -1,11 +1,22 @@
 <div class="container">
-     {{> checkout_to_buy}}
+    {{> checkout_to_buy}}
+    <ul class="collapsible" data-collapsible="accordion">
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">filter_drama</i>Credit Cards</div>
+            <div class="collapsible-body">
+                {{> checkout_billing}}
+            </div>
+        </li>
+        <li>
+            <div class="collapsible-header">
+                <i class="material-icons">place</i>Pay Pal</div>
+            <div class="collapsible-body">
+                {{> checkout_paypal_form}}
+            </div>
+        </li>
 
-    
-    {{> checkout_billing}}
-
-
-    {{> checkout_paypal_form}}
+    </ul>
 
 </div>
 
