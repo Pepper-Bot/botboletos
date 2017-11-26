@@ -1,0 +1,50 @@
+{
+    "orders": [{
+        "shipped_items": [{
+            "items": [{
+                "ticket_group_id": "",
+                "price": "",
+                "quantity": ""
+            }],
+            "phone_number_id": "",
+            "service_type": "LEAST_EXPENSIVE",
+            "type": "FedEx",
+            "address_id": "",
+            "ship_to_name": "",
+            "address_attributes": {
+                "name": "",
+                "street_address": "",
+                "extendend_address": "",
+                "locality": "",
+                "region": "",
+                "country_code": "",
+                "postal_code": "",
+                "label": "shipping"
+            }
+        }],
+        "billing_address_id": "",
+        "payments": [{
+            "type": "offline",
+            "amount": "1.00"
+        }],
+        "seller_id": "123",
+        "client_id": "",
+        "created_by_ip_address": "",
+        "instructions": "",
+        "shipping_address": {
+            "name": "",
+            "street_address": "",
+            "locality": "",
+            "region": "",
+            "country_code": "",
+            "postal_code": "",
+            "label": "shipping"
+        },
+        "shipping": 0,
+        "service_fee": 0,
+        "additional_expense": 0,
+        "tax": 0,
+        "discount": 0,
+        "promo_code": ""
+    }]
+}

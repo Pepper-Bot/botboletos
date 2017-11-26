@@ -26,12 +26,12 @@ function checkout(req, res) {
     if (req.session) {
         req.session.event_id = event_id;
         req.session.fbId = fbId;
-        req.session.venue_id  =venue_id;
-        req.session.event_name  =event_name;
-        req.session.performer_id  = performer_id;
+        req.session.venue_id = venue_id;
+        req.session.event_name = event_name;
+        req.session.performer_id = performer_id;
         req.session.event_date = event_date;
         req.session.section = section;
-        req.session.row  = row;
+        req.session.row = row;
         req.session.quantity = quantity;
         req.session.price = price;
         req.session.format = format;
@@ -208,7 +208,7 @@ function paypal_success(req, res) {
 
             //res.send('Success');
             var finishModule = require('./finish.view');
-            finishModule.finish(req, res);
+            finishModule.finish(req, res, payment);
 
         }
     });

@@ -8,30 +8,60 @@ var teClient = new TevoClient({
 });
 
 
-function finish(req, res) {
+function finish(req, res, payment) {
 
+    getOrderData(req, payment);
+
+    sendEmailSenGrid(req, payment);
+    var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
     res.render(
         './layouts/tickets/finish', {
             titulo: "Your tickets are on its way!",
-            event_name: req.session.event_name,
-
-
+            buyer_name: pp_recipient_name,
 
         }
     );
-    sendEmailSenGrid(req);
-    getOrderData(req);
 }
 
 
-function getOrderData(req) {
+function getOrderData(req, payment) {
 
-    var ticket_group_id = '';
-    var price = ''
-    var quantity = ''
+    //pay pal vars
+    var pp_email = payment.payer.payer_info.email;
+    var pp_first_name = payment.payer.payer_info.first_name;
+    var pp_last_name = payment.payer.payer_info.last_name;
+
+    var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
+    var pp_line1 = payment.payer.payer_info.shipping_address.line1;
+    var pp_city = payment.payer.payer_info.shipping_address.city;
+    var pp_state = payment.payer.payer_info.shipping_address.state;
+    var pp_postal_code = payment.payer.payer_info.shipping_address.postal_code;
+    var pp_country_code = payment.payer.payer_info.shipping_address.country_code;
+
+
+    //Session vars
+    /*req.session.event_id = event_id;
+    req.session.fbId = fbId;
+    req.session.venue_id = venue_id;
+    req.session.event_name = event_name;
+    req.session.performer_id = performer_id;
+    req.session.event_date = event_date;
+    req.session.section = section;
+    req.session.row = row;
+    req.session.quantity = quantity;
+    req.session.price = price;
+    req.session.format = format;
+    req.session.eticket = eticket;
+    req.session.groupticket_id = groupticket_id;
+    req.session.total = price * quantity;*/
+
+    var ticket_group_id = req.session.groupticket_id;
+    var price = req.session.price
+    var quantity = req.session.quantity
+
     var email_address_id = '';
     var billing_address_id = '';
-    var amount = (parseFloat(1 * 1).toFixed(2))
+    var amount = (parseFloat(price * quantity).toFixed(2))
     var type = 'offline'; //modo sugerido por tevo
 
     var seller_id = process.env.OFFICE_ID
@@ -50,12 +80,12 @@ function getOrderData(req) {
     var address_id = '';
     var ship_to_name = '';
     var address_attributes_name = '';
-    var street_address = ''
+    var street_address = pp_line1
     var extendend_address = '';
     var locality = '';
     var region = '';
-    var country_code = '';
-    var postal_code = '';
+    var country_code = pp_country_code;
+    var postal_code = pp_postal_code;
 
 
 
@@ -157,8 +187,21 @@ function getOrderData(req) {
 
 
 function sendEmailSenGrid(req) {
+    //pay pal vars
+    var pp_email = payment.payer.payer_info.email;
+    var pp_first_name = payment.payer.payer_info.first_name;
+    var pp_last_name = payment.payer.payer_info.last_name;
 
-    var nombreCliente = '';
+    var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
+    var pp_line1 = payment.payer.payer_info.shipping_address.line1;
+    var pp_city = payment.payer.payer_info.shipping_address.city;
+    var pp_state = payment.payer.payer_info.shipping_address.state;
+    var pp_postal_code = payment.payer.payer_info.shipping_address.postal_code;
+    var pp_country_code = payment.payer.payer_info.shipping_address.country_code;
+
+    
+
+    var nombreCliente = pp_first_name;
     var eventoNombre = req.session.event_name;
     var ciudadEvento = '';
     var fechaEvento = req.session.event_date;
