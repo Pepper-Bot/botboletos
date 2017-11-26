@@ -22,12 +22,12 @@ function finish(req, res) {
 
         }
     );
-    sendEmailSenGrid();
-    getOrderData();
+    sendEmailSenGrid(req);
+    getOrderData(req);
 }
 
 
-function getOrderData() {
+function getOrderData(req) {
 
     var ticket_group_id = '';
     var price = ''
@@ -153,7 +153,7 @@ function getOrderData() {
 }
 
 
-function sendEmailSenGrid() {
+function sendEmailSenGrid(req) {
 
     var nombreCliente = '';
     var eventoNombre = req.session.event_name;
