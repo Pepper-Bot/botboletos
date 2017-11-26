@@ -1,0 +1,97 @@
+{
+    "id": "PAY-9KE85040FY3735038LINO5HY",
+    "intent": "sale",
+    "state": "approved",
+    "cart": "9P461748E6583740J",
+    "payer": {
+        "payment_method": "paypal",
+        "status": "VERIFIED",
+        "payer_info": {
+            "email": "comprador7@yahoo.es",
+            "first_name": "Leonardo",
+            "last_name": "Jaimes Estevez",
+            "payer_id": "R4KB2GJ3EAC4L",
+            "shipping_address": {
+                "recipient_name": "Leonardo Jaimes Estevez",
+                "line1": "1 Main St",
+                "city": "San Jose",
+                "state": "CA",
+                "postal_code": "95131",
+                "country_code": "US"
+            },
+            "country_code": "US"
+        }
+    },
+    "transactions": [{
+        "amount": {
+            "total": "307.97",
+            "currency": "USD",
+            "details": {}
+        },
+        "payee": {
+            "merchant_id": "BCQCDJM6QBUQL",
+            "email": "paypay.test7@gmail.com"
+        },
+        "description": "Shakira",
+        "item_list": {
+            "items": [{
+                "name": "Shakira",
+                "sku": "001",
+                "price": "307.97",
+                "currency": "USD",
+                "quantity": 1
+            }],
+            "shipping_address": {
+                "recipient_name": "Leonardo Jaimes Estevez",
+                "line1": "1 Main St",
+                "city": "San Jose",
+                "state": "CA",
+                "postal_code": "95131",
+                "country_code": "US"
+            }
+        },
+        "related_resources": [{
+            "sale": {
+                "id": "9UT57802DS470262S",
+                "state": "completed",
+                "amount": {
+                    "total": "307.97",
+                    "currency": "USD",
+                    "details": {
+                        "subtotal": "307.97"
+                    }
+                },
+                "payment_mode": "INSTANT_TRANSFER",
+                "protection_eligibility": "ELIGIBLE",
+                "protection_eligibility_type": "ITEM_NOT_RECEIVED_ELIGIBLE,UNAUTHORIZED_PAYMENT_ELIGIBLE",
+                "transaction_fee": {
+                    "value": "16.24",
+                    "currency": "USD"
+                },
+                "parent_payment": "PAY-9KE85040FY3735038LINO5HY",
+                "create_time": "2017-11-26T16:41:37Z",
+                "update_time": "2017-11-26T16:41:37Z",
+                "links": [{
+                    "href": "https://api.sandbox.paypal.com/v1/payments/sale/9UT57802DS470262S",
+                    "rel": "self",
+                    "method": "GET"
+                }, {
+                    "href": "https://api.sandbox.paypal.com/v1/payments/sale/9UT57802DS470262S/refund",
+                    "rel": "refund",
+                    "method": "POST"
+                }, {
+                    "href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-9KE85040FY3735038LINO5HY",
+                    "rel": "parent_payment",
+                    "method": "GET"
+                }]
+            }
+        }]
+    }],
+    "create_time": "2017-11-26T16:41:37Z",
+    "links": [{
+        "href": "https://api.sandbox.paypal.com/v1/payments/payment/PAY-9KE85040FY3735038LINO5HY",
+        "rel": "self",
+        "method": "GET"
+    }],
+    "httpStatusCode": 200
+}

@@ -1,13 +1,10 @@
-
-
 var Message = require('../../bot/messages');
 var UserData2 = require('../../schemas/userinfo');
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
-var teClient = new TevoClient(
-{
-	apiToken: process.env.API_TOKEN,
-	apiSecretKey: process.env.API_SECRET_KEY
+var teClient = new TevoClient({
+    apiToken: process.env.API_TOKEN,
+    apiSecretKey: process.env.API_SECRET_KEY
 });
 
 
@@ -54,7 +51,7 @@ function getOrderData(req) {
     var ship_to_name = '';
     var address_attributes_name = '';
     var street_address = ''
-
+    var extendend_address = '';
 
     var created_by_ip_address = ''
     var shipping_address_name = '';
