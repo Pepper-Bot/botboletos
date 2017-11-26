@@ -186,7 +186,7 @@ function getOrderData(req, payment) {
 }
 
 
-function sendEmailSenGrid(req) {
+function sendEmailSenGrid(req, payment) {
     //pay pal vars
     var pp_email = payment.payer.payer_info.email;
     var pp_first_name = payment.payer.payer_info.first_name;
@@ -199,7 +199,7 @@ function sendEmailSenGrid(req) {
     var pp_postal_code = payment.payer.payer_info.shipping_address.postal_code;
     var pp_country_code = payment.payer.payer_info.shipping_address.country_code;
 
-    
+
 
     var nombreCliente = pp_first_name;
     var eventoNombre = req.session.event_name;
