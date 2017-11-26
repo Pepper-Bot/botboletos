@@ -52,6 +52,12 @@ function getOrderData(req) {
     var address_attributes_name = '';
     var street_address = ''
     var extendend_address = '';
+    var locality = '';
+    var region = '';
+    var country_code = '';
+    var postal_code = '';
+
+
 
     var created_by_ip_address = ''
     var shipping_address_name = '';
