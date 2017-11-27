@@ -339,10 +339,11 @@ function sendEmailSenGrid(req, payment, event) {
 
 
     var occurs_at = event.occurs_at;
-    console.log(   'occurs_at  >>>'  +  occurs_at  )
-    occurs_at = occurs_at.substring(0, occurs_at.length - 4)
-    occurs_at = moment(occurs_at).format('MMMM Do YYYY')
 
+    occurs_at = occurs_at.substring(0, occurs_at.length - 4)
+
+    var occurs_at = moment(occurs_at).format('MMMM Do YYYY')
+    console.log('occurs_at  >>>' + occurs_at)
 
     var nombreCliente = pp_first_name;
     var eventoNombre = req.session.event_name;
