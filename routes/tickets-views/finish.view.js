@@ -425,7 +425,8 @@ function sendEmailSenGrid(req, payment, event) {
         subject: 'Your Event tickets!',
         html: templateHTML,
     };
-
+    console.log("<msg>" + JSON.stringify(msg));
+    
     sgMail.send(msg, function (err, body) {
         console.log("<correo>" + JSON.stringify(body));
 
