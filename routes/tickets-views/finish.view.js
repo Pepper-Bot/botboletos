@@ -18,7 +18,7 @@ function finish(req, res, payment) {
     var searchByEventId = urlApiTevo + '/events/' + req.session.event_id;
 
 
-    getOrderData(req, payment);
+    //getOrderData(req, payment);
     tevoClient.getJSON(searchByEventId).then((event) => {
         sendEmailSenGrid(req, payment, event);
 
@@ -91,41 +91,59 @@ function createClientTevo(req, payment) {
             "office_id": process.env.OFFICE_ID
         }]
     }; //cliente_tevo_fin
+    tevoClient.postJSON(process.env.API_URL + 'clients', client_tevo).then((clientTevoSaved) => {
+        Client.findOne({
+            fbId: req.session.fbId
+        }, {}, {
+            sort: {
+                'sessionStart': -1
+            }
+        }, function (err, clientFound) {
+            if (!err) {
+                if (clientFound) {
+                    clientFound.addresses.push({
+                        "label": "Shipping",
+                        "region": pp_state,
+                        "country_code": pp_country_code,
+                        "postal_code": pp_postal_code,
+                        "street_address": pp_line1,
+                        "locality": pp_city
+                    });
+                    clientFound.email_address.push()
+                    clientFound.save();
+                } else {
+                    var ClientData = new Client;
+
+                    ClientData.addresses.push({
+                        "label": "Shipping",
+                        "region": pp_state,
+                        "country_code": pp_country_code,
+                        "postal_code": pp_postal_code,
+                        "street_address": pp_line1,
+                        "locality": pp_city
+                    });
+                    ClientData.email_address.push()
+
+                    ClientData.fbId = req.session.fbId;
+                    ClientData.fullName = clientTevoSaved.clients[0].name;
+                    ClientData.client_id = clientTevoSaved.clients[0].id;
+                    ClientData.email_id = clientTevoSaved.clients[0].email_addresses[0].id;
+                    ClientData.phone_id = clientTevoSaved.clients[0].phone_numbers[0].id;
 
 
-    Client.findOne({
-        fbId: req.session.fbId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, clientFound) {
-        var addresses = [];
-        addresses.push({
-            "label": "Shipping",
-            "region": pp_state,
-            "country_code": pp_country_code,
-            "postal_code": pp_postal_code,
-            "street_address": pp_line1,
-            "locality": pp_city
+                    ClientData.save();
+
+
+
+
+
+                }
+
+            }
+
+
+
         });
-        addresses.push({
-            "label": "Billing",
-            "region": pp_state,
-            "country_code": pp_country_code,
-            "postal_code": pp_postal_code,
-            "street_address": pp_line1,
-            "locality": pp_city
-        });
-
-
-    });
-
-
-    var urlApiTevo = process.env.API_URL; // 'https://api.ticketevolution.com/v9/';
-
-
-    tevoClient.postJSON(process.env.API_URL + 'clients', clientData).then((json) => {
 
 
 
@@ -158,7 +176,7 @@ function createClientTevo(req, payment) {
 
 
 
-function getOrderData(req, payment) {
+function getOrderData(req, payment, event) {
 
     //pay pal vars
     var pp_email = payment.payer.payer_info.email;
@@ -193,16 +211,16 @@ function getOrderData(req, payment) {
     var price = req.session.price
     var quantity = req.session.quantity
 
-    var email_address_id = '';
-    var billing_address_id = '';
+    var email_address_id = pp_email;
+    var billing_address_id = ''; // es una respuesta cuando se guarda el cliente
     var amount = (parseFloat(price * quantity).toFixed(2))
     var type = 'offline'; //modo sugerido por tevo
 
     var seller_id = process.env.OFFICE_ID
-    var client_id = '';
-    var created_by_ip_address = '';
+    var client_id = ''; // es una respuesta cuando se guarda el cliente
+    var created_by_ip_address = ''; // Required for brokerages who have enabled Minfraud
     var instructions = '';
-    var shipping = ''
+    var shipping = '' // Se obtine luego de hacer petición de shipping   Additional amount added to the order to be labeled as Shipping Cost
     var service_fee = 0.00;
     var additional_expense = 0.00;
     var tax = 0.00;
@@ -211,12 +229,12 @@ function getOrderData(req, payment) {
 
     //
     var phone_number_id = '';
-    var address_id = '';
-    var ship_to_name = '';
-    var address_attributes_name = '';
+    var address_id = ''; //se obtiene luego de la creacion del cliente
+    var ship_to_name = ''; // nombre completo del cliente
+    var address_attributes_name = ''; // nombre completo del cliente
     var street_address = pp_line1
-    var extendend_address = '';
-    var locality = '';
+    var extendend_address = ''; //está enviado vacío 
+    var locality = pp_city;
     var region = pp_state;
     var country_code = pp_country_code;
     var postal_code = pp_postal_code;
@@ -316,6 +334,16 @@ function getOrderData(req, payment) {
         }
     }
     console.log(JSON.stringify(orderData));
+    teClient.postJSON(process.env.API_URL + 'orders', orderData).then((json) => {
+        if (json.error != undefined) {
+            res.send('<b>' + json.error + '</b>');
+            res.end();
+            return;
+        }
+
+
+
+    });
 
 }
 
@@ -353,7 +381,7 @@ function sendEmailSenGrid(req, payment, event) {
     var cantidadTickets = req.session.quantity;
     var tipoTickets = req.session.format;
     var precio = req.session.price;
-    var costoTotal = req.session.quantity * req.session.price;
+    var costoTotal = (parseFloat(req.session.quantity * req.session.price).toFixed(2))
     var ordenNumber = '';
     var fechaOrden = '';
     var clienteId = '';
