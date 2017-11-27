@@ -1,6 +1,6 @@
-
-{{> checkout_to_buy}}
 <div class="container">
+    {{> checkout_to_buy}}
+
     <ul id="tabs-swipe-demo" class="tabs">
         <li class="tab col s3">
             <a href="#test-swipe-1">Credit Cards</a>
@@ -9,15 +9,15 @@
             <a class="active" href="#test-swipe-2">Pay Pal</a>
         </li>
     </ul>
-</div>
 
-<div id="test-swipe-1" class="col s12">
-    {{> checkout_cc_form}}
-</div>
-<div id="test-swipe-2" class="col s12">
-    {{> checkout_paypal_form}}
-</div>
 
+    <div id="test-swipe-1" class="col s12">
+        {{> checkout_cc_form}}
+    </div>
+    <div id="test-swipe-2" class="col s12">
+        {{> checkout_paypal_form}}
+    </div>
+</div>
 
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
