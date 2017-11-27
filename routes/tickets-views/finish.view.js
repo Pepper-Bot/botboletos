@@ -113,7 +113,6 @@ function createClientTevo(req, payment) {
                     clientFound.save();
                 } else {
                     var ClientData = new Client;
-
                     ClientData.addresses.push({
                         "label": "Shipping",
                         "region": pp_state,
@@ -122,7 +121,8 @@ function createClientTevo(req, payment) {
                         "street_address": pp_line1,
                         "locality": pp_city
                     });
-                    ClientData.email_address.push()
+
+                    ClientData.email_address.push(pp_email);
 
                     ClientData.fbId = req.session.fbId;
                     ClientData.fullName = clientTevoSaved.clients[0].name;
