@@ -1,18 +1,33 @@
 var Message = require('../../bot/messages');
 var UserData2 = require('../../schemas/userinfo');
+var moment = require('moment');
+var Client = require('../../schemas/clients');
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
-var teClient = new TevoClient({
+var tevoClient = new TevoClient({
     apiToken: process.env.API_TOKEN,
     apiSecretKey: process.env.API_SECRET_KEY
 });
 
 
+
+
+
 function finish(req, res, payment) {
+    var urlApiTevo = process.env.API_URL; // 'https://api.ticketevolution.com/v9/';
+    var searchByEventId = urlApiTevo + '/events/' + req.session.event_id;
+
 
     getOrderData(req, payment);
+    tevoClient.getJSON(searchByEventId).then((event) => {
+        sendEmailSenGrid(req, payment, event);
 
-    sendEmailSenGrid(req, payment);
+
+    });
+
+
+
+
     var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
     res.render(
         './layouts/tickets/finish', {
@@ -22,6 +37,125 @@ function finish(req, res, payment) {
         }
     );
 }
+
+function createClientTevo(req, payment) {
+    var pp_email = payment.payer.payer_info.email;
+    var pp_first_name = payment.payer.payer_info.first_name;
+    var pp_last_name = payment.payer.payer_info.last_name;
+
+    var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
+    var pp_line1 = payment.payer.payer_info.shipping_address.line1;
+    var pp_city = payment.payer.payer_info.shipping_address.city;
+    var pp_state = payment.payer.payer_info.shipping_address.state;
+    var pp_postal_code = payment.payer.payer_info.shipping_address.postal_code;
+    var pp_country_code = payment.payer.payer_info.shipping_address.country_code;
+
+
+    var ip = req.headers['x-real-ip'] || req.connection.remoteAddress;
+    console.log('IP Address:>>>>>' + ip);
+
+
+
+    var direccionEnvio = {
+        label: 'Shipping',
+        region: pp_state,
+        country_code: pp_country_code,
+        postal_code: pp_postal_code,
+        street_address: pp_line1,
+        extendend_address: '',
+        locality: pp_city
+    };
+
+    var dataShip = {
+        "ticket_group_id": req.session.groupticket_id,
+        "address_id": pp_line1,
+        "address_attributes": direccionEnvio
+    };
+
+    var client_tevo = {
+        "clients": [{
+            "name": pp_recipient_name,
+            "email_addresses": [{
+                "address": pp_email
+            }],
+            "addresses": [{
+                "region": pp_state,
+                "country_code": pp_country_code,
+                "postal_code": pp_postal_code,
+                "street_address": pp_line1,
+                "locality": ""
+            }],
+            "phone_numbers": [{
+                "number": ""
+            }],
+            "office_id": process.env.OFFICE_ID
+        }]
+    }; //cliente_tevo_fin
+
+
+    Client.findOne({
+        fbId: req.session.fbId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, clientFound) {
+        var addresses = [];
+        addresses.push({
+            "label": "Shipping",
+            "region": pp_state,
+            "country_code": pp_country_code,
+            "postal_code": pp_postal_code,
+            "street_address": pp_line1,
+            "locality": pp_city
+        });
+        addresses.push({
+            "label": "Billing",
+            "region": pp_state,
+            "country_code": pp_country_code,
+            "postal_code": pp_postal_code,
+            "street_address": pp_line1,
+            "locality": pp_city
+        });
+
+
+    });
+
+
+    var urlApiTevo = process.env.API_URL; // 'https://api.ticketevolution.com/v9/';
+
+
+    tevoClient.postJSON(process.env.API_URL + 'clients', clientData).then((json) => {
+
+
+
+
+
+
+        var direccionEnvio = {
+            label: 'Shipping',
+            region: pp_state,
+            country_code: pp_country_code,
+            postal_code: pp_postal_code,
+            street_address: pp_line1,
+            extendend_address: '',
+            locality: pp_city
+        };
+        var dataShip = {
+            "ticket_group_id": req.session.groupticket_id,
+            "address_id": pp_line1,
+            "address_attributes": direccionEnvio
+        };
+        tevoClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((json) => {
+
+
+
+
+        });
+
+    });
+}
+
 
 
 function getOrderData(req, payment) {
@@ -83,7 +217,7 @@ function getOrderData(req, payment) {
     var street_address = pp_line1
     var extendend_address = '';
     var locality = '';
-    var region = '';
+    var region = pp_state;
     var country_code = pp_country_code;
     var postal_code = pp_postal_code;
 
@@ -186,12 +320,11 @@ function getOrderData(req, payment) {
 }
 
 
-function sendEmailSenGrid(req, payment) {
+function sendEmailSenGrid(req, payment, event) {
     //pay pal vars
     var pp_email = payment.payer.payer_info.email;
     var pp_first_name = payment.payer.payer_info.first_name;
     var pp_last_name = payment.payer.payer_info.last_name;
-
     var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
     var pp_line1 = payment.payer.payer_info.shipping_address.line1;
     var pp_city = payment.payer.payer_info.shipping_address.city;
@@ -200,22 +333,50 @@ function sendEmailSenGrid(req, payment) {
     var pp_country_code = payment.payer.payer_info.shipping_address.country_code;
 
 
+    //event vars
+    var venue_name = event.venue.name
+    var venue_location = event.venue.location;
+
+
+    var occurs_at = event.occurs_at;
+    occurs_at = occurs_at.substring(0, occurs_at.length - 4)
+    occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY')
+
 
     var nombreCliente = pp_first_name;
     var eventoNombre = req.session.event_name;
-    var ciudadEvento = '';
-    var fechaEvento = req.session.event_date;
-    var horaEvento = '';
+    var ciudadEvento = venue_location;
+    var fechaEvento = occurs_at;
+    var horaEvento = moment(occurs_at).format('h:mm a');
     var cantidadTickets = req.session.quantity;
-    var tipoTickets = '';
+    var tipoTickets = req.session.format;
     var precio = req.session.price;
     var costoTotal = req.session.quantity * req.session.price;
     var ordenNumber = '';
     var fechaOrden = '';
     var clienteId = '';
-    var venueEvento = '';
+    var venueEvento = venue_name;
     var format = req.session.format;
 
+    var emailsArray = [];
+    var correo = {
+        "email": "angelamariel88@gmail.com" //arqmike88@gmail.com
+    }
+    emailsArray.push(correo);
+
+    var correo = {
+        "email": "leo777jaimes@gmail.com"
+    }
+    emailsArray.push(correo);
+    correo = {
+        "email": pp_email
+    }
+    emailsArray.push(correo);
+
+    correo = {
+        "email": pp_email //cambiar este por el guarado del usuario fb UserDataInfo
+    }
+    emailsArray.push(correo);
 
 
 
@@ -257,16 +418,7 @@ function sendEmailSenGrid(req, payment) {
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     var msg = {
-        to: [{
-                "email": "angelamariel88@gmail.com"
-            },
-            {
-                "email": "arqmike88@gmail.com"
-            },
-            {
-                "email": "leo777jaimes@gmail.com"
-            }
-        ],
+        to: emailsArray,
         from: 'PepperBot Tickets <thepepperbot@gmail.com>',
         subject: 'Your Event tickets!',
         html: templateHTML,

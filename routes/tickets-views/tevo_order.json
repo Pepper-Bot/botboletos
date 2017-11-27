@@ -2,9 +2,9 @@
     "orders": [{
         "shipped_items": [{
             "items": [{
-                "ticket_group_id": "",
-                "price": "",
-                "quantity": ""
+                "ticket_group_id": "421641607",
+                "price": "307.97",
+                "quantity": "1"
             }],
             "phone_number_id": "",
             "service_type": "LEAST_EXPENSIVE",
@@ -13,19 +13,19 @@
             "ship_to_name": "",
             "address_attributes": {
                 "name": "",
-                "street_address": "",
+                "street_address": "1 Main St",
                 "extendend_address": "",
                 "locality": "",
                 "region": "",
-                "country_code": "",
-                "postal_code": "",
+                "country_code": "US",
+                "postal_code": "95131",
                 "label": "shipping"
             }
         }],
         "billing_address_id": "",
         "payments": [{
             "type": "offline",
-            "amount": "1.00"
+            "amount": "307.97"
         }],
         "seller_id": "123",
         "client_id": "",
@@ -33,11 +33,11 @@
         "instructions": "",
         "shipping_address": {
             "name": "",
-            "street_address": "",
+            "street_address": "1 Main St",
             "locality": "",
             "region": "",
-            "country_code": "",
-            "postal_code": "",
+            "country_code": "US",
+            "postal_code": "95131",
             "label": "shipping"
         },
         "shipping": 0,
