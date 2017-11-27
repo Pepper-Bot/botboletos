@@ -375,10 +375,10 @@ function sendEmailSenGrid(req, payment, event) {
     }
     emailsArray.push(correo);
 
-    correo = {
-        "email": pp_email //cambiar este por el guarado del usuario fb UserDataInfo
-    }
-    emailsArray.push(correo);
+    /* correo = {
+            "email": pp_email //cambiar este por el guarado del usuario fb UserDataInfo
+        }
+        emailsArray.push(correo);*/
 
 
 
@@ -425,9 +425,10 @@ function sendEmailSenGrid(req, payment, event) {
         subject: 'Your Event tickets!',
         html: templateHTML,
     };
-    console.log("<msg>" + JSON.stringify(msg));
-    
+    //console.log("<msg>" + JSON.stringify(msg));
+
     sgMail.send(msg, function (err, body) {
+        console.log("<correo>" + JSON.stringify(err));
         console.log("<correo>" + JSON.stringify(body));
 
     });
