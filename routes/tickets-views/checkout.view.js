@@ -37,14 +37,14 @@ function checkout(req, res) {
         req.session.format = format;
         req.session.eticket = eticket;
         req.session.groupticket_id = groupticket_id;
-        req.session.total = price * quantity;
+        req.session.total = (parseFloat(price * quantity).toFixed(2));
         console.log("Yes !!!")
     } else {
         console.log("Verdes !!!")
     }
 
-
-    var total = params.userticketsquantity * params.priceticket;
+ 
+    var total =  (parseFloat(params.userticketsquantity * params.priceticket).toFixed(2));
     var totals = "$" + total
 
 
@@ -159,7 +159,7 @@ function paypal_pay(req, res) {
             },
             "amount": {
                 "currency": "USD",
-                "total": price * quantity
+                "total": (parseFloat(price * quantity).toFixed(2))
             },
             "description": event_name
         }]
