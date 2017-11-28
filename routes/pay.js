@@ -280,9 +280,37 @@ router.post('/', function (req, res) {
 
 
 var pay_with_pp = (req, res) => {
-    var direccionEnvio = undefined;
+    var direccionEnvio = direccionEnvio(req, res);
     var shiping = undefined;
     render_paypal_form(req, res, direccionEnvio, shiping);
+}
+
+var direccionEnvio = (req, res) => {
+    var direccionEnvio = {};
+    if (req.body.format != 'Eticket') {
+        if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
+            direccionEnvio = {
+                label: 'Shipping',
+                region: req.body.billing_state,
+                country_code: countries[req.body.billing_country],
+                postal_code: req.body.billing_zipcode,
+                street_address: req.body.billing_address,
+                extendend_address: '',
+                locality: req.body.billing_city
+            };
+        } else {
+            direccionEnvio = {
+                label: 'Shipping',
+                region: req.body.state,
+                country_code: countries[req.body.country],
+                postal_code: req.body.zipcode,
+                street_address: req.body.ship_address,
+                extendend_address: '',
+                locality: req.body.city
+            };
+        }
+    }
+    return direccionEnvio;
 }
 
 var render_paypal_form = (req, res, direccionEnvio, shiping) => {
