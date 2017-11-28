@@ -26,6 +26,70 @@
         <input type="hidden" name="address_id" value="{{{address_id}}} ">
         <input type="hidden" name="name" value="{{{firstname}}}  {{{lastname}}}">
 
+        <!-- shiping info -->
+        <input type="hidden" name="service_type" value="{{{service_type}}}">
+        <input type="hidden" name="provider" value="{{{provider}}}">
+        <input type="hidden" name="shipping_price" value="{{{price}}}">
+
+
+        <!-- dataHTML1 -->
+        <table class="table-responsive ">
+            <thead>
+                <tr>
+                    <th>Event</th>
+                    <th>Date</th>
+                    <th>Seats</th>
+                    <th> Quantity</th>
+                    <th>Price Each</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{{event_name}}}</td>
+                    <td>{{{event_date}}} </td>
+                    <td>
+                        <b>Section:</b> {{{section}}}
+                        <br>
+                        <b>Row:</b> {{{row}}}
+                        <br> </td>
+                    <td>{{{quantity}}}</td>
+                    <td>${{{price}}}</td>
+                </tr>
+                <tr>
+                    <td>
+                        <b>Ticket Type: </b>
+                        <span class="new badge green ">{{{format}}}</span>
+                    </td>
+                    <td colspan="2 "></td>
+                    <td>
+                        <strong>Subtotal</strong>
+                    </td>
+                    <td>$ {{{subtotal}}}</td>
+                </tr>
+
+                {{#if with_ship }}
+                <!-- shiping table -->
+                <tr>
+                    <td colspan="3 "></td>
+                    <td>
+                        <strong>Shipping</strong>
+                        <br>
+                        <span style=" ">{{{shiping_name}}}</span>
+                    </td>
+                    <td>${{{ship_price}}}</td>
+                </tr>
+                {{/if}}
+                <!-- dataHTML2-->
+
+                <tr>
+                    <td colspan="3 "></td>
+                    <td>
+                        <strong>Total</strong>
+                    </td>
+                    <td>${{{total}}}</td>
+                </tr>
+            </tbody>
+        </table>
 
 
 
