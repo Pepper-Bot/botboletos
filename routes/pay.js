@@ -317,7 +317,7 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
 
 
     res.render(
-        './layouts/tickets/3_checkout', {
+        './layouts/tickets/pay', {
             titulo: "Your tickets are on its way!",
 
 
