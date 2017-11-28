@@ -121,66 +121,95 @@
             </div>
             <!-- Select Basic -->
             <h5 class="blue-text"> Payment Information.</h5 class="blue-text">
+
+            
             <div class="row">
-                <div class="input-field col s12">
-                    <input id="cc" maxlength="16" name="cc" max="9999999999999999" type="number" class="validate" required="">
-                    <label for="cc">Credit Card # </label>
+                <input name="group1" type="radio" id="test1" />
+                <label for="test1">Credit card </label>
+
+                <input name="group1" type="radio" id="test2" />
+                <label for="test2">Pay Pal</label>
+
+            </div>
+
+
+
+            <div id="credit_card_form">
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="cc" maxlength="16" name="cc" max="9999999999999999" type="number" class="validate" required="">
+                        <label for="cc">Credit Card # </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select id="exp_month" name="exp_month" class="form-control validate">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="6">6</option>
+                            <option value="7">7</option>
+                            <option value="8">8</option>
+                            <option value="9">9</option>
+                            <option value="10">10</option>
+                            <option value="11">11</option>
+                            <option value="12">12</option>
+                        </select>
+                        <label for="exp_month">Exp Month </label>
+                    </div>
+                </div>
+                <!-- Select Basic -->
+
+
+
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select id="exp_year" required name="exp_year" class="form-control validate">
+                            <option value="2017">2017</option>
+                            <option value="2018">2018</option>
+                            <option value="2019">2019</option>
+                            <option value="2020">2020</option>
+                            <option value="2021">2021</option>
+                            <option value="2022">2022</option>
+                            <option value="2023">2023</option>
+                            <option value="2024">2024</option>
+                            <option value="2025">2025</option>
+                            <option value="2026">2026</option>
+                            <option value="2027">2027</option>
+                            <option value="2028">2028</option>
+                            <option value="2029">2029</option>
+                            <option value="2030">2030</option>
+                            <option value="2031">2031</option>
+                            <option value="2032">2032</option>
+                        </select>
+                        <label for="exp_year">Exp Year </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <input id="cvv" required maxlength="3" name="cvv" type="number" max="999" placeholder="Security Code / CVV" class="text-blue validate">
+                        <label for="cvv">Security Code </label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <button id="checkout" name="checkout" class="btn blue">Check out</button>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <select id="exp_month" name="exp_month" class="form-control validate">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-                    </select>
-                    <label for="exp_month">Exp Month </label>
+
+            <div id="paypal_form">
+                <div class="row">
+                    <div class="col-md-4">
+                        <button id="checkout" name="checkout_pay_pal" class="btn blue">Check out</button>
+                    </div>
                 </div>
             </div>
-            <!-- Select Basic -->
-            <div class="row">
-                <div class="input-field col s12">
-                    <select id="exp_year" required name="exp_year" class="form-control validate">
-                        <option value="2017">2017</option>
-                        <option value="2018">2018</option>
-                        <option value="2019">2019</option>
-                        <option value="2020">2020</option>
-                        <option value="2021">2021</option>
-                        <option value="2022">2022</option>
-                        <option value="2023">2023</option>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                        <option value="2026">2026</option>
-                        <option value="2027">2027</option>
-                        <option value="2028">2028</option>
-                        <option value="2029">2029</option>
-                        <option value="2030">2030</option>
-                        <option value="2031">2031</option>
-                        <option value="2032">2032</option>
-                    </select>
-                    <label for="exp_year">Exp Year </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s12">
-                    <input id="cvv" required maxlength="3" name="cvv" type="number" max="999" placeholder="Security Code / CVV" class="text-blue validate">
-                    <label for="cvv">Security Code </label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-4">
-                    <button id="checkout" name="checkout" class="btn blue">Check out</button>
-                </div>
-            </div>
+
         </form>
     </div>
 </div>
