@@ -339,6 +339,7 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
 
     var subtotal = (req.body.price * req.body.quantity);
     var total = ((req.body.price * req.body.quantity) + ship_price)
+    var provider = ""
 
     res.render(
         './layouts/tickets/pay', {
@@ -370,8 +371,8 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
             price: price,
             subtotal: subtotal,
             total: total,
-            with_ship: with_ship
-
+            with_ship: with_ship,
+            provider: provider
         }
     );
 }

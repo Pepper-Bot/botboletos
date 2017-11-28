@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col m12 m4">
                 <h4 class="header left blue-text">Review Order.</h4>
-                <form action="/finish?uid={{{uid}}}" method=" post ">
+                <form action="/checkout/paypal_pay/" method=" post ">
 
 
                     <input type="hidden" name="name2" value="{{{firstname}}} {{{lastname}}} " />
@@ -26,7 +26,7 @@
 
                     <!-- shiping info -->
                     <input type="hidden" name="service_type" value="{{{service_type}}}">
-                    <input type="hidden" name="provider" value="{{{json.provider}}}">
+                    <input type="hidden" name="provider" value="{{{provider}}}">
                     <input type="hidden" name="shipping_price" value="{{{price}}}">
 
 
