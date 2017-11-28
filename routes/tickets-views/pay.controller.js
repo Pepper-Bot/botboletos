@@ -75,11 +75,92 @@ var getDireccionEnvio = (req, res) => {
 
 var render_paypal_form = (req, res, direccionEnvio, shiping) => {
 
+    var ship_price = 0;
+    var with_ship = false;
+    var uid = req.query.uid
+    var firstname = req.body.firstname
+    var lastname = req.body.lastname
+
+    if (direccionEnvio) {
+        var street_address = direccionEnvio.street_address
+        var locality = direccionEnvio.locality
+        var region = direccionEnvio.region
+        var country_code = direccionEnvio.country_code
+        var postal_code = direccionEnvio.postal_code
+    } else {
+
+        var street_address = ""
+        var locality = ""
+        var region = ""
+        var country = ""
+        var postal_code = ""
+    }
+
+
+    var email = req.body.email
+    var format = req.body.format
+    var groupticket_id = req.body.groupticket_id
+    var price = req.body.price
+    var quantity = req.body.quantity
+    var address_id = ""
+
+    if (shiping) {
+        var service_type = shiping.service_type
+        var provider = shiping.provider
+        var shiping_name = shiping.name
+        ship_price = shiping.price
+        with_ship = true;
+    } else {
+        var service_type = ""
+        var provider = ""
+        var shiping_name = ""
+        ship_price = 0
+    }
+
+    var event_name = req.body.event_name
+    var event_date = moment(req.body.event_date).format('MMMM Do YYYY, h:mm:ss a')
+    var section = req.body.section
+    var row = req.body.row
+    var quantity = req.body.quantity
+    var price = req.body.price
+    var format = req.body.format
+
+    var subtotal = (req.body.price * req.body.quantity);
+    var total = ((req.body.price * req.body.quantity) + ship_price)
+    var provider = ""
 
     res.render(
         './layouts/tickets/pay', {
             titulo: "Your tickets are on its way!",
-
+            ship_price: ship_price,
+            uid: uid,
+            firstname: firstname,
+            lastname: lastname,
+            street_address: street_address,
+            locality: locality,
+            region: region,
+            country_code: country_code,
+            postal_code: postal_code,
+            email: email,
+            format: format,
+            groupticket_id: groupticket_id,
+            price: price,
+            quantity: quantity,
+            address_id: address_id,
+            service_type: service_type,
+            provider: provider,
+            shiping_name: shiping_name,
+            ship_price: price,
+            event_name: event_name,
+            event_date: event_date,
+            section: section,
+            row: row,
+            quantity: quantity,
+            price: price,
+            subtotal: subtotal,
+            total: total,
+            with_ship: with_ship,
+            provider: provider
 
         }
     );
