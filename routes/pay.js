@@ -280,9 +280,9 @@ router.post('/', function (req, res) {
 
 
 var pay_with_pp = (req, res) => {
-    var direccionEnvio = getDireccionEnvio(req, res);
+    var dir = undefined;
     var shiping = undefined;
-    render_paypal_form(req, res, direccionEnvio, shiping);
+    render_paypal_form(req, res, dir, shiping);
 }
 
 var getDireccionEnvio = (req, res) => {
