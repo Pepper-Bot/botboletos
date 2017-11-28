@@ -46,7 +46,7 @@ var pay_with_pp = (req, res) => {
 }
 
 var getDireccionEnvio = (req, res) => {
-    console.log("countries[req.body.billing_country]" + countries[req.body.billing_country]);
+    
     var direccionEnvio = {};
     if (req.body.format != 'Eticket') {
         if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
@@ -120,6 +120,7 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
     }
 
     var event_name = req.body.event_name
+    console.log("event_date >>" +   req.body.event_date);
     var event_date = moment(req.body.event_date).format('MMMM Do YYYY, h:mm:ss a')
     var section = req.body.section
     var row = req.body.row
