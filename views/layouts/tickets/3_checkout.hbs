@@ -1,12 +1,11 @@
 <div class="container">
     {{> checkout_to_buy}}
-    
-   
+
 </div>
 <div class="container">
-   {{> checkout_billing}}
-    
-   
+    {{> checkout_billing}}
+
+
 </div>
 
 
@@ -48,5 +47,46 @@
                 $("#shipping_form").show();
             }
         });
+
+        $("#cc_radio").on("click", function (e) {
+            if ($(this).is(":checked")) {
+                $("#paypal_form").hide();
+                $("#credit_card_form").show();
+
+                $("#cc").removeAttr("disabled", "disabled");
+                $("#exp_month").removeAttr("disabled", "disabled");
+                $("#exp_year").removeAttr("disabled", "disabled");
+                $("#cvv").removeAttr("disabled", "disabled");
+            }
+            else {
+                $("#cc").attr("disabled", "disabled");
+                $("#exp_month").attr("disabled", "disabled");
+                $("#exp_year").attr("disabled", "disabled");
+                $("#cvv").attr("disabled", "disabled");
+                $("#credit_card_form").hide();
+                $("#paypal_form").show();
+            }
+        });
+
+        $("#pp_radio").on("click", function (e) {
+            if ($(this).is(":checked")) {
+                $("#cc").attr("disabled", "disabled");
+                $("#exp_month").attr("disabled", "disabled");
+                $("#exp_year").attr("disabled", "disabled");
+                $("#cvv").attr("disabled", "disabled");
+                $("#credit_card_form").hide();
+                $("#paypal_form").show();
+
+            }
+            else {
+                $("#paypal_form").hide();
+                $("#credit_card_form").show();
+                $("#cc").removeAttr("disabled", "disabled");
+                $("#exp_month").removeAttr("disabled", "disabled");
+                $("#exp_year").removeAttr("disabled", "disabled");
+                $("#cvv").removeAttr("disabled", "disabled");
+            }
+        });
+
     });
 </script>
