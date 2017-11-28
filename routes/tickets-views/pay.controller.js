@@ -70,6 +70,7 @@ var getDireccionEnvio = (req, res) => {
             };
         }
     }
+    console.log('Datos direccionEnvio:' + JSON.stringify(direccionEnvio));
     return direccionEnvio;
 }
 
