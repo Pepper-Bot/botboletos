@@ -40,12 +40,12 @@ var init_pay = function (req, res) {
 
 
 var pay_with_pp = (req, res) => {
-    var direccionEnvio = direccionEnvio(req, res);
+    var direccionEnvio = getDireccionEnvio(req, res);
     var shiping = undefined;
     render_paypal_form(req, res, direccionEnvio, shiping);
 }
 
-var direccionEnvio = (req, res) => {
+var getDireccionEnvio = (req, res) => {
     var direccionEnvio = {};
     if (req.body.format != 'Eticket') {
         if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
