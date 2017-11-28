@@ -40,38 +40,46 @@ var init_pay = function (req, res) {
 
 
 var pay_with_pp = (req, res) => {
-    var direccionEnvio = getDireccionEnvio(req, res);
+    var direccionEnvio = {}
     var shiping = undefined;
-    render_paypal_form(req, res, direccionEnvio, shiping);
+
+    getDireccionEnvio(req, res, direccionEnvio).then(function () {
+        console.log('Datos direccionEnvio:' + JSON.stringify(direccionEnvio));
+        render_paypal_form(req, res, direccionEnvio, shiping);
+    });
+
 }
 
 var getDireccionEnvio = (req, res) => {
-    var direccionEnvio = {};
-    if (req.body.format != 'Eticket') {
-        if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
-            direccionEnvio = {
-                label: 'Shipping',
-                region: req.body.billing_state,
-                country_code: countries[req.body.billing_country],
-                postal_code: req.body.billing_zipcode,
-                street_address: req.body.billing_address,
-                extendend_address: '',
-                locality: req.body.billing_city
-            };
-        } else {
-            direccionEnvio = {
-                label: 'Shipping',
-                region: req.body.state,
-                country_code: countries[req.body.country],
-                postal_code: req.body.zipcode,
-                street_address: req.body.ship_address,
-                extendend_address: '',
-                locality: req.body.city
-            };
+    return new Promise((resolve, reject) => {
+        var direccionEnvio = {};
+        if (req.body.format != 'Eticket') {
+            if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
+                direccionEnvio = {
+                    label: 'Shipping',
+                    region: req.body.billing_state,
+                    country_code: countries[req.body.billing_country],
+                    postal_code: req.body.billing_zipcode,
+                    street_address: req.body.billing_address,
+                    extendend_address: '',
+                    locality: req.body.billing_city
+                };
+                resolve(direccionEnvio);
+            } else {
+                direccionEnvio = {
+                    label: 'Shipping',
+                    region: req.body.state,
+                    country_code: countries[req.body.country],
+                    postal_code: req.body.zipcode,
+                    street_address: req.body.ship_address,
+                    extendend_address: '',
+                    locality: req.body.city
+                };
+                resolve(direccionEnvio)
+            }
         }
-    }
-    console.log('Datos direccionEnvio:' + JSON.stringify(direccionEnvio));
-    return direccionEnvio;
+    });
+
 }
 
 var render_paypal_form = (req, res, direccionEnvio, shiping) => {
@@ -129,7 +137,7 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
     var subtotal = (req.body.price * req.body.quantity);
     var total = ((req.body.price * req.body.quantity) + ship_price)
     var provider = ""
-    var address_id=""
+    var address_id = ""
 
     res.render(
         './layouts/tickets/pay', {
