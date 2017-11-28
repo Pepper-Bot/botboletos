@@ -156,8 +156,6 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
             event_date: event_date,
             section: section,
             row: row,
-            quantity: quantity,
-            price: price,
             subtotal: subtotal,
             total: total,
             with_ship: with_ship,
