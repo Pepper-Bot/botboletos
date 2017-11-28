@@ -120,8 +120,8 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
     }
 
     var event_name = req.body.event_name
-    console.log("event_date >>" +   req.body.event_date);
-    var event_date = moment(req.body.event_date).format('MMMM Do YYYY, h:mm:ss a')
+    console.log("event_date >>" +   req.session.event_date);
+    var event_date = moment(req.session.event_date).format('MMMM Do YYYY, h:mm a')
     var section = req.body.section
     var row = req.body.row
     var quantity = req.body.quantity
