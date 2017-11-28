@@ -40,7 +40,7 @@ var init_pay = function (req, res) {
 
 
 var pay_with_pp = (req, res) => {
-    var direccionEnvio = undefined;
+    var direccionEnvio = direccionEnvio(req, res);
     var shiping = undefined;
     render_paypal_form(req, res, direccionEnvio, shiping);
 }
