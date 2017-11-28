@@ -372,35 +372,7 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
     res.render(
         './layouts/tickets/pay', {
             titulo: "Your tickets are on its way!",
-            ship_price: ship_price,
-            uid: uid,
-            firstname: firstname,
-            lastname: lastname,
-            street_address: street_address,
-            locality: locality,
-            region: region,
-            country_code: country_code,
-            postal_code: postal_code,
-            email: email,
-            format: format,
-            groupticket_id: groupticket_id,
-            price: price,
-            quantity: quantity,
-            address_id: address_id,
-            service_type: service_type,
-            provider: provider,
-            shiping_name: shiping_name,
-            ship_price: price,
-            event_name: event_name,
-            event_date: event_date,
-            section: section,
-            row: row,
-            quantity: quantity,
-            price: price,
-            subtotal: subtotal,
-            total: total,
-            with_ship: with_ship,
-            provider: provider
+        
         }
     );
 }
