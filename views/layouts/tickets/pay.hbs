@@ -7,9 +7,9 @@
     </div>
 
 
- 
+
     <form action="/checkout/paypal_pay/" method=" post ">
-       <input type="hidden" name="name2" value="{{{firstname}}} {{{lastname}}}" />
+        <input type="hidden" name="name2" value="{{{firstname}}} {{{lastname}}}" />
         <input type="hidden" name="street_address" value="{{{street_address}}}">
         <input type="hidden" name="extended_address" value=" ">
         <input type="hidden" name="locality" value="{{{locality}}}">
@@ -19,9 +19,12 @@
         <input type="hidden" name="label" value="shipping ">
         <input type="hidden" name="email_id" value="{{{email}}}">
         <input type="hidden" name="format" value="{{{format}}}">
+        <input type="hidden" name="ticket_group_id" value="{{{groupticket_id}}}}">
+        <input type="hidden" name="price_per_ticket" value="{{{price}}}">
 
 
-        
+
+
         <button type="submit " style="width:100% " class="btn green ">Finish Checkout</button>
     </form>
 </div>
