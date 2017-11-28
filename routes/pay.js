@@ -266,7 +266,7 @@ router.post('/', function (req, res) {
             break;
         case "pp":
             {
-                pay_with_cc(req, res);
+                pay_with_pp(req, res);
             }
             break;
         default:
