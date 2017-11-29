@@ -137,6 +137,15 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
 //  pago con pay pal creación de cliente y shipping 
 //########################################################
 var pay_with_pp = (req, res) => {
+
+    if (undefined == req.query.uid) {
+        res.status(200);
+        res.send('Error trying to access');
+        res.end();
+        return;
+    }
+
+
     var direccionEnvio = {};
     if (req.body.format != 'Eticket') {
         if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
@@ -162,179 +171,180 @@ var pay_with_pp = (req, res) => {
         }
     }
 
-    if (undefined == req.query.uid) {
-        res.status(200);
-        res.send('Error trying to access');
-        res.end();
-        return;
+
+    var addresses = [];
+    if (req.body.format != 'Eticket') {
+        if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
+            addresses.push({
+                "region": req.body.billing_state,
+                "country_code": countries[req.body.billing_country],
+                "postal_code": req.body.billing_zipcode,
+                "street_address": req.body.billing_address,
+                "locality": req.body.billing_city
+            });
+
+        } else {
+            addresses.push({
+                "label": "Shipping",
+                "region": req.body.state,
+                "country_code": countries[req.body.country],
+                "postal_code": req.body.zipcode,
+                "street_address": req.body.ship_address,
+                "locality": req.body.city
+            });
+            addresses.push({
+                "label": "Billing",
+                "region": req.body.billing_state,
+                "country_code": countries[req.body.billing_country],
+                "postal_code": req.body.billing_zipcode,
+                "street_address": req.body.billing_address,
+                "locality": req.body.billing_city
+            });
+        }
+    } else {
+        addresses.push({
+            "label": "Billing",
+            "region": req.body.billing_state,
+            "country_code": countries[req.body.billing_country],
+            "postal_code": req.body.billing_zipcode,
+            "street_address": req.body.billing_address,
+            "locality": req.body.billing_city
+        });
+
     }
 
-    var endOrder = function (data, res, data) {
+
+    console.log(addresses);
+    var clientData = {
+        "clients": [{
+            "name": req.body.firstname + ' ' + req.body.lastname,
+            "email_addresses": [{
+                "address": req.body.email
+            }],
+            addresses,
+            "phone_numbers": [{
+                "number": req.body.phone
+            }],
+            "office_id": process.env.OFFICE_ID,
+            "tags": ""
+        }]
+    };
+
+    teClient.postJSON(process.env.API_URL + 'clients', clientData).then((clientTevoRes) => {
+        console.log("cliente devuelto por tevo >>" + JSON.stringify(clientTevoRes));
+        var bill_address = '';
+        var shipp_address = '';
         Client.findOne({
             fbId: req.query.uid
         }, {}, {
             sort: {
                 'sessionStart': -1
             }
-        }, function (err, result) {
+        }, function (err, clienteSearch) {
+            if (clienteSearch == null) {
+                var ClientData = new Client;
+                ClientData.fbId = req.query.uid;
+                ClientData.fullName = clientTevoRes.clients[0].name;
+                ClientData.client_id = clientTevoRes.clients[0].id;
+                ClientData.email_id = clientTevoRes.clients[0].email_addresses[0].id;
+                ClientData.phone_id = clientTevoRes.clients[0].phone_numbers[0].id;
+                if (clientTevoRes.clients[0].addresses.length > 1) {
+                    // Si hay dos direcciones
+                    // una es la billing address y la otra la shipping.
+                    for (var i = 0, c = clientTevoRes.clients[0].addresses.length; i < c; i++) {
+                        if (clientTevoRes.clients[0].addresses[i].label == 'Billing') {
+                            ClientData.billing_address_id.push(clientTevoRes.clients[0].addresses[i].id);
+                        } else {
+                            ClientData.address_id.push(clientTevoRes.clients[0].addresses[i].id);
 
-            result.save(function (err) {
-                if (!err) {
-
-                }
-            });
-
-            var address_id = result.address_id[result.address_id.length - 1];
-            var dataShip = {
-                "ticket_group_id": req.body.groupticket_id,
-                "address_id": address_id,
-                "address_attributes": direccionEnvio
-            };
-
-            teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((shiping) => {
-                console.log("shiping de tevo >>" + JSON.stringify(shiping));
-                //renderizamos el formulario
-                render_paypal_form(req, res, direccionEnvio, shiping)
-
-
-            }).catch((err) => {
-                console.log('Error shipments');
-                console.log(err);
-            });
-        });
-    };
-
-    Client.findOne({
-        fbId: req.query.uid
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, result) {
-        if (result == null) {
-            var addresses = [];
-            if (req.body.format != 'Eticket') {
-                if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
-                    addresses.push({
-                        "region": req.body.billing_state,
-                        "country_code": countries[req.body.billing_country],
-                        "postal_code": req.body.billing_zipcode,
-                        "street_address": req.body.billing_address,
-                        "locality": req.body.billing_city
-                    });
+                        }
+                    }
 
                 } else {
-                    addresses.push({
-                        "label": "Shipping",
-                        "region": req.body.state,
-                        "country_code": countries[req.body.country],
-                        "postal_code": req.body.zipcode,
-                        "street_address": req.body.ship_address,
-                        "locality": req.body.city
-                    });
-                    addresses.push({
-                        "label": "Billing",
-                        "region": req.body.billing_state,
-                        "country_code": countries[req.body.billing_country],
-                        "postal_code": req.body.billing_zipcode,
-                        "street_address": req.body.billing_address,
-                        "locality": req.body.billing_city
-                    });
+                    ClientData.address_id.push(clientTevoRes.clients[0].addresses[0].id);
+                    ClientData.billing_address_id.push(clientTevoRes.clients[0].addresses[0].id);
+
                 }
-            } else {
-                addresses.push({
-                    "label": "Billing",
-                    "region": req.body.billing_state,
-                    "country_code": countries[req.body.billing_country],
-                    "postal_code": req.body.billing_zipcode,
-                    "street_address": req.body.billing_address,
-                    "locality": req.body.billing_city
+                ClientData.save();
+
+
+                var dataShip = {
+                    "ticket_group_id": req.body.groupticket_id,
+                    "address_id": clientTevoRes.clients[0].addresses[i].id,
+                    "address_attributes": direccionEnvio
+                };
+
+                teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((shiping) => {
+                    console.log("shiping de tevo >>" + JSON.stringify(shiping));
+                    //renderizamos el formulario
+                    if (!shipping.error) {
+                        render_paypal_form(req, res, direccionEnvio, shiping)
+                    } else {
+                        res.send(" shipping ERROR   " + shipping.error)
+                    }
+
+
+
+                }).catch((err) => {
+                    console.log('Error shipments');
+                    console.log(err);
                 });
 
+
+            } else {
+                clienteSearch.fbId = req.query.uid;
+                clienteSearch.fullName = clientTevoRes.clients[0].name;
+                clienteSearch.client_id = clientTevoRes.clients[0].id;
+                clienteSearch.email_id = clientTevoRes.clients[0].email_addresses[0].id;
+                clienteSearch.phone_id = clientTevoRes.clients[0].phone_numbers[0].id;
+                if (clientTevoRes.clients[0].addresses.length > 1) {
+
+                    for (var i = 0, c = clientTevoRes.clients[0].addresses.length; i < c; i++) {
+                        if (clientTevoRes.clients[0].addresses[i].label == 'Billing') {
+                            clienteSearch.billing_address_id.push(clientTevoRes.clients[0].addresses[i].id);
+                            bill_address = clientTevoRes.clients[0].addresses[i].id;
+                        } else {
+                            clienteSearch.address_id.push(clientTevoRes.clients[0].addresses[i].id);
+                            shipp_address = clientTevoRes.clients[0].addresses[i].id;
+                        }
+                    }
+
+                } else {
+
+                    clienteSearch.address_id.push(clientTevoRes.clients[0].addresses[0].id);
+                    clienteSearch.billing_address_id.push(clientTevoRes.clients[0].addresses[0].id);
+                    shipp_address = clientTevoRes.clients[0].addresses[0].id;
+                    bill_address = clientTevoRes.clients[0].addresses[0].id;
+                }
+                clienteSearch.save();
+
+
+                var dataShip = {
+                    "ticket_group_id": req.body.groupticket_id,
+                    "address_id": clienteSearch.clients[0].addresses[i].id,
+                    "address_attributes": direccionEnvio
+                };
+
+                teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((shiping) => {
+                    console.log("shiping de tevo >>" + JSON.stringify(shiping));
+                    //renderizamos el formulario
+                    if (!shipping.error) {
+                        render_paypal_form(req, res, direccionEnvio, shiping)
+                    } else {
+                        res.send(" shipping ERROR   " + shipping.error)
+                    }
+                }).catch((err) => {
+                    console.log('Error shipments');
+                    console.log(err);
+                });
             }
 
+        });
 
-            console.log(addresses);
-            var clientData = {
-                "clients": [{
-                    "name": req.body.firstname + ' ' + req.body.lastname,
-                    "email_addresses": [{
-                        "address": req.body.email
-                    }],
-                    addresses,
-                    "phone_numbers": [{
-                        "number": req.body.phone
-                    }],
-                    "office_id": process.env.OFFICE_ID,
-                    "tags": ""
-                }]
-            };
 
-            teClient.postJSON(process.env.API_URL + 'clients', clientData).then((json) => {
-                console.log("cliente devuelto por tevo >>" + JSON.stringify(json));
-                var bill_address = '';
-                var shipp_address = '';
-                var ClientData = new Client; {
-
-                    ClientData.fbId = req.query.uid;
-                    ClientData.fullName = json.clients[0].name;
-                    ClientData.client_id = json.clients[0].id;
-                    ClientData.email_id = json.clients[0].email_addresses[0].id;
-                    ClientData.phone_id = json.clients[0].phone_numbers[0].id;
-
-                    if (json.clients[0].addresses.length > 1) {
-                        // Si hay dos direcciones
-                        // una es la billing address y la otra la shipping.
-                        for (var i = 0, c = json.clients[0].addresses.length; i < c; i++) {
-                            if (json.clients[0].addresses[i].label == 'Billing') {
-                                ClientData.billing_address_id.push(json.clients[0].addresses[i].id);
-                                bill_address = json.clients[0].addresses[i].id;
-                            } else {
-                                ClientData.address_id.push(json.clients[0].addresses[i].id);
-                                shipp_address = json.clients[0].addresses[i].id;
-                            }
-                        }
-
-                    } else {
-                        // Es un boleto electrónico o la dirección es la misma.
-                        //
-                        ClientData.address_id.push(json.clients[0].addresses[0].id);
-                        ClientData.billing_address_id.push(json.clients[0].addresses[0].id);
-                        shipp_address = json.clients[0].addresses[0].id;
-                        bill_address = json.clients[0].addresses[0].id;
-                    }
-                    ClientData.save();
-                }
-                var dataId = {
-                    uid: req.query.uid,
-                    name: json.clients[0].name,
-                    client_id: json.clients[0].id,
-                    email_id: json.clients[0].email_addresses[0].id,
-                    phone_id: json.clients[0].phone_numbers[0].id,
-                    address_id: shipp_address,
-                    billaddress_id: bill_address
-                };
-                endOrder(dataId, res, dataId);
-            }).catch((err) => {
-                console.log('Error al Recuperar los eventos');
-                console.log(err);
-            });
-        } else {
-
-            var dataId = {
-                uid: result.fbId,
-                name: result.fullName,
-                client_id: result.client_id,
-                email_id: result.email_id,
-                phone_id: result.phone_id,
-                address_id: result.address_id[result.address_id.length - 1],
-                billaddress_id: result.billing_address_id[result.billing_address_id.length - 1]
-            };
-
-            //
-            endOrder(dataId, res, dataId);
-        }
-
+    }).catch((err) => {
+        console.log('Error al Recuperar los eventos');
+        console.log(err);
     });
 
 }
@@ -343,6 +353,11 @@ var pay_with_pp = (req, res) => {
 
 
 
+
+
+//########################################################
+//  pago con CRÉDIT CARDS  creación de cliente y shipping 
+//########################################################
 var pay_with_cc = (req, res) => {
     var direccionEnvio = {};
     if (req.body.format != 'Eticket') {
