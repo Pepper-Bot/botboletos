@@ -23,8 +23,8 @@ var UserData2 = require('../../schemas/userinfo');
 
 
 var tevoClient = new TevoClient({
-    apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
-    apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
+    apiToken: process.env.API_TOKEN,
+    apiSecretKey: process.env.API_SECRET_KEY
 });
 
 

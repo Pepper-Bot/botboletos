@@ -12,8 +12,8 @@ module.exports = function () {
 
 
             var tevoClient = new TevoClient({
-                apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
-                apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
+                apiToken: process.env.API_TOKEN,
+                apiSecretKey: process.env.API_SECRET_KEY
             });
 
 
@@ -63,7 +63,7 @@ module.exports = function () {
                             resultEvent = json.events;
                             var eventButtons_ = [];
                             var callsGis = 0;
-                            var baseURL = 'https://botboletos-test.herokuapp.com/event/?event_id=';
+                            var baseURL = process.env.APLICATION_URL_DOMAIN + 'event/?event_id=';
 
 
                             if (resultEvent.length > 9 * (position - 1)) {
@@ -210,7 +210,7 @@ module.exports = function () {
                             }
 
                         } else {
-                           
+
                             Message.sendMessage(senderId, 'Oops, I looked for: "' + event_name + '" but found no events');
                             find_my_event(senderId);
                         }
@@ -252,7 +252,7 @@ function find_my_event(senderId) {
             }
 
             var name = bodyObj.first_name;
-            var greeting =  name;
+            var greeting = name;
             var messagetxt = greeting + ", you can search events by:";
 
 

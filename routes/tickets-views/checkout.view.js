@@ -158,8 +158,8 @@ function paypal_pay(req, res) {
     console.log("quantity" + quantity)
     console.log("price" + price)
 
-
-    var aplicationURL = "https://botboletos-test.herokuapp.com";
+    
+    var aplicationURL = process.env.APLICATION_URL_DOMAIN;
 
 
     const create_payment_json = {
@@ -168,8 +168,8 @@ function paypal_pay(req, res) {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": aplicationURL + "/paypal_success",
-            "cancel_url": aplicationURL + "/paypal_cancel"
+            "return_url": aplicationURL + "paypal_success",
+            "cancel_url": aplicationURL + "paypal_cancel"
         },
         "transactions": [{
             "item_list": {
