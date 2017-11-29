@@ -20,12 +20,24 @@ function finish(req, res, payment) {
 
     //getOrderData(req, payment);
     tevoClient.getJSON(searchByEventId).then((event) => {
-        sendEmailSenGrid(req, payment, event);
+        Client.findOne({
+            fbId: req.session.client_id
+        }, {}, {
+            sort: {
+                'sessionStart': -1
+            }
+        }, function (err, clienteSearch) {
+            if (!err) {
+                if (clienteSearch) {
+                    sendEmailSenGrid(req, payment, event, clienteSearch);
+                }
+            }
+
+        });
+
 
 
     });
-
-
 
 
     var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
@@ -176,7 +188,7 @@ function createClientTevo(req, payment) {
 
 
 
-function getOrderData(req, payment, event) {
+function createOrder(req, payment, event, clienteSearch) {
 
     //pay pal vars
     var pp_email = payment.payer.payer_info.email;
@@ -205,22 +217,36 @@ function getOrderData(req, payment, event) {
     req.session.format = format;
     req.session.eticket = eticket;
     req.session.groupticket_id = groupticket_id;
-    req.session.total = price * quantity;*/
+    req.session.total = price * quantity;
+    
+    req.session.ship_price
+    req.session.provider 
+    req.session.shiping_name  
+    req.session.event_date
+    req.session.address_id = address_id
+    req.session.client_id = client_id
+    */
 
     var ticket_group_id = req.session.groupticket_id;
     var price = req.session.price
     var quantity = req.session.quantity
 
-    var email_address_id = pp_email;
-    var billing_address_id = ''; // es una respuesta cuando se guarda el cliente
-    var amount = (parseFloat(price * quantity).toFixed(2))
-    var type = 'offline'; //modo sugerido por tevo
+    var email_address_id = clienteSearch.email_id;
+    var billing_address_id = clienteSearch.billing_address_id[billing_address_id.length - 1]; // es una respuesta cuando se guarda el cliente
 
     var seller_id = process.env.OFFICE_ID
-    var client_id = ''; // es una respuesta cuando se guarda el cliente
+    var client_id = clienteSearch.client_id; // es una respuesta cuando se guarda el cliente
     var created_by_ip_address = ''; // Required for brokerages who have enabled Minfraud
     var instructions = '';
-    var shipping = '' // Se obtine luego de hacer petición de shipping   Additional amount added to the order to be labeled as Shipping Cost
+    var shipping = 0.0
+    if (res.session.ship_price) {
+        var shipping = res.session.ship_price // Se obtine luego de hacer petición de shipping   Additional amount added to the order to be labeled as Shipping Cost
+    }
+
+    var amount = (parseFloat(price * quantity + shipping).toFixed(2))
+    var type = 'offline'; //modo sugerido por tevo
+    
+
     var service_fee = 0.00;
     var additional_expense = 0.00;
     var tax = 0.00;
@@ -228,16 +254,16 @@ function getOrderData(req, payment, event) {
     var promo_code = '';
 
     //
-    var phone_number_id = '';
-    var address_id = ''; //se obtiene luego de la creacion del cliente
-    var ship_to_name = ''; // nombre completo del cliente
-    var address_attributes_name = ''; // nombre completo del cliente
-    var street_address = pp_line1
+    var phone_number_id = clienteSearch.phone_id;
+    var address_id = clienteSearch.address_id[address_id.length - 1]; //se obtiene luego de la creacion del cliente
+    var ship_to_name = clienteSearch.fullName; // nombre completo del cliente
+    var address_attributes_name = clienteSearch.fullName; // nombre completo del cliente
+    var street_address = clienteSearch.addresses[0].street_address
     var extendend_address = ''; //está enviado vacío 
-    var locality = pp_city;
-    var region = pp_state;
-    var country_code = pp_country_code;
-    var postal_code = pp_postal_code;
+    var locality = clienteSearch.addresses[0].locality;
+    var region = clienteSearch.addresses[0].region;
+    var country_code = clienteSearch.addresses[0].country_code;
+    var postal_code = clienteSearch.addresses[0].postal_code;
 
 
 
@@ -333,22 +359,22 @@ function getOrderData(req, payment, event) {
             }]
         }
     }
-    console.log(JSON.stringify(orderData));
-    teClient.postJSON(process.env.API_URL + 'orders', orderData).then((json) => {
-        if (json.error != undefined) {
-            res.send('<b>' + json.error + '</b>');
-            res.end();
-            return;
-        }
+    console.log("Orden Construida: >>> "+ JSON.stringify(orderData));
+    /* teClient.postJSON(process.env.API_URL + 'orders', orderData).then((json) => {
+         if (json.error != undefined) {
+             res.send('<b>' + json.error + '</b>');
+             res.end();
+             return;
+         }
 
 
 
-    });
+     });*/
 
 }
 
 
-function sendEmailSenGrid(req, payment, event) {
+function sendEmailSenGrid(req, payment, event, clienteSearch) {
     //pay pal vars
     var pp_email = payment.payer.payer_info.email;
     var pp_first_name = payment.payer.payer_info.first_name;
@@ -403,10 +429,20 @@ function sendEmailSenGrid(req, payment, event) {
     }
     emailsArray.push(correo);
 
-    /* correo = {
-            "email": pp_email //cambiar este por el guarado del usuario fb UserDataInfo
+    var agregar = false;
+    for (let i = 0; i < emailsArray.length; i++) {
+        if (emailsArray[i].correo == clienteSearch.email_address[0].address) {
+            agregar = true;
         }
-        emailsArray.push(correo);*/
+    }
+    if (agregar === true) {
+        correo = {
+            "email": clienteSearch.email_address[0].address
+        }
+        emailsArray.push(correo);
+
+    }
+
 
 
 
