@@ -282,8 +282,8 @@ var pay_with_pp = (req, res) => {
             } else {
                 clienteSearch.fbId = req.query.uid;
 
-                clienteSearch.addresses = clienteSearch.clients[0].addresses
-                clienteSearch.email_address =  clienteSearch.clients[0].email_addresses
+                clienteSearch.addresses = clientTevoRes.clients[0].addresses
+                clienteSearch.email_address =  clientTevoRes.clients[0].email_addresses
 
                 clienteSearch.fullName = clientTevoRes.clients[0].name;
                 clienteSearch.client_id = clientTevoRes.clients[0].id;
