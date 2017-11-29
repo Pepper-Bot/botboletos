@@ -243,6 +243,7 @@ var pay_with_pp = (req, res) => {
         }, function (err, clienteSearch) {
             if (clienteSearch == null) {
                 var ClientData = new Client;
+
                 ClientData.fbId = req.query.uid;
                 ClientData.fullName = clientTevoRes.clients[0].name;
                 ClientData.client_id = clientTevoRes.clients[0].id;
@@ -270,7 +271,7 @@ var pay_with_pp = (req, res) => {
 
                 var dataShip = {
                     "ticket_group_id": req.body.groupticket_id,
-                    "address_id": clientTevoRes.clients[0].addresses[i].id,
+                    "address_id": ClientData.address_id[ClientData.address_id.length - 1],
                     "address_attributes": direccionEnvio
                 };
 
@@ -302,10 +303,10 @@ var pay_with_pp = (req, res) => {
                     for (var i = 0, c = clientTevoRes.clients[0].addresses.length; i < c; i++) {
                         if (clientTevoRes.clients[0].addresses[i].label == 'Billing') {
                             clienteSearch.billing_address_id.push(clientTevoRes.clients[0].addresses[i].id);
-                            bill_address = clientTevoRes.clients[0].addresses[i].id;
+
                         } else {
                             clienteSearch.address_id.push(clientTevoRes.clients[0].addresses[i].id);
-                            shipp_address = clientTevoRes.clients[0].addresses[i].id;
+                        
                         }
                     }
 
@@ -313,15 +314,14 @@ var pay_with_pp = (req, res) => {
 
                     clienteSearch.address_id.push(clientTevoRes.clients[0].addresses[0].id);
                     clienteSearch.billing_address_id.push(clientTevoRes.clients[0].addresses[0].id);
-                    shipp_address = clientTevoRes.clients[0].addresses[0].id;
-                    bill_address = clientTevoRes.clients[0].addresses[0].id;
+                   
                 }
                 clienteSearch.save();
 
 
                 var dataShip = {
                     "ticket_group_id": req.body.groupticket_id,
-                    "address_id": clienteSearch.clients[0].addresses[i].id,
+                    "address_id": clienteSearch.address_id[clienteSearch.address_id.length - 1],
                     "address_attributes": direccionEnvio
                 };
 
