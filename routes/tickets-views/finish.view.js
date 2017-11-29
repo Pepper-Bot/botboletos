@@ -29,6 +29,7 @@ function finish(req, res, payment) {
         }, function (err, clienteSearch) {
             if (!err) {
                 if (clienteSearch) {
+                    createOrder(req, payment, event, clienteSearch)
                     sendEmailSenGrid(req, payment, event, clienteSearch);
                 }
             }
