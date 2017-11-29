@@ -300,7 +300,7 @@ var pay_with_pp = (req, res) => {
 
                 }
                 clienteSearch.save();
-                client_id =ClientData.client_id
+                client_id =clienteSearch.client_id
 
                 address_id = clienteSearch.address_id[clienteSearch.address_id.length - 1]
 
