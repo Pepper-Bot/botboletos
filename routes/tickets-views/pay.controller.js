@@ -328,7 +328,7 @@ var pay_with_pp = (req, res) => {
                 teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((shiping) => {
                     console.log("shiping de tevo >>" + JSON.stringify(shiping));
                     //renderizamos el formulario
-                    if (!shipping.error) {
+                    if (!shiping.error) {
                         render_paypal_form(req, res, direccionEnvio, shiping)
                     } else {
                         res.send(" shipping ERROR   " + shiping.error)
