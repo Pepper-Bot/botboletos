@@ -9,7 +9,7 @@ var nodemailer = require('nodemailer');
 var countries = require('../../lib/config_vars').COUNTRIES;
 /* GET home page. */
 
-var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
+var TevoClient = require('ticketevolution-node');
 var teClient = new TevoClient({
     apiToken: process.env.API_TOKEN,
     apiSecretKey: process.env.API_SECRET_KEY
@@ -250,6 +250,10 @@ var pay_with_pp = (req, res) => {
             if (clienteSearch == null) {
                 var ClientData = new Client;
 
+                ClientData.addresses = clientTevoRes.clients[0].addresses
+                ClientData.email_address =  clientTevoRes.clients[0].email_addresses
+                
+
                 ClientData.fbId = req.query.uid;
                 ClientData.fullName = clientTevoRes.clients[0].name;
                 ClientData.client_id = clientTevoRes.clients[0].id;
@@ -277,6 +281,10 @@ var pay_with_pp = (req, res) => {
 
             } else {
                 clienteSearch.fbId = req.query.uid;
+
+                clienteSearch.addresses = clienteSearch.clients[0].addresses
+                clienteSearch.email_address =  clienteSearch.clients[0].email_addresses
+
                 clienteSearch.fullName = clientTevoRes.clients[0].name;
                 clienteSearch.client_id = clientTevoRes.clients[0].id;
                 clienteSearch.email_id = clientTevoRes.clients[0].email_addresses[0].id;
@@ -348,9 +356,9 @@ var pay_with_pp = (req, res) => {
 
 
 
-//########################################################
-//  pago con CRÉDIT CARDS  creación de cliente y shipping 
-//########################################################
+//#############################################################################
+//  pago con CRÉDIT CARDS  creación de cliente, tarjeta de crédito  y shipping 
+//#############################################################################
 var pay_with_cc = (req, res) => {
     var direccionEnvio = {};
     if (req.body.format != 'Eticket') {
