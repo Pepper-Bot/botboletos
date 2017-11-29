@@ -10,3 +10,19 @@
         "locality": "San José"
     }
 }
+
+
+,
+{
+    "ticket_group_id": "421641607",
+    "address_id": "5280406",
+    "address_attributes": {
+        "label": "Shipping",
+        "region": "California",
+        "country_code": "US",
+        "postal_code": "95126",
+        "street_address": "1472 Burrell CT San José, CA",
+        "extendend_address": "",
+        "locality": "San José"
+    }
+}
