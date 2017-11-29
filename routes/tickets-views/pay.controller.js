@@ -38,45 +38,10 @@ var init_pay = function (req, res) {
 
 }
 
-
-var pay_with_pp = (req, res) => {
-    var direccionEnvio = getDireccionEnvio(req, res);
-    var shiping = undefined;
-    render_paypal_form(req, res, direccionEnvio, shiping);
-}
-
-var getDireccionEnvio = (req, res) => {
-    
-    var direccionEnvio = {};
-    if (req.body.format != 'Eticket') {
-        if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
-            direccionEnvio = {
-                label: 'Shipping',
-                region: req.body.billing_state,
-                country_code: countries[req.body.billing_country],
-                postal_code: req.body.billing_zipcode,
-                street_address: req.body.billing_address,
-                extendend_address: '',
-                locality: req.body.billing_city
-            };
-        } else {
-            direccionEnvio = {
-                label: 'Shipping',
-                region: req.body.state,
-                country_code: countries[req.body.country],
-                postal_code: req.body.zipcode,
-                street_address: req.body.ship_address,
-                extendend_address: '',
-                locality: req.body.city
-            };
-        }
-    }
-    console.log('Datos direccionEnvio:' + JSON.stringify(direccionEnvio));
-    return direccionEnvio;
-}
-
+//########################################################
+//  render_paypal_form función que  renderiza el formuario
+//########################################################
 var render_paypal_form = (req, res, direccionEnvio, shiping) => {
-
     var ship_price = 0;
     var with_ship = false;
     var uid = req.query.uid
@@ -120,7 +85,7 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
     }
 
     var event_name = req.body.event_name
-    console.log("event_date >>" +   req.session.event_date);
+    console.log("event_date >>" + req.session.event_date);
     var event_date = moment(req.session.event_date).format('MMMM Do YYYY, h:mm a')
     var section = req.body.section
     var row = req.body.row
@@ -167,6 +132,216 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
         }
     );
 }
+
+//########################################################
+//  pago con pay pal creación de cliente y shipping 
+//########################################################
+var pay_with_pp = (req, res) => {
+    var direccionEnvio = {};
+    if (req.body.format != 'Eticket') {
+        if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
+            direccionEnvio = {
+                label: 'Shipping',
+                region: req.body.billing_state,
+                country_code: countries[req.body.billing_country],
+                postal_code: req.body.billing_zipcode,
+                street_address: req.body.billing_address,
+                extendend_address: '',
+                locality: req.body.billing_city
+            };
+        } else {
+            direccionEnvio = {
+                label: 'Shipping',
+                region: req.body.state,
+                country_code: countries[req.body.country],
+                postal_code: req.body.zipcode,
+                street_address: req.body.ship_address,
+                extendend_address: '',
+                locality: req.body.city
+            };
+        }
+    }
+
+    if (undefined == req.query.uid) {
+        res.status(200);
+        res.send('Error trying to access');
+        res.end();
+        return;
+    }
+
+    var endOrder = function (data, res, data) {
+        Client.findOne({
+            fbId: req.query.uid
+        }, {}, {
+            sort: {
+                'sessionStart': -1
+            }
+        }, function (err, result) {
+
+            result.save(function (err) {
+                if (!err) {
+
+                }
+            });
+
+            var address_id = result.address_id[result.address_id.length - 1];
+            var dataShip = {
+                "ticket_group_id": req.body.groupticket_id,
+                "address_id": address_id,
+                "address_attributes": direccionEnvio
+            };
+
+            teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((shiping) => {
+                console.log("shiping de tevo >>" + JSON.stringify(shiping));
+                //renderizamos el formulario
+                render_paypal_form(req, res, direccionEnvio, shiping)
+
+
+            }).catch((err) => {
+                console.log('Error shipments');
+                console.log(err);
+            });
+        });
+    };
+
+    Client.findOne({
+        fbId: req.query.uid
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, result) {
+        if (result == null) {
+            var addresses = [];
+            if (req.body.format != 'Eticket') {
+                if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
+                    addresses.push({
+                        "region": req.body.billing_state,
+                        "country_code": countries[req.body.billing_country],
+                        "postal_code": req.body.billing_zipcode,
+                        "street_address": req.body.billing_address,
+                        "locality": req.body.billing_city
+                    });
+
+                } else {
+                    addresses.push({
+                        "label": "Shipping",
+                        "region": req.body.state,
+                        "country_code": countries[req.body.country],
+                        "postal_code": req.body.zipcode,
+                        "street_address": req.body.ship_address,
+                        "locality": req.body.city
+                    });
+                    addresses.push({
+                        "label": "Billing",
+                        "region": req.body.billing_state,
+                        "country_code": countries[req.body.billing_country],
+                        "postal_code": req.body.billing_zipcode,
+                        "street_address": req.body.billing_address,
+                        "locality": req.body.billing_city
+                    });
+                }
+            } else {
+                addresses.push({
+                    "label": "Billing",
+                    "region": req.body.billing_state,
+                    "country_code": countries[req.body.billing_country],
+                    "postal_code": req.body.billing_zipcode,
+                    "street_address": req.body.billing_address,
+                    "locality": req.body.billing_city
+                });
+
+            }
+
+
+            console.log(addresses);
+            var clientData = {
+                "clients": [{
+                    "name": req.body.firstname + ' ' + req.body.lastname,
+                    "email_addresses": [{
+                        "address": req.body.email
+                    }],
+                    addresses,
+                    "phone_numbers": [{
+                        "number": req.body.phone
+                    }],
+                    "office_id": process.env.OFFICE_ID,
+                    "tags": ""
+                }]
+            };
+
+            teClient.postJSON(process.env.API_URL + 'clients', clientData).then((json) => {
+                console.log("cliente devuelto por tevo >>" + JSON.stringify(json));
+                var bill_address = '';
+                var shipp_address = '';
+                var ClientData = new Client; {
+
+                    ClientData.fbId = req.query.uid;
+                    ClientData.fullName = json.clients[0].name;
+                    ClientData.client_id = json.clients[0].id;
+                    ClientData.email_id = json.clients[0].email_addresses[0].id;
+                    ClientData.phone_id = json.clients[0].phone_numbers[0].id;
+
+                    if (json.clients[0].addresses.length > 1) {
+                        // Si hay dos direcciones
+                        // una es la billing address y la otra la shipping.
+                        for (var i = 0, c = json.clients[0].addresses.length; i < c; i++) {
+                            if (json.clients[0].addresses[i].label == 'Billing') {
+                                ClientData.billing_address_id.push(json.clients[0].addresses[i].id);
+                                bill_address = json.clients[0].addresses[i].id;
+                            } else {
+                                ClientData.address_id.push(json.clients[0].addresses[i].id);
+                                shipp_address = json.clients[0].addresses[i].id;
+                            }
+                        }
+
+                    } else {
+                        // Es un boleto electrónico o la dirección es la misma.
+                        //
+                        ClientData.address_id.push(json.clients[0].addresses[0].id);
+                        ClientData.billing_address_id.push(json.clients[0].addresses[0].id);
+                        shipp_address = json.clients[0].addresses[0].id;
+                        bill_address = json.clients[0].addresses[0].id;
+                    }
+                    ClientData.save();
+                }
+                var dataId = {
+                    uid: req.query.uid,
+                    name: json.clients[0].name,
+                    client_id: json.clients[0].id,
+                    email_id: json.clients[0].email_addresses[0].id,
+                    phone_id: json.clients[0].phone_numbers[0].id,
+                    address_id: shipp_address,
+                    billaddress_id: bill_address
+                };
+                endOrder(dataId, res, dataId);
+            }).catch((err) => {
+                console.log('Error al Recuperar los eventos');
+                console.log(err);
+            });
+        } else {
+
+            var dataId = {
+                uid: result.fbId,
+                name: result.fullName,
+                client_id: result.client_id,
+                email_id: result.email_id,
+                phone_id: result.phone_id,
+                address_id: result.address_id[result.address_id.length - 1],
+                billaddress_id: result.billing_address_id[result.billing_address_id.length - 1]
+            };
+
+            //
+            endOrder(dataId, res, dataId);
+        }
+
+    });
+
+}
+
+
+
+
 
 var pay_with_cc = (req, res) => {
     var direccionEnvio = {};
