@@ -252,7 +252,7 @@ var pay_with_pp = (req, res) => {
 
                 ClientData.addresses = clientTevoRes.clients[0].addresses
                 ClientData.email_address =  clientTevoRes.clients[0].email_addresses
-                
+                ClientData.phone_numbers  =  clientTevoRes.clients[0].email_addresses
 
                 ClientData.fbId = req.query.uid;
                 ClientData.fullName = clientTevoRes.clients[0].name;
@@ -284,6 +284,8 @@ var pay_with_pp = (req, res) => {
 
                 clienteSearch.addresses = clientTevoRes.clients[0].addresses
                 clienteSearch.email_address =  clientTevoRes.clients[0].email_addresses
+                clienteSearch.phone_numbers  =  clientTevoRes.clients[0].email_addresses
+              
 
                 clienteSearch.fullName = clientTevoRes.clients[0].name;
                 clienteSearch.client_id = clientTevoRes.clients[0].id;

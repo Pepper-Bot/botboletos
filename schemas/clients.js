@@ -6,6 +6,7 @@ var BuyerData = mongoose.Schema({
 	client_id: {type: Number, default: 0},
 	email_id: {type: Number, default: 0},
 	email_address: [],
+	phone_numbers: [],
 	phone_id: {type: Number, default: 0},
 	address_id: [],
 	addresses: [],
