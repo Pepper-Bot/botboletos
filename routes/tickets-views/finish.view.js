@@ -21,7 +21,7 @@ function finish(req, res, payment) {
     //getOrderData(req, payment);
     tevoClient.getJSON(searchByEventId).then((event) => {
         Client.findOne({
-            fbId: req.session.client_id
+            client_id: req.session.client_id
         }, {}, {
             sort: {
                 'sessionStart': -1
@@ -31,24 +31,20 @@ function finish(req, res, payment) {
                 if (clienteSearch) {
                     createOrder(req, payment, event, clienteSearch)
                     sendEmailSenGrid(req, payment, event, clienteSearch);
+
+                    var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
+                    res.render(
+                        './layouts/tickets/finish', {
+                            titulo: "Your tickets are on its way!",
+                            buyer_name: pp_recipient_name,
+
+                        }
+                    );
                 }
             }
 
         });
-
-
-
     });
-
-
-    var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
-    res.render(
-        './layouts/tickets/finish', {
-            titulo: "Your tickets are on its way!",
-            buyer_name: pp_recipient_name,
-
-        }
-    );
 }
 
 function createClientTevo(req, payment) {
@@ -246,7 +242,7 @@ function createOrder(req, payment, event, clienteSearch) {
 
     var amount = (parseFloat(price * quantity + shipping).toFixed(2))
     var type = 'offline'; //modo sugerido por tevo
-    
+
 
     var service_fee = 0.00;
     var additional_expense = 0.00;
@@ -360,7 +356,7 @@ function createOrder(req, payment, event, clienteSearch) {
             }]
         }
     }
-    console.log("Orden Construida: >>> "+ JSON.stringify(orderData));
+    console.log("Orden Construida: >>> " + JSON.stringify(orderData));
     /* teClient.postJSON(process.env.API_URL + 'orders', orderData).then((json) => {
          if (json.error != undefined) {
              res.send('<b>' + json.error + '</b>');
