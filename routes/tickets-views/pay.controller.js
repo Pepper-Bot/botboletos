@@ -119,7 +119,6 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
             service_type: service_type,
             provider: provider,
             shiping_name: shiping_name,
-            ship_price: price,
             event_name: event_name,
             event_date: event_date,
             section: section,
