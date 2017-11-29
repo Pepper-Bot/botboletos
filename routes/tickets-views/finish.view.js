@@ -229,7 +229,7 @@ function createOrder(req, payment, event, clienteSearch) {
     var quantity = req.session.quantity
 
     var email_address_id = clienteSearch.email_id;
-    var billing_address_id = clienteSearch.billing_address_id[billing_address_id.length - 1]; // es una respuesta cuando se guarda el cliente
+    var billing_address_id = clienteSearch.billing_address_id[clienteSearch.billing_address_id.length - 1]; // es una respuesta cuando se guarda el cliente
 
     var seller_id = process.env.OFFICE_ID
     var client_id = clienteSearch.client_id; // es una respuesta cuando se guarda el cliente
@@ -252,7 +252,7 @@ function createOrder(req, payment, event, clienteSearch) {
 
     //
     var phone_number_id = clienteSearch.phone_id;
-    var address_id = clienteSearch.address_id[address_id.length - 1]; //se obtiene luego de la creacion del cliente
+    var address_id = clienteSearch.address_id[clienteSearch.address_id.length - 1]; //se obtiene luego de la creacion del cliente
     var ship_to_name = clienteSearch.fullName; // nombre completo del cliente
     var address_attributes_name = clienteSearch.fullName; // nombre completo del cliente
     var street_address = clienteSearch.addresses[0].street_address
