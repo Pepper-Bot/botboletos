@@ -241,6 +241,8 @@ var pay_with_pp = (req, res) => {
                 'sessionStart': -1
             }
         }, function (err, clienteSearch) {
+
+            var address_id = '';
             if (clienteSearch == null) {
                 var ClientData = new Client;
 
@@ -257,39 +259,16 @@ var pay_with_pp = (req, res) => {
                             ClientData.billing_address_id.push(clientTevoRes.clients[0].addresses[i].id);
                         } else {
                             ClientData.address_id.push(clientTevoRes.clients[0].addresses[i].id);
-
                         }
                     }
 
                 } else {
                     ClientData.address_id.push(clientTevoRes.clients[0].addresses[0].id);
                     ClientData.billing_address_id.push(clientTevoRes.clients[0].addresses[0].id);
-
                 }
                 ClientData.save();
+                address_id = ClientData.address_id[ClientData.address_id.length - 1]
 
-
-                var dataShip = {
-                    "ticket_group_id": req.body.groupticket_id,
-                    "address_id": ClientData.address_id[ClientData.address_id.length - 1],
-                    "address_attributes": direccionEnvio
-                };
-
-                teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((shiping) => {
-                    console.log("shiping de tevo >>" + JSON.stringify(shiping));
-                    //renderizamos el formulario
-                    if (!shipping.error) {
-                        render_paypal_form(req, res, direccionEnvio, shiping)
-                    } else {
-                        res.send(" shipping ERROR   " + shipping.error)
-                    }
-
-
-
-                }).catch((err) => {
-                    console.log('Error shipments');
-                    console.log(err);
-                });
 
 
             } else {
@@ -306,7 +285,7 @@ var pay_with_pp = (req, res) => {
 
                         } else {
                             clienteSearch.address_id.push(clientTevoRes.clients[0].addresses[i].id);
-                        
+
                         }
                     }
 
@@ -314,30 +293,37 @@ var pay_with_pp = (req, res) => {
 
                     clienteSearch.address_id.push(clientTevoRes.clients[0].addresses[0].id);
                     clienteSearch.billing_address_id.push(clientTevoRes.clients[0].addresses[0].id);
-                   
+
                 }
                 clienteSearch.save();
 
+                address_id = clienteSearch.address_id[clienteSearch.address_id.length - 1]
 
-                var dataShip = {
-                    "ticket_group_id": req.body.groupticket_id,
-                    "address_id": clienteSearch.address_id[clienteSearch.address_id.length - 1],
-                    "address_attributes": direccionEnvio
-                };
-                console.log("dataShip de tevo >>" + JSON.stringify(dataShip));
-                teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((shiping) => {
-                    console.log("shiping de tevo >>" + JSON.stringify(shiping));
-                    //renderizamos el formulario
-                    if (!shiping.error) {
-                        render_paypal_form(req, res, direccionEnvio, shiping)
-                    } else {
-                        res.send(" shipping ERROR   " + shiping.error)
-                    }
-                }).catch((err) => {
-                    console.log('Error shipments');
-                    console.log(err);
-                });
             }
+
+            var dataShip = {
+                "ticket_group_id": req.body.groupticket_id,
+                "address_id": address_id,
+                "address_attributes": direccionEnvio
+            };
+            console.log("shiping de tevo >>" + JSON.stringify(dataShip));
+            teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((shiping) => {
+                console.log("shiping de tevo >>" + JSON.stringify(shiping));
+                //renderizamos el formulario
+                if (!shipping.error) {
+                    render_paypal_form(req, res, direccionEnvio, shiping)
+                } else {
+                    res.send(" shipping ERROR   " + shipping.error)
+                }
+
+
+
+            }).catch((err) => {
+                console.log('Error shipments');
+                console.log(err);
+            });
+
+
 
         });
 
