@@ -2,45 +2,23 @@
     "orders": [{
         "shipped_items": [{
             "items": [{
-                "ticket_group_id": "421641607",
-                "price": "307.97",
-                "quantity": "1"
+                "ticket_group_id": "397094660",
+                "price": "72.15",
+                "quantity": "2"
             }],
-            "phone_number_id": "",
-            "service_type": "LEAST_EXPENSIVE",
-            "type": "FedEx",
-            "address_id": "",
-            "ship_to_name": "",
-            "address_attributes": {
-                "name": "",
-                "street_address": "1 Main St",
-                "extendend_address": "",
-                "locality": "",
-                "region": "",
-                "country_code": "US",
-                "postal_code": "95131",
-                "label": "shipping"
-            }
+            "type": "Eticket",
+            "email_address_id": 2478453
         }],
-        "billing_address_id": "",
+        "billing_address_id": "5280779",
         "payments": [{
             "type": "offline",
-            "amount": "307.97"
+            "amount": "145.30"
         }],
-        "seller_id": "123",
-        "client_id": "",
+        "seller_id": "4642",
+        "client_id": 1618304,
         "created_by_ip_address": "",
         "instructions": "",
-        "shipping_address": {
-            "name": "",
-            "street_address": "1 Main St",
-            "locality": "",
-            "region": "",
-            "country_code": "US",
-            "postal_code": "95131",
-            "label": "shipping"
-        },
-        "shipping": 0,
+        "shipping": 1,
         "service_fee": 0,
         "additional_expense": 0,
         "tax": 0,

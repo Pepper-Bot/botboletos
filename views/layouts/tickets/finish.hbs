@@ -1,38 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <base href="https://ticketdelivery.herokuapp.com/">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-    <title>Your tickets are on its way!</title>
-    <base href="https://ticketdelivery.herokuapp.com">
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-    <!--Let browser know website is optimized for mobile-->
-</head>
-
-<body>
-    <div class="container left">
-        <dir style="margin-top:0;padding-top:0;" class="section center-align">
-            <div class="row">
-                <h4>Congratulations {{{buyer_name}}}</h4>
-                <h6 class="grey-text">Enjoy your Tickets</h6>
+<div class="container">
+    <dir style="margin-top:0;padding-top:0;" class="section center-align">
+        <div class="row">
+            <h4>Congratulations {{{buyer_name}}}</h4>
+            <h6 class="grey-text">Enjoy your Tickets</h6>
+        </div>
+        <div class="row">
+            <img src="images/pepper.png" style="margin-top:0;padding-top:0;" class="responsive-img"> </div>
+        <div class="row" style="margin-top:0; padding-top:0;">
+            <div style="width:100%; margin-top:0;" class="card-panel blue darken-4">
+                <label class="flow-text white-text">Thank you.</label>
+                <br>
+                <label class="flow-text white-text">Your confirmation is on its way.</label>
             </div>
-            <div class="row">
-                <img src="images/pepper.png" style="margin-top:0;padding-top:0;" class="responsive-img"> </div>
-            <div class="row" style="margin-top:0; padding-top:0;">
-                <div style="width:100%; margin-top:0;" class="card-panel blue darken-4">
-                    <label class="flow-text white-text">Thank you.</label>
-                    <br>
-                    <label class="flow-text white-text">Your confirmation is on its way.</label>
-                </div>
-            </div>
-        </dir>
-    </div>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="js/materialize.min.js"></script> </body>
+        </div>
+    </dir>
+</div>
 
-</html>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
