@@ -236,8 +236,8 @@ function createOrder(req, payment, event, clienteSearch) {
     var created_by_ip_address = ''; // Required for brokerages who have enabled Minfraud
     var instructions = '';
     var shipping = 0.0
-    if (res.session.ship_price) {
-        var shipping = res.session.ship_price // Se obtine luego de hacer petición de shipping   Additional amount added to the order to be labeled as Shipping Cost
+    if (req.session.ship_price) {
+        var shipping = req.session.ship_price // Se obtine luego de hacer petición de shipping   Additional amount added to the order to be labeled as Shipping Cost
     }
 
     var amount = (parseFloat(price * quantity + shipping).toFixed(2))
