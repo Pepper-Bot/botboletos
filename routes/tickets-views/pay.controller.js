@@ -306,12 +306,12 @@ var pay_with_pp = (req, res) => {
                 "address_id": address_id,
                 "address_attributes": direccionEnvio
             };
-            console.log("shiping de tevo >>" + JSON.stringify(dataShip));
-            teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((shiping) => {
-                console.log("shiping de tevo >>" + JSON.stringify(shiping));
+            console.log("dataShip de tevo >>" + JSON.stringify(dataShip));
+            teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((shipping) => {
+                console.log("shiping de tevo >>" + JSON.stringify(shipping));
                 //renderizamos el formulario
                 if (!shipping.error) {
-                    render_paypal_form(req, res, direccionEnvio, shiping)
+                    render_paypal_form(req, res, direccionEnvio, shipping)
                 } else {
                     res.send(" shipping ERROR   " + shipping.error)
                 }
