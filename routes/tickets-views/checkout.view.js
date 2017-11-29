@@ -43,8 +43,8 @@ function checkout(req, res) {
         console.log("Verdes !!!")
     }
 
- 
-    var total =  (parseFloat(params.userticketsquantity * params.priceticket).toFixed(2));
+
+    var total = (parseFloat(params.userticketsquantity * params.priceticket).toFixed(2));
     var totals = "$" + total
 
 
@@ -125,9 +125,33 @@ function paypal_pay(req, res) {
 
 
 
-    var event_name = params.event_name;
-    var quantity = params.quantity;
-    var price = params.price;
+    var event_name = req.session.event_name;
+    var quantity = req.session.quantity;
+    var price = req.session.price;
+    var items = [];
+    var ship_price = 0;
+    items.push({
+        "name": event_name,
+        "sku": "001",
+        "price": price,
+        "currency": "USD",
+        "quantity": quantity
+    })
+
+    if (req.session.ship_price) {
+        ship_price = req.session.ship_price
+
+        items.push({
+            "name": req.session.shiping_name,
+            "sku": "001",
+            "price": req.session.ship_price,
+            "currency": "USD",
+            "quantity": 1
+        })
+    }
+
+    var total = (parseFloat(price * quantity + ship_price).toFixed(2))
+    req.session.total  = total
 
 
     console.log(" req.session.fbId >" + req.session.fbId)
@@ -149,17 +173,11 @@ function paypal_pay(req, res) {
         },
         "transactions": [{
             "item_list": {
-                "items": [{
-                    "name": event_name,
-                    "sku": "001",
-                    "price": price,
-                    "currency": "USD",
-                    "quantity": quantity
-                }]
+                "items": items
             },
             "amount": {
                 "currency": "USD",
-                "total": (parseFloat(price * quantity).toFixed(2))
+                "total": total
             },
             "description": event_name
         }]

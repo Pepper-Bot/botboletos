@@ -76,6 +76,11 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
         var provider = shiping.provider
         var shiping_name = shiping.name
         ship_price = shiping.price
+
+        req.session.ship_price = ship_price
+        req.session.provider = provider
+        req.session.shiping_name = shiping_name
+
         with_ship = true;
     } else {
         var service_type = ""
@@ -95,7 +100,6 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
 
     var subtotal = (req.body.price * req.body.quantity);
     var total = ((req.body.price * req.body.quantity) + ship_price)
-    var provider = ""
     var address_id = ""
 
     res.render(
@@ -242,6 +246,7 @@ var pay_with_pp = (req, res) => {
         }, function (err, clienteSearch) {
 
             var address_id = '';
+            var client_id = '';
             if (clienteSearch == null) {
                 var ClientData = new Client;
 
@@ -267,7 +272,7 @@ var pay_with_pp = (req, res) => {
                 }
                 ClientData.save();
                 address_id = ClientData.address_id[ClientData.address_id.length - 1]
-
+                client_id =ClientData.client_id
 
 
             } else {
@@ -295,10 +300,13 @@ var pay_with_pp = (req, res) => {
 
                 }
                 clienteSearch.save();
+                client_id =ClientData.client_id
 
                 address_id = clienteSearch.address_id[clienteSearch.address_id.length - 1]
 
             }
+            req.session.address_id = address_id
+            req.session.client_id = client_id
 
             var dataShip = {
                 "ticket_group_id": req.body.groupticket_id,
