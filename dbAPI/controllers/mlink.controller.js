@@ -430,6 +430,35 @@ function searchEventsByCategoryIdAndLocation(req, res) {
 }
 
 
+function searchTicketGroupByPrice(req, res) {
+	 
+
+	var TevoClient = require('ticketevolution-node');
+
+	var tevoClient = new TevoClient({
+		apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
+		apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
+	});
+	//var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
+	
+	let urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_group?price =2&only_with_tickets=all' 
+	console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
+	if (tevoClient) {
+		tevoClient.getJSON(urlApiTevo).then((json) => {
+
+			res.status(200).send(
+				json
+			);
+
+		}).catch((err) => {
+			res.status(300).send(
+				err
+			);
+		});
+	}
+}
+
+
 
 
 
@@ -487,7 +516,8 @@ module.exports = {
 	searchEventsByCategoryId,
 	searchEventsByCategoryIdAndDate,
 	searchEventByNameAndDate,
-	searchEventsByCategoryIdAndLocation
+	searchEventsByCategoryIdAndLocation,
+	searchTicketGroupByPrice
 
 
 }

@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var UserData = require('../schemas/userinfo');
 var MLinkController = require("../dbAPI/controllers/mlink.controller");
-var checkBuy  = require ("../routes/checkout")
+var checkBuy = require("../routes/checkout")
 
 
 /* GET home page. */
@@ -80,6 +80,8 @@ router.get("/api/events/category/:category_id/lat/:lat/lon/:lon",
 	MLinkController.searchEventsByCategoryIdAndLocation);
 
 
-router.post("/checkout/", checkBuy.checkout );
+router.get("/api/ticketgroup", MLinkController.searchTicketGroupByPrice);
+
+router.post("/checkout/", checkBuy.checkout);
 
 module.exports = router;
