@@ -14,7 +14,7 @@ var ticketgroup = (req, res) => {
     var UserData = require('../../bot/userinfo');
     var UserData2 = require('../../schemas/userinfo');
     var moment = require('moment');
-    var params = req.body;
+
 
 
 
@@ -24,12 +24,6 @@ var ticketgroup = (req, res) => {
     // var event_id = req.query.event_id;
 
 
-    var venue_id = req.query.venue_id;
-    var event_name = req.query.event_name;
-    var performer_id = req.query.performer_id;
-    var seatsmap = req.query.seatsmap;
-    var event_date = req.query.event_date;
-
 
     var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
 
@@ -38,17 +32,26 @@ var ticketgroup = (req, res) => {
         //console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
         console.log("TicketGroup  Construida.lenght: >>> " + ticketGroups.length);
 
+        var searchById = tevo.API_URL + 'events/?event_id= ' + event_id
 
-        res.render(
-            './layouts/tickets/ticketgroup', {
-                titulo: "Your tickets are on its way!",
-                ticketGroups: ticketGroups,
-                event_id: event_id,
-                event_name: event_name,
-                event_date: event_date,
-                seatsmap: seatsmap,
-            }
-        );
+        tevoClient.getJSON(searchById).then((eventsRes) => {
+            var event = eventsRes.events[0];
+            res.render(
+                './layouts/tickets/ticketgroup', {
+                    titulo: "Your tickets are on its way!",
+                    ticketGroups: ticketGroups,
+                    event_id: event.event_id,
+                    event_name: event.name,
+                    event_date: event.occurs_at,
+                    seatsmap: event.configuration.seating_chart.large,
+                }
+            );
+
+
+        });
+
+
+
     });
 
 }
