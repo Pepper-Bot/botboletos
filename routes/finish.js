@@ -20,9 +20,14 @@ var mailgun = require('mailgun-js')({
 });
 var Orders = require('../schemas/orders');
 
-var API_URL = require('../config/config_vars').API_URL;
-var tevoClient = require('../config/config_vars').tevoClient;
+var tevo = require('../config/config_vars').tevo;
 
+
+var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
+var tevoClient = new TevoClient({
+  apiToken: tevo.API_TOKEN,
+  apiSecretKey: tevo.API_SECRET_KEY
+});
 
 router.post('/', function (req, res) {
 
@@ -142,7 +147,7 @@ router.post('/', function (req, res) {
 
 
 		// Realizamos la orden.
-		var createOrder = API_URL + 'orders'
+		var createOrder = tevo.API_URL + 'orders'
 
 
 		tevoClient.postJSON(createOrder, orderData).then((json) => {

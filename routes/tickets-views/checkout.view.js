@@ -8,6 +8,14 @@ var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_D
 
 var moment = require('moment');
 
+var tevo = require('../../config/config_vars').tevo;
+
+var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
+var tevoClient = new TevoClient({
+  apiToken: tevo.API_TOKEN,
+  apiSecretKey: tevo.API_SECRET_KEY
+});
+
 
 var checkout = (req, res) => {
     var params = req.body;

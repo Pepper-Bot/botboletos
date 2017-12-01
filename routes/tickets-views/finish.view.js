@@ -2,14 +2,19 @@ var Message = require('../../bot/messages');
 var UserData2 = require('../../schemas/userinfo');
 var moment = require('moment');
 var Client = require('../../schemas/clients');
-var tevoClient = require('../../config/config_vars').tevoClient;
-var API_URL = require('../../config/config_vars').API_URL;
+ 
+var tevo = require('../../config/config_vars').tevo;
 
+var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
+var tevoClient = new TevoClient({
+  apiToken: tevo.API_TOKEN,
+  apiSecretKey: tevo.API_SECRET_KEY
+});
 
 
 
 function finish(req, res, payment) {
-    var urlApiTevo = API_URL; // 'https://api.ticketevolution.com/v9/';
+    var urlApiTevo = tevo.API_URL; 
     var searchByEventId = urlApiTevo + '/events/' + req.session.event_id;
 
 
@@ -96,7 +101,7 @@ function createClientTevo(req, payment) {
             "office_id": process.env.OFFICE_ID
         }]
     }; //cliente_tevo_fin
-    tevoClient.postJSON(API_URL + 'clients', client_tevo).then((clientTevoSaved) => {
+    tevoClient.postJSON(tevo.API_URL + 'clients', client_tevo).then((clientTevoSaved) => {
         Client.findOne({
             fbId: req.session.fbId
         }, {}, {
@@ -169,7 +174,7 @@ function createClientTevo(req, payment) {
             "address_id": pp_line1,
             "address_attributes": direccionEnvio
         };
-        tevoClient.postJSON(API_URL + 'shipments/suggestion', dataShip).then((json) => {
+        tevoClient.postJSON(tevo.API_URL + 'shipments/suggestion', dataShip).then((json) => {
 
 
 
@@ -354,7 +359,7 @@ function createOrder(req, payment, event, clienteSearch) {
         }
     }
     console.log("Orden Construida: >>> " + JSON.stringify(orderData));
-    tevoClient.postJSON(API_URL + 'orders', orderData).then((OrderRes) => {
+    tevoClient.postJSON(tevo.API_URL + 'orders', orderData).then((OrderRes) => {
         if (OrderRes.error != undefined) {
 
             console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));

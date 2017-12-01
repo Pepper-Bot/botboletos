@@ -249,8 +249,16 @@ var countries = {
 };
 /* GET home page. */
 
-var API_URL = require('../config/config_vars').API_URL;
-var tevoClient = require('../config/config_vars').tevoClient;
+
+var tevo = require('../config/config_vars').tevo;
+
+
+var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
+var tevoClient = new TevoClient({
+  apiToken: tevo.API_TOKEN,
+  apiSecretKey: tevo.API_SECRET_KEY
+});
+
 
 
 
@@ -353,7 +361,7 @@ router.post('/', function (req, res) {
 
         console.log('Empezando a crear tarjeta');
 
-        var createCreditoCard = API_URL + 'offices/' + process.env.OFFICE_ID + '/credit_cards';
+        var createCreditoCard = tevo.API_URL + 'offices/' + process.env.OFFICE_ID + '/credit_cards';
 
 
         tevoClient.postJSON(createCreditoCard, cc).then((json) => {
@@ -403,7 +411,7 @@ router.post('/', function (req, res) {
                 console.log('Datos enviados:' + JSON.stringify(dataShip));
 
                 //var createShipping = process.env.API_URL + 'shipments/suggestion';
-                var createShipping = API_URL + 'shipments/suggestion';
+                var createShipping = tevo.API_URL + 'shipments/suggestion';
 
 
                 tevoClient.postJSON(createShipping, dataShip).then((json) => {
@@ -533,7 +541,7 @@ router.post('/', function (req, res) {
 
 
 
-            var createClient = API_URL + 'clients'
+            var createClient = tevo.API_URL + 'clients'
 
 
 
