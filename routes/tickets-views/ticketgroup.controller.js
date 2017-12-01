@@ -33,7 +33,7 @@ var ticketgroup = (req, res) => {
 
     tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
         var ticketGroups = ticketG.ticket_groups;
-
+        console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
 
 
 
