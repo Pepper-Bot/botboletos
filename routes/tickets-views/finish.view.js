@@ -356,6 +356,8 @@ function createOrder(req, payment, event, clienteSearch) {
     console.log("Orden Construida: >>> " + JSON.stringify(orderData));
     tevoClient.postJSON(API_URL + 'orders', orderData).then((OrderRes) => {
         if (OrderRes.error != undefined) {
+
+            console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
             res.send('<b>' + OrderRes.error + '</b>');
             res.end();
           
