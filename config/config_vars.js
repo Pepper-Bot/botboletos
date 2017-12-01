@@ -26,13 +26,11 @@ if (sandbox === true) {
 }
 
 
-
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var tevoClient = new TevoClient({
   apiToken: API_TOKEN,
   apiSecretKey: API_SECRET_KEY
 });
-
 
 
 
