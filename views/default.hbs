@@ -9,9 +9,20 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-    <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" / <!--Let browser know website
-        is optimized for mobile-->
-</head>
+    <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection" / <!--Let browser know website is optimized
+        for mobile-->
+
+
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+    <script>
+        $(function () {
+            var $body = $(document);
+            $body.bind("scroll", function () { if ($body.scrollLeft() !== 0) { $body.scrollLeft(0); } });
+        });</script> </head>
 
 <body>
     {{{body}}}

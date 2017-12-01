@@ -18,32 +18,34 @@
                 <td>{{this.row}}</td>
                 <td>
                     <form action="/checkout/" method="post">
-                        <input type="hidden" value="2018-02-14" name="in_hand_on">
-                        <input type="hidden" value="false" name="in_hand">
-                        <input type="hidden" value="true" name="eticket">
-                        <input type="hidden" value="Texas Longhorns Baseball Season Tickets" name="event_name">
-                        <input type="hidden" value="2018-02-15T12:00:00Z" name="event_date">
-                        <input type="hidden" value="1705877032758862" name="uid" id="uid">
-                        <select name="userticketsquantity" id="ticketsquantity">
-                            {{#each this.splits}}
-                                 <option value="{{this}}">{{this}}</option>
-                            {{/each}} 
-                            
-                        </select>
+                        <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
+                        <input type="hidden" value="{{this.in_hand}}" name="in_hand">
+                        <input type="hidden" value="{{this.eticket}}" name="eticket">
+                        <input type="hidden" value="{{event_name}}" name="event_name">
+                        <input type="hidden" value="{{event_date}}" name="event_date">
+                        <input type="hidden" value="{{uid}}" name="uid" id="uid">
+                       
+                        <div class="input-field col s12 m6">
+                            <select name="userticketsquantity" id="ticketsquantity">
+                                {{#each this.splits}}
+                                <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+
+                            </select>
+                        </div>
+
                 </td>
                 <td>{{this.wholesale_price}}</td>
                 <td>
                     <input type="hidden" value="1342115" name="event_id">
-                    <input type="hidden" value="425057838" name="groupticket_id">
-                    <input type="hidden" value="2520" name="venue_id">
-                    <input type="hidden" value="7" name="quantity">
-                    <input type="hidden" value="false" name="instant_delivery">
-                    <input type="hidden" value="false" name="in_hand">
-                    <input type="hidden" value="Eticket" name="format">
-                    <input type="hidden" value="R3" name="section">
-                    <input type="hidden" value="1" name="row">
-                    <input type="hidden" value="463.5" name="priceticket">
-                    <input type="hidden" value="7" name="quantity">
+                    <input type="hidden" value="{{this.id}}" name="groupticket_id">
+                    <input type="hidden" value="{{venue_id}}" name="venue_id">
+                    <input type="hidden" value="{{this.quantity}}" name="quantity">
+                    <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
+                    <input type="hidden" value="{{this.format}}" name="format">
+                    <input type="hidden" value="{{this.section}}" name="section">
+                    <input type="hidden" value="{{this.row}}" name="row">
+                    <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
                     <button type="submit" class="btn blue">BUY</button>
                     </form>
                 </td>

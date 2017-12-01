@@ -1,10 +1,9 @@
-
 var tevo = require('../../config/config_vars').tevo;
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var tevoClient = new TevoClient({
-  apiToken: tevo.API_TOKEN,
-  apiSecretKey: tevo.API_SECRET_KEY
+    apiToken: tevo.API_TOKEN,
+    apiSecretKey: tevo.API_SECRET_KEY
 });
 
 
@@ -16,13 +15,13 @@ var ticketgroup = (req, res) => {
     var UserData2 = require('../../schemas/userinfo');
     var moment = require('moment');
     var params = req.body;
-   
+
 
 
 
     var event_id = req.params.event_id;
 
-   // var event_id = req.query.event_id;
+    // var event_id = req.query.event_id;
 
 
     var venue_id = req.query.venue_id;
@@ -37,15 +36,17 @@ var ticketgroup = (req, res) => {
     tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
         var ticketGroups = ticketG.ticket_groups;
         //console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
-        console.log("TicketGroup  Construida.lenght: >>> "+ ticketGroups.length   );
+        console.log("TicketGroup  Construida.lenght: >>> " + ticketGroups.length);
 
 
         res.render(
             './layouts/tickets/ticketgroup', {
                 titulo: "Your tickets are on its way!",
-                ticketGroups: ticketGroups
-
-
+                ticketGroups: ticketGroups,
+                event_id: event_id,
+                event_name: event_name,
+                event_date = event_date,
+                seatsmap  = seatsmap,
             }
         );
     });
