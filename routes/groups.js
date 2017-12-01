@@ -25,7 +25,7 @@ router.get('/', function (req, res) {
 
 
 	urlApiTevo = API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
-
+	console.log('Groups url api tevo>>>>>>>' + urlApiTevo);
 
 	if (undefined == req.query.uid) {
 		res.status(200);
