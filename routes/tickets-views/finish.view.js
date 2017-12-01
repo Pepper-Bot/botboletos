@@ -233,7 +233,7 @@ function createOrder(req, res, payment, event, clienteSearch) {
     var email_address_id = clienteSearch.email_id;
     var billing_address_id = clienteSearch.billing_address_id[clienteSearch.billing_address_id.length - 1]; // es una respuesta cuando se guarda el cliente
 
-    var seller_id = process.env.OFFICE_ID
+    var seller_id = tevo.OFFICE_ID
     var client_id = clienteSearch.client_id; // es una respuesta cuando se guarda el cliente
     var created_by_ip_address = ''; // Required for brokerages who have enabled Minfraud
     var instructions = '';
@@ -373,6 +373,16 @@ function createOrder(req, res, payment, event, clienteSearch) {
 
 
                 console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
+                sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
+
+                var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
+                res.render(
+                    './layouts/tickets/finish', {
+                        titulo: "Your tickets are on its way!",
+                        buyer_name: pp_recipient_name,
+
+                    }
+                );console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
                 sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
 
                 var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
