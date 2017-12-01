@@ -1,14 +1,16 @@
-function checkout(req, res) {
-    var express = require('express');
-    var router = express.Router();
-    var UserData = require('../../bot/userinfo');
-    var UserData2 = require('../../schemas/userinfo');
-    var P_CLIENT_ID = require('../../config/config_vars').P_CLIENT_ID;
-    var P_CLIENT_SECRET = require('../../config/config_vars').P_CLIENT_SECRET;
-    var APLICATION_URL_DOMAIN  = require('../../config/config_vars').APLICATION_URL_DOMAIN;
-    var moment = require('moment');
-    var params = req.body;
+var express = require('express');
+var router = express.Router();
+var UserData = require('../../bot/userinfo');
+var UserData2 = require('../../schemas/userinfo');
+var P_CLIENT_ID = require('../../config/config_vars').P_CLIENT_ID;
+var P_CLIENT_SECRET = require('../../config/config_vars').P_CLIENT_SECRET;
+var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 
+var moment = require('moment');
+
+
+var checkout = (req, res) => {
+    var params = req.body;
 
 
 
@@ -111,7 +113,7 @@ function checkout(req, res) {
 const express = require('express');
 const paypal = require('paypal-rest-sdk');
 
- 
+
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
     'client_id': P_CLIENT_ID,
@@ -163,7 +165,7 @@ function paypal_pay(req, res) {
     console.log("price" + price)
 
 
-   
+
 
 
     const create_payment_json = {

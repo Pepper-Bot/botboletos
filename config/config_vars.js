@@ -1,3 +1,6 @@
+
+
+ /////////////////////tevo/////////////////////////////
 var APLICATION_URL_DOMAIN = process.env.APLICATION_URL_DOMAIN
 
 
