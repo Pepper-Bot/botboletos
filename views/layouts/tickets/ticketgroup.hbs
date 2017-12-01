@@ -14,8 +14,8 @@
         <tbody>
             {{#each ticketGroups}}
             <tr>
-                <td>R3</td>
-                <td>1</td>
+                <td>{{this.section}}</td>
+                <td>{{this.row}}</td>
                 <td>
                     <form action="/checkout/" method="post">
                         <input type="hidden" value="2018-02-14" name="in_hand_on">
@@ -25,15 +25,13 @@
                         <input type="hidden" value="2018-02-15T12:00:00Z" name="event_date">
                         <input type="hidden" value="1705877032758862" name="uid" id="uid">
                         <select name="userticketsquantity" id="ticketsquantity">
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="7">7</option>
+                            {{#each this.splits}}
+                                 <option value="{{this}}">{{this}}</option>
+                            {{/each}} 
+                            
                         </select>
                 </td>
-                <td>$463.5</td>
+                <td>{{this.wholesale_price}}</td>
                 <td>
                     <input type="hidden" value="1342115" name="event_id">
                     <input type="hidden" value="425057838" name="groupticket_id">
