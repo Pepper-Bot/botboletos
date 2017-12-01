@@ -110,7 +110,7 @@ var checkout = (req, res) => {
 
 
 
-const express = require('express');
+
 const paypal = require('paypal-rest-sdk');
 
 
