@@ -359,9 +359,9 @@ function createOrder(req, payment, event, clienteSearch) {
         }
     }
     console.log("Orden Construida: >>> " + JSON.stringify(orderData));
-    var activated = false
-
-    if (activated === true) {
+    
+    console.log("Inicio Orden Tevo >>> " + tevo.API_URL    );
+    if (tevo.API_URL === "https://api.sandbox.ticketevolution.com/v9/") {
         tevoClient.postJSON(tevo.API_URL + 'orders', orderData).then((OrderRes) => {
             if (OrderRes.error != undefined) {
 
