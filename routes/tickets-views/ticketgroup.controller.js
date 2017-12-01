@@ -22,7 +22,7 @@ var ticketgroup = (req, res) => {
 
     var event_id = req.params.event_id;
 
-    var event_id = req.query.event_id;
+   // var event_id = req.query.event_id;
 
 
     var venue_id = req.query.venue_id;
