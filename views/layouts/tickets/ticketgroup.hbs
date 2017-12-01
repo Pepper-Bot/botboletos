@@ -1,0 +1,72 @@
+<div class="row">
+    <h3 class="header center blue-text">Texas Longhorns Baseball Season Tickets</h3>
+    <img alt="Seat Map" class="responsive-img" src="https://s3.amazonaws.com/media.ticketevolution.com/configurations/static_maps/3086/large.jpg?1443623231">
+    <table id="tickets" class="display table table-condensed table-responsive">
+        <thead>
+            <tr>
+                <th>Section</th>
+                <th>Row</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>R3</td>
+                <td>1</td>
+                <td>
+                    <form action="/checkout/" method="post">
+                        <input type="hidden" value="2018-02-14" name="in_hand_on">
+                        <input type="hidden" value="false" name="in_hand">
+                        <input type="hidden" value="true" name="eticket">
+                        <input type="hidden" value="Texas Longhorns Baseball Season Tickets" name="event_name">
+                        <input type="hidden" value="2018-02-15T12:00:00Z" name="event_date">
+                        <input type="hidden" value="1705877032758862" name="uid" id="uid">
+                        <select name="userticketsquantity" id="ticketsquantity">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <option value="7">7</option>
+                        </select>
+                </td>
+                <td>$463.5</td>
+                <td>
+                    <input type="hidden" value="1342115" name="event_id">
+                    <input type="hidden" value="425057838" name="groupticket_id">
+                    <input type="hidden" value="2520" name="venue_id">
+                    <input type="hidden" value="7" name="quantity">
+                    <input type="hidden" value="false" name="instant_delivery">
+                    <input type="hidden" value="false" name="in_hand">
+                    <input type="hidden" value="Eticket" name="format">
+                    <input type="hidden" value="R3" name="section">
+                    <input type="hidden" value="1" name="row">
+                    <input type="hidden" value="463.5" name="priceticket">
+                    <input type="hidden" value="7" name="quantity">
+                    <button type="submit" class="btn blue">BUY</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+</div>
+</div>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+
+    $(function () {
+        var $body = $(document);
+        $body.bind("scroll", function () {
+            if ($body.scrollLeft() !== 0) {
+                $body.scrollLeft(0);
+            }
+        });
+    });
+    $(document).ready(function () {
+        $('select').material_select(); $("#tickets").DataTable({ "order": [[3, "desc"]] });
+    });
+
+</script>

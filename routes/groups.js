@@ -6,15 +6,12 @@ var gis = require('g-i-s'); // Google images
 var moment = require('moment');
 /* GET home page. */
 
-var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
-var teClient = new TevoClient({
-	apiToken: process.env.API_TOKEN,
-	apiSecretKey: process.env.API_SECRET_KEY
-});
+var API_URL = require('../config/config_vars').API_URL;
+var tevoClient = require('../config/config_vars').tevoClient;
+
 
 
 router.get('/', function (req, res) {
-
 
 	var event_id = req.query.event_id;
 	var fbId = req.query.uid;
@@ -27,7 +24,7 @@ router.get('/', function (req, res) {
 	var urlApiTevo = '';
 
 
-	urlApiTevo = 'https://api.ticketevolution.com/v9/ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
+	urlApiTevo = API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
 
 
 	if (undefined == req.query.uid) {
@@ -40,7 +37,7 @@ router.get('/', function (req, res) {
 	UserData2.findOne({fbId: fbId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result)
 	{	*/
 
-	teClient.getJSON(urlApiTevo).then((json) => {
+	tevoClient.getJSON(urlApiTevo).then((json) => {
 
 
 		console.log(JSON.stringify(json));

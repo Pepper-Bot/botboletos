@@ -2,23 +2,19 @@ var Message = require('../../bot/messages');
 var UserData2 = require('../../schemas/userinfo');
 var moment = require('moment');
 var Client = require('../../schemas/clients');
-
-var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
-var tevoClient = new TevoClient({
-    apiToken: process.env.API_TOKEN,
-    apiSecretKey: process.env.API_SECRET_KEY
-});
-
+var tevoClient = require('../../config/config_vars').tevoClient;
+var API_URL = require('../../config/config_vars').API_URL;
 
 
 
 
 function finish(req, res, payment) {
-    var urlApiTevo = process.env.API_URL; // 'https://api.ticketevolution.com/v9/';
+    var urlApiTevo = API_URL; // 'https://api.ticketevolution.com/v9/';
     var searchByEventId = urlApiTevo + '/events/' + req.session.event_id;
 
 
     //getOrderData(req, payment);
+
     tevoClient.getJSON(searchByEventId).then((event) => {
         Client.findOne({
             client_id: req.session.client_id
@@ -100,7 +96,7 @@ function createClientTevo(req, payment) {
             "office_id": process.env.OFFICE_ID
         }]
     }; //cliente_tevo_fin
-    tevoClient.postJSON(process.env.API_URL + 'clients', client_tevo).then((clientTevoSaved) => {
+    tevoClient.postJSON(API_URL + 'clients', client_tevo).then((clientTevoSaved) => {
         Client.findOne({
             fbId: req.session.fbId
         }, {}, {
@@ -173,7 +169,7 @@ function createClientTevo(req, payment) {
             "address_id": pp_line1,
             "address_attributes": direccionEnvio
         };
-        tevoClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((json) => {
+        tevoClient.postJSON(API_URL + 'shipments/suggestion', dataShip).then((json) => {
 
 
 
@@ -357,7 +353,7 @@ function createOrder(req, payment, event, clienteSearch) {
         }
     }
     console.log("Orden Construida: >>> " + JSON.stringify(orderData));
-    /* teClient.postJSON(process.env.API_URL + 'orders', orderData).then((json) => {
+    /* teClient.postJSON(API_URL + 'orders', orderData).then((json) => {
          if (json.error != undefined) {
              res.send('<b>' + json.error + '</b>');
              res.end();

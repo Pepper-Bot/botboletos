@@ -7,21 +7,15 @@ module.exports = function () {
             var moment = require('moment');
             var UserData = require('../bot/userinfo');
             var UserData2 = require('../schemas/userinfo');
-
-
-
-
-            var tevoClient = new TevoClient({
-                apiToken: process.env.API_TOKEN,
-                apiSecretKey: process.env.API_SECRET_KEY
-            });
-
-
+            var tevoClient = require('../config/config_vars').tevoClient;
+            var API_URL = require('../config/config_vars').API_URL;
 
             var urlApiTevo = '';
 
 
-            urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+            urlApiTevo = API_URL +'events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+
+           
 
 
 

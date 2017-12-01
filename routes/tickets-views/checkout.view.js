@@ -3,6 +3,9 @@ function checkout(req, res) {
     var router = express.Router();
     var UserData = require('../../bot/userinfo');
     var UserData2 = require('../../schemas/userinfo');
+    var P_CLIENT_ID = require('../../config/config_vars').P_CLIENT_ID;
+    var P_CLIENT_SECRET = require('../../config/config_vars').P_CLIENT_SECRET;
+    var APLICATION_URL_DOMAIN  = require('../../config/config_vars').APLICATION_URL_DOMAIN;
     var moment = require('moment');
     var params = req.body;
 
@@ -108,10 +111,11 @@ function checkout(req, res) {
 const express = require('express');
 const paypal = require('paypal-rest-sdk');
 
+
 paypal.configure({
     'mode': 'sandbox', //sandbox or live
-    'client_id': process.env.P_CLIENT_ID,
-    'client_secret': process.env.P_CLIENT_SECRET
+    'client_id': P_CLIENT_ID,
+    'client_secret': P_CLIENT_SECRET
 });
 
 
@@ -151,15 +155,15 @@ function paypal_pay(req, res) {
     }
 
     var total = (parseFloat(price * quantity + ship_price).toFixed(2))
-    req.session.total  = total
+    req.session.total = total
 
 
     console.log(" req.session.fbId >" + req.session.fbId)
     console.log("quantity" + quantity)
     console.log("price" + price)
 
-    
-    var aplicationURL = process.env.APLICATION_URL_DOMAIN;
+
+   
 
 
     const create_payment_json = {
@@ -168,8 +172,8 @@ function paypal_pay(req, res) {
             "payment_method": "paypal"
         },
         "redirect_urls": {
-            "return_url": aplicationURL + "paypal_success",
-            "cancel_url": aplicationURL + "paypal_cancel"
+            "return_url": APLICATION_URL_DOMAIN + "paypal_success",
+            "cancel_url": APLICATION_URL_DOMAIN + "paypal_cancel"
         },
         "transactions": [{
             "item_list": {

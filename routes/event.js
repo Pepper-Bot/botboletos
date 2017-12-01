@@ -4,13 +4,10 @@ var Message = require('../bot/messages');
 var UserData2 = require('../schemas/userinfo');
 var gis = require('g-i-s'); // Google images
 var moment = require('moment');
-/* GET home page. */
+var API_URL = require('../config/config_vars').API_URL;
+var tevoClient = require('../config/config_vars').tevoClient;
 
-var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
-var teClient = new TevoClient({
-    apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
-    apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
-});
+
 
 
 router.get('/', function (req, res) {
@@ -30,6 +27,10 @@ router.get('/', function (req, res) {
 
     urlApiTevo = 'https://api.ticketevolution.com/v9/events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&only_with_available_tickets=true'
 
+    urlApiTevo = API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&only_with_available_tickets=true'
+
+
+
     if (undefined == req.query.uid) {
         res.status(200);
         res.send('Error trying to access');
@@ -42,7 +43,7 @@ router.get('/', function (req, res) {
 
     // Llamos a la API de eventos y traemos un listado de fechas. only_with_available_tickets=true
     //teClient.getJSON(process.env.API_URL+'events/?page=1&per_page=50&performer_id='+performer_id+'&venue_id='+venue_id+'&only_with_tickets=all').then((json) => {
-    teClient.getJSON(urlApiTevo).then((json) => {
+    tevoClient.getJSON(urlApiTevo).then((json) => {
 
         var htmlHeader = '<!DOCTYPE html><html lang="en"> <head> <meta charset="utf-8"> <meta http-equiv="X-UA-Compatible" content="IE=edge"> <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no"> <base href="https://botboletos-test.herokuapp.com/"> <title>Book</title><!--Import Google Icon Font--> <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> <!--Import materialize.css--> <link type="text/css" rel="stylesheet" href="https://botboletos-test.herokuapp.com/css/materialize.min.css" media="screen,projection"/> <!--Let browser know website is optimized for mobile--> <meta name="viewport" content="width=device-width, initial-scale=1.0"/> </head> <body> <div class="container"> <div class="row left"> <h3 class="header left blue-text">{EVENT_NAME}</h3> <div class="section"> <div class="row">';
         var boxEvent = ' <div class="col m12 m4"> <div class="card"> <div class="card-image"> <img src="{IMAGE_EVENT}"> <span style="display:none;" class="card-title">{EVENT_NAME}</span> </div> <div class="card-content"> <p>{EVENT_DESCRIPTION} </p> <div class="card-action"> <p><a class="btn blue" href="{URL_PURCHASE_TICKET}">Purchase Tickets</a></p> </div> </div> </div> </div>';

@@ -21,7 +21,7 @@ var webhook = require('./routes/webhook');
 var storeUrl = require('./routes/redirect');
 var ticketSales = require('./routes/event');
 var ticketGroups = require('./routes/groups');
-
+var ticket_Groups = require('./routes/tickets-views/ticketgroup.controller').ticketgroup;
 
 
 //var checkoutBuy = require('./routes/checkout');
@@ -154,6 +154,7 @@ app.use('/webhook2/', webhook);
 app.use('/redirect/', storeUrl);
 app.use('/event/', ticketSales);
 app.use('/tickets/', ticketGroups);
+app.get('/ticketgroups/:event_id', ticket_Groups);
 //app.use('/checkout/', checkout);
 
 app.post('/checkout/', checkoutBuy.checkout);

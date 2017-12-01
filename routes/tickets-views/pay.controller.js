@@ -7,13 +7,13 @@ var gis = require('g-i-s'); // Google images
 var moment = require('moment');
 var nodemailer = require('nodemailer');
 var countries = require('../../lib/config_vars').COUNTRIES;
+var tevoClient = require('../../config/config_vars').tevoClient;
+var API_URL = require('../../config/config_vars').API_URL;
+
+
+
 /* GET home page. */
 
-var TevoClient = require('ticketevolution-node');
-var teClient = new TevoClient({
-    apiToken: process.env.API_TOKEN,
-    apiSecretKey: process.env.API_SECRET_KEY
-});
 
 
 var init_pay = function (req, res) {
@@ -233,7 +233,7 @@ var pay_with_pp = (req, res) => {
         }]
     };
 
-    teClient.postJSON(process.env.API_URL + 'clients', clientData).then((clientTevoRes) => {
+    tevoClient.postJSON(API_URL + 'clients', clientData).then((clientTevoRes) => {
         console.log("cliente devuelto por tevo >>" + JSON.stringify(clientTevoRes));
         var bill_address = '';
         var shipp_address = '';
@@ -324,7 +324,7 @@ var pay_with_pp = (req, res) => {
                 "address_attributes": direccionEnvio
             };
             console.log("dataShip de tevo >>" + JSON.stringify(dataShip));
-            teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((shipping) => {
+            tevoClient.postJSON(API_URL + 'shipments/suggestion', dataShip).then((shipping) => {
                 console.log("shiping de tevo >>" + JSON.stringify(shipping));
                 //renderizamos el formulario
                 if (!shipping.error) {
@@ -457,7 +457,7 @@ var pay_with_cc = (req, res) => {
         console.log(cc);
 
         console.log('Empezando a crear tarjeta');
-        teClient.postJSON(process.env.API_URL + 'offices/' + process.env.OFFICE_ID + '/credit_cards', cc).then((json) => {
+        tevoClient.postJSON(API_URL + 'offices/' + process.env.OFFICE_ID + '/credit_cards', cc).then((json) => {
             console.log('Creada');
             console.log(json);
 
@@ -503,7 +503,7 @@ var pay_with_cc = (req, res) => {
 
                 console.log('Datos enviados:' + JSON.stringify(dataShip));
 
-                teClient.postJSON(process.env.API_URL + 'shipments/suggestion', dataShip).then((json) => {
+                tevoClient.postJSON(API_URL + 'shipments/suggestion', dataShip).then((json) => {
                     console.log('JSON:' + JSON.stringify(json));
                     console.log('-----------------------------------');
                     var shipPrice = 0;
@@ -631,7 +631,7 @@ var pay_with_cc = (req, res) => {
 
 
 
-            teClient.postJSON(process.env.API_URL + 'clients', clientData).then((json) => {
+            tevoClient.postJSON(API_URL + 'clients', clientData).then((json) => {
 
 
 
