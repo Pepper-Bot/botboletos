@@ -16,12 +16,15 @@ var ticketgroup = (req, res) => {
     var UserData2 = require('../../schemas/userinfo');
     var moment = require('moment');
     var params = req.body;
-    //req.params.event_id;
+   
 
 
+
+    var event_id = req.params.event_id;
 
     var event_id = req.query.event_id;
-    var fbId = req.query.uid;
+
+
     var venue_id = req.query.venue_id;
     var event_name = req.query.event_name;
     var performer_id = req.query.performer_id;
