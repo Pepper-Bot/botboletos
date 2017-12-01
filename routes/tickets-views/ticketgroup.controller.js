@@ -45,8 +45,8 @@ var ticketgroup = (req, res) => {
                 ticketGroups: ticketGroups,
                 event_id: event_id,
                 event_name: event_name,
-                event_date = event_date,
-                seatsmap  = seatsmap,
+                event_date: event_date,
+                seatsmap: seatsmap,
             }
         );
     });
