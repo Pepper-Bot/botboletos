@@ -413,7 +413,7 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
     var venueEvento = ""
     if (OrderRes) {
         ordenNumber = OrderRes.orders[0].id;
-        fechaOrden = moment(OrderRes.orders[0].created_at).format('MMMM Do YYYY, h:mm:ss a');
+        fechaOrden = moment(OrderRes.orders[0].created_at).format('MMMM Do YYYY, h:mm a');
         clienteId = OrderRes.orders[0].buyer.id;
         venueEvento = OrderRes.orders[0].items[0].ticket_group.event.venue.name;
     }
