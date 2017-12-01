@@ -30,7 +30,7 @@ function finish(req, res, payment) {
         }, function (err, clienteSearch) {
             if (!err) {
                 if (clienteSearch) {
-                    createOrder(req, payment, event, clienteSearch)
+                    createOrder(req, res, payment, event, clienteSearch)
                     //sendEmailSenGrid(req, payment, event, clienteSearch);
 
                     /*var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
@@ -186,7 +186,7 @@ function createClientTevo(req, payment) {
 
 
 
-function createOrder(req, payment, event, clienteSearch) {
+function createOrder(req, res, payment, event, clienteSearch) {
 
 
     //pay pal vars
