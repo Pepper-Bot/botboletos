@@ -2,19 +2,19 @@ var Message = require('../../bot/messages');
 var UserData2 = require('../../schemas/userinfo');
 var moment = require('moment');
 var Client = require('../../schemas/clients');
- 
+
 var tevo = require('../../config/config_vars').tevo;
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var tevoClient = new TevoClient({
-  apiToken: tevo.API_TOKEN,
-  apiSecretKey: tevo.API_SECRET_KEY
+    apiToken: tevo.API_TOKEN,
+    apiSecretKey: tevo.API_SECRET_KEY
 });
 
 
 
 function finish(req, res, payment) {
-    var urlApiTevo = tevo.API_URL; 
+    var urlApiTevo = tevo.API_URL;
     var searchByEventId = urlApiTevo + '/events/' + req.session.event_id;
 
 
@@ -187,7 +187,7 @@ function createClientTevo(req, payment) {
 
 
 function createOrder(req, payment, event, clienteSearch) {
-   
+
 
     //pay pal vars
     var pp_email = payment.payer.payer_info.email;
@@ -359,33 +359,36 @@ function createOrder(req, payment, event, clienteSearch) {
         }
     }
     console.log("Orden Construida: >>> " + JSON.stringify(orderData));
-    tevoClient.postJSON(tevo.API_URL + 'orders', orderData).then((OrderRes) => {
-        if (OrderRes.error != undefined) {
+    var activated = false
 
-            console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
-            res.send('<b>' + OrderRes.error + '</b>');
-            res.end();
-          
-        } else {
+    if (activated === true) {
+        tevoClient.postJSON(tevo.API_URL + 'orders', orderData).then((OrderRes) => {
+            if (OrderRes.error != undefined) {
 
+                console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
+                res.send('<b>' + OrderRes.error + '</b>');
+                res.end();
 
-            console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
-            sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
-
-            var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
-            res.render(
-                './layouts/tickets/finish', {
-                    titulo: "Your tickets are on its way!",
-                    buyer_name: pp_recipient_name,
-
-                }
-            );
-        }
+            } else {
 
 
+                console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
+                sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
 
-    });
+                var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
+                res.render(
+                    './layouts/tickets/finish', {
+                        titulo: "Your tickets are on its way!",
+                        buyer_name: pp_recipient_name,
 
+                    }
+                );
+            }
+
+
+
+        });
+    }
 }
 
 
