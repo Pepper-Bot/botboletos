@@ -359,8 +359,8 @@ function createOrder(req, res, payment, event, clienteSearch) {
         }
     }
     console.log("Orden Construida: >>> " + JSON.stringify(orderData));
-    
-    console.log("Inicio Orden Tevo >>> " + tevo.API_URL    );
+
+    console.log("Inicio Orden Tevo >>> " + tevo.API_URL);
     if (tevo.API_URL === "https://api.sandbox.ticketevolution.com/v9/") {
         tevoClient.postJSON(tevo.API_URL + 'orders', orderData).then((OrderRes) => {
             if (OrderRes.error != undefined) {
@@ -373,16 +373,6 @@ function createOrder(req, res, payment, event, clienteSearch) {
 
 
                 console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
-                sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
-
-                var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
-                res.render(
-                    './layouts/tickets/finish', {
-                        titulo: "Your tickets are on its way!",
-                        buyer_name: pp_recipient_name,
-
-                    }
-                );console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
                 sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
 
                 var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
