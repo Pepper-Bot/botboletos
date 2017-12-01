@@ -26,7 +26,7 @@ function finish(req, res, payment) {
             if (!err) {
                 if (clienteSearch) {
                     createOrder(req, payment, event, clienteSearch)
-                    sendEmailSenGrid(req, payment, event, clienteSearch);
+                    //sendEmailSenGrid(req, payment, event, clienteSearch);
 
                     var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
                     res.render(
@@ -182,6 +182,7 @@ function createClientTevo(req, payment) {
 
 
 function createOrder(req, payment, event, clienteSearch) {
+   
 
     //pay pal vars
     var pp_email = payment.payer.payer_info.email;
@@ -353,21 +354,24 @@ function createOrder(req, payment, event, clienteSearch) {
         }
     }
     console.log("Orden Construida: >>> " + JSON.stringify(orderData));
-    /* teClient.postJSON(API_URL + 'orders', orderData).then((json) => {
-         if (json.error != undefined) {
-             res.send('<b>' + json.error + '</b>');
-             res.end();
-             return;
-         }
+    tevoClient.postJSON(API_URL + 'orders', orderData).then((OrderRes) => {
+        if (json.error != undefined) {
+            res.send('<b>' + OrderRes.error + '</b>');
+            res.end();
+            return;
+        } else {
+
+            sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
+        }
 
 
 
-     });*/
+    });
 
 }
 
 
-function sendEmailSenGrid(req, payment, event, clienteSearch) {
+function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
     //pay pal vars
     var pp_email = payment.payer.payer_info.email;
     var pp_first_name = payment.payer.payer_info.first_name;
@@ -401,10 +405,21 @@ function sendEmailSenGrid(req, payment, event, clienteSearch) {
     var tipoTickets = req.session.format;
     var precio = req.session.price;
     var costoTotal = (parseFloat(req.session.quantity * req.session.price).toFixed(2))
-    var ordenNumber = '';
-    var fechaOrden = '';
-    var clienteId = '';
-    var venueEvento = venue_name;
+
+
+    var ordenNumber = ""
+    var fechaOrden = ""
+    var clienteId = ""
+    var venueEvento = ""
+    if (OrderRes) {
+        ordenNumber = OrderRes.orders[0].id;
+        fechaOrden = moment(OrderRes.orders[0].created_at).format('MMMM Do YYYY, h:mm:ss a');
+        clienteId = OrderRes.orders[0].buyer.id;
+        venueEvento = OrderRes.orders[0].items[0].ticket_group.event.venue.name;
+    }
+
+
+
     var format = req.session.format;
 
     var emailsArray = [];
