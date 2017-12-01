@@ -28,14 +28,14 @@ function finish(req, res, payment) {
                     createOrder(req, payment, event, clienteSearch)
                     //sendEmailSenGrid(req, payment, event, clienteSearch);
 
-                    var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
+                    /*var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
                     res.render(
                         './layouts/tickets/finish', {
                             titulo: "Your tickets are on its way!",
                             buyer_name: pp_recipient_name,
 
                         }
-                    );
+                    );*/
                 }
             }
 
@@ -358,10 +358,21 @@ function createOrder(req, payment, event, clienteSearch) {
         if (OrderRes.error != undefined) {
             res.send('<b>' + OrderRes.error + '</b>');
             res.end();
-            return;
+          
         } else {
 
+
+            console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
             sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
+
+            var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
+            res.render(
+                './layouts/tickets/finish', {
+                    titulo: "Your tickets are on its way!",
+                    buyer_name: pp_recipient_name,
+
+                }
+            );
         }
 
 
