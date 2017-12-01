@@ -1,28 +1,28 @@
-var APLICATION_URL_DOMAIN = proccess.env.APLICATION_URL_DOMAIN
+var APLICATION_URL_DOMAIN = process.env.APLICATION_URL_DOMAIN
 
 /////////////////////tevo/////////////////////////////
 var sandbox = true;
 
 if (sandbox === true) {
-  var API_SECRET_KEY = proccess.env.SANDBOX_API_SECRET_KEY
-  var API_TOKEN = proccess.env.SANDBOX_API_TOKEN
-  var API_URL = proccess.env.SANDBOX_API_URL
-  var OFFICE_ID = proccess.env.SANDBOX_OFFICE_ID
+  var API_SECRET_KEY = process.env.SANDBOX_API_SECRET_KEY
+  var API_TOKEN = process.env.SANDBOX_API_TOKEN
+  var API_URL = process.env.SANDBOX_API_URL
+  var OFFICE_ID = process.env.SANDBOX_OFFICE_ID
 
 
   /////////////////////PP/////////////////////////////
-  var P_CLIENT_ID = proccess.env.SANDBOX_P_CLIENT_ID
-  var P_CLIENT_SECRET = proccess.env.SANDBOX_P_CLIENT_SECRET
+  var P_CLIENT_ID = process.env.SANDBOX_P_CLIENT_ID
+  var P_CLIENT_SECRET = process.env.SANDBOX_P_CLIENT_SECRET
 
 } else {
-  var API_SECRET_KEY = proccess.env.API_SECRET_KEY
-  var API_TOKEN = proccess.env.API_TOKEN
-  var API_URL = proccess.env.API_URL
-  var OFFICE_ID = proccess.env.OFFICE_ID
+  var API_SECRET_KEY = process.env.API_SECRET_KEY
+  var API_TOKEN = process.env.API_TOKEN
+  var API_URL = process.env.API_URL
+  var OFFICE_ID = process.env.OFFICE_ID
 
   /////////////////////PP/////////////////////////////
-  var P_CLIENT_ID = proccess.env.P_CLIENT_ID
-  var P_CLIENT_SECRET = proccess.env.P_CLIENT_SECRET
+  var P_CLIENT_ID = process.env.P_CLIENT_ID
+  var P_CLIENT_SECRET = process.env.P_CLIENT_SECRET
 }
 
 
@@ -40,7 +40,7 @@ var tevoClient = new TevoClient({
 
 ////////////////////REDIS////////////////////////////////
 
-var REDIS_URL = proccess.env.REDIS_URL
+var REDIS_URL = process.env.REDIS_URL
 
 
 module.exports = {
