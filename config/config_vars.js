@@ -3,20 +3,20 @@ var APLICATION_URL_DOMAIN = process.env.APLICATION_URL_DOMAIN
 
 
 
-
-/////////////////////tevo/////////////////////////////*
+/*
+/////////////////////tevo//////////////////////////// 
 var API_SECRET_KEY = process.env.SANDBOX_API_SECRET_KEY
 var API_TOKEN = process.env.SANDBOX_API_TOKEN
 var API_URL = process.env.SANDBOX_API_URL
 var OFFICE_ID = process.env.SANDBOX_OFFICE_ID
-/////////////////////PP////////////////////////////*/
+/////////////////////PP////////////////////////////
 var P_CLIENT_ID = process.env.SANDBOX_P_CLIENT_ID
 var P_CLIENT_SECRET = process.env.SANDBOX_P_CLIENT_SECRET
-/////////////////////PP////////////////////////////*/
+/////////////////////PP//////////////////////////// 
+*/
 
 
 
-/*
 /////////////////////tevo/////////////////////////////
  var API_SECRET_KEY = process.env.API_SECRET_KEY
  var API_TOKEN = process.env.API_TOKEN
@@ -25,10 +25,10 @@ var P_CLIENT_SECRET = process.env.SANDBOX_P_CLIENT_SECRET
  /////////////////////PP/////////////////////////////
  var P_CLIENT_ID = process.env.P_CLIENT_ID
  var P_CLIENT_SECRET = process.env.P_CLIENT_SECRET
- */
 
 
- 
+
+
 var tevo = {
   API_TOKEN,
   API_SECRET_KEY,
