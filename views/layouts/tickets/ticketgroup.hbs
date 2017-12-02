@@ -24,7 +24,7 @@
                         <input type="hidden" value="{{event_name}}" name="event_name">
                         <input type="hidden" value="{{event_date}}" name="event_date">
                         <input type="hidden" value="{{uid}}" name="uid" id="uid">
-                       
+
                         <div class="input-field col s12 m6">
                             <select name="userticketsquantity" id="ticketsquantity">
                                 {{#each this.splits}}
@@ -59,8 +59,10 @@
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script>
     $(document).ready(function () {
-         $('select').material_select();
-         $("#tickets").DataTable({ "order": [[3, "desc"]] });
+        setTimeout(function () {
+            $('select').material_select();
+        }, 200);
+        $("#tickets").DataTable({ "order": [[3, "desc"]] });
     });
 
 </script>

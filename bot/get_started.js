@@ -59,9 +59,9 @@
    }
 
    request({
-     url: 'https://graph.facebook.com/v2.6/me/thread_settings?access_token=' + process.env.PAGE_ACCESS_TOKEN,
+     url: 'https://graph.facebook.com/v2.6/me/thread_settings',
      qs: {
-
+       access_token: process.env.PAGE_ACCESS_TOKEN,
      },
      json: true,
      body: requestData,

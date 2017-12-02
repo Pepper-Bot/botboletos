@@ -41,10 +41,7 @@ ChatBox.persistentMenu({
   "title": "Start again",
   "payload": "Greetings"
 });*/
-var get_started = require('./bot/get_started');
-
-get_started.deletePersistentMenu();
-
+ 
 
 
 var app = express();
