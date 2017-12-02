@@ -272,7 +272,7 @@ function createOrder(req, res, payment, event, clienteSearch) {
 
     var format = req.session.format;
 
-
+    var format_type = req.session.format_type
 
     if (format == 'Eticket') {
         var orderData = {
@@ -314,7 +314,7 @@ function createOrder(req, res, payment, event, clienteSearch) {
                     }],
                     "phone_number_id": phone_number_id,
                     "service_type": "LEAST_EXPENSIVE",
-                    "type": "FedEx",
+                    "type": format_type,
                     "address_id": address_id,
                     "ship_to_name": ship_to_name,
                     "address_attributes": {

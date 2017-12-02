@@ -12,8 +12,8 @@ var tevo = require('../../config/config_vars').tevo;
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var tevoClient = new TevoClient({
-  apiToken: tevo.API_TOKEN,
-  apiSecretKey: tevo.API_SECRET_KEY
+    apiToken: tevo.API_TOKEN,
+    apiSecretKey: tevo.API_SECRET_KEY
 });
 
 
@@ -83,8 +83,16 @@ var checkout = (req, res) => {
         }
     }, function (err, result) {
 
+        var firstName = ""
+        var LastName = ""
         if (result) {
+            firstName = result.firstName;
+            LastName = result.LastName;
+        }
 
+        var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
+        tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
+            req.session.format_type = ticketG.format
             res.render(
                 './layouts/tickets/3_checkout', {
                     titulo: "Your tickets are on its way!",
@@ -103,15 +111,17 @@ var checkout = (req, res) => {
                     noeticket: noeticket,
                     eticket: params.eticket,
                     groupticket_id: params.groupticket_id,
-                    firstName: result.firstName,
-                    LastName: result.LastName,
+                    firstName: firstName,
+                    LastName: LastName,
 
 
                 }
             );
 
 
-        }
+        });
+
+
     });
 
 }
