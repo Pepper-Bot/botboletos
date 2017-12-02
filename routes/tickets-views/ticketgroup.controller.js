@@ -35,9 +35,9 @@ var ticketgroup = (req, res) => {
 
         var searchById = tevo.API_URL + 'events/' + event_id
 
-        tevoClient.getJSON(searchById).then((eventsRes) => {
-           // var event = eventsRes.events[0];
-            console.log("EVENT<<<  : >>> " + JSON.stringify(eventsRes));
+        tevoClient.getJSON(searchById).then((event) => {
+         
+            console.log("EVENT<<<  : >>> " + JSON.stringify(event));
             res.render(
                 './layouts/tickets/ticketgroup', {
                     titulo: "Your tickets are on its way!",
