@@ -1,7 +1,7 @@
 module.exports = function () {
     return {
 
-        get: function (Message, result, lat, lon) {
+        get: function (Message, senderId, lat, lon) {
             var request = require('request');
             request({
                 url: 'https://app.ticketmaster.com/discovery/v2/events.json',
