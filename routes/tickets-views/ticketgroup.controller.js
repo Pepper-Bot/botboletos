@@ -24,15 +24,16 @@ var ticketgroup = (req, res) => {
     // var event_id = req.query.event_id;
 
 
+    console.log('event_id >'+ event_id);
 
     var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
-
+   
     tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
         var ticketGroups = ticketG.ticket_groups;
         //console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
         console.log("TicketGroup  Construida.lenght: >>> " + ticketGroups.length);
 
-        var searchById = tevo.API_URL + 'events/?event_id= ' + event_id
+        var searchById = tevo.API_URL + 'events/?event_id=' + event_id
 
         tevoClient.getJSON(searchById).then((eventsRes) => {
             var event = eventsRes.events[0];
