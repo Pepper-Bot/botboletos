@@ -67,13 +67,7 @@ var checkout = (req, res) => {
         noeticket = true;
     }
 
-
-    if (undefined == params.uid) {
-        res.status(200);
-        res.send('Error trying to access');
-        res.end();
-        return;
-    }
+ 
 
     UserData2.findOne({
         fbId: fbId
@@ -101,7 +95,7 @@ var checkout = (req, res) => {
                     venue_id: params.venue_id,
                     event_name: params.event_name,
                     performer_id: params.performer_id,
-                    event_date: moment(event_date).format('MMMM Do YYYY, h:mm:ss a'),
+                    event_date: moment(event_date).format('MMMM Do YYYY, h:mm a'),
                     section: params.section,
                     row: params.row,
                     quantity: params.userticketsquantity,

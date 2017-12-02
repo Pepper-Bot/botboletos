@@ -2,7 +2,7 @@ var Message = require('../../bot/messages');
 var UserData2 = require('../../schemas/userinfo');
 var moment = require('moment');
 var Client = require('../../schemas/clients');
-
+var Orders = require('../../schemas/orders');
 var tevo = require('../../config/config_vars').tevo;
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
@@ -373,6 +373,14 @@ function createOrder(req, res, payment, event, clienteSearch) {
 
 
                 console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
+
+                var Order = new Orders; {
+                    Order.order_id.push(OrderRes.orders[0].id);
+                    Order.order_tevo  = OrderRes.orders[0]
+                    Order.save();
+                }
+
+
                 sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
 
                 var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
