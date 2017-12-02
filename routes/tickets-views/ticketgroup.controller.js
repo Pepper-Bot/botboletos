@@ -33,7 +33,7 @@ var ticketgroup = (req, res) => {
         //console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
         console.log("TicketGroup  Construida.lenght: >>> " + ticketGroups.length);
 
-        var searchById = tevo.API_URL + 'events?event_id=' + event_id
+        var searchById = tevo.API_URL + 'events/' + event_id
 
         tevoClient.getJSON(searchById).then((eventsRes) => {
             var event = eventsRes.events[0];
