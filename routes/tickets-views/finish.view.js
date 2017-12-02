@@ -376,8 +376,22 @@ function createOrder(req, res, payment, event, clienteSearch) {
 
                 var Order = new Orders; {
                     Order.order_id.push(OrderRes.orders[0].id);
-                    Order.order_tevo  = OrderRes.orders[0]
-                    Order.save();
+                    Order.order_tevo = OrderRes.orders[0]
+                    Order.save(function (err, orderSaved) {
+                        if (err) {
+                            console.log("Error al guardar la orden" + err)
+                        } else {
+                            if (orderSaved) {
+                                console.log("Orden Guardada  : >>> " + JSON.stringify(orderSaved));
+                            }
+
+                        }
+
+
+                    });
+
+
+
                 }
 
 
