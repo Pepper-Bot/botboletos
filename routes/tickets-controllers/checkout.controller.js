@@ -88,7 +88,7 @@ var checkout = (req, res) => {
         tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
             req.session.format_type = ticketG.format
             res.render(
-                './layouts/tickets/3_checkout', {
+                './layouts/tickets/checkout', {
                     titulo: "Your tickets are on its way!",
                     event_id: params.event_id,
                     fbId: params.uid,
