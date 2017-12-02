@@ -243,7 +243,7 @@ function paypal_success(req, res) {
             console.log(JSON.stringify(payment));
 
             //res.send('Success');
-            var finishModule = require('./finish.view');
+            var finishModule = require('./finish.controller');
             finishModule.finish(req, res, payment);
 
         }
