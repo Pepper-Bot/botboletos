@@ -21,12 +21,13 @@ var webhook = require('./routes/webhook');
 var storeUrl = require('./routes/redirect');
 var ticketSales = require('./routes/event');
 var ticketGroups = require('./routes/groups');
-var ticket_Groups = require('./routes/tickets-views/ticketgroup.controller');
+var ticket_Groups = require('./routes/tickets-controllers/ticketgroup.controller');
 
 
 //var checkoutBuy = require('./routes/checkout');
-var checkoutBuy = require('./routes/tickets-views/checkout.view');
-var pay_controller = require('./routes/tickets-views/pay.controller');
+var checkoutBuy = require('./routes/tickets-controllers/checkout.controller');
+var pay_controller = require('./routes/tickets-controllers/pay.controller');
+
 var finish = require('./routes/finish');
 var email = require('./routes/email');
 
