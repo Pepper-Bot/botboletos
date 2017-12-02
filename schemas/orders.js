@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var OrderData = mongoose.Schema({
 	order_id: [],
-	order_tevo: String
+	order_tevo: {}
 	
 });
 
