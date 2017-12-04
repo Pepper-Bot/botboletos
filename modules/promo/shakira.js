@@ -54,19 +54,19 @@
      switch (payload) {
          case "la_bicicleta":
              {
-                 urlImage + 'images/shakira_songs/la_bicicleta.jpg'
+                 urlImage += 'images/shakira_songs/la_bicicleta.jpg'
                  sendImageAndTevoSearch(senderId, urlImage)
              }
              break;
          case "chantaje":
              {
-                 urlImage + 'images/shakira_songs/chantaje.jpg'
+                 urlImage += 'images/shakira_songs/chantaje.jpg'
                  sendImageAndTevoSearch(senderId, urlImage);
              }
              break;
          default:
              {
-                 urlImage + 'images/shakira_songs/la_bicicleta.jpg'
+                 urlImage += 'images/shakira_songs/la_bicicleta.jpg'
                  sendImageAndTevoSearch(senderId, urlImage)
              }
      }
