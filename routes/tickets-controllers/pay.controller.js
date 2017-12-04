@@ -464,8 +464,11 @@ var pay_with_cc = (req, res) => {
         };
         console.log(cc);
 
-        console.log('Empezando a crear tarjeta');
-        tevoClient.postJSON(tevo.API_URL + 'offices/' + process.env.OFFICE_ID + '/credit_cards', cc).then((json) => {
+      
+        var createCreditCard = tevo.API_URL + 'offices/' + process.env.OFFICE_ID + '/credit_cards'
+        console.log('Datos enviados:' + JSON.stringify( "Credit Card "+  cc));
+        console.log('Empezando a crear tarjeta '+ createCreditCard);
+        tevoClient.postJSON(createCreditCard, cc).then((json) => {
             console.log('Creada');
             console.log(json);
 
