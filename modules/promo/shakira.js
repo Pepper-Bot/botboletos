@@ -22,10 +22,33 @@
      sendQuickReplay(senderId, "Which is your favorite? ", replies);
  }
 
+
+ function sendMessageAndChoiceImage(senderId, message, payload) {
+     request({
+         url: FBMESSAGESPAGE,
+         qs: {
+             access_token: PAGE_ACCESS_TOKEN
+         },
+         method: 'POST',
+         json: {
+             recipient: {
+                 id: senderId
+             },
+             message: {
+                 text: message
+             }
+         }
+     }, function (error, response, body) {
+         if (error) {
+             console.log("Error al enviar el mensaje")
+         } else {
+             selectSendImageAndTemplates(senderId, payload)
+         }
+     });
+ }
+
  var selectSendImageAndTemplates = (senderId, payload) => {
-
-     Message2.sendMessage(senderId, "You choose")
-
+    console.log("escogiendo url de la imagen de Shakira")
      var urlImage = APLICATION_URL_DOMAIN;
      switch (payload) {
          case "la_bicicleta":
@@ -44,11 +67,6 @@
              }
      }
 
-     sendImageAndTemplate(sendeId, urlImage)
- }
-
-
- var sendImageAndTemplate = (senderId, urlImage) => {
      request({
          url: FBMESSAGESPAGE,
          qs: {
@@ -74,13 +92,15 @@
          if (error) {
              console.log("MAL")
          } else {
-             console.log(" sendImage  BIEN")
+             console.log(" sendImage  de Shakira  BIEN")
              startTevo("Shakira", senderId, mlink = 0)
 
          }
      });
  }
 
+
+  
 
  var sendQuickReplay = (senderId, messageText, replies) => {
      var messageData = {
@@ -221,5 +241,5 @@
  }
  module.exports = {
      startShakira,
-     selectSendImageAndTemplates
+     sendMessageAndChoiceImage
  }

@@ -297,7 +297,7 @@ var processQuickReplayShakira = (senderId, payload) => {
     Message.markSeen(senderId);
 
     var shakiraModule = require('../modules/promo/shakira');
-    shakiraModule.selectSendImageAndTemplates(senderId, payload);
+    shakiraModule.sendMessageAndChoiceImage(senderId, payload);
 }
 
 function processQuickReplayBox(senderId) {
