@@ -6,7 +6,7 @@
  var request = require('request');
 
  var startShakira = (senderId) => {
- 
+
      var replies = [{
              "content_type": "text",
              "title": "La bicicleta",
@@ -82,7 +82,7 @@
  }
 
 
- var sendQuickReplay = (senderId, replies) => {
+ var sendQuickReplay = (senderId, messageText, replies) => {
      var messageData = {
          "recipient": {
              "id": senderId
