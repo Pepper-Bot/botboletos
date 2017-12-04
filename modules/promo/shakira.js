@@ -186,7 +186,7 @@
                  }
 
                  var TevoModule = require('../../modules/tevo_request');
-                 TevoModule.start(senderId, event_name, position);
+                 TevoModule.start(senderId, event_name, position, 2);
 
 
                  foundUser.save(function (err, userSaved) {
@@ -221,7 +221,7 @@
 
                              let TevoModule = require('../../modules/tevo_request');
                              let position = 0;
-                             TevoModule.start(senderId, referral, position);
+                             TevoModule.start(senderId, referral, position, 2);
 
 
 
