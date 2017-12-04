@@ -293,7 +293,7 @@ function processLocation(senderId, locationData) {
 
 
 var processQuickReplayShakira = (senderId, payload) => {
-    console.log("Shakira votación Module")
+    console.log("Shakira votación Module "+ payload )
     Message.markSeen(senderId);
 
     var shakiraModule = require('../modules/promo/shakira');

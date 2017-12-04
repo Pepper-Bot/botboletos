@@ -22,7 +22,7 @@
      sendQuickReplay(senderId, "Which is your favorite? ", replies);
  }
 
- function sendMessageAndChoiceImage(senderId, payload) {
+ var sendMessageAndChoiceImage = (senderId, payload)=> {
      console.log("escogiendo url de la imagen de Shakira  payload: " + payload)
      var message = "You choose"
      request({
