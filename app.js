@@ -27,7 +27,7 @@ var ticket_Groups = require('./routes/tickets-controllers/ticketgroup.controller
 //var checkoutBuy = require('./routes/checkout');
 var checkoutBuy = require('./routes/tickets-controllers/checkout.controller');
 var pay_controller = require('./routes/tickets-controllers/pay.controller');
-
+//var payment = require('./routes/pay');
 var finish = require('./routes/finish');
 var email = require('./routes/email');
 
@@ -166,7 +166,7 @@ app.use('/paypal_success/', checkoutBuy.paypal_success);
 app.use('/paypal_cancel/', checkoutBuy.paypal_cancel);
 
 
-
+ 
 app.post('/pay/', pay_controller.init_pay);
 app.use('/finish/', finish); // finishing checkout / creating orders and payments
 app.use('/pruebamail/', email);

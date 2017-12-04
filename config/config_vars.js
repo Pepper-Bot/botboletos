@@ -1,7 +1,7 @@
 /////////////////////tevo/////////////////////////////
 var APLICATION_URL_DOMAIN = process.env.APLICATION_URL_DOMAIN
-
-
+var PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
+var FBMESSAGESPAGE = 'https://graph.facebook.com/v2.6/me/messages'
 
 /*
 /////////////////////tevo//////////////////////////// 
@@ -18,13 +18,13 @@ var P_CLIENT_SECRET = process.env.SANDBOX_P_CLIENT_SECRET
 
 
 /////////////////////tevo/////////////////////////////
- var API_SECRET_KEY = process.env.API_SECRET_KEY
- var API_TOKEN = process.env.API_TOKEN
- var API_URL = process.env.API_URL
- var OFFICE_ID = process.env.OFFICE_ID
- /////////////////////PP/////////////////////////////
- var P_CLIENT_ID = process.env.P_CLIENT_ID
- var P_CLIENT_SECRET = process.env.P_CLIENT_SECRET
+var API_SECRET_KEY = process.env.API_SECRET_KEY
+var API_TOKEN = process.env.API_TOKEN
+var API_URL = process.env.API_URL
+var OFFICE_ID = process.env.OFFICE_ID
+/////////////////////PP/////////////////////////////
+var P_CLIENT_ID = process.env.P_CLIENT_ID
+var P_CLIENT_SECRET = process.env.P_CLIENT_SECRET
 
 
 
@@ -58,7 +58,7 @@ module.exports = {
   P_CLIENT_ID: P_CLIENT_ID,
   P_CLIENT_SECRET: P_CLIENT_SECRET,
   REDIS_URL: REDIS_URL,
-  tevo : tevo,
-
-
+  tevo: tevo,
+  PAGE_ACCESS_TOKEN: PAGE_ACCESS_TOKEN,
+  FBMESSAGESPAGE,
 };

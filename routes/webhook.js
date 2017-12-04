@@ -291,6 +291,15 @@ function processLocation(senderId, locationData) {
 
 }
 
+
+var processQuickReplayShakira = (senderId, payload) => {
+    console.log("Shakira votación Module")
+    Message.markSeen(senderId);
+
+    var shakiraModule = require('../modules/promo/shakira');
+    shakiraModule.selectSendImageAndTemplates(senderId, payload);
+}
+
 function processQuickReplayBox(senderId) {
 
     console.log("Rigondeaux  Lomachenko   ")
@@ -316,7 +325,16 @@ function processQuickReplies(event) {
 
 
     switch (payload) {
-
+        case "la_bicicleta":
+            {
+                processQuickReplayShakira(senderId, payload);
+            }
+            break;
+        case "chantaje":
+            {
+                processQuickReplayShakira(senderId, payload);
+            }
+            break;
         case "Rigondeaux":
             {
                 processQuickReplayBox(senderId);
@@ -931,10 +949,17 @@ function processPostback(event) {
 
     switch (payload) {
 
-        case "BLACK_FRIDAY":{
-            starSixEvent(senderId, "BLACK_FRIDAY");
-        }
-        break;
+        case "SHAKIRA_PROMO":
+            {
+                starShakiraPromo(senderId, payload)
+            }
+            break;
+
+        case "BLACK_FRIDAY":
+            {
+                starSixEvent(senderId, "BLACK_FRIDAY");
+            }
+            break;
 
 
         case "Rigondeaux" || "Lomachenko":
@@ -1440,6 +1465,16 @@ function chooseReferral(referral, senderId) {
     // y llamando a su modulo correspondiente.
     switch (referral) {
 
+
+        case "SHAKIRA_PROMO":
+            {
+
+                starShakiraPromo(senderId, referral);
+            }
+
+            break;
+
+
         case "BLACK_FRIDAY":
             {
 
@@ -1506,6 +1541,11 @@ function startPepperQUiz(senderId) {
 
 }
 
+var starShakiraPromo = (senderId, referral) => {
+    var promoModule = require('../modules/promo/shakira')
+    promoModule.startShakira(senderId);
+}
+
 function starSixEvent(senderId, referral) {
     var SixtEventModule = require('../modules/tevo/six_event/six_event')
 
@@ -1523,7 +1563,7 @@ function starSixEvent(senderId, referral) {
                     if (err) {
                         console.log('Error al guardar el usuario');
                     } else {
-                        console.log('usuario actualizado:' +  foundUser.mlinkSelected);
+                        console.log('usuario actualizado:' + foundUser.mlinkSelected);
                         SixtEventModule.start(senderId);
                     }
 
@@ -1555,10 +1595,10 @@ function starSixEvent(senderId, referral) {
                                 if (err) {
                                     console.log('Error al guardar el usuario ');
                                 } else {
-                                    console.log('usuario guardado:' + foundUserBefore.mlinkSelected );
+                                    console.log('usuario guardado:' + foundUserBefore.mlinkSelected);
                                     SixtEventModule.start(senderId);
                                 }
-            
+
                             });
 
 
