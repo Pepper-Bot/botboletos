@@ -19,7 +19,7 @@
              "payload": "chantaje"
          }
      ];
-     sendQuickReplay(senderId, , "Which is your favorite? ", replies);
+     sendQuickReplay(senderId, "Which is your favorite? ", replies);
  }
 
  var selectSendImageAndTemplates = (senderId, payload) => {
