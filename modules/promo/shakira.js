@@ -50,23 +50,23 @@
 
  var selectSendImageAndTemplates = (senderId, payload) => {
      console.log("escogiendo url de la imagen de Shakira  payload: " + payload)
-     var urlImage = APLICATION_URL_DOMAIN;
+     var urlImage = '';
      switch (payload) {
          case "la_bicicleta":
              {
-                 urlImage += 'images/shakira_songs/la_bicicleta.jpg'
+                 urlImage = APLICATION_URL_DOMAIN + 'images/shakira_songs/bicicleta.png'
                  sendImageAndTevoSearch(senderId, urlImage)
              }
              break;
          case "chantaje":
              {
-                 urlImage += 'images/shakira_songs/chantaje.jpg'
+                 urlImage = APLICATION_URL_DOMAIN + 'images/shakira_songs/chantaje.png'
                  sendImageAndTevoSearch(senderId, urlImage);
              }
              break;
          default:
              {
-                 urlImage += 'images/shakira_songs/la_bicicleta.jpg'
+                 urlImage = APLICATION_URL_DOMAIN + 'images/shakira_songs/bicicleta.png'
                  sendImageAndTevoSearch(senderId, urlImage)
              }
      }
