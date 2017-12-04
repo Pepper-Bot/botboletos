@@ -47,7 +47,7 @@
  }
 
  var selectSendImageAndTemplates = (senderId, payload) => {
-    console.log("escogiendo url de la imagen de Shakira")
+    console.log("escogiendo url de la imagen de Shakira  payload: "+ payload   )
      var urlImage = APLICATION_URL_DOMAIN;
      switch (payload) {
          case "la_bicicleta":
