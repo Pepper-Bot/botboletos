@@ -91,6 +91,7 @@
          if (error) {
              console.log("MAL")
          } else {
+            console.log (" urlImage de Shakira " + urlImage)
              console.log(" sendImage  de Shakira  BIEN")
              startTevo("Shakira", senderId, mlink = 0)
 
