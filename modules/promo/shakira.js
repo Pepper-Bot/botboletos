@@ -22,7 +22,7 @@
      sendQuickReplay(senderId, "Which is your favorite? ", replies);
  }
 
- var sendMessageAndChoiceImage = (senderId, payload)=> {
+ var sendMessageAndChoiceImage = (senderId, payload) => {
      console.log("escogiendo url de la imagen de Shakira  payload: " + payload)
      var message = "You choose"
      request({
@@ -55,19 +55,26 @@
          case "la_bicicleta":
              {
                  urlImage + 'images/shakira_songs/la_bicicleta.jpg'
+                 sendImageAndTevoSearch(senderId, urlImage)
              }
              break;
          case "chantaje":
              {
                  urlImage + 'images/shakira_songs/chantaje.jpg'
+                 sendImageAndTevoSearch(senderId, urlImage);
              }
              break;
          default:
              {
                  urlImage + 'images/shakira_songs/la_bicicleta.jpg'
+                 sendImageAndTevoSearch(senderId, urlImage)
              }
      }
 
+
+ }
+
+ var sendImageAndTevoSearch = (senderId, urlImage) => {
      request({
          url: FBMESSAGESPAGE,
          qs: {
