@@ -22,7 +22,8 @@
      sendQuickReplay(senderId, "Which is your favorite? ", replies);
  }
 
- function sendMessageAndChoiceImage(senderId, message, payload) {
+ function sendMessageAndChoiceImage(senderId,  payload) {
+     var message = "You choose"
      request({
          url: FBMESSAGESPAGE,
          qs: {
