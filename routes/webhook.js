@@ -1177,11 +1177,11 @@ function processPostback(event) {
                 // De lo contrario saludamos.
                 console.log('#######################################################################################');
                 console.log('saludamos');
+             
                 saluda(senderId);
             }
 
-             var menu = require('../bot/get_started');
-             menu.deleteAndCreatePersistentMenu(); 
+            
             break;
 
 

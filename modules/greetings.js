@@ -25,6 +25,9 @@ module.exports = function()
                 "title":"Event",
                 "payload":"GET_LOCATION_EVENTS"
             }];
+            var menu = require('../bot/get_started');
+            menu.deleteAndCreatePersistentMenu(); 
+            
             Message.quickReply(senderId, messagetxt, replies);
             Message.typingOff(senderId);
 		}
