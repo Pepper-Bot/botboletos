@@ -23,7 +23,7 @@
                         <input type="hidden" value="{{this.eticket}}" name="eticket">
                         <input type="hidden" value="{{{../event_name}}}" name="event_name">
                         <input type="hidden" value="{{../event_date}}" name="event_date">
-                        <input type="hidden" value="{{uid}}" name="uid" id="uid">
+                        <input type="hidden" value="{{../uid}}" name="uid" id="uid">
 
                         <div class="input-field col s12 m6">
                             <select name="userticketsquantity" id="ticketsquantity">
@@ -39,7 +39,7 @@
                 <td>
                     <input type="hidden" value="{{../event_id}}" name="event_id">
                     <input type="hidden" value="{{this.id}}" name="groupticket_id">
-                   
+
                     <input type="hidden" value="{{this.quantity}}" name="quantity">
                     <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
                     <input type="hidden" value="{{this.format}}" name="format">
@@ -54,14 +54,13 @@
         </tbody>
     </table>
 </div>
-</div>
-</div>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
 <script>
     $(document).ready(function () {
         $('select').material_select();
-       
+
         $("#tickets").DataTable({ "order": [[3, "desc"]] });
     });
 
