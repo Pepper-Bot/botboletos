@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
+    <base href="https://ticketdelivery.herokuapp.com/">
+    <title>Select your Tickets</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+    <style>
+        body {
+            overflow-x: hidden;
+        }
+    </style>
+    <script>
+        $(function () {
+            var $body = $(document);
+            $body.bind("scroll", function () {
+                if ($body.scrollLeft() !== 0) {
+                    $body.scrollLeft(0);
+                }
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div>
+        <div class="row">
+            <h3 class="header center blue-text">Flo Rida Tickets</h3>
+            <img alt="Seat Map" class="responsive-img" src="null">
+            <table id="tickets" class="display table table-condensed table-responsive">
+                <thead>
+                    <tr>
+                        <th>Section</th>
+                        <th>Row</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('select').material_select();
+            $("#tickets").DataTable({
+                "order": [
+                    [3, "desc"]
+                ]
+            });
+        });
+    </script>
+</body>
+
+</html>
