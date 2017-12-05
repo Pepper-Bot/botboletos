@@ -60,7 +60,7 @@ var deleteAndCreatePersistentMenu = () => {
 	}, function (error, response, body) {
 		console.log("Respuesta AL BORRAR Configurar Menu  : >>> " + JSON.stringify(response));
 		if (!error) {
-			createPersistentMenu(req, res );
+			createPersistentMenu(  );
 		}else{
 			console.log('error !!'+ error);
 		}
