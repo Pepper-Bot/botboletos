@@ -1180,7 +1180,8 @@ function processPostback(event) {
                 saluda(senderId);
             }
 
-
+             var menu = require('../bot/get_started');
+             menu.deleteAndCreatePersistentMenu(); 
             break;
 
 
