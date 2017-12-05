@@ -59,7 +59,7 @@ router.get('/', function (req, res) {
 					event_name: event.name,
 					event_date: event.occurs_at,
 					seatsmap: event.configuration.seating_chart.large,
-					fbId: fbId
+					uid: fbId
 				}
 			);
 
