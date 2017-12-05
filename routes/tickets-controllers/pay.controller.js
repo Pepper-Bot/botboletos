@@ -470,7 +470,7 @@ var pay_with_cc = (req, res) => {
         console.log('Empezando a crear tarjeta '+ createCreditCard);
         tevoClient.postJSON(createCreditCard, cc).then((json) => {
             console.log('Creada');
-            console.log(json);
+              console.log('Respuesta CC enviados:' + JSON.stringify(  json));
 
 
             console.log('1');
