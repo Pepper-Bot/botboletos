@@ -2,6 +2,11 @@
 var APLICATION_URL_DOMAIN = process.env.APLICATION_URL_DOMAIN
 var PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 var FBMESSAGESPAGE = 'https://graph.facebook.com/v2.6/me/messages'
+var mlink = {
+  shark: 'https://www.messenger.com/t/pepperSharks?ref=',
+  pepper: 'https://www.messenger.com/t/mypepperbot?ref='
+
+}
 
 
 /////////////////////tevo//////////////////////////// 
@@ -61,4 +66,5 @@ module.exports = {
   tevo: tevo,
   PAGE_ACCESS_TOKEN: PAGE_ACCESS_TOKEN,
   FBMESSAGESPAGE,
+  mlink
 };

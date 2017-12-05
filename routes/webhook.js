@@ -293,9 +293,9 @@ function processLocation(senderId, locationData) {
 
 
 var processQuickReplayShakira = (senderId, payload) => {
-    console.log("Shakira votación Module "+ payload )
+    console.log("Shakira votación Module " + payload)
     Message.markSeen(senderId);
-   var shakiraModule = require('../modules/promo/shakira');
+    var shakiraModule = require('../modules/promo/shakira');
     shakiraModule.sendMessageAndChoiceImage(senderId, payload);
 }
 
@@ -947,6 +947,11 @@ function processPostback(event) {
 
 
     switch (payload) {
+        case "CHRISTMAS_PROMO":
+            {
+                startChristmas(senderId, payload);
+            }
+            break;
 
         case "SHAKIRA_PROMO":
             {
@@ -1198,6 +1203,13 @@ function processPostback(event) {
                         } else {
                             console.log('No guardé el mlink ?? O_O << ' + foundUser.mlinkSelected);
                         }
+                        if (foundUser.mlinkSelected == "CHRISTMAS_PROMO") {
+                            startTevoModuleWithMlink(payload, senderId);
+
+                        } else {
+                            console.log('No guardé el mlink DE  CHRISTMAS_PROMO ?? O_O << ' + foundUser.mlinkSelected);
+                        }
+
                     }
                 }
 
@@ -1464,7 +1476,11 @@ function chooseReferral(referral, senderId) {
     // y llamando a su modulo correspondiente.
     switch (referral) {
 
-
+        case "CHRISTMAS_PROMO":
+            {
+                startChristmas(senderId , referral)
+            }
+            break;
         case "SHAKIRA_PROMO":
             {
 
@@ -1543,6 +1559,72 @@ function startPepperQUiz(senderId) {
 var starShakiraPromo = (senderId, referral) => {
     var promoModule = require('../modules/promo/shakira')
     promoModule.startShakira(senderId);
+}
+
+
+var startChristmas = (senderId, referral) => {
+    var chirstmasModule = require('../modules/tevo/chirstmas/christmas')
+
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, foundUser) {
+        if (!err) {
+            if (foundUser) {
+                foundUser.mlinkSelected = referral
+                foundUser.save((err, foundUserBefore) => {
+                    if (err) {
+                        console.log('Error al guardar el usuario');
+                    } else {
+                        console.log('usuario actualizado:' + foundUser.mlinkSelected);
+                        chirstmasModule.startChirstmas(senderId);
+                    }
+
+                });
+
+            } else {
+                UserData.getInfo(senderId, function (err, result) {
+                    console.log('Dentro de UserData');
+                    if (!err) {
+
+                        var bodyObj = JSON.parse(result);
+                        console.log(result);
+
+                        var User = new UserData2; {
+                            User.fbId = senderId;
+                            User.firstName = bodyObj.first_name;
+                            User.LastName = bodyObj.last_name;
+                            User.profilePic = bodyObj.profile_pic;
+                            User.locale = bodyObj.locale;
+                            User.timeZone = bodyObj.timezone;
+                            User.gender = bodyObj.gender;
+                            User.messageNumber = 1;
+                            User.mlinkSelected = referral
+
+                            User.save();
+                            chirstmasModule.startChirstmas(senderId);
+
+                            User.save((err, foundUserBefore) => {
+                                if (err) {
+                                    console.log('Error al guardar el usuario ');
+                                } else {
+                                    console.log('usuario guardado:' + foundUserBefore.mlinkSelected);
+                                    SixtEventModule.start(senderId);
+                                }
+
+                            });
+
+
+                        }
+                    }
+                });
+            }
+        }
+    });
+
 }
 
 function starSixEvent(senderId, referral) {
