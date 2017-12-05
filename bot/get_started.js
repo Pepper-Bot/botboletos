@@ -1,6 +1,6 @@
  var request = require('request');
 
- var createPersistentMenu = (req, res) => {
+ var createPersistentMenu = () => {
 	var requestData =  {
 		"persistent_menu": [
 		  {
