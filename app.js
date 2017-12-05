@@ -31,7 +31,7 @@ var pay_controller = require('./routes/tickets-controllers/pay.controller');
 var finish = require('./routes/finish');
 var email = require('./routes/email');
 
-/*var ChatBox = require('./bot/chatbox');
+var ChatBox = require('./bot/chatbox');
 // prueba alexis
 //ChatBox.unsetGreetingText(); // Reset Greetings
 ChatBox.startButton('Greetings');
@@ -41,7 +41,7 @@ ChatBox.persistentMenu({
   "type": "postback",
   "title": "Start again",
   "payload": "Greetings"
-});*/
+});
  
 
 

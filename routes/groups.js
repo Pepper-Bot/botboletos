@@ -10,8 +10,8 @@ var tevo = require('../config/config_vars').tevo;
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var tevoClient = new TevoClient({
-  apiToken: tevo.API_TOKEN,
-  apiSecretKey: tevo.API_SECRET_KEY
+	apiToken: tevo.API_TOKEN,
+	apiSecretKey: tevo.API_SECRET_KEY
 });
 
 
@@ -38,11 +38,41 @@ router.get('/', function (req, res) {
 		res.end();
 		return;
 	}
-	/*
-	UserData2.findOne({fbId: fbId}, {}, { sort: { 'sessionStart' : -1 } }, function(err, result)
-	{	*/
 
-	tevoClient.getJSON(urlApiTevo).then((json) => {
+	var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
+
+	tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
+		var ticketGroups = ticketG.ticket_groups;
+		//console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
+		console.log("TicketGroup  Construida.lenght: >>> " + ticketGroups.length);
+
+		var searchById = tevo.API_URL + 'events/' + event_id
+
+		tevoClient.getJSON(searchById).then((event) => {
+
+			console.log("EVENT<<<  : >>> " + JSON.stringify(event));
+			res.render(
+				'./layouts/tickets/ticketgroup', {
+					titulo: "Your tickets are on its way!",
+					ticketGroups: ticketGroups,
+					event_id: event.event_id,
+					event_name: event.name,
+					event_date: event.occurs_at,
+					seatsmap: event.configuration.seating_chart.large,
+					fbId: fbId
+				}
+			);
+
+
+		});
+
+
+
+	});
+
+
+
+/*	tevoClient.getJSON(urlApiTevo).then((json) => {
 
 
 		console.log(JSON.stringify(json));
@@ -59,44 +89,36 @@ router.get('/', function (req, res) {
 		var tableTicket = '';
 
 		console.log(JSON.stringify(json));
-		/*if(json.total_entries == 0)
-		{
 
-			res.send(headerTickets + '<h3>Sold out</h3>' + footerTickets);
-			res.end();
+
+		var total = 0;
+		if (json.ticket_groups.length < 350) {
+			total = json.ticket_groups.length;
+		} else {
+			total = 350;
 
 		}
-		else*/
-		{
+		// limitamos el numero de tickets a 30 por materialize
+		for (var i = 0, c = total; i < c; i++) {
+			//	if(json.ticket_groups[i].format == 'Eticket' || json.ticket_groups[i].format == 'Physical')
+			{
 
-			var total = 0;
-			if (json.ticket_groups.length < 350) {
-				total = json.ticket_groups.length;
-			} else {
-				total = 350;
+				console.log('-----------------------------------------------------');
+				console.log(json.ticket_groups[i]);
 
-			}
-			// limitamos el numero de tickets a 30 por materialize
-			for (var i = 0, c = total; i < c; i++) {
-				//	if(json.ticket_groups[i].format == 'Eticket' || json.ticket_groups[i].format == 'Physical')
-				{
-
-					console.log('-----------------------------------------------------');
-					console.log(json.ticket_groups[i]);
-
-					console.log('------------------------------------------------------');
-					var split_tickets = '';
-					for (var j = 0, d = json.ticket_groups[i].splits.length; j < d; j++) {
-						console.log(json.ticket_groups[i].splits);
-						var quantity_ = (json.ticket_groups[i].splits);
-						split_tickets += '<option value="' + quantity_[j] + '">' + quantity_[j] + '</option>';
-					}
-					tableTicket += '<tr><td>' + json.ticket_groups[i].section + '</td><td>' + json.ticket_groups[i].row + '</td><td><form action="/checkout/" method="post"><input type="hidden" value="' + json.ticket_groups[i].in_hand_on + '" name="in_hand_on"><input type="hidden" value="' + json.ticket_groups[i].in_hand + '" name="in_hand"><input type="hidden" value="' + json.ticket_groups[i].eticket + '" name="eticket"><input type="hidden" value="' + event_name + '" name="event_name"><input type="hidden" value="' + event_date + '" name="event_date"><input type="hidden" value="' + fbId + '" name="uid" id="uid"><select name="userticketsquantity" id="ticketsquantity">' + split_tickets + '</select></td><td>$' + json.ticket_groups[i].wholesale_price + '</td><td><input type="hidden" value="' + event_id + '" name="event_id"><input type="hidden" value="' + json.ticket_groups[i].id + '" name="groupticket_id"><input type="hidden" value="' + venue_id + '" name="venue_id"><input type="hidden" value="' + json.ticket_groups[i].quantity + '" name="quantity"><input type="hidden" value="' + json.ticket_groups[i].instant_delivery + '" name="instant_delivery"><input type="hidden" value="' + json.ticket_groups[i].in_hand + '" name="in_hand"><input type="hidden" value="' + json.ticket_groups[i].format + '" name="format"><input type="hidden" value="' + json.ticket_groups[i].section + '" name="section"><input type="hidden" value="' + json.ticket_groups[i].row + '" name="row"><input type="hidden" value="' + json.ticket_groups[i].wholesale_price + '" name="priceticket"><input type="hidden" value="' + json.ticket_groups[i].quantity + '" name="quantity"><button type="submit" class="btn blue">BUY</button></form></td></tr>';
+				console.log('------------------------------------------------------');
+				var split_tickets = '';
+				for (var j = 0, d = json.ticket_groups[i].splits.length; j < d; j++) {
+					console.log(json.ticket_groups[i].splits);
+					var quantity_ = (json.ticket_groups[i].splits);
+					split_tickets += '<option value="' + quantity_[j] + '">' + quantity_[j] + '</option>';
 				}
+				tableTicket += '<tr><td>' + json.ticket_groups[i].section + '</td><td>' + json.ticket_groups[i].row + '</td><td><form action="/checkout/" method="post"><input type="hidden" value="' + json.ticket_groups[i].in_hand_on + '" name="in_hand_on"><input type="hidden" value="' + json.ticket_groups[i].in_hand + '" name="in_hand"><input type="hidden" value="' + json.ticket_groups[i].eticket + '" name="eticket"><input type="hidden" value="' + event_name + '" name="event_name"><input type="hidden" value="' + event_date + '" name="event_date"><input type="hidden" value="' + fbId + '" name="uid" id="uid"><select name="userticketsquantity" id="ticketsquantity">' + split_tickets + '</select></td><td>$' + json.ticket_groups[i].wholesale_price + '</td><td><input type="hidden" value="' + event_id + '" name="event_id"><input type="hidden" value="' + json.ticket_groups[i].id + '" name="groupticket_id"><input type="hidden" value="' + venue_id + '" name="venue_id"><input type="hidden" value="' + json.ticket_groups[i].quantity + '" name="quantity"><input type="hidden" value="' + json.ticket_groups[i].instant_delivery + '" name="instant_delivery"><input type="hidden" value="' + json.ticket_groups[i].in_hand + '" name="in_hand"><input type="hidden" value="' + json.ticket_groups[i].format + '" name="format"><input type="hidden" value="' + json.ticket_groups[i].section + '" name="section"><input type="hidden" value="' + json.ticket_groups[i].row + '" name="row"><input type="hidden" value="' + json.ticket_groups[i].wholesale_price + '" name="priceticket"><input type="hidden" value="' + json.ticket_groups[i].quantity + '" name="quantity"><button type="submit" class="btn blue">BUY</button></form></td></tr>';
 			}
-			res.status(200).send(headerTickets + tableOpen + tableTicket + tableClose + footerTickets);
-			res.end();
 		}
+		res.status(200).send(headerTickets + tableOpen + tableTicket + tableClose + footerTickets);
+		res.end();
+
 
 
 
@@ -105,7 +127,7 @@ router.get('/', function (req, res) {
 		console.log(err);
 	});
 
-	//});
+	//});*/
 });
 
 module.exports = router;
