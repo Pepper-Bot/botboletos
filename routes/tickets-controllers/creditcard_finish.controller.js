@@ -20,8 +20,8 @@
  });
 
  var finishCC = function (req, res) {
-	 res.send('bien !')
- 	/* console.log('Entré al finish finishCC' + client_id)
+
+ 	console.log('Entré al finish finishCC' + client_id)
  	if (undefined == req.session.client_id) {
  		res.status(200);
  		res.send('Error trying to access');
@@ -30,10 +30,10 @@
  	}
 
 
- 	Obtenemos la session guardada en mongo db */
+ 	/*Obtenemos la session guardada en mongo db */
 
  	console.log('client_id' + req.session.client_id)
- 	/*Client.findOne({
+ 	Client.findOne({
  		client_id: req.session.client_id
  	}, {}, {
  		sort: {
@@ -137,7 +137,7 @@
  				// Realizamos la orden.
  				var createOrder = tevo.API_URL + 'orders'
 
-                   
+
  				tevoClient.postJSON(createOrder, orderData).then((OrderRes) => {
  					if (OrderRes.error != undefined) {
  						res.send('<b>' + OrderRes.error + '</b>');
@@ -174,14 +174,13 @@
 
 
  				});
-			 }
-			 else{
-				res.send('No encontré el cliente  '+  req.session.client_id)
-			 }
- 		}else{
-			 res.send('error '+ error)
-		 }
- 	});*/
+ 			} else {
+ 				res.send('No encontré el cliente  ' + req.session.client_id)
+ 			}
+ 		} else {
+ 			res.send('error ' + error)
+ 		}
+ 	});
 
  }
 
