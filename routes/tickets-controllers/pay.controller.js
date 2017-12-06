@@ -13,8 +13,8 @@ var tevo = require('../../config/config_vars').tevo;
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var tevoClient = new TevoClient({
-  apiToken: tevo.API_TOKEN,
-  apiSecretKey: tevo.API_SECRET_KEY
+    apiToken: tevo.API_TOKEN,
+    apiSecretKey: tevo.API_SECRET_KEY
 });
 
 
@@ -29,7 +29,9 @@ var init_pay = function (req, res) {
     switch (req.body.payment_type) {
         case "cc":
             {
-                pay_with_cc(req, res);
+                
+               // pay_with_cc(req, res);
+                pay_with_cc1(req, res);
             }
             break;
         case "pp":
@@ -259,8 +261,8 @@ var pay_with_pp = (req, res) => {
                 var ClientData = new Client;
 
                 ClientData.addresses = clientTevoRes.clients[0].addresses
-                ClientData.email_address =  clientTevoRes.clients[0].email_addresses
-                ClientData.phone_numbers  =  clientTevoRes.clients[0].phone_numbers
+                ClientData.email_address = clientTevoRes.clients[0].email_addresses
+                ClientData.phone_numbers = clientTevoRes.clients[0].phone_numbers
 
                 ClientData.fbId = req.query.uid;
                 ClientData.fullName = clientTevoRes.clients[0].name;
@@ -284,16 +286,16 @@ var pay_with_pp = (req, res) => {
                 }
                 ClientData.save();
                 address_id = ClientData.address_id[ClientData.address_id.length - 1]
-                client_id =ClientData.client_id
+                client_id = ClientData.client_id
 
 
             } else {
                 clienteSearch.fbId = req.query.uid;
 
                 clienteSearch.addresses = clientTevoRes.clients[0].addresses
-                clienteSearch.email_address =  clientTevoRes.clients[0].email_addresses
-                clienteSearch.phone_numbers  =  clientTevoRes.clients[0].phone_numbers
-              
+                clienteSearch.email_address = clientTevoRes.clients[0].email_addresses
+                clienteSearch.phone_numbers = clientTevoRes.clients[0].phone_numbers
+
 
                 clienteSearch.fullName = clientTevoRes.clients[0].name;
                 clienteSearch.client_id = clientTevoRes.clients[0].id;
@@ -318,7 +320,7 @@ var pay_with_pp = (req, res) => {
 
                 }
                 clienteSearch.save();
-                client_id =clienteSearch.client_id
+                client_id = clienteSearch.client_id
 
                 address_id = clienteSearch.address_id[clienteSearch.address_id.length - 1]
 
@@ -363,7 +365,268 @@ var pay_with_pp = (req, res) => {
 
 
 
+//#############################################################################
+//  pago con CRÉDIT CARDS  creación de cliente, tarjeta de crédito  y shipping 
+//#############################################################################
+var pay_with_cc1 = (req, res) => {
+    if (undefined == req.query.email) {
+        res.status(200);
+        res.send('Error trying to access');
+        res.end();
+        return;
+    }
 
+
+    var direccionEnvio = {};
+    if (req.body.format != 'Eticket') {
+        if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
+            direccionEnvio = {
+                label: 'Shipping',
+                region: req.body.billing_state,
+                country_code: countries[req.body.billing_country],
+                postal_code: req.body.billing_zipcode,
+                street_address: req.body.billing_address,
+                extendend_address: '',
+                locality: req.body.billing_city
+            };
+        } else {
+            direccionEnvio = {
+                label: 'Shipping',
+                region: req.body.state,
+                country_code: countries[req.body.country],
+                postal_code: req.body.zipcode,
+                street_address: req.body.ship_address,
+                extendend_address: '',
+                locality: req.body.city
+            };
+        }
+    }
+
+
+    var addresses = [];
+    if (req.body.format != 'Eticket') {
+        if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
+            addresses.push({
+                "region": req.body.billing_state,
+                "country_code": countries[req.body.billing_country],
+                "postal_code": req.body.billing_zipcode,
+                "street_address": req.body.billing_address,
+                "locality": req.body.billing_city
+            });
+
+        } else {
+            addresses.push({
+                "label": "Shipping",
+                "region": req.body.state,
+                "country_code": countries[req.body.country],
+                "postal_code": req.body.zipcode,
+                "street_address": req.body.ship_address,
+                "locality": req.body.city
+            });
+            addresses.push({
+                "label": "Billing",
+                "region": req.body.billing_state,
+                "country_code": countries[req.body.billing_country],
+                "postal_code": req.body.billing_zipcode,
+                "street_address": req.body.billing_address,
+                "locality": req.body.billing_city
+            });
+        }
+    } else {
+        addresses.push({
+            "label": "Billing",
+            "region": req.body.billing_state,
+            "country_code": countries[req.body.billing_country],
+            "postal_code": req.body.billing_zipcode,
+            "street_address": req.body.billing_address,
+            "locality": req.body.billing_city
+        });
+
+    }
+
+
+    console.log(addresses);
+    var clientData = {
+        "clients": [{
+            "name": req.body.firstname + ' ' + req.body.lastname,
+            "email_addresses": [{
+                "address": req.body.email
+            }],
+            addresses,
+            "phone_numbers": [{
+                "number": req.body.phone
+            }],
+            "office_id": process.env.OFFICE_ID,
+            "tags": ""
+        }]
+    };
+
+    tevoClient.postJSON(tevo.API_URL + 'clients', clientData).then((clientTevoRes) => {
+        console.log("cliente devuelto por tevo >>" + JSON.stringify(clientTevoRes));
+        var bill_address = '';
+        var shipp_address = '';
+        Client.findOne({
+            fbId: req.query.uid
+        }, {}, {
+            sort: {
+                'sessionStart': -1
+            }
+        }, function (err, clienteSearch) {
+
+            var address_id = '';
+            var client_id = '';
+            var phone_id = '';
+            var billing_address_id = ''
+            if (clienteSearch == null) {
+                var ClientData = new Client;
+
+                ClientData.addresses = clientTevoRes.clients[0].addresses
+                ClientData.email_address = clientTevoRes.clients[0].email_addresses
+                ClientData.phone_numbers = clientTevoRes.clients[0].phone_numbers
+
+
+                ClientData.fbId = req.query.uid;
+                ClientData.fullName = clientTevoRes.clients[0].name;
+                ClientData.client_id = clientTevoRes.clients[0].id;
+                ClientData.email_id = clientTevoRes.clients[0].email_addresses[0].id;
+                ClientData.phone_id = clientTevoRes.clients[0].phone_numbers[0].id;
+                phone_id = clientTevoRes.clients[0].phone_numbers[0].id;
+
+                if (clientTevoRes.clients[0].addresses.length > 1) {
+                    // Si hay dos direcciones
+                    // una es la billing address y la otra la shipping.
+                    for (var i = 0, c = clientTevoRes.clients[0].addresses.length; i < c; i++) {
+                        if (clientTevoRes.clients[0].addresses[i].label == 'Billing') {
+                            ClientData.billing_address_id.push(clientTevoRes.clients[0].addresses[i].id);
+                            billing_address_id = clientTevoRes.clients[0].addresses[i].id;
+
+                        } else {
+                            ClientData.address_id.push(clientTevoRes.clients[0].addresses[i].id);
+                        }
+                    }
+
+                } else {
+                    ClientData.address_id.push(clientTevoRes.clients[0].addresses[0].id);
+                    ClientData.billing_address_id.push(clientTevoRes.clients[0].addresses[0].id);
+                    billing_address_id = clientTevoRes.clients[0].addresses[0].id;
+                }
+                ClientData.save();
+                address_id = ClientData.address_id[ClientData.address_id.length - 1]
+                client_id = ClientData.client_id
+
+
+            } else {
+                clienteSearch.fbId = req.query.uid;
+
+                clienteSearch.addresses = clientTevoRes.clients[0].addresses
+                clienteSearch.email_address = clientTevoRes.clients[0].email_addresses
+                clienteSearch.phone_numbers = clientTevoRes.clients[0].phone_numbers
+
+
+                clienteSearch.fullName = clientTevoRes.clients[0].name;
+                clienteSearch.client_id = clientTevoRes.clients[0].id;
+                clienteSearch.email_id = clientTevoRes.clients[0].email_addresses[0].id;
+                clienteSearch.phone_id = clientTevoRes.clients[0].phone_numbers[0].id;
+                phone_id = clientTevoRes.clients[0].phone_numbers[0].id;
+
+                if (clientTevoRes.clients[0].addresses.length > 1) {
+
+                    for (var i = 0, c = clientTevoRes.clients[0].addresses.length; i < c; i++) {
+                        if (clientTevoRes.clients[0].addresses[i].label == 'Billing') {
+                            clienteSearch.billing_address_id.push(clientTevoRes.clients[0].addresses[i].id);
+                            billing_address_id = clientTevoRes.clients[0].addresses[i].id;
+                        } else {
+                            clienteSearch.address_id.push(clientTevoRes.clients[0].addresses[i].id);
+
+                        }
+                    }
+
+                } else {
+
+                    clienteSearch.address_id.push(clientTevoRes.clients[0].addresses[0].id);
+                    clienteSearch.billing_address_id.push(clientTevoRes.clients[0].addresses[0].id);
+                    billing_address_id = clientTevoRes.clients[0].addresses[0].id;
+                }
+                clienteSearch.save();
+                client_id = clienteSearch.client_id
+
+                address_id = clienteSearch.address_id[clienteSearch.address_id.length - 1]
+
+            }
+            req.session.address_id = address_id
+            req.session.client_id = client_id
+
+
+
+
+
+            var cc = {
+                "credit_cards": [{
+                    "name": req.body.firstname + ' ' + req.body.lastname,
+                    "number": req.body.cc, //"4111111111111111",
+                    "verification_code": req.body.cvv, //"666" ,
+                    "expiration_month": req.body.exp_month, //,"12"
+                    "expiration_year": req.body.exp_year, //,"2013"
+                    "address_id": billing_address_id,
+                    "phone_number_id": phone_id
+                }]
+            };
+            console.log(cc);
+
+            console.log('Empezando a crear tarjeta');
+            //clients/:client_id/credit_cards https://ticketevolution.atlassian.net/wiki/spaces/API/pages/4129312/Clients+Credit+Cards+Create
+
+            var createCreditoCard = tevo.API_URL + 'clients/' + client_id + '/credit_cards';
+
+            ////////////////create credit card///////////////
+            console.log('createCreditoCard ' + createCreditoCard)
+            tevoClient.postJSON(createCreditoCard, cc).then((creditcardRes) => {
+                if (json.error != undefined) {
+                    console.log('1.1.');
+                    res.send('<strong>Error on your credit card.</strong> Error:' + creditcardRes.error);
+                    res.end();
+                    return;
+                }
+
+
+                ////////////////shipping///////////////
+                var dataShip = {
+                    "ticket_group_id": req.body.groupticket_id,
+                    "address_id": address_id,
+                    "address_attributes": direccionEnvio
+                };
+                console.log("dataShip de tevo >>" + JSON.stringify(dataShip));
+                tevoClient.postJSON(tevo.API_URL + 'shipments/suggestion', dataShip).then((shipping) => {
+                    console.log("shiping de tevo >>" + JSON.stringify(shipping));
+                    //renderizamos el formulario
+                    if (!shipping.error) {
+                        render_paypal_form(req, res, direccionEnvio, shipping)
+                    } else {
+                        res.send(" shipping ERROR   " + shipping.error)
+                    }
+
+
+
+                }).catch((err) => {
+                    console.log('Error shipments');
+                    console.log(err);
+                });
+
+            });
+
+
+
+
+        });
+
+
+    }).catch((err) => {
+        console.log('Error al Recuperar los eventos');
+        console.log(err);
+    });
+
+
+}
 
 
 //#############################################################################
@@ -464,13 +727,13 @@ var pay_with_cc = (req, res) => {
         };
         console.log(cc);
 
-      
+
         var createCreditCard = tevo.API_URL + 'offices/' + tevo.OFFICE_ID + '/credit_cards'
-        console.log('Datos enviados:' + JSON.stringify( "Credit Card "+  cc));
-        console.log('Empezando a crear tarjeta '+ createCreditCard);
+        console.log('Datos enviados:' + JSON.stringify("Credit Card " + cc));
+        console.log('Empezando a crear tarjeta ' + createCreditCard);
         tevoClient.postJSON(createCreditCard, cc).then((json) => {
             console.log('Creada');
-              console.log('Respuesta CC enviados:' + JSON.stringify(  json));
+            console.log('Respuesta CC enviados:' + JSON.stringify(json));
 
 
             console.log('1');
@@ -726,15 +989,3 @@ var pay_with_cc = (req, res) => {
     */
     //	});
 }
-
-
-
-
-
-
-
-
-
-module.exports = {
-    init_pay
-};
