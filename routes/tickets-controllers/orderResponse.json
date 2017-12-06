@@ -1,0 +1,330 @@
+{
+    "orders": [{
+        "shipped_items": [{
+            "items": [{
+                "ticket_group_id": "357152721",
+                "price": "31",
+                "quantity": "1"
+            }],
+            "type": "Eticket",
+            "email_address_id": 207779
+        }],
+        "billing_address_id": "644971",
+        "payments": [{
+            "type": "credit_card",
+            "amount": "31.00",
+            "credit_card_id": 22398
+        }],
+        "seller_id": "3000",
+        "client_id": 167784,
+        "created_by_ip_address": "",
+        "instructions": "",
+        "shipping": "31",
+        "service_fee": 0,
+        "additional_expense": 0,
+        "tax": 0,
+        "discount": 0,
+        "promo_code": ""
+    }]
+}
+  {
+    "current_page": null,
+    "per_page": null,
+    "total_entries": null,
+    "balance_sum": null,
+    "total_sum": null,
+    "orders": [{
+        "id": 171909,
+        "oid": "54319-171909",
+        "created_at": "2017-12-06T23:11:27Z",
+        "updated_at": "2017-12-06T23:11:29Z",
+        "buyer": {
+            "id": 167784,
+            "url": "/clients/167784",
+            "name": "Leo Estévez",
+            "type": "Client",
+            "email_addresses": [{
+                "id": 207779,
+                "label": null,
+                "address": "leo777jaimes@gmail.com"
+            }],
+            "phone_numbers": [{
+                "id": 294456,
+                "label": null,
+                "number": "7348270777"
+            }]
+        },
+        "buyer_type": "Client",
+        "placer": null,
+        "seller": {
+            "id": 3000,
+            "url": "/offices/3000",
+            "name": "Main Office",
+            "type": "Office",
+            "location": "San Jose, CA",
+            "brokerage": {
+                "id": 2096,
+                "url": "/brokerages/2096",
+                "name": "Out, Inc.",
+                "email": "armandorussi@gmail.com",
+                "abbreviation": "Out"
+            }
+        },
+        "seller_type": "Office",
+        "reference": null,
+        "balance": "62.0",
+        "fee": "0.0",
+        "tax": "0.0",
+        "notes": [],
+        "instructions": "",
+        "service_fee": "0.0",
+        "additional_expense": "0.0",
+        "shipping": "31.0",
+        "discount": "0.0",
+        "total": "62.0",
+        "subtotal": "31.0",
+        "state": "pending",
+        "buyer_state": "accepted",
+        "seller_state": "pending",
+        "consignment": false,
+        "spec": false,
+        "spec_fulfilled": false,
+        "shipment_snapshot": [{
+            "id": 71555,
+            "type": "Eticket",
+            "name": null,
+            "company": null,
+            "label": null,
+            "email_address": "leo777jaimes@gmail.com",
+            "phone_number": null,
+            "street_address": null,
+            "extended_address": null,
+            "cross_street": null,
+            "po_box": null,
+            "locality": null,
+            "postal_code": null,
+            "region": null,
+            "country_code": null,
+            "available": null,
+            "carrier": null
+        }],
+        "minfraud_risk_score": null,
+        "kount_score": null,
+        "kount_status": null,
+        "was_auto_pended": null,
+        "was_auto_accepted": null,
+        "was_auto_canceled": null,
+        "payments": [{
+            "id": 88206,
+            "type": "credit_card",
+            "credit_card": {
+                "id": 22398,
+                "url": "/clients/167784/credit_cards/22398",
+                "last_digits": "1111",
+                "expiration_month": 1,
+                "expiration_year": 2017,
+                "name": "Leo Estévez",
+                "address": {
+                    "id": 644971,
+                    "label": "Billing",
+                    "name": null,
+                    "street_address": "1472 Burrell CT San José, CA",
+                    "extended_address": null,
+                    "cross_street": null,
+                    "po_box": false,
+                    "locality": "San José",
+                    "region": "CA",
+                    "postal_code": "95126",
+                    "country_code": "US",
+                    "latitude": null,
+                    "longitude": null,
+                    "primary": true
+                },
+                "phone_number": {
+                    "phone_number": {
+                        "id": 294456,
+                        "callable_id": 167784,
+                        "callable_type": "Client",
+                        "country_code": "1",
+                        "number": "7348270777",
+                        "extension": null,
+                        "label": null,
+                        "created_at": "2017-12-06T23:10:53Z",
+                        "updated_at": "2017-12-06T23:10:53Z",
+                        "legacy_id": null,
+                        "imported_filename": null,
+                        "imported_at": null,
+                        "deleted_at": null,
+                        "area_code": "734",
+                        "raw_num": "8270777",
+                        "is_primary": null
+                    }
+                },
+                "card_company": "Visa"
+            },
+            "amount": "31.0",
+            "refundable_amount": 0,
+            "refunded_from_id": null,
+            "avs_response": null,
+            "avs_response_code": null,
+            "avs_street_address_response": "Match.",
+            "avs_street_address_response_code": "M",
+            "avs_postal_code_response": "Match.",
+            "avs_postal_code_response_code": "M",
+            "cvv_response": null,
+            "cvv_response_code": null,
+            "order_link_id": 171909,
+            "credit_memo_id": null,
+            "payment_for_credit_memo_id": null,
+            "created_at": "2017-12-06T23:11:27Z",
+            "updated_at": "2017-12-06T23:11:27Z",
+            "state": "authorized",
+            "is_refund": false,
+            "url": "/payments/88206"
+        }],
+        "items": [{
+            "id": 151101,
+            "order_item_id": 132479,
+            "created_at": "2017-12-06T23:11:27Z",
+            "updated_at": "2017-12-06T23:11:27Z",
+            "price": "31.0",
+            "cost": "31.0",
+            "quantity": 1,
+            "eticket_delivery": true,
+            "eticket_available": false,
+            "eticket_downloaded_at": null,
+            "eticket_downloaded_by": null,
+            "eticket_finalized": null,
+            "eticket_finalized_at": null,
+            "needs_eticket": true,
+            "needs_sub": false,
+            "ticket_group": {
+                "id": "357152721",
+                "url": "/ticket_groups/357152721",
+                "quantity": 1,
+                "retail_price": "31.0",
+                "wholesale_price": "31.0",
+                "office_id": 1692,
+                "brokerage_id": 1700,
+                "remote_id": "4949886",
+                "format": "Eticket",
+                "external_notes": "parking pass only",
+                "section": "PLTPRK",
+                "row": "1",
+                "seats": "",
+                "in_hand": "true",
+                "in_hand_on": "2017-12-06",
+                "instant_delivery": false,
+                "tickets": [{
+                    "seat": null,
+                    "purchase_order_id": null
+                }],
+                "event": {
+                    "id": "1174329",
+                    "url": "/events/1174329",
+                    "name": "Lady Gaga",
+                    "occurs_at": "2017-12-08 19:30:00",
+                    "venue": {
+                        "id": "1947",
+                        "name": "American Airlines Center",
+                        "address": {
+                            "locality": "Dallas",
+                            "region": "TX"
+                        }
+                    }
+                }
+            }
+        }],
+        "shipments": [{
+            "id": 71555,
+            "url": "/shipments/71555",
+            "type": "Eticket",
+            "state": "pending",
+            "cost": "0.0",
+            "courier_company": null,
+            "tracking_number": null,
+            "tracking_url": null,
+            "phone_number": null,
+            "service_type": "LEAST_EXPENSIVE",
+            "service_type_display": null,
+            "items": [{
+                "id": 132479,
+                "quantity": 1,
+                "eticket_delivery": true,
+                "eticket_available": false,
+                "eticket_downloaded_at": "",
+                "eticket_downloaded_by": null,
+                "ticket_group": {
+                    "id": "357152721",
+                    "wholesale_price": "31.0",
+                    "remote_id": "4949886",
+                    "external_notes": "parking pass only",
+                    "seats": [null],
+                    "quantity": 1,
+                    "office_id": "50",
+                    "event": {
+                        "id": "1174329",
+                        "name": "Lady Gaga",
+                        "occurs_at": "2017-12-09T00:30:00Z",
+                        "venue": {
+                            "id": "1947",
+                            "name": "American Airlines Center",
+                            "address": {
+                                "region": "TX",
+                                "locality": "Dallas"
+                            }
+                        }
+                    },
+                    "section": "PLTPRK",
+                    "row": "1",
+                    "retail_price": "31.0"
+                },
+                "updated_at": "2017-12-06T23:11:27Z",
+                "price": "31.0"
+            }],
+            "name": null,
+            "ship_to_name": null,
+            "ship_to_company_name": null,
+            "ship_from_name": null,
+            "ship_from_address": null,
+            "ship_from_phone_number": null,
+            "pickup_time_range": null,
+            "pickup_instructions": null,
+            "signature_type": "",
+            "updated_at": "2017-12-06T23:11:27Z",
+            "shipment_snapshot": {
+                "id": 71555,
+                "type": "Eticket",
+                "name": null,
+                "company": null,
+                "label": null,
+                "email_address": "leo777jaimes@gmail.com",
+                "phone_number": null,
+                "street_address": null,
+                "extended_address": null,
+                "cross_street": null,
+                "po_box": null,
+                "locality": null,
+                "postal_code": null,
+                "region": null,
+                "country_code": null,
+                "available": null,
+                "carrier": null
+            },
+            "carrier": null,
+            "available": false,
+            "notes": null,
+            "buyer_edit_count": 0,
+            "seller_edit_count": 0,
+            "tm_mobile_link": null,
+            "email_address": {
+                "id": 207779,
+                "url": null,
+                "address": "leo777jaimes@gmail.com",
+                "label": null,
+                "updated_at": "2017-12-06T23:10:53Z"
+            },
+            "airbill": "/airbills/original/missing.png"
+        }]
+    }]
+}
