@@ -37,8 +37,8 @@
  		sort: {
  			'sessionStart': -1
  		}
- 	}, function (err, clienteSearch) {
- 		if (!err)
+ 	}, function (error, clienteSearch) {
+ 		if (!error) {
  			if (clienteSearch) {
  				// Verificamoas el tipo de ticket.
  				// Si es Eticket o Fisco para planear el request.
@@ -135,7 +135,7 @@
  				// Realizamos la orden.
  				var createOrder = tevo.API_URL + 'orders'
 
-
+                   
  				tevoClient.postJSON(createOrder, orderData).then((OrderRes) => {
  					if (OrderRes.error != undefined) {
  						res.send('<b>' + OrderRes.error + '</b>');
@@ -172,7 +172,13 @@
 
 
  				});
- 			}
+			 }
+			 else{
+				res.send('No encontré el cliente  '+  req.session.client_id)
+			 }
+ 		}else{
+			 res.send('error '+ error)
+		 }
  	});
 
  }
