@@ -5,7 +5,7 @@
  var moment = require('moment');
 
  var confirm_mail_html = require('../../config/html_mail_vars').confirm_mail_html;
- var OFFICE_ID = require('../../config/config_vars').OFFICE_ID;
+ 
 
  var Orders = require('../../schemas/orders');
 
@@ -61,7 +61,7 @@
  								"amount": (parseFloat(req.body.price_per_ticket * req.body.quantity).toFixed(2)),
  								"credit_card_id": clienteSearch.creditcard_id[clienteSearch.creditcard_id.length - 1]
  							}],
- 							"seller_id": OFFICE_ID,
+ 							"seller_id": tevo.OFFICE_ID,
  							"client_id": clienteSearch.client_id,
  							"created_by_ip_address": '',
  							"instructions": "",
@@ -106,7 +106,7 @@
  								"amount": (parseFloat(req.body.price_per_ticket * req.body.quantity).toFixed(2)),
  								"credit_card_id": clienteSearch.creditcard_id[clienteSearch.creditcard_id.length - 1]
  							}],
- 							"seller_id": OFFICE_ID,
+ 							"seller_id": tevo.OFFICE_ID,
  							"client_id": clienteSearch.client_id,
  							"created_by_ip_address": "",
  							"instructions": "",
