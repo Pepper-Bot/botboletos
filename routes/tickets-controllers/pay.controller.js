@@ -403,6 +403,7 @@ var pay_with_cc1 = (req, res) => {
     }
 
 
+
     var addresses = [];
     if (req.body.format != 'Eticket') {
         if (req.body.same_as_ship != undefined && req.body.same_as_ship == '1') {
@@ -988,4 +989,9 @@ var pay_with_cc = (req, res) => {
     	{
     */
     //	});
+}
+
+
+module.exports = {
+    init_pay
 }
