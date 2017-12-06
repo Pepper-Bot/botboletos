@@ -170,7 +170,7 @@ app.use('/paypal_cancel/', checkoutBuy.paypal_cancel);
  
 app.post('/pay/', pay_controller.init_pay);
 //app.use('/finish/', finish); // finishing checkout / creating orders and payments
-app.post('/finish/credit_card/', creditcard_finish_controller.finish);
+app.post('/finish/credit_card/', creditcard_finish_controller.finishCC);
 
 app.use('/pruebamail/', email);
 // catch 404 and forward to error handler

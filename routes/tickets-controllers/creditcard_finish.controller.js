@@ -18,8 +18,8 @@
  	apiSecretKey: tevo.API_SECRET_KEY
  });
 
- var finish = (req, res) => {
-
+ var finishCC = (req, res) => {
+	console.log('Entré al finish finishCC' + client_id)
  	if (undefined == req.session.client_id) {
  		res.status(200);
  		res.send('Error trying to access');
@@ -285,5 +285,5 @@
 
 
  module.exports = {
- 	finish
+	finishCC
  };
