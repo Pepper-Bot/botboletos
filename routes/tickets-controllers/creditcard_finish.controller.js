@@ -1,11 +1,12 @@
  var express = require('express');
+ var router = express.Router();
  var Message = require('../../bot/messages');
  var UserData2 = require('../../schemas/userinfo');
  var Client = require('../../schemas/clients');
  var moment = require('moment');
 
  var confirm_mail_html = require('../../config/html_mail_vars').confirm_mail_html;
- 
+
 
  var Orders = require('../../schemas/orders');
 
@@ -18,8 +19,8 @@
  	apiSecretKey: tevo.API_SECRET_KEY
  });
 
- var finishCC = (req, res) => {
-	console.log('Entré al finish finishCC' + client_id)
+ var finishCC = function (req, res) {
+ 	console.log('Entré al finish finishCC' + client_id)
  	if (undefined == req.session.client_id) {
  		res.status(200);
  		res.send('Error trying to access');
@@ -285,5 +286,5 @@
 
 
  module.exports = {
-	finishCC
+ 	finishCC
  };
