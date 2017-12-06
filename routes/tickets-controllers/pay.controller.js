@@ -582,7 +582,7 @@ var pay_with_cc1 = (req, res) => {
             ////////////////create credit card///////////////
             console.log('createCreditoCard ' + createCreditoCard)
             tevoClient.postJSON(createCreditoCard, cc).then((creditcardRes) => {
-                if (json.error != undefined) {
+                if (creditcardRes.error != undefined) {
                     console.log('1.1.');
                     res.send('<strong>Error on your credit card.</strong> Error:' + creditcardRes.error);
                     res.end();
