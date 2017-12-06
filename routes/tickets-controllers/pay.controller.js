@@ -131,7 +131,10 @@ var render_paypal_cc_form = (req, res, direccionEnvio, shiping) => {
             }
             break;
     }
+    console.log('actionSubmit' + actionSubmit);
 
+
+    
     res.render(
         './layouts/tickets/pay', {
             titulo: "Your tickets are on its way!",
