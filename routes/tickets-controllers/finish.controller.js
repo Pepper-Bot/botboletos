@@ -27,7 +27,7 @@ function finish(req, res, payment) {
             client_id: req.session.client_id
         }, {}, {
             sort: {
-                'sessionStart': -1
+                'client_id': -1
             }
         }, function (err, clienteSearch) {
             if (!err) {

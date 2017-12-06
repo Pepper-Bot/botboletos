@@ -29,6 +29,8 @@
 
 
  	/* Obtenemos la session guardada en mongo db */
+
+ 	console.log('client_id' + client_id)
  	Client.findOne({
  		client_id: req.session.client_id
  	}, {}, {
@@ -36,56 +38,80 @@
  			'sessionStart': -1
  		}
  	}, function (err, clienteSearch) {
- 		if (clienteSearch != null) {
- 			// Verificamoas el tipo de ticket.
- 			// Si es Eticket o Fisco para planear el request.
- 			if (req.body.format == 'Eticket') {
- 				var orderData = {
- 					"orders": [{
- 						"shipped_items": [{
- 							"items": [{
- 								"ticket_group_id": req.body.ticket_group_id,
- 								"price": req.body.price_per_ticket,
- 								"quantity": req.body.quantity,
+ 		if (!err)
+ 			if (clienteSearch) {
+ 				// Verificamoas el tipo de ticket.
+ 				// Si es Eticket o Fisco para planear el request.
+ 				if (req.body.format == 'Eticket') {
+ 					var orderData = {
+ 						"orders": [{
+ 							"shipped_items": [{
+ 								"items": [{
+ 									"ticket_group_id": req.body.ticket_group_id,
+ 									"price": req.body.price_per_ticket,
+ 									"quantity": req.body.quantity,
+ 								}],
+ 								"type": "Eticket",
+ 								"email_address_id": clienteSearch.email_id
  							}],
- 							"type": "Eticket",
- 							"email_address_id": clienteSearch.email_id
- 						}],
- 						"billing_address_id": clienteSearch.billing_address_id[clienteSearch.billing_address_id.length - 1],
- 						"payments": [{
+ 							"billing_address_id": clienteSearch.billing_address_id[clienteSearch.billing_address_id.length - 1],
+ 							"payments": [{
 
- 							"type": "credit_card",
- 							"amount": (parseFloat(req.body.price_per_ticket * req.body.quantity).toFixed(2)),
- 							"credit_card_id": clienteSearch.creditcard_id[clienteSearch.creditcard_id.length - 1]
- 						}],
- 						"seller_id": OFFICE_ID,
- 						"client_id": clienteSearch.client_id,
- 						"created_by_ip_address": '',
- 						"instructions": "",
- 						"shipping": req.body.shipping_price,
- 						"service_fee": 0.00,
- 						"additional_expense": 0.00,
- 						"tax": 0.00,
- 						"discount": 0.00,
- 						"promo_code": ""
- 					}]
- 				};
- 			} else {
- 				var orderData = {
- 					"orders": [{
- 						"shipped_items": [{
- 							"items": [{
- 								"ticket_group_id": req.body.ticket_group_id,
- 								"price": req.body.price_per_ticket,
- 								"quantity": req.body.quantity,
+ 								"type": "credit_card",
+ 								"amount": (parseFloat(req.body.price_per_ticket * req.body.quantity).toFixed(2)),
+ 								"credit_card_id": clienteSearch.creditcard_id[clienteSearch.creditcard_id.length - 1]
  							}],
- 							"phone_number_id": clienteSearch.phone_id,
- 							"service_type": "LEAST_EXPENSIVE",
- 							"type": "FedEx",
- 							"address_id": clienteSearch.address_id[clienteSearch.address_id.length - 1],
- 							"ship_to_name": clienteSearch.fullName,
- 							"address_attributes": {
- 								"name": clienteSearch.fullName,
+ 							"seller_id": OFFICE_ID,
+ 							"client_id": clienteSearch.client_id,
+ 							"created_by_ip_address": '',
+ 							"instructions": "",
+ 							"shipping": req.body.shipping_price,
+ 							"service_fee": 0.00,
+ 							"additional_expense": 0.00,
+ 							"tax": 0.00,
+ 							"discount": 0.00,
+ 							"promo_code": ""
+ 						}]
+ 					};
+ 				} else {
+ 					var orderData = {
+ 						"orders": [{
+ 							"shipped_items": [{
+ 								"items": [{
+ 									"ticket_group_id": req.body.ticket_group_id,
+ 									"price": req.body.price_per_ticket,
+ 									"quantity": req.body.quantity,
+ 								}],
+ 								"phone_number_id": clienteSearch.phone_id,
+ 								"service_type": "LEAST_EXPENSIVE",
+ 								"type": "FedEx",
+ 								"address_id": clienteSearch.address_id[clienteSearch.address_id.length - 1],
+ 								"ship_to_name": clienteSearch.fullName,
+ 								"address_attributes": {
+ 									"name": clienteSearch.fullName,
+ 									"street_address": req.body.street_address,
+ 									"extendend_address": req.body.extendend_address,
+ 									"locality": req.body.locality,
+ 									"region": req.body.region,
+ 									"country_code": req.body.country_code,
+ 									"postal_code": req.body.postal_code,
+ 									"label": "shipping"
+ 								}
+
+ 							}],
+ 							"billing_address_id": clienteSearch.billing_address_id[clienteSearch.billing_address_id.length - 1],
+ 							"payments": [{
+
+ 								"type": "credit_card",
+ 								"amount": (parseFloat(req.body.price_per_ticket * req.body.quantity).toFixed(2)),
+ 								"credit_card_id": clienteSearch.creditcard_id[clienteSearch.creditcard_id.length - 1]
+ 							}],
+ 							"seller_id": OFFICE_ID,
+ 							"client_id": clienteSearch.client_id,
+ 							"created_by_ip_address": "",
+ 							"instructions": "",
+ 							"shipping_address": {
+ 								"name": req.body.name2,
  								"street_address": req.body.street_address,
  								"extendend_address": req.body.extendend_address,
  								"locality": req.body.locality,
@@ -93,83 +119,60 @@
  								"country_code": req.body.country_code,
  								"postal_code": req.body.postal_code,
  								"label": "shipping"
- 							}
-
- 						}],
- 						"billing_address_id": clienteSearch.billing_address_id[clienteSearch.billing_address_id.length - 1],
- 						"payments": [{
-
- 							"type": "credit_card",
- 							"amount": (parseFloat(req.body.price_per_ticket * req.body.quantity).toFixed(2)),
- 							"credit_card_id": clienteSearch.creditcard_id[clienteSearch.creditcard_id.length - 1]
- 						}],
- 						"seller_id": OFFICE_ID,
- 						"client_id": clienteSearch.client_id,
- 						"created_by_ip_address": "",
- 						"instructions": "",
- 						"shipping_address": {
- 							"name": req.body.name2,
- 							"street_address": req.body.street_address,
- 							"extendend_address": req.body.extendend_address,
- 							"locality": req.body.locality,
- 							"region": req.body.region,
- 							"country_code": req.body.country_code,
- 							"postal_code": req.body.postal_code,
- 							"label": "shipping"
- 						},
- 						"shipping": req.body.shipping_price,
- 						"service_fee": 0.00,
- 						"additional_expense": 0.00,
- 						"tax": 0.00,
- 						"discount": 0.00,
- 						"promo_code": ""
- 					}]
- 				}
- 			}
- 			console.log(JSON.stringify(orderData));
-
-
- 			// Realizamos la orden.
- 			var createOrder = tevo.API_URL + 'orders'
-
-
- 			tevoClient.postJSON(createOrder, orderData).then((OrderRes) => {
- 				if (OrderRes.error != undefined) {
- 					res.send('<b>' + OrderRes.error + '</b>');
- 					res.end();
- 					return;
- 				}
-
-
-
-
-
- 				var Order = new Orders; {
- 					Order.order_id.push(OrderRes.orders[0].id);
- 					Order.save();
- 				}
-
-
-
-
-
- 				sendEmailSenGrid(clienteSearch, OrderRes)
-
-
- 				res.render(
- 					'./layouts/tickets/finish', {
- 						titulo: "Your tickets are on its way!",
- 						buyer_name: clienteSearch.fullName,
-
+ 							},
+ 							"shipping": req.body.shipping_price,
+ 							"service_fee": 0.00,
+ 							"additional_expense": 0.00,
+ 							"tax": 0.00,
+ 							"discount": 0.00,
+ 							"promo_code": ""
+ 						}]
  					}
- 				);
+ 				}
+ 				console.log(JSON.stringify(orderData));
+
+
+ 				// Realizamos la orden.
+ 				var createOrder = tevo.API_URL + 'orders'
+
+
+ 				tevoClient.postJSON(createOrder, orderData).then((OrderRes) => {
+ 					if (OrderRes.error != undefined) {
+ 						res.send('<b>' + OrderRes.error + '</b>');
+ 						res.end();
+ 						return;
+ 					}
 
 
 
 
 
- 			});
- 		}
+ 					var Order = new Orders; {
+ 						Order.order_id.push(OrderRes.orders[0].id);
+ 						Order.save();
+ 					}
+
+
+
+
+
+ 					sendEmailSenGrid(clienteSearch, OrderRes)
+
+
+ 					res.render(
+ 						'./layouts/tickets/finish', {
+ 							titulo: "Your tickets are on its way!",
+ 							buyer_name: clienteSearch.fullName,
+
+ 						}
+ 					);
+
+
+
+
+
+ 				});
+ 			}
  	});
 
  }
