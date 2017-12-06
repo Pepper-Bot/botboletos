@@ -134,7 +134,7 @@ var render_paypal_cc_form = (req, res, direccionEnvio, shiping) => {
     console.log('actionSubmit' + actionSubmit);
 
 
-    
+
     res.render(
         './layouts/tickets/pay', {
             titulo: "Your tickets are on its way!",
@@ -613,7 +613,7 @@ var pay_with_cc1 = (req, res) => {
                 }
 
                 //guardamos el id de la tarjeta de crédito
-                req.session.client_id = creditcardRes.credit_cards[0].id
+                req.session.credit_cards_id = creditcardRes.credit_cards[0].id
 
                 Client.findOne({
                     client_id: req.session.client_id
