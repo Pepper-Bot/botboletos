@@ -188,7 +188,7 @@
 
  	var nombreCliente = OrderRes.orders[0].buyer.name;
  	var eventoNombre = OrderRes.orders[0].items[0].ticket_group.event.name;
- 	var ciudadEvento = OrderRes.orders[0].items[0].ticket_group.event.venue.address.locality + ', ' + json.orders[0].items[0].ticket_group.event.venue.address.region;
+ 	var ciudadEvento = OrderRes.orders[0].items[0].ticket_group.event.venue.address.locality + ', ' + OrderRes.orders[0].items[0].ticket_group.event.venue.address.region;
  	var fechaEvento = moment(OrderRes.orders[0].items[0].ticket_group.event.occurs_at).format('MMMM Do YYYY');
  	var horaEvento = moment(OrderRes.orders[0].items[0].ticket_group.event.occurs_at).format('h:mm:ss a');
  	var cantidadTickets = OrderRes.orders[0].items[0].quantity;
