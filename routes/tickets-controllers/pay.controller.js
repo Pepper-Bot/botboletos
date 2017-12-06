@@ -29,8 +29,8 @@ var init_pay = function (req, res) {
     switch (req.body.payment_type) {
         case "cc":
             {
-                
-               // pay_with_cc(req, res);
+
+                // pay_with_cc(req, res);
                 pay_with_cc1(req, res);
             }
             break;
@@ -49,9 +49,9 @@ var init_pay = function (req, res) {
 }
 
 //########################################################
-//  render_paypal_form función que  renderiza el formuario
+//  render_paypal_cc_form función que  renderiza el formuario
 //########################################################
-var render_paypal_form = (req, res, direccionEnvio, shiping) => {
+var render_paypal_cc_form = (req, res, direccionEnvio, shiping) => {
     var ship_price = 0;
     var with_ship = false;
     var uid = req.query.uid
@@ -112,6 +112,26 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
     var total = ((req.body.price * req.body.quantity) + ship_price)
     var address_id = ""
 
+    var actionSubmit = ''
+
+    switch (req.body.payment_type) {
+        case "cc":
+            {
+                actionSubmit = '/finish/credit_card/'
+            }
+            break;
+        case "pp":
+            {
+                actionSubmit = '/checkout/paypal_pay/'
+            }
+            break;
+        default:
+            {
+
+            }
+            break;
+    }
+
     res.render(
         './layouts/tickets/pay', {
             titulo: "Your tickets are on its way!",
@@ -140,8 +160,8 @@ var render_paypal_form = (req, res, direccionEnvio, shiping) => {
             subtotal: subtotal,
             total: total,
             with_ship: with_ship,
-            provider: provider
-
+            provider: provider,
+            actionSubmit: actionSubmit
         }
     );
 }
@@ -338,7 +358,7 @@ var pay_with_pp = (req, res) => {
                 console.log("shiping de tevo >>" + JSON.stringify(shipping));
                 //renderizamos el formulario
                 if (!shipping.error) {
-                    render_paypal_form(req, res, direccionEnvio, shipping)
+                    render_paypal_cc_form(req, res, direccionEnvio, shipping)
                 } else {
                     res.send(" shipping ERROR   " + shipping.error)
                 }
@@ -579,7 +599,7 @@ var pay_with_cc1 = (req, res) => {
 
             var createCreditoCard = tevo.API_URL + 'clients/' + client_id + '/credit_cards';
 
-            ////////////////create credit card///////////////
+            ////////////////create credit pay_with_cc1///////////////
             console.log('createCreditoCard ' + createCreditoCard)
             tevoClient.postJSON(createCreditoCard, cc).then((creditcardRes) => {
                 if (creditcardRes.error != undefined) {
@@ -589,8 +609,34 @@ var pay_with_cc1 = (req, res) => {
                     return;
                 }
 
+                //guardamos el id de la tarjeta de crédito
+                req.session.client_id = creditcardRes.credit_cards[0].id
 
-                ////////////////shipping///////////////
+                Client.findOne({
+                    client_id: req.session.client_id
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, clienteSearch) {
+                    if (!err) {
+                        if (clienteSearch) {
+                            clienteSearch.creditcard_id.push(creditcardRes.credit_cards[0].id);
+                            clienteSearch.save(function (err) {
+                                if (!err) {
+
+                                }
+                            });
+                        }
+                    }
+
+                });
+
+
+
+
+
+                ////////////////shipping cc pay_with_cc1///////////////
                 var dataShip = {
                     "ticket_group_id": req.body.groupticket_id,
                     "address_id": address_id,
@@ -601,7 +647,7 @@ var pay_with_cc1 = (req, res) => {
                     console.log("shiping de tevo >>" + JSON.stringify(shipping));
                     //renderizamos el formulario
                     if (!shipping.error) {
-                        render_paypal_form(req, res, direccionEnvio, shipping)
+                        render_paypal_cc_form(req, res, direccionEnvio, shipping)
                     } else {
                         res.send(" shipping ERROR   " + shipping.error)
                     }

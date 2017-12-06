@@ -27,6 +27,7 @@ var ticket_Groups = require('./routes/tickets-controllers/ticketgroup.controller
 //var checkoutBuy = require('./routes/checkout');
 var checkoutBuy = require('./routes/tickets-controllers/checkout.controller');
 var pay_controller = require('./routes/tickets-controllers/pay.controller');
+var creditcard_finish_controller = require('./routes/tickets-controllers/creditcard_finish.controller')
 //var payment = require('./routes/pay');
 var finish = require('./routes/finish');
 var email = require('./routes/email');
@@ -168,7 +169,9 @@ app.use('/paypal_cancel/', checkoutBuy.paypal_cancel);
 
  
 app.post('/pay/', pay_controller.init_pay);
-app.use('/finish/', finish); // finishing checkout / creating orders and payments
+//app.use('/finish/', finish); // finishing checkout / creating orders and payments
+app.post('/finish/credit_card/', creditcard_finish_controller.finish);
+
 app.use('/pruebamail/', email);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
