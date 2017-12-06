@@ -31,7 +31,7 @@
  	/* Obtenemos la session guardada en mongo db */
 
  	console.log('client_id' + client_id)
- 	Client.findOne({
+ 	/*Client.findOne({
  		client_id: req.session.client_id
  	}, {}, {
  		sort: {
@@ -179,7 +179,7 @@
  		}else{
 			 res.send('error '+ error)
 		 }
- 	});
+ 	});*/
 
  }
 
