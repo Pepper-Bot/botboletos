@@ -369,7 +369,7 @@ var pay_with_pp = (req, res) => {
 //  pago con CRÉDIT CARDS  creación de cliente, tarjeta de crédito  y shipping 
 //#############################################################################
 var pay_with_cc1 = (req, res) => {
-    if (undefined == req.query.email) {
+    if (undefined == req.body.email) {
         res.status(200);
         res.send('Error trying to access');
         res.end();
