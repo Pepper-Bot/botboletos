@@ -21,7 +21,7 @@
 
  var finishCC = function (req, res) {
 
- 	console.log('Entré al finish finishCC' + client_id)
+ 	
  	if (undefined == req.session.client_id) {
  		res.status(200);
  		res.send('Error trying to access');
