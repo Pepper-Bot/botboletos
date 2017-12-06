@@ -20,7 +20,8 @@
  });
 
  var finishCC = function (req, res) {
- 	console.log('Entré al finish finishCC' + client_id)
+	 res.send('bien !')
+ 	/* console.log('Entré al finish finishCC' + client_id)
  	if (undefined == req.session.client_id) {
  		res.status(200);
  		res.send('Error trying to access');
@@ -29,9 +30,9 @@
  	}
 
 
- 	/* Obtenemos la session guardada en mongo db */
+ 	Obtenemos la session guardada en mongo db */
 
- 	console.log('client_id' + client_id)
+ 	console.log('client_id' + req.session.client_id)
  	/*Client.findOne({
  		client_id: req.session.client_id
  	}, {}, {
