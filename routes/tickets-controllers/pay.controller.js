@@ -117,7 +117,7 @@ var render_paypal_cc_form = (req, res, direccionEnvio, shiping) => {
     switch (req.body.payment_type) {
         case "cc":
             {
-                actionSubmit = '/finish/credit_card/'
+                actionSubmit = '/finish_pay_credit_card/'
             }
             break;
         case "pp":
