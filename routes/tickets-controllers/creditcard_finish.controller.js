@@ -21,7 +21,7 @@
 
  var finishCC = function (req, res) {
 
- 	
+
  	if (undefined == req.session.client_id) {
  		res.status(200);
  		res.send('Error trying to access');
@@ -147,7 +147,7 @@
 
 
 
-
+ 					console.log("<OrderResmsg>" + JSON.stringify(OrderRes));
 
  					var Order = new Orders; {
  						Order.order_id.push(OrderRes.orders[0].id);
@@ -158,7 +158,7 @@
 
 
 
- 					sendEmailSenGrid(clienteSearch, OrderRes)
+ 					sendEmailSenGrid(req, res, clienteSearch, OrderRes)
 
 
  					res.render(
@@ -184,7 +184,7 @@
 
  }
 
- var sendEmailSenGrid = (clienteSearch, OrderRes) => {
+ var sendEmailSenGrid = (req, res, clienteSearch, OrderRes) => {
 
  	var nombreCliente = OrderRes.orders[0].buyer.name;
  	var eventoNombre = OrderRes.orders[0].items[0].ticket_group.event.name;
