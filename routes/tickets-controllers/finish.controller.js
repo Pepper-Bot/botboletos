@@ -294,7 +294,7 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
 
 
     //event vars
-    var venue_name = event.venue.name
+    //var venue_name = event.venue.name
     var venue_location = event.venue.location;
 
 
