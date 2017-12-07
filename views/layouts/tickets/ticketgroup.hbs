@@ -12,14 +12,14 @@
     <div class="input-field col s2">
         <label>Row</label>
     </div>
-    <div class="input-field col s3">
+    <div class="input-field col s2">
         <label>Qty</label>
     </div>
     <div class="input-field col s3">
         <label>Price</label>
     </div>
 
-    <div class="input-field col s2">
+    <div class="input-field col s1">
         <label> </label>
     </div>
 </div>
@@ -51,7 +51,7 @@
         <div class="input-field col s2">
             <label> {{this.row}}</label>
         </div>
-        <div class="input-field col s3">
+        <div class="input-field col s2">
             <select name="userticketsquantity" id="ticketsquantity">
                 {{#each this.splits}}
                 <option value="{{this}}">{{this}}</option>
@@ -63,7 +63,7 @@
             <label> {{this.wholesale_price}}</label>
         </div>
 
-        <div class="input-field col s2">
+        <div class="input-field col s1">
             <button type="submit" class="btn blue">BUY</button>
         </div>
     </div>
