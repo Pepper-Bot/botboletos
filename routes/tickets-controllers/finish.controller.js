@@ -295,7 +295,7 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
 
     //event vars
     //var venue_name = event.venue.name
-    var venue_location = event.venue.location;
+    //var venue_location = event.venue.location;
 
 
     var occurs_at = event.occurs_at;
@@ -307,7 +307,7 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
 
     var nombreCliente = pp_first_name;
     var eventoNombre = req.session.event_name;
-    var ciudadEvento = venue_location;
+    var ciudadEvento = OrderRes.orders[0].items[0].ticket_group.event.venue.address.locality + ', ' + OrderRes.orders[0].items[0].ticket_group.event.venue.address.region;
     var fechaEvento = occurs_at;
     var horaEvento = moment(occurs_at).format('h:mm a');
     var cantidadTickets = req.session.quantity;
