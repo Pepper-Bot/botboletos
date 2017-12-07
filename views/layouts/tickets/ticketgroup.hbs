@@ -36,7 +36,7 @@
                         </div>
 
                 </td>
-                <td>{{this.wholesale_price}}</td>
+                
                 <td>
                     <input type="hidden" value="{{../event_id}}" name="event_id">
                     <input type="hidden" value="{{this.id}}" name="groupticket_id">
@@ -47,7 +47,7 @@
                     <input type="hidden" value="{{this.section}}" name="section">
                     <input type="hidden" value="{{this.row}}" name="row">
                     <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
-                    <button type="submit" class="btn blue">BUY</button>
+                    <button type="submit" class="btn blue">{{this.wholesale_price}}</button>
                     </form>
                 </td>
             </tr>
