@@ -27,25 +27,26 @@
 
 
     {{#each ticketGroups}}
-    <form class="container col s12 z-depth-1" action="/checkout/" method="post">
-        <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
-        <input type="hidden" value="{{this.in_hand}}" name="in_hand">
-        <input type="hidden" value="{{this.eticket}}" name="eticket">
-        <input type="hidden" value="{{{../event_name}}}" name="event_name">
-        <input type="hidden" value="{{../event_date}}" name="event_date">
-        <input type="hidden" value="{{../uid}}" name="uid" id="uid">
-        <input type="hidden" value="{{../event_id}}" name="event_id">
-        <input type="hidden" value="{{this.id}}" name="groupticket_id">
-        <input type="hidden" value="{{this.quantity}}" name="quantity">
-        <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
-        <input type="hidden" value="{{this.format}}" name="format">
-        <input type="hidden" value="{{this.section}}" name="section">
-        <input type="hidden" value="{{this.row}}" name="row">
-        <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
+    <div class="row">
+        <form class="col s12 z-depth-1" action="/checkout/" method="post">
+            <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
+            <input type="hidden" value="{{this.in_hand}}" name="in_hand">
+            <input type="hidden" value="{{this.eticket}}" name="eticket">
+            <input type="hidden" value="{{{../event_name}}}" name="event_name">
+            <input type="hidden" value="{{../event_date}}" name="event_date">
+            <input type="hidden" value="{{../uid}}" name="uid" id="uid">
+            <input type="hidden" value="{{../event_id}}" name="event_id">
+            <input type="hidden" value="{{this.id}}" name="groupticket_id">
+            <input type="hidden" value="{{this.quantity}}" name="quantity">
+            <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
+            <input type="hidden" value="{{this.format}}" name="format">
+            <input type="hidden" value="{{this.section}}" name="section">
+            <input type="hidden" value="{{this.row}}" name="row">
+            <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
 
 
 
-        <div class="row">
+
             <div class="input-field col s2 offset-by-1">
                 <label>{{this.section}} </label>
             </div>
@@ -67,9 +68,10 @@
             <div class="input-field col s1">
                 <button type="submit" class="btn blue">BUY</button>
             </div>
-        </div>
 
-    </form>
+
+        </form>
+    </div>
 
 
     {{/each}}
