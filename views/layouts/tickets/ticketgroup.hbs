@@ -1,3 +1,4 @@
+  {{> slider_menu}}
 <div class="row">
     <h3 class="header center blue-text">{{{event_name}}}</h3>
     <img alt="Seat Map" class="responsive-img" src="{{{seatsmap}}}">
@@ -55,11 +56,12 @@
     </table>
 </div>
 
-
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
 <script>
     $(document).ready(function () {
         $('select').material_select();
-
+        $(".button-collapse").sideNav();
         $("#tickets").DataTable({ "order": [[3, "desc"]] });
     });
 
