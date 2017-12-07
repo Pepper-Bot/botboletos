@@ -67,7 +67,7 @@ var checkout = (req, res) => {
         noeticket = true;
     }
 
- 
+
 
     UserData2.findOne({
         fbId: fbId
@@ -157,15 +157,17 @@ function paypal_pay(req, res) {
     })
 
     if (req.session.ship_price) {
-        ship_price = req.session.ship_price
+        if (req.session.ship_price > 0) {
+            ship_price = req.session.ship_price
 
-        items.push({
-            "name": req.session.shiping_name,
-            "sku": "001",
-            "price": req.session.ship_price,
-            "currency": "USD",
-            "quantity": 1
-        })
+            items.push({
+                "name": req.session.shiping_name,
+                "sku": "001",
+                "price": req.session.ship_price,
+                "currency": "USD",
+                "quantity": 1
+            })
+        }
     }
 
     var total = (parseFloat(price * quantity + ship_price).toFixed(2))
