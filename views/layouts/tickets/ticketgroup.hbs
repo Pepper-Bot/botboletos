@@ -1,8 +1,8 @@
-  {{> slider_menu}}
+ {{> slider_menu}}
 <div class="row">
     <h3 class="header center blue-text">{{{event_name}}}</h3>
     <img alt="Seat Map" class="responsive-img" src="{{{seatsmap}}}">
-    <table id="tickets" class="display table table-condensed table-responsive">
+    <table id="tickets" class="display table table-condensed responsive-table highlight">
         <thead>
             <tr>
                 <th>Section</th>
@@ -18,7 +18,7 @@
                 <td>{{this.section}}</td>
                 <td>{{this.row}}</td>
                 <td>
-                    <form action="/checkout/" method="post">
+                    <form class="col s12" action="/checkout/" method="post">
                         <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
                         <input type="hidden" value="{{this.in_hand}}" name="in_hand">
                         <input type="hidden" value="{{this.eticket}}" name="eticket">
@@ -36,7 +36,7 @@
                         </div>
 
                 </td>
-                
+
                 <td>
                     <input type="hidden" value="{{../event_id}}" name="event_id">
                     <input type="hidden" value="{{this.id}}" name="groupticket_id">
