@@ -1168,8 +1168,7 @@ function processPostback(event) {
 
             //inicio
         case "Greetings":
-            var menu = require('../bot/get_started');
-            menu.deleteAndCreatePersistentMenu();
+           
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
                 console.log('Dentro de referrals handler');
