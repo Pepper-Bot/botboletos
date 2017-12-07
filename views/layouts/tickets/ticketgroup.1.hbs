@@ -1,0 +1,68 @@
+ {{> slider_menu}}
+<div class="row">
+    <h3 class="header center blue-text">{{{event_name}}}</h3>
+    <img alt="Seat Map" class="responsive-img" src="{{{seatsmap}}}">
+    <table id="tickets" class="display table table-condensed highlight responsive-table">
+        <thead>
+            <tr>
+                <th>Section</th>
+                <th>Row</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#each ticketGroups}}
+            <tr>
+                <td>{{this.section}}</td>
+                <td>{{this.row}}</td>
+                <td>
+                    <form class="col s12" action="/checkout/" method="post">
+                        <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
+                        <input type="hidden" value="{{this.in_hand}}" name="in_hand">
+                        <input type="hidden" value="{{this.eticket}}" name="eticket">
+                        <input type="hidden" value="{{{../event_name}}}" name="event_name">
+                        <input type="hidden" value="{{../event_date}}" name="event_date">
+                        <input type="hidden" value="{{../uid}}" name="uid" id="uid">
+
+                        <div class="input-field col s12 m6">
+                            <select name="userticketsquantity" id="ticketsquantity">
+                                {{#each this.splits}}
+                                <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+
+                            </select>
+                        </div>
+
+                </td>
+                <td>{{this.wholesale_price}}</td>
+                <td>
+                    <input type="hidden" value="{{../event_id}}" name="event_id">
+                    <input type="hidden" value="{{this.id}}" name="groupticket_id">
+
+                    <input type="hidden" value="{{this.quantity}}" name="quantity">
+                    <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
+                    <input type="hidden" value="{{this.format}}" name="format">
+                    <input type="hidden" value="{{this.section}}" name="section">
+                    <input type="hidden" value="{{this.row}}" name="row">
+                    <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
+                    <button type="submit" class="btn blue">BUY</button>
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('select').material_select();
+        $(".button-collapse").sideNav();
+        $("#tickets").DataTable({ "order": [[3, "desc"]] });
+    });
+
+</script>
