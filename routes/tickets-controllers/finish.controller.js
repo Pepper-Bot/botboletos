@@ -293,27 +293,17 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
     var pp_country_code = payment.payer.payer_info.shipping_address.country_code;
 
 
-    //event vars
-    //var venue_name = event.venue.name
-    //var venue_location = event.venue.location;
 
 
-    var occurs_at = event.occurs_at;
-
-    occurs_at = occurs_at.substring(0, occurs_at.length - 4)
-
-    var occurs_at_date = moment(occurs_at).format('MMMM Do YYYY')
-    console.log('occurs_at  >>>' + occurs_at)
-
-    var nombreCliente = pp_first_name;
-    var eventoNombre = req.session.event_name;
+    var nombreCliente = OrderRes.orders[0].buyer.name;
+    var eventoNombre = OrderRes.orders[0].items[0].ticket_group.event.name;
     var ciudadEvento = OrderRes.orders[0].items[0].ticket_group.event.venue.address.locality + ', ' + OrderRes.orders[0].items[0].ticket_group.event.venue.address.region;
-    var fechaEvento = occurs_at;
-    var horaEvento = moment(occurs_at).format('h:mm a');
-    var cantidadTickets = req.session.quantity;
-    var tipoTickets = req.session.format;
-    var precio = req.session.price;
-    var costoTotal = (parseFloat(req.session.quantity * req.session.price).toFixed(2))
+    var fechaEvento = moment(OrderRes.orders[0].items[0].ticket_group.event.occurs_at).format('MMMM Do YYYY');
+    var horaEvento = moment(OrderRes.orders[0].items[0].ticket_group.event.occurs_at).format('h:mm:ss a');
+    var cantidadTickets = OrderRes.orders[0].items[0].quantity;
+    var tipoTickets = OrderRes.orders[0].items[0].ticket_group.format;
+    var precio = OrderRes.orders[0].items[0].price;
+    var costoTotal = OrderRes.orders[0].items[0].cost;
 
 
     var ordenNumber = ""
@@ -362,10 +352,10 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
 
 
 
- 
 
-    var templateHTML =confirm_mail_html
-        
+
+    var templateHTML = confirm_mail_html
+
     templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
     templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
     templateHTML = templateHTML.replace('&lt;Event&gt;', eventoNombre);
