@@ -6,3 +6,8 @@
 a {
   color: #00B7FF;
 }*/
+.fixed-panel {
+  min-height: 50px;
+  max-height: 400px;
+  overflow-y: scroll;
+}
