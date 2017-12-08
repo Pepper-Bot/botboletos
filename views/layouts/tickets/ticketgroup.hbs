@@ -1,24 +1,23 @@
-{{> nav_bar}} 
-{{> slider_menu}}
+{{> nav_bar}} {{> slider_menu}}
 <div class="container">
     <div class="row">
         <div class="col s12 m6 l6">
             <h3 class="header center blue-text">{{{event_name}}}</h3>
             <img alt="Seat Map" class="responsive-img" src="{{{seatsmap}}}">
         </div>
-        <div class="card col s12 m6 l6">
+        <div class="col s12 m6 l6">
             <div class="row">
                 <div class="input-field col s2">
-                    <label style="color: black">Section</label>
+                    <label>Section </label>
                 </div>
                 <div class="input-field col s2">
-                    <labels style="color: black">Row</label>
+                    <label>Row</label>
                 </div>
                 <div class="input-field col s2">
-                    <label style="color: black">Qty</label>
+                    <label>Qty</label>
                 </div>
                 <div class="input-field col s2">
-                    <label style="color: black">Price</label>
+                    <label>Price</label>
                 </div>
 
                 <div class="input-field col s1">
@@ -36,7 +35,7 @@
 
                         {{#each ticketGroups}}
                         <div class="row">
-                            <form class="col s12 " action="/checkout/" method="post">
+                            <form class="col s12 z-depth-1" action="/checkout/" method="post">
                                 <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
                                 <input type="hidden" value="{{this.in_hand}}" name="in_hand">
                                 <input type="hidden" value="{{this.eticket}}" name="eticket">
@@ -56,10 +55,10 @@
 
 
                                 <div class="input-field col s2">
-                                    <label style="color: black">{{this.section}} </label>
+                                    <label>{{this.section}} </label>
                                 </div>
                                 <div class="input-field col s2">
-                                    <label style="color: black"> {{this.row}}</label>
+                                    <label> {{this.row}}</label>
                                 </div>
                                 <div class="input-field col s2">
                                     <select name="userticketsquantity" id="ticketsquantity">
@@ -70,7 +69,7 @@
                                     </select>
                                 </div>
                                 <div class="input-field col s2">
-                                    <label style="color: black"> {{this.wholesale_price}}</label>
+                                    <label> {{this.wholesale_price}}</label>
                                 </div>
 
                                 <div class="input-field col s2 l3">
@@ -81,7 +80,7 @@
                             </form>
                         </div>
 
-                        <div class="divider"></div>
+
                         {{/each}}
                     </div>
 
