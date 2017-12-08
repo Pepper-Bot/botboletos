@@ -18,165 +18,195 @@
 </head>
 
 <body>
-
-<div class="navbar-fixed">
-  <nav class="light-blue lighten-1" role="navigation">
-    <div class="nav-wrapper container"><a id="logo-container" href="#" class="brand-logo">Logo</a>
-      <ul class="right hide-on-med-and-down">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-
-      <ul id="nav-mobile" class="side-nav" style="left: 0px;">
-        <li><a href="#">Navbar Link</a></li>
-      </ul>
-     <a href="#" data-activates="slide-out" class="button-collapse">
-        <i class="material-icons">menu</i>
-    </a>
-    </div>
-  </nav>
+  <div class="section">
+  
+	  <div class="card row">
+		<div class="row">
+			  <div class="col s12 l5"> 
+			 
+					<div class="row">
+				  
+						 <div class="col s6"><b>Event</b></div>
+						 <div class="col s6"><b>Date</b></div>
+				  
+					</div>
+				    <div class="divider"></div>
+				  
+					<div class="row">
+				  
+					 <div class="col s6">{{{event_name}}}</div>
+					 <div class="col s6">{{{event_date}}}</div>
+				  
+					</div>
+				  
+					<div class="row">
+						<div class="input-field col s6">
+												<b>Ticket Type: </b>
+												
+						</div>
+						<div class="input-field col s6">
+												<span class="new badge green">{{{format}}} </span>
+												
+						</div>
+						
+						
+					</div>
+			  
+			 
+			  </div>
+			  <div class="col s12 l2"> 
+			          <div class="row"><div class="col s12"> <b>	Seats</b></div></div>
+					   <div class="divider"></div>
+					  <div class="row"><div class="col s12"> 	<b>Section:</b>{{{section}}}  </div></div>
+					  <div class="row"><div class="col s12">   <b>Row</b>: {{{row}}} </td>  </div></div>
+			  </div>
+			  <div class="col s12 l5"> 
+			  
+				  <div class="row">
+				  
+					 <div class="col s6"><b>Quantity</b></div>
+					 <div class="col s6"><b>Price Each</b></div>
+				  
+				  </div>
+				   <div class="divider"></div>
+				  
+				   <div class="row">
+				  
+					 <div class="col s6">{{{quantity}}}</div>
+					 <div class="col s6">${{{price}}}</div>
+				  
+				  </div>
+				  
+				   <div class="row">
+				  
+					 <div class="col s6">Total</div>
+					 <div class="col s6">$ {{{total}}}</div>
+				  
+				  </div>
+			  
+			  </div>
+		</div>
+	</div>
+	
 </div>
-
-    <ul id="slide-out" class="side-nav">
-        <li>
-            <div class="user-view">
-                <div class="background">
-                    <img src="images/office.jpg">
+ 
+ 
+ 
+ 
+ <div class="section">
+    <div class="row">
+        <div class="card col s12">
+            <div class="row">
+                <div class="input-field col s3">
+					<div class="row">
+						Event
+					</div>
+					<div class="row">
+						{{{event_name}}}
+					</div>
+                      
                 </div>
-                <a href="#!user">
-                    <img class="circle" src="images/yuna.jpg">
-                </a>
-                <a href="#!name">
-                    <span class="white-text name">John Doe</span>
-                </a>
-                <a href="#!email">
-                    <span class="white-text email">jdandturk@gmail.com</span>
-                </a>
-            </div>
-        </li>
-        <li>
-            <a href="#!">
-                <i class="material-icons">cloud</i>First Link With Icon</a>
-        </li>
-        <li>
-            <a href="#!">Second Link</a>
-        </li>
-        <li>
-            <div class="divider"></div>
-        </li>
-        <li>
-            <a class="subheader">Subheader</a>
-        </li>
-        <li>
-            <a class="waves-effect" href="#!">Third Link With Waves</a>
-        </li>
-    </ul>
-    <a href="#" data-activates="slide-out" class="button-collapse">
-        <i class="material-icons">menu</i>
-    </a>
+                <div class="input-field col s2">
+                     <div class="row">
+						Date
+					</div>
+					<div class="row">
+						{{{event_date}}}
+					</div>
+                </div>
+                <div class="input-field col s2">
+                      <div class="row">
+						Seats
+					</div>
+					<div class="row">
+						<b>Section:</b>{{{section}}}
+						    <br>
+                            <b>Row</b>: {{{row}}} </td>
+					</div> 
+                </div>
+                <div class="input-field col s2">
+                     <div class="row">
+						Quantity
+					</div>
+					<div class="row">
+						{{{quantity}}}
+					</div> 
+                </div>
 
-  {{> slider_menu}}
-<div class="container">
-    <div class="row">
-        <h3 class="header center blue-text">{{{event_name}}}</h3>
-        <img alt="Seat Map" class="responsive-img" src="{{{seatsmap}}}">
+                <div class="input-field col s1">
+                    <div class="row">
+						Price Each
+					</div>
+					<div class="row">
+						 ${{{price}}} 
+					</div> 
+					  
+                </div>
+            </div>
+			 <div class="row">
+				<div class="input-field col s7">
+				            <b>Ticket Type: </b>
+                            <span class="new badge green">{{{format}}} </span>
+				</div>
+				<div class="input-field col s3">
+				         <div class="row">
+							  <div class="input-field col s6">
+							         <strong>Total</strong>
+							  </div>   
+							   <div class="input-field col s6">
+							   
+							   {{{ total }}} 
+							  </div>
+				         </div>   
+				</div>   
+				</div>
+			 </div>
+        </div>
+
+
+
+        <div class="col m12 ">
+            <h4 class="header left blue-text">Checkout Process</small>
+            </h4>
+            <table class="responsive-table">
+                <thead>
+                    <tr>
+                        <th>Event</th>
+                        <th>Date</th>
+                        <th>Seats</th>
+                        <th> Quantity</th>
+                        <th>Price Each</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>{{{event_name}}}</td>
+                        <td>{{{event_date}}}</td>
+                        <td>
+                            <b>Section:</b>{{{section}}}
+                            <br>
+                            <b>Row</b>: {{{row}}} </td>
+                        <td>{{{quantity}}}</td>
+                        <td>${{{price}}}</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Ticket Type: </b>
+                            <span class="new badge green">{{{format}}} </span>
+                        </td>
+                        <td colspan="2"></td>
+                        <td>
+                            <strong>Total</strong>
+                        </td>
+                        <td>{{{ total }}} </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
-
-
-    <div class="row">
-        <div class="input-field col s2">
-            <label>Section </label>
-        </div>
-        <div class="input-field col s2">
-            <label>Row</label>
-        </div>
-        <div class="input-field col s2">
-            <label>Qty</label>
-        </div>
-        <div class="input-field col s2">
-            <label>Price</label>
-        </div>
-
-        <div class="input-field col s1">
-            <label> </label>
-        </div>
-    </div>
-    <br></br>
-    <div class="divider"></div>
-    
-    {{#each ticketGroups}}
-    <div class="row">
-        <form class="col s12 z-depth-1" action="/checkout/" method="post">
-            <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
-            <input type="hidden" value="{{this.in_hand}}" name="in_hand">
-            <input type="hidden" value="{{this.eticket}}" name="eticket">
-            <input type="hidden" value="{{{../event_name}}}" name="event_name">
-            <input type="hidden" value="{{../event_date}}" name="event_date">
-            <input type="hidden" value="{{../uid}}" name="uid" id="uid">
-            <input type="hidden" value="{{../event_id}}" name="event_id">
-            <input type="hidden" value="{{this.id}}" name="groupticket_id">
-            <input type="hidden" value="{{this.quantity}}" name="quantity">
-            <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
-            <input type="hidden" value="{{this.format}}" name="format">
-            <input type="hidden" value="{{this.section}}" name="section">
-            <input type="hidden" value="{{this.row}}" name="row">
-            <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
-
-
-
-
-            <div class="input-field col s2">
-                <label>{{this.section}} </label>
-            </div>
-            <div class="input-field col s2">
-                <label> {{this.row}}</label>
-            </div>
-            <div class="input-field col s2">
-                <select name="userticketsquantity" id="ticketsquantity">
-                    {{#each this.splits}}
-                    <option value="{{this}}">{{this}}</option>
-                    {{/each}}
-
-                </select>
-            </div>
-            <div class="input-field col s2">
-                <label> {{this.wholesale_price}}</label>
-            </div>
-
-            <div class="input-field col s2 l3">
-                <button type="submit" class="btn blue">BUY</button>
-            </div>
-
-
-        </form>
-    </div>
-
-
-    {{/each}}
-
 </div>
 
-  <div class="row">
-    <div class="col s12 m9 l10">
-      <div id="introduction" class="section scrollspy">
-        <p>Content </p>
-      </div>
 
-      <div id="structure" class="section scrollspy">
-        <p>Content </p>
-      </div>
-
-      <div id="initialization" class="section scrollspy">
-        <p>Content </p>
-      </div>
-    </div>
-    <div class="col hide-on-small-only m3 l2">
-      <ul class="section table-of-contents">
-        <li><a href="#introduction">Introduction</a></li>
-        <li><a href="#structure">Structure</a></li>
-        <li><a href="#initialization">Intialization</a></li>
-      </ul>
-    </div>
-  </div>
         
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
