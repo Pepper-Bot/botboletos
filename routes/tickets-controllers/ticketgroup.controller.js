@@ -46,7 +46,8 @@ var ticketgroup = (req, res) => {
                     event_name: event.name,
                     event_date: event.occurs_at,
                     seatsmap: event.configuration.seating_chart.large,
-                    venue_name: event.venue.name + ' ' + event.venue.location
+                    venue_name: event.venue.name + ' ' + event.venue.location,
+                    title_action: "Select your tickets"
                 }
             );
 
