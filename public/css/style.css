@@ -25,6 +25,11 @@ a {
 /*
  *  STYLE 7
  */
+ @media screen and (max-width: 640px) {
+   .height40{
+    max-height: 40%;
+   }
+}
 
 @media screen and (min-width: 960px) {
   #style-7::-webkit-scrollbar-track {
