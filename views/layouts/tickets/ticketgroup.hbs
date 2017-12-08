@@ -1,5 +1,4 @@
-{{> nav_bar}}
-{{> slider_menu}}
+{{> nav_bar}} {{> slider_menu}}
 <div class="container">
     <div class="row">
         <h3 class="header center blue-text">{{{event_name}}}</h3>
@@ -25,11 +24,12 @@
             <label> </label>
         </div>
     </div>
+    <br></br>
     <div class="divider"></div>
-
+    
     {{#each ticketGroups}}
     <div class="row">
-        <form class="col s12 z-depth-1 card-panel hoverable" action="/checkout/" method="post">
+        <form class="col s12 z-depth-1" action="/checkout/" method="post">
             <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
             <input type="hidden" value="{{this.in_hand}}" name="in_hand">
             <input type="hidden" value="{{this.eticket}}" name="eticket">
