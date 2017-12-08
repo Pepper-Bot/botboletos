@@ -18,6 +18,7 @@ a {
   height: auto;
   max-height: 60%;
   overflow-y: auto;
+  overflow-x:hidden;
 }
 
 
