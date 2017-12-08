@@ -5,7 +5,7 @@
             <h3 class="header center blue-text">{{{event_name}}}</h3>
             <img alt="Seat Map" class="responsive-img" src="{{{seatsmap}}}">
         </div>
-        <div class="col s12 m6 l6 ">
+        <div class="col s12 m6 l6">
             <div class="row">
                 <div class="input-field col s2">
                     <label>Section </label>
@@ -26,56 +26,58 @@
             </div>
             <br></br>
             <div class="divider"></div>
-            <div class="row fixed-panel">
+            <div class="fixed-panel">
+
                 {{#each ticketGroups}}
-
-                <form class="col s12 z-depth-1" action="/checkout/" method="post">
-                    <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
-                    <input type="hidden" value="{{this.in_hand}}" name="in_hand">
-                    <input type="hidden" value="{{this.eticket}}" name="eticket">
-                    <input type="hidden" value="{{{../event_name}}}" name="event_name">
-                    <input type="hidden" value="{{../event_date}}" name="event_date">
-                    <input type="hidden" value="{{../uid}}" name="uid" id="uid">
-                    <input type="hidden" value="{{../event_id}}" name="event_id">
-                    <input type="hidden" value="{{this.id}}" name="groupticket_id">
-                    <input type="hidden" value="{{this.quantity}}" name="quantity">
-                    <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
-                    <input type="hidden" value="{{this.format}}" name="format">
-                    <input type="hidden" value="{{this.section}}" name="section">
-                    <input type="hidden" value="{{this.row}}" name="row">
-                    <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
-
-
+                <div class="row">
+                    <form class="col s12 z-depth-1" action="/checkout/" method="post">
+                        <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
+                        <input type="hidden" value="{{this.in_hand}}" name="in_hand">
+                        <input type="hidden" value="{{this.eticket}}" name="eticket">
+                        <input type="hidden" value="{{{../event_name}}}" name="event_name">
+                        <input type="hidden" value="{{../event_date}}" name="event_date">
+                        <input type="hidden" value="{{../uid}}" name="uid" id="uid">
+                        <input type="hidden" value="{{../event_id}}" name="event_id">
+                        <input type="hidden" value="{{this.id}}" name="groupticket_id">
+                        <input type="hidden" value="{{this.quantity}}" name="quantity">
+                        <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
+                        <input type="hidden" value="{{this.format}}" name="format">
+                        <input type="hidden" value="{{this.section}}" name="section">
+                        <input type="hidden" value="{{this.row}}" name="row">
+                        <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
 
 
-                    <div class="input-field col s2">
-                        <label>{{this.section}} </label>
-                    </div>
-                    <div class="input-field col s2">
-                        <label> {{this.row}}</label>
-                    </div>
-                    <div class="input-field col s2">
-                        <select name="userticketsquantity" id="ticketsquantity">
-                            {{#each this.splits}}
-                            <option value="{{this}}">{{this}}</option>
-                            {{/each}}
-
-                        </select>
-                    </div>
-                    <div class="input-field col s2">
-                        <label> {{this.wholesale_price}}</label>
-                    </div>
-
-                    <div class="input-field col s2 l3">
-                        <button type="submit" class="btn blue">BUY</button>
-                    </div>
 
 
-                </form>
+                        <div class="input-field col s2">
+                            <label>{{this.section}} </label>
+                        </div>
+                        <div class="input-field col s2">
+                            <label> {{this.row}}</label>
+                        </div>
+                        <div class="input-field col s2">
+                            <select name="userticketsquantity" id="ticketsquantity">
+                                {{#each this.splits}}
+                                <option value="{{this}}">{{this}}</option>
+                                {{/each}}
+
+                            </select>
+                        </div>
+                        <div class="input-field col s2">
+                            <label> {{this.wholesale_price}}</label>
+                        </div>
+
+                        <div class="input-field col s2 l3">
+                            <button type="submit" class="btn blue">BUY</button>
+                        </div>
+
+
+                    </form>
+                </div>
+
+
+                {{/each}}
             </div>
-
-
-            {{/each}}
         </div>
     </div>
 
