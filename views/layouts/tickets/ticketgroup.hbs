@@ -26,58 +26,71 @@
             </div>
             <br></br>
             <div class="divider"></div>
-            <div class="fixed-panel">
-
-                {{#each ticketGroups}}
-                <div class="row">
-                    <form class="col s12 z-depth-1" action="/checkout/" method="post">
-                        <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
-                        <input type="hidden" value="{{this.in_hand}}" name="in_hand">
-                        <input type="hidden" value="{{this.eticket}}" name="eticket">
-                        <input type="hidden" value="{{{../event_name}}}" name="event_name">
-                        <input type="hidden" value="{{../event_date}}" name="event_date">
-                        <input type="hidden" value="{{../uid}}" name="uid" id="uid">
-                        <input type="hidden" value="{{../event_id}}" name="event_id">
-                        <input type="hidden" value="{{this.id}}" name="groupticket_id">
-                        <input type="hidden" value="{{this.quantity}}" name="quantity">
-                        <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
-                        <input type="hidden" value="{{this.format}}" name="format">
-                        <input type="hidden" value="{{this.section}}" name="section">
-                        <input type="hidden" value="{{this.row}}" name="row">
-                        <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
 
 
 
+            <div class="scrollbar" id="style-7">
+                <div class="force-overflow">
+                    <div class="">
 
-                        <div class="input-field col s2">
-                            <label>{{this.section}} </label>
+                        {{#each ticketGroups}}
+                        <div class="row">
+                            <form class="col s12 z-depth-1" action="/checkout/" method="post">
+                                <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
+                                <input type="hidden" value="{{this.in_hand}}" name="in_hand">
+                                <input type="hidden" value="{{this.eticket}}" name="eticket">
+                                <input type="hidden" value="{{{../event_name}}}" name="event_name">
+                                <input type="hidden" value="{{../event_date}}" name="event_date">
+                                <input type="hidden" value="{{../uid}}" name="uid" id="uid">
+                                <input type="hidden" value="{{../event_id}}" name="event_id">
+                                <input type="hidden" value="{{this.id}}" name="groupticket_id">
+                                <input type="hidden" value="{{this.quantity}}" name="quantity">
+                                <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
+                                <input type="hidden" value="{{this.format}}" name="format">
+                                <input type="hidden" value="{{this.section}}" name="section">
+                                <input type="hidden" value="{{this.row}}" name="row">
+                                <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
+
+
+
+
+                                <div class="input-field col s2">
+                                    <label>{{this.section}} </label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <label> {{this.row}}</label>
+                                </div>
+                                <div class="input-field col s2">
+                                    <select name="userticketsquantity" id="ticketsquantity">
+                                        {{#each this.splits}}
+                                        <option value="{{this}}">{{this}}</option>
+                                        {{/each}}
+
+                                    </select>
+                                </div>
+                                <div class="input-field col s2">
+                                    <label> {{this.wholesale_price}}</label>
+                                </div>
+
+                                <div class="input-field col s2 l3">
+                                    <button type="submit" class="btn blue">BUY</button>
+                                </div>
+
+
+                            </form>
                         </div>
-                        <div class="input-field col s2">
-                            <label> {{this.row}}</label>
-                        </div>
-                        <div class="input-field col s2">
-                            <select name="userticketsquantity" id="ticketsquantity">
-                                {{#each this.splits}}
-                                <option value="{{this}}">{{this}}</option>
-                                {{/each}}
-
-                            </select>
-                        </div>
-                        <div class="input-field col s2">
-                            <label> {{this.wholesale_price}}</label>
-                        </div>
-
-                        <div class="input-field col s2 l3">
-                            <button type="submit" class="btn blue">BUY</button>
-                        </div>
 
 
-                    </form>
+                        {{/each}}
+                    </div>
+
+
+
+
+
                 </div>
-
-
-                {{/each}}
             </div>
+
         </div>
     </div>
 
@@ -93,6 +106,12 @@
         $('select').material_select();
         $(".button-collapse").sideNav();
         $("#tickets").DataTable({ "order": [[3, "desc"]] });
+
+
+        if (!$.browser.webkit) {
+            $('.wrapper').html('<p>Sorry! Non webkit users. :(</p>');
+        }
+
     });
 
 </script>
