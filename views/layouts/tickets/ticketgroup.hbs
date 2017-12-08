@@ -8,16 +8,16 @@
         <div class="col s12 m6 l6">
             <div class="row">
                 <div class="input-field col s2">
-                    <label style="font-color: black">Section</label>
+                    <label>Section </label>
                 </div>
                 <div class="input-field col s2">
-                    <label style="font-color: black">Row</label>
+                    <label>Row</label>
                 </div>
                 <div class="input-field col s2">
-                    <label style="font-color: black">Qty</label>
+                    <label>Qty</label>
                 </div>
                 <div class="input-field col s2">
-                    <label style="font-color: black">Price</label>
+                    <label>Price</label>
                 </div>
 
                 <div class="input-field col s1">
@@ -34,8 +34,7 @@
                     <div class="">
 
                         {{#each ticketGroups}}
-                        <div class="row">
-                            <!--z-depth-1 -->
+                        <div class="row"><!---->
                             <form class="col s12" action="/checkout/" method="post">
                                 <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
                                 <input type="hidden" value="{{this.in_hand}}" name="in_hand">
@@ -56,10 +55,10 @@
 
 
                                 <div class="input-field col s2">
-                                    <label style="font-color: black"></label>{{this.section}} </label>
+                                    <label>{{this.section}} </label>
                                 </div>
                                 <div class="input-field col s2">
-                                    <label style="font-color: black"></label>{{this.row}}</label>
+                                    <label> {{this.row}}</label>
                                 </div>
                                 <div class="input-field col s2">
                                     <select name="userticketsquantity" id="ticketsquantity">
@@ -70,7 +69,7 @@
                                     </select>
                                 </div>
                                 <div class="input-field col s2">
-                                    <label style="font-color: black"></label>${{this.wholesale_price}}</label>
+                                    <label> {{this.wholesale_price}}</label>
                                 </div>
 
                                 <div class="input-field col s2 l3">
@@ -81,7 +80,7 @@
                             </form>
                         </div>
 
-                        <div class="divider"></div>
+
                         {{/each}}
                     </div>
 
