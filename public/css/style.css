@@ -8,7 +8,7 @@ a {
 }*/
 .fixed-panel {
   height:auto;
-  max-height:150%;
+  max-height:100%;
   overflow-y: auto;
 }
 
