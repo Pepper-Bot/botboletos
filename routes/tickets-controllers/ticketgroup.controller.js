@@ -41,13 +41,14 @@ var ticketgroup = (req, res) => {
             res.render(
                 './layouts/tickets/ticketgroup', {
                     titulo: "Your tickets are on its way!",
+                    title_action: "Select your tickets",
                     ticketGroups: ticketGroups,
                     event_id: event.event_id,
                     event_name: event.name,
                     event_date: event.occurs_at,
                     seatsmap: event.configuration.seating_chart.large,
                     venue_name: event.venue.name + ' ' + event.venue.location,
-                    title_action: "Select your tickets"
+                    
                 }
             );
 
