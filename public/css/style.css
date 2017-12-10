@@ -21,7 +21,9 @@ a {
   overflow-x:hidden;
 }
 
-
+.width100 {
+  width: 100%;
+  }
 /*
  *  STYLE 7
  */
