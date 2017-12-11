@@ -38,6 +38,7 @@ var ticketgroup = (req, res) => {
                 prefix: '$',
                 //integerSeparator :'.'
             });
+            conosole.log("resFormat" + resFormat);
             ticketGroups[i].wholesale_price_format = resFormat;
         }
         console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
