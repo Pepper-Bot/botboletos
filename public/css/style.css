@@ -48,6 +48,10 @@ a {
   .height40 {
     max-height: 35%;
   }
+  .fuente_titulo {
+    font-size: 1.5rem;
+    color: white;
+  }
 }
 
 @media screen and (min-width: 960px) {
