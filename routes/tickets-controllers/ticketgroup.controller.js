@@ -29,19 +29,13 @@ var ticketgroup = (req, res) => {
     var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
 
     tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
-        var ticketGroups = ticketG.ticket_groups;
 
-        for (var i = 0; i < ticketGroups.length; i++) {
-            let flotante = parseFloat(ticketGroups[i].wholesale_price);
-            let resultado = Math.round(flotante * 100) / 100;
-            let resFormat = format({
-                prefix: '$',
-                //integerSeparator :'.'
-            });
-            conosole.log("resFormat" + resFormat);
-            ticketGroups[i].wholesale_price_format = resFormat;
-        }
-        console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
+
+
+        var ticketGroups = processFormatPrice(ticketG.ticket_groups)
+
+
+        console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
         console.log("TicketGroup  Construida.lenght: >>> " + ticketGroups.length);
 
         var searchById = tevo.API_URL + 'events/' + event_id
@@ -71,6 +65,45 @@ var ticketgroup = (req, res) => {
     });
 
 }
+
+
+async function processFormatPrice(ticketGroups) {
+    try {
+        return result = await formatPrice(ticketGroups);
+
+    } catch (err) {
+        return console.log(err.message);
+    }
+}
+
+
+function formatPrice(ticketGroups) {
+    let ticketGF = [];
+    ticketGF = ticketGroups;
+    const promise = new Promise(function (resolve, reject) {
+        for (let i = 0; i < ticketGF.length; i++) {
+            let flotante = parseFloat(ticketGF[i].wholesale_price);
+            let resultado = Math.round(flotante * 100) / 100;
+            let resFormat = format({
+                prefix: '$',
+                //integerSeparator :'.'
+            });
+            conosole.log("resFormat" + resFormat);
+            ticketGF[i].wholesale_price_format = resFormat;
+
+            if (i == ticketGF.length) {
+                resolve(ticketGF);
+            }
+        }
+        if (!ticketGF) {
+            reject(new Error('No existe un array'));
+        }
+    })
+
+    return promise;
+}
+
+
 
 module.exports = {
     ticketgroup
