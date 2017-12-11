@@ -25,7 +25,7 @@
             <img alt="Seat Map" class="responsive-img" src="{{{seatsmap}}}">
         </div>
         <div class="col s12 m6 l6">
-            <div class="row">
+             <!--<div class="row">
                 <div class="input-field col s2">
                     <label>Section </label>
                 </div>
@@ -35,15 +35,15 @@
                 <div class="input-field col s2">
                     <label>Qty</label>
                 </div>
-                <div class="input-field col s3">
+               <div class="input-field col s3">
                     <label>Price</label>
                 </div>
 
-                <div class="input-field col s1">
+                <div class="input-field col s4">
                     <label> </label>
                 </div>
             </div>
-            <br></br>
+            <br></br>-->
             <div class="divider"></div>
 
 
@@ -53,7 +53,8 @@
                     <div class="">
 
                         {{#each ticketGroups}}
-                        <div class="row"><!---->
+                        <div class="row">
+                            <!---->
                             <form class="col s12" action="/checkout/" method="post">
                                 <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
                                 <input type="hidden" value="{{this.in_hand}}" name="in_hand">
@@ -73,12 +74,12 @@
 
 
 
-                                <div class="input-field col s2">
-                                    <label>{{this.section}} </label>
+                                <div class="input-field col s3">
+                                    <div class="fuente10">Section {{this.section}} </div>
+                                    <div class="fuente8">Row {{this.row}}</div>
+                                
                                 </div>
-                                <div class="input-field col s1">
-                                    <label> {{this.row}}</label>
-                                </div>
+                                
                                 <div class="input-field col s2">
                                     <select name="userticketsquantity" id="ticketsquantity">
                                         {{#each this.splits}}
@@ -87,18 +88,18 @@
 
                                     </select>
                                 </div>
-                                <div class="input-field col s3">
+                                <!-- <div class="input-field col s3">
                                     <label>$ {{this.wholesale_price}}</label>
-                                </div>
+                                </div>-->
 
-                                <div class="input-field col s3 l3">
-                                    <button type="submit" class="btn blue width100">{{this.wholesale_price}}</button>
+                                <div class="input-field col s6 l4">
+                                    <button type="submit" class="btn blue width100" style="display:block">$ {{this.wholesale_price}}</button>
                                 </div>
 
 
                             </form>
                         </div>
-                       {{/each}}
+                        {{/each}}
                     </div>
                 </div>
             </div>

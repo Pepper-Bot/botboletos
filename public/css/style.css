@@ -8,13 +8,14 @@ a {
 }
 
 .fuente8 {
+  color: #cccccc;
   font-size: 0.8rem;
 }
 
-.fuente10 {
-  font-size: 1rem ;
-}
+.fuente9 {
 
+  font-size: 0.9rem;
+}
 
 .fixed-panel {
   height: auto;
@@ -27,19 +28,22 @@ a {
   height: auto;
   max-height: 60%;
   overflow-y: auto;
-  overflow-x:hidden;
+  overflow-x: hidden;
 }
 
 .width100 {
   width: 100%;
-  }
+}
+
+
 /*
  *  STYLE 7
  */
- @media screen and (max-width: 640px) {
-   .height40{
+
+@media screen and (max-width: 640px) {
+  .height40 {
     max-height: 35%;
-   }
+  }
 }
 
 @media screen and (min-width: 960px) {
