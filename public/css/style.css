@@ -12,8 +12,12 @@ a {
   font-size: 0.8rem;
 }
 
-.fuente9 {
+.fuente_titulo {
+  font-size: 1 rem;
+  color: white;
+}
 
+.fuente9 {
   font-size: 0.9rem;
 }
 
