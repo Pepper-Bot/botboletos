@@ -1,9 +1,9 @@
 <div class="navbar-fixed">
     <nav class="blue" role="navigation">
         <div class="nav-wrapper container">
-            <div class="brand-logo ">{{event_name}}</div>
+            <div class="brand-logo ">{{{title_action}}}</div>
 
-            <ul class="right hide-on-med-and-down">
+            <!--  <ul class="right hide-on-med-and-down">
                 <li>
                     {{event_name}}
                 </li>
@@ -13,17 +13,22 @@
                 <li>
                     {{venue_name}}
                 </li>
-                
-            </ul>
+
+            </ul>-->
 
             <!-- <ul id="nav-mobile" class="side-nav" style="left: 0px;">
                 <li>
                     <a href="#">Navbar Link</a>
                 </li>
-            </ul>>-->
-            <a href="#" data-activates="slide-out" class="button-collapse">
+            </ul>-->
+            <!-- <a href="#" data-activates="slide-out" class="button-collapse">
                 <i class="medium material-icons">menu</i>
+            </a>-->
+            <a href="#" class="button-collapse"  onclick=" window.history.back();">
+                <i class="medium material-icons">arrow_back</i>
             </a>
+
+
         </div>
     </nav>
 </div>
