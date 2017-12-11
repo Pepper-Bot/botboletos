@@ -2,7 +2,7 @@
     <nav class="blue" role="navigation">
         <div class="nav-wrapper container">
             <div class="brand-logo "></div>
-            <a href="#" class="button-collapse"  onclick=" window.history.back();">
+            <a href="#" class="button-collapse" onclick=" window.history.back();">
                 <i class="medium material-icons">arrow_back</i>
             </a>
             <div class="fuente_titulo">Select tickets</div>
@@ -12,33 +12,11 @@
 <div class="container">
     <div class="row">
         <div class="col  m6 l6">
-            <h3 class="header center blue-text">{{{event_name}}}</h3>
+            <h3 class="">{{{event_name}}}</h3>
             <img alt="Seat Map" class="responsive-img" src="{{{seatsmap}}}">
         </div>
         <div class="col s12 m6 l6">
-             <!--<div class="row">
-                <div class="input-field col s2">
-                    <label>Section </label>
-                </div>
-                <div class="input-field col s1">
-                    <label>Row</label>
-                </div>
-                <div class="input-field col s2">
-                    <label>Qty</label>
-                </div>
-               <div class="input-field col s3">
-                    <label>Price</label>
-                </div>
-
-                <div class="input-field col s4">
-                    <label> </label>
-                </div>
-            </div>
-            <br></br>-->
             <div class="divider"></div>
-
-
-
             <div class="scrollbar" id="style-7">
                 <div class=" ">
                     <div class="">
@@ -66,12 +44,12 @@
 
 
                                 <div class="input-field col s4">
-                                    
+
                                     <div class="fuente9 ">Section {{this.section}} </div>
                                     <div class="fuente8">Row {{this.row}}</div>
-                                
+
                                 </div>
-                                
+
                                 <div class="col s2 fuente9">
                                     <select name="userticketsquantity" id="ticketsquantity">
                                         {{#each this.splits}}
