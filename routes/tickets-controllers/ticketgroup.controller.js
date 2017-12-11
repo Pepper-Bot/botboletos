@@ -41,7 +41,7 @@ var ticketgroup = (req, res) => {
             res.render(
                 './layouts/tickets/ticketgroup', {
                     titulo: "Your tickets are on its way!",
-                    title_action: "Select your tickets",
+                    subtitulo: "Select your tickets",
                     ticketGroups: ticketGroups,
                     event_id: event.event_id,
                     event_name: event.name,

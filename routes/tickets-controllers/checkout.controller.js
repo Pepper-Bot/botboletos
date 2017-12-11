@@ -107,7 +107,7 @@ var checkout = (req, res) => {
                     groupticket_id: params.groupticket_id,
                     firstName: firstName,
                     LastName: LastName,
-                    title_action: "Checkout"
+                    subtitulo: "Checkout"
 
                 }
             );
