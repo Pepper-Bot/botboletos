@@ -14,7 +14,7 @@ var ticketgroup = (req, res) => {
     var UserData = require('../../bot/userinfo');
     var UserData2 = require('../../schemas/userinfo');
     var moment = require('moment');
-
+    var format_number = require('format-number');
 
 
 
@@ -30,7 +30,17 @@ var ticketgroup = (req, res) => {
 
     tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
         var ticketGroups = ticketG.ticket_groups;
-        //console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
+
+        for (var i = 0; i < ticketGroups.length; i++) {
+            let flotante = parseFloat(ticketGroups[i].wholesale_price);
+            let resultado = Math.round(flotante * 100) / 100;
+            let resFormat = format({
+                prefix: '$',
+                //integerSeparator :'.'
+            });
+            ticketGroups[i].wholesale_price_format = resFormat;
+        }
+        console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
         console.log("TicketGroup  Construida.lenght: >>> " + ticketGroups.length);
 
         var searchById = tevo.API_URL + 'events/' + event_id
