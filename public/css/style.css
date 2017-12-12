@@ -33,6 +33,14 @@ a {
   font-size: 0.9rem;
 }
 
+.titulo1 {
+  font-size: 0.9rem;
+  margin: 2px 0px;
+  padding: 0px;
+  display: inline;
+}
+
+
 .fixed-panel {
   height: auto;
   max-height: 80%;
