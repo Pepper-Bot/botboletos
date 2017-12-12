@@ -73,30 +73,33 @@ async function processFormatPrice(ticketGroups) {
 }
 
 
+
 function formatPrice(ticketGroups) {
-    let ticketGF = [];
-    ticketGF = ticketGroups;
-    const promise = new Promise(function (resolve, reject) {
-        for (let i = 0; i < ticketGF.length; i++) {
-            let flotante = parseFloat(ticketGF[i].wholesale_price);
-            let resultado = Math.round(flotante * 100) / 100;
-            let resFormat = format({
-                prefix: '$',
-                //integerSeparator :'.'
-            });
-            conosole.log("resFormat" + resFormat);
-            ticketGF[i].wholesale_price_format = resFormat;
+	let ticketGF = [];
+	ticketGF = ticketGroups;
+	const promise = new Promise(function (resolve, reject) {
+		for (let i = 0; i < ticketGF.length; i++) {
+			let flotante = parseFloat(ticketGF[i].wholesale_price);
+			var resultado = Math.round(flotante * Math.pow(10, 0)) / Math.pow(10, 0);
+			let resFormat = format({
+				prefix: '$ ',
+				//integerSeparator :'.'
+			})(resultado, {
+				noSeparator: false
+			});;
 
-            if (i == ticketGF.length) {
-                resolve(ticketGF);
-            }
-        }
-        if (!ticketGF) {
-            reject(new Error('No existe un array'));
-        }
-    })
+			ticketGF[i].wholesale_price_format = resFormat;
 
-    return promise;
+			if (i == ticketGF.length - 1) {
+				resolve(ticketGF);
+			}
+		}
+		if (!ticketGF) {
+			reject(new Error('No existe un array'));
+		}
+	})
+
+	return promise;
 }
 
 

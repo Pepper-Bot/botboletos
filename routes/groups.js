@@ -62,7 +62,8 @@ router.get('/', function (req, res) {
 						event_name: event.name,
 						event_date: event.occurs_at,
 						seatsmap: event.configuration.seating_chart.large,
-						uid: fbId
+						uid: fbId,
+						subtitulo: "Select your tickets",
 					}
 				);
 
