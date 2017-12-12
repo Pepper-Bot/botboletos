@@ -87,7 +87,7 @@ async function processFormatPrice(ticketGroups) {
 }
 
 
-function formatPrice(ticketGroups) {
+async function formatPrice(ticketGroups) {
 	let ticketGF = [];
 	ticketGF = ticketGroups;
 	const promise = new Promise(function (resolve, reject) {
