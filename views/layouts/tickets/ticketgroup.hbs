@@ -16,70 +16,72 @@
             <h4 class="">{{{event_name}}}</h4>
             <img alt="Seat Map" class="responsive-img" src="{{{seatsmap}}}">
         </div>
-        <div class="col s12 m6 l6">
-            <div class="barra_gris">
-               Choose Quantity and Price:
-            </div>
-            <div class="divider"></div>
-            <div class="scrollbar" id="style-7">
-                <div class=" ">
-                    <div class="">
+    </div>
+</div>
+<div class="barra_gris hide-on-large-only">
+    Choose Quantity and Price:
+</div>
+<div class="col s12 m6 l6">
 
-                        {{#each ticketGroups}}
-                        <div class="row">
-                            <!---->
-                            <form class="s12" action="/checkout/" method="post">
-                                <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
-                                <input type="hidden" value="{{this.in_hand}}" name="in_hand">
-                                <input type="hidden" value="{{this.eticket}}" name="eticket">
-                                <input type="hidden" value="{{{../event_name}}}" name="event_name">
-                                <input type="hidden" value="{{../event_date}}" name="event_date">
-                                <input type="hidden" value="{{../uid}}" name="uid" id="uid">
-                                <input type="hidden" value="{{../event_id}}" name="event_id">
-                                <input type="hidden" value="{{this.id}}" name="groupticket_id">
-                                <input type="hidden" value="{{this.quantity}}" name="quantity">
-                                <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
-                                <input type="hidden" value="{{this.format}}" name="format">
-                                <input type="hidden" value="{{this.section}}" name="section">
-                                <input type="hidden" value="{{this.row}}" name="row">
-                                <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
+    <div class="divider"></div>
+    <div class="scrollbar" id="style-7">
+        <div class=" ">
+            <div class="">
+
+                {{#each ticketGroups}}
+                <div class="row">
+                    <!---->
+                    <form class="s12" action="/checkout/" method="post">
+                        <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
+                        <input type="hidden" value="{{this.in_hand}}" name="in_hand">
+                        <input type="hidden" value="{{this.eticket}}" name="eticket">
+                        <input type="hidden" value="{{{../event_name}}}" name="event_name">
+                        <input type="hidden" value="{{../event_date}}" name="event_date">
+                        <input type="hidden" value="{{../uid}}" name="uid" id="uid">
+                        <input type="hidden" value="{{../event_id}}" name="event_id">
+                        <input type="hidden" value="{{this.id}}" name="groupticket_id">
+                        <input type="hidden" value="{{this.quantity}}" name="quantity">
+                        <input type="hidden" value="{{this.instant_delivery}}" name="instant_delivery">
+                        <input type="hidden" value="{{this.format}}" name="format">
+                        <input type="hidden" value="{{this.section}}" name="section">
+                        <input type="hidden" value="{{this.row}}" name="row">
+                        <input type="hidden" value="{{this.wholesale_price}}" name="priceticket">
 
 
 
 
-                                <div class="input-field col s6">
+                        <div class="input-field col s6">
 
-                                    <div class="fuente9 ">Section {{this.section}} </div>
-                                    <div class="fuente8">Row {{this.row}}</div>
+                            <div class="fuente9 ">Section {{this.section}} </div>
+                            <div class="fuente8">Row {{this.row}}</div>
 
-                                </div>
+                        </div>
 
-                                <div class="col s2 fuente9">
-                                    <select name="userticketsquantity" id="ticketsquantity">
-                                        {{#each this.splits}}
-                                        <option value="{{this}}">{{this}}</option>
-                                        {{/each}}
+                        <div class="col s2 fuente9">
+                            <select name="userticketsquantity" id="ticketsquantity">
+                                {{#each this.splits}}
+                                <option value="{{this}}">{{this}}</option>
+                                {{/each}}
 
-                                    </select>
-                                </div>
-                                <!-- <div class="input-field col s3">
+                            </select>
+                        </div>
+                        <!-- <div class="input-field col s3">
                                     <label>$ {{this.wholesale_price}}</label>
                                 </div>-->
 
-                                <div class="input-field col s4 l4">
-                                    <button type="submit" class="btn btn1rem blue width100 fuente9" style="display:block">{{this.wholesale_price_format}}</button>
-                                </div>
-
-
-                            </form>
+                        <div class="input-field col s4 l4">
+                            <button type="submit" class="btn btn1rem blue width100 fuente9" style="display:block">{{this.wholesale_price_format}}</button>
                         </div>
-                        {{/each}}
-                    </div>
+
+
+                    </form>
                 </div>
+                {{/each}}
             </div>
         </div>
     </div>
 </div>
+
 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
