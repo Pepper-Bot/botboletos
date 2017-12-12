@@ -24,7 +24,7 @@
                         {{#each ticketGroups}}
                         <div class="row">
                             <!---->
-                            <form class="col s12" action="/checkout/" method="post">
+                            <form class="s12" action="/checkout/" method="post">
                                 <input type="hidden" value="{{this.in_hand_on}}" name="in_hand_on">
                                 <input type="hidden" value="{{this.in_hand}}" name="in_hand">
                                 <input type="hidden" value="{{this.eticket}}" name="eticket">
@@ -43,7 +43,7 @@
 
 
 
-                                <div class="input-field col s5">
+                                <div class="input-field col s6">
 
                                     <div class="fuente9 ">Section {{this.section}} </div>
                                     <div class="fuente8">Row {{this.row}}</div>
