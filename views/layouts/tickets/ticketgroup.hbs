@@ -5,14 +5,21 @@
             <a href="#" class="button-collapse" onclick=" window.history.back();">
                 <i class="medium material-icons">arrow_back</i>
             </a>
-            <div class="fuente_titulo">Select tickets</div>
+            <div class="fuente_titulo">
+                {{{event_name}}}
+                
+            </div>
+             <div class="fuente9">
+                {{{venue_name}}}
+                
+            </div>
         </div>
     </nav>
 </div>
 <div class="container1">
     <div class="row row1">
         <div class="col  m6 l6">
-            <h4 class="">{{{event_name}}}</h4>
+            <h4 class="hide-on-large-only">{{{event_name}}}</h4>
             <img alt="Seat Map" class="responsive-img" src="{{{seatsmap}}}">
         </div>
         <div class="col row1 s12 m6 l6">

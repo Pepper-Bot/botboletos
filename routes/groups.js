@@ -42,10 +42,7 @@ router.get('/', function (req, res) {
 	var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
 
 	tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
-		//var ticketGroups = ticketG.ticket_groups;
-		//console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
-
-
+	
 		var searchById = tevo.API_URL + 'events/' + event_id
 		formatPrice(ticketG.ticket_groups).then((ticketGroups) => {
 
@@ -67,16 +64,8 @@ router.get('/', function (req, res) {
 						venue_name: event.venue.name + ' ' + event.venue.location,
 					}
 				);
-
-
 			});
 		})
-
-
-
-
-
-
 	});
 
 });
