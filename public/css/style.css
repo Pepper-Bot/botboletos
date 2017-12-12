@@ -117,6 +117,9 @@ a {
   .container1 {
     width: 70%;
   }
+  nav{
+    line-height: 0px;
+  }
 }
 
- 
+
