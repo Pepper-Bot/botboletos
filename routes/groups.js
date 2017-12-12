@@ -100,7 +100,7 @@ function formatPrice(ticketGroups) {
 	const promise = new Promise(function (resolve, reject) {
 		for (let i = 0; i < ticketGF.length; i++) {
 			let flotante = parseFloat(ticketGF[i].wholesale_price);
-			var resultado = Math.round(flotante * Math.pow(10, 0)) / Math.pow(10, 0);
+			var resultado =100* Math.round(flotante * Math.pow(10, 0)) / Math.pow(10, 0);
 			let resFormat = format({
 				prefix: '$ ',
 				//integerSeparator :'.'
