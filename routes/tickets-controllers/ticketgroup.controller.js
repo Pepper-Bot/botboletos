@@ -40,9 +40,9 @@ var ticketgroup = (req, res) => {
 
             var searchById = tevo.API_URL + 'events/' + event_id
 
-            tevoClient.getJSON(searchById).then((event) => {
+            /*tevoClient.getJSON(searchById).then((event) => {
 
-                console.log("EVENT<<<  : >>> " + JSON.stringify(event));
+               // console.log("EVENT<<<  : >>> " + JSON.stringify(event));
                 res.render(
                     './layouts/tickets/ticketgroup', {
                         titulo: "Your tickets are on its way!",
@@ -56,7 +56,7 @@ var ticketgroup = (req, res) => {
 
                     }
                 );
-            });
+            });*/
         })
     });
 
