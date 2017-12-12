@@ -50,6 +50,8 @@ router.get('/', function (req, res) {
 
 		var ticketGroups = processFormatPrice(ticketG.ticket_groups);
 
+		console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
+		
 		tevoClient.getJSON(searchById).then((event) => {
 
 			console.log("EVENT<<<  : >>> " + JSON.stringify(event));
@@ -95,16 +97,15 @@ function formatPrice(ticketGroups) {
 			let flotante = parseFloat(ticketGF[i].wholesale_price);
 			var resultado = Math.round(flotante * Math.pow(10, 0)) / Math.pow(10, 0);
 			let resFormat = format({
-				prefix: '$',
+				prefix: '$ ',
 				//integerSeparator :'.'
 			})(resultado, {
 				noSeparator: false
 			});;
-			console.log("resFormat " + resFormat);
+			
 			ticketGF[i].wholesale_price_format = resFormat;
 
 			if (i == ticketGF.length - 1) {
-				console.log("TicketGroup  Construida.lenght: >>> " + ticketGF.length);
 				resolve(ticketGF);
 			}
 		}
