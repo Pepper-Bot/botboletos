@@ -44,7 +44,7 @@ router.get('/', function (req, res) {
 	tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
 		//var ticketGroups = ticketG.ticket_groups;
 		//console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketG));
-		console.log("TicketGroup  Construida.lenght: >>> " + ticketGroups.length);
+
 
 		var searchById = tevo.API_URL + 'events/' + event_id
 
@@ -102,6 +102,7 @@ function formatPrice(ticketGroups) {
 			ticketGF[i].wholesale_price_format = resFormat;
 
 			if (i == ticketGF.length) {
+				console.log("TicketGroup  Construida.lenght: >>> " + ticketGF.length);
 				resolve(ticketGF);
 			}
 		}
