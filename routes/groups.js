@@ -42,13 +42,17 @@ router.get('/', function (req, res) {
 	var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
 
 	tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
-	
+
 		var searchById = tevo.API_URL + 'events/' + event_id
 		formatPrice(ticketG.ticket_groups).then((ticketGroups) => {
 
 			///console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
 
 			tevoClient.getJSON(searchById).then((event) => {
+
+				var occurs_at = event.occurs_at;
+				occurs_at = occurs_at.substring(0, occurs_at.length - 4);
+				occurs_at = moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
 				//console.log("EVENT<<<  : >>> " + JSON.stringify(event));
 				res.render(
@@ -58,6 +62,7 @@ router.get('/', function (req, res) {
 						event_id: event.event_id,
 						event_name: event.name,
 						event_date: event.occurs_at,
+						event_date_f: occurs_at,
 						seatsmap: event.configuration.seating_chart.large,
 						uid: fbId,
 						subtitulo: "Select your tickets",
