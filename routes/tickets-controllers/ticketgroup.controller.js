@@ -40,7 +40,7 @@ var ticketgroup = (req, res) => {
 
             var searchById = tevo.API_URL + 'events/' + event_id
 
-            /*tevoClient.getJSON(searchById).then((event) => {
+            tevoClient.getJSON(searchById).then((event) => {
 
                // console.log("EVENT<<<  : >>> " + JSON.stringify(event));
                 res.render(
@@ -56,7 +56,7 @@ var ticketgroup = (req, res) => {
 
                     }
                 );
-            });*/
+            });
         })
     });
 
