@@ -97,7 +97,7 @@ function formatPrice(ticketGroups) {
 			let resFormat = format({
 				prefix: '$',
 				//integerSeparator :'.'
-			});
+			})(resultado, {noSeparator: false});;
 			console.log("resFormat" + resFormat);
 			ticketGF[i].wholesale_price_format = resFormat;
 
