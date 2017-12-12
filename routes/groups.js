@@ -93,15 +93,17 @@ function formatPrice(ticketGroups) {
 	const promise = new Promise(function (resolve, reject) {
 		for (let i = 0; i < ticketGF.length; i++) {
 			let flotante = parseFloat(ticketGF[i].wholesale_price);
-			let resultado = Math.round(flotante * 100) / 100;
+			var resultado = Math.round(flotante * Math.pow(10, 0)) / Math.pow(10, 0);
 			let resFormat = format({
 				prefix: '$',
 				//integerSeparator :'.'
-			})(resultado, {noSeparator: false});;
-			console.log("resFormat" + resFormat);
+			})(resultado, {
+				noSeparator: false
+			});;
+			console.log("resFormat " + resFormat);
 			ticketGF[i].wholesale_price_format = resFormat;
 
-			if (i == ticketGF.length) {
+			if (i == ticketGF.length - 1) {
 				console.log("TicketGroup  Construida.lenght: >>> " + ticketGF.length);
 				resolve(ticketGF);
 			}
