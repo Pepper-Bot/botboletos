@@ -47,28 +47,31 @@ router.get('/', function (req, res) {
 
 
 		var searchById = tevo.API_URL + 'events/' + event_id
+		formatPrice(ticketG.ticket_groups).then((ticketGroups) => {
 
-		var ticketGroups = processFormatPrice(ticketG.ticket_groups);
+			console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
 
-		console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
-		
-		tevoClient.getJSON(searchById).then((event) => {
+			tevoClient.getJSON(searchById).then((event) => {
 
-			console.log("EVENT<<<  : >>> " + JSON.stringify(event));
-			res.render(
-				'./layouts/tickets/ticketgroup', {
-					titulo: "Select tickets",
-					ticketGroups: ticketGroups,
-					event_id: event.event_id,
-					event_name: event.name,
-					event_date: event.occurs_at,
-					seatsmap: event.configuration.seating_chart.large,
-					uid: fbId
-				}
-			);
+				console.log("EVENT<<<  : >>> " + JSON.stringify(event));
+				res.render(
+					'./layouts/tickets/ticketgroup', {
+						titulo: "Select tickets",
+						ticketGroups: ticketGroups,
+						event_id: event.event_id,
+						event_name: event.name,
+						event_date: event.occurs_at,
+						seatsmap: event.configuration.seating_chart.large,
+						uid: fbId
+					}
+				);
 
 
-		});
+			});
+		})
+
+
+
 
 
 
@@ -102,7 +105,7 @@ function formatPrice(ticketGroups) {
 			})(resultado, {
 				noSeparator: false
 			});;
-			
+
 			ticketGF[i].wholesale_price_format = resFormat;
 
 			if (i == ticketGF.length - 1) {
