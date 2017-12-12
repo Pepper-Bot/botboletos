@@ -6,7 +6,7 @@ var gis = require('g-i-s'); // Google images
 var moment = require('moment');
 /* GET home page. */
 var tevo = require('../config/config_vars').tevo;
-
+var format = require('format-number');
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var tevoClient = new TevoClient({

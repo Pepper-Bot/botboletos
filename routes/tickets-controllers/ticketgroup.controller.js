@@ -5,7 +5,7 @@ var tevoClient = new TevoClient({
     apiToken: tevo.API_TOKEN,
     apiSecretKey: tevo.API_SECRET_KEY
 });
-
+var format = require('format-number');
 
 
 var ticketgroup = (req, res) => {
@@ -14,7 +14,7 @@ var ticketgroup = (req, res) => {
     var UserData = require('../../bot/userinfo');
     var UserData2 = require('../../schemas/userinfo');
     var moment = require('moment');
-    var format_number = require('format-number');
+    
 
 
 
