@@ -46,11 +46,11 @@ router.get('/', function (req, res) {
 		var searchById = tevo.API_URL + 'events/' + event_id
 		formatPrice(ticketG.ticket_groups).then((ticketGroups) => {
 
-			console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
+			///console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
 
 			tevoClient.getJSON(searchById).then((event) => {
 
-				console.log("EVENT<<<  : >>> " + JSON.stringify(event));
+				//console.log("EVENT<<<  : >>> " + JSON.stringify(event));
 				res.render(
 					'./layouts/tickets/ticketgroup', {
 						titulo: "Select tickets",

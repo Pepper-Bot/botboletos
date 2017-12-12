@@ -35,7 +35,7 @@ var ticketgroup = (req, res) => {
         // var ticketGroups = processFormatPrice(ticketG.ticket_groups)
 
         formatPrice(ticketG.ticket_groups).then((ticketGroups) => {
-            console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
+            //console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
             console.log("TicketGroup  Construida.lenght: >>> " + ticketGroups.length);
 
             var searchById = tevo.API_URL + 'events/' + event_id
