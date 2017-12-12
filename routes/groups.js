@@ -48,7 +48,7 @@ router.get('/', function (req, res) {
 
 		var searchById = tevo.API_URL + 'events/' + event_id
 
-		var ticketGroups = await formatPrice(ticketG.ticket_groups);
+		var ticketGroups = processFormatPrice(ticketG.ticket_groups);
 
 		tevoClient.getJSON(searchById).then((event) => {
 
@@ -87,7 +87,7 @@ async function processFormatPrice(ticketGroups) {
 }
 
 
-async function formatPrice(ticketGroups) {
+function formatPrice(ticketGroups) {
 	let ticketGF = [];
 	ticketGF = ticketGroups;
 	const promise = new Promise(function (resolve, reject) {
