@@ -52,7 +52,7 @@ var ticketgroup = (req, res) => {
                         event_date: event.occurs_at,
                         seatsmap: event.configuration.seating_chart.large,
                         subtitulo: "Select your tickets",
-                        //venue_name: event.venue.name + ' ' + event.venue.location,
+                        venue_name: event.venue.name + ' ' + event.venue.location,
 
                     }
                 );
