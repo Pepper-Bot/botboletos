@@ -5,15 +5,9 @@
 
 
 .btn1rem  {
-  border: none;
-  border-radius: 2px;
-  display: inline-block;
-  height: 36px;
-  line-height: 36px;
+  
   padding: 0 1rem;
-  text-transform: uppercase;
-  vertical-align: middle;
-  -webkit-tap-highlight-color: transparent;
+   
 }
 
 a {
