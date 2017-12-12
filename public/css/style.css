@@ -3,16 +3,13 @@
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }*/
 
-
-.btn1rem  {
-  
+.btn1rem {
   padding: 0 1rem;
-   
 }
 
-.barra_gris{
+.barra_gris {
   color: black;
-  background-color:  #d3d0d0;
+  background-color: #d3d0d0;
   line-height: 4rem;
   height: 4rem;
   padding: 0 1rem;
@@ -54,12 +51,12 @@ a {
   width: 100%;
 }
 
-
 /*
  *  STYLE 7
  */
 
-@media screen and (max-width: 640px) {
+ 
+@media screen and (max-width: 601px) {
   .height40 {
     max-height: 35%;
   }
@@ -67,6 +64,7 @@ a {
     font-size: 1.2rem;
     color: white;
   }
+ 
 }
 
 @media screen and (min-width: 960px) {
@@ -84,3 +82,23 @@ a {
     background-image: -webkit-gradient(linear, left bottom, left top, color-stop(0.44, rgb(122, 153, 217)), color-stop(0.72, rgb(73, 125, 189)), color-stop(0.86, rgb(28, 58, 148)));
   }
 }
+
+.container1 {
+  margin: 0 auto;
+  max-width: 1280px;
+  width: 90%;
+}
+
+@media only screen and (min-width: 601px) {
+  .container1 {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 993px) {
+  .container1 {
+    width: 70%;
+  }
+}
+
+ 
