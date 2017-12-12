@@ -10,6 +10,11 @@
    
 }
 
+.barra_gris{
+  color: black;
+  background-color:  #868585;
+}
+
 a {
   color: #00B7FF;
 }
