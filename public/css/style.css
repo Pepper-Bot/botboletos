@@ -12,7 +12,10 @@
 
 .barra_gris{
   color: black;
-  background-color:  #868585;
+  background-color:  #d3d0d0;
+  line-height: 2rem;
+  height: 2rem;
+  padding: 0 1rem;
 }
 
 a {
