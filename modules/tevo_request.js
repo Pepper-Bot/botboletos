@@ -7,19 +7,27 @@ module.exports = function () {
             var moment = require('moment');
             var UserData = require('../bot/userinfo');
             var UserData2 = require('../schemas/userinfo');
-
             var tevo = require('../config/config_vars').tevo;
+            var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
 
-            var urlApiTevo = '';
 
 
-            urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
-
-            var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
             var tevoClient = new TevoClient({
                 apiToken: tevo.API_TOKEN,
                 apiSecretKey: tevo.API_SECRET_KEY
             });
+
+
+
+            var urlApiTevo = '';
+
+            urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+
+            if ('shakira' === event_name.toLowerCase()) {
+                urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&occurs_at.gte=2018-01-01T08:00:00Z&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+            }
+
+
 
 
 
@@ -36,6 +44,7 @@ module.exports = function () {
                             Message.typingOn(senderId);
                             Message.markSeen(senderId);
                             Message.typingOn(senderId);
+
                             switch (cool) {
                                 case 0:
                                     {
@@ -66,7 +75,7 @@ module.exports = function () {
                             resultEvent = json.events;
                             var eventButtons_ = [];
                             var callsGis = 0;
-                            var baseURL = process.env.APLICATION_URL_DOMAIN + 'event/?event_id=';
+                            var baseURL = APLICATION_URL_DOMAIN + 'event/?event_id=';
 
 
                             if (resultEvent.length > 9 * (position - 1)) {
@@ -113,16 +122,16 @@ module.exports = function () {
                                 var occurs_at = resultEvent[j].occurs_at;
                                 occurs_at = occurs_at.substring(0, occurs_at.length - 4)
 
-                                var occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+                                //var occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
-
+                                var occurs_at = moment(occurs_at).format('MMM Do YYYY, h:mm a')
 
 
 
                                 eventButtons_.push({
                                     "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                                     "image_url": resultEvent[j].category.name,
-                                    "subtitle": resultEvent[j].venue.name + " " + occurs_at,
+                                    "subtitle": resultEvent[j].venue.name + " " + resultEvent[j].venue.location + " " + occurs_at,
                                     "default_action": {
                                         "type": "web_url",
                                         "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
@@ -131,16 +140,20 @@ module.exports = function () {
                                         "webview_height_ratio": "tall",
                                         "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
                                     },
-                                    "buttons": [{
-                                            "type": "web_url",
-                                            "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
-                                            "title": "Book"
-                                        },
-                                        {
+                                    "buttons":
 
-                                            "type": "element_share"
-                                        }
-                                    ]
+                                        [
+
+                                            {
+                                                "type": "web_url",
+                                                "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
+                                                "title": "Book"
+                                            },
+                                            {
+
+                                                "type": "element_share"
+                                            }
+                                        ]
                                 });
 
 
@@ -148,8 +161,16 @@ module.exports = function () {
                             }
 
                             eventButtons_.push({
-                                "title": "More event times",
-                                "subtitle": "",
+                                "title": "Can’t make any of these times?",
+                                "subtitle": "My Pepper Bot",
+                                "default_action": {
+                                    "type": "web_url",
+                                    "url": "https://www.facebook.com/mypepperbot/"
+                                    /*,
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
+                                },
                                 "buttons": [{
                                     "type": "postback",
                                     "title": "More event times",
@@ -165,11 +186,10 @@ module.exports = function () {
                             for (var z = 0, k = gButtons.length; z < k; z++) {
 
 
-
                                 imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
                                     var imageIndex = 0;
-                                    if (images.length >= 5) {
-                                        imageIndex = Math.round(Math.random() * 5);
+                                    if (images.length >= 4) {
+                                        imageIndex = Math.round(Math.random() * 4);
                                     } else {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
@@ -177,7 +197,7 @@ module.exports = function () {
                                     if (index < gButtons.length - 1) {
                                         gButtons[index].image_url = images[imageIndex].url;
                                     } else {
-                                        gButtons[index].image_url = "http://www.ideosyncmedia.org/index_htm_files/196.png"
+                                        gButtons[index].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
 
                                     counter++;
@@ -213,9 +233,7 @@ module.exports = function () {
                             }
 
                         } else {
-
-                            Message.sendMessage(senderId, 'Oops, I looked for: "' + event_name + '" but found no events');
-                            find_my_event(senderId);
+                            Message.sendMessage(senderId, "No Found Events");
                         }
 
 
@@ -231,56 +249,6 @@ module.exports = function () {
     }
 }();
 
-function find_my_event(senderId) {
-    var UserData = require('../bot/userinfo');
-    var UserData2 = require('../schemas/userinfo');
-    UserData.getInfo(senderId, function (err, result) {
-        if (!err) {
-
-            var bodyObj = JSON.parse(result);
-            console.log(result);
-
-
-            var User = new UserData2; {
-                User.fbId = senderId;
-                User.firstName = bodyObj.first_name;
-                User.LastName = bodyObj.last_name;
-                User.profilePic = bodyObj.profile_pic;
-                User.locale = bodyObj.locale;
-                User.timeZone = bodyObj.timezone;
-                User.gender = bodyObj.gender;
-                User.messageNumber = 1;
-
-                User.save();
-            }
-
-            var name = bodyObj.first_name;
-            var greeting = name;
-            var messagetxt = greeting + ", you can search events by:";
-
-
-            //var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
-            //var ButtonsEventsQuery = require('../modules/tevo/buttons_choise_again');
-            //ButtonsEventsQuery.send(Message, senderId, messagetxt);
-
-            var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
-            SearchQuickReply.send(Message, senderId, messagetxt);
-            context = ''
-            UserData2.findOne({
-                fbId: senderId
-            }, {}, {
-                sort: {
-                    'sessionStart': -1
-                }
-            }, function (err, foundUser) {
-                foundUser.context = ''
-                foundUser.save();
-            });
-
-
-        }
-    });
-};
 
 
 

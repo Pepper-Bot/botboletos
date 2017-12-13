@@ -11,17 +11,21 @@ module.exports = function () {
 
 
 
-            var tevoClient = new TevoClient({
-                apiToken: '9853014b1eff3bbf8cb205f60ab1b177',
-                apiSecretKey: 'UjFcR/nPkgiFchBYjLOMTAeDRCliwyhU8mlaQni2'
-            });
+            var tevo = require('../../config/config_vars').tevo;
+            var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 
+
+
+            var tevoClient = new TevoClient({
+                apiToken: tevo.API_TOKEN,
+                apiSecretKey: tevo.API_SECRET_KEY
+            });
 
 
             var urlApiTevo = '';
 
 
-            urlApiTevo = 'https://api.ticketevolution.com/v9/events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&only_with_available_tickets=true&within=100&order_by=events.occurs_at'
+            urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&only_with_available_tickets=true&within=100&order_by=events.occurs_at'
 
 
 
@@ -46,7 +50,7 @@ module.exports = function () {
                             resultEvent = json.events;
                             var eventButtons_ = [];
                             var callsGis = 0;
-                            var baseURL = 'https://ticketdelivery.herokuapp.com/event/?event_id=';
+                            var baseURL = APLICATION_URL_DOMAIN + 'event/?event_id=';
 
 
                             if (resultEvent.length > 9 * (position - 1)) {
@@ -93,7 +97,10 @@ module.exports = function () {
                                 var occurs_at = resultEvent[j].occurs_at;
                                 occurs_at = occurs_at.substring(0, occurs_at.length - 4)
 
-                                var occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+                                //var occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+
+                                var occurs_at = moment(occurs_at).format('MMM Do YYYY, h:mm a')
+
 
 
 
@@ -102,7 +109,7 @@ module.exports = function () {
                                 eventButtons_.push({
                                     "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                                     "image_url": resultEvent[j].category.name,
-                                    "subtitle": resultEvent[j].venue.name + " " + occurs_at,
+                                    "subtitle": resultEvent[j].venue.name + " " + resultEvent[j].venue.location + " " + occurs_at,
                                     "default_action": {
                                         "type": "web_url",
                                         "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
@@ -112,10 +119,15 @@ module.exports = function () {
                                         "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
                                     },
                                     "buttons": [{
-                                        "type": "web_url",
-                                        "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
-                                        "title": "Book"
-                                    }]
+                                            "type": "web_url",
+                                            "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
+                                            "title": "Book"
+                                        },
+                                        {
+                                            "type": "element_share"
+                                        }
+
+                                    ]
                                 });
 
 
@@ -123,7 +135,16 @@ module.exports = function () {
                             }
 
                             eventButtons_.push({
-                                "title": "More event times",
+                                "title": "Can’t make any of these times?",
+                                "subtitle": "My Pepper Bot",
+                                "default_action": {
+                                    "type": "web_url",
+                                    "url": "https://www.facebook.com/mypepperbot/"
+                                    /*,
+                                    "messenger_extensions": true,
+                                    "webview_height_ratio": "tall",
+                                    "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
+                                },
                                 "buttons": [{
                                     "type": "postback",
                                     "title": "More event times",
@@ -151,7 +172,8 @@ module.exports = function () {
                                     if (index < gButtons.length - 1) {
                                         gButtons[index].image_url = images[imageIndex].url;
                                     } else {
-                                        gButtons[index].image_url = "http://www.ideosyncmedia.org/index_htm_files/196.png"
+                                        gButtons[index].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
+
                                     }
 
 
