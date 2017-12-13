@@ -227,56 +227,56 @@ function createOrder(req, res, payment, event, clienteSearch) {
     console.log("Orden Construida: >>> " + JSON.stringify(orderData));
 
     console.log("Inicio Orden Tevo >>> " + tevo.API_URL);
-    if (tevo.API_URL === "https://api.sandbox.ticketevolution.com/v9/") {
-        tevoClient.postJSON(tevo.API_URL + 'orders', orderData).then((OrderRes) => {
-            if (OrderRes.error != undefined) {
+    //if (tevo.API_URL === "https://api.sandbox.ticketevolution.com/v9/") {
+    tevoClient.postJSON(tevo.API_URL + 'orders', orderData).then((OrderRes) => {
+        if (OrderRes.error != undefined) {
 
-                console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
-                res.send('<b>' + OrderRes.error + '</b>');
-                res.end();
+            console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
+            res.send('<b>' + OrderRes.error + '</b>');
+            res.end();
 
-            } else {
+        } else {
 
 
-                console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
+            console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(OrderRes));
 
-                var Order = new Orders; {
-                    Order.order_id.push(OrderRes.orders[0].id);
-                    Order.order_tevo = OrderRes.orders[0]
-                    Order.save(function (err, orderSaved) {
-                        if (err) {
-                            console.log("Error al guardar la orden" + err)
-                        } else {
-                            if (orderSaved) {
-                                console.log("Orden Guardada  : >>> " + JSON.stringify(orderSaved));
-                            }
-
+            var Order = new Orders; {
+                Order.order_id.push(OrderRes.orders[0].id);
+                Order.order_tevo = OrderRes.orders[0]
+                Order.save(function (err, orderSaved) {
+                    if (err) {
+                        console.log("Error al guardar la orden" + err)
+                    } else {
+                        if (orderSaved) {
+                            console.log("Orden Guardada  : >>> " + JSON.stringify(orderSaved));
                         }
 
-
-                    });
-
-
-
-                }
-
-
-                sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
-
-                var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
-                res.render(
-                    './layouts/tickets/finish', {
-                        titulo: "Your tickets are on its way!",
-                        buyer_name: pp_recipient_name,
-
                     }
-                );
+
+
+                });
+
+
+
             }
 
 
+            sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
 
-        });
-    }
+            var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
+            res.render(
+                './layouts/tickets/finish', {
+                    titulo: "Your tickets are on its way!",
+                    buyer_name: pp_recipient_name,
+
+                }
+            );
+        }
+
+
+
+    });
+    //}
 }
 
 

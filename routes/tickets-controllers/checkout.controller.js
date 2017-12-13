@@ -127,7 +127,7 @@ const paypal = require('paypal-rest-sdk');
 
 
 paypal.configure({
-    'mode': 'sandbox', //sandbox or live
+    'mode': 'live', //sandbox or live
     'client_id': P_CLIENT_ID,
     'client_secret': P_CLIENT_SECRET
 });

@@ -8,7 +8,7 @@ var mlink = {
 
 }
 
-
+/*
 /////////////////////tevo//////////////////////////// 
 var API_SECRET_KEY = process.env.SANDBOX_API_SECRET_KEY
 var API_TOKEN = process.env.SANDBOX_API_TOKEN
@@ -18,10 +18,10 @@ var OFFICE_ID = process.env.SANDBOX_OFFICE_ID
 var P_CLIENT_ID = process.env.SANDBOX_P_CLIENT_ID
 var P_CLIENT_SECRET = process.env.SANDBOX_P_CLIENT_SECRET
 /////////////////////PP//////////////////////////// 
+*/
 
 
 
-/*
 /////////////////////tevo/////////////////////////////
 var API_SECRET_KEY = process.env.API_SECRET_KEY
 var API_TOKEN = process.env.API_TOKEN
@@ -30,7 +30,7 @@ var OFFICE_ID = process.env.OFFICE_ID
 /////////////////////PP/////////////////////////////
 var P_CLIENT_ID = process.env.P_CLIENT_ID
 var P_CLIENT_SECRET = process.env.P_CLIENT_SECRET
-*/
+
 
 
 
