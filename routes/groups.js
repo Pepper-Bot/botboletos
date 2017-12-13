@@ -6,6 +6,7 @@ var gis = require('g-i-s'); // Google images
 var moment = require('moment');
 /* GET home page. */
 var tevo = require('../config/config_vars').tevo;
+var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
 var format = require('format-number');
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
@@ -58,6 +59,7 @@ router.get('/', function (req, res) {
 				res.render(
 					'./layouts/tickets/ticketgroup', {
 						titulo: "Select tickets",
+						APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
 						ticketGroups: ticketGroups,
 						event_id: event.event_id,
 						event_name: event.name,

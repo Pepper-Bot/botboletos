@@ -1,5 +1,5 @@
 var tevo = require('../../config/config_vars').tevo;
-
+var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var tevoClient = new TevoClient({
     apiToken: tevo.API_TOKEN,
@@ -14,7 +14,7 @@ var ticketgroup = (req, res) => {
     var UserData = require('../../bot/userinfo');
     var UserData2 = require('../../schemas/userinfo');
     var moment = require('moment');
-    
+
 
 
 
@@ -42,10 +42,11 @@ var ticketgroup = (req, res) => {
 
             tevoClient.getJSON(searchById).then((event) => {
 
-               // console.log("EVENT<<<  : >>> " + JSON.stringify(event));
+                // console.log("EVENT<<<  : >>> " + JSON.stringify(event));
                 res.render(
                     './layouts/tickets/ticketgroup', {
                         titulo: "Your tickets are on its way!",
+                        APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
                         ticketGroups: ticketGroups,
                         event_id: event.event_id,
                         event_name: event.name,
@@ -75,31 +76,31 @@ async function processFormatPrice(ticketGroups) {
 
 
 function formatPrice(ticketGroups) {
-	let ticketGF = [];
-	ticketGF = ticketGroups;
-	const promise = new Promise(function (resolve, reject) {
-		for (let i = 0; i < ticketGF.length; i++) {
-			let flotante = parseFloat(ticketGF[i].wholesale_price);
-			var resultado = Math.round(flotante * Math.pow(10, 0)) / Math.pow(10, 0);
-			let resFormat = format({
-				prefix: '$ ',
-				//integerSeparator :'.'
-			})(resultado, {
-				noSeparator: false
-			});;
+    let ticketGF = [];
+    ticketGF = ticketGroups;
+    const promise = new Promise(function (resolve, reject) {
+        for (let i = 0; i < ticketGF.length; i++) {
+            let flotante = parseFloat(ticketGF[i].wholesale_price);
+            var resultado = Math.round(flotante * Math.pow(10, 0)) / Math.pow(10, 0);
+            let resFormat = format({
+                prefix: '$ ',
+                //integerSeparator :'.'
+            })(resultado, {
+                noSeparator: false
+            });;
 
-			ticketGF[i].wholesale_price_format = resFormat;
+            ticketGF[i].wholesale_price_format = resFormat;
 
-			if (i == ticketGF.length - 1) {
-				resolve(ticketGF);
-			}
-		}
-		if (!ticketGF) {
-			reject(new Error('No existe un array'));
-		}
-	})
+            if (i == ticketGF.length - 1) {
+                resolve(ticketGF);
+            }
+        }
+        if (!ticketGF) {
+            reject(new Error('No existe un array'));
+        }
+    })
 
-	return promise;
+    return promise;
 }
 
 

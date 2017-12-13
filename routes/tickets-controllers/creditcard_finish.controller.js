@@ -11,6 +11,7 @@
  var Orders = require('../../schemas/orders');
 
  var tevo = require('../../config/config_vars').tevo;
+ var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 
 
  var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
@@ -149,25 +150,25 @@
 
  					console.log("<OrderResmsg>" + JSON.stringify(OrderRes));
 
-					 var Order = new Orders; {
-						Order.order_id.push(OrderRes.orders[0].id);
-						Order.order_tevo = OrderRes.orders[0]
-						Order.save(function (err, orderSaved) {
-							if (err) {
-								console.log("Error al guardar la orden" + err)
-							} else {
-								if (orderSaved) {
-									console.log("Orden Guardada  : >>> " + JSON.stringify(orderSaved));
-								}
-	
-							}
-	
-	
-						});
-	
-	
-	
-					}
+ 					var Order = new Orders; {
+ 						Order.order_id.push(OrderRes.orders[0].id);
+ 						Order.order_tevo = OrderRes.orders[0]
+ 						Order.save(function (err, orderSaved) {
+ 							if (err) {
+ 								console.log("Error al guardar la orden" + err)
+ 							} else {
+ 								if (orderSaved) {
+ 									console.log("Orden Guardada  : >>> " + JSON.stringify(orderSaved));
+ 								}
+
+ 							}
+
+
+ 						});
+
+
+
+ 					}
 
 
 
@@ -179,6 +180,7 @@
  					res.render(
  						'./layouts/tickets/finish', {
  							titulo: "Your tickets are on its way!",
+ 							APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
  							buyer_name: clienteSearch.fullName,
 
  						}
@@ -259,10 +261,10 @@
  	emailsArray.push(correo)
 
 
-	 correo = {
-		"email": 'thepepperbot@gmail.com'
-	}
-	emailsArray.push(correo)
+ 	correo = {
+ 		"email": 'thepepperbot@gmail.com'
+ 	}
+ 	emailsArray.push(correo)
 
 
  	var agregar = true;

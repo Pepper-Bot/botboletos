@@ -90,6 +90,7 @@ var checkout = (req, res) => {
             res.render(
                 './layouts/tickets/checkout', {
                     titulo: "Your tickets are on its way!",
+                    APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
                     event_id: params.event_id,
                     fbId: params.uid,
                     venue_id: params.venue_id,

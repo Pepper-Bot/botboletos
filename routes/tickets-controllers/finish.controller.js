@@ -4,6 +4,7 @@ var moment = require('moment');
 var Client = require('../../schemas/clients');
 var Orders = require('../../schemas/orders');
 var tevo = require('../../config/config_vars').tevo;
+var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 
 var confirm_mail_html = require('../../config/html_mail_vars').confirm_mail_html;
 
@@ -267,6 +268,7 @@ function createOrder(req, res, payment, event, clienteSearch) {
             res.render(
                 './layouts/tickets/finish', {
                     titulo: "Your tickets are on its way!",
+                    APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
                     buyer_name: pp_recipient_name,
 
                 }
@@ -322,7 +324,7 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
     var format = req.session.format;
 
     var emailsArray = [];
-   var correo = {
+    var correo = {
         "email": 'armandorussi@gmail.com'
     }
     emailsArray.push(correo)

@@ -7,7 +7,7 @@ var gis = require('g-i-s'); // Google images
 var moment = require('moment');
 var nodemailer = require('nodemailer');
 var countries = require('../../lib/config_vars').COUNTRIES;
-
+var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 
 var tevo = require('../../config/config_vars').tevo;
 
@@ -138,6 +138,7 @@ var render_paypal_cc_form = (req, res, direccionEnvio, shiping) => {
     res.render(
         './layouts/tickets/pay', {
             titulo: "Your tickets are on its way!",
+            APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
             ship_price: ship_price,
             uid: uid,
             firstname: firstname,
