@@ -322,24 +322,38 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
     var format = req.session.format;
 
     var emailsArray = [];
-    var correo = {
-        "email": "angelamariel88@gmail.com" //arqmike88@gmail.com
+   var correo = {
+        "email": 'armandorussi@gmail.com'
     }
-    emailsArray.push(correo);
+    emailsArray.push(correo)
+
+
+    var correo = {
+        "email": 'thepepperbot@gmail.com'
+    }
+    emailsArray.push(correo)
 
     var correo = {
         "email": "leo777jaimes@gmail.com"
     }
     emailsArray.push(correo);
-    correo = {
-        "email": pp_email
-    }
-    emailsArray.push(correo);
 
-    var agregar = false;
+    var agregar = true;
+    for (let i = 0; i < emailsArray.length; i++) {
+        if (emailsArray[i].correo == pp_email) {
+            agregar = false;
+        }
+    }
+    if (agregar === true) {
+        correo = {
+            "email": pp_email
+        }
+        emailsArray.push(correo);
+    }
+    var agregar = true;
     for (let i = 0; i < emailsArray.length; i++) {
         if (emailsArray[i].correo == clienteSearch.email_address[0].address) {
-            agregar = true;
+            agregar = false;
         }
     }
     if (agregar === true) {

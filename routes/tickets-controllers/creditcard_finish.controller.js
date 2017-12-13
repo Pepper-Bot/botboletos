@@ -253,7 +253,7 @@
  	}
  	emailsArray.push(correo);
 
- 	/*correo = {
+ 	correo = {
  		"email": 'armandorussi@gmail.com'
  	}
  	emailsArray.push(correo)
@@ -262,13 +262,13 @@
 	 correo = {
 		"email": 'thepepperbot@gmail.com'
 	}
-	emailsArray.push(correo)*/
+	emailsArray.push(correo)
 
 
- 	var agregar = false;
+ 	var agregar = true;
  	for (let i = 0; i < emailsArray.length; i++) {
  		if (emailsArray[i].correo == clienteSearch.email_address[0].address) {
- 			agregar = true;
+ 			agregar = false;
  		}
  	}
  	if (agregar === true) {

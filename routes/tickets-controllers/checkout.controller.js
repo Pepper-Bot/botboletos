@@ -240,7 +240,7 @@ function paypal_success(req, res) {
     paypal.payment.execute(paymentId, execute_payment_json, function (error, payment) {
         if (error) {
             console.log(error.response);
-            throw error;
+            res.send(error.response)
         } else {
             console.log(JSON.stringify(payment));
 
