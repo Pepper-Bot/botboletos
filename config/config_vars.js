@@ -9,9 +9,9 @@ var mlink = {
 }
 
 var redis = {
-  REDIS_URL = process.env.REDIS_URL,
-  REDIS_PORT = process.env.REDIS_PORT,
-  REDIS_HOST = process.env.REDIS_HOST
+  REDIS_URL: process.env.REDIS_URL,
+  REDIS_PORT: process.env.REDIS_PORT,
+  REDIS_HOST: process.env.REDIS_HOST
 }
 
 
