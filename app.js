@@ -10,7 +10,8 @@ var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
-var redisClient = require('redis').createClient(process.env.REDIS_URL);
+var redisVars  = require('./config/config_vars').redis
+var redisClient = require('redis').createClient(redisVars.REDIS_URL);
 var RedisStore = require('connect-redis')(session)
 var Promise = global.Promise || require('promise');
 var helpers = require('./lib/helpers');
@@ -133,8 +134,8 @@ var sess = {
   resave: false,
   saveUninitialized: true,
   store: new RedisStore({
-    host: 'ec2-34-227-234-245.compute-1.amazonaws.com',
-    port: 29239,
+    host: redisVars.REDIS_HOST,
+    port: redisVars.REDIS_PORT,
     db: 0,
     cookie: {
       maxAge: (3600 * 1000 * 30)

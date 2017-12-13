@@ -8,6 +8,14 @@ var mlink = {
 
 }
 
+var redis = {
+  REDIS_URL = process.env.REDIS_URL,
+  REDIS_PORT = process.env.REDIS_PORT,
+  REDIS_HOST = process.env.REDIS_HOST
+}
+
+
+
 /*
 /////////////////////tevo//////////////////////////// 
 var API_SECRET_KEY = process.env.SANDBOX_API_SECRET_KEY
@@ -66,5 +74,6 @@ module.exports = {
   tevo: tevo,
   PAGE_ACCESS_TOKEN: PAGE_ACCESS_TOKEN,
   FBMESSAGESPAGE,
-  mlink
+  mlink,
+  redis
 };
