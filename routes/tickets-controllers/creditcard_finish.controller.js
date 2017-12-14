@@ -219,8 +219,36 @@
  	var venueEvento = OrderRes.orders[0].items[0].ticket_group.event.venue.name;
 
 
+
+ 	var emailsArray = [];
+ 	var correo = {
+ 		"email": "leo777jaimes@gmail.com"
+ 	}
+ 	emailsArray.push(correo);
+
+ 	correo = {
+ 		"email": 'armandorussi@gmail.com'
+ 	}
+ 	emailsArray.push(correo)
+
+
+ 	correo = {
+ 		"email": 'thepepperbot@gmail.com'
+ 	}
+ 	emailsArray.push(correo)
+
+ 	console.log("correo 1" + clienteSearch.email_address[0].address)
+
+ 	correo = {
+ 		"email": clienteSearch.email_address[0].address
+ 	}
+
+ 	emailsArray.push(correo);
+
+ 	var emailsArrays = removeDuplicates(emailsArray, "email");
+ 	console.log("uniqueArray is: " + JSON.stringify(emailsArrays));
+
 	 var templateHTML = confirm_mail_html
-	 if(!templateHTML)console.log("WHAT?");
  	templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
  	templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
  	templateHTML = templateHTML.replace('&lt;Event&gt;', eventoNombre);
@@ -251,35 +279,6 @@
  		templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'FedEx');
 
  	}
- 	var emailsArray = [];
- 	var correo = {
- 		"email": "leo777jaimes@gmail.com"
- 	}
- 	emailsArray.push(correo);
-
- 	correo = {
- 		"email": 'armandorussi@gmail.com'
- 	}
- 	emailsArray.push(correo)
-
-
- 	correo = {
- 		"email": 'thepepperbot@gmail.com'
- 	}
- 	emailsArray.push(correo)
-
- 	console.log("correo 1" + clienteSearch.email_address[0].address)
-
- 	correo = {
- 		"email": clienteSearch.email_address[0].address
- 	}
-
- 	emailsArray.push(correo);
-
- 	var emailsArrays = removeDuplicates(emailsArray, "email");
- 	console.log("uniqueArray is: " + JSON.stringify(emailsArrays));
-
- 	
 
  	const sgMail = require('@sendgrid/mail');
  	sgMail.setApiKey(process.env.SENDGRID_API_KEY);
