@@ -25,7 +25,7 @@ var OFFICE_ID = process.env.SANDBOX_OFFICE_ID
 /////////////////////PP////////////////////////////
 var P_CLIENT_ID = process.env.SANDBOX_P_CLIENT_ID
 var P_CLIENT_SECRET = process.env.SANDBOX_P_CLIENT_SECRET
-var P_MODE = 'sandbox',
+var P_MODE = 'sandbox'
 /////////////////////PP//////////////////////////// 
 
 
