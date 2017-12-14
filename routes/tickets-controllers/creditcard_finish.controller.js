@@ -246,22 +246,13 @@
  	emailsArray.push(correo)
 
 
- 	var agregar = true;
- 	for (let i = 0; i < emailsArray.length; i++) {
- 		if (emailsArray[i].correo == clienteSearch.email_address[0].address) {
- 			agregar = false;
- 		}
- 		if (i + 1 === emailsArray.length) {
- 			if (agregar === true) {
- 				correo = {
- 					"email": clienteSearch.email_address[0].address
- 				}
- 				emailsArray.push(correo);
-
- 			}
-
- 		}
+ 	correo = {
+ 		"email": clienteSearch.email_address[0].address
  	}
+ 	emailsArray.push(correo);
+
+ 	var emailsArrays = removeDuplicates(emailsArray, "email");
+ 	console.log("uniqueArray is: " + JSON.stringify(emailsArrays));
 
  	var templateHTML = confirm_mail_html
  	templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
@@ -284,12 +275,12 @@
  	templateHTML = templateHTML.replace('&lt;Order&gt;', ordenNumber);
  	templateHTML = templateHTML.replace('&lt;orderDate&gt;', fechaOrden);
  	templateHTML = templateHTML.replace('&lt;Customer&gt;', clienteId);
-	 templateHTML = templateHTML.replace('&lt;Location&gt;', venueEvento);
-	 
+ 	templateHTML = templateHTML.replace('&lt;Location&gt;', venueEvento);
+
  	const sgMail = require('@sendgrid/mail');
  	sgMail.setApiKey(process.env.SENDGRID_API_KEY);
  	var msg = {
- 		to: emailsArray,
+ 		to: emailsArrays,
  		from: 'PepperBot Tickets <thepepperbot@gmail.com>',
  		subject: 'Your Event tickets!',
  		html: templateHTML,
@@ -305,6 +296,21 @@
 
 
 
+ }
+
+
+ function removeDuplicates(originalArray, prop) {
+ 	var newArray = [];
+ 	var lookupObject = {};
+
+ 	for (var i in originalArray) {
+ 		lookupObject[originalArray[i][prop]] = originalArray[i];
+ 	}
+
+ 	for (i in lookupObject) {
+ 		newArray.push(lookupObject[i]);
+ 	}
+ 	return newArray;
  }
 
 
