@@ -64,7 +64,7 @@ var render_events = (req, res) => {
         console.log(err);
     });
 
-    //});
+   
 }
 
 
