@@ -218,28 +218,7 @@
  	var venueEvento = OrderRes.orders[0].items[0].ticket_group.event.venue.name;
 
 
- 	var templateHTML = confirm_mail_html
- 	templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
- 	templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
- 	templateHTML = templateHTML.replace('&lt;Event&gt;', eventoNombre);
- 	templateHTML = templateHTML.replace('{EVENT_NAME}', eventoNombre);
- 	templateHTML = templateHTML.replace('&lt;Event&gt;', eventoNombre);
- 	templateHTML = templateHTML.replace('&lt;City&gt;', ciudadEvento);
- 	templateHTML = templateHTML.replace('&lt;City&gt;', ciudadEvento);
- 	templateHTML = templateHTML.replace('&lt;Date&gt;', fechaEvento);
- 	templateHTML = templateHTML.replace('&lt;Date&gt;', fechaEvento);
- 	templateHTML = templateHTML.replace('&lt;Time&gt;', horaEvento);
- 	templateHTML = templateHTML.replace('&lt;Start Time&gt;', horaEvento);
- 	templateHTML = templateHTML.replace('&lt;Quantity&gt;', cantidadTickets);
- 	templateHTML = templateHTML.replace('&lt;Number of Tickets&gt;', cantidadTickets);
- 	templateHTML = templateHTML.replace('&lt;type of ticket&gt;', tipoTickets);
- 	templateHTML = templateHTML.replace('&lt;Price&gt;', precio);
- 	templateHTML = templateHTML.replace('&lt;Total Cost&gt;', '$' + costoTotal);
- 	templateHTML = templateHTML.replace('&lt;Total Cost&gt;', '$' + costoTotal);
- 	templateHTML = templateHTML.replace('&lt;Order&gt;', ordenNumber);
- 	templateHTML = templateHTML.replace('&lt;orderDate&gt;', fechaOrden);
- 	templateHTML = templateHTML.replace('&lt;Customer&gt;', clienteId);
- 	templateHTML = templateHTML.replace('&lt;Location&gt;', venueEvento);
+
 
  	if (req.body.format == 'Eticket') {
  		templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'Eticket - Email with PDF');
@@ -272,17 +251,41 @@
  		if (emailsArray[i].correo == clienteSearch.email_address[0].address) {
  			agregar = false;
  		}
- 	}
- 	if (agregar === true) {
- 		correo = {
- 			"email": clienteSearch.email_address[0].address
+ 		if (i + 1 === emailsArray.length) {
+ 			if (agregar === true) {
+ 				correo = {
+ 					"email": clienteSearch.email_address[0].address
+ 				}
+ 				emailsArray.push(correo);
+
+ 			}
+
  		}
- 		emailsArray.push(correo);
-
  	}
 
-
-
+ 	var templateHTML = confirm_mail_html
+ 	templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
+ 	templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
+ 	templateHTML = templateHTML.replace('&lt;Event&gt;', eventoNombre);
+ 	templateHTML = templateHTML.replace('{EVENT_NAME}', eventoNombre);
+ 	templateHTML = templateHTML.replace('&lt;Event&gt;', eventoNombre);
+ 	templateHTML = templateHTML.replace('&lt;City&gt;', ciudadEvento);
+ 	templateHTML = templateHTML.replace('&lt;City&gt;', ciudadEvento);
+ 	templateHTML = templateHTML.replace('&lt;Date&gt;', fechaEvento);
+ 	templateHTML = templateHTML.replace('&lt;Date&gt;', fechaEvento);
+ 	templateHTML = templateHTML.replace('&lt;Time&gt;', horaEvento);
+ 	templateHTML = templateHTML.replace('&lt;Start Time&gt;', horaEvento);
+ 	templateHTML = templateHTML.replace('&lt;Quantity&gt;', cantidadTickets);
+ 	templateHTML = templateHTML.replace('&lt;Number of Tickets&gt;', cantidadTickets);
+ 	templateHTML = templateHTML.replace('&lt;type of ticket&gt;', tipoTickets);
+ 	templateHTML = templateHTML.replace('&lt;Price&gt;', precio);
+ 	templateHTML = templateHTML.replace('&lt;Total Cost&gt;', '$' + costoTotal);
+ 	templateHTML = templateHTML.replace('&lt;Total Cost&gt;', '$' + costoTotal);
+ 	templateHTML = templateHTML.replace('&lt;Order&gt;', ordenNumber);
+ 	templateHTML = templateHTML.replace('&lt;orderDate&gt;', fechaOrden);
+ 	templateHTML = templateHTML.replace('&lt;Customer&gt;', clienteId);
+	 templateHTML = templateHTML.replace('&lt;Location&gt;', venueEvento);
+	 
  	const sgMail = require('@sendgrid/mail');
  	sgMail.setApiKey(process.env.SENDGRID_API_KEY);
  	var msg = {
@@ -298,6 +301,9 @@
  		console.log("<correo>" + JSON.stringify(body));
 
  	});
+
+
+
 
  }
 

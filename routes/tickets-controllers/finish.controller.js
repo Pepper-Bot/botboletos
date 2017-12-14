@@ -345,26 +345,33 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
         if (emailsArray[i].correo == pp_email) {
             agregar = false;
         }
-    }
-    if (agregar === true) {
-        correo = {
-            "email": pp_email
+        if (i + 1 === emailsArray.length) {
+            if (agregar === true) {
+                correo = {
+                    "email": pp_email
+                }
+                emailsArray.push(correo);
+            }
         }
-        emailsArray.push(correo);
     }
+
     var agregar = true;
     for (let i = 0; i < emailsArray.length; i++) {
         if (emailsArray[i].correo == clienteSearch.email_address[0].address) {
             agregar = false;
         }
-    }
-    if (agregar === true) {
-        correo = {
-            "email": clienteSearch.email_address[0].address
-        }
-        emailsArray.push(correo);
 
+        if (i + 1 === emailsArray.length) {
+            if (agregar === true) {
+                correo = {
+                    "email": clienteSearch.email_address[0].address
+                }
+                emailsArray.push(correo);
+
+            }
+        }
     }
+
 
 
 
