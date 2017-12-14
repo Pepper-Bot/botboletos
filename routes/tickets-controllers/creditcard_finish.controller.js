@@ -220,6 +220,7 @@
 
 
 	 var templateHTML = confirm_mail_html
+	 if(!templateHTML)console.log("WHAT?");
  	templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
  	templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
  	templateHTML = templateHTML.replace('&lt;Event&gt;', eventoNombre);
