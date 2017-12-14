@@ -112,15 +112,15 @@ var getGoogleImage = (search, matriz = []) => {
 
         var opts = {
             searchTerm: search,
-            
-             
+
+
         };
 
 
 
 
         gis(opts, logResults);
-        
+
 
         function logResults(error, results) {
             if (error) {
@@ -128,7 +128,21 @@ var getGoogleImage = (search, matriz = []) => {
             } else {
                 console.log("Imagenes gis Respuesta >>> " + results.length);
                 console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
-                resolve(results, matriz);
+                 resolve(results, matriz);
+                /*for (let i = 0; i < results.length; i++) {
+
+                    if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
+                         var results1 = [];
+                          results1.push(results[i] )
+                         
+                         
+                    }
+
+                    if (i + 1 == results.length) {
+                        resolve(results, matriz);
+                    }
+                }*/
+
             }
         }
 
