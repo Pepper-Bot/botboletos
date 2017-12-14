@@ -21,11 +21,11 @@ router.get('/', function (req, res) {
 
 	var event_id = req.query.event_id;
 	var fbId = req.query.uid;
-	var venue_id = req.query.venue_id;
+	/*var venue_id = req.query.venue_id;
 	var event_name = req.query.event_name;
 	var performer_id = req.query.performer_id;
 	var seatsmap = req.query.seatsmap;
-	var event_date = req.query.event_date;
+	var event_date = req.query.event_date;*/
 
 	var urlApiTevo = '';
 

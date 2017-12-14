@@ -20,8 +20,11 @@ var index = require('./routes/index');
 //var users = require('./routes/users');
 var webhook = require('./routes/webhook');
 var storeUrl = require('./routes/redirect');
-var ticketSales = require('./routes/event');
+//var ticketSales = require('./routes/event');
 var ticketGroups = require('./routes/groups');
+
+var events = require('./routes/tickets-controllers/event.controller');
+
 var ticket_Groups = require('./routes/tickets-controllers/ticketgroup.controller');
 
 
@@ -157,7 +160,11 @@ app.use('/dashboard', index);
 //app.use('/users', users);
 app.use('/webhook2/', webhook);
 app.use('/redirect/', storeUrl);
-app.use('/event/', ticketSales);
+
+//app.use('/event/', ticketSales);
+app.get('/event/', events.render_events);
+
+
 app.use('/tickets/', ticketGroups);
 app.get('/ticketgroups/:event_id', ticket_Groups.ticketgroup);
 //app.use('/checkout/', checkout);

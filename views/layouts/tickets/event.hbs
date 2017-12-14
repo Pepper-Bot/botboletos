@@ -1,51 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1,user-scalable=no">
-    <base href="https://ticketdelivery.herokuapp.com/">
-    <title>Book</title>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="https://ticketdelivery.herokuapp.com/css/materialize.min.css" media="screen,projection"
-    />
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> </head>
-
-<body>
-    <div class="container">
-        <div class="row left">
-            <h3 class="header left blue-text">Country Concert at Hickory Hill Lakes - 3 Day Pass</h3>
-            <div class="section">
-                <div class="row">
-                    <div class="col m12 m4">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="http://www.mydaytondailynews.com/rf/image_lowres/Pub/p6/MyDaytonDailyNews/2015/07/09/Images/photos.medleyphoto.7617903.jpg">
-                                <span style="display:none;" class="card-title">Country Concert at Hickory Hill Lakes - 3 Day Pass</span>
-                            </div>
-                            <div class="card-content">
-                                <p>Country Concert at Hickory Hill Lakes - 3 Day Pass
-                                    <br>
-                                    <strong>Thursday, July 5th 2018, 12:00 pm</strong>
-                                    <br>Country Concert At Hickory Hill Lakes Fort Loramie, OH </p>
-                                <div class="card-action">
-                                    <p>
-                                        <a class="btn blue" href="https://ticketdelivery.herokuapp.com/tickets/?event_id=1329961&uid=1501137066641951&venue_id=30525&performer_id=55160&event_name=Country Concert at Hickory Hill Lakes - 3 Day Pass&event_date=2018-07-05T12:00:00Z&seatsmap=https://s3.amazonaws.com/media.ticketevolution.com/configurations/default_maps/ga_1000.jpg">Purchase Tickets</a>
-                                    </p>
-                                </div>
+<div class="container">
+    <div class="row left">
+        <h3 class="header left blue-text">Shakira</h3>
+        <div class="section">
+            <div class="row">
+                {{#each events}}
+                <div class="col m12 m4">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="{{this.image_url}}">
+                            <span style="display:none;" class="card-title">{{this.name}}</span>
+                        </div>
+                        <div class="card-content">
+                            <p>{{this.name}}
+                                <br>
+                                <strong>{{this.occurs_at_format}}</strong>
+                                <br>{{this.venue.name}} {{this.venue.location}} </p>
+                            <div class="card-action">
+                                <p>
+                                    <a class="btn blue" href="{{this.button_href }}">Purchase Tickets</a>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
+                {{/each}}
             </div>
         </div>
     </div>
-   
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="https://ticketdelivery.herokuapp.com/js/materialize.min.js"></script> </body>
-
-</html>
+</div>
+</div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script type="text/javascript" src="js/materialize.min.js"></script>
