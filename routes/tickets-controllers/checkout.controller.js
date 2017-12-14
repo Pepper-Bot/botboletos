@@ -4,6 +4,7 @@ var UserData = require('../../bot/userinfo');
 var UserData2 = require('../../schemas/userinfo');
 var P_CLIENT_ID = require('../../config/config_vars').P_CLIENT_ID;
 var P_CLIENT_SECRET = require('../../config/config_vars').P_CLIENT_SECRET;
+var P_MODE = require('../../config/config_vars').P_MODE;
 var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 
 var moment = require('moment');
@@ -128,7 +129,7 @@ const paypal = require('paypal-rest-sdk');
 
 
 paypal.configure({
-    'mode': 'live', //sandbox or live
+    'mode': P_MODE, //sandbox or live
     'client_id': P_CLIENT_ID,
     'client_secret': P_CLIENT_SECRET
 });

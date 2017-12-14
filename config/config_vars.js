@@ -25,6 +25,7 @@ var OFFICE_ID = process.env.SANDBOX_OFFICE_ID
 /////////////////////PP////////////////////////////
 var P_CLIENT_ID = process.env.SANDBOX_P_CLIENT_ID
 var P_CLIENT_SECRET = process.env.SANDBOX_P_CLIENT_SECRET
+var P_MODE = 'sandbox',
 /////////////////////PP//////////////////////////// 
 
 
@@ -38,6 +39,7 @@ var OFFICE_ID = process.env.OFFICE_ID
 /////////////////////PP/////////////////////////////
 var P_CLIENT_ID = process.env.P_CLIENT_ID
 var P_CLIENT_SECRET = process.env.P_CLIENT_SECRET
+var P_MODE = 'live',
 */
 
 
@@ -70,10 +72,12 @@ module.exports = {
   OFFICE_ID: OFFICE_ID,
   P_CLIENT_ID: P_CLIENT_ID,
   P_CLIENT_SECRET: P_CLIENT_SECRET,
+  P_MODE,
   REDIS_URL: REDIS_URL,
   tevo: tevo,
   PAGE_ACCESS_TOKEN: PAGE_ACCESS_TOKEN,
   FBMESSAGESPAGE,
   mlink,
-  redis
+  redis,
+ 
 };
