@@ -80,7 +80,7 @@ var setImagesToEvents = (req, resultEvent, counter) => {
                 occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
                 // occurs_at = moment(occurs_at).format('MMM Do YYYY, h:mm a')
                 events[z].occurs_at_format = occurs_at
-                events[z].button_href = APLICATION_URL_DOMAIN + "tickets/?event_id=" + events[z].event_id + "&uid=" + req.query.uid
+                events[z].button_href = APLICATION_URL_DOMAIN + "tickets/?event_id=" + events[z].id + "&uid=" + req.query.uid
 
                 if (counter + 1 == events.length) {
                     resolve(events)
