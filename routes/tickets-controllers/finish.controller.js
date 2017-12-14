@@ -340,42 +340,26 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
     }
     emailsArray.push(correo);
 
-    var agregar = true;
-    for (let i = 0; i < emailsArray.length; i++) {
-        if (emailsArray[i].correo == pp_email) {
-            agregar = false;
-        }
-        if (i + 1 === emailsArray.length) {
-            if (agregar === true) {
-                correo = {
-                    "email": pp_email
-                }
-                emailsArray.push(correo);
-            }
-        }
+
+
+    correo = {
+        "email": pp_email
+    }
+    emailsArray.push(correo);
+    console.log("correo 1 >" + pp_email)
+
+    correo = {
+        "email": clienteSearch.email_address[0].address
     }
 
-    var agregar = true;
-    for (let i = 0; i < emailsArray.length; i++) {
-        if (emailsArray[i].correo == clienteSearch.email_address[0].address) {
-            agregar = false;
-        }
-
-        if (i + 1 === emailsArray.length) {
-            if (agregar === true) {
-                correo = {
-                    "email": clienteSearch.email_address[0].address
-                }
-                emailsArray.push(correo);
-
-            }
-        }
-    }
+    emailsArray.push(correo);
+    console.log("correo 2  >" + clienteSearch.email_address[0].address)
 
 
 
 
-
+    var emailsArrays = removeDuplicates(emailsArray, "email");
+    console.log("uniqueArray is: " + JSON.stringify(emailsArrays));
 
     var templateHTML = confirm_mail_html
 
@@ -414,7 +398,7 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
     const sgMail = require('@sendgrid/mail');
     sgMail.setApiKey(process.env.SENDGRID_API_KEY);
     var msg = {
-        to: emailsArray,
+        to: emailsArrays,
         from: 'PepperBot Tickets <thepepperbot@gmail.com>',
         subject: 'Your Event tickets!',
         html: templateHTML,
@@ -429,8 +413,19 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
 }
 
 
+function removeDuplicates(originalArray, prop) {
+    var newArray = [];
+    var lookupObject  = {};
 
+    for(var i in originalArray) {
+       lookupObject[originalArray[i][prop]] = originalArray[i];
+    }
 
+    for(i in lookupObject) {
+        newArray.push(lookupObject[i]);
+    }
+     return newArray;
+}
 
 
 
