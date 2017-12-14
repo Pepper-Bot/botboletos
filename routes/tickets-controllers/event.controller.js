@@ -110,6 +110,15 @@ var getGoogleImage = (search, matriz = []) => {
         };
 
 
+        var opts = {
+            searchTerm: search,
+            queryStringAddition: '&tbs=ic:trans',
+             
+        };
+
+
+
+
         gis(opts, logResults);
         
 
@@ -117,7 +126,7 @@ var getGoogleImage = (search, matriz = []) => {
             if (error) {
                 reject(error);
             } else {
-                console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(results));
+                console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
                 resolve(results, matriz);
             }
         }
