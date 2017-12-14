@@ -38,7 +38,7 @@ var render_events = (req, res) => {
             if (json.events.length > 0) {
                 var events = json.events
                 var counter = 0;
-                setImagesToEvents(json.events, counter).then((events) => {
+                setImagesToEvents(req, json.events, counter).then((events) => {
                     res.render(
                         './layouts/tickets/event', {
                             titulo: "Book",
