@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var Message = require('../bot/messages');
-var UserData2 = require('../schemas/userinfo');
+var Message = require('../../bot/messages');
+var UserData2 = require('../../schemas/userinfo');
 var gis = require('g-i-s'); // Google images
 var moment = require('moment');
 var tevo = require('../../config/config_vars').tevo;
