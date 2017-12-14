@@ -64,7 +64,7 @@ var render_events = (req, res) => {
         console.log(err);
     });
 
-   
+
 }
 
 
@@ -99,12 +99,25 @@ var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 
         var gis = require('g-i-s');
-        gis(search, logResults);
+
+        var opts = {
+            searchTerm: search,
+            queryStringAddition: '&tbs=ic:trans',
+            filterOutDomains: [
+                'pinterest.com',
+                'deviantart.com'
+            ]
+        };
+
+
+        gis(opts, logResults);
+        
 
         function logResults(error, results) {
             if (error) {
                 reject(error);
             } else {
+                console.log("Orden de TEVO Respuesta : >>> " + JSON.stringify(results));
                 resolve(results, matriz);
             }
         }
