@@ -15,8 +15,6 @@ var tevoClient = new TevoClient({
 
 
 var render_events = (req, res) => {
-
-
     var event_id = req.query.event_id;
     var fbId = req.query.uid;
     var venue_id = req.query.venue_id;
