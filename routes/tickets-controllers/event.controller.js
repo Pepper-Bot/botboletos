@@ -126,6 +126,7 @@ var getGoogleImage = (search, matriz = []) => {
             if (error) {
                 reject(error);
             } else {
+                console.log("Imagenes gis Respuesta >>> " + results.length);
                 console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
                 resolve(results, matriz);
             }
