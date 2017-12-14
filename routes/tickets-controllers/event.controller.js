@@ -44,7 +44,7 @@ var render_events = (req, res) => {
                             titulo: "Book",
                             APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
                             events: events,
-                            uid = req.query.uid
+                            uid: req.query.uid
                         }
                     );
                 })
