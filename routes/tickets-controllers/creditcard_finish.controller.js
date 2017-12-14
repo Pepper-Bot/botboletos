@@ -6,12 +6,11 @@
  var moment = require('moment');
 
  var confirm_mail_html = require('../../config/html_mail_vars').confirm_mail_html;
-
-
  var Orders = require('../../schemas/orders');
-
  var tevo = require('../../config/config_vars').tevo;
  var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
+ var FINISH_SESSION_URL_REDIRECT = require('../../config/config_vars').FINISH_SESSION_URL_REDIRECT;
+
 
 
  var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
@@ -25,7 +24,8 @@
 
  	if (undefined == req.session.client_id) {
  		res.status(200);
- 		res.send('Error trying to access');
+ 		//res.send('Error trying to access');
+ 		res.redirect(FINISH_SESSION_URL_REDIRECT)
  		res.end();
  		return;
  	}
@@ -158,8 +158,8 @@
  								console.log("Error al guardar la orden" + err)
  							} else {
  								if (orderSaved) {
-									 //console.log("Orden Guardada Bien : >>> " + JSON.stringify(orderSaved));
-									 console.log("Orden Guardada Bien : >>> ");
+ 									//console.log("Orden Guardada Bien : >>> " + JSON.stringify(orderSaved));
+ 									console.log("Orden Guardada Bien : >>> ");
  								}
 
  							}
@@ -177,6 +177,7 @@
 
  					sendEmailSenGrid(req, res, clienteSearch, OrderRes)
 
+ 					req.session.destroy();
 
  					res.render(
  						'./layouts/tickets/finish', {
@@ -186,7 +187,6 @@
 
  						}
  					);
-
 
 
 
@@ -248,7 +248,7 @@
  	var emailsArrays = removeDuplicates(emailsArray, "email");
  	console.log("uniqueArray is: " + JSON.stringify(emailsArrays));
 
-	 var templateHTML = confirm_mail_html
+ 	var templateHTML = confirm_mail_html
  	templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
  	templateHTML = templateHTML.replace('&lt;Name&gt;', nombreCliente);
  	templateHTML = templateHTML.replace('&lt;Event&gt;', eventoNombre);

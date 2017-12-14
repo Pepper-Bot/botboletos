@@ -2,11 +2,14 @@
 var APLICATION_URL_DOMAIN = process.env.APLICATION_URL_DOMAIN
 var PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 var FBMESSAGESPAGE = 'https://graph.facebook.com/v2.6/me/messages'
+var FINISH_SESSION_URL_REDIRECT =   process.env.FINISH_SESSION_URL_REDIRECT
 var mlink = {
+  MLINK_BASE :'https://www.messenger.com/t/pepperSharks',
   shark: 'https://www.messenger.com/t/pepperSharks?ref=',
   pepper: 'https://www.messenger.com/t/mypepperbot?ref='
 
 }
+
 
 var redis = {
   REDIS_URL: process.env.REDIS_URL,
@@ -79,5 +82,6 @@ module.exports = {
   FBMESSAGESPAGE,
   mlink,
   redis,
+  FINISH_SESSION_URL_REDIRECT,
  
 };

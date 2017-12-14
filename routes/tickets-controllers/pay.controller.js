@@ -10,6 +10,8 @@ var countries = require('../../lib/config_vars').COUNTRIES;
 var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 
 var tevo = require('../../config/config_vars').tevo;
+var mlink = require('../../config/config_vars').mlink;
+
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var tevoClient = new TevoClient({
@@ -25,6 +27,12 @@ var tevoClient = new TevoClient({
 
 
 var init_pay = function (req, res) {
+
+
+    if (req.session.client_id) {
+
+
+    }
 
     switch (req.body.payment_type) {
         case "cc":
