@@ -112,7 +112,7 @@ var getGoogleImage = (search, matriz = []) => {
 
         var opts = {
             searchTerm: search,
-            queryStringAddition: '&tbs=ic:trans',
+            
              
         };
 
