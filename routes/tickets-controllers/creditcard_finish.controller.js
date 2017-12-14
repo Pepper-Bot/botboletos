@@ -158,7 +158,8 @@
  								console.log("Error al guardar la orden" + err)
  							} else {
  								if (orderSaved) {
- 									console.log("Orden Guardada  : >>> " + JSON.stringify(orderSaved));
+									 //console.log("Orden Guardada Bien : >>> " + JSON.stringify(orderSaved));
+									 console.log("Orden Guardada Bien : >>> ");
  								}
 
  							}
@@ -245,10 +246,12 @@
  	}
  	emailsArray.push(correo)
 
+ 	console.log("correo 1" + clienteSearch.email_address[0].address)
 
  	correo = {
  		"email": clienteSearch.email_address[0].address
  	}
+
  	emailsArray.push(correo);
 
  	var emailsArrays = removeDuplicates(emailsArray, "email");
@@ -299,7 +302,7 @@
  }
 
 
- function removeDuplicates(originalArray, prop) {
+ var removeDuplicates = (originalArray, prop) => {
  	var newArray = [];
  	var lookupObject = {};
 
