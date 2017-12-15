@@ -58,7 +58,7 @@ router.get('/', function (req, res) {
 				//console.log("EVENT<<<  : >>> " + JSON.stringify(event));
 				res.render(
 					'./layouts/tickets/ticketgroup', {
-						titulo: "Select tickets",
+						titulo: "Select your tickets",
 						APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
 						ticketGroups: ticketGroups,
 						event_id: event.event_id,
