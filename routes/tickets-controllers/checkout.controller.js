@@ -136,91 +136,106 @@ paypal.configure({
 
 
 function paypal_pay(req, res) {
-    var express = require('express');
-    var router = express.Router();
-    var UserData = require('../../bot/userinfo');
-    var UserData2 = require('../../schemas/userinfo');
-    var moment = require('moment');
-    var params = req.body;
+
+
+    tevoClient.postJSON(tevo.API_URL + 'ticket_groups/' + req.session.groupticket_id).then((ticketGroupRes) => {
+        if (ticketGroupRes[0].quantity > 0) {
+
+            var express = require('express');
+            var router = express.Router();
+            var UserData = require('../../bot/userinfo');
+            var UserData2 = require('../../schemas/userinfo');
+            var moment = require('moment');
+            var params = req.body;
 
 
 
-    var event_name = req.session.event_name;
-    var quantity = req.session.quantity;
-    var price = req.session.price;
-    var items = [];
-    var ship_price = 0;
-    items.push({
-        "name": event_name,
-        "sku": "001",
-        "price": price,
-        "currency": "USD",
-        "quantity": quantity
-    })
-
-    if (req.session.ship_price) {
-        if (req.session.ship_price > 0) {
-            ship_price = req.session.ship_price
-
+            var event_name = req.session.event_name;
+            var quantity = req.session.quantity;
+            var price = req.session.price;
+            var items = [];
+            var ship_price = 0;
             items.push({
-                "name": req.session.shiping_name,
+                "name": event_name,
                 "sku": "001",
-                "price": req.session.ship_price,
+                "price": price,
                 "currency": "USD",
-                "quantity": 1
+                "quantity": quantity
             })
-        }
-    }
 
-    var total = (parseFloat(price * quantity + ship_price).toFixed(2))
-    req.session.total = total
+            if (req.session.ship_price) {
+                if (req.session.ship_price > 0) {
+                    ship_price = req.session.ship_price
 
-
-    console.log(" req.session.fbId >" + req.session.fbId)
-    console.log("quantity" + quantity)
-    console.log("price" + price)
-
-
-
-
-
-    const create_payment_json = {
-        "intent": "sale",
-        "payer": {
-            "payment_method": "paypal"
-        },
-        "redirect_urls": {
-            "return_url": APLICATION_URL_DOMAIN + "paypal_success",
-            "cancel_url": APLICATION_URL_DOMAIN + "paypal_cancel"
-        },
-        "transactions": [{
-            "item_list": {
-                "items": items
-            },
-            "amount": {
-                "currency": "USD",
-                "total": total
-            },
-            "description": event_name
-        }]
-
-
-    }
-
-    paypal.payment.create(create_payment_json, function (error, payment) {
-        if (error) {
-            console.log("error " + error)
-            throw error;
-        } else {
-            for (let i = 0; i < payment.links.length; i++) {
-                if (payment.links[i].rel === 'approval_url') {
-                    console.log("payment.links[i].href <<  " + payment.links[i].href)
-                    res.redirect(payment.links[i].href);
-
+                    items.push({
+                        "name": req.session.shiping_name,
+                        "sku": "001",
+                        "price": req.session.ship_price,
+                        "currency": "USD",
+                        "quantity": 1
+                    })
                 }
             }
+
+            var total = (parseFloat(price * quantity + ship_price).toFixed(2))
+            req.session.total = total
+
+
+            console.log(" req.session.fbId >" + req.session.fbId)
+            console.log("quantity" + quantity)
+            console.log("price" + price)
+
+
+
+
+
+            const create_payment_json = {
+                "intent": "sale",
+                "payer": {
+                    "payment_method": "paypal"
+                },
+                "redirect_urls": {
+                    "return_url": APLICATION_URL_DOMAIN + "paypal_success",
+                    "cancel_url": APLICATION_URL_DOMAIN + "paypal_cancel"
+                },
+                "transactions": [{
+                    "item_list": {
+                        "items": items
+                    },
+                    "amount": {
+                        "currency": "USD",
+                        "total": total
+                    },
+                    "description": event_name
+                }]
+
+
+            }
+
+            paypal.payment.create(create_payment_json, function (error, payment) {
+                if (error) {
+                    console.log("error " + error)
+                    throw error;
+                } else {
+                    for (let i = 0; i < payment.links.length; i++) {
+                        if (payment.links[i].rel === 'approval_url') {
+                            console.log("payment.links[i].href <<  " + payment.links[i].href)
+                            res.redirect(payment.links[i].href);
+
+                        }
+                    }
+                }
+            });
+        } else {
+
+            res.status(200);
+            res.send('Tickets are no longer available. Please select tickets again ');
+            res.end();
+            return;
+
         }
     });
+
 }
 
 

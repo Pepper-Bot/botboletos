@@ -17,8 +17,7 @@ var redis = {
   REDIS_HOST: process.env.REDIS_HOST
 }
 
-
-
+ 
 
 /////////////////////tevo//////////////////////////// 
 var API_SECRET_KEY = process.env.SANDBOX_API_SECRET_KEY
