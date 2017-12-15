@@ -139,6 +139,8 @@ function paypal_pay(req, res) {
 
 
     tevoClient.postJSON(tevo.API_URL + 'ticket_groups/' + req.session.groupticket_id).then((ticketGroupRes) => {
+        
+        console.log(JSON.stringify("<ticketGroupRes>"+ ticketGroupRes));
         if (ticketGroupRes[0].ticket_groups.quantity > 0) {
 
             var express = require('express');
