@@ -179,14 +179,14 @@ module.exports = function () {
                             });
 
 
-                            var gButtons = null;
+
                             var gButtons = eventButtons_;
                             var counter = 0;
 
                             for (let z = 0; z < gButtons.length; z++) {
                                 let search = gButtons[z].title + ' ' + gButtons[z].image_url
 
-                                getGoogleImage(search).then((images) => {
+                                getGoogleImage(search, gButtons).then((images) => {
 
 
                                     let imageIndex = 0;
@@ -260,7 +260,7 @@ module.exports = function () {
 }();
 
 
-var getGoogleImage = (search) => {
+var getGoogleImage = (search, element) => {
     return new Promise((resolve, reject) => {
 
         var gis = require('g-i-s');
@@ -293,7 +293,7 @@ var getGoogleImage = (search) => {
             } else {
                 // console.log("Imagenes gis Respuesta >>> " + results.length);
                 //console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
-                //resolve(results, matriz);
+                //resolve(results, element);
                 var results1 = [];
                 for (let i = 0; i < results.length; i++) {
 
@@ -301,11 +301,11 @@ var getGoogleImage = (search) => {
 
                         results1.push(results[i])
 
-                        resolve(results1);
+                        resolve(results1, element);
                     }
 
                     if (i + 1 == results.length) {
-                        resolve(results);
+                        resolve(results, element);
                     }
 
 
