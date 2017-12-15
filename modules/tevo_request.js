@@ -183,7 +183,7 @@ module.exports = function () {
                             gButtons = eventButtons_;
                             counter = 0;
 
-                            for (let z = 0; z < gButtons.length; z++) {
+                            for (var z = 0; z < gButtons.length; z++) {
                                 console.log('gButtons.length> ' + gButtons.length);
                                 getGoogleImage('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, gButtons).then((images) => {
                                     let imageIndex = 0;
@@ -194,7 +194,10 @@ module.exports = function () {
                                     }
 
                                     if (z < gButtons.length - 1) {
+
                                         gButtons[z].image_url = images[imageIndex].url;
+                                        console.log("gButtons[z].image_url" + gButtons[z].image_url)
+
                                     } else {
                                         gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
@@ -280,7 +283,7 @@ var getGoogleImage = (search, matriz = []) => {
             if (error) {
                 reject(error);
             } else {
-                console.log("Imagenes gis Respuesta >>> " + results.length);
+                // console.log("Imagenes gis Respuesta >>> " + results.length);
                 //console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
                 //resolve(results, matriz);
                 var results1 = [];
