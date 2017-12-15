@@ -137,10 +137,14 @@ paypal.configure({
 
 function paypal_pay(req, res) {
 
+    var searchTicketGroupbyId = tevo.API_URL + 'ticket_groups/' + req.session.groupticket_id + "?ticket_list=true"
+    
+    console.log(JSON.stringify("<searchTicketGroupbyId>" + searchTicketGroupbyId));
 
-    tevoClient.postJSON(tevo.API_URL + 'ticket_groups/' + req.session.groupticket_id).then((ticketGroupRes) => {
+    tevoClient.postJSON(searchTicketGroupbyId).then((ticketGroupRes) => {
+
+        console.log(JSON.stringify("<ticketGroupRes>" + ticketGroupRes));
         
-        console.log(JSON.stringify("<ticketGroupRes>"+ ticketGroupRes));
         if (ticketGroupRes[0].ticket_groups.quantity > 0) {
 
             var express = require('express');
