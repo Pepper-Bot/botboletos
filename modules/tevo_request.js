@@ -184,8 +184,9 @@ module.exports = function () {
                             var counter = 0;
 
                             for (let z = 0; z < gButtons.length; z++) {
+                                let search = gButtons[z].title + ' ' + gButtons[z].image_url
 
-                                getGoogleImage('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, gButtons).then((images) => {
+                                getGoogleImage(search).then((images) => {
 
 
                                     let imageIndex = 0;
@@ -259,7 +260,7 @@ module.exports = function () {
 }();
 
 
-var getGoogleImage = (search, matriz = []) => {
+var getGoogleImage = (search) => {
     return new Promise((resolve, reject) => {
 
         var gis = require('g-i-s');
@@ -300,11 +301,11 @@ var getGoogleImage = (search, matriz = []) => {
 
                         results1.push(results[i])
 
-                        resolve(results1, matriz);
+                        resolve(results1);
                     }
 
                     if (i + 1 == results.length) {
-                        resolve(results, matriz);
+                        resolve(results);
                     }
 
 
