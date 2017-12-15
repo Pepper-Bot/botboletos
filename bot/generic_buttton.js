@@ -71,7 +71,7 @@ function genericButtonQuickReplay(senderId, gButtons, messageText) {
                     "type": _0x6b64[5],
                     "payload": {
                         "template_type": _0x6b64[6],
-                        "image_aspect_ratio": "horizontal",
+                        "image_aspect_ratio": "horizontal",//square
                         "elements": gButtons
                     }
                 }

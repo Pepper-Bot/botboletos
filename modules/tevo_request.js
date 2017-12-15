@@ -183,10 +183,10 @@ module.exports = function () {
                             gButtons = eventButtons_;
                             counter = 0;
 
-                            for (var z = 0, k = gButtons.length; z < k; z++) {
+                            for (let z = 0, k = gButtons.length; z < k; z++) {
 
                                 getGoogleImage('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, gButtons).then((images) => {
-                                    var imageIndex = 0;
+                                    let imageIndex = 0;
                                     if (images.length >= 4) {
                                         imageIndex = Math.round(Math.random() * 4);
                                     } else {
