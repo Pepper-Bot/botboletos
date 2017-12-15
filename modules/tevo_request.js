@@ -206,7 +206,7 @@ module.exports = function () {
 
                                     counter++;
                                     console.log('counter> ' + counter + ' gButtons.length ' + gButtons.length);
-                                    if (counter == gButtons.length) {
+                                    if (z + 1 == gButtons.length) {
 
                                         console.log('gButtons.length> ' + gButtons.length);
 
