@@ -198,7 +198,7 @@ module.exports = function () {
 
                                     if (z < gButtons.length - 1) {
 
-                                        gButtons[z].image_url = images[imageIndex].url;
+                                        gButtons[z].image_url = images[0].url;
 
 
                                     } else {
