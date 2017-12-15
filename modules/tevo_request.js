@@ -183,9 +183,11 @@ module.exports = function () {
                             gButtons = eventButtons_;
                             counter = 0;
 
-                            for (var z = 0; z < gButtons.length; z++) {
-                                console.log('gButtons.length> ' + gButtons.length);
+                            for (let z = 0; z < gButtons.length; z++) {
+                                
                                 getGoogleImage('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, gButtons).then((images) => {
+                                    console.log('gButtons.length> ' + gButtons.length);
+                                    
                                     let imageIndex = 0;
                                     if (images.length >= 4) {
                                         imageIndex = Math.round(Math.random() * 4);
@@ -194,7 +196,7 @@ module.exports = function () {
                                     }
 
                                     if (z < gButtons.length - 1) {
-
+                                        console.log('images[imageIndex].url> ' + images[imageIndex].url);
                                         gButtons[z].image_url = images[imageIndex].url;
                                         console.log("gButtons[z].image_url" + gButtons[z].image_url)
 
