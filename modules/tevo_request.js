@@ -179,9 +179,9 @@ module.exports = function () {
                             });
 
 
-                            gButtons = null;
-                            gButtons = eventButtons_;
-                            counter = 0;
+                            var gButtons = null;
+                            var gButtons = eventButtons_;
+                            var counter = 0;
 
                             for (let z = 0; z < gButtons.length; z++) {
 
@@ -205,7 +205,7 @@ module.exports = function () {
                                     }
 
                                     counter++;
-                                    console.log('counter> ' + counter + ' gButtons.length '+ gButtons.length );
+                                    console.log('counter> ' + counter + ' gButtons.length ' + gButtons.length);
                                     if (counter == gButtons.length) {
 
                                         console.log('gButtons.length> ' + gButtons.length);
