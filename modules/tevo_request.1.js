@@ -185,7 +185,8 @@ module.exports = function () {
 
                             for (var z = 0, k = gButtons.length; z < k; z++) {
 
-                                getGoogleImage('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, gButtons).then((images) => {
+
+                                imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
                                     var imageIndex = 0;
                                     if (images.length >= 4) {
                                         imageIndex = Math.round(Math.random() * 4);
@@ -193,10 +194,10 @@ module.exports = function () {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
 
-                                    if (z < gButtons.length - 1) {
-                                        gButtons[z].image_url = images[imageIndex].url;
+                                    if (index < gButtons.length - 1) {
+                                        gButtons[index].image_url = images[imageIndex].url;
                                     } else {
-                                        gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
+                                        gButtons[index].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
 
                                     counter++;
@@ -205,7 +206,7 @@ module.exports = function () {
                                         console.log('gButtons.length> ' + gButtons.length);
 
 
-                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[z].image_url);
+                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
                                         // Message.genericButton(senderId, gButtons);
 
                                         //var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
@@ -249,62 +250,7 @@ module.exports = function () {
 }();
 
 
-var getGoogleImage = (search, matriz = []) => {
-    return new Promise((resolve, reject) => {
 
-        var gis = require('g-i-s');
-
-        var opts = {
-            searchTerm: search,
-            queryStringAddition: '&tbs=ic:trans',
-            filterOutDomains: [
-                'pinterest.com',
-                'deviantart.com'
-            ]
-        };
-
-
-        var opts = {
-            searchTerm: search,
-
-
-        };
-
-
-
-
-        gis(opts, logResults);
-
-
-        function logResults(error, results) {
-            if (error) {
-                reject(error);
-            } else {
-                console.log("Imagenes gis Respuesta >>> " + results.length);
-                console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
-                //resolve(results, matriz);
-                var results1 = [];
-                for (let i = 0; i < results.length; i++) {
-
-                    if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
-
-                        results1.push(results[i])
-
-                        resolve(results1, matriz);
-                    }
-
-                    if (i + 1 == results.length) {
-                        resolve(results, matriz);
-                    }
-
-
-                }
-
-            }
-        }
-
-    });
-}
 
 function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
     var UserData = require('../bot/userinfo');
