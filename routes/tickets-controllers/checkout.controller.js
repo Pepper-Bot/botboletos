@@ -146,7 +146,7 @@ function paypal_pay(req, res) {
         if (ticketGroupRes.error) {
             console.log("json.error" + ticketGroupRes.error);
         }
-
+        console.log("ticketGroupRes >>" + JSON.stringify(ticketGroupRes));
 
         if (ticketGroupRes[0].ticket_groups.quantity > 0) {
 
