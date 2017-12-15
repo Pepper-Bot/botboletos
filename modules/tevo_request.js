@@ -184,10 +184,10 @@ module.exports = function () {
                             counter = 0;
 
                             for (let z = 0; z < gButtons.length; z++) {
-                                
+
                                 getGoogleImage('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, gButtons).then((images) => {
-                                    console.log('gButtons.length> ' + gButtons.length);
-                                    
+
+
                                     let imageIndex = 0;
                                     if (images.length >= 4) {
                                         imageIndex = Math.round(Math.random() * 4);
@@ -196,15 +196,16 @@ module.exports = function () {
                                     }
 
                                     if (z < gButtons.length - 1) {
-                                        console.log('images[imageIndex].url> ' + images[imageIndex].url);
+
                                         gButtons[z].image_url = images[imageIndex].url;
-                                        console.log("gButtons[z].image_url" + gButtons[z].image_url)
+                                        console.log("gButtons[z].image_url <" + gButtons[z].image_url)
 
                                     } else {
                                         gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
 
                                     counter++;
+                                    console.log('counter> ' + counter);
                                     if (counter == gButtons.length) {
 
                                         console.log('gButtons.length> ' + gButtons.length);
