@@ -109,7 +109,7 @@ function createOrder(req, res, payment, event, clienteSearch) {
         var shipping = req.session.ship_price // Se obtine luego de hacer petición de shipping   Additional amount added to the order to be labeled as Shipping Cost
     }
 
-    var amount = (parseFloat(price * quantity + shipping).toFixed(2))
+    var amount = (parseFloat(price * quantity).toFixed(2))
     var type = 'offline'; //modo sugerido por tevo
 
 
@@ -415,16 +415,16 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
 
 function removeDuplicates(originalArray, prop) {
     var newArray = [];
-    var lookupObject  = {};
+    var lookupObject = {};
 
-    for(var i in originalArray) {
-       lookupObject[originalArray[i][prop]] = originalArray[i];
+    for (var i in originalArray) {
+        lookupObject[originalArray[i][prop]] = originalArray[i];
     }
 
-    for(i in lookupObject) {
+    for (i in lookupObject) {
         newArray.push(lookupObject[i]);
     }
-     return newArray;
+    return newArray;
 }
 
 

@@ -24,8 +24,8 @@
 
  	if (undefined == req.session.client_id) {
  		res.status(200);
- 		//res.send('Error trying to access');
- 		res.redirect(FINISH_SESSION_URL_REDIRECT)
+ 		res.send('Error trying to access');
+ 		//res.redirect(FINISH_SESSION_URL_REDIRECT)
  		res.end();
  		return;
  	}
@@ -177,7 +177,7 @@
 
  					sendEmailSenGrid(req, res, clienteSearch, OrderRes)
 
- 					req.session.destroy();
+ 					//req.session.destroy();
 
  					res.render(
  						'./layouts/tickets/finish', {
