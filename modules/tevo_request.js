@@ -198,15 +198,16 @@ module.exports = function () {
                                     if (z < gButtons.length - 1) {
 
                                         gButtons[z].image_url = images[imageIndex].url;
-                                        console.log("gButtons[z].image_url <" + gButtons[z].image_url)
+
 
                                     } else {
                                         gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
 
-                                   
-                                    console.log('counter> ' + counter + ' gButtons.length ' + gButtons.length);
-                                    if (counter + 1    == gButtons.length) {
+                                    console.log("gButtons[" + z + "].image_url <" + gButtons[z].image_url)
+
+                                    console.log('counter> ' + (counter + 1) + ' gButtons.length ' + gButtons.length);
+                                    if (counter + 1 == gButtons.length) {
 
                                         console.log('gButtons.length> ' + gButtons.length);
 
@@ -233,7 +234,7 @@ module.exports = function () {
 
                                 }).then(() => {
                                     counter = counter + 1;
-                    
+
                                 });
 
 
