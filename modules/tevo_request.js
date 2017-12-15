@@ -183,7 +183,7 @@ module.exports = function () {
                             gButtons = eventButtons_;
                             counter = 0;
 
-                            for (let z = 0, k = gButtons.length; z < k; z++) {
+                            for (let z = 0; z < gButtons.length; z++) {
 
                                 getGoogleImage('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, gButtons).then((images) => {
                                     let imageIndex = 0;
