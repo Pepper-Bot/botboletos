@@ -184,7 +184,7 @@ module.exports = function () {
                             var counter = 0;
 
                             for (let z = 0; z < gButtons.length; z++) {
-                                let search = gButtons[z].title + ' ' + gButtons[z].image_url
+                                let search = gButtons[z].title 
 
                                 getGoogleImage(search, gButtons).then((images) => {
 
