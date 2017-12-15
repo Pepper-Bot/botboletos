@@ -184,7 +184,7 @@ module.exports = function () {
                             counter = 0;
 
                             for (let z = 0; z < gButtons.length; z++) {
-
+                                console.log('gButtons.length> ' + gButtons.length);
                                 getGoogleImage('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, gButtons).then((images) => {
                                     let imageIndex = 0;
                                     if (images.length >= 4) {
@@ -281,7 +281,7 @@ var getGoogleImage = (search, matriz = []) => {
                 reject(error);
             } else {
                 console.log("Imagenes gis Respuesta >>> " + results.length);
-                console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
+                //console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
                 //resolve(results, matriz);
                 var results1 = [];
                 for (let i = 0; i < results.length; i++) {
