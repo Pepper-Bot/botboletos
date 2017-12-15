@@ -146,9 +146,9 @@ function paypal_pay(req, res) {
         if (ticketGroupRes.error) {
             console.log("json.error" + ticketGroupRes.error);
         }
-        console.log("ticketGroupRes >>" + JSON.stringify(ticketGroupRes));
+        //console.log("ticketGroupRes >>" + JSON.stringify(ticketGroupRes));
 
-        if (ticketGroupRes[0].ticket_groups.quantity > 0) {
+        if (ticketGroupRes.available_quantity > 0) {
 
             var express = require('express');
             var router = express.Router();
