@@ -231,7 +231,7 @@ var setImagesToEvents = (resultEvent, counter) => {
         for (let z = 0; z < gButtons.length; z++) {
             let search = gButtons[z].title
             console.log("search " + search)
-            getGoogleImage(search, gButtons).then((images) => {
+            getGoogleImage(search).then((images) => {
                 console.log("images.length " + images.length)
 
                 if (z < gButtons.length - 1) {
@@ -245,7 +245,7 @@ var setImagesToEvents = (resultEvent, counter) => {
 
 
                 console.log(" gButtons[z].image_url " + gButtons[z].image_url)
-                console.log(" <> " + counter + "" + gButtons.length)
+                console.log(counter +  " < >" + gButtons.length)
                 if (counter + 1 == gButtons.length) {
 
                     resolve(gButtons)
@@ -258,7 +258,7 @@ var setImagesToEvents = (resultEvent, counter) => {
         }
     });
 }
-var getGoogleImage = (search, matriz = []) => {
+var getGoogleImage = (search) => {
     return new Promise((resolve, reject) => {
 
         var gis = require('g-i-s');
@@ -299,12 +299,12 @@ var getGoogleImage = (search, matriz = []) => {
 
                         results1.push(results[i])
 
-                        resolve(results1, matriz);
+                        resolve(results1);
 
                     }
 
                     if (i + 1 == results.length) {
-                        resolve(results, matriz);
+                        resolve(results);
                     }
 
 
