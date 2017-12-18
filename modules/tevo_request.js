@@ -188,14 +188,14 @@ module.exports = function () {
                                 getGoogleImage(search, gButtons).then((images) => {
                                     console.log("images[0].url" + images[0].url)
 
-                                    if (z < gButtons.length - 1) {
-                                        gButtons[z].image_url = images[0].url;
+                                    if (counter < gButtons.length - 1) {
+                                        gButtons[counter].image_url = images[0].url;
 
                                     }
 
-                                    if (z == gButtons.length - 1) {
-                                        counter++;
-                                        gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
+                                    if (counter == gButtons.length - 1) {
+                                       
+                                        gButtons[counter].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
 
                                     console.log(counter + ' ' + gButtons.length)
