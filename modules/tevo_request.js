@@ -182,48 +182,24 @@ module.exports = function () {
 
                             var gButtons = eventButtons_;
                             var counter = 0;
-                            for (var z = 0; z < gButtons.length; z++) {
-                                let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
-                                console.log("search " + search)
-                                getGoogleImage(search, gButtons).then((images) => {
-                                    if (z < gButtons.length - 1) {
-                                        gButtons[z].image_url = images[0].url;
 
-                                    }
-                                    if (z == gButtons.length - 1) {
 
-                                        gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
-                                    }
+                            setImagesToEvents(gButtons, counter).then((gButtons) => {
+                                
+                                console.log("luego del GButons event_name >>>>> " + event_name);
+                                saveUsuarioAndEventSearchLastSelected(senderId, event_name);
 
-                                }).then(() => {
-                                    counter = counter + 1;
+                                var GenericButton = require('../bot/generic_buttton');
+                                GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
 
-                                }).catch((err) => {
-                                    console.err("Error al consguir la image" + err);
-                                });
 
-                            
+                                Message.typingOff(senderId);
 
-                            }
-
-                            Promise.all(gButtons, counter)
-                                .then(() => {
-                                    console.log("luego del GButons event_name >>>>> " + event_name);
-                                    saveUsuarioAndEventSearchLastSelected(senderId, event_name);
-
-                                    var GenericButton = require('../bot/generic_buttton');
-                                    GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
+                            });
 
 
 
-                                    // GenericButton.listTemplateButtons(senderId, gButtons);
 
-
-                                    Message.typingOff(senderId);
-
-
-
-                                });
 
 
 
@@ -249,14 +225,23 @@ module.exports = function () {
 
 
 
-var setImagesToEvents = (req, resultEvent, counter) => {
+var setImagesToEvents = (resultEvent, counter) => {
     var events = resultEvent;
     return new Promise((resolve, reject) => {
         for (let z = 0; z < events.length; z++) {
             let search = events[z].name
             getGoogleImage(search, events).then((images) => {
 
-                events[z].image_url = images[0].url;
+
+                if (z < gButtons.length - 1) {
+                    events[z].image_url = images[0].url;
+
+                }
+                if (z == gButtons.length - 1) {
+
+                    events[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
+                }
+
 
 
 
