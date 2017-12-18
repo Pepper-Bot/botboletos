@@ -182,47 +182,18 @@ module.exports = function () {
 
                             var gButtons = eventButtons_;
                             var counter = 0;
-                            for (let z = 0; z < gButtons.length; z++) {
+                            for (var z = 0; z < gButtons.length; z++) {
                                 let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
                                 console.log("search " + search)
                                 getGoogleImage(search, gButtons).then((images) => {
-                                    console.log("images[0].url" + images[0].url)
-
-                                    if (counter < gButtons.length - 1) {
-                                        gButtons[counter].image_url = images[0].url;
+                                    if (z < gButtons.length - 1) {
+                                        gButtons[z].image_url = images[0].url;
 
                                     }
+                                    if (z == gButtons.length - 1) {
 
-                                    if (counter == gButtons.length - 1) {
-                                       
-                                        gButtons[counter].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
+                                        gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
-
-                                    console.log(counter + ' ' + gButtons.length)
-                                    if (counter + 1 == gButtons.length) {
-                                        console.log('gButtons.length> ' + gButtons.length);
-
-
-                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
-                                        // Message.genericButton(senderId, gButtons);
-
-                                        //var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
-                                        // ShowMeMoreQuickReply.send(Message, senderId);
-                                        console.log("luego del GButons event_name >>>>> " + event_name);
-                                        saveUsuarioAndEventSearchLastSelected(senderId, event_name);
-
-                                        var GenericButton = require('../bot/generic_buttton');
-                                        GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
-
-
-
-                                        // GenericButton.listTemplateButtons(senderId, gButtons);
-
-
-                                        Message.typingOff(senderId);
-
-                                    }
-
 
                                 }).then(() => {
                                     counter = counter + 1;
@@ -235,6 +206,26 @@ module.exports = function () {
 
 
                             }
+
+                            Promise.all(gButtons)
+                                .then(() => {
+                                    console.log("luego del GButons event_name >>>>> " + event_name);
+                                    saveUsuarioAndEventSearchLastSelected(senderId, event_name);
+
+                                    var GenericButton = require('../bot/generic_buttton');
+                                    GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
+
+
+
+                                    // GenericButton.listTemplateButtons(senderId, gButtons);
+
+
+                                    Message.typingOff(senderId);
+
+
+
+                                });
+
 
 
 
@@ -259,7 +250,28 @@ module.exports = function () {
 
 
 
+var setImagesToEvents = (req, resultEvent, counter) => {
+    var events = resultEvent;
+    return new Promise((resolve, reject) => {
+        for (let z = 0; z < events.length; z++) {
+            let search = events[z].name
+            getGoogleImage(search, events).then((images) => {
 
+                events[z].image_url = images[0].url;
+
+
+
+                if (counter + 1 == events.length) {
+                    resolve(events)
+                }
+
+            }).then(() => {
+                counter = counter + 1;
+
+            });
+        }
+    });
+}
 var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 
