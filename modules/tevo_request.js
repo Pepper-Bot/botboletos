@@ -182,38 +182,26 @@ module.exports = function () {
 
                             var gButtons = eventButtons_;
                             var counter = 0;
-
                             for (let z = 0; z < gButtons.length; z++) {
-                                let search = gButtons[counter].title 
-
+                                let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
                                 getGoogleImage(search, gButtons).then((images) => {
 
 
-                                    let imageIndex = 0;
-                                    if (images.length >= 4) {
-                                        imageIndex = Math.round(Math.random() * 4);
-                                    } else {
-                                        imageIndex = Math.round(Math.random() * images.length);
+                                    if (z < gButtons.length - 1) {
+                                        gButtons[z].image_url = images[0].url;
+                                        
                                     }
 
-                                    if (counter < gButtons.length - 1) {
-
-                                        gButtons[counter].image_url = images[0].url;
-
-
-                                    } else {
-                                        gButtons[counter].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
+                                    if (z == gButtons.length - 1) {
+                                        gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
 
-                                    console.log("gButtons[" + z + "].image_url <" + gButtons[counter].image_url)
-
-                                    console.log('counter> ' + (counter + 1) + ' gButtons.length ' + gButtons.length);
+                                    console.log(counter + ' ' + gButtons.length)
                                     if (counter + 1 == gButtons.length) {
-
                                         console.log('gButtons.length> ' + gButtons.length);
 
 
-                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[counter].image_url);
+                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
                                         // Message.genericButton(senderId, gButtons);
 
                                         //var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
@@ -230,6 +218,7 @@ module.exports = function () {
 
 
                                         Message.typingOff(senderId);
+
                                     }
 
 
@@ -238,9 +227,14 @@ module.exports = function () {
 
                                 });
 
+                                console.log(counter + 'FOR ' + gButtons.length)
 
 
                             }
+
+
+
+
 
                         } else {
                             Message.sendMessage(senderId, "No Found Events");
@@ -260,7 +254,9 @@ module.exports = function () {
 }();
 
 
-var getGoogleImage = (search, element) => {
+
+
+var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 
         var gis = require('g-i-s');
@@ -291,9 +287,9 @@ var getGoogleImage = (search, element) => {
             if (error) {
                 reject(error);
             } else {
-                // console.log("Imagenes gis Respuesta >>> " + results.length);
-                //console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
-                //resolve(results, element);
+                console.log("Imagenes gis Respuesta >>> " + results.length);
+                console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
+                //resolve(results, matriz);
                 var results1 = [];
                 for (let i = 0; i < results.length; i++) {
 
@@ -301,11 +297,11 @@ var getGoogleImage = (search, element) => {
 
                         results1.push(results[i])
 
-                        resolve(results1, element);
+                        resolve(results1, matriz);
                     }
 
                     if (i + 1 == results.length) {
-                        resolve(results, element);
+                        resolve(results, matriz);
                     }
 
 
@@ -316,6 +312,7 @@ var getGoogleImage = (search, element) => {
 
     });
 }
+
 
 function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
     var UserData = require('../bot/userinfo');
