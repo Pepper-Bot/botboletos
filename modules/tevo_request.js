@@ -229,7 +229,7 @@ var setImagesToEvents = (resultEvent, counter) => {
     var gButtons = resultEvent;
     return new Promise((resolve, reject) => {
         for (let z = 0; z < gButtons.length; z++) {
-            let search = gButtons[z].name
+            let search = gButtons[z].title
             getGoogleImage(search, gButtons).then((images) => {
 
 
