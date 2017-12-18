@@ -227,7 +227,7 @@ module.exports = function () {
                                     counter = counter + 1;
 
                                 }).catch((err) => {
-                                    console.err("Error al consguir la image"+ err);
+                                    console.err("Error al consguir la image" + err);
                                 });
 
                                 console.log(counter + 'FOR ' + gButtons.length)
@@ -267,6 +267,7 @@ var getGoogleImage = (search, matriz = []) => {
 
         function logResults(error, results) {
             if (error) {
+                console.log("error >" + error)
                 reject(error);
             } else {
                 resolve(results, matriz);
