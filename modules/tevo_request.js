@@ -184,18 +184,19 @@ module.exports = function () {
                             var counter = 0;
                             for (let z = 0; z < gButtons.length; z++) {
                                 let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
+                                console.log("search " + search)
                                 getGoogleImage(search, gButtons).then((images) => {
+                                    console.log("images[0].url" + images[0].url)
 
-
-                                    if (z < gButtons.length - 1) {
+                                    /*  if (z < gButtons.length - 1) {
                                         gButtons[z].image_url = images[0].url;
-                                        
+
                                     }
 
                                     if (z == gButtons.length - 1) {
                                         gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
-
+                                   
                                     console.log(counter + ' ' + gButtons.length)
                                     if (counter + 1 == gButtons.length) {
                                         console.log('gButtons.length> ' + gButtons.length);
@@ -219,7 +220,7 @@ module.exports = function () {
 
                                         Message.typingOff(senderId);
 
-                                    }
+                                                                        }*/
 
 
                                 }).then(() => {
