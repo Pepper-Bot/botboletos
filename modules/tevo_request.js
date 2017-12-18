@@ -244,7 +244,7 @@ var setImagesToEvents = (resultEvent, counter) => {
                 }
 
 
-
+                console.log(" gButtons[z].image_url " + gButtons[z].image_url)
 
                 if (counter + 1 == gButtons.length) {
                     resolve(gButtons)
