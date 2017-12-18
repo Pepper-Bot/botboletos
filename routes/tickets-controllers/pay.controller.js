@@ -362,7 +362,7 @@ var pay_with_pp = (req, res) => {
 
             var dataShip = {
                 "ticket_group_id": req.body.groupticket_id,
-                "address_id": address_id,
+                //"address_id": address_id,
                 "address_attributes": direccionEnvio
             };
             console.log("dataShip de tevo >>" + JSON.stringify(dataShip));
@@ -651,7 +651,7 @@ var pay_with_cc1 = (req, res) => {
                 ////////////////shipping cc pay_with_cc1///////////////
                 var dataShip = {
                     "ticket_group_id": req.body.groupticket_id,
-                    "address_id": address_id,
+                    //"address_id": address_id,
                     "address_attributes": direccionEnvio
                 };
                 console.log("dataShip de tevo >>" + JSON.stringify(dataShip));

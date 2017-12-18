@@ -184,7 +184,7 @@ module.exports = function () {
                             var counter = 0;
 
                             for (let z = 0; z < gButtons.length; z++) {
-                                let search = gButtons[z].title 
+                                let search = gButtons[counter].title 
 
                                 getGoogleImage(search, gButtons).then((images) => {
 
@@ -196,16 +196,16 @@ module.exports = function () {
                                         imageIndex = Math.round(Math.random() * images.length);
                                     }
 
-                                    if (z < gButtons.length - 1) {
+                                    if (counter < gButtons.length - 1) {
 
-                                        gButtons[z].image_url = images[0].url;
+                                        gButtons[counter].image_url = images[0].url;
 
 
                                     } else {
-                                        gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
+                                        gButtons[counter].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
 
-                                    console.log("gButtons[" + z + "].image_url <" + gButtons[z].image_url)
+                                    console.log("gButtons[" + z + "].image_url <" + gButtons[counter].image_url)
 
                                     console.log('counter> ' + (counter + 1) + ' gButtons.length ' + gButtons.length);
                                     if (counter + 1 == gButtons.length) {
@@ -213,7 +213,7 @@ module.exports = function () {
                                         console.log('gButtons.length> ' + gButtons.length);
 
 
-                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[z].image_url);
+                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[counter].image_url);
                                         // Message.genericButton(senderId, gButtons);
 
                                         //var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');

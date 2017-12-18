@@ -1,0 +1,29 @@
+{
+    "orders": [{
+        "shipped_items": [{
+            "items": [{
+                "ticket_group_id": "422333455",
+                "price": "3.09",
+                "quantity": "1"
+            }],
+            "type": "Eticket",
+            "email_address_id": 2498575
+        }],
+        "billing_address_id": "5290898",
+        "payments": [{
+            "type": "credit_card",
+            "amount": "3.09",
+            "credit_card_id": 352073
+        }],
+        "seller_id": "4642",
+        "client_id": 1623900,
+        "created_by_ip_address": "",
+        "instructions": "",
+        "shipping": "1",
+        "service_fee": 0,
+        "additional_expense": 0,
+        "tax": 0,
+        "discount": 0,
+        "promo_code": ""
+    }]
+}
