@@ -185,10 +185,10 @@ module.exports = function () {
                             for (let z = 0; z < gButtons.length; z++) {
                                 let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
                                 console.log("search " + search)
-                                getGoogleImage(search, gButtons).then((images) => {
+                                 /*getGoogleImage(search, gButtons).then((images) => {
                                     console.log("images[0].url" + images[0].url)
 
-                                    /*  if (z < gButtons.length - 1) {
+                                     if (z < gButtons.length - 1) {
                                         gButtons[z].image_url = images[0].url;
 
                                     }
@@ -220,7 +220,7 @@ module.exports = function () {
 
                                         Message.typingOff(senderId);
 
-                                                                        }*/
+                                                                        }
 
 
                                 }).then(() => {
@@ -228,7 +228,7 @@ module.exports = function () {
 
                                 }).catch((err) => {
                                     console.err("Error al consguir la image" + err);
-                                });
+                                });*/
 
                                 console.log(counter + 'FOR ' + gButtons.length)
 
