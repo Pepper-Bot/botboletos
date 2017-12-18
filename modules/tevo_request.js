@@ -202,12 +202,11 @@ module.exports = function () {
                                     console.err("Error al consguir la image" + err);
                                 });
 
-                                console.log(counter + 'FOR ' + gButtons.length)
-
+                            
 
                             }
 
-                            Promise.all(gButtons)
+                            Promise.all(gButtons, counter)
                                 .then(() => {
                                     console.log("luego del GButons event_name >>>>> " + event_name);
                                     saveUsuarioAndEventSearchLastSelected(senderId, event_name);
