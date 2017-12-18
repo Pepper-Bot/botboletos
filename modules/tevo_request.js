@@ -183,9 +183,9 @@ module.exports = function () {
                             var gButtons = eventButtons_;
                             var counter = 0;
                             for (let z = 0; z < gButtons.length; z++) {
-                                let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
+                                let search = 'event ' //+ gButtons[z].title + ' ' + gButtons[z].image_url;
                                 console.log("search " + search)
-                                 /*getGoogleImage(search, gButtons).then((images) => {
+                                /*getGoogleImage(search, gButtons).then((images) => {
                                     console.log("images[0].url" + images[0].url)
 
                                      if (z < gButtons.length - 1) {
