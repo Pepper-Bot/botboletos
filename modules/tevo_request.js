@@ -194,11 +194,12 @@ module.exports = function () {
                                     }
 
                                     if (z == gButtons.length - 1) {
+                                        counter++;
                                         gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
 
-                                    console.log(counter + ' ' + gButtons.length)
-                                    if (counter + 1 == gButtons.length) {
+                                    console.log(z + ' ' + gButtons.length)
+                                    if (z + 1 == gButtons.length) {
                                         console.log('gButtons.length> ' + gButtons.length);
 
 
