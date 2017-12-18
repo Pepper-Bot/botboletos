@@ -179,30 +179,26 @@ module.exports = function () {
                             });
 
 
-                            gButtons = null;
-                            gButtons = eventButtons_;
-                            counter = 0;
 
-                            for (var z = 0, k = gButtons.length; z < k; z++) {
+                            var gButtons = eventButtons_;
+                            var counter = 0;
+                            for (let z = 0; z < gButtons.length; z++) {
+                                let search = 'event ' //+ gButtons[z].title + ' ' + gButtons[z].image_url;
+                                console.log("search " + search)
+                                /*getGoogleImage(search, gButtons).then((images) => {
+                                    console.log("images[0].url" + images[0].url)
 
+                                     if (z < gButtons.length - 1) {
+                                        gButtons[z].image_url = images[0].url;
 
-                                imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
-                                    var imageIndex = 0;
-                                    if (images.length >= 4) {
-                                        imageIndex = Math.round(Math.random() * 4);
-                                    } else {
-                                        imageIndex = Math.round(Math.random() * images.length);
                                     }
 
-                                    if (index < gButtons.length - 1) {
-                                        gButtons[index].image_url = images[imageIndex].url;
-                                    } else {
-                                        gButtons[index].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
+                                    if (z == gButtons.length - 1) {
+                                        gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
-
-                                    counter++;
-                                    if (counter == gButtons.length) {
-
+                                   
+                                    console.log(counter + ' ' + gButtons.length)
+                                    if (counter + 1 == gButtons.length) {
                                         console.log('gButtons.length> ' + gButtons.length);
 
 
@@ -223,14 +219,25 @@ module.exports = function () {
 
 
                                         Message.typingOff(senderId);
-                                    }
+
+                                                                        }
 
 
-                                });
+                                }).then(() => {
+                                    counter = counter + 1;
 
+                                }).catch((err) => {
+                                    console.err("Error al consguir la image" + err);
+                                });*/
+
+                                console.log(counter + 'FOR ' + gButtons.length)
 
 
                             }
+
+
+
+
 
                         } else {
                             Message.sendMessage(senderId, "No Found Events");
@@ -250,6 +257,25 @@ module.exports = function () {
 }();
 
 
+
+
+var getGoogleImage = (search, matriz = []) => {
+    return new Promise((resolve, reject) => {
+
+        var gis = require('g-i-s');
+        gis(search, logResults);
+
+        function logResults(error, results) {
+            if (error) {
+                console.log("error >" + error)
+                reject(error);
+            } else {
+                resolve(results, matriz);
+            }
+        }
+
+    });
+}
 
 
 function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
