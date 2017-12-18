@@ -178,7 +178,7 @@ module.exports = function () {
                                 }]
                             });
 
-                            console.log(eventButtons_  +" > eventButtons_"  )
+                           
                             gButtons = null;
                             gButtons = eventButtons_;
                             counter = 0;

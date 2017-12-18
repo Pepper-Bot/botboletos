@@ -185,10 +185,10 @@ module.exports = function () {
                             for (let z = 0; z < gButtons.length; z++) {
                                 let search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url;
                                 console.log("search " + search)
-                                /*getGoogleImage(search, gButtons).then((images) => {
+                                getGoogleImage(search, gButtons).then((images) => {
                                     console.log("images[0].url" + images[0].url)
 
-                                     if (z < gButtons.length - 1) {
+                                    if (z < gButtons.length - 1) {
                                         gButtons[z].image_url = images[0].url;
 
                                     }
@@ -196,7 +196,7 @@ module.exports = function () {
                                     if (z == gButtons.length - 1) {
                                         gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                                     }
-                                   
+
                                     console.log(counter + ' ' + gButtons.length)
                                     if (counter + 1 == gButtons.length) {
                                         console.log('gButtons.length> ' + gButtons.length);
@@ -220,7 +220,7 @@ module.exports = function () {
 
                                         Message.typingOff(senderId);
 
-                                                                        }
+                                    }
 
 
                                 }).then(() => {
@@ -228,7 +228,7 @@ module.exports = function () {
 
                                 }).catch((err) => {
                                     console.err("Error al consguir la image" + err);
-                                });*/
+                                });
 
                                 console.log(counter + 'FOR ' + gButtons.length)
 
@@ -263,20 +263,58 @@ var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 
         var gis = require('g-i-s');
-        gis(search, logResults);
+
+        var opts = {
+            searchTerm: search,
+            queryStringAddition: '&tbs=ic:trans',
+            filterOutDomains: [
+                'pinterest.com',
+                'deviantart.com'
+            ]
+        };
+
+
+        var opts = {
+            searchTerm: search,
+
+
+        };
+
+
+
+
+        gis(opts, logResults);
+
 
         function logResults(error, results) {
             if (error) {
-                console.log("error >" + error)
                 reject(error);
             } else {
-                resolve(results, matriz);
+                console.log("Imagenes gis Respuesta >>> " + results.length);
+                console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
+                //resolve(results, matriz);
+                var results1 = [];
+                for (let i = 0; i < results.length; i++) {
+
+                    if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
+
+                        results1.push(results[i])
+
+                        resolve(results1, matriz);
+                    }
+
+                    if (i + 1 == results.length) {
+                        resolve(results, matriz);
+                    }
+
+
+                }
+
             }
         }
 
     });
 }
-
 
 function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
     var UserData = require('../bot/userinfo');
