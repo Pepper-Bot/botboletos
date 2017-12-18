@@ -126,7 +126,7 @@ module.exports = function () {
 
                                 var occurs_at = moment(occurs_at).format('MMM Do YYYY, h:mm a')
 
-
+                                console.log(occurs_at  +" > occurs_at"  )
 
                                 eventButtons_.push({
                                     "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
