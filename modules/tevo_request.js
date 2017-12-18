@@ -290,8 +290,8 @@ var getGoogleImage = (search, matriz = []) => {
             if (error) {
                 reject(error);
             } else {
-                console.log("Imagenes gis Respuesta >>> " + results.length);
-                console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
+                //console.log("Imagenes gis Respuesta >>> " + results.length);
+                //console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
                 //resolve(results, matriz);
                 var results1 = [];
                 for (let i = 0; i < results.length; i++) {
@@ -301,6 +301,7 @@ var getGoogleImage = (search, matriz = []) => {
                         results1.push(results[i])
 
                         resolve(results1, matriz);
+
                     }
 
                     if (i + 1 == results.length) {
