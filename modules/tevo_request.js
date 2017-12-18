@@ -226,6 +226,8 @@ module.exports = function () {
                                 }).then(() => {
                                     counter = counter + 1;
 
+                                }).catch((err) => {
+                                    console.err("Error al consguir la image"+ err);
                                 });
 
                                 console.log(counter + 'FOR ' + gButtons.length)
