@@ -1168,7 +1168,7 @@ function processPostback(event) {
 
             //inicio
         case "Greetings":
-
+           
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
                 console.log('Dentro de referrals handler');
@@ -1177,6 +1177,7 @@ function processPostback(event) {
                 // De lo contrario saludamos.
                 console.log('#######################################################################################');
                 console.log('saludamos');
+
                 saluda(senderId);
             }
 
@@ -1478,7 +1479,7 @@ function chooseReferral(referral, senderId) {
 
         case "CHRISTMAS_PROMO":
             {
-                startChristmas(senderId , referral)
+                startChristmas(senderId, referral)
             }
             break;
         case "SHAKIRA_PROMO":
