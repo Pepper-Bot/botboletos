@@ -185,7 +185,7 @@ module.exports = function () {
 
 
                             setImagesToEvents(gButtons, counter).then((gButtons) => {
-                                
+
                                 console.log("luego del GButons event_name >>>>> " + event_name);
                                 saveUsuarioAndEventSearchLastSelected(senderId, event_name);
 
@@ -226,27 +226,27 @@ module.exports = function () {
 
 
 var setImagesToEvents = (resultEvent, counter) => {
-    var events = resultEvent;
+    var gButtons = resultEvent;
     return new Promise((resolve, reject) => {
-        for (let z = 0; z < events.length; z++) {
-            let search = events[z].name
-            getGoogleImage(search, events).then((images) => {
+        for (let z = 0; z < gButtons.length; z++) {
+            let search = gButtons[z].name
+            getGoogleImage(search, gButtons).then((images) => {
 
 
                 if (z < gButtons.length - 1) {
-                    events[z].image_url = images[0].url;
+                    gButtons[z].image_url = images[0].url;
 
                 }
                 if (z == gButtons.length - 1) {
 
-                    events[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
+                    gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
                 }
 
 
 
 
-                if (counter + 1 == events.length) {
-                    resolve(events)
+                if (counter + 1 == gButtons.length) {
+                    resolve(gButtons)
                 }
 
             }).then(() => {
