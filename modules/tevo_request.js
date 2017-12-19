@@ -235,7 +235,7 @@ var setImagesToEvents = (resultEvent, counter) => {
                 console.log("images.length " + images.length)
 
                 if (z < gButtons.length - 1) {
-                    gButtons[z].image_url = images[0].url;
+                    gButtons[z].image_url = images[1].url;
 
                 }
                 if (z == gButtons.length - 1) {
@@ -249,7 +249,7 @@ var setImagesToEvents = (resultEvent, counter) => {
 
                 counter = counter + 1;
                 if (counter + 1 == gButtons.length) {
-
+                   
                     resolve(gButtons)
                 }
 
@@ -285,6 +285,7 @@ var getGoogleImage = (search) => {
 
         gis(opts, logResults);
 
+        var contador = 0
 
         function logResults(error, results) {
             if (error) {
@@ -299,8 +300,11 @@ var getGoogleImage = (search) => {
                     if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
 
                         results1.push(results[i])
+                        contador++;
+                        if (contador >= 4) {
+                            resolve(results1);
+                        }
 
-                        resolve(results1);
 
                     }
 
