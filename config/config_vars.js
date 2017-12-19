@@ -18,7 +18,9 @@ var redis = {
 }
 
 //var only_with = 'only_with_available_tickets=true' 
-var only_with = 'only_with_tickets=all' 
+//var only_with = 'only_with_tickets=all' 
+var only_with = 'only_with_tickets=etickets' 
+
 
  
 /*
