@@ -9,7 +9,8 @@ module.exports = function () {
             var UserData2 = require('../schemas/userinfo');
             var tevo = require('../config/config_vars').tevo;
             var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
-
+            var only_with = require('../config/config_vars').only_with;
+            
 
 
             var tevoClient = new TevoClient({
@@ -21,10 +22,10 @@ module.exports = function () {
 
             var urlApiTevo = '';
 
-            urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+            urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&page=1&per_page=50&'+only_with+'&order_by=events.occurs_at'
 
             if ('shakira' === event_name.toLowerCase()) {
-                urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&occurs_at.gte=2018-01-01T08:00:00Z&page=1&per_page=50&only_with_available_tickets=true&order_by=events.occurs_at'
+                urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&occurs_at.gte=2018-01-01T08:00:00Z&page=1&per_page=50&'+only_with+'&order_by=events.occurs_at'
             }
 
 
