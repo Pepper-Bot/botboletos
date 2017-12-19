@@ -34,33 +34,39 @@ var ticketgroup = (req, res) => {
 
 
         // var ticketGroups = processFormatPrice(ticketG.ticket_groups)
+        if (ticketG.ticket_groups.length > 0) {
+            formatPrice(ticketG.ticket_groups).then((ticketGroups) => {
+                //console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
+                console.log("TicketGroup  Construida.lenght: >>> " + ticketGroups.length);
 
-        formatPrice(ticketG.ticket_groups).then((ticketGroups) => {
-            //console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
-            console.log("TicketGroup  Construida.lenght: >>> " + ticketGroups.length);
+                var searchById = tevo.API_URL + 'events/' + event_id
 
-            var searchById = tevo.API_URL + 'events/' + event_id
+                tevoClient.getJSON(searchById).then((event) => {
 
-            tevoClient.getJSON(searchById).then((event) => {
+                    // console.log("EVENT<<<  : >>> " + JSON.stringify(event));
+                    res.render(
+                        './layouts/tickets/ticketgroup', {
+                            titulo: "Your tickets are on its way!",
+                            APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
+                            ticketGroups: ticketGroups,
+                            event_id: event.event_id,
+                            event_name: event.name,
+                            event_date: event.occurs_at,
+                            seatsmap: event.configuration.seating_chart.large,
+                            subtitulo: "Select your tickets",
+                            venue_name: event.venue.name + ' ' + event.venue.location,
 
-                // console.log("EVENT<<<  : >>> " + JSON.stringify(event));
-                res.render(
-                    './layouts/tickets/ticketgroup', {
-                        titulo: "Your tickets are on its way!",
-                        APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
-                        ticketGroups: ticketGroups,
-                        event_id: event.event_id,
-                        event_name: event.name,
-                        event_date: event.occurs_at,
-                        seatsmap: event.configuration.seating_chart.large,
-                        subtitulo: "Select your tickets",
-                        venue_name: event.venue.name + ' ' + event.venue.location,
-
-                    }
-                );
-            });
-        })
-    });
+                        }
+                    );
+                });
+            })
+        } else {
+            res.send('<h1> No  tickets available.</h1>');
+        }
+    }).catch((err) => {
+		console.log('Error al Recuperar los eventos');
+		console.log(err);
+	});
 
 }
 

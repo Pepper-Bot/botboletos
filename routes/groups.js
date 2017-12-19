@@ -76,7 +76,7 @@ router.get('/', function (req, res) {
 				});
 			})
 		} else {
-			res.send('<h1>No  tickets available.</h1>');
+			res.send('<h1> No  tickets available.</h1>');
 		}
 	}).catch((err) => {
 		console.log('Error al Recuperar los eventos');
