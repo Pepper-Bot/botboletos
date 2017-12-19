@@ -17,7 +17,7 @@ var redis = {
   REDIS_HOST: process.env.REDIS_HOST
 }
 
-var only_with = 'only_with_available_tickets=true' 
+//var only_with = 'only_with_available_tickets=true' 
 var only_with = 'only_with_tickets=all' 
 
  
