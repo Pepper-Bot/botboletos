@@ -17,8 +17,11 @@ var redis = {
   REDIS_HOST: process.env.REDIS_HOST
 }
 
- 
+var only_with = 'only_with_available_tickets=true' 
+var only_with = 'only_with_tickets=all' 
 
+ 
+/*
 /////////////////////tevo//////////////////////////// 
 var API_SECRET_KEY = process.env.SANDBOX_API_SECRET_KEY
 var API_TOKEN = process.env.SANDBOX_API_TOKEN
@@ -29,10 +32,10 @@ var P_CLIENT_ID = process.env.SANDBOX_P_CLIENT_ID
 var P_CLIENT_SECRET = process.env.SANDBOX_P_CLIENT_SECRET
 var P_MODE = 'sandbox'
 /////////////////////PP//////////////////////////// 
+*/
 
 
 
-/*
 /////////////////////tevo/////////////////////////////
 var API_SECRET_KEY = process.env.API_SECRET_KEY
 var API_TOKEN = process.env.API_TOKEN
@@ -42,7 +45,7 @@ var OFFICE_ID = process.env.OFFICE_ID
 var P_CLIENT_ID = process.env.P_CLIENT_ID
 var P_CLIENT_SECRET = process.env.P_CLIENT_SECRET
 var P_MODE = 'live',
-*/
+
 
 
 
@@ -82,5 +85,5 @@ module.exports = {
   mlink,
   redis,
   FINISH_SESSION_URL_REDIRECT,
- 
+  only_with,
 };

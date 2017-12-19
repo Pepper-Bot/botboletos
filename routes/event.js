@@ -29,9 +29,9 @@ router.get('/', function (req, res) {
     var urlApiTevo = '';
 
 
-    urlApiTevo = 'https://api.ticketevolution.com/v9/events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&only_with_available_tickets=true'
+    urlApiTevo = 'https://api.ticketevolution.com/v9/events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&'+only_with+''
 
-    urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&only_with_available_tickets=true'
+    urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&'+only_with+''
 
 
 

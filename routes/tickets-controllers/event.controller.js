@@ -22,7 +22,7 @@ var render_events = (req, res) => {
     var performer_id = req.query.performer_id;
 
 
-    urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&only_with_available_tickets=true'
+    urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&'+only_with+''
 
 
 

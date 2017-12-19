@@ -7,6 +7,7 @@ module.exports = function () {
             var moment = require('moment');
             var UserData = require('../../bot/userinfo');
             var UserData2 = require('../../schemas/userinfo');
+            var only_with = require('../../config/config_vars').only_with;
 
 
 
@@ -25,7 +26,7 @@ module.exports = function () {
             var urlApiTevo = '';
 
 
-            urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&only_with_available_tickets=true&within=100&order_by=events.occurs_at'
+            urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + onlyticket + '&within=100&order_by=events.occurs_at'
 
 
 
@@ -50,7 +51,7 @@ module.exports = function () {
                             resultEvent = json.events;
                             var eventButtons_ = [];
                             var callsGis = 0;
-                            var baseURL = APLICATION_URL_DOMAIN +'event/?event_id=';
+                            var baseURL = APLICATION_URL_DOMAIN + 'event/?event_id=';
 
 
                             if (resultEvent.length > 9 * (position - 1)) {

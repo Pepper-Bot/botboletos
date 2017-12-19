@@ -20,6 +20,8 @@ var UserData2 = require('../../schemas/userinfo');
 var tevo = require('../../config/config_vars').tevo;
 var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 var processEventURL = APLICATION_URL_DOMAIN + 'event/?event_id=';
+var only_with = require('../../config/config_vars').only_with;
+
 //let approved = students.filter(student => student.score >= 11);
 
 
@@ -44,7 +46,7 @@ var searchCategoriesByParentId = (parent_id) => {
 var searchEventsByName = (event_name) => {
     return new Promise((res, rej) => {
         //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
-        let urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&only_with_available_tickets=true'
+        let urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&'+only_with+''
         console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
@@ -60,7 +62,7 @@ var searchEventsByName = (event_name) => {
 var searchEventsByCategoryId = (category_id) => {
     return new Promise((res, rej) => {
         //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
-        let urlApiTevo = tevo.API_URL + 'events?category_id=' + category_id + '&only_with_available_tickets=true'
+        let urlApiTevo = tevo.API_URL + 'events?category_id=' + category_id + '&'+only_with+''
         console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
@@ -73,7 +75,7 @@ var searchEventsByCategoryId = (category_id) => {
 var searchEventsByCategoryIdAndLocation = (category_id, lat, lon) => {
     return new Promise((res, rej) => {
         //var urlApiTevo = 'https://api.ticketevolution.com/v9/events?category_id=' + category_id + '&page=1&per_page=50&only_with_tickets=all'
-        let urlApiTevo = tevo.API_URL + 'events?category_id=' + category_id + '&lat=' + lat + '&lon=' + lon + '&only_with_available_tickets=true&within=100'
+        let urlApiTevo = tevo.API_URL + 'events?category_id=' + category_id + '&lat=' + lat + '&lon=' + lon + '&'+only_with+'&within=100'
 
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {
@@ -87,7 +89,7 @@ var searchEventsByCategoryIdAndLocation = (category_id, lat, lon) => {
 
 var searchEventsByCategoryIdAndDate = (category_id, occurs_at_gte, occurs_at_lte) => {
     return new Promise((res, rej) => {
-        let urlApiTevo = tevo.API_URL + 'events?category_id=' + category_id + '&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
+        let urlApiTevo = tevo.API_URL + 'events?category_id=' + category_id + '&'+only_with+'&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
         console.log('>>>>>>>>>>>>>>>>>url tevo' + urlApiTevo);
         if (tevoClient) {
             tevoClient.getJSON(urlApiTevo).then((json) => {

@@ -947,14 +947,6 @@ function processPostback(event) {
 
 
     switch (payload) {
-
-        case "MERRY_CHRISTMAS":
-            {
-                startMerryChristmas(senderId, payload);
-            }
-            break;
-
-
         case "CHRISTMAS_PROMO":
             {
                 startChristmas(senderId, payload);
@@ -1486,7 +1478,7 @@ function chooseReferral(referral, senderId) {
 
         case "CHRISTMAS_PROMO":
             {
-                startChristmas(senderId, referral)
+                startChristmas(senderId , referral)
             }
             break;
         case "SHAKIRA_PROMO":
@@ -1569,72 +1561,7 @@ var starShakiraPromo = (senderId, referral) => {
     promoModule.startShakira(senderId);
 }
 
-var startChristmasSongs = (senderId, payload) => {
-    var chirstmasModule = require('../modules/tevo/chirstmas/christmas_songs')
 
-
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, foundUser) {
-        if (!err) {
-            if (foundUser) {
-                foundUser.mlinkSelected = referral
-                foundUser.save((err, foundUserBefore) => {
-                    if (err) {
-                        console.log('Error al guardar el usuario');
-                    } else {
-                        console.log('usuario actualizado:' + foundUser.mlinkSelected);
-                        chirstmasModule.startChirstmasSongs(senderId);
-                    }
-
-                });
-
-            } else {
-                UserData.getInfo(senderId, function (err, result) {
-                    console.log('Dentro de UserData');
-                    if (!err) {
-
-                        var bodyObj = JSON.parse(result);
-                        console.log(result);
-
-                        var User = new UserData2; {
-                            User.fbId = senderId;
-                            User.firstName = bodyObj.first_name;
-                            User.LastName = bodyObj.last_name;
-                            User.profilePic = bodyObj.profile_pic;
-                            User.locale = bodyObj.locale;
-                            User.timeZone = bodyObj.timezone;
-                            User.gender = bodyObj.gender;
-                            User.messageNumber = 1;
-                            User.mlinkSelected = referral
-
-                            User.save();
-                            chirstmasModule.startChirstmas(senderId);
-
-                            User.save((err, foundUserBefore) => {
-                                if (err) {
-                                    console.log('Error al guardar el usuario ');
-                                } else {
-                                    console.log('usuario guardado:' + foundUserBefore.mlinkSelected);
-                                    SixtEventModule.start(senderId);
-                                }
-
-                            });
-
-
-                        }
-                    }
-                });
-            }
-        }
-    });
-
-
-}
 var startChristmas = (senderId, referral) => {
     var chirstmasModule = require('../modules/tevo/chirstmas/christmas')
 
