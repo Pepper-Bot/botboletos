@@ -46,7 +46,7 @@ router.get('/', function (req, res) {
 	tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
 
 		var searchById = tevo.API_URL + 'events/' + event_id;
-		if (ticketGF.length > 0) {
+		if (ticketG.ticket_groups.length > 0) {
 			formatPrice(ticketG.ticket_groups).then((ticketGroups) => {
 
 				///console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
@@ -75,7 +75,7 @@ router.get('/', function (req, res) {
 					);
 				});
 			})
-		}else{
+		} else {
 			res.send('<h1>No  tickets available.</h1>');
 		}
 	}).catch((err) => {
