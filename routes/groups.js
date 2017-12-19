@@ -45,39 +45,43 @@ router.get('/', function (req, res) {
 	console.log('Groups url api tevo>>>>>>>' + searchTicketGroupByEventId);
 	tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
 
-		var searchById = tevo.API_URL + 'events/' + event_id
-		formatPrice(ticketG.ticket_groups).then((ticketGroups) => {
+		var searchById = tevo.API_URL + 'events/' + event_id;
+		if (ticketGF.length > 0) {
+			formatPrice(ticketG.ticket_groups).then((ticketGroups) => {
 
-			///console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
+				///console.log("TicketGroup  Construida: >>> " + JSON.stringify(ticketGroups));
 
-			tevoClient.getJSON(searchById).then((event) => {
+				tevoClient.getJSON(searchById).then((event) => {
 
-				var occurs_at = event.occurs_at;
-				occurs_at = occurs_at.substring(0, occurs_at.length - 4);
-				occurs_at = moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+					var occurs_at = event.occurs_at;
+					occurs_at = occurs_at.substring(0, occurs_at.length - 4);
+					occurs_at = moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
-				//console.log("EVENT<<<  : >>> " + JSON.stringify(event));
-				res.render(
-					'./layouts/tickets/ticketgroup', {
-						titulo: "Select your tickets",
-						APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
-						ticketGroups: ticketGroups,
-						event_id: event.event_id,
-						event_name: event.name,
-						event_date: event.occurs_at,
-						event_date_f: occurs_at,
-						seatsmap: event.configuration.seating_chart.large,
-						uid: fbId,
-						subtitulo: "Select your tickets",
-						venue_name: event.venue.name + ' ' + event.venue.location,
-					}
-				);
-			});
-		})
+					//console.log("EVENT<<<  : >>> " + JSON.stringify(event));
+					res.render(
+						'./layouts/tickets/ticketgroup', {
+							titulo: "Select your tickets",
+							APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
+							ticketGroups: ticketGroups,
+							event_id: event.event_id,
+							event_name: event.name,
+							event_date: event.occurs_at,
+							event_date_f: occurs_at,
+							seatsmap: event.configuration.seating_chart.large,
+							uid: fbId,
+							subtitulo: "Select your tickets",
+							venue_name: event.venue.name + ' ' + event.venue.location,
+						}
+					);
+				});
+			})
+		}else{
+			res.send('<h1>No  tickets available.</h1>');
+		}
 	}).catch((err) => {
-        console.log('Error al Recuperar los eventos');
-        console.log(err);
-    });
+		console.log('Error al Recuperar los eventos');
+		console.log(err);
+	});
 
 });
 

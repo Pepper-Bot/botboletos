@@ -21,8 +21,8 @@ var only_with = 'only_with_available_tickets=true'
 //var only_with = 'only_with_tickets=all' 
 //var only_with = 'only_with_tickets=etickets'
 
-//var format = 'Physical,Eticket,Flash_seats,TM_mobile,Paperless'
-var format_tickets = 'format=Eticket,Flash_seats,TM_mobile,Paperless'
+//var format = 'Physical,Eticket,Flash_seats,TM_mobile,Guest_list,Paperless'
+var format_tickets = 'format=Eticket,Flash_seats,TM_mobile,Guest_list,Paperless'
 
 /*
 /////////////////////tevo//////////////////////////// 
