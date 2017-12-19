@@ -7,6 +7,7 @@ var moment = require('moment');
 /* GET home page. */
 var tevo = require('../config/config_vars').tevo;
 var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
+var format_tickets  = require('../config/config_vars').format_tickets;
 var format = require('format-number');
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
@@ -40,7 +41,7 @@ router.get('/', function (req, res) {
 		return;
 	}
 
-	var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
+	var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false&'+format_tickets 
 
 	tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
 

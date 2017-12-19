@@ -2,9 +2,9 @@
 var APLICATION_URL_DOMAIN = process.env.APLICATION_URL_DOMAIN
 var PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 var FBMESSAGESPAGE = 'https://graph.facebook.com/v2.6/me/messages'
-var FINISH_SESSION_URL_REDIRECT =   process.env.FINISH_SESSION_URL_REDIRECT
+var FINISH_SESSION_URL_REDIRECT = process.env.FINISH_SESSION_URL_REDIRECT
 var mlink = {
-  MLINK_BASE :'https://www.messenger.com/t/pepperSharks',
+  MLINK_BASE: 'https://www.messenger.com/t/pepperSharks',
   shark: 'https://www.messenger.com/t/pepperSharks?ref=',
   pepper: 'https://www.messenger.com/t/mypepperbot?ref='
 
@@ -17,12 +17,13 @@ var redis = {
   REDIS_HOST: process.env.REDIS_HOST
 }
 
-//var only_with = 'only_with_available_tickets=true' 
+var only_with = 'only_with_available_tickets=true' 
 //var only_with = 'only_with_tickets=all' 
-var only_with = 'only_with_tickets=etickets' 
+//var only_with = 'only_with_tickets=etickets'
 
+//var format = 'Physical,Eticket,Flash_seats,TM_mobile,Guest_list,Paperless'
+var format_tickets = 'format=Eticket,Flash_seats,TM_mobile,Guest_list,Paperless'
 
- 
 /*
 /////////////////////tevo//////////////////////////// 
 var API_SECRET_KEY = process.env.SANDBOX_API_SECRET_KEY
@@ -88,4 +89,5 @@ module.exports = {
   redis,
   FINISH_SESSION_URL_REDIRECT,
   only_with,
+  format_tickets,
 };
