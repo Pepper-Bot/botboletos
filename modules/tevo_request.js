@@ -240,7 +240,7 @@ var setImagesToEvents = (resultEvent, counter) => {
                 }
                 if (z == gButtons.length - 1) {
 
-                    gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
+                   
                 }
 
 
@@ -249,7 +249,7 @@ var setImagesToEvents = (resultEvent, counter) => {
 
                 counter = counter + 1;
                 if (counter + 1 == gButtons.length) {
-                   
+                    gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" 
                     resolve(gButtons)
                 }
 
