@@ -112,11 +112,6 @@ var start = (senderId) => {
                 },
                 {
                     "content_type": "text",
-                    "title": "Packers",
-                    "payload": "find_my_event_Packers"
-                },
-                {
-                    "content_type": "text",
                     "title": "Steelers",
                     "payload": "find_my_event_Steelers"
                 },
