@@ -130,7 +130,7 @@ var sendMessageAndChoiceImage = (senderId, payload) => {
 
 var selectSendImageAndTemplates = (senderId, payload) => {
     console.log("escogiendo url de la imagen  " + payload)
-    var messasge = 'Thanks for participate. Pepper Bot wishes you a merry Chrismas and brings the best Christmas events for you.'
+    var messasge = '🎄 Thanks for participate. Pepper Bot wishes you a merry Chrismas and brings the best Christmas events for you.'
     var urlImage = '';
     switch (payload) {
         case "find_my_event_mariah":
