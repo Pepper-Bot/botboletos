@@ -6,6 +6,8 @@ var gis = require('g-i-s'); // Google images
 var moment = require('moment');
 var tevo = require('../../config/config_vars').tevo;
 var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
+var only_with = require('../../config/config_vars').only_with;
+
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var tevoClient = new TevoClient({
@@ -22,7 +24,7 @@ var render_events = (req, res) => {
     var performer_id = req.query.performer_id;
 
 
-    urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&only_with_available_tickets=true'
+    urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&' + only_with + ''
 
 
 

@@ -79,6 +79,90 @@ function quickReply(senderId, messageText, replies) {
 }
 
 
+var sendMessageAndChoiceImage = (senderId, payload) => {
+    console.log("escogiendo url de la imagen de Christmas Songs: " + payload)
+    var message = "You chose Katy Perry with her song Every Day Is A Holiday"
+    switch (payload) {
+
+        case "find_my_event_mariah":
+            {
+                message = 'Great! Mariah and Justin "All I Want For Christmas Is You"'
+            }
+            break;
+
+        case "find_my_event_ariana":
+            {
+                message = 'Great! Ariana Grande "Santa Tell Me"'
+            }
+            break;
+
+        case "find_my_event_katy":
+            {
+                message = 'Great! Katy Perry "Every Day Is A Holiday"'
+            }
+            break;
+
+    }
+
+
+    request({
+        url: FBMESSAGESPAGE,
+        qs: {
+            access_token: PAGE_ACCESS_TOKEN
+        },
+        method: 'POST',
+        json: {
+            recipient: {
+                id: senderId
+            },
+            message: {
+                text: message
+            }
+        }
+    }, function (error, response, body) {
+        if (error) {
+            console.log("Error al enviar el mensaje")
+        } else {
+            selectSendImageAndTemplates(senderId, payload)
+        }
+    });
+}
+
+var selectSendImageAndTemplates = (senderId, payload) => {
+    console.log("escogiendo url de la imagen  " + payload)
+    var messasge = 'Thanks for participate. Pepper Bot wishes you a merry Chrismas and brings the best Christmas events for you.'
+    var urlImage = '';
+    switch (payload) {
+        case "find_my_event_mariah":
+            {
+                urlImage = APLICATION_URL_DOMAIN + 'images/christmas/songs/mariah_justin.jpg'
+                sendImageMessage(senderId, urlImage, messasge)
+            }
+            break;
+        case "find_my_event_ariana":
+            {
+                urlImage = APLICATION_URL_DOMAIN + 'images/christmas/songs/ariana.jpg'
+                sendImageMessage(senderId, urlImage, messasge)
+            }
+            break;
+        case "find_my_event_katy":
+            {
+                urlImage = APLICATION_URL_DOMAIN + 'images/christmas/songs/katy.jpg'
+                sendImageMessage(senderId, urlImage, messasge)
+            }
+            break;
+
+        default:
+            {
+                urlImage = APLICATION_URL_DOMAIN + 'images/christmas/songs/mariah_justin.jpg'
+                sendImageMessage(senderId, urlImage, messasge)
+            }
+            break;
+    }
+
+
+}
+
 
 
 
@@ -247,5 +331,5 @@ var sendMessageAndChirsmas = (senderId, message) => {
 
 module.exports = {
     startChirstmasSongs,
-
+    sendMessageAndChoiceImage,
 }

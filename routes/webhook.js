@@ -299,6 +299,18 @@ var processQuickReplayShakira = (senderId, payload) => {
     shakiraModule.sendMessageAndChoiceImage(senderId, payload);
 }
 
+var processQuickReplayChristmasSongs = (senderId, payload) => {
+    console.log("ChristmasSongs votación Module " + payload)
+    Message.markSeen(senderId);
+    var christmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs');
+    christmasSongsModule.sendMessageAndChoiceImage(senderId, payload);
+}
+
+
+
+ 
+
+
 function processQuickReplayBox(senderId) {
 
     console.log("Rigondeaux  Lomachenko   ")
@@ -324,6 +336,28 @@ function processQuickReplies(event) {
 
 
     switch (payload) {
+
+
+        case "find_my_event_mariah":
+            {
+                processQuickReplayChristmasSongs(senderId, payload);
+            }
+            break;
+
+        case "find_my_event_ariana":
+            {
+                processQuickReplayChristmasSongs(senderId, payload);
+            }
+            break;
+
+        case "find_my_event_katy":
+            {
+                processQuickReplayChristmasSongs(senderId, payload);
+            }
+            break;
+
+
+
         case "la_bicicleta":
             {
                 processQuickReplayShakira(senderId, payload);
@@ -948,9 +982,9 @@ function processPostback(event) {
 
     switch (payload) {
 
-        case "MERRY_CHRISTMAS":
+        case "CHRISTMAS_SONGS":
             {
-                startMerryChristmas(senderId, payload);
+                startChristmasSongs(senderId, payload);
             }
             break;
 
@@ -1218,6 +1252,14 @@ function processPostback(event) {
                             console.log('No guardé el mlink DE  CHRISTMAS_PROMO ?? O_O << ' + foundUser.mlinkSelected);
                         }
 
+                        if (foundUser.mlinkSelected == "CHRISTMAS_SONGS") {
+                            startTevoModuleWithMlink(payload, senderId);
+
+                        } else {
+                            console.log('No guardé el mlink DE  CHRISTMAS_SONGS ?? O_O << ' + foundUser.mlinkSelected);
+                        }
+
+
                     }
                 }
 
@@ -1483,7 +1525,11 @@ function chooseReferral(referral, senderId) {
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
     switch (referral) {
-
+        case "CHRISTMAS_SONGS":
+            {
+                startChristmasSongs(senderId, referral)
+            }
+            break;
         case "CHRISTMAS_PROMO":
             {
                 startChristmas(senderId, referral)
@@ -1570,7 +1616,7 @@ var starShakiraPromo = (senderId, referral) => {
 }
 
 var startChristmasSongs = (senderId, payload) => {
-    var chirstmasModule = require('../modules/tevo/chirstmas/christmas_songs')
+    var chirstmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs')
 
 
     UserData2.findOne({
@@ -1588,7 +1634,7 @@ var startChristmasSongs = (senderId, payload) => {
                         console.log('Error al guardar el usuario');
                     } else {
                         console.log('usuario actualizado:' + foundUser.mlinkSelected);
-                        chirstmasModule.startChirstmasSongs(senderId);
+                        chirstmasSongsModule.startChirstmasSongs(senderId);
                     }
 
                 });
@@ -1613,7 +1659,7 @@ var startChristmasSongs = (senderId, payload) => {
                             User.mlinkSelected = referral
 
                             User.save();
-                            chirstmasModule.startChirstmas(senderId);
+                            chirstmasSongsModule.startChirstmasSongs(senderId);
 
                             User.save((err, foundUserBefore) => {
                                 if (err) {
