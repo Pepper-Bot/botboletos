@@ -235,7 +235,28 @@ var sendMessageAndChirsmas = (senderId, message) => {
             //configuramos los boletos
 
 
-            var boletos = [{
+            var boletos = [
+                {
+                    "titulo": "Shakira",
+                    "imagen": URLAplication + "images/black-friday/promo/shakira-el-dorado.png",
+                    "subtitulo": "",
+                    "url": mlink + "Shakira"
+                },
+                {
+                    "titulo": "Katy Perry",
+                    "imagen": URLAplication + "images/black-friday/promo/katy-perry.png",
+                    "subtitulo": "",
+                    "url": mlink + "Katy Perry"
+
+                },
+                {
+                    "titulo": "Taylor Swift",
+                    "imagen": URLAplication + "images/christmas/songs/taylorswift.jpg",
+                    "subtitulo": "",
+                    "url": mlink + "Taylor Swift"
+
+                },
+                {
                     "titulo": "A Christmas Carol",
                     "imagen": URLAplication + "images/christmas/promo/a-christmas-carol.jpg",
                     "subtitulo": "",
