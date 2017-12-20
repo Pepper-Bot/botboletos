@@ -306,9 +306,14 @@ var processQuickReplayChristmasSongs = (senderId, payload) => {
     christmasSongsModule.sendMessageAndChoiceImage(senderId, payload);
 }
 
+var processQuickReplaySuperBowl = (senderId, payload) => {
+    console.log("SuperBowl Module " + payload)
+    Message.markSeen(senderId);
+    var superBowlModule = require('../modules/tevo/super_bowl/super_bowl');
+    superBowlModule.sendMessageAndChoiceImage(senderId, payload);
+}
 
 
- 
 
 
 function processQuickReplayBox(senderId) {
@@ -337,7 +342,51 @@ function processQuickReplies(event) {
 
     switch (payload) {
 
+        case "find_my_event_Patriots":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
 
+        case "find_my_event_Broncos":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+
+
+        case "find_my_event_Seahawks":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+        case "find_my_event_Cowboys":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+
+        case "find_my_event_Packers":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+
+        case "find_my_event_Steelers":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+        case "find_my_event_Falcons":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+        case "find_my_event_Eagles":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
         case "find_my_event_mariah":
             {
                 processQuickReplayChristmasSongs(senderId, payload);
@@ -1525,6 +1574,12 @@ function chooseReferral(referral, senderId) {
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
     switch (referral) {
+        case "SUPER_BOWL":
+            {
+
+                startSuperBowl(senderId, referral)
+            }
+            break;
         case "CHRISTMAS_SONGS":
             {
                 startChristmasSongs(senderId, referral)
@@ -1614,6 +1669,12 @@ var starShakiraPromo = (senderId, referral) => {
     var promoModule = require('../modules/promo/shakira')
     promoModule.startShakira(senderId);
 }
+
+var startSuperBowl = (senderId, referral) => {
+    var superBowlModule = require('../modules/tevo/super_bowl/super_bowl')
+    superBowlModule.startSuperBowl(senderId, referral)
+}
+
 
 var startChristmasSongs = (senderId, referral) => {
     var chirstmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs')
