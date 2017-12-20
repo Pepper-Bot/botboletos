@@ -4,7 +4,7 @@ var PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 var FBMESSAGESPAGE = 'https://graph.facebook.com/v2.6/me/messages'
 var FINISH_SESSION_URL_REDIRECT = process.env.FINISH_SESSION_URL_REDIRECT
 var mlink = {
-  MLINK_BASE: 'https://www.messenger.com/t/pepperSharks',
+  MLINK_BASE: process.env.MLINK_BASE,
   shark: 'https://www.messenger.com/t/pepperSharks?ref=',
   pepper: 'https://www.messenger.com/t/mypepperbot?ref='
 

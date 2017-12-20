@@ -2,7 +2,7 @@ var Message = require('../../../bot/messages');
 var APLICATION_URL_DOMAIN = require('../../../config/config_vars').APLICATION_URL_DOMAIN;
 var PAGE_ACCESS_TOKEN = require('../../../config/config_vars').PAGE_ACCESS_TOKEN;
 var FBMESSAGESPAGE = require('../../../config/config_vars').FBMESSAGESPAGE
-var mlink = require('../../../config/config_vars').mlink.shark
+var mlink = require('../../../config/config_vars').mlink.MLINK_BASE + "?ref="
 var Message2 = require('../../../bot/generic_buttton');
 var request = require('request');
 var UserData = require('../../../bot/userinfo');

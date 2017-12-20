@@ -1615,7 +1615,7 @@ var starShakiraPromo = (senderId, referral) => {
     promoModule.startShakira(senderId);
 }
 
-var startChristmasSongs = (senderId, payload) => {
+var startChristmasSongs = (senderId, referral) => {
     var chirstmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs')
 
 
