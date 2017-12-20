@@ -43,7 +43,9 @@ var startChirstmasSongs = (senderId) => {
                     "payload": "find_my_event_katy"
                 }
             ];
-            quickReply(senderId, messageText, replies)
+            var urlAudio = APLICATION_URL_DOMAIN + "audio/christmas/christmas_songs.mp3"
+            sendAudioQuickReplay(senderId, urlAudio, messageText, replies)
+            //quickReply(senderId, messageText, replies)
 
         }
     });
@@ -200,6 +202,37 @@ var sendImageMessage = (senderId, urlImage, message) => {
     });
 }
 
+var sendAudioQuickReplay = (senderId, urlAudio, messageText, replies) => {
+    request({
+        url: FBMESSAGESPAGE,
+        qs: {
+            access_token: PAGE_ACCESS_TOKEN
+        },
+        method: 'POST',
+        json: {
+            "recipient": {
+                "id": senderId
+            },
+            "message": {
+                "attachment": {
+                    "type": "audio",
+                    "payload": {
+                        "url": urlAudio
+                    }
+                }
+            }
+        }
+    }, function (error, response, body) {
+        console.log(response)
+        if (error) {
+            console.log("MAL")
+        } else {
+            console.log(" sendAudio  BIEN")
+            quickReply(senderId, messageText, replies)
+
+        }
+    });
+}
 
 
 var sendMessageAndChirsmas = (senderId, message) => {
@@ -235,8 +268,7 @@ var sendMessageAndChirsmas = (senderId, message) => {
             //configuramos los boletos
 
 
-            var boletos = [
-                {
+            var boletos = [{
                     "titulo": "Shakira",
                     "imagen": URLAplication + "images/black-friday/promo/shakira-el-dorado.png",
                     "subtitulo": "",
