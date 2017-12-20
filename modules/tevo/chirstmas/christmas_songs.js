@@ -24,7 +24,8 @@ var startChirstmasSongs = (senderId) => {
             let urlImage = APLICATION_URL_DOMAIN + 'images/christmas/christmas.png';
 
 
-            let messageText = "Hi " + name + ", Which is your favorite Christmas song interpreter?";
+            //let messageText = "Hi " + name + ", Which is your favorite Christmas song interpreter?";
+            let messageText = "Choose your favorite:";
             var replies = [{
                     "content_type": "text",
                     "title": "Mariah y Justin", //
