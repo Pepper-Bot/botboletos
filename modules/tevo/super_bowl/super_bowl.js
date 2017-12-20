@@ -351,7 +351,7 @@ var sendImageMessage = (senderId, urlImage, message) => {
         } else {
             console.log(" sendImage  BIEN")
             var tevoModule = require('../../tevo/tevo')
-            tevoModule.startTevoByName("Super Bowl 2018", senderId, 0, "🏈 Go to the Super Bowl 2018  🏈");
+            tevoModule.startTevoByName("Super Bowl", senderId, 0, "🏈 Go to the Super Bowl 2018  🏈");
 
         }
     });

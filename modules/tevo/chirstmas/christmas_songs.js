@@ -89,19 +89,19 @@ var sendMessageAndChoiceImage = (senderId, payload) => {
 
         case "find_my_event_mariah":
             {
-                message = 'Great! Mariah and Justin "All I Want For Christmas Is You"'
+                message = 'Great! Mariah & Justin´s "All I Want For Christmas Is You"'
             }
             break;
 
         case "find_my_event_ariana":
             {
-                message = 'Great! Ariana Grande "Santa Tell Me"'
+                message = 'Great! Ariana Grande´s "Santa Tell Me"'
             }
             break;
 
         case "find_my_event_katy":
             {
-                message = 'Great! Katy Perry "Every Day Is A Holiday"'
+                message = 'Great! Katy Perry´s "Every Day Is A Holiday"'
             }
             break;
 
