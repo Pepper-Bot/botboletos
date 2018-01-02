@@ -314,6 +314,20 @@ var getGoogleImage = (search) => {
 
                     }
 
+                    var index = results.lengt - 1 - i;
+                    if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
+
+                        results1.push(results[i])
+                        contador++;
+                        if (contador >= 4) {
+                            resolve(results1);
+                        }
+
+
+                    }
+
+
+
                     if (i + 1 == results.length) {
                         resolve(results);
                     }
