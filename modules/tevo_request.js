@@ -235,7 +235,7 @@ var setImagesToEvents = (resultEvent, counter) => {
                 console.log("images.length " + images.length)
                 var imageIndex = 0;
                 if (images.length >= 4) {
-                    imageIndex = Math.round(Math.random() * 4);
+                    imageIndex = Math.round(Math.random() * 3);
                 } else {
                     imageIndex = Math.round(Math.random() * images.length - 1);
                 }
