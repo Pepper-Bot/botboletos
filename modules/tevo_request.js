@@ -241,6 +241,7 @@ var setImagesToEvents = (resultEvent, counter) => {
                 }
 
                 if (z < gButtons.length - 1) {
+                    console.log("images[imageIndex] " + imageIndex )
                     gButtons[z].image_url = images[imageIndex].url;
 
                 }
