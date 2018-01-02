@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        start: function (senderId, event_name, position = 0, cool = 0, messageTitle ) {
+        start: function (senderId, event_name, position = 0, cool = 0, messageTitle) {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
@@ -64,7 +64,7 @@ module.exports = function () {
                                     break;
                                 case 3:
                                     {
-                                        Message.sendMessage(senderId,  messageTitle);
+                                        Message.sendMessage(senderId, messageTitle);
                                     }
                                     break;
                                 default:
@@ -192,7 +192,9 @@ module.exports = function () {
                             for (var z = 0, k = gButtons.length; z < k; z++) {
 
 
-                                imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
+                                // var search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url
+                                var search = gButtons[z].title
+                                imageCards(search, z, function (err, images, index) {
                                     var imageIndex = 0;
                                     if (images.length >= 4) {
                                         imageIndex = Math.round(Math.random() * 4);

@@ -1,8 +1,13 @@
+
+
 module.exports = function () {
     return {
 
         get: function (Message, senderId, lat, lon) {
             var request = require('request');
+            var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
+
+
             request({
                 url: 'https://app.ticketmaster.com/discovery/v2/events.json',
                 qs: {
@@ -77,7 +82,7 @@ module.exports = function () {
                                     "subtitle": json._embedded.events[i].pleaseNote,
                                     "default_action": {
                                         "type": "web_url",
-                                        "url": 'https://botboletos.herokuapp.com/redirect/?u=' + eventURL + '&id=' + senderId
+                                        "url": APLICATION_URL_DOMAIN+'redirect/?u=' + eventURL + '&id=' + senderId
                                         /*,
                                                                                       "messenger_extensions": true,
                                                                                       "webview_height_ratio": "tall",
@@ -85,7 +90,7 @@ module.exports = function () {
                                     },
                                     "buttons": [{
                                         "type": "web_url",
-                                        "url": 'https://botboletos.herokuapp.com/redirect/?u=' + eventURL + '&id=' + senderId,
+                                        "url": APLICATION_URL_DOMAIN+'redirect/?u=' + eventURL + '&id=' + senderId,
                                         "title": "Go"
                                     }]
                                 });

@@ -67,7 +67,9 @@ router.post('/', function (req, res) {
                     }
                 } else if (undefined !== event.message.text) {
                     console.log('5');
-                    processMessage(event.sender.id, event.message.text);
+                    var isEcho = message.is_echo;
+                    if (!isEcho)
+                        processMessage(event.sender.id, event.message.text);
                 }
             });
         });
