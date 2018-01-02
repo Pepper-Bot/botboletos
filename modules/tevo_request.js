@@ -315,7 +315,7 @@ var getGoogleImage = (search) => {
                     }
 
                     var index = results.lengt - 1 - i;
-                    console.log("index > " + index);
+                  
                     if (results[index]) {
                         if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
 
@@ -327,6 +327,9 @@ var getGoogleImage = (search) => {
 
 
                         }
+                    }else{
+                        console.log("Error index > " + index);
+
                     }
 
 
