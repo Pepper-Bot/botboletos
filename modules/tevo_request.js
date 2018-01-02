@@ -315,7 +315,7 @@ var getGoogleImage = (search) => {
                     }
 
                     var index = results.length - 1 - i;
-                  
+
                     if (results[index]) {
                         if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
 
@@ -327,16 +327,16 @@ var getGoogleImage = (search) => {
 
 
                         }
-                    }else{
+                    } else {
                         console.log("Error index > " + index);
 
                     }
 
 
-
-                    if (i + 1 == results.length) {
-                        resolve(results);
-                    }
+                    if (results.length - 1 <= 0)
+                        if (i + 1 == results.length) {
+                            resolve(results);
+                        }
 
 
                 }
