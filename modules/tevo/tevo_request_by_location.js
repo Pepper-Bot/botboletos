@@ -164,10 +164,10 @@ module.exports = function () {
 
                                 imageCards('event ' + gButtons[z].title + ' ' + gButtons[z].image_url, z, function (err, images, index) {
                                     var imageIndex = 0;
-                                    if (images.length >= 5) {
-                                        imageIndex = Math.round(Math.random() * 5);
+                                    if (images.length >= 4) {
+                                        imageIndex = Math.round(Math.random() * 4);
                                     } else {
-                                        imageIndex = Math.round(Math.random() * images.length);
+                                        imageIndex = Math.round(Math.random() * images.length-1 );
                                     }
 
                                     if (index < gButtons.length - 1) {
