@@ -254,6 +254,10 @@ var setImagesToEvents = (resultEvent, counter) => {
 
         }
 
+        Promise.all(gButtons)
+        .then(a => console.log("Esta es la respuesta "+ a));
+
+
         Promise.all(gButtons).then(function (data) {
             return Promise.all(gButtons);
         }).then(function (data) {
