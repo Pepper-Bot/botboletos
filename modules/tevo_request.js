@@ -226,7 +226,25 @@ module.exports = function () {
 
 
 var setImagesToEvents = (resultEvent, counter) => {
-    var gButtons = resultEvent;
+
+    var gButtons = [];
+    for (var i = 0; i < resultEvent.length; i++) {
+        let search = resultEvent[z].title
+        getGoogleImage(search).then((images) => {
+
+            gButtons.push(resultEvent[i])
+
+        });
+
+    }
+    Promise.all(gButtons)
+        .then();
+
+
+
+
+
+
     return new Promise((resolve, reject) => {
         for (let z = 0; z < gButtons.length; z++) {
             let search = gButtons[z].title
@@ -234,14 +252,14 @@ var setImagesToEvents = (resultEvent, counter) => {
             getGoogleImage(search).then((images) => {
                 console.log("images.length " + images.length)
                 var imageIndex = 0;
-                if (images.length >= 4) {
+                if (images.length > 4) {
                     imageIndex = Math.round(Math.random() * 3);
                 } else {
                     imageIndex = Math.round(Math.random() * images.length - 1);
                 }
 
                 if (z < gButtons.length - 1) {
-                    console.log("images[imageIndex] " + imageIndex )
+
                     gButtons[z].image_url = images[imageIndex].url;
 
                 }
@@ -255,6 +273,19 @@ var setImagesToEvents = (resultEvent, counter) => {
                 console.log("z" + z + " " + counter + " < >" + gButtons.length)
 
                 counter = counter + 1;
+                var resolver = false;
+                var revisado = 0;
+                for (let y = 0; y < gButtons.length; y++) {
+                    if (gButtons[y].image_url) {
+                        if (gButtons[y].image_url != "") {
+                            revisado = revisado + 1;
+                            if (revisado == gButtons.length) {
+                                console.log("asigné todas las imagenes ")
+                            }
+                        }
+                    }
+                }
+
                 if (counter + 1 == gButtons.length) {
                     gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
                     resolve(gButtons)
