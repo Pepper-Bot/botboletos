@@ -233,6 +233,8 @@ var setImagesToEvents = (resultEvents, counter) => {
         resultEvents.forEach(function (item, index, array) {
             console.log("item " + item.title)
         })
+
+        
         for (let z = 0; z < resultEvents.length; z++) {
             let search = resultEvents[z].title
             console.log("search " + search)
