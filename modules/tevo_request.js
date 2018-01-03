@@ -230,21 +230,24 @@ var setImagesToEvents = (resultEvent, counter) => {
         var gButtons = []
         for (var z = 0; z < resultEvent.length; z++) {
             let search = resultEvent[z].title
-            if (resultEvent[z].title != "Can’t make any of these times?")
-                getGoogleImage(search).then((images) => {
-                    var imageIndex = 0;
-                    if (images.length > 4) {
-                        imageIndex = Math.round(Math.random() * 3);
-                    } else {
-                        imageIndex = Math.round(Math.random() * images.length - 1);
-                    }
-                    resultEvent[z].image_url = images[imageIndex].url;
+            getGoogleImage(search).then((images) => {
+                if (search == "Can’t make any of these times?") {
+                    resultEvent[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg";
                     gButtons.push(resultEvent[z])
-                });
-            else {
-                resultEvent[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg";
+                }
+
+                var imageIndex = 0;
+                if (images.length > 4) {
+                    imageIndex = Math.round(Math.random() * 3);
+                } else {
+                    imageIndex = Math.round(Math.random() * images.length - 1);
+                }
+
+
+                resultEvent[z].image_url = images[imageIndex].url;
                 gButtons.push(resultEvent[z])
-            }
+            });
+
 
         }
         Promise.all(gButtons)
