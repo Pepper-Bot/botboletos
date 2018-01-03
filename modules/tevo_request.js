@@ -339,7 +339,7 @@ var setImagesToEvents = (resultEvents, counter) => {
             });
         }*/
 
-        //Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
+       Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
 
 
 
