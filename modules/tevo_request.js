@@ -242,13 +242,11 @@ var setImagesToEvents = (resultEvents, counter) => {
                 }
 
                 if (z < resultEvents.length - 1) {
-
                     resultEvents[z].image_url = images[imageIndex].url;
 
                 }
                 if (z == resultEvents.length - 1) {
                     resultEvents[resultEvents.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
-
                 }
 
 
@@ -285,8 +283,7 @@ var setImagesToEvents = (resultEvents, counter) => {
             });
         }
 
-        Promise.all(gButtons)
-            .then(a => console.log("Eventos >" + JSON.stringify(a)));
+        //Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
 
 
 
