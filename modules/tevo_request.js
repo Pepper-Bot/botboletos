@@ -226,64 +226,39 @@ module.exports = function () {
 
 
 var setImagesToEvents = (resultEvent, counter) => {
-
-    var gButtons = resultEvent;
-
     return new Promise((resolve, reject) => {
-        for (let z = 0; z < gButtons.length; z++) {
-            let search = gButtons[z].title
-            console.log("search " + search)
-            getGoogleImage(search).then((images) => {
-                console.log("images.length " + images.length)
-                var imageIndex = 0;
-                if (images.length > 4) {
-                    imageIndex = Math.round(Math.random() * 3);
-                } else {
-                    imageIndex = Math.round(Math.random() * images.length - 1);
-                }
-
-                if (z < gButtons.length - 1) {
-
-                    gButtons[z].image_url = images[imageIndex].url;
-
-                }
-                if (z == gButtons.length - 1) {
-                    gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
-
-                }
-
-
-                console.log(" gButtons[z].image_url " + gButtons[z].image_url)
-                console.log("counter " + counter + " < >" + gButtons.length)
-
-                counter = counter + 1;
-                var resolver = false;
-                var revisado = 0;
-                /* for (let y = 0; y < gButtons.length; y++) {
-                    if (gButtons[y].image_url) {
-                        if (gButtons[y].image_url != "") {
-                            revisado = revisado + 1;
-                            if (revisado == gButtons.length - 1) {
-
-                                console.log("asigné todas las imagenes ")
-                                resolve(gButtons)
-                            }
-                        }
+        var gButtons = []
+        for (var i = 0; i < resultEvent.length; i++) {
+            let search = resultEvent[z].title
+            if (resultEvent[z].title != "Can’t make any of these times?")
+                getGoogleImage(search).then((images) => {
+                    var imageIndex = 0;
+                    if (images.length > 4) {
+                        imageIndex = Math.round(Math.random() * 3);
+                    } else {
+                        imageIndex = Math.round(Math.random() * images.length - 1);
                     }
-                }*/
+                    resultEvent[z].image_url = images[imageIndex].url;
+                    gButtons.push(resultEvent[z])
+                });
+            else {
+                resultEvent[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg";
+                gButtons.push(resultEvent[z])
+            }
 
-               if (counter + 1 == gButtons.length) {
-                    gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
-                    resolve(gButtons)
-                }
-
-            }).then(() => {
-
-
-            });
         }
-    });
+        Promise.all(gButtons)
+            .then(resolve(gButtons));
+    })
+
+
+
 }
+
+
+
+
+
 var getGoogleImage = (search) => {
     return new Promise((resolve, reject) => {
 
