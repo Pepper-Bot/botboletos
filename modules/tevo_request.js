@@ -230,7 +230,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 
     return new Promise((resolve, reject) => {
 
-       /*  resultEvents.forEach(function (item, index, array) {
+        /*  resultEvents.forEach(function (item, index, array) {
             let search = item.title
             getGoogleImage(search).then((images) => {
 
@@ -283,61 +283,62 @@ var setImagesToEvents = (resultEvents, counter) => {
         })*/
 
 
-        for (let z = 0; z < resultEvents.length; z++) {
-            let search = resultEvents[z].title
-            console.log("search " + search)
-            getGoogleImage(search).then((images) => {
-                console.log("images.length " + images.length)
-                var imageIndex = 0;
-                if (images.length > 4) {
-                    imageIndex = Math.round(Math.random() * 3);
-                } else {
-                    imageIndex = Math.round(Math.random() * images.length - 1);
-                }
+        var gButtons = resultEvent;
 
-                if (z < resultEvents.length - 1) {
-                    resultEvents[z].image_url = images[imageIndex].url;
-                    gButtons.push(resultEvents[z])
+        return new Promise((resolve, reject) => {
+            for (let z = 0; z < gButtons.length; z++) {
+                let search = gButtons[z].title
+                console.log("search " + search)
+                getGoogleImage(search).then((images) => {
+                    console.log("images.length " + images.length)
+                    var imageIndex = 0;
+                    if (images.length > 4) {
+                        imageIndex = Math.round(Math.random() * 3);
+                    } else {
+                        imageIndex = Math.round(Math.random() * images.length - 1);
+                    }
 
-                }
-                if (z == resultEvents.length - 1) {
-                    resultEvents[resultEvents.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
-                    gButtons.push(resultEvents[z])
-                }
+                    if (z < gButtons.length - 1) {
+
+                        gButtons[z].image_url = images[imageIndex].url;
+
+                    }
+                    if (z == gButtons.length - 1) {
+                        gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
+
+                    }
 
 
-                console.log(" resultEvents[z].image_url " + resultEvents[z].image_url)
-                console.log("counter " + counter + " < >" + resultEvents.length)
+                    console.log(" gButtons[z].image_url " + gButtons[z].image_url)
+                    console.log("counter " + counter + " < >" + gButtons.length)
 
-                counter = counter + 1;
-                var resolver = false;
-                var revisado = 0;
-                /* for (let y = 0; y < resultEvents.length; y++) {
-                        if (resultEvents[y].image_url) {
-                            if (resultEvents[y].image_url != "") {
-                                revisado = revisado + 1;
-                                if (revisado == resultEvents.length - 1) {
-    
-                                    console.log("asigné todas las imagenes ")
-                                    resolve(resultEvents)
+                    counter = counter + 1;
+                    var resolver = false;
+                    var revisado = 0;
+                    /* for (let y = 0; y < gButtons.length; y++) {
+                            if (gButtons[y].image_url) {
+                                if (gButtons[y].image_url != "") {
+                                    revisado = revisado + 1;
+                                    if (revisado == gButtons.length - 1) {
+        
+                                        console.log("asigné todas las imagenes ")
+                                        resolve(gButtons)
+                                    }
                                 }
                             }
-                        }
-                    } */
+                        }*/
+
+                    if (counter + 1 == gButtons.length) {
+                        gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
+                        resolve(gButtons)
+                    }
+
+                }).then(() => {
 
 
-
-
-                if (gButtons.length == resultEvents.length) {
-                    resultEvents[resultEvents.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
-                    resolve(gButtons)
-                }
-
-            }).then(() => {
-
-
-            });
-        }
+                });
+            }
+        });
 
 
 
@@ -393,46 +394,46 @@ var getGoogleImage = (search) => {
                 //console.log("Imagenes gis Respuesta >>> " + results.length);
                 //console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
                 //resolve(results, matriz);
-               /* var results1 = [];
-                for (let i = 0; i < results.length; i++) {
+                /* var results1 = [];
+                 for (let i = 0; i < results.length; i++) {
 
-                    if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
+                     if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
 
-                        results1.push(results[i])
-                        contador++;
-                        if (contador == 4) {
-                            resolve(results1);
-                        }
-
-
-                    }
-
-                    let index = results.length - 1 - i;
-
-                   /* if (results[index]) {
-                        if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
-
-                            results1.push(results[index])
-                            contador++;
-                            if (contador == 4) {
-                                resolve(results1);
-                            }
+                         results1.push(results[i])
+                         contador++;
+                         if (contador == 4) {
+                             resolve(results1);
+                         }
 
 
-                        }
-                    } else {
-                        console.log("Error index > " + index);
+                     }
 
-                    } 
+                     let index = results.length - 1 - i;
+
+                    /* if (results[index]) {
+                         if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
+
+                             results1.push(results[index])
+                             contador++;
+                             if (contador == 4) {
+                                 resolve(results1);
+                             }
 
 
-                    if (results.length - 1 <= 0)
-                        if (i + 1 == results.length) {
-                            resolve(results);
-                        }
+                         }
+                     } else {
+                         console.log("Error index > " + index);
+
+                     } 
 
 
-                }*/
+                     if (results.length - 1 <= 0)
+                         if (i + 1 == results.length) {
+                             resolve(results);
+                         }
+
+
+                 }*/
 
             }
         }
