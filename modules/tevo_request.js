@@ -263,18 +263,19 @@ var setImagesToEvents = (resultEvent, counter) => {
                     if (gButtons[y].image_url) {
                         if (gButtons[y].image_url != "") {
                             revisado = revisado + 1;
-                            console.log("revisado "+ revisado)
-                            if (revisado == gButtons.length) {
+                            if (revisado == gButtons.length - 1) {
+                                gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
                                 console.log("asigné todas las imagenes ")
+                                resolve(gButtons)
                             }
                         }
                     }
                 }
 
-                if (counter + 1 == gButtons.length) {
+                /*if (counter + 1 == gButtons.length) {
                     gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
                     resolve(gButtons)
-                }
+                }*/
 
             }).then(() => {
 
