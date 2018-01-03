@@ -242,12 +242,12 @@ var setImagesToEvents = (resultEvents, counter) => {
                     imageIndex = Math.round(Math.random() * images.length - 1);
                 }
 
-                if (z < resultEvents.length - 1) {
+                if (index < resultEvents.length - 1) {
                     item.image_url = images[imageIndex].url;
                     gButtons.push(item)
 
                 }
-                if (z == array.length - 1) {
+                if (index == array.length - 1) {
                     array[array.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
                     gButtons.push(item)
                 }
