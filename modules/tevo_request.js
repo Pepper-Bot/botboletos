@@ -229,6 +229,10 @@ var setImagesToEvents = (resultEvents, counter) => {
     var gButtons = [];
 
     return new Promise((resolve, reject) => {
+
+        resultEvents.forEach(function (item, index, array) {
+            console.log("item " + item.title)
+        })
         for (let z = 0; z < resultEvents.length; z++) {
             let search = resultEvents[z].title
             console.log("search " + search)
@@ -243,10 +247,12 @@ var setImagesToEvents = (resultEvents, counter) => {
 
                 if (z < resultEvents.length - 1) {
                     resultEvents[z].image_url = images[imageIndex].url;
+                    gButtons.push(resultEvents[z])
 
                 }
                 if (z == resultEvents.length - 1) {
                     resultEvents[resultEvents.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
+                    gButtons.push(resultEvents[z])
                 }
 
 
@@ -268,7 +274,7 @@ var setImagesToEvents = (resultEvents, counter) => {
                             }
                         }
                     }*/
-                gButtons.push(resultEvents[z])
+
 
 
 
