@@ -15,7 +15,6 @@ var redisClient = require('redis').createClient(redisVars.REDIS_URL);
 var RedisStore = require('connect-redis')(session)
 var Promise = global.Promise || require('promise');
 var helpers = require('./lib/helpers');
-var requestIp = require('request-ip');
 
 var index = require('./routes/index');
 //var users = require('./routes/users');
@@ -244,10 +243,5 @@ function exposeTemplates(req, res, next) {
 }
 
 
-var ipMiddleware = function (req, res, next) {
-  var clientIp = requestIp.getClientIp(req); // on localhost > 127.0.0.1
-  console.log("clientIp " + clientIp)
-  next();
-};
 
 module.exports = app;

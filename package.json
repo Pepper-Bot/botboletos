@@ -22,7 +22,6 @@
     "express-session": "^1.15.6",
     "format-number": "^3.0.0",
     "g-i-s": "^2.0.0",
-    "geoip-lite": "^1.2.1",
     "jade": "~1.11.0",
     "mailcomposer": "^4.0.2",
     "mailgun-js": "^0.13.1",
@@ -35,7 +34,6 @@
     "paypal-rest-sdk": "^1.7.1",
     "redis": "^2.8.0",
     "request": "^2.81.0",
-    "request-ip": "^2.0.2",
     "serve-favicon": "~2.4.2",
     "ticketevolution-node": "^1.1.0"
   },
