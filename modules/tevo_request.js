@@ -283,7 +283,7 @@ var setImagesToEvents = (resultEvents, counter) => {
         }
 
         Promise.all(gButtons)
-            .then(a => console.log("Eventos >" + JSON.stringify(payment)));
+            .then(a => console.log("Eventos >" + JSON.stringify(a)));
 
 
 
@@ -351,7 +351,7 @@ var getGoogleImage = (search) => {
                     if (results[index]) {
                         if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
 
-                            results1.push(results[i])
+                            results1.push(results[index])
                             contador++;
                             if (contador >= 4) {
                                 resolve(results1);
