@@ -227,23 +227,7 @@ module.exports = function () {
 
 var setImagesToEvents = (resultEvent, counter) => {
 
-    var gButtons = [];
-    for (var i = 0; i < resultEvent.length; i++) {
-        let search = resultEvent[z].title
-        getGoogleImage(search).then((images) => {
-
-            gButtons.push(resultEvent[i])
-
-        });
-
-    }
-    Promise.all(gButtons)
-        .then();
-
-
-
-
-
+    var gButtons = resultEvent;
 
     return new Promise((resolve, reject) => {
         for (let z = 0; z < gButtons.length; z++) {
@@ -273,7 +257,7 @@ var setImagesToEvents = (resultEvent, counter) => {
                 console.log("z" + z + " " + counter + " < >" + gButtons.length)
 
                 counter = counter + 1;
-               
+
 
                 if (counter + 1 == gButtons.length) {
                     gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
@@ -281,7 +265,7 @@ var setImagesToEvents = (resultEvent, counter) => {
                 }
 
             }).then(() => {
-                
+
                 var resolver = false;
                 var revisado = 0;
                 for (let y = 0; y < gButtons.length; y++) {
