@@ -225,9 +225,10 @@ module.exports = function () {
 
 
 
-var setImagesToEvents = (resultEvent, counter) => {
+var setImagesToEvents = (resultEvents, counter) => {
     return new Promise((resolve, reject) => {
         var gButtons = []
+        var resultEvent = resultEvents
         for (var z = 0; z < resultEvent.length; z++) {
             let search = resultEvent[z].title
             getGoogleImage(search).then((images) => {
