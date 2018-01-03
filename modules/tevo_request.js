@@ -274,7 +274,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 
 
 
-
+                console.log("gButtons.length " + gButtons.length + "array.length " + array.length)
                 if (gButtons.length == array.length) {
                     array[array.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
                     resolve(gButtons)
