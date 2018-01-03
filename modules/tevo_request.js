@@ -385,10 +385,15 @@ var getGoogleImage = (search) => {
             if (error) {
                 reject(error);
             } else {
+
+
+
+                resolve(results);
+
                 //console.log("Imagenes gis Respuesta >>> " + results.length);
                 //console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
                 //resolve(results, matriz);
-                var results1 = [];
+               /* var results1 = [];
                 for (let i = 0; i < results.length; i++) {
 
                     if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
@@ -418,7 +423,7 @@ var getGoogleImage = (search) => {
                     } else {
                         console.log("Error index > " + index);
 
-                    }*/
+                    } 
 
 
                     if (results.length - 1 <= 0)
@@ -427,7 +432,7 @@ var getGoogleImage = (search) => {
                         }
 
 
-                }
+                }*/
 
             }
         }
