@@ -226,8 +226,8 @@ module.exports = function () {
 
 
 var setImagesToEvents = (resultEvents, counter) => {
-    var gButtons = [];
-
+   // var gButtons = [];
+    var gButtons = resultEvents;
     return new Promise((resolve, reject) => {
 
         /*  resultEvents.forEach(function (item, index, array) {
@@ -283,7 +283,7 @@ var setImagesToEvents = (resultEvents, counter) => {
         })*/
 
 
-        var gButtons = resultEvents;
+     
 
 
         for (let z = 0; z < gButtons.length; z++) {
@@ -346,7 +346,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 
     });
 
-    Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
+   /// Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
 
 }
 
