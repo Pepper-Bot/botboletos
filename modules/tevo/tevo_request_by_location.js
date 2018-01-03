@@ -26,8 +26,8 @@ module.exports = function () {
             var urlApiTevo = '';
             
            // urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100&order_by=events.occurs_at'
-
-           urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100&order_by=events.popularity_score'
+           
+           urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100 order_by=events.occurs_at,events.popularity_score DESC'
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
