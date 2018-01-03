@@ -253,8 +253,8 @@ var setImagesToEvents = (resultEvents, counter) => {
                 }
 
 
-                console.log(" item.image_url " + item.image_url)
-                console.log("counter " + counter + " < >" + resultEvents.length)
+                //console.log(" item.image_url " + item.image_url)
+                //console.log("counter " + counter + " < >" + array.length)
 
                 counter = counter + 1;
                 var resolver = false;
