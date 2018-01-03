@@ -271,9 +271,12 @@ var setImagesToEvents = (resultEvents, counter) => {
                         }
                     }*/
                 gButtons.push(resultEvents[z])
-                if (counter + 1 == resultEvents.length) {
-                    //resultEvents[resultEvents.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
-                    //resolve(gButtons)
+
+
+
+                if (gButtons.length == resultEvents.length) {
+                    resultEvents[resultEvents.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
+                    resolve(gButtons)
                 }
 
             }).then(() => {
