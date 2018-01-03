@@ -283,7 +283,7 @@ var setImagesToEvents = (resultEvents, counter) => {
         })*/
 
 
-        var gButtons = resultEvent;
+        var gButtons = resultEvents;
 
 
         for (let z = 0; z < gButtons.length; z++) {
