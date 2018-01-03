@@ -249,6 +249,7 @@ var setImagesToEvents = (resultEvents, counter) => {
                     gButtons.push(resultEvent[z])
 
                 }
+                console.log("  resultEvent[z].image_url"+    resultEvent[z].image_url )
 
             });
 
