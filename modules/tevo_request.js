@@ -339,13 +339,13 @@ var setImagesToEvents = (resultEvents, counter) => {
             });
         }*/
 
-       Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
+
 
 
 
     });
 
-
+    Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
 
 }
 
@@ -402,9 +402,9 @@ var getGoogleImage = (search) => {
 
                     }
 
-                    var index = results.length - 1 - i;
+                    let index = results.length - 1 - i;
 
-                    if (results[index]) {
+                   /* if (results[index]) {
                         if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
 
                             results1.push(results[index])
@@ -418,7 +418,7 @@ var getGoogleImage = (search) => {
                     } else {
                         console.log("Error index > " + index);
 
-                    }
+                    }*/
 
 
                     if (results.length - 1 <= 0)
