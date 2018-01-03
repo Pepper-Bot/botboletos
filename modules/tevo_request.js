@@ -234,24 +234,34 @@ var setImagesToEvents = (resultEvent, counter) => {
                 if (search == "Can’t make any of these times?") {
                     resultEvent[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg";
                     gButtons.push(resultEvent[z])
-                }
-
-                var imageIndex = 0;
-                if (images.length > 4) {
-                    imageIndex = Math.round(Math.random() * 3);
                 } else {
-                    imageIndex = Math.round(Math.random() * images.length - 1);
+
+                    var imageIndex = 0;
+                    if (images.length > 4) {
+                        imageIndex = Math.round(Math.random() * 3);
+                    } else {
+                        imageIndex = Math.round(Math.random() * images.length - 1);
+                    }
+
+
+                    resultEvent[z].image_url = images[imageIndex].url;
+                    gButtons.push(resultEvent[z])
+
                 }
 
-
-                resultEvent[z].image_url = images[imageIndex].url;
-                gButtons.push(resultEvent[z])
             });
 
 
         }
-        Promise.all(gButtons)
-            .then(resolve(gButtons));
+
+        Promise.all(gButtons).then(function (data) {
+            return Promise.all(gButtons);
+        }).then(function (data) {
+            resolve(data)
+        });
+
+
+
     })
 
 
