@@ -10,11 +10,12 @@ var bodyParser = require('body-parser');
 var exphbs = require('express-handlebars');
 var sassMiddleware = require('node-sass-middleware');
 var session = require('express-session');
-var redisVars  = require('./config/config_vars').redis
+var redisVars = require('./config/config_vars').redis
 var redisClient = require('redis').createClient(redisVars.REDIS_URL);
 var RedisStore = require('connect-redis')(session)
 var Promise = global.Promise || require('promise');
 var helpers = require('./lib/helpers');
+var requestIp = require('request-ip');
 
 var index = require('./routes/index');
 //var users = require('./routes/users');
@@ -47,7 +48,7 @@ ChatBox.persistentMenu({
   "title": "Start again",
   "payload": "Greetings"
 });
- 
+
 
 
 var app = express();
@@ -82,8 +83,8 @@ var hbs = exphbs.create({
   defaultLayout: 'default',
   extname: '.hbs',
   partialsDir: [
-    
-      'views/partials/'
+
+    'views/partials/'
   ]
 });
 
@@ -175,7 +176,7 @@ app.use('/paypal_success/', checkoutBuy.paypal_success);
 app.use('/paypal_cancel/', checkoutBuy.paypal_cancel);
 
 
- 
+
 app.post('/pay/', pay_controller.init_pay);
 //app.use('/finish/', finish); // finishing checkout / creating orders and payments
 app.post('/finish_pay_credit_card/', creditcard_finish_controller.finishCC);
@@ -212,32 +213,41 @@ app.use(function (err, req, res, next) {
 
 
 function exposeTemplates(req, res, next) {
+
+
   // Uses the `ExpressHandlebars` instance to get the get the **precompiled**
   // templates which will be shared with the client-side of the app.
   hbs.getTemplates('shared/templates/', {
-      cache      : app.enabled('view cache'),
+      cache: app.enabled('view cache'),
       precompiled: true
-  }).then(function (templates) {
+    }).then(function (templates) {
       // RegExp to remove the ".handlebars" extension from the template names.
       var extRegex = new RegExp(hbs.extname + '$');
 
       // Creates an array of templates which are exposed via
       // `res.locals.templates`.
       templates = Object.keys(templates).map(function (name) {
-          return {
-              name    : name.replace(extRegex, ''),
-              template: templates[name]
-          };
+        return {
+          name: name.replace(extRegex, ''),
+          template: templates[name]
+        };
       });
 
       // Exposes the templates during view rendering.
       if (templates.length) {
-          res.locals.templates = templates;
+        res.locals.templates = templates;
       }
 
       setImmediate(next);
-  })
-  .catch(next);
+    })
+    .catch(next);
 }
+
+
+var ipMiddleware = function (req, res, next) {
+  var clientIp = requestIp.getClientIp(req); // on localhost > 127.0.0.1
+  console.log("clientIp " + clientIp)
+  next();
+};
 
 module.exports = app;
