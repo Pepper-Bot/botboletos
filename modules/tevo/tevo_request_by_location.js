@@ -27,7 +27,7 @@ module.exports = function () {
             
            // urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100&order_by=events.occurs_at'
            
-           urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100 order_by=events.occurs_at,events.popularity_score DESC'
+           urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100'
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
