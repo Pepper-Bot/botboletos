@@ -228,7 +228,7 @@ module.exports = function () {
 var setImagesToEvents = (resultEvent, counter) => {
     return new Promise((resolve, reject) => {
         var gButtons = []
-        for (var i = 0; i < resultEvent.length; i++) {
+        for (var z = 0; z < resultEvent.length; z++) {
             let search = resultEvent[z].title
             if (resultEvent[z].title != "Can’t make any of these times?")
                 getGoogleImage(search).then((images) => {
