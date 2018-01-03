@@ -21,7 +21,7 @@ module.exports = function () {
 
 
             var urlApiTevo = '';
-
+  
             urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
 
             if ('shakira' === event_name.toLowerCase()) {

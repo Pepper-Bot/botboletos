@@ -24,11 +24,10 @@ module.exports = function () {
 
 
             var urlApiTevo = '';
+            
+           // urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100&order_by=events.occurs_at'
 
-
-            urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + onlyticket + '&within=100&order_by=events.occurs_at'
-
-
+           urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100&order_by=events.popularity_score'
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
