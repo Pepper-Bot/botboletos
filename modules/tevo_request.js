@@ -249,15 +249,13 @@ var setImagesToEvents = (resultEvents, counter) => {
                     gButtons.push(resultEvent[z])
 
                 }
-                console.log("  resultEvent[z].image_url"+    resultEvent[z].image_url )
+                console.log("resultEvent[z].image_url"+    resultEvent[z].image_url )
 
             });
 
 
         }
 
-        Promise.all(gButtons)
-            .then(a => console.log("Eventos > " + JSON.stringify(a)));
 
 
 
