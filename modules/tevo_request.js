@@ -277,12 +277,12 @@ var setImagesToEvents = (resultEvent, counter) => {
                 var revisado = 0;
                 for (let y = 0; y < gButtons.length; y++) {
                     if (gButtons[y].image_url) {
-                        if (gButtons[y].image_url != "") {
-                            revisado = revisado + 1;
-                            if (revisado == gButtons.length) {
-                                console.log("asigné todas las imagenes ")
-                            }
+
+                        revisado = revisado + 1;
+                        if (revisado == gButtons.length) {
+                            console.log("asigné todas las imagenes ")
                         }
+
                     }
                 }
 
