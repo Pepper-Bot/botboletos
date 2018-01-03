@@ -230,7 +230,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 
     return new Promise((resolve, reject) => {
 
-        resultEvents.forEach(function (item, index, array) {
+       /*  resultEvents.forEach(function (item, index, array) {
             let search = item.title
             getGoogleImage(search).then((images) => {
 
@@ -270,7 +270,7 @@ var setImagesToEvents = (resultEvents, counter) => {
                                 }
                             }
                         }
-                    }*/
+                    }
 
 
 
@@ -280,10 +280,10 @@ var setImagesToEvents = (resultEvents, counter) => {
                     resolve(gButtons)
                 }
             });
-        })
+        })*/
 
 
-        /* for (let z = 0; z < resultEvents.length; z++) {
+        for (let z = 0; z < resultEvents.length; z++) {
             let search = resultEvents[z].title
             console.log("search " + search)
             getGoogleImage(search).then((images) => {
@@ -323,7 +323,7 @@ var setImagesToEvents = (resultEvents, counter) => {
                                 }
                             }
                         }
-                    } 
+                    } */
 
 
 
@@ -337,7 +337,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 
 
             });
-        }*/
+        }
 
 
 
