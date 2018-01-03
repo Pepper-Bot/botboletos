@@ -255,14 +255,10 @@ var setImagesToEvents = (resultEvent, counter) => {
         }
 
         Promise.all(gButtons)
-        .then(a => console.log("Esta es la respuesta "+ a));
+            .then(a => console.log("Eventos > " + JSON.stringify(payment)));
 
 
-        Promise.all(gButtons).then(function (data) {
-            return Promise.all(gButtons);
-        }).then(function (data) {
-            resolve(data)
-        });
+      
 
 
 
