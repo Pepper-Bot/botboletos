@@ -257,7 +257,19 @@ var setImagesToEvents = (resultEvent, counter) => {
                 console.log("z" + z + " " + counter + " < >" + gButtons.length)
 
                 counter = counter + 1;
-
+                var resolver = false;
+                var revisado = 0;
+                for (let y = 0; y < gButtons.length; y++) {
+                    if (gButtons[y].image_url) {
+                        if (gButtons[y].image_url != "") {
+                            revisado = revisado + 1;
+                            console.log("revisado "+ revisado)
+                            if (revisado == gButtons.length) {
+                                console.log("asigné todas las imagenes ")
+                            }
+                        }
+                    }
+                }
 
                 if (counter + 1 == gButtons.length) {
                     gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
@@ -266,18 +278,7 @@ var setImagesToEvents = (resultEvent, counter) => {
 
             }).then(() => {
 
-                var resolver = false;
-                var revisado = 0;
-                for (let y = 0; y < gButtons.length; y++) {
-                    if (gButtons[y].image_url) {
 
-                        revisado = revisado + 1;
-                        if (revisado == gButtons.length) {
-                            console.log("asigné todas las imagenes ")
-                        }
-
-                    }
-                }
             });
         }
     });
