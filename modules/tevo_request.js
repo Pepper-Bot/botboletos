@@ -234,7 +234,7 @@ var setImagesToEvents = (resultEvents, counter) => {
         for (let z = 0; z < gButtons.length; z++) {
             let search = gButtons[z].title
             console.log("search " + search)
-            getGoogleImage(search, gButtons).then((images1) => {
+            getGoogleImage(search, gButtons).then((images) => {
 
 
 
@@ -311,7 +311,7 @@ var selectImages = (results, results1 = []) => {
             results1.push(results[i])
 
             if (results1.length == 4) {
-                
+
                 return results1
 
             }
