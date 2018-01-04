@@ -255,7 +255,7 @@ var setImagesToEvents = (resultEvents, counter) => {
                         gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
 
                     }
-                   console.log("counter " + counter + " gButtons.length "+gButtons.length )
+                    console.log("counter " + counter + " gButtons.length " + gButtons.length)
 
                     if (counter + 1 == gButtons.length) {
                         gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
@@ -302,7 +302,7 @@ var selectImages = (results, results1, contador) => {
         for (let i = 0; i < results.length; i++) {
             if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
 
-
+                console.log("contador " + contador)
                 results1.push(results[i])
                 contador++;
                 if (contador == 4) {
