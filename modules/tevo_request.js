@@ -262,10 +262,10 @@ var setImagesToEvents = (resultEvents, counter) => {
                         resolve(gButtons)
                     }
 
-                }).then(() => {
-                    counter = counter + 1;
-                });
-            });
+                })
+            }).then(() => {
+                counter = counter + 1;
+            })
         }
 
 
@@ -311,7 +311,7 @@ var selectImages = (results, results1, contador) => {
 
 
             }
-             
+
 
         }
     });
