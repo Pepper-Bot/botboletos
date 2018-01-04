@@ -311,22 +311,7 @@ var selectImages = (results, results1, contador) => {
 
 
             }
-            let index = results.length - 1 - i;
-            if (results[index]) {
-                if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
-
-                    results1.push(results[index])
-                    contador++;
-                    if (contador == 4) {
-                        resolve(results1);
-                    }
-
-
-                }
-            } else {
-                console.log("Error index > " + index);
-
-            }
+             
 
         }
     });
