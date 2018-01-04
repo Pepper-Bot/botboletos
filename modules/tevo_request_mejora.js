@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        start: function (senderId, event_name, position = 0, cool = 0, messageTitle) {
+        start: function (senderId, event_name, position = 0, cool = 0) {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
@@ -12,7 +12,6 @@ module.exports = function () {
             var only_with = require('../config/config_vars').only_with;
 
 
-
             var tevoClient = new TevoClient({
                 apiToken: tevo.API_TOKEN,
                 apiSecretKey: tevo.API_SECRET_KEY
@@ -21,7 +20,7 @@ module.exports = function () {
 
 
             var urlApiTevo = '';
-  
+
             urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
 
             if ('shakira' === event_name.toLowerCase()) {
@@ -60,11 +59,6 @@ module.exports = function () {
                                 case 2:
                                     {
                                         Message.sendMessage(senderId, 'Thank your for your vote. Now, do you want to go to the concert?');
-                                    }
-                                    break;
-                                case 3:
-                                    {
-                                        Message.sendMessage(senderId, messageTitle);
                                     }
                                     break;
                                 default:
@@ -185,60 +179,32 @@ module.exports = function () {
                             });
 
 
-                            gButtons = null;
-                            gButtons = eventButtons_;
-                            counter = 0;
 
-                            for (var z = 0, k = gButtons.length; z < k; z++) {
+                            var gButtons = eventButtons_;
+                            var counter = 0;
 
 
-                                // var search = 'event ' + gButtons[z].title + ' ' + gButtons[z].image_url
-                                var search = gButtons[z].title
-                                imageCards(search, z, function (err, images, index) {
-                                    var imageIndex = 0;
-                                    if (images.length >= 4) {
-                                        imageIndex = Math.round(Math.random() * 4);
-                                    } else {
-                                        imageIndex = Math.round(Math.random() * images.length - 1);
-                                    }
+                            setImagesToEvents(gButtons, counter).then((gButtons) => {
 
-                                    if (index < gButtons.length - 1) {
-                                        gButtons[index].image_url = images[imageIndex].url;
-                                    } else {
-                                        gButtons[index].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg" //"http://www.ideosyncmedia.org/index_htm_files/196.png"
-                                    }
+                                console.log("luego del GButons event_name >>>>> " + event_name);
+                                saveUsuarioAndEventSearchLastSelected(senderId, event_name);
 
-                                    counter++;
-                                    if (counter == gButtons.length) {
-
-                                        console.log('gButtons.length> ' + gButtons.length);
+                                var GenericButton = require('../bot/generic_buttton');
+                                GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
 
 
-                                        console.log("ENTRE A GBUTTONS:::::::>>>" + gButtons[index].image_url);
-                                        // Message.genericButton(senderId, gButtons);
+                                Message.typingOff(senderId);
 
-                                        //var ShowMeMoreQuickReply = require('../modules/tevo/show_me_more_quick_replay');
-                                        // ShowMeMoreQuickReply.send(Message, senderId);
-                                        console.log("luego del GButons event_name >>>>> " + event_name);
-                                        saveUsuarioAndEventSearchLastSelected(senderId, event_name);
-
-                                        var GenericButton = require('../bot/generic_buttton');
-                                        GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
+                            });
 
 
 
-                                        // GenericButton.listTemplateButtons(senderId, gButtons);
-
-
-                                        Message.typingOff(senderId);
-                                    }
-
-
-                                });
 
 
 
-                            }
+
+
+
 
                         } else {
                             Message.sendMessage(senderId, "No Found Events");
@@ -259,6 +225,189 @@ module.exports = function () {
 
 
 
+var setImagesToEvents = (resultEvents, counter) => {
+    // var gButtons = [];
+    var gButtons = resultEvents;
+    return new Promise((resolve, reject) => {
+
+
+        for (let z = 0; z < gButtons.length; z++) {
+            let search = gButtons[z].title
+            console.log("search " + search)
+            getGoogleImage(search, gButtons).then((images) => {
+
+
+
+                console.log("images.length " + images.length)
+                var imageIndex = 0;
+                if (images.length > 4) {
+                    imageIndex = Math.round(Math.random() * 3);
+                } else {
+                    imageIndex = Math.round(Math.random() * images.length - 1);
+                }
+
+                if (z < gButtons.length - 1) {
+
+                    gButtons[z].image_url = images[imageIndex].url;
+
+                }
+                if (z == gButtons.length - 1) {
+                    gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
+
+                }
+                console.log("counter " + counter + " gButtons.length " + gButtons.length)
+
+                if (counter + 1 == gButtons.length) {
+                    gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
+                    resolve(gButtons)
+                }
+
+            }).then(() => {
+                counter = counter + 1;
+            })
+        }
+
+
+
+
+
+
+    });
+
+    /// Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
+
+}
+
+
+var getGoogleImage = (search, matriz = []) => {
+    return new Promise((resolve, reject) => {
+
+        var gis = require('g-i-s');
+        gis(search, logResults);
+
+        function logResults(error, results) {
+            if (error) {
+                reject(error);
+            } else {
+               resolve(results)
+                
+
+            }
+        }
+
+    });
+}
+
+var selectImages = (results, results1 = []) => {
+
+
+    for (let i = 0; i < results.length; i++) {
+        if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
+
+
+            results1.push(results[i])
+
+            if (results1.length == 4) {
+
+                return results1
+
+            }
+
+
+        }
+
+
+    }
+
+}
+
+
+var getGoogleImage2 = (search) => {
+    return new Promise((resolve, reject) => {
+
+        var gis = require('g-i-s');
+
+        var opts = {
+            searchTerm: search,
+            queryStringAddition: '&tbs=ic:trans',
+            filterOutDomains: [
+                'pinterest.com',
+                'deviantart.com'
+            ]
+        };
+
+
+        var opts = {
+            searchTerm: search,
+
+
+        };
+
+
+
+
+        gis(opts, logResults);
+
+        var contador = 0
+
+        function logResults(error, results) {
+            if (error) {
+                reject(error);
+            } else {
+
+
+
+                resolve(results);
+
+                //console.log("Imagenes gis Respuesta >>> " + results.length);
+                //console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
+                //resolve(results, matriz);
+                /* var results1 = [];
+                 for (let i = 0; i < results.length; i++) {
+
+                     if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
+
+                         results1.push(results[i])
+                         contador++;
+                         if (contador == 4) {
+                             resolve(results1);
+                         }
+
+
+                     }
+
+                     let index = results.length - 1 - i;
+
+                    /* if (results[index]) {
+                         if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
+
+                             results1.push(results[index])
+                             contador++;
+                             if (contador == 4) {
+                                 resolve(results1);
+                             }
+
+
+                         }
+                     } else {
+                         console.log("Error index > " + index);
+
+                     } 
+
+
+                     if (results.length - 1 <= 0)
+                         if (i + 1 == results.length) {
+                             resolve(results);
+                         }
+
+
+                 }*/
+
+            }
+        }
+
+    });
+}
 
 function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
     var UserData = require('../bot/userinfo');
