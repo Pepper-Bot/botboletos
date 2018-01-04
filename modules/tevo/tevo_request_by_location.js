@@ -50,7 +50,9 @@ module.exports = function () {
 
                             // resultEvent = json.events;
 
-                            resultEvent = arraySort(json.events, 'popularity_score');
+                            resultEvent = arraySort(json.events, 'popularity_score', {
+                                reverse: true
+                            });
 
                             var eventButtons_ = [];
                             var callsGis = 0;
