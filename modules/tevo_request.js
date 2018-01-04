@@ -234,10 +234,10 @@ var setImagesToEvents = (resultEvents, counter) => {
         for (let z = 0; z < gButtons.length; z++) {
             let search = gButtons[z].title
             console.log("search " + search)
-            getGoogleImage(search, gButtons).then((images1) => {
+            getGoogleImage(search, gButtons).then((images) => {
                 let results1 = [];
                 let contador1 = 0;
-                selectImages(images1, results1, contador1).then((images) => {
+                
                     console.log("images.length " + images.length)
                     var imageIndex = 0;
                     if (images.length > 4) {
@@ -262,7 +262,7 @@ var setImagesToEvents = (resultEvents, counter) => {
                         resolve(gButtons)
                     }
 
-                })
+                
             }).then(() => {
                 counter = counter + 1;
             })
