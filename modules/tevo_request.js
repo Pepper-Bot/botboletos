@@ -298,19 +298,15 @@ var getGoogleImage = (search, matriz = []) => {
                     if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
                         results1.push(results[i])
                     }
-
+                    if (results1.length == 4) {
+                        resolve(results1)
+                        break;
+                    }
 
 
 
                 }
-                Promise.all(results1)
-                    .then((results2) => {
-                        console.log("All done", results2);
-                        resolve(results2)
-                    })
-                    .catch((e) => {
-                        // Handle errors here
-                    });
+                
 
             }
         }
