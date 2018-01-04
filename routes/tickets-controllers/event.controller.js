@@ -74,9 +74,10 @@ var render_events = (req, res) => {
 
 var setImagesToEvents = (req, resultEvent, counter) => {
     var events = resultEvent;
-    return new Promise((resolve, reject) => {
-        let search = events[0].name
-        getGoogleImage(search, events).then((images) => {
+
+    let search = events[0].name
+    getGoogleImage(search, events).then((images) => {
+        return new Promise((resolve, reject) => {
             for (let z = 0; z < events.length; z++) {
                 events[z].image_url = images[0].url;
                 var occurs_at = events[z].occurs_at
@@ -90,12 +91,13 @@ var setImagesToEvents = (req, resultEvent, counter) => {
                     resolve(events)
                 }
             }
-        }).then(() => {
-
-
         });
+    }).then(() => {
+
 
     });
+
+
 }
 
 
