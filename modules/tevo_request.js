@@ -226,7 +226,7 @@ module.exports = function () {
 
 
 var setImagesToEvents = (resultEvents, counter) => {
-   // var gButtons = [];
+    // var gButtons = [];
     var gButtons = resultEvents;
     return new Promise((resolve, reject) => {
 
@@ -283,13 +283,13 @@ var setImagesToEvents = (resultEvents, counter) => {
         })*/
 
 
-     
+
 
 
         for (let z = 0; z < gButtons.length; z++) {
             let search = gButtons[z].title
             console.log("search " + search)
-            getGoogleImage(search).then((images) => {
+            getGoogleImage(search, gButtons).then((images) => {
                 console.log("images.length " + images.length)
                 var imageIndex = 0;
                 if (images.length > 4) {
@@ -312,9 +312,8 @@ var setImagesToEvents = (resultEvents, counter) => {
                 console.log(" gButtons[z].image_url " + gButtons[z].image_url)
                 console.log("counter " + counter + " < >" + gButtons.length)
 
-                counter = counter + 1;
-                var resolver = false;
-                var revisado = 0;
+
+
                 /* for (let y = 0; y < gButtons.length; y++) {
                             if (gButtons[y].image_url) {
                                 if (gButtons[y].image_url != "") {
@@ -334,8 +333,7 @@ var setImagesToEvents = (resultEvents, counter) => {
                 }
 
             }).then(() => {
-
-
+                counter = counter + 1;
             });
         }
 
@@ -346,15 +344,31 @@ var setImagesToEvents = (resultEvents, counter) => {
 
     });
 
-   /// Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
+    /// Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
 
 }
 
 
+var getGoogleImage = (search, matriz = []) => {
+    return new Promise((resolve, reject) => {
+
+        var gis = require('g-i-s');
+        gis(search, logResults);
+
+        function logResults(error, results) {
+            if (error) {
+                reject(error);
+            } else {
+                resolve(results, matriz);
+            }
+        }
+
+    });
+}
 
 
 
-var getGoogleImage = (search) => {
+var getGoogleImage2 = (search) => {
     return new Promise((resolve, reject) => {
 
         var gis = require('g-i-s');
