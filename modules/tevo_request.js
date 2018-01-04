@@ -300,7 +300,7 @@ var getGoogleImage = (search, matriz = []) => {
                     }
                     if (results1.length == 4) {
                         resolve(results1)
-                        break;
+                     
                     }
 
 
