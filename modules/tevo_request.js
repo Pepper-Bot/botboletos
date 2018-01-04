@@ -299,6 +299,7 @@ var getGoogleImage = (search, matriz = []) => {
 var selectImages = (results) => {
 
     var contador = 0;
+    var results1 = [];
     for (let i = 0; i < results.length; i++) {
         if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
 
