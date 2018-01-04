@@ -304,10 +304,10 @@ var selectImages = (results, callback) => {
     for (let i = 0; i < results.length; i++) {
         if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
 
-            console.log("contador " + contador)
+            console.log("results.length " + results1.length)
             results1.push(results[i])
-            contador++;
-            if (contador == 4) {
+   
+            if (results1.length == 4) {
                 callback(null, results1)
                 break;
             }
