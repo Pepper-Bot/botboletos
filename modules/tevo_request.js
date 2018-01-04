@@ -295,7 +295,7 @@ var getGoogleImage = (search, matriz = []) => {
                         results1.push(results[i])                 
                     }
                     let index = results.length - 1 - i;
-                    if (results[indexi].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
+                    if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
                         results1.push(results[i])                 
                     }
 
