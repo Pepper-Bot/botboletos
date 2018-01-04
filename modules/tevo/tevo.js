@@ -166,10 +166,8 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
 
 
         eventsArray_g = resultEvent_;
-        //var resultEvent_ = arraySort(resultEvent, 'occurs_at');
-        var resultEvent_ = arraySort(resultEvent, ['popularity_score'], {
-            reverse: true
-        });
+        var resultEvent_ = arraySort(resultEvent, 'occurs_at');
+         
 
         gButtons = resultEvent_;
 
