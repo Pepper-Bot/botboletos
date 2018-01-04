@@ -8,7 +8,7 @@ module.exports = function () {
             var UserData = require('../../bot/userinfo');
             var UserData2 = require('../../schemas/userinfo');
             var only_with = require('../../config/config_vars').only_with;
-
+            var arraySort = require('array-sort');
 
 
 
@@ -24,10 +24,10 @@ module.exports = function () {
 
 
             var urlApiTevo = '';
-            
-           // urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100&order_by=events.occurs_at'
-           
-           urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100'
+
+            // urlApiTevo = tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100&order_by=events.occurs_at'
+
+            urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100'
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
@@ -47,7 +47,11 @@ module.exports = function () {
 
                             console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<POSITION > ' + position);
                             var resultEvent = [];
-                            resultEvent = json.events;
+
+                            // resultEvent = json.events;
+
+                            resultEvent = arraySort(json.events, 'popularity_score');
+
                             var eventButtons_ = [];
                             var callsGis = 0;
                             var baseURL = APLICATION_URL_DOMAIN + 'event/?event_id=';
@@ -166,7 +170,7 @@ module.exports = function () {
                                     if (images.length >= 4) {
                                         imageIndex = Math.round(Math.random() * 4);
                                     } else {
-                                        imageIndex = Math.round(Math.random() * images.length-1 );
+                                        imageIndex = Math.round(Math.random() * images.length - 1);
                                     }
 
                                     if (index < gButtons.length - 1) {
