@@ -236,8 +236,8 @@ var setImagesToEvents = (resultEvents, counter) => {
             console.log("search " + search)
             getGoogleImage(search, gButtons).then((images1) => {
                 let results1 = [];
-                let contador1 = 0;
-                selectImages(images1, results1, contador1).then((images) => {
+
+                selectImages(images1, results1).then((images) => {
                     console.log("images.length " + images.length)
                     var imageIndex = 0;
                     if (images.length > 4) {
@@ -297,8 +297,9 @@ var getGoogleImage = (search, matriz = []) => {
     });
 }
 
-var selectImages = (results, results1, contador) => {
+var selectImages = (results, results1) => {
     return new Promise((resolve, reject) => {
+        var contador = 0;
         for (let i = 0; i < results.length; i++) {
             if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
 
