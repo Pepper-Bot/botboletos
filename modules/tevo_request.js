@@ -289,26 +289,28 @@ var getGoogleImage = (search, matriz = []) => {
             if (error) {
                 reject(error);
             } else {
-               var  results1  = []
+                var results1 = []
                 for (let i = 0; i < results.length; i++) {
                     if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
-                        results1.push(results[i])                 
+                        results1.push(results[i])
                     }
                     let index = results.length - 1 - i;
                     if (results[index].width / results[index].height >= 1.91 && results[index].width / results[index].height <= 2 && results[index].height > 300) {
-                        results1.push(results[i])                 
+                        results1.push(results[i])
                     }
 
-                    if (results1.length == 4) {
-                        resolve(results1, matriz);
-                        
-                    }
 
 
 
                 }
-              
-
+                Promise.all(results1)
+                    .then((results2) => {
+                        console.log("All done", results2);
+                        resolve(results2)
+                    })
+                    .catch((e) => {
+                        // Handle errors here
+                    });
 
             }
         }
