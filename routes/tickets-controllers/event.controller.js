@@ -72,7 +72,7 @@ var render_events = (req, res) => {
 
 
 
-var setImagesToEvents = (req, resultEvent, counter) => {
+var setImagesToEvents1 = (req, resultEvent, counter) => {
     var events = resultEvent;
     return new Promise((resolve, reject) => {
         let search = events[0].name
@@ -100,7 +100,7 @@ var setImagesToEvents = (req, resultEvent, counter) => {
 
 
 
-var setImagesToEvents1 = (req, resultEvent, counter) => {
+var setImagesToEvents = (req, resultEvent, counter) => {
     var events = resultEvent;
     return new Promise((resolve, reject) => {
         for (let z = 0; z < events.length; z++) {
