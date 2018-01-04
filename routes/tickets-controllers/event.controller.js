@@ -92,10 +92,7 @@ var setImagesToEvents = (req, resultEvent, counter) => {
                 }
             }
         });
-    }).then(() => {
-
-
-    });
+    })
 
 
 }
@@ -161,7 +158,7 @@ var getGoogleImage = (search, matriz = []) => {
                 reject(error);
             } else {
                 console.log("Imagenes gis Respuesta >>> " + results.length);
-                console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
+               //  console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
                 resolve(results, matriz);
                 /*for (let i = 0; i < results.length; i++) {
 
