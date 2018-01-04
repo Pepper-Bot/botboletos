@@ -290,8 +290,8 @@ var getGoogleImage = (search, matriz = []) => {
                 reject(error);
             } else {
 
-              
-                resolve(selectImages(results), matriz);
+                selectImages(results)
+                resolve(results, matriz);
 
 
 
@@ -311,6 +311,7 @@ var selectImages = (results, results1 = []) => {
             results1.push(results[i])
 
             if (results1.length == 4) {
+                
                 return results1
 
             }
