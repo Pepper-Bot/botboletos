@@ -284,12 +284,27 @@ var setImagesToEvents = (resultEvents, counter) => {
     var gButtons = resultEvents;
     return new Promise((resolve, reject) => {
         var search = gButtons[0].title
+
+        var cadena = search,
+            separador = " ", // un espacio en blanco
+            arregloDeSubCadenas = cadena.split(separador);
+
+        console.log(arregloDeSubCadenas); // la consola devolverá: ["cadena", "de", "texto"]
+
+        //  (Rescheduled
+
+        for (let k = 0; k < arregloDeSubCadenas.length; k++) {
+            if (arregloDeSubCadenas[k] == "(Rescheduled") {
+                search = performances[0].performer.name
+            }
+        }
+
         getGoogleImage(search, gButtons).then((images) => {
             for (let z = 0; z < gButtons.length; z++) {
                 console.log("images.length " + images.length)
                 var imageIndex = 0;
                 if (images.length > 4) {
-                    imageIndex = Math.round(Math.random() * 3);
+                    imageIndex = Math.round(Math.random() * 5);
                 } else {
                     imageIndex = Math.round(Math.random() * images.length - 1);
                 }
