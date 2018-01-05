@@ -127,9 +127,17 @@ module.exports = function () {
                                 var occurs_at = moment(occurs_at).format('MMM Do YYYY, h:mm a')
 
 
+                                performances[0].performer.name
+
+
+
+
+                                
+
 
                                 eventButtons_.push({
-                                    "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
+                                    //"title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
+                                    "title": resultEvent[j].performances[0].performer.name, 
                                     "image_url": resultEvent[j].category.name,
                                     "subtitle": resultEvent[j].venue.name + " " + resultEvent[j].venue.location + " " + occurs_at,
                                     "default_action": {
@@ -285,7 +293,7 @@ var setImagesToEvents = (resultEvents, counter) => {
     return new Promise((resolve, reject) => {
         var search = gButtons[0].title
 
-        var cadena = search,
+        /*var cadena = search,
             separador = " ", // un espacio en blanco
             arregloDeSubCadenas = cadena.split(separador);
 
@@ -296,7 +304,7 @@ var setImagesToEvents = (resultEvents, counter) => {
             if (arregloDeSubCadenas[k] == "(Rescheduled") {
                 search = "Shakira" 
             }
-        }
+        }*/
 
         getGoogleImage(search, gButtons).then((images) => {
             for (let z = 0; z < gButtons.length; z++) {
