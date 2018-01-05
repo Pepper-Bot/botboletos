@@ -43,7 +43,7 @@ var render_events = (req, res) => {
                 setImagesToEvents(req, json.events, counter).then((events) => {
                     var event_name = events[0].name
 
-                    var cadena = search,
+                    var cadena = event_name,
                         separador = " ", // un espacio en blanco
                         arregloDeSubCadenas = cadena.split(separador);
 
