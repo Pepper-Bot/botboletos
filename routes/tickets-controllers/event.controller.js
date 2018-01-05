@@ -59,8 +59,8 @@ var render_events = (req, res) => {
 
 
 
-                    gis(event_name, function (err, images) {
-
+                    // gis(event_name, function (err, images) {
+                    getGoogleImage(event_name).then((images) => {
                         res.render(
                             './layouts/tickets/event', {
                                 titulo: "Book",
@@ -152,21 +152,24 @@ var getGoogleImage = (search, matriz = []) => {
                 reject(error);
             } else {
                 console.log("Imagenes gis Respuesta >>> " + results.length);
-                console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
-                resolve(results, matriz);
-                /*for (let i = 0; i < results.length; i++) {
+                // console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
+                //resolve(results, matriz);
+                var results1 = [];
+                for (let i = 0; i < results.length; i++) {
 
                     if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
-                         var results1 = [];
-                          results1.push(results[i] )
-                         
-                         
+
+                        results1.push(results[i])
+
+                        resolve(results1, matriz);
                     }
 
                     if (i + 1 == results.length) {
                         resolve(results, matriz);
                     }
-                }*/
+
+
+                }
 
             }
         }
