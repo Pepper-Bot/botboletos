@@ -291,11 +291,10 @@ var setImagesToEvents = (resultEvents, counter) => {
 
         console.log(arregloDeSubCadenas); // la consola devolverá: ["cadena", "de", "texto"]
 
-        //  (Rescheduled
 
         for (let k = 0; k < arregloDeSubCadenas.length; k++) {
             if (arregloDeSubCadenas[k] == "(Rescheduled") {
-                search = performances[0].performer.name
+                search = "Shakira" 
             }
         }
 
