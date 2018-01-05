@@ -136,8 +136,8 @@ module.exports = function () {
 
 
                                 eventButtons_.push({
-                                    //"title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
-                                    "title": resultEvent[j].performances[0].performer.name, 
+                                    "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
+                                    "performer": resultEvent[j].performances[0].performer.name, 
                                     "image_url": resultEvent[j].category.name,
                                     "subtitle": resultEvent[j].venue.name + " " + resultEvent[j].venue.location + " " + occurs_at,
                                     "default_action": {
@@ -293,7 +293,7 @@ var setImagesToEvents = (resultEvents, counter) => {
     return new Promise((resolve, reject) => {
         var search = gButtons[0].title
 
-        /*var cadena = search,
+        var cadena = search,
             separador = " ", // un espacio en blanco
             arregloDeSubCadenas = cadena.split(separador);
 
@@ -302,16 +302,19 @@ var setImagesToEvents = (resultEvents, counter) => {
 
         for (let k = 0; k < arregloDeSubCadenas.length; k++) {
             if (arregloDeSubCadenas[k] == "(Rescheduled") {
-                search = "Shakira" 
+                search = gButtons[0].performer
             }
-        }*/
+        }
 
         getGoogleImage(search, gButtons).then((images) => {
             for (let z = 0; z < gButtons.length; z++) {
                 console.log("images.length " + images.length)
                 var imageIndex = 0;
-                if (images.length > 4) {
-                    imageIndex = Math.round(Math.random() * 5);
+
+                delete gButtons[z].performer;
+
+                if (images.length >= 10) {
+                    imageIndex = Math.round(Math.random() * 10);
                 } else {
                     imageIndex = Math.round(Math.random() * images.length - 1);
                 }
