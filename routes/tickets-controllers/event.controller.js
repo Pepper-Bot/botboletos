@@ -53,7 +53,7 @@ var render_events = (req, res) => {
                     for (let k = 0; k < arregloDeSubCadenas.length; k++) {
                         if (arregloDeSubCadenas[k] == "(Rescheduled") {
                             event_name = events[0].performances[0].performer.name
-                            events[0].name = search
+                            events[0].name = event_name
                         }
                     }
 
