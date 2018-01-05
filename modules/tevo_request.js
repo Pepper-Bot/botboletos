@@ -259,8 +259,8 @@ var setImagesToEvents = (resultEvents, counter) => {
 
             var results = []
             var images = []
-            getGoogleImagesSelected(search, gButtons, results, images).then((images) => {
-                // getGoogleImage(search, gButtons).then((images) => {
+            //getGoogleImagesSelected(search, gButtons, results, images).then((images) => {
+            getGoogleImage(search, gButtons).then((images) => {
 
                 console.log("images.length " + images.length)
                 var imageIndex = 0;
@@ -302,68 +302,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 
 }
 
-
-var setImagesToEvents2 = (resultEvents, counter) => {
-    // var gButtons = [];
-    var gButtons = resultEvents;
-    return new Promise((resolve, reject) => {
-        var search = gButtons[0].title
-
-        var cadena = search,
-            separador = " ", // un espacio en blanco
-            arregloDeSubCadenas = cadena.split(separador);
-
-        console.log(arregloDeSubCadenas); // la consola devolverá: ["cadena", "de", "texto"]
-
-
-        for (let k = 0; k < arregloDeSubCadenas.length; k++) {
-            if (arregloDeSubCadenas[k] == "(Rescheduled") {
-                search = gButtons[0].performer
-            }
-        }
-
-        getGoogleImage(search, gButtons).then((images) => {
-            for (let z = 0; z < gButtons.length; z++) {
-                console.log("images.length " + images.length)
-                var imageIndex = 0;
-
-                delete gButtons[z].performer;
-
-                if (images.length >= 10) {
-                    imageIndex = Math.round(Math.random() * 10);
-                } else {
-                    imageIndex = Math.round(Math.random() * images.length - 1);
-                }
-
-                if (z < gButtons.length - 1) {
-
-                    gButtons[z].image_url = images[imageIndex].url;
-
-                }
-                if (z == gButtons.length - 1) {
-                    gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
-
-                }
-                console.log("counter " + counter + " gButtons.length " + gButtons.length)
-
-                if (z + 1 == gButtons.length) {
-                    gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
-                    resolve(gButtons)
-                }
-
-
-            }
-        });
-
-
-
-
-    });
-
-    /// Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
-
-}
-
+ 
 var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 

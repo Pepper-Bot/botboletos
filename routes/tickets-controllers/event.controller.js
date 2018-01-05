@@ -42,8 +42,25 @@ var render_events = (req, res) => {
                 var counter = 0;
                 setImagesToEvents(req, json.events, counter).then((events) => {
                     var event_name = events[0].name
+
+                    var cadena = search,
+                        separador = " ", // un espacio en blanco
+                        arregloDeSubCadenas = cadena.split(separador);
+
+                    console.log(arregloDeSubCadenas); // la consola devolverá: ["cadena", "de", "texto"]
+
+
+                    for (let k = 0; k < arregloDeSubCadenas.length; k++) {
+                        if (arregloDeSubCadenas[k] == "(Rescheduled") {
+                            event_name = events[0].performances[0].performer.name
+                            events[0].name = search
+                        }
+                    }
+
+
+
                     gis(event_name, function (err, images) {
-                     
+
                         res.render(
                             './layouts/tickets/event', {
                                 titulo: "Book",
@@ -102,32 +119,6 @@ var setImagesToEvents = (req, resultEvent, counter) => {
 
 
 
-var setImagesToEvents1 = (req, resultEvent, counter) => {
-    var events = resultEvent;
-    return new Promise((resolve, reject) => {
-        for (let z = 0; z < events.length; z++) {
-            let search = events[z].name
-            getGoogleImage(search, events).then((images) => {
-
-                events[z].image_url = images[0].url;
-                var occurs_at = events[z].occurs_at
-                occurs_at = occurs_at.substring(0, occurs_at.length - 4)
-                occurs_at = moment(occurs_at).format('dddd') + ', ' + moment(occurs_at).format('MMMM Do YYYY, h:mm a')
-                // occurs_at = moment(occurs_at).format('MMM Do YYYY, h:mm a')
-                events[z].occurs_at_format = occurs_at
-                events[z].button_href = APLICATION_URL_DOMAIN + "tickets/?event_id=" + events[z].id + "&uid=" + req.query.uid
-
-                if (counter + 1 == events.length) {
-                    resolve(events)
-                }
-
-            }).then(() => {
-                counter = counter + 1;
-
-            });
-        }
-    });
-}
 
 var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
