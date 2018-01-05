@@ -1033,6 +1033,12 @@ function processPostback(event) {
 
     switch (payload) {
 
+        case "VEGAS_SHOW":
+            {
+                startVegasShow(senderId, referral)
+            }
+            break;
+
         case "CHRISTMAS_SONGS":
             {
                 startChristmasSongs(senderId, payload);
@@ -1696,7 +1702,7 @@ var startVegasShow = (senderId, referral) => {
     vegasShowModule.startVegasShow(senderId, referral)
 }
 
- 
+
 
 
 var startChristmasSongs = (senderId, referral) => {
