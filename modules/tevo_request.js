@@ -239,7 +239,7 @@ var setImagesToEvents = (resultEvents, counter) => {
         for (let z = 0; z < gButtons.length; z++) {
             let search = gButtons[z].title
             console.log("search " + search)
-          
+
 
             var cadena = search,
                 separador = " ", // un espacio en blanco
@@ -251,13 +251,16 @@ var setImagesToEvents = (resultEvents, counter) => {
             for (let k = 0; k < arregloDeSubCadenas.length; k++) {
                 if (arregloDeSubCadenas[k] == "(Rescheduled") {
                     search = gButtons[z].performer
+                    gButtons[z].title = search
                 }
             }
 
             delete gButtons[z].performer;
 
-
-            getGoogleImage(search, gButtons).then((images) => {
+            var results = []
+            var images = []
+            getGoogleImagesSelected(search, gButtons, results, images).then((images) => {
+                // getGoogleImage(search, gButtons).then((images) => {
 
                 console.log("images.length " + images.length)
                 var imageIndex = 0;
@@ -380,26 +383,36 @@ var getGoogleImage = (search, matriz = []) => {
     });
 }
 
+var getGoogleImagesSelected = (search, matriz = [], results, results1) => {
+    return new Promise((resolve, reject) => {
+        getGoogleImage(search, matriz).then((results) => {
+            selectImages(results, results1).then((results1) => {
+                resolve(results1)
+            })
+        })
+    });
+}
+
 var selectImages = (results, results1 = []) => {
 
+    return new Promise((resolve, reject) => {
+        for (let i = 0; i < results.length; i++) {
 
-    for (let i = 0; i < results.length; i++) {
-        if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
+            if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
 
 
-            results1.push(results[i])
+                results1.push(results[i])
 
-            if (results1.length == 4) {
+                if (results1.length == 4) {
+                    resolve(results1)
+                }
 
-                return results1
 
             }
 
 
         }
-
-
-    }
+    });
 
 }
 
