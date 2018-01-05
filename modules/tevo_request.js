@@ -127,10 +127,7 @@ module.exports = function () {
                                 var occurs_at = moment(occurs_at).format('MMM Do YYYY, h:mm a')
 
 
-                                performances[0].performer.name
-
-
-
+                              
 
                                 
 
