@@ -225,7 +225,7 @@ module.exports = function () {
 
 
 
-var setImagesToEvents = (resultEvents, counter) => {
+var setImagesToEvents2 = (resultEvents, counter) => {
     // var gButtons = [];
     var gButtons = resultEvents;
     return new Promise((resolve, reject) => {
@@ -279,6 +279,50 @@ var setImagesToEvents = (resultEvents, counter) => {
 }
 
 
+var setImagesToEvents = (resultEvents, counter) => {
+    // var gButtons = [];
+    var gButtons = resultEvents;
+    return new Promise((resolve, reject) => {
+        var search = gButtons[0].title
+        getGoogleImage(search, gButtons).then((images) => {
+            for (let z = 0; z < gButtons.length; z++) {
+                console.log("images.length " + images.length)
+                var imageIndex = 0;
+                if (images.length > 4) {
+                    imageIndex = Math.round(Math.random() * 3);
+                } else {
+                    imageIndex = Math.round(Math.random() * images.length - 1);
+                }
+
+                if (z < gButtons.length - 1) {
+
+                    gButtons[z].image_url = images[imageIndex].url;
+
+                }
+                if (z == gButtons.length - 1) {
+                    gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
+
+                }
+                console.log("counter " + counter + " gButtons.length " + gButtons.length)
+
+                if (counter + 1 == gButtons.length) {
+                    gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
+                    resolve(gButtons)
+                }
+
+
+            }
+        });
+
+
+
+
+    });
+
+    /// Promise.all(gButtons).then(a => console.log("Eventos >" + JSON.stringify(a)));
+
+}
+
 var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 
@@ -289,8 +333,8 @@ var getGoogleImage = (search, matriz = []) => {
             if (error) {
                 reject(error);
             } else {
-               resolve(results)
-                
+                resolve(results)
+
 
             }
         }
