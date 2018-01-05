@@ -127,14 +127,14 @@ module.exports = function () {
                                 var occurs_at = moment(occurs_at).format('MMM Do YYYY, h:mm a')
 
 
-                              
 
-                                
+
+
 
 
                                 eventButtons_.push({
                                     "title": resultEvent[j].name, // +' '+ resultEvent[j].category.name,
-                                    "performer": resultEvent[j].performances[0].performer.name, 
+                                    "performer": resultEvent[j].performances[0].performer.name,
                                     "image_url": resultEvent[j].category.name,
                                     "subtitle": resultEvent[j].venue.name + " " + resultEvent[j].venue.location + " " + occurs_at,
                                     "default_action": {
@@ -230,7 +230,7 @@ module.exports = function () {
 
 
 
-var setImagesToEvents2 = (resultEvents, counter) => {
+var setImagesToEvents = (resultEvents, counter) => {
     // var gButtons = [];
     var gButtons = resultEvents;
     return new Promise((resolve, reject) => {
@@ -239,9 +239,25 @@ var setImagesToEvents2 = (resultEvents, counter) => {
         for (let z = 0; z < gButtons.length; z++) {
             let search = gButtons[z].title
             console.log("search " + search)
+          
+
+            var cadena = search,
+                separador = " ", // un espacio en blanco
+                arregloDeSubCadenas = cadena.split(separador);
+
+            console.log(arregloDeSubCadenas); // la consola devolverá: ["cadena", "de", "texto"]
+
+
+            for (let k = 0; k < arregloDeSubCadenas.length; k++) {
+                if (arregloDeSubCadenas[k] == "(Rescheduled") {
+                    search = gButtons[z].performer
+                }
+            }
+
+            delete gButtons[z].performer;
+
+
             getGoogleImage(search, gButtons).then((images) => {
-
-
 
                 console.log("images.length " + images.length)
                 var imageIndex = 0;
@@ -284,7 +300,7 @@ var setImagesToEvents2 = (resultEvents, counter) => {
 }
 
 
-var setImagesToEvents = (resultEvents, counter) => {
+var setImagesToEvents2 = (resultEvents, counter) => {
     // var gButtons = [];
     var gButtons = resultEvents;
     return new Promise((resolve, reject) => {
