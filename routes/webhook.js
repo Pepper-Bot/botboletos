@@ -1310,6 +1310,14 @@ function processPostback(event) {
                             console.log('No guardé el mlink DE  CHRISTMAS_SONGS ?? O_O << ' + foundUser.mlinkSelected);
                         }
 
+                        if (foundUser.mlinkSelected == "VEGAS_SHOW") {
+                            startTevoModuleWithMlink(payload, senderId);
+
+                        } else {
+                            console.log('No guardé el mlink DE  SHOW_VEGAS ?? O_O << ' + foundUser.mlinkSelected);
+                        }
+
+
 
                     }
                 }
@@ -1576,6 +1584,12 @@ function chooseReferral(referral, senderId) {
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
     switch (referral) {
+        case "VEGAS_SHOW":
+            {
+                startVegasShow(senderId, referral)
+            }
+            break;
+
         case "SUPER_BOWL":
             {
 
@@ -1676,6 +1690,13 @@ var startSuperBowl = (senderId, referral) => {
     var superBowlModule = require('../modules/tevo/super_bowl/super_bowl')
     superBowlModule.startSuperBowl(senderId, referral)
 }
+
+var startVegasShow = (senderId, referral) => {
+    var vegasShowModule = require('../modules/tevo/vegas_show/vegas_show')
+    vegasShowModule.startVegasShow(senderId, referral)
+}
+
+ 
 
 
 var startChristmasSongs = (senderId, referral) => {
