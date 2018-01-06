@@ -68,7 +68,7 @@ var render_events = (req, res) => {
                                 events: events,
                                 uid: req.query.uid,
                                 subtitulo: events[0].name,
-                                image_url: images[0].url
+                                image_url: images[1].url
                             }
                         );
                     });
