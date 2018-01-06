@@ -18,7 +18,7 @@ var userInfo = function()
 				}
 				else
 				{
-
+					console.log("User Info >>> " + JSON.stringify(body));
 					callback(null, body);
 				}
 			});
