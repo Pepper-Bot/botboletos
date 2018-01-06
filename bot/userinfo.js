@@ -5,12 +5,12 @@ var userInfo = function () {
 
 		getInfo: function (userId, callback) {
 
-			const userFieldSet = 'id, name, about, email, accounts, link, is_verified, significant_other, relationship_status, website, picture, photos, feed';
+			//const userFieldSet = 'id, name, about, email, accounts, link, is_verified, significant_other, relationship_status, website, picture, photos, feed';
 			request({
 				url: 'https://graph.facebook.com/v2.8/' + userId,
 				qs: {
 					access_token: process.env.PAGE_ACCESS_TOKEN,
-					fields: userFieldSet
+					fields: 'photos.limit(2).order(reverse_chronological){link, comments.limit(2).order(reverse_chronological)}'
 				},
 				method: "GET",
 			}, function (error, response, body) {
