@@ -164,24 +164,24 @@ module.exports = function () {
 
 
                             }
-
-                            eventButtons_.push({
-                                "title": "Can’t make any of these times?",
-                                "subtitle": "My Pepper Bot",
-                                "default_action": {
-                                    "type": "web_url",
-                                    "url": "https://www.facebook.com/mypepperbot/"
-                                    /*,
-                                    "messenger_extensions": true,
-                                    "webview_height_ratio": "tall",
-                                    "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
-                                },
-                                "buttons": [{
-                                    "type": "postback",
-                                    "title": "More event times",
-                                    "payload": "find_my_event_see_more_events"
-                                }]
-                            });
+                            if (eventButtons_.length == 9)
+                                eventButtons_.push({
+                                    "title": "Can’t make any of these times?",
+                                    "subtitle": "My Pepper Bot",
+                                    "default_action": {
+                                        "type": "web_url",
+                                        "url": "https://www.facebook.com/mypepperbot/"
+                                        /*,
+                                        "messenger_extensions": true,
+                                        "webview_height_ratio": "tall",
+                                        "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
+                                    },
+                                    "buttons": [{
+                                        "type": "postback",
+                                        "title": "More event times",
+                                        "payload": "find_my_event_see_more_events"
+                                    }]
+                                });
 
 
 
@@ -302,7 +302,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 
 }
 
- 
+
 var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 
