@@ -1032,7 +1032,11 @@ function processPostback(event) {
 
 
     switch (payload) {
-
+        case "HAPPY_NEW_YEAR":
+            {
+                startHappyNewYear(senderId, referral)
+            }
+            break;
         case "VEGAS_SHOW":
             {
                 startVegasShow(senderId, referral)
@@ -1323,6 +1327,13 @@ function processPostback(event) {
                             console.log('No guardé el mlink DE  SHOW_VEGAS ?? O_O << ' + foundUser.mlinkSelected);
                         }
 
+                        if (foundUser.mlinkSelected == "HAPPY_NEW_YEAR") {
+                            startTevoModuleWithMlink(payload, senderId);
+
+                        } else {
+                            console.log('No guardé el mlink DE  HAPPY_NEW_YEAR ?? O_O << ' + foundUser.mlinkSelected);
+                        }
+                        
 
 
                     }
@@ -1590,6 +1601,14 @@ function chooseReferral(referral, senderId) {
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
     switch (referral) {
+
+        case "HAPPY_NEW_YEAR":
+            {
+                startHappyNewYear(senderId, referral)
+            }
+            break;
+
+
         case "VEGAS_SHOW":
             {
                 startVegasShow(senderId, referral)
@@ -1702,8 +1721,10 @@ var startVegasShow = (senderId, referral) => {
     vegasShowModule.startVegasShow(senderId, referral)
 }
 
-
-
+var startHappyNewYear = (senderId, referral) => {
+    var happyNewYearModule = require('../modules/tevo/happy_new_year/happy_new_year')
+    happyNewYearModule.startHappyNewYear(senderId, referral)
+}
 
 var startChristmasSongs = (senderId, referral) => {
     var chirstmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs')
@@ -1905,9 +1926,10 @@ function starSixEvent(senderId, referral) {
 
 
 }
+ 
 
 
-function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0) {
+function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, messageTitle = "") {
     console.log("event_name " + event_name);
 
     UserData2.findOne({
@@ -1949,7 +1971,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0) {
                 }
 
                 var TevoModule = require('../modules/tevo_request');
-                TevoModule.start(senderId, event_name, position, cool);
+                TevoModule.start(senderId, event_name, position, cool,messageTitle);
 
 
                 foundUser.save(function (err, userSaved) {
@@ -1984,7 +2006,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0) {
 
                             let TevoModule = require('../modules/tevo_request');
                             let position = 0;
-                            TevoModule.start(senderId, referral, position, cool);
+                            TevoModule.start(senderId, event_name, position, cool,messageTitle);
 
 
 

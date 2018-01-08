@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        start: function (senderId, event_name, position = 0, cool = 0) {
+        start: function (senderId, event_name, position = 0, cool = 0, messageTitle) {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
@@ -59,6 +59,11 @@ module.exports = function () {
                                 case 2:
                                     {
                                         Message.sendMessage(senderId, 'Thank your for your vote. Now, do you want to go to the concert?');
+                                    }
+                                    break;
+                                    case 3:
+                                    {
+                                        Message.sendMessage(senderId, messageTitle);
                                     }
                                     break;
                                 default:

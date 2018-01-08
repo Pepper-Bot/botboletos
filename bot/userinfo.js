@@ -6,7 +6,7 @@ var userInfo = function () {
 		getInfo: function (userId, callback) {
 
 			//const userFieldSet = 'id, name, about, email, accounts, link, is_verified, significant_other, relationship_status, website, picture, photos, feed';
-			/*request({
+			request({
 				url: 'https://graph.facebook.com/v2.8/' + userId,
 				qs: {
 					access_token: process.env.PAGE_ACCESS_TOKEN,
@@ -20,8 +20,8 @@ var userInfo = function () {
 					console.log("User Info >>> " + JSON.stringify(body));
 					callback(null, body);
 				}
-			});*/
-			request({
+			});
+			/*request({
 				url: 'https://graph.facebook.com/v2.8/' + userId + '/feed',
 				qs: {
 					access_token: process.env.PAGE_ACCESS_TOKEN,
@@ -35,7 +35,7 @@ var userInfo = function () {
 					console.log("User Info >>> " + JSON.stringify(body));
 					callback(null, body);
 				}
-			})
+			})*/
 
 		}
 	};
