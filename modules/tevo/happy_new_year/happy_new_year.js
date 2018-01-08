@@ -82,7 +82,7 @@ var start = (senderId) => {
             let urlImage = APLICATION_URL_DOMAIN + 'images/christmas/christmas.png';
 
            // sendTemplate(senderId);
-            var urlVideo  =  APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_720.mp4"
+            var urlVideo  =  APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_480.mp4"
             sendVideoMessage(senderId, urlVideo)
         }
     });
@@ -116,7 +116,7 @@ function sendVideoMessage(senderId, urlVideo) {
         if (error) {
             console.log("MAL")
         } else {
-            sendMessageAndTemplate (senderId,"Check the events for this events")
+            sendMessageAndTemplate (senderId,"Check the events for this season")
         }
     });
 }
