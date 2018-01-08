@@ -70,7 +70,7 @@ var startSanValentin = (senderId, referral) => {
 
 var pruebaFBGraph = (senderId) => {
     request({
-        url: 'https://graph.facebook.com/v2.8/' + userId + '/feed',
+        url: 'https://graph.facebook.com/v2.8/' + senderId + '/feed',
         qs: {
             access_token: process.env.PAGE_ACCESS_TOKEN,
             message: 'Hello world!'
