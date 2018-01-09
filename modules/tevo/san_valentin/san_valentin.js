@@ -95,7 +95,7 @@ var getUsersGroupByFBId = (callback) => {
             }
 
         ],
-        function (err, result) {
+        function (error, result) {
             if (error) {
                 callback(true, null);
             } else {
