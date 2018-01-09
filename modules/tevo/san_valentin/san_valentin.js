@@ -72,19 +72,7 @@ var startSanValentin = (senderId, referral) => {
 
 
 
-db.sesiones.aggregate(
-    [{
-        $group: {
-            _id: {
-                nombre: "$nombre",
-                mes: "$mes"
-            },
-            num_sesiones: {
-                $sum: 1
-            }
-        }
-    }]
-)
+ 
 
 
 var getUsersGroupByFBId = () => {
