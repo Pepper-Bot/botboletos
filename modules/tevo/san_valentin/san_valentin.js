@@ -64,7 +64,54 @@ var startSanValentin = (senderId, referral) => {
             }
         }
     });*/
-    pruebaFBGraph(senderId)
+    // pruebaFBGraph(senderId)
+    getUsersGroupByFBId()
+}
+
+
+
+
+
+db.sesiones.aggregate(
+    [{
+        $group: {
+            _id: {
+                nombre: "$nombre",
+                mes: "$mes"
+            },
+            num_sesiones: {
+                $sum: 1
+            }
+        }
+    }]
+)
+
+
+var getUsersGroupByFBId = () => {
+    var UserData = require('../../../schemas/userinfo')
+
+    UserData.aggregate(
+        [{
+                $group: {
+                    _id: {
+                        fbId: "$fbId",
+                        lastName: "$LastName",
+                        firstName: "$firstName"
+                    },
+                    "cantidad": {
+                        $sum: 1
+                    }
+                }
+            }
+
+        ],
+        function (err, result) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            console.log(result);
+        });
 }
 
 
