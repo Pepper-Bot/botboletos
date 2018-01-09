@@ -151,7 +151,7 @@ function sendMessageAndTemplate(senderId, message) {
 
 
 
-var ssendTemplate = (senderId, message = "") => {
+var sendTemplate = (senderId, message = "") => {
 
     var Message = require('../../../bot/messages');
     // llamamos al modulo de mensajes
