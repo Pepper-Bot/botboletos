@@ -65,17 +65,19 @@ var startSanValentin = (senderId, referral) => {
         }
     });*/
     // pruebaFBGraph(senderId)
-    getUsersGroupByFBId()
+    getUsersGroupByFBId((error, usuarios) => {
+        console.log("Users >>> " + JSON.stringify(result));
+    })
 }
 
 
 
 
 
- 
 
 
-var getUsersGroupByFBId = () => {
+
+var getUsersGroupByFBId = (callback) => {
     var UserData = require('../../../schemas/userinfo')
 
     UserData.aggregate(
@@ -94,11 +96,12 @@ var getUsersGroupByFBId = () => {
 
         ],
         function (err, result) {
-            if (err) {
-                console.log(err);
-                return;
+            if (error) {
+                callback(true, null);
+            } else {
+               
+                callback(null, result);
             }
-            console.log(result);
         });
 }
 
