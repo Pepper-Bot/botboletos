@@ -45,34 +45,7 @@ module.exports = function () {
                             Message.markSeen(senderId);
                             Message.typingOn(senderId);
 
-                            switch (cool) {
-                                case 0:
-                                    {
-                                        Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
-                                    }
-                                    break;
-                                case 1:
-                                    {
-                                        Message.sendMessage(senderId, 'Cool, I looked for "' + event_name + '"  Book a ticket:');
-                                    }
-                                    break;
-                                case 2:
-                                    {
-                                        Message.sendMessage(senderId, 'Thank your for your vote. Now, do you want to go to the concert?');
-                                    }
-                                    break;
-                                    case 3:
-                                    {
-                                        Message.sendMessage(senderId, messageTitle);
-                                    }
-                                    break;
-                                default:
-                                    {
-                                        Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
-                                    }
-                                    break;
-                            }
-
+                       
                             Message.typingOn(senderId);
 
                             console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<POSITION > ' + position);
@@ -195,7 +168,34 @@ module.exports = function () {
 
 
                             setImagesToEvents(gButtons, counter).then((gButtons) => {
-
+                                switch (cool) {
+                                    case 0:
+                                        {
+                                            Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
+                                        }
+                                        break;
+                                    case 1:
+                                        {
+                                            Message.sendMessage(senderId, 'Cool, I looked for "' + event_name + '"  Book a ticket:');
+                                        }
+                                        break;
+                                    case 2:
+                                        {
+                                            Message.sendMessage(senderId, 'Thank your for your vote. Now, do you want to go to the concert?');
+                                        }
+                                        break;
+                                        case 3:
+                                        {
+                                            Message.sendMessage(senderId, messageTitle);
+                                        }
+                                        break;
+                                    default:
+                                        {
+                                            Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
+                                        }
+                                        break;
+                                }
+    
                                 console.log("luego del GButons event_name >>>>> " + event_name);
                                 saveUsuarioAndEventSearchLastSelected(senderId, event_name);
 
