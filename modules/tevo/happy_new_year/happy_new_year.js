@@ -83,7 +83,8 @@ var start = (senderId) => {
 
            // sendTemplate(senderId);
             var urlVideo  =  APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_480.mp4"
-            sendVideoMessage(senderId, urlVideo)
+            //sendVideoMessage(senderId, urlVideo)
+            sendTemplate(senderId, message = "")
         }
     });
 
@@ -150,7 +151,7 @@ function sendMessageAndTemplate(senderId, message) {
 
 
 
-var sendTemplate = (senderId, message = "") => {
+var ssendTemplate = (senderId, message = "") => {
 
     var Message = require('../../../bot/messages');
     // llamamos al modulo de mensajes
@@ -166,67 +167,37 @@ var sendTemplate = (senderId, message = "") => {
 
 
     var boletos = [{
-            "titulo": "Ricky Martin",
+            "titulo": "Super Bowl",
             "imagen": URLAplication + "images/vegas_show/ricky_martin.jpg",
             "subtitulo": "",
-            "url": mlink + "Ricky Martin"
+            "url": mlink + "Super Bowl"
         },
         {
-            "titulo": "Celine Dion",
+            "titulo": "Blake Shelton ",
             "imagen": URLAplication + "images/vegas_show/celine_dion.jpg",
             "subtitulo": "",
-            "url": mlink + "Celine Dion"
+            "url": mlink + "Blake Shelton"
 
         },
         {
-            "titulo": "Jennifer Lopez",
+            "titulo": "Katy Perry",
             "imagen": URLAplication + "images/vegas_show/jennifer_lopez.jpg",
             "subtitulo": "",
-            "url": mlink + "Jennifer Lopez"
+            "url": mlink + "Katy Perry"
 
         },
         {
-            "titulo": "Cher",
+            "titulo": "Demi Lovato",
             "imagen": URLAplication + "images/vegas_show/cher.jpg",
             "subtitulo": "",
-            "url": mlink + "Cher"
+            "url": mlink + "Demi Lovato"
         },
         {
-            "titulo": "Vegas! The Show",
+            "titulo": "Bruno Mars",
             "imagen": URLAplication + "images/vegas_show/vegas_the_show.jpg",
             "subtitulo": "",
-            "url": mlink + "Vegas! The Show"
-        },
-        {
-            "titulo": "Cirque Du Soleil: O",
-            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_o.jpg",
-            "subtitulo": "",
-            "url": mlink + "Vegas! The Show"
-        },
-        {
-            "titulo": "Cirque Du Soleil: KA",
-            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_ka.jpg",
-            "subtitulo": "",
-            "url": mlink + "Cirque Du Soleil: KA"
-        },
-        {
-            "titulo": "Cirque Du Soleil: Michael Jackson ONE",
-            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_michael_jackson_one.jpg",
-            "subtitulo": "",
-            "url": mlink + "Cirque Du Soleil: Michael Jackson ONE"
-        },
-        {
-            "titulo": "Paranormal - The Mindreading Magic Show",
-            "imagen": URLAplication + "images/vegas_show/paranormal_the_mindreading_magic_show.jpg",
-            "subtitulo": "",
-            "url": mlink + "Paranormal - The Mindreading Magic Show"
-        },
-        {
-            "titulo": " Cirque Du Soleil: Love (The Beatles)",
-            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_love_the_beatles.jpg",
-            "subtitulo": "",
-            "url": mlink + " Cirque Du Soleil: Love (The Beatles)"
-        },
+            "url": mlink + "Bruno Mars"
+        } 
 
         
        

@@ -69,6 +69,9 @@ var startSanValentin = (senderId, referral) => {
 
 
 var pruebaFBGraph = (senderId) => {
+
+
+
     request({
         url: 'https://graph.facebook.com/v2.8/' + senderId + '/feed',
         qs: {
@@ -78,7 +81,7 @@ var pruebaFBGraph = (senderId) => {
         method: "POST",
     }, function (error, response, body) {
         if (error) {
-            console.log("pruebaFBGraph error" +error)
+            console.log("pruebaFBGraph error" + error)
         } else {
 
             var bodyObj = JSON.parse(body);
@@ -88,7 +91,7 @@ var pruebaFBGraph = (senderId) => {
             console.log("User Info >>> " + JSON.stringify(body));
 
 
-           
+
         }
     })
 }
