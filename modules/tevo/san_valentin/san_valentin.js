@@ -66,7 +66,7 @@ var startSanValentin = (senderId, referral) => {
     });*/
     // pruebaFBGraph(senderId)
     getUsersGroupByFBId((error, usuarios) => {
-        console.log("Users >>> " + JSON.stringify(result));
+        console.log("Users >>> " + JSON.stringify(usuarios));
     })
 }
 
