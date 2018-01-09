@@ -109,10 +109,16 @@ var sendTemplate = (senderId, message = "") => {
 
 
     var boletos = [{
-            "titulo": "Ricky Martin",
-            "imagen": URLAplication + "images/vegas_show/ricky_martin.jpg",
+            "titulo": "Vegas! The Show",
+            "imagen": URLAplication + "images/vegas_show/vegas_the_show.jpg",
             "subtitulo": "",
-            "url": mlink + "Ricky Martin"
+            "url": mlink + "Vegas! The Show"
+        },
+        {
+            "titulo": " Cirque Du Soleil: Love (The Beatles)",
+            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_love_the_beatles.jpg",
+            "subtitulo": "",
+            "url": mlink + " Cirque Du Soleil: Love (The Beatles)"
         },
         {
             "titulo": "Celine Dion",
@@ -120,37 +126,6 @@ var sendTemplate = (senderId, message = "") => {
             "subtitulo": "",
             "url": mlink + "Celine Dion"
 
-        },
-        {
-            "titulo": "Jennifer Lopez",
-            "imagen": URLAplication + "images/vegas_show/jennifer_lopez.jpg",
-            "subtitulo": "",
-            "url": mlink + "Jennifer Lopez"
-
-        },
-        {
-            "titulo": "Cher",
-            "imagen": URLAplication + "images/vegas_show/cher.jpg",
-            "subtitulo": "",
-            "url": mlink + "Cher"
-        },
-        {
-            "titulo": "Vegas! The Show",
-            "imagen": URLAplication + "images/vegas_show/vegas_the_show.jpg",
-            "subtitulo": "",
-            "url": mlink + "Vegas! The Show"
-        },
-        {
-            "titulo": "Cirque Du Soleil: O",
-            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_o.jpg",
-            "subtitulo": "",
-            "url": mlink + "Vegas! The Show"
-        },
-        {
-            "titulo": "Cirque Du Soleil: KA",
-            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_ka.jpg",
-            "subtitulo": "",
-            "url": mlink + "Cirque Du Soleil: KA"
         },
         {
             "titulo": "Cirque Du Soleil: Michael Jackson ONE",
@@ -165,14 +140,47 @@ var sendTemplate = (senderId, message = "") => {
             "url": mlink + "Paranormal - The Mindreading Magic Show"
         },
         {
-            "titulo": " Cirque Du Soleil: Love (The Beatles)",
-            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_love_the_beatles.jpg",
+            "titulo": "Cirque Du Soleil: O",
+            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_o.jpg",
             "subtitulo": "",
-            "url": mlink + " Cirque Du Soleil: Love (The Beatles)"
+            "url": mlink + "Vegas! The Show"
+        },
+        {
+            "titulo": "Cirque Du Soleil: KA",
+            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_ka.jpg",
+            "subtitulo": "",
+            "url": mlink + "Cirque Du Soleil: KA"
+        },
+        {
+            "titulo": "Cher",
+            "imagen": URLAplication + "images/vegas_show/cher.jpg",
+            "subtitulo": "",
+            "url": mlink + "Cher"
+        },
+        {
+            "titulo": "Jennifer Lopez",
+            "imagen": URLAplication + "images/vegas_show/jennifer_lopez.jpg",
+            "subtitulo": "",
+            "url": mlink + "Jennifer Lopez"
+
+        },
+      
+       
+        {
+            "titulo": "Ricky Martin",
+            "imagen": URLAplication + "images/vegas_show/ricky_martin.jpg",
+            "subtitulo": "",
+            "url": mlink + "Ricky Martin"
         },
 
-        
        
+
+
+
+
+
+
+
 
     ];
 

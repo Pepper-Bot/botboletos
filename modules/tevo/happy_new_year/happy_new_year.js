@@ -83,8 +83,8 @@ var start = (senderId) => {
 
            // sendTemplate(senderId);
             var urlVideo  =  APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_480.mp4"
-            //sendVideoMessage(senderId, urlVideo)
-            sendTemplate(senderId, message = "")
+            sendVideoMessage(senderId, urlVideo)
+            //sendTemplate(senderId, message = "")
         }
     });
 
