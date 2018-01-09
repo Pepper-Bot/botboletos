@@ -168,33 +168,33 @@ var ssendTemplate = (senderId, message = "") => {
 
     var boletos = [{
             "titulo": "Super Bowl",
-            "imagen": URLAplication + "images/vegas_show/ricky_martin.jpg",
+            "imagen": URLAplication + "images/happy_new_year/super_bowl.jpg",
             "subtitulo": "",
             "url": mlink + "Super Bowl"
         },
         {
             "titulo": "Blake Shelton ",
-            "imagen": URLAplication + "images/vegas_show/celine_dion.jpg",
+            "imagen": URLAplication + "images/happy_new_year/blake_shelton.jpg",
             "subtitulo": "",
             "url": mlink + "Blake Shelton"
 
         },
         {
             "titulo": "Katy Perry",
-            "imagen": URLAplication + "images/vegas_show/jennifer_lopez.jpg",
+            "imagen": URLAplication + "images/happy_new_year/katy_perry.jpg",
             "subtitulo": "",
             "url": mlink + "Katy Perry"
 
         },
         {
             "titulo": "Demi Lovato",
-            "imagen": URLAplication + "images/vegas_show/cher.jpg",
+            "imagen": URLAplication + "images/happy_new_year/demi.jpg",
             "subtitulo": "",
             "url": mlink + "Demi Lovato"
         },
         {
             "titulo": "Bruno Mars",
-            "imagen": URLAplication + "images/vegas_show/vegas_the_show.jpg",
+            "imagen": URLAplication + "images/happy_new_year/bruno_mars.jpg",
             "subtitulo": "",
             "url": mlink + "Bruno Mars"
         } 

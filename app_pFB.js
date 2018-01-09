@@ -2,6 +2,11 @@
 'use strict';
 require('dotenv').config();
 var express = require('express');
+
+var passport = require('passport');
+var Strategy = require('passport-facebook').Strategy;
+
+
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -48,7 +53,28 @@ ChatBox.persistentMenu({
   "payload": "Greetings"
 });
 
+var APLICATION_URL_DOMAIN = require('./config/config_vars').APLICATION_URL_DOMAIN;
+passport.use(new Strategy({
+    clientID: 1276771255782201,
+    clientSecret: 'e6ee0ca2a8685386e6dd53943d1e9f93',
+    callbackURL: APLICATION_URL_DOMAIN + '/login/facebook/return'
+  },
+  function (accessToken, refreshToken, profile, cb) {
+    // In this example, the user's Facebook profile is supplied as the user
+    // record.  In a production-quality application, the Facebook profile should
+    // be associated with a user record in the application's database, which
+    // allows for account linking and authentication with other identity
+    // providers.
+    return cb(null, profile);
+  }));
 
+passport.serializeUser(function (user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function (obj, cb) {
+  cb(null, obj);
+});
 
 var app = express();
 
@@ -121,6 +147,11 @@ var urlencodedParser = app.use(bodyParser.urlencoded({
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+
+app.use(passport.initialize());
+app.use(passport.session());
+
+
 //midleware para ssessions...
 
 
@@ -187,6 +218,46 @@ app.use(function (req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
+
+
+
+// Define routes.
+app.get('/',
+  function (req, res) {
+    res.render('home', {
+      user: req.user
+    });
+  });
+
+app.get('/login',
+  function (req, res) {
+    res.render('login');
+  });
+
+app.get('/login/facebook',
+  passport.authenticate('facebook', {
+    scope: ['publish_actions', 'manage_pages']
+  }));
+
+
+  
+app.get('/login/facebook/return',
+  passport.authenticate('facebook', {
+    failureRedirect: '/login'
+  }),
+  function (req, res) {
+    res.redirect('/');
+  });
+
+app.get('/profile',
+  require('connect-ensure-login').ensureLoggedIn(),
+  function (req, res) {
+    res.render('profile', {
+      user: req.user
+    });
+  });
 
 
 
