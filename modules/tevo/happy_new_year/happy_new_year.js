@@ -81,9 +81,10 @@ var start = (senderId, con = true) => {
 
             let urlImage = APLICATION_URL_DOMAIN + 'images/christmas/christmas.png';
 
-            // sendTemplate(senderId);
-            var urlVideo = APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_480.mp4"
+         
+           
             if (con == true) {
+                var urlVideo = APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_480.mp4"
                 var message = 'Seasson´s Greetings! And best wishes for the New Year 😄'
                 sendVideoMessage(senderId, message, urlVideo)
             } else {
@@ -97,7 +98,7 @@ var start = (senderId, con = true) => {
 }
 
 
-function sendVideoMessage(senderId, message = "", urlVideo) {
+function sendVideoMessage(senderId, message , urlVideo) {
     request({
         url: FBMESSAGESPAGE,
         qs: {

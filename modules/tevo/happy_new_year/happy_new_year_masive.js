@@ -44,8 +44,8 @@ var sendHappyNewYerToUsers = () => {
     })*/
     var urlVideo = APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_480.mp4"
     for (let i = 0; i < usuarios.length; i++) {
-        //Seasson's Greetings! And best wishes for the New Year 😄
-        happy_new_year.sendVideoMessage(usuarios[i]._id.fbId, urlVideo)
+        var message = 'Seasson´s Greetings! And best wishes for the New Year 😄'
+        happy_new_year.sendVideoMessage(usuarios[i]._id.fbId, message, urlVideo)
     }
 }
 
