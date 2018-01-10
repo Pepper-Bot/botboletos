@@ -10,7 +10,7 @@ var UserData2 = require('../../../schemas/userinfo');
 var Message = require('../../../bot/messages');
 
 
-var startHappyNewYear = (senderId, referral) => {
+var startHappyNewYear = (senderId, referral, con = true) => {
     UserData2.findOne({
         fbId: senderId
     }, {}, {
@@ -26,7 +26,7 @@ var startHappyNewYear = (senderId, referral) => {
                         console.log('Error al guardar el usuario');
                     } else {
                         console.log('usuario actualizado:' + foundUser.mlinkSelected);
-                        start(senderId);
+                        start(senderId, con);
                     }
                 });
             } else {
@@ -47,14 +47,14 @@ var startHappyNewYear = (senderId, referral) => {
                             User.mlinkSelected = referral
 
                             User.save();
-                            start(senderId);
+                            start(senderId, con);
 
                             User.save((err, foundUserBefore) => {
                                 if (err) {
                                     console.log('Error al guardar el usuario ');
                                 } else {
                                     console.log('usuario guardado:' + foundUserBefore.mlinkSelected);
-                                    start(senderId);
+                                    start(senderId, con);
                                 }
 
                             });
@@ -69,7 +69,7 @@ var startHappyNewYear = (senderId, referral) => {
 
 
 
-var start = (senderId) => {
+var start = (senderId, con = true) => {
     UserData.getInfo(senderId, function (err, result) {
         console.log('Consultado el usuario de Face !!');
         if (!err) {
@@ -83,8 +83,13 @@ var start = (senderId) => {
 
             // sendTemplate(senderId);
             var urlVideo = APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_480.mp4"
-            sendVideoMessage(senderId, urlVideo)
-            //sendTemplate(senderId, message = "")
+            if (con == true) {
+                var message  = 'Seasson´s Greetings! And best wishes for the New Year 😄'
+                sendVideoMessage(senderId, urlVideo)
+            } else {
+                sendTemplate(senderId, message = "")
+            }
+            //
         }
     });
 
@@ -92,10 +97,7 @@ var start = (senderId) => {
 }
 
 
-
-
-
-function sendVideoMessage(senderId, urlVideo) {
+function sendVideoMessage(senderId, message = "",  urlVideo) {
     request({
         url: FBMESSAGESPAGE,
         qs: {
@@ -103,26 +105,46 @@ function sendVideoMessage(senderId, urlVideo) {
         },
         method: 'POST',
         json: {
-            "recipient": {
-                "id": senderId
+            recipient: {
+                id: senderId
             },
-            "message": {
-                "attachment": {
-                    "type": "video",
-                    "payload": {
-                        "url": urlVideo
-                    }
-                }
+            message: {
+                text: message
             }
         }
     }, function (error, response, body) {
-        console.log(response)
         if (error) {
-            console.log("MAL")
+            return false;
         } else {
-            sendMessageAndTemplate(senderId, "Check the events for this season")
+            request({
+                url: FBMESSAGESPAGE,
+                qs: {
+                    access_token: PAGE_ACCESS_TOKEN
+                },
+                method: 'POST',
+                json: {
+                    "recipient": {
+                        "id": senderId
+                    },
+                    "message": {
+                        "attachment": {
+                            "type": "video",
+                            "payload": {
+                                "url": urlVideo
+                            }
+                        }
+                    }
+                }
+            }, function (error, response, body) {
+                console.log(response)
+                if (error) {
+                    console.log("MAL")
+                } else {
+                    sendMessageAndTemplate(senderId, "Check the events for this season")
+                }
+            });
         }
-    });
+    })
 }
 
 

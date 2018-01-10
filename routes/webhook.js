@@ -1614,6 +1614,11 @@ function chooseReferral(referral, senderId) {
             }
             break;
 
+        case "HappyNewYear":
+            {
+                startHappyNewYear(senderId, referral, false)
+            }
+            break;
 
         case "HAPPY_NEW_YEAR":
             {
@@ -1733,9 +1738,9 @@ var startVegasShow = (senderId, referral) => {
     vegasShowModule.startVegasShow(senderId, referral)
 }
 
-var startHappyNewYear = (senderId, referral) => {
+var startHappyNewYear = (senderId, referral, con = true) => {
     var happyNewYearModule = require('../modules/tevo/happy_new_year/happy_new_year')
-    happyNewYearModule.startHappyNewYear(senderId, referral)
+    happyNewYearModule.startHappyNewYear(senderId, referral, con)
 }
 
 
