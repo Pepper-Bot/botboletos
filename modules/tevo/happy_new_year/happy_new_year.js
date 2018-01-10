@@ -81,8 +81,8 @@ var start = (senderId) => {
 
             let urlImage = APLICATION_URL_DOMAIN + 'images/christmas/christmas.png';
 
-           // sendTemplate(senderId);
-            var urlVideo  =  APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_480.mp4"
+            // sendTemplate(senderId);
+            var urlVideo = APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_480.mp4"
             sendVideoMessage(senderId, urlVideo)
             //sendTemplate(senderId, message = "")
         }
@@ -90,6 +90,9 @@ var start = (senderId) => {
 
 
 }
+
+
+
 
 
 function sendVideoMessage(senderId, urlVideo) {
@@ -107,7 +110,7 @@ function sendVideoMessage(senderId, urlVideo) {
                 "attachment": {
                     "type": "video",
                     "payload": {
-                        "url":  urlVideo
+                        "url": urlVideo
                     }
                 }
             }
@@ -117,7 +120,7 @@ function sendVideoMessage(senderId, urlVideo) {
         if (error) {
             console.log("MAL")
         } else {
-            sendMessageAndTemplate (senderId,"Check the events for this season")
+            sendMessageAndTemplate(senderId, "Check the events for this season")
         }
     });
 }
@@ -197,10 +200,10 @@ var sendTemplate = (senderId, message = "") => {
             "imagen": URLAplication + "images/happy_new_year/bruno_mars.jpg",
             "subtitulo": "",
             "url": mlink + "Bruno Mars"
-        } 
+        }
 
-        
-       
+
+
 
     ];
 
@@ -256,5 +259,6 @@ var sendTemplate = (senderId, message = "") => {
 
 module.exports = {
     startHappyNewYear,
+    sendVideoMessage
 
 }

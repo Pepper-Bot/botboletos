@@ -8,7 +8,7 @@ var request = require('request');
 var UserData = require('../../../bot/userinfo');
 var UserData2 = require('../../../schemas/userinfo');
 var Message = require('../../../bot/messages');
-
+var happyNYMasive  = require ('../happy_new_year/happy_new_year_masive')
 
 var startSanValentin = (senderId, referral) => {
     /*UserData2.findOne({
@@ -65,9 +65,10 @@ var startSanValentin = (senderId, referral) => {
         }
     });*/
     // pruebaFBGraph(senderId)
-    getUsersGroupByFBId((error, usuarios) => {
-        console.log("Users >>> " + JSON.stringify(usuarios));
-    })
+   // getUsersGroupByFBId((error, usuarios) => {
+   ///     console.log("Users >>> " + JSON.stringify(usuarios));
+    //})
+    happyNYMasive.sendHappyNewYerToUsers()
 }
 
 
@@ -77,33 +78,7 @@ var startSanValentin = (senderId, referral) => {
 
 
 
-var getUsersGroupByFBId = (callback) => {
-    var UserData = require('../../../schemas/userinfo')
 
-    UserData.aggregate(
-        [{
-                $group: {
-                    _id: {
-                        fbId: "$fbId",
-                        lastName: "$LastName",
-                        firstName: "$firstName"
-                    },
-                    "cantidad": {
-                        $sum: 1
-                    }
-                }
-            }
-
-        ],
-        function (error, result) {
-            if (error) {
-                callback(true, null);
-            } else {
-               
-                callback(null, result);
-            }
-        });
-}
 
 
 var pruebaFBGraph = (senderId) => {
