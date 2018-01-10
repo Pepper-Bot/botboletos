@@ -116,35 +116,39 @@ function sendVideoMessage(senderId, message = "", urlVideo) {
         if (error) {
             return false;
         } else {
-            request({
-                url: FBMESSAGESPAGE,
-                qs: {
-                    access_token: PAGE_ACCESS_TOKEN
-                },
-                method: 'POST',
-                json: {
-                    "recipient": {
-                        "id": senderId
-                    },
-                    "message": {
-                        "attachment": {
-                            "type": "video",
-                            "payload": {
-                                "url": urlVideo
-                            }
-                        }
-                    }
-                }
-            }, function (error, response, body) {
-                console.log(response)
-                if (error) {
-                    console.log("MAL")
-                } else {
-                    sendMessageAndTemplate(senderId, "Check the events for this season")
-                }
-            });
+            sendVideoTemplate(senderId, urlVideo)
         }
     })
+}
+
+var sendVideoTemplate = (senderId, urlVideo) => {
+    request({
+        url: FBMESSAGESPAGE,
+        qs: {
+            access_token: PAGE_ACCESS_TOKEN
+        },
+        method: 'POST',
+        json: {
+            "recipient": {
+                "id": senderId
+            },
+            "message": {
+                "attachment": {
+                    "type": "video",
+                    "payload": {
+                        "url": urlVideo
+                    }
+                }
+            }
+        }
+    }, function (error, response, body) {
+        console.log(response)
+        if (error) {
+            console.log("MAL")
+        } else {
+            sendMessageAndTemplate(senderId, "Check the events for this season")
+        }
+    });
 }
 
 
