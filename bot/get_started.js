@@ -19,7 +19,7 @@
    request({
      url: 'https://graph.facebook.com/v2.6/me/messenger_profile',
      qs: {
-       access_token: process.env.PAGE_ACCESS_TOKEN,
+       access_token: process.env.PAGE_ACCES_TOKEN1,
      },
      json: true,
      body: requestData,
@@ -48,7 +48,7 @@
    request({
      url: 'https://graph.facebook.com/v2.6/me/messenger_profile',
      qs: {
-       access_token: process.env.PAGE_ACCESS_TOKEN,
+       access_token: process.env.PAGE_ACCES_TOKEN1,
      },
      json: true,
      body: requestData,
