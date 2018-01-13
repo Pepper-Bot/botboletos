@@ -1,8 +1,17 @@
 var getUsersGroupByFBId = (callback) => {
     var UserData = require('../../schemas/userinfo')
-
     UserData.aggregate(
-        [{
+        [
+
+            {
+                $match: {
+                    firstName: {
+                        $exists: true
+                    }
+                }
+            },
+
+            {
                 $group: {
                     _id: {
                         fbId: "$fbId",

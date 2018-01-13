@@ -290,6 +290,6 @@ var sendTemplate = (senderId, message = "") => {
 
 module.exports = {
     startHappyNewYear,
-    sendVideoMessage
-
+    sendVideoMessage,
+    start,
 }

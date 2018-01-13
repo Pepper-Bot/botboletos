@@ -1,7 +1,7 @@
 var UserQueries = require('../../../schemas/queries/user_queries')
 var happy_new_year = require('./happy_new_year')
 var APLICATION_URL_DOMAIN = require('../../../config/config_vars').APLICATION_URL_DOMAIN;
-var usuarios = [{
+var usuariosPrueba = [{
     "_id": {
         "fbId": "1552706148141481",
         "lastName": "Silver",
@@ -39,14 +39,13 @@ var usuarios = [{
 }]
 
 var sendHappyNewYerToUsers = () => {
-    /*UserQueries.getUsersGroupByFBId((error, usuarios) => {
+    UserQueries.getUsersGroupByFBId((error, usuarios) => {
         console.log("Users >>> " + JSON.stringify(usuarios));
-    })*/
-    var urlVideo = APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_480.mp4"
+    })
+
     for (let i = 0; i < usuarios.length; i++) {
-        var message = 'Seasson´s Greetings! And best wishes for the New Year 😄'
-        happy_new_year.sendVideoMessage(usuarios[i]._id.fbId, message, urlVideo)
-    }
+         happy_new_year.start(usuariosPrueba[i]._id.fbId, true)
+     }
 }
 
 module.exports = {
