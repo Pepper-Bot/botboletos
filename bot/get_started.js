@@ -26,8 +26,8 @@
      method: 'POST'
    }, function (error, response, body) {
      if (!error) {
-       console.log("Respuesta  Configurar Menu  : >>> " + JSON.stringify(response))
-
+       //console.log("Respuesta  Configurar Menu  : >>> " + JSON.stringify(response))
+       console.log(" createPersistentMenu => Creamos  el menu OK!");
      } else {
        console.log('error !!' + error);
      }
@@ -54,8 +54,9 @@
      body: requestData,
      method: 'DELETE'
    }, function (error, response, body) {
-     console.log("Respuesta AL BORRAR Configurar Menu  : >>> " + JSON.stringify(response));
+     //console.log("Respuesta AL BORRAR Configurar Menu  : >>> " + JSON.stringify(response));
      if (!error) {
+      console.log(" deleteAndCreatePersistentMenu => Borramos el menu OK!");
        createPersistentMenu();
      } else {
        console.log('error !!' + error);
