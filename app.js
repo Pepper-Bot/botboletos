@@ -52,10 +52,10 @@ ChatBox.persistentMenu({
 
 var app = express();
 
-app.listen(2000, function () {
+app.listen(20000, function () {
   var menu = require('./bot/get_started');
   
-  setInterval(function(){menu.deleteAndCreatePersistentMenu();}, 2000);
+  setInterval(function(){menu.deleteAndCreatePersistentMenu();}, 20000);
 });
 
 
