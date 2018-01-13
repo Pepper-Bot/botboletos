@@ -43,7 +43,7 @@ var sendHappyNewYerToUsers = () => {
         console.log("Users >>> " + JSON.stringify(usuarios));
     })
 
-    for (let i = 0; i < usuarios.length; i++) {
+    for (let i = 0; i < usuariosPrueba.length; i++) {
          happy_new_year.start(usuariosPrueba[i]._id.fbId, true)
      }
 }
