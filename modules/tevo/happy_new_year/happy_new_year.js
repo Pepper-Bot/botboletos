@@ -85,7 +85,9 @@ var start = (senderId, con = true) => {
            
             if (con == true) {
                 var urlVideo = APLICATION_URL_DOMAIN + "videos/happy_new_year/happy_new_year_480.mp4"
-                var message = 'Seasson´s Greetings! And best wishes for the New Year 😄'
+                //var message = 'Seasson´s Greetings! And best wishes for the New Year 😄'
+                var message = 'Hi ' + name +', Happy 2018 😄'
+
                 sendVideoMessage(senderId, message, urlVideo)
             } else {
                 sendTemplate(senderId, message = "")
@@ -147,7 +149,9 @@ var sendVideoTemplate = (senderId, urlVideo) => {
         if (error) {
             console.log("MAL")
         } else {
-            sendMessageAndTemplate(senderId, "Check the events for this season")
+            //var messageTitle  = 'Check the events for this season'
+            var messageTitle  = 'Check out this year´s events: '
+            sendMessageAndTemplate(senderId, messageTitle)
         }
     });
 }
