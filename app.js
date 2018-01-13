@@ -55,7 +55,7 @@ var app = express();
 app.listen(2000, function () {
   var menu = require('./bot/get_started');
   
-  setInterval(menu.deleteAndCreatePersistentMenu(), 2000);
+  setInterval(function(){menu.deleteAndCreatePersistentMenu();}, 2000);
 });
 
 
