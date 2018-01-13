@@ -10,7 +10,12 @@ var getUsersGroupByFBId = (callback) => {
                     }
                 }
             },
-
+            {
+                $sort: {
+                    lastName: -1,
+                    firstName: -1
+                }
+            },
             {
                 $group: {
                     _id: {
