@@ -6,8 +6,11 @@ var APLICATION_URL_DOMAIN = require('../../../config/config_vars').APLICATION_UR
 var sendHappyNewYerToUsers = () => {
     UserQueries.getUsersGroupByFBId((error, usuarios) => {
         console.log("Users >>> " + JSON.stringify(usuarios));
+        for (let i = 0; i < usuarios.length; i++) {
+            happy_new_year.start(usuarios[i]._id.fbId, true)
+        }
     })
-    var usuarios = [{
+    /*var usuarios = [{
             "_id": {
                 "fbId": "1552706148141481",
                 "lastName": "Silver",
@@ -54,7 +57,7 @@ var sendHappyNewYerToUsers = () => {
     ]
     for (let i = 0; i < usuarios.length; i++) {
         happy_new_year.start(usuarios[i]._id.fbId, true)
-    }
+    }*/
 }
 
 module.exports = {
