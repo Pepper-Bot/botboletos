@@ -1,5 +1,6 @@
 /////////////////////tevo/////////////////////////////
 var API_AI_CLIENT_ACCESS_TOKEN =  process.env.API_AI_CLIENT_ACCESS_TOKEN
+var FB_APP_SECRET  = process.env.FB_APP_SECRET
 var APLICATION_URL_DOMAIN = process.env.APLICATION_URL_DOMAIN
 var PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 var FBMESSAGESPAGE = 'https://graph.facebook.com/v2.6/me/messages'
@@ -92,4 +93,5 @@ module.exports = {
   only_with,
   format_tickets,
   API_AI_CLIENT_ACCESS_TOKEN,
+  FB_APP_SECRET, 
 };

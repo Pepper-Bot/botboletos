@@ -6,6 +6,10 @@ var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
 var API_AI_CLIENT_ACCESS_TOKEN = require('../config/config_vars').API_AI_CLIENT_ACCESS_TOKEN;
+var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
+var PAGE_ACCESS_TOKEN = require('../config/config_vars').PAGE_ACCESS_TOKEN;
+
+var FB_APP_SECRET = require('../config/config_vars').FB_APP_SECRET;
 
 const apiai = require('apiai');
 const crypto = require('crypto');
@@ -561,7 +565,7 @@ function sendGifMessage(recipientId) {
 			attachment: {
 				type: "image",
 				payload: {
-					url: config.SERVER_URL + "/assets/instagram_logo.gif"
+					url: APLICATION_URL_DOMAIN + "/public/imates/instagram_logo.gif"
 				}
 			}
 		}
@@ -583,7 +587,7 @@ function sendAudioMessage(recipientId) {
 			attachment: {
 				type: "audio",
 				payload: {
-					url: config.SERVER_URL + "/assets/sample.mp3"
+					url: APLICATION_URL_DOMAIN + "/public/music/sample.mp3"
 				}
 			}
 		}
@@ -605,7 +609,7 @@ function sendVideoMessage(recipientId, videoName) {
 			attachment: {
 				type: "video",
 				payload: {
-					url: config.SERVER_URL + videoName
+					url: APLICATION_URL_DOMAIN + videoName
 				}
 			}
 		}
@@ -627,7 +631,7 @@ function sendFileMessage(recipientId, fileName) {
 			attachment: {
 				type: "file",
 				payload: {
-					url: config.SERVER_URL + fileName
+					url: APLICATION_URL_DOMAIN + fileName
 				}
 			}
 		}
@@ -800,7 +804,7 @@ function sendAccountLinking(recipientId) {
 					text: "Welcome. Link your account.",
 					buttons: [{
 						type: "account_link",
-						url: config.SERVER_URL + "/authorize"
+						url: APLICATION_URL_DOMAIN + "/authorize"
 					}]
 				}
 			}
@@ -849,7 +853,7 @@ function callSendAPI(messageData) {
 	request({
 		uri: 'https://graph.facebook.com/v2.6/me/messages',
 		qs: {
-			access_token: config.FB_PAGE_TOKEN
+			access_token:  PAGE_ACCESS_TOKEN
 		},
 		method: 'POST',
 		json: messageData
@@ -1014,7 +1018,8 @@ function verifyRequestSignature(req, res, buf) {
 		var method = elements[0];
 		var signatureHash = elements[1];
 
-		var expectedHash = crypto.createHmac('sha1', config.FB_APP_SECRET)
+        //var expectedHash = crypto.createHmac('sha1', config.FB_APP_SECRET)
+        var expectedHash = crypto.createHmac('sha1', FB_APP_SECRET)
 			.update(buf)
 			.digest('hex');
 
@@ -1036,9 +1041,6 @@ function isDefined(obj) {
 	return obj != null;
 }
 
-// Spin up the server
-app.listen(app.get('port'), function () {
-	console.log('running on port', app.get('port'))
-})
+ 
 
 module.exports = router;
