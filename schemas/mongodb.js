@@ -6,7 +6,7 @@ var Database = (function(){
 		function openConnection(){
 			var mongoose = require('mongoose');
 			//var connectionString = process.env.MONGODB_URI;
-			var connectionString = process.env.MONGODB_URI1;
+			var connectionString = process.env.MONGODB_URI;
 			mongoose.connect(connectionString);
 			var object = mongoose.connection;
 			return object;
