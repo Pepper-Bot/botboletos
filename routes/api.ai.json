@@ -1,0 +1,112 @@
+{
+    "id": "4d941a36-5440-450e-8987-ae5bbab01b20",
+    "timestamp": "2018-01-16T01:28:54.828Z",
+    "lang": "en",
+    "result": {
+        "source": "agent",
+        "resolvedQuery": "Madonna",
+        "action": "events.search",
+        "actionIncomplete": true,
+        "parameters": {
+            "location": "",
+            "date-time": "",
+            "amount": "",
+            "artist": "Madonna",
+            "event-title": "",
+            "event-type": "",
+            "sort": [],
+            "music-genre": "",
+            "team": ""
+        },
+        "contexts": [{
+            "name": "events_search_dialog_context",
+            "parameters": {
+                "date-time.original": "",
+                "team.original": "",
+                "amount": "",
+                "music-genre": "",
+                "event-title": "",
+                "artist": "Madonna",
+                "event-type": "",
+                "date-time": "",
+                "team": "",
+                "sort": [],
+                "music-genre.original": "",
+                "location.original": "",
+                "amount.original": "",
+                "location": "",
+                "artist.original": "Madonna",
+                "event-title.original": "",
+                "sort.original": "",
+                "event-type.original": ""
+            },
+            "lifespan": 2
+        }, {
+            "name": "events_search_dialog_params_location",
+            "parameters": {
+                "date-time.original": "",
+                "team.original": "",
+                "amount": "",
+                "music-genre": "",
+                "event-title": "",
+                "artist": "Madonna",
+                "event-type": "",
+                "date-time": "",
+                "team": "",
+                "sort": [],
+                "music-genre.original": "",
+                "location.original": "",
+                "amount.original": "",
+                "location": "",
+                "artist.original": "Madonna",
+                "event-title.original": "",
+                "sort.original": "",
+                "event-type.original": ""
+            },
+            "lifespan": 1
+        }, {
+            "name": "71a3af90-cb79-4f0c-9dee-aec88ffbff44_id_dialog_context",
+            "parameters": {
+                "date-time.original": "",
+                "team.original": "",
+                "amount": "",
+                "music-genre": "",
+                "event-title": "",
+                "artist": "Madonna",
+                "event-type": "",
+                "date-time": "",
+                "team": "",
+                "sort": [],
+                "music-genre.original": "",
+                "location.original": "",
+                "amount.original": "",
+                "location": "",
+                "artist.original": "Madonna",
+                "event-title.original": "",
+                "sort.original": "",
+                "event-type.original": ""
+            },
+            "lifespan": 2
+        }],
+        "metadata": {
+            "intentId": "71a3af90-cb79-4f0c-9dee-aec88ffbff44",
+            "webhookUsed": "false",
+            "webhookForSlotFillingUsed": "false",
+            "intentName": "events.search"
+        },
+        "fulfillment": {
+            "speech": "At what location?",
+            "messages": [{
+                "type": 0,
+                "speech": "At what location?"
+            }]
+        },
+        "score": 1
+    },
+    "status": {
+        "code": 200,
+        "errorType": "success",
+        "webhookTimedOut": false
+    },
+    "sessionId": "763aa6e0-fa5c-11e7-8389-13db290aa2f5"
+}

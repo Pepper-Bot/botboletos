@@ -198,8 +198,14 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
         case "events.search":
             {
                 console.log("handleApiAiResponse >>> " + JSON.stringify(contexts));
+                if (contexts.result.parameters.location.city) {
+                    let city = contexts.result.parameters.location.city
+                    console.log("city>>> " + JSON.stringify(city));
+                }
 
 
+
+                sendTextMessage(sender, responseText);
 
                 break;
             }
