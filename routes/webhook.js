@@ -213,13 +213,14 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         "team": "",
                         "sort": [],
                         "music-genre.original": "",
-                        "location.original": "chicago",
+                        "location.original": "mexico",
                         "amount.original": "",
                         "location": {
-                            "city": "Chicago",
-                            "city.original": "chicago"
+                            "country": "Mexico",
+                            "country.original": "mexico",
+                            "country.object": {}
                         },
-                        "artist.original": "Bruno mars",
+                        "artist.original": "Bruno Mars",
                         "event-title.original": "",
                         "sort.original": "",
                         "event-type.original": ""
@@ -239,13 +240,14 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         "team": "",
                         "sort": [],
                         "music-genre.original": "",
-                        "location.original": "chicago",
+                        "location.original": "mexico",
                         "amount.original": "",
                         "location": {
-                            "city": "Chicago",
-                            "city.original": "chicago"
+                            "country": "Mexico",
+                            "country.original": "mexico",
+                            "country.object": {}
                         },
-                        "artist.original": "Bruno mars",
+                        "artist.original": "Bruno Mars",
                         "event-title.original": "",
                         "sort.original": "",
                         "event-type.original": ""
@@ -265,13 +267,14 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         "team": "",
                         "sort": [],
                         "music-genre.original": "",
-                        "location.original": "chicago",
+                        "location.original": "mexico",
                         "amount.original": "",
                         "location": {
-                            "city": "Chicago",
-                            "city.original": "chicago"
+                            "country": "Mexico",
+                            "country.original": "mexico",
+                            "country.object": {}
                         },
-                        "artist.original": "Bruno mars",
+                        "artist.original": "Bruno Mars",
                         "event-title.original": "",
                         "sort.original": "",
                         "event-type.original": ""
@@ -283,12 +286,38 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                 if (isDefined(contexts[0]) && contexts[0].name == 'events_search_dialog_context' &&
                     contexts[0].parameters) {
-                    let city =
-                        (isDefined(contexts[0].parameters.location) && isDefined(contexts[0].parameters.location.city)) ?
-                        contexts[0].parameters.location.city :
-                        "";
 
-                    console.log("city>>>> " + city)
+                    if ((isDefined(contexts[0].parameters.location))) {
+                        if (isDefined(contexts[0].parameters.location.city)) {
+                            let city = contexts[0].parameters.location.city
+                            console.log('city>> ' + city)
+                        } else {
+                            if (isDefined(contexts[0].parameters.location.country)) {
+                                let country = contexts[0].parameters.location.country
+                                console.log('country>> ' + country)
+                            }
+                        }
+
+                    }
+
+
+
+                }
+
+                if (isDefined(contexts[0]) && contexts[0].name == 'events_search_dialog_context' &&
+                    contexts[0].parameters) {
+
+                    if ((isDefined(contexts[0].parameters.date_time))) {
+                        if (contexts[0].parameters.date_time != "") {
+                            let date_time = contexts[0].parameters.date_time
+                            console.log('date_time>> ' + date_time)
+
+                        }
+
+                    }
+
+
+
                 }
 
 
