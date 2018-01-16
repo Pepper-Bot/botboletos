@@ -7,7 +7,7 @@ var sendHappyNewYerToUsers = () => {
     UserQueries.getUsersGroupByFBId((error, usuarios) => {
         console.log("Users >>> " + JSON.stringify(usuarios));
         for (let i = 0; i < usuarios.length; i++) {
-            happy_new_year.start(usuarios[i]._id.fbId, true)
+            happy_new_year.startHappyNewYear(usuarios[i]._id.fbId, "HAPPY_NEW_YEAR", true)
         }
     })
     /*var usuarios = [{
