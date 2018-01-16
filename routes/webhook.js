@@ -152,7 +152,7 @@ function handleEcho(messageId, appId, metadata) {
 }
 
 
-function handleApiAiAction(sender, action, responseText, contexts, parameters) {
+function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
     console.log('>>>>>>>>>>>>>>>>>>entré a la función  handleApiAiAction');
     switch (action) {
         case "faq-delivery":
@@ -197,8 +197,9 @@ function handleApiAiAction(sender, action, responseText, contexts, parameters) {
             }
         case "events.search":
             {
-                console.log("handleApiAiResponse >>> " + JSON.stringify(contexts));
-                if (contexts.result.parameters.location.city) {
+                console.log("handleApiAiResponse >>> " + JSON.stringify(response));
+                console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
+                if (response.result.parameters.location.city) {
                     let city = contexts.result.parameters.location.city
                     console.log("city>>> " + JSON.stringify(city));
                 }
@@ -487,7 +488,7 @@ function handleApiAiResponse(sender, response) {
         console.log('Unknown query' + response.result.resolvedQuery);
         sendTextMessage(sender, "I'm not sure what you want. Can you be more specific?");
     } else if (isDefined(action)) {
-        handleApiAiAction(sender, action, responseText, contexts, parameters);
+        handleApiAiAction(sender, response, action, responseText, contexts, parameters);
     } else if (isDefined(responseData) && isDefined(responseData.facebook)) {
         try {
             console.log('Response as formatted message' + responseData.facebook);
