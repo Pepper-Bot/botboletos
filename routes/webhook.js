@@ -197,11 +197,98 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             }
         case "events.search":
             {
+
+
+                [{
+                    "name": "events_search_dialog_context",
+                    "parameters": {
+                        "date-time.original": "",
+                        "team.original": "",
+                        "amount": "",
+                        "music-genre": "",
+                        "event-title": "",
+                        "artist": "Bruno Mars",
+                        "event-type": "",
+                        "date-time": "",
+                        "team": "",
+                        "sort": [],
+                        "music-genre.original": "",
+                        "location.original": "chicago",
+                        "amount.original": "",
+                        "location": {
+                            "city": "Chicago",
+                            "city.original": "chicago"
+                        },
+                        "artist.original": "Bruno mars",
+                        "event-title.original": "",
+                        "sort.original": "",
+                        "event-type.original": ""
+                    },
+                    "lifespan": 2
+                }, {
+                    "name": "events_search_dialog_params_date-time",
+                    "parameters": {
+                        "date-time.original": "",
+                        "team.original": "",
+                        "amount": "",
+                        "music-genre": "",
+                        "event-title": "",
+                        "artist": "Bruno Mars",
+                        "event-type": "",
+                        "date-time": "",
+                        "team": "",
+                        "sort": [],
+                        "music-genre.original": "",
+                        "location.original": "chicago",
+                        "amount.original": "",
+                        "location": {
+                            "city": "Chicago",
+                            "city.original": "chicago"
+                        },
+                        "artist.original": "Bruno mars",
+                        "event-title.original": "",
+                        "sort.original": "",
+                        "event-type.original": ""
+                    },
+                    "lifespan": 1
+                }, {
+                    "name": "71a3af90-cb79-4f0c-9dee-aec88ffbff44_id_dialog_context",
+                    "parameters": {
+                        "date-time.original": "",
+                        "team.original": "",
+                        "amount": "",
+                        "music-genre": "",
+                        "event-title": "",
+                        "artist": "Bruno Mars",
+                        "event-type": "",
+                        "date-time": "",
+                        "team": "",
+                        "sort": [],
+                        "music-genre.original": "",
+                        "location.original": "chicago",
+                        "amount.original": "",
+                        "location": {
+                            "city": "Chicago",
+                            "city.original": "chicago"
+                        },
+                        "artist.original": "Bruno mars",
+                        "event-title.original": "",
+                        "sort.original": "",
+                        "event-type.original": ""
+                    },
+                    "lifespan": 2
+                }]
                 console.log("handleApiAiResponse >>> " + JSON.stringify(response));
                 console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
-                if (response.result.parameters.location.city) {
-                    let city = contexts.result.parameters.location.city
-                    console.log("city>>> " + JSON.stringify(city));
+
+                if (isDefined(contexts[0]) && contexts[0].name == 'events_search_dialog_context' &&
+                    contexts[0].parameters) {
+                    let city =
+                        (isDefined(contexts[0].parameters.location) && isDefined(contexts[0].parameters.location.city)) ?
+                        contexts[0].parameters.location.city :
+                        "";
+
+                    console.log("city>>>> " + city)
                 }
 
 
