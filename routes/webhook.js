@@ -200,91 +200,37 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                 [{
-                    "name": "events_search_dialog_context",
+                    "name": "eventssearch-followup",
                     "parameters": {
-                        "date-time.original": "",
                         "team.original": "",
                         "amount": "",
-                        "music-genre": "",
-                        "event-title": "",
-                        "artist": "Bruno Mars",
-                        "event-type": "",
-                        "date-time": "",
+                        "music_genre": "",
+                        "artist": "Katy Perry",
+                        "date_time.original": "next week",
+                        "event_title": "",
                         "team": "",
                         "sort": [],
-                        "music-genre.original": "",
-                        "location.original": "mexico",
+                        "event_title.original": "",
+                        "event_type": "",
+                        "location.original": "Vegas",
+                        "date_time": "2018-01-22/2018-01-28",
+                        "music_genre.original": "",
                         "amount.original": "",
                         "location": {
-                            "country": "Mexico",
-                            "country.original": "mexico",
-                            "country.object": {}
+                            "city": "Vegas",
+                            "city.original": "Vegas",
+                            "city.object": {}
                         },
-                        "artist.original": "Bruno Mars",
-                        "event-title.original": "",
+                        "artist.original": "Katy Perry",
                         "sort.original": "",
-                        "event-type.original": ""
-                    },
-                    "lifespan": 2
-                }, {
-                    "name": "events_search_dialog_params_date-time",
-                    "parameters": {
-                        "date-time.original": "",
-                        "team.original": "",
-                        "amount": "",
-                        "music-genre": "",
-                        "event-title": "",
-                        "artist": "Bruno Mars",
-                        "event-type": "",
-                        "date-time": "",
-                        "team": "",
-                        "sort": [],
-                        "music-genre.original": "",
-                        "location.original": "mexico",
-                        "amount.original": "",
-                        "location": {
-                            "country": "Mexico",
-                            "country.original": "mexico",
-                            "country.object": {}
-                        },
-                        "artist.original": "Bruno Mars",
-                        "event-title.original": "",
-                        "sort.original": "",
-                        "event-type.original": ""
-                    },
-                    "lifespan": 1
-                }, {
-                    "name": "71a3af90-cb79-4f0c-9dee-aec88ffbff44_id_dialog_context",
-                    "parameters": {
-                        "date-time.original": "",
-                        "team.original": "",
-                        "amount": "",
-                        "music-genre": "",
-                        "event-title": "",
-                        "artist": "Bruno Mars",
-                        "event-type": "",
-                        "date-time": "",
-                        "team": "",
-                        "sort": [],
-                        "music-genre.original": "",
-                        "location.original": "mexico",
-                        "amount.original": "",
-                        "location": {
-                            "country": "Mexico",
-                            "country.original": "mexico",
-                            "country.object": {}
-                        },
-                        "artist.original": "Bruno Mars",
-                        "event-title.original": "",
-                        "sort.original": "",
-                        "event-type.original": ""
+                        "event_type.original": ""
                     },
                     "lifespan": 2
                 }]
                 console.log("handleApiAiResponse >>> " + JSON.stringify(response));
                 console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
 
-                if (isDefined(contexts[0]) && contexts[0].name == 'events_search_dialog_context' &&
+                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' &&
                     contexts[0].parameters) {
 
                     if ((isDefined(contexts[0].parameters.location))) {
@@ -304,7 +250,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                 }
 
-                if (isDefined(contexts[0]) && contexts[0].name == 'events_search_dialog_context' &&
+                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' &&
                     contexts[0].parameters) {
 
                     if ((isDefined(contexts[0].parameters.date_time))) {
