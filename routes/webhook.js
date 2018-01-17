@@ -370,7 +370,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     }
 
                     urlApiTevo += '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
-                    console.log('urlApiTevo >'+ urlApiTevo )
+                    console.log('urlApiTevo >' + urlApiTevo)
 
 
                     //urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
@@ -380,21 +380,22 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                       urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&city_state=' + city + '&page=1&per_page=50&' + only_with + '&within=100'
                       //+ '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
 */
-
-                    tevoClient.getJSON(urlApiTevo).then((json) => {
-                        if (json.error) {
-                            sendTextMessage(sender, error);
-                        } else {
-                            if (json.events.length > 0) {
-                                console.log('Encontré Eventos !!!! >'+ urlApiTevo )
-  
-
+                    if (responseText = "end.events.search") {
+                        console.log('responseText = end.events.search ')
+                        tevoClient.getJSON(urlApiTevo).then((json) => {
+                            if (json.error) {
+                                sendTextMessage(sender, error);
                             } else {
-                                console.log('No found Events With >'+ urlApiTevo )
-                            }
-                        }
-                    });
+                                if (json.events.length > 0) {
+                                    console.log('Encontré Eventos !!!! >' + urlApiTevo)
 
+
+                                } else {
+                                    console.log('No found Events With >' + urlApiTevo)
+                                }
+                            }
+                        });
+                    }
 
 
 
