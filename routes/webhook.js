@@ -305,10 +305,13 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                             if (isDefined(arregloDeSubCadenas[0])) {
                                 console.log("init date " + arregloDeSubCadenas[0])
+                                console.log("init date>>>> " + moment(arregloDeSubCadenas[0], moment.ISO_8601).format());
+
                             }
 
                             if (isDefined(arregloDeSubCadenas[1])) {
                                 console.log("final date " + arregloDeSubCadenas[1])
+                                console.log("final date>>>> " + moment(arregloDeSubCadenas[1], moment.ISO_8601).format());
                             }
 
 
