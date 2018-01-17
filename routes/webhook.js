@@ -304,11 +304,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 arregloDeSubCadenas = cadena.split(separador);
 
                             if (isDefined(arregloDeSubCadenas[0])) {
-                                console.log("init date" + arregloDeSubCadenas[0])
+                                console.log("init date " + arregloDeSubCadenas[0])
                             }
 
                             if (isDefined(arregloDeSubCadenas[1])) {
-                                console.log("final date" + +arregloDeSubCadenas[1])
+                                console.log("final date " + arregloDeSubCadenas[1])
                             }
 
 
