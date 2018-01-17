@@ -385,7 +385,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
-                //sendTextMessage(sender, responseText);
+                sendTextMessage(sender, responseText);
 
                 break;
             }
