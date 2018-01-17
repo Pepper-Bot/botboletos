@@ -244,12 +244,12 @@ var setImagesToEvents = (resultEvents, counter) => {
                     imageIndex = Math.round(Math.random() * images.length - 1);
                 }
 
-                if (z < gButtons.length - 1) {
 
-                    gButtons[z].image_url = images[imageIndex].url;
 
-                }
-                
+                gButtons[z].image_url = images[imageIndex].url;
+
+
+
 
                 if (gButtons[z].subtitle == 'My Pepper Bot')
                     if (z == gButtons.length - 1) {
