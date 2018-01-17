@@ -324,7 +324,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             }
 
                             if (finalDate == '') {
-                                finalDate = startDate
+                                finalDate = moment(startDate, moment.ISO_8601).endOf('day').format();
                                 console.log("finalDate = startDate >>> " + finalDate);
                             }
 
