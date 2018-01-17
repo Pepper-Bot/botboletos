@@ -340,7 +340,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     if ((isDefined(contexts[0].parameters.artist))) {
                         if (contexts[0].parameters.artist != "") {
-                             artist = contexts[0].parameters.artist
+                            artist = contexts[0].parameters.artist
                             console.log('artist>> ' + artist)
                         }
                     }
@@ -370,7 +370,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             urlApiTevo += tevo.API_URL + 'events?city_state=' + city
                             if (date_time != '') {
                                 urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
-                            }  
+                            }
 
                         } else {
                             if (date_time != '') {
@@ -404,8 +404,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 sendTextMessage(sender, error);
                             } else {
                                 if (json.events.length > 0) {
-                                    console.log('Encontré Eventos !!!! >' + urlApiTevo)
 
+                                    var TevoModule = require('../modules/query_tevo_request');
+                                    var position = 0 ;
+                                    TevoModule.start(sender, urlApiTevo, position,   'Cool, I looked for "' + event_title + '"  Book a ticket:');
+
+                                     
 
                                 } else {
                                     console.log('No found Events With >' + urlApiTevo)
@@ -420,8 +424,9 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
-
-                sendTextMessage(sender, responseText);
+                if (responseText != "end.events.search") {
+                    sendTextMessage(sender, responseText);
+                }
 
                 break;
             }

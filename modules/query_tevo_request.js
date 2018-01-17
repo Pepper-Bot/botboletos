@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        start: function (senderId, urlApiTevo, position = 0, cool = 0, messageTitle) {
+        start: function (senderId, urlApiTevo, position = 0,  messageTitle) {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
@@ -18,16 +18,9 @@ module.exports = function () {
             });
 
 
+ 
 
-            var urlApiTevo = '';
-
-            urlApiTevo = urlApiTevo
-
-            if ('shakira' === event_name.toLowerCase()) {
-                urlApiTevo = tevo.API_URL + 'events?q=' + event_name + '&occurs_at.gte=2018-01-01T08:00:00Z&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
-            }
-
-
+          
 
 
 
@@ -166,36 +159,14 @@ module.exports = function () {
 
 
                             setImagesToEvents(gButtons, counter).then((gButtons) => {
-                                switch (cool) {
-                                    case 0:
-                                        {
-                                            Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
-                                        }
-                                        break;
-                                    case 1:
-                                        {
-                                            Message.sendMessage(senderId, 'Cool, I looked for "' + event_name + '"  Book a ticket:');
-                                        }
-                                        break;
-                                    case 2:
-                                        {
-                                            Message.sendMessage(senderId, 'Thank your for your vote. Now, do you want to go to the concert?');
-                                        }
-                                        break;
-                                    case 3:
-                                        {
-                                            Message.sendMessage(senderId, messageTitle);
-                                        }
-                                        break;
-                                    default:
-                                        {
-                                            Message.sendMessage(senderId, 'Book "' + event_name + '" Events');
-                                        }
-                                        break;
-                                }
+                            
 
-                                console.log("luego del GButons event_name >>>>> " + event_name);
-                                saveUsuarioAndEventSearchLastSelected(senderId, event_name);
+
+                                Message.sendMessage(senderId, messageTitle);
+
+
+                                //console.log("luego del GButons event_name >>>>> " + event_name);
+                                //saveUsuarioAndEventSearchLastSelected(senderId, event_name);
 
                                 var GenericButton = require('../bot/generic_buttton');
                                 GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
