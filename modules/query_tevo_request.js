@@ -249,7 +249,9 @@ var setImagesToEvents = (resultEvents, counter) => {
                     gButtons[z].image_url = images[imageIndex].url;
 
                 }
-                if (gButtons.length > 1)
+                
+
+                if (gButtons[z].subtitle == 'My Pepper Bot')
                     if (z == gButtons.length - 1) {
                         gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
 
@@ -257,7 +259,7 @@ var setImagesToEvents = (resultEvents, counter) => {
                 console.log("counter " + counter + " gButtons.length " + gButtons.length)
 
                 if (counter + 1 == gButtons.length) {
-                    if (gButtons.length > 1)
+                    if (gButtons[z].subtitle == 'My Pepper Bot')
                         gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
                     resolve(gButtons)
                 }
