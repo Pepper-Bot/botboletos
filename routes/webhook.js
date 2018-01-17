@@ -316,14 +316,17 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             }
 
                             if (isDefined(arregloDeSubCadenas[1])) {
-                                finalDate = arregloDeSubCadenas[0]
+                                finalDate = arregloDeSubCadenas[1]
                                 finalDate = moment(finalDate, moment.ISO_8601).format()
                                 finalDate = finalDate.substring(0, finalDate.length - 6)
 
                                 console.log("finalDate>>> " + finalDate);
                             }
 
-
+                            if (finalDate == '') {
+                                finalDate = startDate
+                                console.log("finalDate = startDate >>> " + finalDate);
+                            }
 
 
                             /* let startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
