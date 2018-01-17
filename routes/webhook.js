@@ -340,14 +340,14 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     if ((isDefined(contexts[0].parameters.artist))) {
                         if (contexts[0].parameters.artist != "") {
-                            let artist = contexts[0].parameters.artist
+                             artist = contexts[0].parameters.artist
                             console.log('artist>> ' + artist)
                         }
                     }
 
                     if ((isDefined(contexts[0].parameters.event_title))) {
                         if (contexts[0].parameters.event_title != "") {
-                            let event_title = contexts[0].parameters.event_title
+                            event_title = contexts[0].parameters.event_title
                             console.log('event_title>> ' + event_title)
                         }
                     }
