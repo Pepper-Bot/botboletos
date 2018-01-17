@@ -11,15 +11,27 @@ var PAGE_ACCESS_TOKEN = require('../config/config_vars').PAGE_ACCESS_TOKEN;
 
 var FB_APP_SECRET = require('../config/config_vars').FB_APP_SECRET;
 
+var TevoClient = require('ticketevolution-node');
+var only_with = require('../config/config_vars').only_with;
+var tevo = require('../config/config_vars').tevo;
+
 const apiai = require('apiai');
 const crypto = require('crypto');
 const uuid = require('uuid');
+var moment = require('moment');
 
 
 const apiAiService = apiai(API_AI_CLIENT_ACCESS_TOKEN, {
     language: "en",
     requestSource: "fb"
 });
+
+const tevoClient = new TevoClient({
+    apiToken: tevo.API_TOKEN,
+    apiSecretKey: tevo.API_SECRET_KEY
+});
+
+
 const sessionIds = new Map();
 //--
 
@@ -259,11 +271,13 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
                 //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
 
+
                 var city = ''
                 var country = ''
                 var artist = ''
                 var date_time = ''
                 var event_title = ''
+
                 if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' &&
                     contexts[0].parameters) {
 
@@ -283,7 +297,36 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     if ((isDefined(contexts[0].parameters.date_time))) {
                         if (contexts[0].parameters.date_time != "") {
                             date_time = contexts[0].parameters.date_time
-                            console.log('date_time>> ' + date_time)
+
+                            //2018-01-22/2018-01-28
+                            var cadena = date_time,
+                                separador = "/",
+                                arregloDeSubCadenas = cadena.split(separador);
+
+                            if (isDefined(arregloDeSubCadenas[1])) {
+                                console.log("final date" + startOfMonth)
+                            }
+
+                            if (isDefined(arregloDeSubCadenas[1])) {
+                                console.log("final date" + startOfMonth)
+                            }
+
+
+
+
+                            /* let startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
+                             startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)
+
+                             console.log("startOfMonth>>>>>>" + startOfMonth)
+
+                             let endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
+                             endOfMonth = endOfMonth.substring(0, endOfMonth.length - 6)
+
+                             console.log("endOfMonth>>>>>>" + endOfMonth);
+
+
+
+                             console.log('date_time>> ' + date_time)*/
 
                         }
 
@@ -302,13 +345,47 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             console.log('event_title>> ' + event_title)
                         }
                     }
+                    var urlApiTevo = ''
+
+
+
+                    if (event_title != '') {
+                        urlApiTevo = tevo.API_URL + 'events?q=' + event_title
+                        if (city != '') {
+                            urlApiTevo += '&city_state=' + city
+                        }
+                    }
+
+
+                  /*  var urlApiTevo = tevo.API_URL + 'events?q=' + event_title + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
+                    // urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100'
+                    urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&city_state=' + city + '&page=1&per_page=50&' + only_with + '&within=100'
+                    //+ '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+
+
+                    tevoClient.getJSON(urlApiTevo).then((json) => {
+                        if (json.error) {
+                            sendTextMessage(sender, error);
+                        } else {
+                            if (json.events.length > 0) {
+
+
+
+                            } else {
+
+                            }
+                        }
+                    });*/
+
+
+
 
                 }
 
 
 
 
-                sendTextMessage(sender, responseText);
+                //sendTextMessage(sender, responseText);
 
                 break;
             }
