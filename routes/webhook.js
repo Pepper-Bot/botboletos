@@ -303,12 +303,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 separador = "/",
                                 arregloDeSubCadenas = cadena.split(separador);
 
-                            if (isDefined(arregloDeSubCadenas[1])) {
-                                console.log("final date" + startOfMonth)
+                            if (isDefined(arregloDeSubCadenas[0])) {
+                                console.log("init date" + arregloDeSubCadenas[0])
                             }
 
                             if (isDefined(arregloDeSubCadenas[1])) {
-                                console.log("final date" + startOfMonth)
+                                console.log("final date" + +arregloDeSubCadenas[1])
                             }
 
 
@@ -324,9 +324,9 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                              console.log("endOfMonth>>>>>>" + endOfMonth);
 
+*/
 
-
-                             console.log('date_time>> ' + date_time)*/
+                            console.log('date_time>> ' + date_time)
 
                         }
 
@@ -357,25 +357,25 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     }
 
 
-                  /*  var urlApiTevo = tevo.API_URL + 'events?q=' + event_title + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
-                    // urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100'
-                    urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&city_state=' + city + '&page=1&per_page=50&' + only_with + '&within=100'
-                    //+ '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+                    /*  var urlApiTevo = tevo.API_URL + 'events?q=' + event_title + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
+                      // urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100'
+                      urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&city_state=' + city + '&page=1&per_page=50&' + only_with + '&within=100'
+                      //+ '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
 
 
-                    tevoClient.getJSON(urlApiTevo).then((json) => {
-                        if (json.error) {
-                            sendTextMessage(sender, error);
-                        } else {
-                            if (json.events.length > 0) {
+                      tevoClient.getJSON(urlApiTevo).then((json) => {
+                          if (json.error) {
+                              sendTextMessage(sender, error);
+                          } else {
+                              if (json.events.length > 0) {
 
 
 
-                            } else {
+                              } else {
 
-                            }
-                        }
-                    });*/
+                              }
+                          }
+                      });*/
 
 
 
