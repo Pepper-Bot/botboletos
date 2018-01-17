@@ -227,44 +227,84 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     },
                     "lifespan": 2
                 }]
-                console.log("handleApiAiResponse >>> " + JSON.stringify(response));
-                console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
 
+
+                [{
+                    "name": "eventssearch-followup",
+                    "parameters": {
+                        "team.original": "",
+                        "amount": "",
+                        "music_genre": "",
+                        "artist": "",
+                        "date_time.original": "next week",
+                        "event_title": "",
+                        "team": "",
+                        "sort": [],
+                        "event_title.original": "",
+                        "event_type": "",
+                        "location.original": "San",
+                        "date_time": "2018-01-22/2018-01-28",
+                        "music_genre.original": "",
+                        "amount.original": "",
+                        "location": {
+                            "business-name": "San Diego International Airport",
+                            "business-name.original": "San"
+                        },
+                        "artist.original": "",
+                        "sort.original": "",
+                        "event_type.original": ""
+                    },
+                    "lifespan": 2
+                }]
+                //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
+                //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
+
+                var city = ''
+                var country = ''
+                var artist = ''
+                var date_time = ''
+                var event_title = ''
                 if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' &&
                     contexts[0].parameters) {
 
                     if ((isDefined(contexts[0].parameters.location))) {
                         if (isDefined(contexts[0].parameters.location.city)) {
-                            let city = contexts[0].parameters.location.city
+                            city = contexts[0].parameters.location.city
                             console.log('city>> ' + city)
                         } else {
                             if (isDefined(contexts[0].parameters.location.country)) {
-                                let country = contexts[0].parameters.location.country
+                                country = contexts[0].parameters.location.country
                                 console.log('country>> ' + country)
                             }
                         }
 
                     }
 
-
-
-                }
-
-                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' &&
-                    contexts[0].parameters) {
-
                     if ((isDefined(contexts[0].parameters.date_time))) {
                         if (contexts[0].parameters.date_time != "") {
-                            let date_time = contexts[0].parameters.date_time
+                            date_time = contexts[0].parameters.date_time
                             console.log('date_time>> ' + date_time)
 
                         }
 
                     }
 
+                    if ((isDefined(contexts[0].parameters.artist))) {
+                        if (contexts[0].parameters.artist != "") {
+                            let artist = contexts[0].parameters.artist
+                            console.log('artist>> ' + artist)
+                        }
+                    }
 
+                    if ((isDefined(contexts[0].parameters.event_title))) {
+                        if (contexts[0].parameters.event_title != "") {
+                            let event_title = contexts[0].parameters.event_title
+                            console.log('event_title>> ' + event_title)
+                        }
+                    }
 
                 }
+
 
 
 
