@@ -305,22 +305,22 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 arregloDeSubCadenas = cadena.split(separador);
 
                             if (isDefined(arregloDeSubCadenas[0])) {
-                              
+
                                 startDate = arregloDeSubCadenas[0]
-                                startDate = moment(startDate[0], moment.ISO_8601).format()
+                                startDate = moment(startDate, moment.ISO_8601).format()
                                 startDate = startDate.substring(0, startDate.length - 6)
 
-                                console.log("startDate>>> " +startDate );
+                                console.log("startDate>>> " + startDate);
 
 
                             }
 
                             if (isDefined(arregloDeSubCadenas[1])) {
                                 finalDate = arregloDeSubCadenas[0]
-                                finalDate = moment(finalDate[0], moment.ISO_8601).format()
+                                finalDate = moment(finalDate, moment.ISO_8601).format()
                                 finalDate = finalDate.substring(0, finalDate.length - 6)
 
-                                console.log("finalDate>>> " +finalDate );
+                                console.log("finalDate>>> " + finalDate);
                             }
 
 
