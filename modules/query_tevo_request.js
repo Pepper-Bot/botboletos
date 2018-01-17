@@ -1,6 +1,6 @@
 module.exports = function () {
     return {
-        start: function (senderId, urlApiTevo, position = 0,  messageTitle) {
+        start: function (senderId, urlApiTevo, position = 0, messageTitle) {
             var Message = require('../bot/messages');
             var imageCards = require('../modules/imageCards'); // Google images
             var TevoClient = require('ticketevolution-node');
@@ -18,9 +18,9 @@ module.exports = function () {
             });
 
 
- 
 
-          
+
+
 
 
 
@@ -159,7 +159,7 @@ module.exports = function () {
 
 
                             setImagesToEvents(gButtons, counter).then((gButtons) => {
-                            
+
 
 
                                 Message.sendMessage(senderId, messageTitle);
@@ -249,10 +249,11 @@ var setImagesToEvents = (resultEvents, counter) => {
                     gButtons[z].image_url = images[imageIndex].url;
 
                 }
-                if (z == gButtons.length - 1) {
-                    gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
+                if (gButtons.length > 1)
+                    if (z == gButtons.length - 1) {
+                        gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
 
-                }
+                    }
                 console.log("counter " + counter + " gButtons.length " + gButtons.length)
 
                 if (counter + 1 == gButtons.length) {
