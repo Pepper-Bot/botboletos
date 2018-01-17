@@ -277,7 +277,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 var artist = ''
                 var date_time = ''
                 var event_title = ''
-
+                var startDate = ''
+                var finalDate = ''
                 if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' &&
                     contexts[0].parameters) {
 
@@ -304,14 +305,22 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 arregloDeSubCadenas = cadena.split(separador);
 
                             if (isDefined(arregloDeSubCadenas[0])) {
-                                console.log("init date " + arregloDeSubCadenas[0])
-                                console.log("init date>>>> " + moment(arregloDeSubCadenas[0], moment.ISO_8601).format());
+                              
+                                startDate = arregloDeSubCadenas[0]
+                                startDate = moment(startDate[0], moment.ISO_8601).format()
+                                startDate = startDate.substring(0, startDate.length - 6)
+
+                                console.log("startDate>>> " +startDate );
+
 
                             }
 
                             if (isDefined(arregloDeSubCadenas[1])) {
-                                console.log("final date " + arregloDeSubCadenas[1])
-                                console.log("final date>>>> " + moment(arregloDeSubCadenas[1], moment.ISO_8601).format());
+                                finalDate = arregloDeSubCadenas[0]
+                                finalDate = moment(finalDate[0], moment.ISO_8601).format()
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
+
+                                console.log("finalDate>>> " +finalDate );
                             }
 
 
