@@ -299,7 +299,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         if (contexts[0].parameters.date_time != "") {
                             date_time = contexts[0].parameters.date_time
 
-                            //2018-01-22/2018-01-28
+
                             var cadena = date_time,
                                 separador = "/",
                                 arregloDeSubCadenas = cadena.split(separador);
@@ -325,21 +325,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                             if (finalDate == '') {
                                 finalDate = moment(startDate, moment.ISO_8601).endOf('day').format();
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
                                 console.log("finalDate = startDate >>> " + finalDate);
                             }
 
 
-                            /* let startOfMonth = moment(currentDate, moment.ISO_8601).startOf('month').format();
-                             startOfMonth = startOfMonth.substring(0, startOfMonth.length - 6)
 
-                             console.log("startOfMonth>>>>>>" + startOfMonth)
-
-                             let endOfMonth = moment(currentDate, moment.ISO_8601).endOf('month').format();
-                             endOfMonth = endOfMonth.substring(0, endOfMonth.length - 6)
-
-                             console.log("endOfMonth>>>>>>" + endOfMonth);
-
-*/
 
                             console.log('date_time>> ' + date_time)
 
@@ -362,35 +353,47 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     }
                     var urlApiTevo = ''
 
-
+                    if (event_title == '') {
+                        event_title = artist
+                    }
 
                     if (event_title != '') {
                         urlApiTevo = tevo.API_URL + 'events?q=' + event_title
                         if (city != '') {
                             urlApiTevo += '&city_state=' + city
                         }
+                        if (date_time != '') {
+                            urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
+                        }
+                    } else {
+
                     }
 
+                    urlApiTevo += '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+                    console.log('urlApiTevo >'+ urlApiTevo )
+
+
+                    //urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
 
                     /*  var urlApiTevo = tevo.API_URL + 'events?q=' + event_title + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
                       // urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100'
                       urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&city_state=' + city + '&page=1&per_page=50&' + only_with + '&within=100'
                       //+ '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+*/
 
+                    tevoClient.getJSON(urlApiTevo).then((json) => {
+                        if (json.error) {
+                            sendTextMessage(sender, error);
+                        } else {
+                            if (json.events.length > 0) {
+                                console.log('Encontré Eventos !!!! >'+ urlApiTevo )
+  
 
-                      tevoClient.getJSON(urlApiTevo).then((json) => {
-                          if (json.error) {
-                              sendTextMessage(sender, error);
-                          } else {
-                              if (json.events.length > 0) {
-
-
-
-                              } else {
-
-                              }
-                          }
-                      });*/
+                            } else {
+                                console.log('No found Events With >'+ urlApiTevo )
+                            }
+                        }
+                    });
 
 
 
