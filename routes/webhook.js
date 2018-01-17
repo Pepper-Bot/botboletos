@@ -366,6 +366,23 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
                         }
                     } else {
+                        if (city != '') {
+                            urlApiTevo += tevo.API_URL + 'events?city_state=' + city
+                            if (date_time != '') {
+                                urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
+                            }  
+
+                        } else {
+                            if (date_time != '') {
+                                urlApiTevo += tevo.API_URL + 'events?&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
+                            } else {
+
+
+                            }
+
+                        }
+
+
 
                     }
 
