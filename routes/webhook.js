@@ -314,6 +314,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                                 }else {
                                     console.log('La fecha inicial es menor a la actual!!!')
+                                    startDate = moment()
                                 }
 
 
