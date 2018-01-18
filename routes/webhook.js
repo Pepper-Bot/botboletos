@@ -290,6 +290,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             if (isDefined(contexts[0].parameters.location.country)) {
                                 country = contexts[0].parameters.location.country
                                 console.log('country>> ' + country)
+
                             }
                         }
 
@@ -307,8 +308,20 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             if (isDefined(arregloDeSubCadenas[0])) {
 
                                 startDate = arregloDeSubCadenas[0]
+
+                                if (moment(startDate).isSameOrAfter(moment())) {
+                                          console.log('Es mayor !!')
+
+                                }
+
+
                                 startDate = moment(startDate, moment.ISO_8601).format()
+
+
                                 startDate = startDate.substring(0, startDate.length - 6)
+
+
+
 
                                 console.log("startDate>>> " + startDate);
 
@@ -352,6 +365,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         }
                     }
                     var urlApiTevo = ''
+                    var urlsApiTevo = []
 
                     if (event_title == '') {
                         event_title = artist
@@ -359,22 +373,29 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     if (event_title != '') {
                         urlApiTevo = tevo.API_URL + 'events?q=' + event_title
+                        urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
+
                         if (city != '') {
                             urlApiTevo += '&city_state=' + city
+                            urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
                         }
                         if (date_time != '') {
                             urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
+                            urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
                         }
                     } else {
                         if (city != '') {
                             urlApiTevo += tevo.API_URL + 'events?city_state=' + city
+                            urlsApiTevo.push(urlApiTevo)
                             if (date_time != '') {
                                 urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
+                                urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
                             }
 
                         } else {
                             if (date_time != '') {
                                 urlApiTevo += tevo.API_URL + 'events?&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
+                                urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
                             } else {
 
 
@@ -406,13 +427,23 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 if (json.events.length > 0) {
 
                                     var TevoModule = require('../modules/query_tevo_request');
-                                    var position = 0 ;
-                                    TevoModule.start(sender, urlApiTevo, position,   'Cool, I looked for "' + event_title + '"  Book a ticket:');
+                                    var position = 0;
+                                    TevoModule.start(sender, urlApiTevo, position, 'Cool, I looked for "' + event_title + '"  Book a ticket:');
 
-                                     
+
 
                                 } else {
-                                    console.log('No found Events With >' + urlApiTevo)
+                                    for (let i = 0; i < urlsApiTevo.length; i++) {
+                                        tevoClient.getJSON(urlApiTevo[i]).then((json) => {
+                                            if (json.error) {
+                                                sendTextMessage(sender, error);
+                                            } else {
+
+
+
+                                            }
+                                        })
+                                    }
                                 }
                             }
                         });
