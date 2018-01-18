@@ -76,6 +76,11 @@ router.post('/', function (req, res) {
 
             // Iterate over each messaging event
             pageEntry.messaging.forEach(function (messagingEvent) {
+
+                if (messagingEvent.referral) {
+                    console.log('messagingEvent.referral');
+                    handleReferrals(event);
+                }
                 if (messagingEvent.optin) {
                     receivedAuthentication(messagingEvent);
                 } else if (messagingEvent.message) {
@@ -210,64 +215,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
         case "events.search":
             {
 
-
-                [{
-                    "name": "eventssearch-followup",
-                    "parameters": {
-                        "team.original": "",
-                        "amount": "",
-                        "music_genre": "",
-                        "artist": "Katy Perry",
-                        "date_time.original": "next week",
-                        "event_title": "",
-                        "team": "",
-                        "sort": [],
-                        "event_title.original": "",
-                        "event_type": "",
-                        "location.original": "Vegas",
-                        "date_time": "2018-01-22/2018-01-28",
-                        "music_genre.original": "",
-                        "amount.original": "",
-                        "location": {
-                            "city": "Vegas",
-                            "city.original": "Vegas",
-                            "city.object": {}
-                        },
-                        "artist.original": "Katy Perry",
-                        "sort.original": "",
-                        "event_type.original": ""
-                    },
-                    "lifespan": 2
-                }]
-
-
-                [{
-                    "name": "eventssearch-followup",
-                    "parameters": {
-                        "team.original": "",
-                        "amount": "",
-                        "music_genre": "",
-                        "artist": "",
-                        "date_time.original": "next week",
-                        "event_title": "",
-                        "team": "",
-                        "sort": [],
-                        "event_title.original": "",
-                        "event_type": "",
-                        "location.original": "San",
-                        "date_time": "2018-01-22/2018-01-28",
-                        "music_genre.original": "",
-                        "amount.original": "",
-                        "location": {
-                            "business-name": "San Diego International Airport",
-                            "business-name.original": "San"
-                        },
-                        "artist.original": "",
-                        "sort.original": "",
-                        "event_type.original": ""
-                    },
-                    "lifespan": 2
-                }]
                 //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
                 //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
 
@@ -371,7 +318,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     var urlApiTevo = ''
                     var urlsApiTevo = []
 
-                    if (event_title == '') {
+                    if (artist != '') {
                         event_title = artist
                     }
 
@@ -420,8 +367,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     }
 
-                    urlApiTevo += '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at' 
-                    messageTitle +=  ' Book a ticket:'
+                    urlApiTevo += '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+                    messageTitle += ' Book a ticket:'
 
 
                     console.log('urlApiTevo >' + urlApiTevo)
@@ -444,7 +391,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                                     var TevoModule = require('../modules/query_tevo_request');
                                     var position = 0;
-                                    TevoModule.start(sender, urlApiTevo, position, messageTitle );
+                                    TevoModule.start(sender, urlApiTevo, position, messageTitle);
 
 
 
@@ -1312,6 +1259,181 @@ function isDefined(obj) {
     return obj != null;
 }
 
+
+
+function handleReferrals(event) {
+    // Handle Referrals lo que hace  es verificar si el short link viene de una ventana nueva
+    // o una conversación PRE-EXISTENTE.
+
+    var senderId = event.sender.id;
+    var referral;
+
+    console.log('0.1');
+
+
+
+    console.log('0.2');
+    if (undefined !== event.postback) {
+        console.log('0.3');
+        // Obtenemos la referencia por "Start Button" o sea una conversación nueva.
+        referral = event.postback.referral.ref;
+        chooseReferral(referral, senderId);
+    } else {
+        // Msgr tiene un error, cuando detecta que ya es una conversacion abierta
+        // envia 3 requests y por ende repite los mensajes, para evitar esto
+        // se almacena el id en mongodb hasta la 3ra vuelta se envia la informacion 
+        // no se si esto es problema de msgr como tal o heroku (quiero pensar que es de msgr)        
+        referral = event.referral.ref;
+
+        var FBSessions = require('../schemas/boletos');
+        // Buscamos el id del usuario
+        FBSessions.find({
+            fbId: senderId
+        }, {}, function (err, result) {
+
+            if (!err) {
+
+                if (result.length < 2) {
+                    // si estamos dentro del rango de dos peticiones guardamos el id
+                    var FBSession = new FBSessions; {
+                        FBSession.fbId = senderId;
+                        FBSession.save();
+                    }
+                } else {
+                    // tercera peticion, mandamos a llamar a los boletos y elminamos los registros.
+
+                    chooseReferral(referral, senderId);
+                    FBSessions.remove({
+                        fbId: senderId
+                    }, function (err) {
+
+                    });
+
+                }
+
+            }
+
+
+        });
+        // Ya tiene iniciada una conversacion el usuario con el robot
+
+    }
+
+}
+
+function chooseReferral(referral, senderId) {
+
+    // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
+    // y llamando a su modulo correspondiente.
+   /* switch (referral) {
+
+      
+        case "SAN_VALENTIN":
+            {
+                startSanValentin(senderId, referral)
+            }
+            break;
+
+        case "HappyNewYear":
+            {
+                startHappyNewYear(senderId, referral, false)
+            }
+            break;
+
+        case "HAPPY_NEW_YEAR":
+            {
+                startHappyNewYear(senderId, referral)
+            }
+            break;
+
+        case "VEGAS_SHOW":
+            {
+                startVegasShow(senderId, referral)
+            }
+            break;
+
+        case "SUPER_BOWL":
+            {
+
+                startSuperBowl(senderId, referral)
+            }
+            break;
+        case "CHRISTMAS_SONGS":
+            {
+                startChristmasSongs(senderId, referral)
+            }
+            break;
+        case "CHRISTMAS_PROMO":
+            {
+                startChristmas(senderId, referral)
+            }
+            break;
+        case "SHAKIRA_PROMO":
+            {
+
+                starShakiraPromo(senderId, referral);
+            }
+
+            break;
+
+
+        case "BLACK_FRIDAY":
+            {
+
+                starSixEvent(senderId, referral);
+            }
+
+            break;
+        case "RIGOVSLOMA":
+            {
+                startPepperQUiz(senderId);
+            }
+            break;
+
+
+        case "MAGICON":
+            {
+
+                console.log('0.5');
+                console.log('Sender ID:' + senderId);
+
+
+                console.log('El sender id es:' + senderId);
+                console.log('Estamos dentro de Start');
+
+                // llamamos al módulo de boletos y los enviamos.
+                var Magic = require('../modules/boletos');
+                Magic.start(senderId);
+
+            }
+            break;
+
+        case "SHARKSTANK":
+            {
+                var Shark = require('../modules/shark_boletos');
+                Shark.start(senderId);
+
+            }
+            break;
+
+
+        case "EVENTBRITE":
+            {
+                var EventBriteModule = require('../modules/eventbrite_request');
+                EventBriteModule.start(senderId);
+            }
+            break;
+
+        default:
+            {
+
+                startTevoModuleWithMlink(referral, senderId, 1);
+
+            }
+            break;
+
+    }*/
+}
 
 
 module.exports = router;
