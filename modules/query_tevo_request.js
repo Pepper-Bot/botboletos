@@ -237,11 +237,15 @@ var setImagesToEvents = (resultEvents, counter) => {
             getGoogleImage(search, gButtons).then((images) => {
 
                 console.log("images.length " + images.length)
+
                 var imageIndex = 0;
-                if (images.length > 4) {
-                    imageIndex = Math.round(Math.random() * 3);
-                } else {
-                    imageIndex = Math.round(Math.random() * images.length - 1);
+                if (images.length > 0) {
+                    if (images.length > 4) {
+                        imageIndex = Math.round(Math.random() * 3);
+                    } else {
+                        imageIndex = Math.round(Math.random() * images.length - 1);
+                    }
+
                 }
 
 
@@ -252,9 +256,9 @@ var setImagesToEvents = (resultEvents, counter) => {
 
 
                 if (gButtons[z].subtitle == 'My Pepper Bot') {
-                    gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
+                    gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
                 } else {
-                    console.log('imageIndex ' + imageIndex +  'images.length ' + images.length )
+                    console.log('imageIndex ' + imageIndex + ' images.length ' + images.length)
                     gButtons[z].image_url = images[imageIndex].url;
                 }
 
