@@ -19,11 +19,6 @@ module.exports = function () {
 
 
 
-
-
-
-
-
             console.log('url api tevo>>>>>>>' + urlApiTevo);
 
             var event_id = 0;
@@ -165,8 +160,8 @@ module.exports = function () {
                                 Message.sendMessage(senderId, messageTitle);
 
 
-                                //console.log("luego del GButons event_name >>>>> " + event_name);
-                                //saveUsuarioAndEventSearchLastSelected(senderId, event_name);
+                                 console.log("luego del GButons event_name >>>>> " + urlApiTevo);
+                                saveUsuarioAndEventSearchLastSelected(senderId, urlApiTevo);
 
                                 var GenericButton = require('../bot/generic_buttton');
                                 GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
@@ -252,7 +247,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 
                 } else {
                     console.log('Error con el tamaño de Images.   images.length ' + images.length + ' buscando  ' + search)
-                    gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
+                    gButtons[z].image_url = APLICATION_URL_DOMAIN + "/images/no_found.png"
                 }
 
                 if (gButtons[z].subtitle == 'My Pepper Bot') {
@@ -272,10 +267,6 @@ var setImagesToEvents = (resultEvents, counter) => {
                 counter = counter + 1;
             })
         }
-
-
-
-
 
 
     });

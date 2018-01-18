@@ -276,6 +276,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 var country = ''
                 var artist = ''
                 var date_time = ''
+                var date_time_original = ''
                 var event_title = ''
                 var startDate = ''
                 var finalDate = ''
@@ -310,9 +311,9 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 startDate = arregloDeSubCadenas[0]
 
                                 if (moment(startDate).isSameOrAfter(moment())) {
-                                          console.log('Es mayor !!')
+                                    console.log('Es mayor !!')
 
-                                }else {
+                                } else {
                                     console.log('La fecha inicial es menor a la actual!!!')
                                     startDate = moment()
                                 }
@@ -374,17 +375,24 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         event_title = artist
                     }
 
+                    var messageTitle = 'Cool, I looked for '
+
                     if (event_title != '') {
                         urlApiTevo = tevo.API_URL + 'events?q=' + event_title
                         urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
-
+                        messageTitle += '"' + event_title + '"'
                         if (city != '') {
                             urlApiTevo += '&city_state=' + city
                             urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
+                            messageTitle += ' ' + city + ' shows '
                         }
+
+
                         if (date_time != '') {
                             urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
                             urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
+                            messageTitle += ' in ' + date_time
+
                         }
                     } else {
                         if (city != '') {
@@ -393,12 +401,14 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             if (date_time != '') {
                                 urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
                                 urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
+                                messageTitle += ' ' + city + ' shows '
                             }
 
                         } else {
                             if (date_time != '') {
                                 urlApiTevo += tevo.API_URL + 'events?&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
                                 urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
+                                messageTitle += ' in ' + date_time
                             } else {
 
 
@@ -410,7 +420,10 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     }
 
-                    urlApiTevo += '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+                    urlApiTevo += '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at' 
+                    messageTitle +=  ' Book a ticket:'
+
+
                     console.log('urlApiTevo >' + urlApiTevo)
 
 
@@ -431,7 +444,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                                     var TevoModule = require('../modules/query_tevo_request');
                                     var position = 0;
-                                    TevoModule.start(sender, urlApiTevo, position, 'Cool, I looked for "' + event_title + '"  Book a ticket:');
+                                    TevoModule.start(sender, urlApiTevo, position, messageTitle );
 
 
 
