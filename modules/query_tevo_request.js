@@ -1,16 +1,19 @@
+
+
+var Message = require('../bot/messages');
+var imageCards = require('../modules/imageCards'); // Google images
+var TevoClient = require('ticketevolution-node');
+var moment = require('moment');
+var UserData = require('../bot/userinfo');
+var UserData2 = require('../schemas/userinfo');
+var tevo = require('../config/config_vars').tevo;
+var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
+var only_with = require('../config/config_vars').only_with;
+
 module.exports = function () {
     return {
         start: function (senderId, urlApiTevo, position = 0, messageTitle) {
-            var Message = require('../bot/messages');
-            var imageCards = require('../modules/imageCards'); // Google images
-            var TevoClient = require('ticketevolution-node');
-            var moment = require('moment');
-            var UserData = require('../bot/userinfo');
-            var UserData2 = require('../schemas/userinfo');
-            var tevo = require('../config/config_vars').tevo;
-            var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
-            var only_with = require('../config/config_vars').only_with;
-
+            
 
             var tevoClient = new TevoClient({
                 apiToken: tevo.API_TOKEN,
