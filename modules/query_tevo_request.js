@@ -252,7 +252,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 
                 } else {
                     console.log('Error con el tamaño de Images.   images.length ' + images.length + ' buscando  ' + search)
-
+                    gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
                 }
 
                 if (gButtons[z].subtitle == 'My Pepper Bot') {
