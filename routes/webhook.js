@@ -79,7 +79,7 @@ router.post('/', function (req, res) {
 
                 if (messagingEvent.referral) {
                     console.log('messagingEvent.referral');
-                    handleReferrals(event);
+                    handleReferrals(messagingEvent);
                 }
                 if (messagingEvent.optin) {
                     receivedAuthentication(messagingEvent);
@@ -1268,13 +1268,8 @@ function handleReferrals(event) {
     var senderId = event.sender.id;
     var referral;
 
-    console.log('0.1');
-
-
-
-    console.log('0.2');
     if (undefined !== event.postback) {
-        console.log('0.3');
+        console.log('event.postback definido');
         // Obtenemos la referencia por "Start Button" o sea una conversación nueva.
         referral = event.postback.referral.ref;
         chooseReferral(referral, senderId);
