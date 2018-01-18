@@ -246,18 +246,18 @@ var setImagesToEvents = (resultEvents, counter) => {
 
 
 
-                
 
 
 
 
-                if (gButtons[z].subtitle == 'My Pepper Bot'){
+
+                if (gButtons[z].subtitle == 'My Pepper Bot') {
                     gButtons[gButtons.length - 1].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
-                }
-                else{
+                } else {
+                    console.log('imageIndex ' + imageIndex +  'images.length ' + images.length )
                     gButtons[z].image_url = images[imageIndex].url;
                 }
-                    
+
 
 
                 console.log("counter " + counter + " gButtons.length " + gButtons.length)
