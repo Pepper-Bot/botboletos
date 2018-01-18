@@ -312,6 +312,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 if (moment(startDate).isSameOrAfter(moment())) {
                                           console.log('Es mayor !!')
 
+                                }else {
+                                    console.log('La fecha inicial es menor a la actual!!!')
                                 }
 
 
