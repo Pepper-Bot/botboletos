@@ -246,22 +246,18 @@ var setImagesToEvents = (resultEvents, counter) => {
                         imageIndex = Math.round(Math.random() * images.length - 1);
                     }
 
+                    console.log('imageIndex ' + imageIndex + ' images.length ' + images.length)
+                    gButtons[z].image_url = images[imageIndex].url;
+
+
+                } else {
+                    console.log('Error con el tamaño de Images.   images.length ' + images.length + ' buscando  ' + search)
+
                 }
-
-
-
-
-
-
-
 
                 if (gButtons[z].subtitle == 'My Pepper Bot') {
                     gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/ciudad.jpg"
-                } else {
-                    console.log('imageIndex ' + imageIndex + ' images.length ' + images.length)
-                    gButtons[z].image_url = images[imageIndex].url;
                 }
-
 
 
                 console.log("counter " + counter + " gButtons.length " + gButtons.length)
