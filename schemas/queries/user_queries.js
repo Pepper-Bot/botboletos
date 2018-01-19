@@ -1,5 +1,7 @@
  var UserData = require('../../bot/userinfo');
  var UserData2 = require('../userinfo');
+ var moment = require('moment');
+
 
  var getUsersGroupByFBId = (callback) => {
      UserData.aggregate(
@@ -45,7 +47,7 @@
 
 
 
- var createUserDatas = (senderId, context = '', mlinkSelected = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
+ var createUserDatas = (senderId, context = '', mlinkSelected = '', eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
      var dbObj = require('../mongodb');
      dbObj.getConnection();
 
@@ -70,7 +72,7 @@
                              foundUser.timeZone = FBUser.timezone;
                              foundUser.gender = FBUser.gender;
                              foundUser.messageNumber = 1;
-
+                             foundUser.sessionEnd = moment()
 
 
                              if (context != '') {
@@ -80,6 +82,15 @@
                              if (mlinkSelected != '') {
                                  foundUser.mlinkSelected = mlinkSelected
                              }
+
+                             if (eventSearchSelected != '') {
+                                 foundUser.eventSearchSelected.push(eventSearchSelected)
+                             }
+
+                             if (querysTevo != '') {
+                                 foundUser.querysTevo.push(querysTevo)
+                             }
+
 
                              if (categorySearchSelected != '') {
                                  foundUser.categorySearchSelected.push(categorySearchSelected)
@@ -128,6 +139,16 @@
                                      User.mlinkSelected = mlinkSelected
                                  }
 
+                                 if (eventSearchSelected != '') {
+                                     User.eventSearchSelected.push(eventSearchSelected)
+                                 }
+
+                                 if (querysTevo != '') {
+                                     User.querysTevo.push(querysTevo)
+                                 }
+
+
+
                                  if (categorySearchSelected != '') {
                                      User.categorySearchSelected.push(categorySearchSelected)
                                  }
@@ -135,6 +156,8 @@
                                  if (optionsSelected != '') {
                                      User.optionsSelected.push(optionsSelected)
                                  }
+
+
 
                                  User.showMemore.index1 = index1
                                  User.showMemore.index2 = index2

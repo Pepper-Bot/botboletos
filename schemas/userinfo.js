@@ -48,7 +48,9 @@ var UserData = mongoose.Schema({
 	},
 	context: String,
 	mlinkSelected: String,
-	categorySearchSelected: []
+	categorySearchSelected: [],
+	querysTevo:[],
+	
 
 });
 
