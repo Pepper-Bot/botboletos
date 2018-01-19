@@ -340,6 +340,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     var searchByName = ''
                     var searchByNameAndCity = ''
+                    var searchByNameAndDate = ''
                     var searchByNameAndCityAndDate = ''
                     var searchByCity = ''
                     var searchByCityAndDate = ''
@@ -361,7 +362,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
                             searchByNameAndCityAndDate = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
                             messageTitle += ' in ' + date_time
-
+                            searchByNameAndDate = tevo.API_URL + 'events?q=' + event_title + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + +'&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
                         }
                     } else {
                         if (city != '') {
@@ -408,11 +409,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 */
                     if (responseText = "end.events.search") {
                         console.log('responseText = end.events.search ')
-
-
-
-
-
                         tevoClient.getJSON(urlApiTevo).then((json) => {
                             if (json.error) {
                                 sendTextMessage(sender, error);
@@ -435,26 +431,42 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                                         var position = 0;
                                                         TevoModule.start(sender, urlApiTevo, position, messageTitle);
                                                     } else {
-                                                        tevoClient.getJSON(searchByName).then((json) => {
+
+                                                        tevoClient.getJSON(searchByNameAndDate).then((json) => {
                                                             if (json.error) {
                                                                 sendTextMessage(sender, error);
                                                             } else {
                                                                 if (json.events.length > 0) {
-                                                                    console.log('searchByName ' + searchByName)
+                                                                    console.log('searchByNameAndDate ' + searchByName)
                                                                     var TevoModule = require('../modules/query_tevo_request');
                                                                     var position = 0;
                                                                     TevoModule.start(sender, urlApiTevo, position, messageTitle);
                                                                 } else {
 
+                                                                    tevoClient.getJSON(searchByName).then((json) => {
+                                                                        if (json.error) {
+                                                                            sendTextMessage(sender, error);
+                                                                        } else {
+                                                                            if (json.events.length > 0) {
+                                                                                console.log('searchByName ' + searchByName)
+                                                                                var TevoModule = require('../modules/query_tevo_request');
+                                                                                var position = 0;
+                                                                                TevoModule.start(sender, urlApiTevo, position, messageTitle);
+                                                                            } else {
 
-                                                                    //NO HAY NO ENCONTRÉ
+                                                                                //NO HAY NO ENCONTRÉ
 
 
+
+
+
+
+                                                                            }
+                                                                        }
+                                                                    }); //fin searchByNameAndDate
                                                                 }
                                                             }
                                                         }); //fin searchByName
-
-
                                                     }
                                                 }
                                             })
