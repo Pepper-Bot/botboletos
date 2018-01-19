@@ -46,77 +46,69 @@
 
 
  var createUserDatas = (senderId, context = '', mlinkSelected = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
-     var dbObj = require('../mongodb');
-     dbObj.getConnection();
-
+    var dbObj = require('../mongodb');
+    dbObj.getConnection();
+    
      return new Promise((resolve, reject) => {
-         UserData.getInfo(senderId, function (err, FBUser) {
-             console.log('Dentro de UserData');
+         UserData2.findOne({
+             fbId: senderId
+         }, {}, {
+             sort: {
+                 'sessionStart': -1
+             }
+         }, function (err, foundUser) {
              if (!err) {
-                 UserData2.findOne({
-                     fbId: senderId
-                 }, {}, {
-                     sort: {
-                         'sessionStart': -1
+                 if (null != foundUser) {
+
+                     if (context != '') {
+                         foundUser.context = context
                      }
-                 }, function (err, foundUser) {
-                     if (!err) {
-                         if (null != foundUser) {
 
-                             foundUser.fbId = senderId;
-                             foundUser.firstName = FBUser.first_name;
-                             foundUser.LastName = FBUser.last_name;
-                             foundUser.profilePic = FBUser.profile_pic;
-                             foundUser.locale = FBUser.locale;
-                             foundUser.timeZone = FBUser.timezone;
-                             foundUser.gender = FBUser.gender;
-                             foundUser.messageNumber = 1;
+                     if (mlinkSelected != '') {
+                         foundUser.mlinkSelected = mlinkSelected
+                     }
 
+                     if (categorySearchSelected != '') {
+                         foundUser.categorySearchSelected.push(categorySearchSelected)
+                     }
 
-
-                             if (context != '') {
-                                 foundUser.context = context
-                             }
-
-                             if (mlinkSelected != '') {
-                                 foundUser.mlinkSelected = mlinkSelected
-                             }
-
-                             if (categorySearchSelected != '') {
-                                 foundUser.categorySearchSelected.push(categorySearchSelected)
-                             }
-
-                             if (optionsSelected != '') {
-                                 foundUser.optionsSelected.push(optionsSelected)
-                             }
+                     if (optionsSelected != '') {
+                         foundUser.optionsSelected.push(optionsSelected)
+                     }
 
 
-                             foundUser.showMemore.index1 = index1
-                             foundUser.showMemore.index2 = index2
-                             foundUser.showMemore.index3 = index3
+                     foundUser.showMemore.index1 = index1
+                     foundUser.showMemore.index2 = index2
+                     foundUser.showMemore.index3 = index3
 
 
-                             foundUser.save(function (err, userSaved) {
-                                 if (!err) {
-                                     console.log("foundUser Saved!!! " + JSON.stringify(userSaved));
+                     foundUser.save(function (err, userSaved) {
+                         if (!err) {
+                             console.log("foundUser Saved!!! " + JSON.stringify(userSaved));
 
-                                     resolve(userSaved)
+                             resolve(userSaved)
 
-                                 } else {
-                                     console.log('Error guardando en userdatas')
-                                 }
-                             });
                          } else {
+                             console.log('Error guardando en userdatas')
+                         }
+                     });
+                 } else {
 
-                            
+                     UserData.getInfo(senderId, function (err, result) {
+                         console.log('Dentro de UserData');
+                         if (!err) {
+
+                             var bodyObj = JSON.parse(result);
+                             console.log(result);
+
                              var User = new UserData2; {
                                  User.fbId = senderId;
-                                 User.firstName = FBUser.first_name;
-                                 User.LastName = FBUser.last_name;
-                                 User.profilePic = FBUser.profile_pic;
-                                 User.locale = FBUser.locale;
-                                 User.timeZone = FBUser.timezone;
-                                 User.gender = FBUser.gender;
+                                 User.firstName = bodyObj.first_name;
+                                 User.LastName = bodyObj.last_name;
+                                 User.profilePic = bodyObj.profile_pic;
+                                 User.locale = bodyObj.locale;
+                                 User.timeZone = bodyObj.timezone;
+                                 User.gender = bodyObj.gender;
                                  User.messageNumber = 1;
 
 
@@ -156,22 +148,12 @@
 
                              }
 
-
-
                          }
-                     }
-
-                 });
-
-
-
-
-
+                     });
+                 }
              }
-         })
 
-
-
+         });
      });
  }
 
