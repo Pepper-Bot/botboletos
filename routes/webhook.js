@@ -1268,7 +1268,6 @@ function isDefined(obj) {
 function handleReferrals(event) {
     // Handle Referrals lo que hace  es verificar si el short link viene de una ventana nueva
     // o una conversación PRE-EXISTENTE.
-
     var senderId = event.sender.id;
     var referral;
 
@@ -1286,9 +1285,6 @@ function handleReferrals(event) {
 }
 
 function chooseMlink(referral, senderId) {
-
-
-
     user_queries.createUserDatas(senderId,
         /*context =*/
         '',
@@ -1303,54 +1299,59 @@ function chooseMlink(referral, senderId) {
         /*index2 =*/
         0,
         /*index3 =*/
-        0).then(() => {
+        0).then((foundUser) => {
         switch (referral) {
-
             case "SAN_VALENTIN":
                 {
-                    console.log(' MLINK DE SAN VALENTIN')
-                    //startSanValentin(senderId, referral)
+                    var sanValentinModule = require('../modules/tevo/san_valentin/san_valentin')
+                    sanValentinModule.startSanValentin(senderId, referral)
+
                 }
                 break;
 
             case "HappyNewYear":
                 {
-                    //startHappyNewYear(senderId, referral, false)
+                    var happyNewYearModule = require('../modules/tevo/happy_new_year/happy_new_year')
+                    happyNewYearModule.startHappyNewYear(senderId, referral, false)
                 }
                 break;
 
             case "HAPPY_NEW_YEAR":
                 {
-                    //startHappyNewYear(senderId, referral)
+                    var happyNewYearModule = require('../modules/tevo/happy_new_year/happy_new_year')
+                    happyNewYearModule.startHappyNewYear(senderId, referral)
                 }
                 break;
 
             case "VEGAS_SHOW":
                 {
-                    //startVegasShow(senderId, referral)
+                    var vegasShowModule = require('../modules/tevo/vegas_show/vegas_show')
+                    vegasShowModule.startVegasShow(senderId, referral)
                 }
                 break;
 
             case "SUPER_BOWL":
                 {
-
-                    //startSuperBowl(senderId, referral)
+                    var superBowlModule = require('../modules/tevo/super_bowl/super_bowl')
+                    superBowlModule.startSuperBowl(senderId, referral)
                 }
                 break;
             case "CHRISTMAS_SONGS":
                 {
-                    //startChristmasSongs(senderId, referral)
+                    var chirstmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs')
+                    chirstmasSongsModule.startChirstmasSongs(senderId);
                 }
                 break;
             case "CHRISTMAS_PROMO":
                 {
-                    //startChristmas(senderId, referral)
+                    var chirstmasModule = require('../modules/tevo/chirstmas/christmas')
+                    chirstmasModule.startChirstmas(senderId);
                 }
                 break;
             case "SHAKIRA_PROMO":
                 {
-
-                    //starShakiraPromo(senderId, referral);
+                    var promoModule = require('../modules/promo/shakira')
+                    promoModule.startShakira(senderId);
                 }
 
                 break;
@@ -1358,14 +1359,15 @@ function chooseMlink(referral, senderId) {
 
             case "BLACK_FRIDAY":
                 {
-
-                    //starSixEvent(senderId, referral);
+                    var SixtEventModule = require('../modules/tevo/six_event/six_event')
+                    SixtEventModule.start(senderId);
                 }
 
                 break;
             case "RIGOVSLOMA":
                 {
-                    //startPepperQUiz(senderId);
+                    var QuizModule = require('../modules/quiz/quiz')
+                    QuizModule.start(senderId);
                 }
                 break;
 
@@ -1373,14 +1375,6 @@ function chooseMlink(referral, senderId) {
             case "MAGICON":
                 {
 
-                    console.log('0.5');
-                    console.log('Sender ID:' + senderId);
-
-
-                    console.log('El sender id es:' + senderId);
-                    console.log('Estamos dentro de Start');
-
-                    // llamamos al módulo de boletos y los enviamos.
                     var Magic = require('../modules/boletos');
                     Magic.start(senderId);
 
@@ -1406,7 +1400,7 @@ function chooseMlink(referral, senderId) {
             default:
                 {
 
-                    //startTevoModuleWithMlink(referral, senderId, 1);
+                    startTevoModuleWithMlink(referral, senderId, 1);
 
                 }
                 break;

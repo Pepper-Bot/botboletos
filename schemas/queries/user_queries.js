@@ -46,10 +46,84 @@
 
 
  var createUserDatas = (senderId, context = '', mlinkSelected = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
-    var dbObj = require('../mongodb');
-    dbObj.getConnection();
-    
+     var dbObj = require('../mongodb');
+     dbObj.getConnection();
+
      return new Promise((resolve, reject) => {
+         UserData.getInfo(senderId, function (err, FBUser) {
+             if (!err) {
+                 var User = new UserData2;
+                 User.fbId = senderId;
+                 User.firstName = FBUser.first_name;
+                 User.LastName = FBUser.last_name;
+                 User.profilePic = FBUser.profile_pic;
+                 User.locale = FBUser.locale;
+                 User.timeZone = FBUser.timezone;
+                 User.gender = FBUser.gender;
+                 User.messageNumber = 1;
+
+
+                 if (context != '') {
+                     User.context = context
+                 }
+
+                 if (mlinkSelected != '') {
+                     User.mlinkSelected = mlinkSelected
+                 }
+
+                 if (categorySearchSelected != '') {
+                     User.categorySearchSelected.push(categorySearchSelected)
+                 }
+
+                 if (optionsSelected != '') {
+                     User.optionsSelected.push(optionsSelected)
+                 }
+
+
+                 User.showMemore.index1 = index1
+                 User.showMemore.index2 = index2
+                 User.showMemore.index3 = index3
+
+
+
+                 UserData2.findOneAndUpdate(
+
+                     {
+                         fbId: senderId
+                     },
+
+
+                     User,
+
+                     {
+                         upsert: true,
+                         new: true,
+                         runValidators: true
+                     },
+
+                     function (err, userSaved) {
+                         if (!err) {
+                             console.log("foundUser Saved/Updated!!! " + JSON.stringify(userSaved));
+
+                             resolve(userSaved)
+
+                         } else {
+                             console.log('Error guardando en userdatas')
+                         }
+
+                     })
+
+             }
+         })
+
+     });
+ }
+
+
+
+
+/*
+
          UserData2.findOne({
              fbId: senderId
          }, {}, {
@@ -98,17 +172,17 @@
                          console.log('Dentro de UserData');
                          if (!err) {
 
-                             var bodyObj = JSON.parse(result);
+                             var FBUser = JSON.parse(result);
                              console.log(result);
 
                              var User = new UserData2; {
                                  User.fbId = senderId;
-                                 User.firstName = bodyObj.first_name;
-                                 User.LastName = bodyObj.last_name;
-                                 User.profilePic = bodyObj.profile_pic;
-                                 User.locale = bodyObj.locale;
-                                 User.timeZone = bodyObj.timezone;
-                                 User.gender = bodyObj.gender;
+                                 User.firstName = FBUser.first_name;
+                                 User.LastName = FBUser.last_name;
+                                 User.profilePic = FBUser.profile_pic;
+                                 User.locale = FBUser.locale;
+                                 User.timeZone = FBUser.timezone;
+                                 User.gender = FBUser.gender;
                                  User.messageNumber = 1;
 
 
@@ -154,13 +228,7 @@
              }
 
          });
-     });
- }
-
-
-
-
-
+*/
 
  module.exports = {
      getUsersGroupByFBId,
