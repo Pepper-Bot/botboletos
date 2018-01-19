@@ -412,10 +412,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                          
 
-                        startTevoByQuery(sender, urlApiTevo, 0, messageTitle).then((queryOk) => {
-
-                        })
-                        /* tevoClient.getJSON(searchByNameAndCityAndDate).then((json) => {
+                      
+                       tevoClient.getJSON(searchByNameAndCityAndDate).then((json) => {
                              if (json.error) {
                                  sendTextMessage(sender, error);
                              } else {
@@ -447,7 +445,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                                  }
                              }
-                         });*/
+                         });
 
 
 
