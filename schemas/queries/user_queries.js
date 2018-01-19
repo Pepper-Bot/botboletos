@@ -47,7 +47,7 @@
 
 
 
- var createUserDatas = (senderId, context = '', mlinkSelected = '', eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
+ var createUpdateUserDatas = (senderId, context = '', mlinkSelected = '', eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
      var dbObj = require('../mongodb');
      dbObj.getConnection();
 
@@ -172,7 +172,7 @@
                                          resolve(userSaved)
 
                                      } else {
-                                         console.log('Error guardando en userdatas')
+                                         console.log('Error guardando en userdatas New UserData'+ err)
                                      }
                                  });
 
@@ -204,6 +204,6 @@
 
  module.exports = {
      getUsersGroupByFBId,
-     createUserDatas
+     createUpdateUserDatas
 
  }

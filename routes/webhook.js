@@ -147,7 +147,14 @@ function receivedMessage(event) {
 
     if (messageText) {
         //send message to api.ai
-        sendToApiAi(senderID, messageText);
+        user_queries.createUpdateUserDatas(senderID).then((foundUser) => {
+            if (foundUser.context === 'find_my_event_by_name') {
+
+            } else {
+                sendToApiAi(senderID, messageText);
+            }
+        })
+
     } else if (messageAttachments) {
         handleMessageAttachments(messageAttachments, senderID);
     }
@@ -1287,7 +1294,7 @@ function handleReferrals(event) {
 function chooseMlink(referral, senderId) {
 
     //senderId, context = '', mlinkSelected = '', eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-    user_queries.createUserDatas(senderId, '', referral).then((foundUser) => {
+    user_queries.createUpdateUserDatas(senderId, '', referral).then((foundUser) => {
         switch (referral) {
             case "SAN_VALENTIN":
                 {
