@@ -47,7 +47,7 @@
 
 
 
- var createUpdateUserDatas = (senderId, context = '', mlinkSelected = '', eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
+ var createUpdateUserDatas = (senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
      var dbObj = require('../mongodb');
      dbObj.getConnection();
 
@@ -100,6 +100,9 @@
                                  foundUser.optionsSelected.push(optionsSelected)
                              }
 
+                             if (userSays.typed) {
+                                 foundUser.userSays.push(userSays)
+                             }
 
                              foundUser.showMemore.index1 = index1
                              foundUser.showMemore.index2 = index2
@@ -158,6 +161,10 @@
                                  }
 
 
+                                 if (userSays.typed) {
+                                     User.userSays.push(userSays)
+                                 }
+
 
                                  User.showMemore.index1 = index1
                                  User.showMemore.index2 = index2
@@ -172,7 +179,7 @@
                                          resolve(userSaved)
 
                                      } else {
-                                         console.log('Error guardando en userdatas New UserData'+ err)
+                                         console.log('Error guardando en userdatas New UserData' + err)
                                      }
                                  });
 

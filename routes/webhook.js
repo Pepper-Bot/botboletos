@@ -147,13 +147,16 @@ function receivedMessage(event) {
 
     if (messageText) {
         //send message to api.ai
-        user_queries.createUpdateUserDatas(senderID).then((foundUser) => {
-            if (foundUser.context === 'find_my_event_by_name') {
+        //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
+        var userSays = {
+            typed: messageText
+        }
 
-            } else {
-                sendToApiAi(senderID, messageText);
-            }
+        user_queries.createUpdateUserDatas(senderID, '', '', userSays).then((foundUser) => {
+            sendToApiAi(senderID, messageText);
         })
+
+        
 
     } else if (messageAttachments) {
         handleMessageAttachments(messageAttachments, senderID);

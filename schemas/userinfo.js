@@ -49,8 +49,16 @@ var UserData = mongoose.Schema({
 	context: String,
 	mlinkSelected: String,
 	categorySearchSelected: [],
-	querysTevo: []
-    
+	querysTevo: [],
+
+	userSays: [{
+		typed: String,
+		writtenAt: {
+			type: Date,
+			default: Date.now
+		}
+	}]
+
 
 
 });
