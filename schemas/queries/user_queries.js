@@ -46,7 +46,9 @@
 
 
  var createUserDatas = (senderId, context = '', mlinkSelected = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
-
+    var dbObj = require('../mongodb');
+    dbObj.getConnection();
+    
      return new Promise((resolve, reject) => {
          UserData2.findOne({
              fbId: senderId
