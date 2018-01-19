@@ -156,7 +156,7 @@ function receivedMessage(event) {
             sendToApiAi(senderID, messageText);
         })
 
-        
+
 
     } else if (messageAttachments) {
         handleMessageAttachments(messageAttachments, senderID);
