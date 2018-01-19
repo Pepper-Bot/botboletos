@@ -338,37 +338,48 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     var messageTitle = 'Cool, I looked for '
 
+                    var searchByName = ''
+                    var searchByNameAndCity = ''
+                    var searchByNameAndCityAndDate = ''
+                    var searchByCity = ''
+                    var searchByCityAndDate = ''
+
                     if (event_title != '') {
                         urlApiTevo = tevo.API_URL + 'events?q=' + event_title
-                        urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
+                        searchByName = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+
                         messageTitle += '"' + event_title + '"'
                         if (city != '') {
                             urlApiTevo += '&city_state=' + city
-                            urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
+                            searchByNameAndCity = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+
                             messageTitle += ' ' + city + ' shows '
                         }
 
 
                         if (date_time != '') {
                             urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
-                            urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
+                            searchByNameAndCityAndDate = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
                             messageTitle += ' in ' + date_time
 
                         }
                     } else {
                         if (city != '') {
                             urlApiTevo += tevo.API_URL + 'events?city_state=' + city
-                            urlsApiTevo.push(urlApiTevo)
+                            searchByCity = urlApiTevo + +'&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+
                             if (date_time != '') {
                                 urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
-                                urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
+                                searchByCityAndDate = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
                                 messageTitle += ' ' + city + ' shows '
                             }
 
                         } else {
                             if (date_time != '') {
                                 urlApiTevo += tevo.API_URL + 'events?&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
-                                urlsApiTevo.push(urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at')
+
+
+
                                 messageTitle += ' in ' + date_time
                             } else {
 
@@ -397,33 +408,49 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 */
                     if (responseText = "end.events.search") {
                         console.log('responseText = end.events.search ')
-                        tevoClient.getJSON(urlApiTevo).then((json) => {
-                            if (json.error) {
-                                sendTextMessage(sender, error);
-                            } else {
-                                if (json.events.length > 0) {
-
-                                    var TevoModule = require('../modules/query_tevo_request');
-                                    var position = 0;
-                                    TevoModule.start(sender, urlApiTevo, position, messageTitle);
 
 
+                         
 
-                                } else {
-                                    for (let i = 0; i < urlsApiTevo.length; i++) {
-                                        tevoClient.getJSON(urlApiTevo[i]).then((json) => {
-                                            if (json.error) {
-                                                sendTextMessage(sender, error);
-                                            } else {
+                        startTevoByQuery(sender, urlApiTevo, 0, messageTitle).then((queryOk) => {
+
+                        })
+                        /* tevoClient.getJSON(searchByNameAndCityAndDate).then((json) => {
+                             if (json.error) {
+                                 sendTextMessage(sender, error);
+                             } else {
+                                 if (json.events.length > 0) {
+
+                                     var TevoModule = require('../modules/query_tevo_request');
+                                     var position = 0;
+                                     TevoModule.start(sender, urlApiTevo, position, messageTitle);
 
 
 
-                                            }
-                                        })
-                                    }
-                                }
-                            }
-                        });
+                                 } else {
+                                     tevoClient.getJSON(searchByCi).then((json) => {
+                                         if (json.error) {
+                                             sendTextMessage(sender, error);
+                                         } else {
+                                             if (json.events.length > 0) {
+
+
+
+
+
+                                             }
+
+                                         }
+                                     })
+
+
+
+                                 }
+                             }
+                         });*/
+
+
+
                     }
 
 
@@ -552,6 +579,30 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
     }
 }
 
+var startTevoByQuery = (senderId, urlApiTevo, position, messageTitle) => {
+    return new Promise((resolve, reject) => {
+        tevoClient.getJSON(urlApiTevo).then((json) => {
+            if (json.error) {
+                sendTextMessage(sender, error);
+            } else {
+                if (json.events.length > 0) {
+
+                    var TevoModule = require('../modules/query_tevo_request');
+                    var position = 0;
+                    TevoModule.start(sender, urlApiTevo, position, messageTitle);
+
+                    resolve(true)
+
+                } else {
+                    resolve(false)
+                }
+            }
+        }).catch((err) => {
+            console.err("Error en la query enviada a Tevo " + err);
+            reject(false)
+        });
+    });
+}
 
 function sendEmail(subject, content) {
     // using SendGrid's v3 Node.js Library
