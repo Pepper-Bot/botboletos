@@ -104,6 +104,7 @@
                                  foundUser.userSays.push(userSays)
                                 
                              }
+                             
                              console.log("foundUser.userSays.lenght " + JSON.stringify(userSays));
 
                              foundUser.showMemore.index1 = index1
