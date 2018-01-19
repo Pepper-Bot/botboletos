@@ -62,7 +62,6 @@
                  }, function (err, foundUser) {
                      if (!err) {
                          if (null != foundUser) {
-
                              foundUser.fbId = senderId;
                              foundUser.firstName = FBUser.first_name;
                              foundUser.LastName = FBUser.last_name;
@@ -108,7 +107,7 @@
                              });
                          } else {
 
-                            
+
                              var User = new UserData2; {
                                  User.fbId = senderId;
                                  User.firstName = FBUser.first_name;
