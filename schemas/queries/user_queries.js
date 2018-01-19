@@ -118,7 +118,7 @@
                                  }
 
                                  if (mlinkSelected != '') {
-                                     User.mlinkSelected.push(mlinkSelected)
+                                     User.mlinkSelected = mlinkSelected
                                  }
 
                                  if (categorySearchSelected != '') {
