@@ -108,7 +108,7 @@
                              resolve(userSaved)
 
                          } else {
-                             console.log('Error guardando en userdatas')
+                             console.log('Error guardando en userdatas' + err)
                          }
 
                      })
@@ -122,113 +122,113 @@
 
 
 
-/*
+ /*
 
-         UserData2.findOne({
-             fbId: senderId
-         }, {}, {
-             sort: {
-                 'sessionStart': -1
-             }
-         }, function (err, foundUser) {
-             if (!err) {
-                 if (null != foundUser) {
+          UserData2.findOne({
+              fbId: senderId
+          }, {}, {
+              sort: {
+                  'sessionStart': -1
+              }
+          }, function (err, foundUser) {
+              if (!err) {
+                  if (null != foundUser) {
 
-                     if (context != '') {
-                         foundUser.context = context
-                     }
+                      if (context != '') {
+                          foundUser.context = context
+                      }
 
-                     if (mlinkSelected != '') {
-                         foundUser.mlinkSelected = mlinkSelected
-                     }
+                      if (mlinkSelected != '') {
+                          foundUser.mlinkSelected = mlinkSelected
+                      }
 
-                     if (categorySearchSelected != '') {
-                         foundUser.categorySearchSelected.push(categorySearchSelected)
-                     }
+                      if (categorySearchSelected != '') {
+                          foundUser.categorySearchSelected.push(categorySearchSelected)
+                      }
 
-                     if (optionsSelected != '') {
-                         foundUser.optionsSelected.push(optionsSelected)
-                     }
-
-
-                     foundUser.showMemore.index1 = index1
-                     foundUser.showMemore.index2 = index2
-                     foundUser.showMemore.index3 = index3
+                      if (optionsSelected != '') {
+                          foundUser.optionsSelected.push(optionsSelected)
+                      }
 
 
-                     foundUser.save(function (err, userSaved) {
-                         if (!err) {
-                             console.log("foundUser Saved!!! " + JSON.stringify(userSaved));
-
-                             resolve(userSaved)
-
-                         } else {
-                             console.log('Error guardando en userdatas')
-                         }
-                     });
-                 } else {
-
-                     UserData.getInfo(senderId, function (err, result) {
-                         console.log('Dentro de UserData');
-                         if (!err) {
-
-                             var FBUser = JSON.parse(result);
-                             console.log(result);
-
-                             var User = new UserData2; {
-                                 User.fbId = senderId;
-                                 User.firstName = FBUser.first_name;
-                                 User.LastName = FBUser.last_name;
-                                 User.profilePic = FBUser.profile_pic;
-                                 User.locale = FBUser.locale;
-                                 User.timeZone = FBUser.timezone;
-                                 User.gender = FBUser.gender;
-                                 User.messageNumber = 1;
+                      foundUser.showMemore.index1 = index1
+                      foundUser.showMemore.index2 = index2
+                      foundUser.showMemore.index3 = index3
 
 
+                      foundUser.save(function (err, userSaved) {
+                          if (!err) {
+                              console.log("foundUser Saved!!! " + JSON.stringify(userSaved));
 
-                                 if (context != '') {
-                                     User.context = context
-                                 }
+                              resolve(userSaved)
 
-                                 if (mlinkSelected != '') {
-                                     User.mlinkSelected = mlinkSelected
-                                 }
+                          } else {
+                              console.log('Error guardando en userdatas')
+                          }
+                      });
+                  } else {
 
-                                 if (categorySearchSelected != '') {
-                                     User.categorySearchSelected.push(categorySearchSelected)
-                                 }
+                      UserData.getInfo(senderId, function (err, result) {
+                          console.log('Dentro de UserData');
+                          if (!err) {
 
-                                 if (optionsSelected != '') {
-                                     User.optionsSelected.push(optionsSelected)
-                                 }
+                              var FBUser = JSON.parse(result);
+                              console.log(result);
 
-                                 User.showMemore.index1 = index1
-                                 User.showMemore.index2 = index2
-                                 User.showMemore.index3 = index3
+                              var User = new UserData2; {
+                                  User.fbId = senderId;
+                                  User.firstName = FBUser.first_name;
+                                  User.LastName = FBUser.last_name;
+                                  User.profilePic = FBUser.profile_pic;
+                                  User.locale = FBUser.locale;
+                                  User.timeZone = FBUser.timezone;
+                                  User.gender = FBUser.gender;
+                                  User.messageNumber = 1;
 
 
 
-                                 User.save(function (err, userSaved) {
-                                     if (!err) {
-                                         console.log("user New Saved Saved!!! " + JSON.stringify(userSaved));
+                                  if (context != '') {
+                                      User.context = context
+                                  }
 
-                                         resolve(userSaved)
+                                  if (mlinkSelected != '') {
+                                      User.mlinkSelected = mlinkSelected
+                                  }
 
-                                     } else {
-                                         console.log('Error guardando en userdatas')
-                                     }
-                                 });
+                                  if (categorySearchSelected != '') {
+                                      User.categorySearchSelected.push(categorySearchSelected)
+                                  }
 
-                             }
+                                  if (optionsSelected != '') {
+                                      User.optionsSelected.push(optionsSelected)
+                                  }
 
-                         }
-                     });
-                 }
-             }
+                                  User.showMemore.index1 = index1
+                                  User.showMemore.index2 = index2
+                                  User.showMemore.index3 = index3
 
-         });
-*/
+
+
+                                  User.save(function (err, userSaved) {
+                                      if (!err) {
+                                          console.log("user New Saved Saved!!! " + JSON.stringify(userSaved));
+
+                                          resolve(userSaved)
+
+                                      } else {
+                                          console.log('Error guardando en userdatas')
+                                      }
+                                  });
+
+                              }
+
+                          }
+                      });
+                  }
+              }
+
+          });
+ */
 
  module.exports = {
      getUsersGroupByFBId,
