@@ -421,6 +421,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                     TevoModule.start(sender, urlApiTevo, position, messageTitle);
                                 } else {
                                     if (searchByName != '') {
+                                        console.log('name_1')
                                         if (searchByCity != '') {
                                             console.log('name_and_city')
                                             tevoClient.getJSON(searchByNameAndCity).then((json) => {
@@ -473,7 +474,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                                 }
                                             })
                                         }
-                                    } else if (searchByCity != '') {
+                                    } else
+                                    if (searchByCity != '') {
                                         if (searchByCityAndDate != '') {
                                             tevoClient.getJSON(searchByCityAndDate).then((json) => {
                                                 if (json.error) {
