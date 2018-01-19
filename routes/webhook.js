@@ -1275,12 +1275,14 @@ function handleReferrals(event) {
     if (undefined !== event.postback) {
         console.log('event.postback definido');
         referral = event.postback.referral.ref;
-        chooseMlink(referral, senderId);
-
-
- 
+      
+    }else{
+        console.log('event.referral.ref definido');
+        referral = event.referral.ref;
 
     }
+
+    chooseMlink(referral, senderId);
 }
 
 function chooseMlink(referral, senderId) {
@@ -1303,7 +1305,7 @@ function chooseMlink(referral, senderId) {
         /*index3 =*/
         0).then(()=>{
             
-            
+
         })
 
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
