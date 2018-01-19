@@ -1275,8 +1275,8 @@ function handleReferrals(event) {
     if (undefined !== event.postback) {
         console.log('event.postback definido');
         referral = event.postback.referral.ref;
-      
-    }else{
+
+    } else {
         console.log('event.referral.ref definido');
         referral = event.referral.ref;
 
@@ -1303,121 +1303,121 @@ function chooseMlink(referral, senderId) {
         /*index2 =*/
         0,
         /*index3 =*/
-        0).then(()=>{
-            
+        0).then(() => {
+        switch (referral) {
 
-        })
+            case "SAN_VALENTIN":
+                {
+                    console.log(' MLINK DE SAN VALENTIN')
+                    //startSanValentin(senderId, referral)
+                }
+                break;
+
+            case "HappyNewYear":
+                {
+                    //startHappyNewYear(senderId, referral, false)
+                }
+                break;
+
+            case "HAPPY_NEW_YEAR":
+                {
+                    //startHappyNewYear(senderId, referral)
+                }
+                break;
+
+            case "VEGAS_SHOW":
+                {
+                    //startVegasShow(senderId, referral)
+                }
+                break;
+
+            case "SUPER_BOWL":
+                {
+
+                    //startSuperBowl(senderId, referral)
+                }
+                break;
+            case "CHRISTMAS_SONGS":
+                {
+                    //startChristmasSongs(senderId, referral)
+                }
+                break;
+            case "CHRISTMAS_PROMO":
+                {
+                    //startChristmas(senderId, referral)
+                }
+                break;
+            case "SHAKIRA_PROMO":
+                {
+
+                    //starShakiraPromo(senderId, referral);
+                }
+
+                break;
+
+
+            case "BLACK_FRIDAY":
+                {
+
+                    //starSixEvent(senderId, referral);
+                }
+
+                break;
+            case "RIGOVSLOMA":
+                {
+                    //startPepperQUiz(senderId);
+                }
+                break;
+
+
+            case "MAGICON":
+                {
+
+                    console.log('0.5');
+                    console.log('Sender ID:' + senderId);
+
+
+                    console.log('El sender id es:' + senderId);
+                    console.log('Estamos dentro de Start');
+
+                    // llamamos al módulo de boletos y los enviamos.
+                    var Magic = require('../modules/boletos');
+                    Magic.start(senderId);
+
+                }
+                break;
+
+            case "SHARKSTANK":
+                {
+                    var Shark = require('../modules/shark_boletos');
+                    Shark.start(senderId);
+
+                }
+                break;
+
+
+            case "EVENTBRITE":
+                {
+                    var EventBriteModule = require('../modules/eventbrite_request');
+                    EventBriteModule.start(senderId);
+                }
+                break;
+
+            default:
+                {
+
+                    //startTevoModuleWithMlink(referral, senderId, 1);
+
+                }
+                break;
+
+        }
+
+    })
 
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
-    /* switch (referral) {
 
-       
-         case "SAN_VALENTIN":
-             {
-                 startSanValentin(senderId, referral)
-             }
-             break;
-
-         case "HappyNewYear":
-             {
-                 startHappyNewYear(senderId, referral, false)
-             }
-             break;
-
-         case "HAPPY_NEW_YEAR":
-             {
-                 startHappyNewYear(senderId, referral)
-             }
-             break;
-
-         case "VEGAS_SHOW":
-             {
-                 startVegasShow(senderId, referral)
-             }
-             break;
-
-         case "SUPER_BOWL":
-             {
-
-                 startSuperBowl(senderId, referral)
-             }
-             break;
-         case "CHRISTMAS_SONGS":
-             {
-                 startChristmasSongs(senderId, referral)
-             }
-             break;
-         case "CHRISTMAS_PROMO":
-             {
-                 startChristmas(senderId, referral)
-             }
-             break;
-         case "SHAKIRA_PROMO":
-             {
-
-                 starShakiraPromo(senderId, referral);
-             }
-
-             break;
-
-
-         case "BLACK_FRIDAY":
-             {
-
-                 starSixEvent(senderId, referral);
-             }
-
-             break;
-         case "RIGOVSLOMA":
-             {
-                 startPepperQUiz(senderId);
-             }
-             break;
-
-
-         case "MAGICON":
-             {
-
-                 console.log('0.5');
-                 console.log('Sender ID:' + senderId);
-
-
-                 console.log('El sender id es:' + senderId);
-                 console.log('Estamos dentro de Start');
-
-                 // llamamos al módulo de boletos y los enviamos.
-                 var Magic = require('../modules/boletos');
-                 Magic.start(senderId);
-
-             }
-             break;
-
-         case "SHARKSTANK":
-             {
-                 var Shark = require('../modules/shark_boletos');
-                 Shark.start(senderId);
-
-             }
-             break;
-
-
-         case "EVENTBRITE":
-             {
-                 var EventBriteModule = require('../modules/eventbrite_request');
-                 EventBriteModule.start(senderId);
-             }
-             break;
-
-         default:
-             {
-
-                 startTevoModuleWithMlink(referral, senderId, 1);
-
-             }
-             break;
-
-     }*/
 }
 
 
