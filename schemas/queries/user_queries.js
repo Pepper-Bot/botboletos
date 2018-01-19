@@ -80,7 +80,7 @@
                              }
 
                              if (mlinkSelected != '') {
-                                 foundUser.mlinkSelected.push(mlinkSelected)
+                                 foundUser.mlinkSelected = mlinkSelected
                              }
 
                              if (eventSearchSelected != '') {
@@ -113,7 +113,7 @@
                                      resolve(userSaved)
 
                                  } else {
-                                     console.log('Error guardando en userdatas')
+                                     console.log('Error guardando en userdatas ' + err)
                                  }
                              });
                          } else {
@@ -136,7 +136,7 @@
                                  }
 
                                  if (mlinkSelected != '') {
-                                     User.mlinkSelected.push(mlinkSelected)
+                                     User.mlinkSelected = mlinkSelected
                                  }
 
                                  if (eventSearchSelected != '') {
