@@ -21,6 +21,10 @@ const uuid = require('uuid');
 var moment = require('moment');
 
 
+var user_queries = require('../schemas/queries/user_queries');
+
+
+
 const apiAiService = apiai(API_AI_CLIENT_ACCESS_TOKEN, {
     language: "en",
     requestSource: "fb"
@@ -1270,164 +1274,148 @@ function handleReferrals(event) {
 
     if (undefined !== event.postback) {
         console.log('event.postback definido');
-        // Obtenemos la referencia por "Start Button" o sea una conversación nueva.
         referral = event.postback.referral.ref;
-        chooseReferral(referral, senderId);
-    } else {
-        // Msgr tiene un error, cuando detecta que ya es una conversacion abierta
-        // envia 3 requests y por ende repite los mensajes, para evitar esto
-        // se almacena el id en mongodb hasta la 3ra vuelta se envia la informacion 
-        // no se si esto es problema de msgr como tal o heroku (quiero pensar que es de msgr)        
-        referral = event.referral.ref;
-
-        var FBSessions = require('../schemas/boletos');
-        // Buscamos el id del usuario
-        FBSessions.find({
-            fbId: senderId
-        }, {}, function (err, result) {
-
-            if (!err) {
-
-                if (result.length < 2) {
-                    // si estamos dentro del rango de dos peticiones guardamos el id
-                    var FBSession = new FBSessions; {
-                        FBSession.fbId = senderId;
-                        FBSession.save();
-                    }
-                } else {
-                    // tercera peticion, mandamos a llamar a los boletos y elminamos los registros.
-
-                    chooseReferral(referral, senderId);
-                    FBSessions.remove({
-                        fbId: senderId
-                    }, function (err) {
-
-                    });
-
-                }
-
-            }
+        chooseMlink(referral, senderId);
 
 
-        });
-        // Ya tiene iniciada una conversacion el usuario con el robot
+ 
 
     }
-
 }
 
-function chooseReferral(referral, senderId) {
+function chooseMlink(referral, senderId) {
+
+
+
+    user_queries.createUserDatas(senderId,
+        /*context =*/
+        '',
+        /*mlinkSelected = */
+        referral,
+        /*categorySearchSelected =*/
+        '',
+        /*optionsSelected =*/
+        '',
+        /*index1 =*/
+        0,
+        /*index2 =*/
+        0,
+        /*index3 =*/
+        0).then(()=>{
+            
+            
+        })
 
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
-   /* switch (referral) {
+    /* switch (referral) {
 
-      
-        case "SAN_VALENTIN":
-            {
-                startSanValentin(senderId, referral)
-            }
-            break;
+       
+         case "SAN_VALENTIN":
+             {
+                 startSanValentin(senderId, referral)
+             }
+             break;
 
-        case "HappyNewYear":
-            {
-                startHappyNewYear(senderId, referral, false)
-            }
-            break;
+         case "HappyNewYear":
+             {
+                 startHappyNewYear(senderId, referral, false)
+             }
+             break;
 
-        case "HAPPY_NEW_YEAR":
-            {
-                startHappyNewYear(senderId, referral)
-            }
-            break;
+         case "HAPPY_NEW_YEAR":
+             {
+                 startHappyNewYear(senderId, referral)
+             }
+             break;
 
-        case "VEGAS_SHOW":
-            {
-                startVegasShow(senderId, referral)
-            }
-            break;
+         case "VEGAS_SHOW":
+             {
+                 startVegasShow(senderId, referral)
+             }
+             break;
 
-        case "SUPER_BOWL":
-            {
+         case "SUPER_BOWL":
+             {
 
-                startSuperBowl(senderId, referral)
-            }
-            break;
-        case "CHRISTMAS_SONGS":
-            {
-                startChristmasSongs(senderId, referral)
-            }
-            break;
-        case "CHRISTMAS_PROMO":
-            {
-                startChristmas(senderId, referral)
-            }
-            break;
-        case "SHAKIRA_PROMO":
-            {
+                 startSuperBowl(senderId, referral)
+             }
+             break;
+         case "CHRISTMAS_SONGS":
+             {
+                 startChristmasSongs(senderId, referral)
+             }
+             break;
+         case "CHRISTMAS_PROMO":
+             {
+                 startChristmas(senderId, referral)
+             }
+             break;
+         case "SHAKIRA_PROMO":
+             {
 
-                starShakiraPromo(senderId, referral);
-            }
+                 starShakiraPromo(senderId, referral);
+             }
 
-            break;
-
-
-        case "BLACK_FRIDAY":
-            {
-
-                starSixEvent(senderId, referral);
-            }
-
-            break;
-        case "RIGOVSLOMA":
-            {
-                startPepperQUiz(senderId);
-            }
-            break;
+             break;
 
 
-        case "MAGICON":
-            {
+         case "BLACK_FRIDAY":
+             {
 
-                console.log('0.5');
-                console.log('Sender ID:' + senderId);
+                 starSixEvent(senderId, referral);
+             }
 
-
-                console.log('El sender id es:' + senderId);
-                console.log('Estamos dentro de Start');
-
-                // llamamos al módulo de boletos y los enviamos.
-                var Magic = require('../modules/boletos');
-                Magic.start(senderId);
-
-            }
-            break;
-
-        case "SHARKSTANK":
-            {
-                var Shark = require('../modules/shark_boletos');
-                Shark.start(senderId);
-
-            }
-            break;
+             break;
+         case "RIGOVSLOMA":
+             {
+                 startPepperQUiz(senderId);
+             }
+             break;
 
 
-        case "EVENTBRITE":
-            {
-                var EventBriteModule = require('../modules/eventbrite_request');
-                EventBriteModule.start(senderId);
-            }
-            break;
+         case "MAGICON":
+             {
 
-        default:
-            {
+                 console.log('0.5');
+                 console.log('Sender ID:' + senderId);
 
-                startTevoModuleWithMlink(referral, senderId, 1);
 
-            }
-            break;
+                 console.log('El sender id es:' + senderId);
+                 console.log('Estamos dentro de Start');
 
-    }*/
+                 // llamamos al módulo de boletos y los enviamos.
+                 var Magic = require('../modules/boletos');
+                 Magic.start(senderId);
+
+             }
+             break;
+
+         case "SHARKSTANK":
+             {
+                 var Shark = require('../modules/shark_boletos');
+                 Shark.start(senderId);
+
+             }
+             break;
+
+
+         case "EVENTBRITE":
+             {
+                 var EventBriteModule = require('../modules/eventbrite_request');
+                 EventBriteModule.start(senderId);
+             }
+             break;
+
+         default:
+             {
+
+                 startTevoModuleWithMlink(referral, senderId, 1);
+
+             }
+             break;
+
+     }*/
 }
 
 
