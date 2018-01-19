@@ -80,7 +80,7 @@
                              }
 
                              if (mlinkSelected != '') {
-                                 foundUser.mlinkSelected = mlinkSelected
+                                 foundUser.mlinkSelected.push(mlinkSelected)
                              }
 
                              if (eventSearchSelected != '') {
@@ -136,7 +136,7 @@
                                  }
 
                                  if (mlinkSelected != '') {
-                                     User.mlinkSelected = mlinkSelected
+                                     User.mlinkSelected.push(mlinkSelected)
                                  }
 
                                  if (eventSearchSelected != '') {
