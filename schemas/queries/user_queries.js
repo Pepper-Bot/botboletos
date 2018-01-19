@@ -63,7 +63,7 @@
                      }
 
                      if (mlinkSelected != '') {
-                         foundUser.mlinkSelected.push(mlinkSelected)
+                         foundUser.mlinkSelected = mlinkSelected
                      }
 
                      if (categorySearchSelected != '') {
@@ -83,7 +83,7 @@
                      foundUser.save(function (err, userSaved) {
                          if (!err) {
                              console.log("foundUser Saved!!! " + JSON.stringify(userSaved));
-                            
+
                              resolve(userSaved)
 
                          } else {
@@ -138,7 +138,7 @@
                                          console.log("user New Saved Saved!!! " + JSON.stringify(userSaved));
 
                                          resolve(userSaved)
-                                         
+
                                      } else {
                                          console.log('Error guardando en userdatas')
                                      }
