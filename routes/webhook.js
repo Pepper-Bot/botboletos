@@ -1285,21 +1285,9 @@ function handleReferrals(event) {
 }
 
 function chooseMlink(referral, senderId) {
-    user_queries.createUserDatas(senderId,
-        /*context =*/
-        '',
-        /*mlinkSelected = */
-        referral,
-        /*categorySearchSelected =*/
-        '',
-        /*optionsSelected =*/
-        '',
-        /*index1 =*/
-        0,
-        /*index2 =*/
-        0,
-        /*index3 =*/
-        0).then((foundUser) => {
+
+    //senderId, context = '', mlinkSelected = '', eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
+    user_queries.createUserDatas(senderId, '', referral).then((foundUser) => {
         switch (referral) {
             case "SAN_VALENTIN":
                 {
