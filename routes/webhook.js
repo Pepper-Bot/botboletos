@@ -401,6 +401,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         console.log('responseText = end.events.search ')
                         var queryMessage_ = {}
                         var salir = false;
+                        var index = 0;
                         for (var i = 0; i < arrayQueryMessages.length; i++) {
                             // 
                             tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
@@ -409,6 +410,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 } else {
                                     console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
                                     if (json.events.length > 0) {
+                                        index = i
                                         queryMessage_ = arrayQueryMessages[i]
                                         salir = true;
 
@@ -416,10 +418,10 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 }
                             }).catch(err => console.log("Error al ejecutar la tevo query  " + arrayQueryMessages[i].query + 'err.message: ' + err.message));
                             if (salir = true) {
-                                console.log("queryMessage_ escogido  >>> " + JSON.stringify(arrayQueryMessages[i]));
+                                console.log("queryMessage_ escogido  >>> " + JSON.stringify(arrayQueryMessages[index]));
 
 
-                                TevoModule.start(sender, arrayQueryMessages[i].query, 1, arrayQueryMessages[i].messageTitle);
+                                TevoModule.start(sender, arrayQueryMessages[index].query, 1, arrayQueryMessages[index].messageTitle);
 
                                 break;
                             }
