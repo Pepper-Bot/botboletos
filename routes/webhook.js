@@ -313,7 +313,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     if (event_title != '') {
 
                         var queryMessage = {
-                            priority = 1,
+                            prioridad = 1,
                             searchBy: 'NameAndCityAndDate',
                             query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
                             messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
@@ -324,7 +324,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                         var queryMessage = {
-                            priority = 2,
+                            prioridad = 2,
                             searchBy: 'NameAndCity',
                             query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&' + only_with + '&order_by=events.occurs_at',
                             messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
@@ -334,7 +334,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                         var queryMessage = {
-                            priority = 3,
+                            prioridad = 3,
                             searchBy: 'NameAndDate',
                             query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
                             messageTitle: 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
@@ -344,7 +344,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                         var queryMessage = {
-                            priority = 4,
+                            prioridad = 4,
                             searchBy: 'ByName',
                             query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
                             messageTitle: 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
@@ -355,7 +355,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                         var queryMessage = {
-                            priority = 5,
+                            prioridad = 5,
                             searchBy: 'CityAndDate',
                             query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
                             messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
@@ -365,7 +365,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                         var queryMessage = {
-                            priority = 6,
+                            prioridad = 6,
                             searchBy: 'City',
                             query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
                             messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
@@ -376,7 +376,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     } else {
 
                         var queryMessage = {
-                            priority = 1,
+                            prioridad = 1,
                             searchBy: 'CityAndDate',
                             query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
                             messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
@@ -385,7 +385,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                         var queryMessage = {
-                            priority = 2,
+                            prioridad = 2,
                             searchBy: 'City',
                             query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
                             messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
