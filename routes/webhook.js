@@ -183,49 +183,9 @@ function handleEcho(messageId, appId, metadata) {
 
 
 function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
-    console.log('>>>>>>>>>>>>>>>>>>entré a la función  handleApiAiAction');
+    console.log('>> handleApiAiAction');
     switch (action) {
-        case "faq-delivery":
-            {
-                sendTextMessage(sender, responseText);
-                sendTypingOn(sender);
-                // ask when user want to do next
-
-                let buttons = [{
-                        "type": "web_url",
-                        "url": "https://www.facebook.com",
-                        "title": "Track my order",
-                    },
-                    {
-                        "type": "phone_number",
-                        "title": "Call me",
-                        "payload": "+573165607215"
-                    },
-                    {
-                        "type": "postback",
-                        "title": "Keep on chatting",
-                        "payload": "CHAT"
-                    }
-                ];
-
-
-                setTimeout(
-
-                    function () {
-                        sendButtonMessage(sender, "What would you like to do next ", buttons);
-
-                    }
-
-
-                    , 3000
-
-                );
-
-
-
-                break;
-            }
-        case "events.search":
+         case "events.search":
             {
                 console.log(" Action events.search >>> ");
 
@@ -828,6 +788,7 @@ function handleApiAiResponse(sender, response) {
 
 function sendToApiAi(sender, text) {
 
+   console.log('texto enviado a api.ai> ' + text )
     sendTypingOn(sender);
     let apiaiRequest = apiAiService.textRequest(text, {
         sessionId: sessionIds.get(sender)
