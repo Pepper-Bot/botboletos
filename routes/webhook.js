@@ -352,6 +352,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         messageTitle += '"' + event_title + '"'
                         if (city != '') {
                             urlApiTevo += '&city_state=' + city
+                            searchByCity = tevo.API_URL + 'events?city_state=' + city  + +'&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
                             searchByNameAndCity = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
 
                             messageTitle += ' ' + city + ' shows '
@@ -367,7 +368,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     } else {
                         if (city != '') {
                             urlApiTevo += tevo.API_URL + 'events?city_state=' + city
-                            searchByCity = urlApiTevo + +'&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+                            searchByCity = urlApiTevo  +'&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
 
                             if (date_time != '') {
                                 urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
