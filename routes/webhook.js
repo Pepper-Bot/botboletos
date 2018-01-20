@@ -405,27 +405,32 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         for (var i = 0; i < arrayQueryMessages.length; i++) {
                             // 
                             tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
+
                                 if (json.error) {
                                     console.log('error al consultar tevo ', error);
                                 } else {
-                                    console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
+                                    console.log('i > ' + i + ' ' + arrayQueryMessages[index].searchBy + ' ' + arrayQueryMessages[index].query)
                                     if (json.events.length > 0) {
-                                        index = i
-                                        queryMessage_ = arrayQueryMessages[i]
+                                        queryMessage_ = arrayQueryMessages[index]
                                         salir = true;
 
                                     }
                                 }
-                            }).catch(err => console.log("Error al ejecutar la tevo query  " + arrayQueryMessages[i].query + 'err.message: ' + err.message));
+                                index += 1;
+                            }).catch((err) => {
+                                console.log("Error al ejecutar la tevo query  " + arrayQueryMessages[index].query + 'err.message: ' + err.message);
+                            }).then(() => {
+
+                            })
                             if (salir = true) {
                                 console.log("queryMessage_ escogido  >>> " + JSON.stringify(arrayQueryMessages[index]));
 
 
-                                TevoModule.start(sender, arrayQueryMessages[index].query, 1, arrayQueryMessages[index].messageTitle);
+                                TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
 
                                 break;
                             }
-                            if (salir = false && i == arrayQueryMessages.length - 1) {
+                            if (salir = false && index == arrayQueryMessages.length - 1) {
                                 console.log('Not Found Events')
                             }
                         }
