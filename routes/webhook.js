@@ -363,7 +363,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
                             searchByNameAndCityAndDate = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
                             messageTitle += ' in ' + date_time
-                            searchByNameAndDate = tevo.API_URL + 'events?q=' + event_title + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + +'&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+                            searchByNameAndDate = tevo.API_URL + 'events?q=' + event_title + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate +'&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
                         }
                     } else {
                         if (city != '') {
