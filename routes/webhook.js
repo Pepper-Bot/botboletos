@@ -399,7 +399,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     if (responseText = "end.events.search") {
                         console.log('responseText = end.events.search ')
-                        var queryMessage_ = []
+                        var queryMessage_ = {}
+                        var salir = false;
                         for (var i = 0; i < arrayQueryMessages.length; i++) {
                             // console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
                             tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
@@ -407,14 +408,18 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                     console.log('error al consultar tevo ', error);
                                 } else {
                                     if (json.events.length > 0) {
-                                        queryMessage_.push(arrayQueryMessages[i])
+                                        queryMessage_ = arrayQueryMessages[i]
+                                        salir = true;
                                     }
                                 }
                             }).catch(err => console.log("Error al ejecutar la tevo query  " + arrayQueryMessages[i].query + 'err.message: ' + err.message));
+                            if (salir = true) {
+                                break;
+                            }
                         }
                         setTimeout(function () {
                             console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
-                        }, 1000);
+                        }, 3000);
 
                     }
 
