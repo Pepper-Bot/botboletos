@@ -403,7 +403,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         var salir = false;
                         let index = 0;
                         for (let i = 0; i < arrayQueryMessages.length; i++) {
-
                             tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
                                 if (json.error) {
                                     console.log('error al consultar tevo ', error);
@@ -411,14 +410,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                     console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
                                     if (json.events.length > 0) {
                                         queryMessage_ = arrayQueryMessages[i]
-                                       
+
                                         console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
-                                       
-                                        TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
 
                                         salir = true;
-                                        
-                                       
+
+
                                     }
                                 }
 
@@ -430,10 +427,10 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 console.log("Error al ejecutar la tevo query  " + queryMessage_.query + 'err.message: ' + err.message);
                             }).then(() => {
                                 index += 1;
-                                
+
                             })
-                            if (salir === true) {
-                              
+                            if (salir === true ) {
+                                TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
                                 break;
                             }
 
