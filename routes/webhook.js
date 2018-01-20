@@ -201,8 +201,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 var event_title = ''
                 var startDate = ''
                 var finalDate = ''
-                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' &&
-                    contexts[0].parameters) {
+                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
 
                     if ((isDefined(contexts[0].parameters.location))) {
                         if (isDefined(contexts[0].parameters.location.city)) {
@@ -373,7 +372,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     if (responseText = "end.events.search") {
                         console.log('responseText = end.events.search ')
                         for (var i = 0; i < arrayQueryMessages.length; i++) {
-                            console.log(arrayQueryMessages[i].queryMessage.query)
+                            console.log(arrayQueryMessages[i].query)
                         }
 
 
