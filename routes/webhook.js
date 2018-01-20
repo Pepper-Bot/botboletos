@@ -368,7 +368,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                     } else {
-                  
+
                         var queryMessage = {
                             searchBy: 'CityAndDate',
                             query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
@@ -386,24 +386,32 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     }
 
-                    setTimeout(
+                    //setTimeout(function () {}, 1000);
 
-                        function () {
-                            if (responseText = "end.events.search") {
-                                console.log('responseText = end.events.search ')
-                                for (var i = 0; i < arrayQueryMessages.length; i++) {
-                                    console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
+
+                    if (responseText = "end.events.search") {
+                        console.log('responseText = end.events.search ')
+                        var queryMessage_ = {}
+                        for (var i = 0; i < arrayQueryMessages.length; i++) {
+                            // console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
+                            tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
+                                if (json.error) {
+                                    console.log('error al consultar tevo ', error);
+                                } else {
+                                    if (json.events.length > 0) {
+                                        queryMessage_ = arrayQueryMessages[i]
+                                        break;
+                                    }
                                 }
-
-
-                            }
-
+                            }).catch(err => console.log("Error al ejecutar la tevo query  " +  arrayQueryMessages[i].query + 'err.message: ' + err.message));
                         }
+                        setTimeout(function () {
+                            console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
+                        }, 1000);
+
+                    }
 
 
-                        , 1000
-
-                    );
 
 
                     /*if (event_title != '') {
