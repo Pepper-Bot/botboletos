@@ -402,15 +402,17 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         var queryMessage_ = {}
                         var salir = false;
                         for (var i = 0; i < arrayQueryMessages.length; i++) {
-                            // console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
+                            // 
                             tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
                                 if (json.error) {
                                     console.log('error al consultar tevo ', error);
                                 } else {
+                                    console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
                                     if (json.events.length > 0) {
                                         queryMessage_ = arrayQueryMessages[i]
                                         salir = true;
-                                    }
+
+                                    } 
                                 }
                             }).catch(err => console.log("Error al ejecutar la tevo query  " + arrayQueryMessages[i].query + 'err.message: ' + err.message));
                             if (salir = true) {
