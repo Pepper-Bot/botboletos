@@ -227,6 +227,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             }
         case "events.search":
             {
+                console.log(" Action events.search >>> ");
 
                 //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
                 //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
@@ -396,17 +397,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     urlApiTevo += '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
                     messageTitle += ' Book a ticket:'
 
-
-
-
-
-                    //urlApiTevo = 'https://api.ticketevolution.com/v9/events?q=' + event_name + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
-
-                    /*  var urlApiTevo = tevo.API_URL + 'events?q=' + event_title + '&page=1&per_page=50&only_with_available_tickets=true&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
-                      // urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100'
-                      urlApiTevo = tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&city_state=' + city + '&page=1&per_page=50&' + only_with + '&within=100'
-                      //+ '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
-                    */
                     var position = 0
                     console.log('urlApiTevo >' + urlApiTevo)
                     if (responseText = "end.events.search") {
@@ -508,12 +498,14 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             }
                         });
                     }
+                } else {
+                    sendTextMessage(sender, responseText);
                 }
 
 
 
                 if (responseText != "end.events.search") {
-                    sendTextMessage(sender, responseText);
+
                 }
 
                 break;
