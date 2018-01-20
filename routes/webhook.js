@@ -415,8 +415,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                             console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
 
                                             salir = true;
-
-                                            TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
+                                            if (salir)
+                                                TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
                                         }
 
 
@@ -433,7 +433,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                                 })
                             }
-                            
+
 
                         }
 
