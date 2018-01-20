@@ -151,12 +151,12 @@ function receivedMessage(event) {
         var userSays = {
             typed: messageText
         }
-        if (messageText != ''){
-            user_queries.createUpdateUserDatas(senderID, '', '', userSays).then((foundUser) => {
-                sendToApiAi(senderID, messageText);
-            })
+        if (messageText != '') {
+            // user_queries.createUpdateUserDatas(senderID, '', '', userSays).then((foundUser) => {
+            sendToApiAi(senderID, messageText);
+            //})
         }
- 
+
     } else if (messageAttachments) {
         handleMessageAttachments(messageAttachments, senderID);
     }
