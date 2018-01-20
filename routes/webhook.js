@@ -427,10 +427,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 console.log("Error al ejecutar la tevo query  " + queryMessage_.query + 'err.message: ' + err.message);
                             }).then(() => {
                                 index += 1;
-
+                                if (salir === true) {
+                                    TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
+                                }
                             })
-                            if (salir === true ) {
-                                TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
+                            if (salir === true) {
                                 break;
                             }
 
