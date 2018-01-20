@@ -443,9 +443,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                                                     console.log('searchByNameAndDate ' + searchByName)
                                                                     var TevoModule = require('../modules/query_tevo_request');
                                                                     var position = 0;
-                                                                    TevoModule.start(sender, urlApiTevo, position, messageTitle);
+                                                                    TevoModule.start(sender, searchByNameAndDate, position, messageTitle);
                                                                 } else {
-
                                                                     tevoClient.getJSON(searchByName).then((json) => {
                                                                         if (json.error) {
                                                                             sendTextMessage(sender, error);
@@ -454,7 +453,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                                                                 console.log('searchByName ' + searchByName)
                                                                                 var TevoModule = require('../modules/query_tevo_request');
                                                                                 var position = 0;
-                                                                                TevoModule.start(sender, urlApiTevo, position, messageTitle);
+                                                                                TevoModule.start(sender, searchByName, position, messageTitle);
                                                                             } else {
 
                                                                                 //NO HAY NO ENCONTRÉ
@@ -482,20 +481,20 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                                     sendTextMessage(sender, error);
                                                 } else {
                                                     if (json.events.length > 0) {
-                                                        console.log('searchByName ' + searchByName)
+                                                        console.log('searchByCityAndDate ' + searchByName)
                                                         var TevoModule = require('../modules/query_tevo_request');
                                                         var position = 0;
-                                                        TevoModule.start(sender, urlApiTevo, position, messageTitle);
+                                                        TevoModule.start(sender, searchByCityAndDate, position, messageTitle);
                                                     } else {
                                                         tevoClient.getJSON(searchByCity).then((json) => {
                                                             if (json.error) {
                                                                 sendTextMessage(sender, error);
                                                             } else {
                                                                 if (json.events.length > 0) {
-                                                                    console.log('searchByName ' + searchByName)
+                                                                    console.log('searchByCity ' + searchByCity)
                                                                     var TevoModule = require('../modules/query_tevo_request');
                                                                     var position = 0;
-                                                                    TevoModule.start(sender, urlApiTevo, position, messageTitle);
+                                                                    TevoModule.start(sender, searchByCity, position, messageTitle);
                                                                 } else {
 
 
