@@ -403,7 +403,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         var salir = false;
                         let index = 0;
                         for (let i = 0; i < arrayQueryMessages.length; i++) {
-                            if (salir === false){
+                            if (salir == false) {
                                 tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
                                     if (json.error) {
                                         console.log('error al consultar tevo ', error);
@@ -433,9 +433,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                                 })
                             }
-                            if (salir === true) {
-                                break;
-                            }
+                            
 
                         }
 
