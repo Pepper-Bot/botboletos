@@ -413,8 +413,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                         queryMessage_ = arrayQueryMessages[i]
                                        
                                         console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
+                                       
+                                        TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
+
                                         salir = true;
-                                    
+                                        
                                        
                                     }
                                 }
@@ -427,12 +430,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 console.log("Error al ejecutar la tevo query  " + queryMessage_.query + 'err.message: ' + err.message);
                             }).then(() => {
                                 index += 1;
-                                if (salir === true) {
-                                    TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
-                                    break;
-                                }
+                                
                             })
-                           
+                            if (salir === true) {
+                              
+                                break;
+                            }
 
                         }
 
