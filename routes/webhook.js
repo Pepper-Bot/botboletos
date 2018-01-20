@@ -401,7 +401,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         console.log('responseText = end.events.search ')
                         var queryMessage_ = {}
                         var salir = false;
-                        var index = 0;
+                        let index = 0;
                         for (let i = 0; i < arrayQueryMessages.length; i++) {
                             // 
                             tevoClient.getJSON(arrayQueryMessages[index].query).then((json) => {
@@ -426,7 +426,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
 
 
-                                TevoModule.start(sender, queryMessage_, 1, queryMessage_.messageTitle);
+                                TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
 
                                 break;
                             }
