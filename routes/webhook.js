@@ -185,7 +185,7 @@ function handleEcho(messageId, appId, metadata) {
 function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
     console.log('>> handleApiAiAction');
     switch (action) {
-         case "events.search":
+        case "events.search":
             {
                 console.log(" Action events.search >>> ");
 
@@ -298,14 +298,87 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     var messageTitle = 'Cool, I looked for '
 
+                    var searchByNameAndCityAndDate = ''
                     var searchByName = ''
                     var searchByNameAndCity = ''
                     var searchByNameAndDate = ''
-                    var searchByNameAndCityAndDate = ''
                     var searchByCity = ''
                     var searchByCityAndDate = ''
+                    var page = 1;
+                    var per_page = 50;
+                    var page_per_page = '&page=' + page + '&per_page=' + per_page
+
+                    var arrayQueryMessages = []
+                    var queryMessage = {
+                        query: '',
+                        messageTitle: ''
+                    }
 
                     if (event_title != '') {
+                        searchByNameAndCityAndDate = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + only_with + '&order_by=events.occurs_at'
+                        queryMessage.query = searchByNameAndCityAndDate
+                        queryMessage.messageTitle = 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
+                        arrayQueryMessages.push(queryMessage);
+
+
+                        searchByNameAndCity = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + only_with + '&order_by=events.occurs_at'
+                        queryMessage.query = searchByNameAndCity
+                        queryMessage.messageTitle = 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
+                        arrayQueryMessages.push(queryMessage);
+
+
+                        searchByNameAndDate = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + only_with + '&order_by=events.occurs_at'
+                        queryMessage.query = searchByNameAndDate
+                        queryMessage.messageTitle = 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
+                        arrayQueryMessages.push(queryMessage);
+
+
+
+                        searchByName = tevo.API_URL + 'events?q=' + event_title + page_per_page + only_with + '&order_by=events.occurs_at'
+                        queryMessage.query = searchByName
+                        queryMessage.messageTitle = 'Cool, I looked for "' + event_title + '".  Book a ticket'
+                        arrayQueryMessages.push(queryMessage);
+
+
+
+                        searchByCityAndDate = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + only_with + '&order_by=events.occurs_at'
+                        queryMessage.query = searchByCityAndDate
+                        queryMessage.messageTitle = 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                        arrayQueryMessages.push(queryMessage);
+
+
+
+
+                        searchByCity = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + only_with + '&order_by=events.occurs_at'
+                        queryMessage.query = searchByCity
+                        queryMessage.messageTitle = 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                        arrayQueryMessages.push(queryMessage);
+
+
+                    } else {
+                        searchByCityAndDate = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + only_with + '&order_by=events.occurs_at'
+                        queryMessage.query = searchByCityAndDate
+                        queryMessage.messageTitle = 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                        arrayQueryMessages.push(queryMessage);
+
+                        searchByCity = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + only_with + '&order_by=events.occurs_at'
+                        queryMessage.query = searchByCity
+                        queryMessage.messageTitle = 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                        arrayQueryMessages.push(queryMessage);
+
+                    }
+
+
+
+                    if (responseText = "end.events.search") {
+                        console.log('responseText = end.events.search ')
+                        for (var i = 0; i < arrayQueryMessages.length; i++) {
+                            console.log(arrayQueryMessages[i].queryMessage.query)
+                        }
+
+
+                    }
+                    /*if (event_title != '') {
                         urlApiTevo = tevo.API_URL + 'events?q=' + event_title
                         searchByName = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
 
@@ -457,7 +530,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 }
                             }
                         });
-                    }
+                    }*/
                 } else {
                     sendTextMessage(sender, responseText);
                 }
@@ -788,7 +861,7 @@ function handleApiAiResponse(sender, response) {
 
 function sendToApiAi(sender, text) {
 
-   console.log('texto enviado a api.ai> ' + text )
+    console.log('texto enviado a api.ai> ' + text)
     sendTypingOn(sender);
     let apiaiRequest = apiAiService.textRequest(text, {
         sessionId: sessionIds.get(sender)
