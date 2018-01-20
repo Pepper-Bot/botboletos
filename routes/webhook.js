@@ -403,36 +403,34 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         var salir = false;
                         let index = 0;
                         for (let i = 0; i < arrayQueryMessages.length; i++) {
-                            // 
-                            tevoClient.getJSON(arrayQueryMessages[index].query).then((json) => {
 
+                            tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
                                 if (json.error) {
                                     console.log('error al consultar tevo ', error);
                                 } else {
-                                    console.log('i > ' + i + ' ' + arrayQueryMessages[index].searchBy + ' ' + arrayQueryMessages[index].query)
+                                    console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
                                     if (json.events.length > 0) {
-                                        queryMessage_ = arrayQueryMessages[index]
+                                        queryMessage_ = arrayQueryMessages[i]
                                         salir = true;
                                         console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
+
+                                        TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
                                     }
                                 }
-                               
+
+                                if (salir = false && index == arrayQueryMessages.length - 1) {
+                                    console.log('Not Found Events')
+                                }
+
                             }).catch((err) => {
                                 console.log("Error al ejecutar la tevo query  " + queryMessage_.query + 'err.message: ' + err.message);
                             }).then(() => {
                                 index += 1;
                             })
                             if (salir = true) {
-                                console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
-
-
-                                TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
-
                                 break;
                             }
-                            if (salir = false && index == arrayQueryMessages.length - 1) {
-                                console.log('Not Found Events')
-                            }
+
                         }
 
 
