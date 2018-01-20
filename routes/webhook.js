@@ -315,11 +315,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     }
 
                     if (event_title != '') {
+                  
                         queryMessage.searchBy = 'NameAndCityAndDate'
                         queryMessage.query = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
                         queryMessage.messageTitle = 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
                         arrayQueryMessages[0] = queryMessage;
-
+                  
 
                         queryMessage.searchBy = 'NameAndCity'
                         queryMessage.query = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&' + only_with + '&order_by=events.occurs_at'
@@ -369,16 +370,26 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     }
 
+                    setTimeout(
 
-
-                    if (responseText = "end.events.search") {
-                        console.log('responseText = end.events.search ')
-                        for (var i = 0; i < arrayQueryMessages.length; i++) {
-                            console.log('i > '+ i + ' '+ arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
+                        function () {
+                            if (responseText = "end.events.search") {
+                                console.log('responseText = end.events.search ')
+                                for (var i = 0; i < arrayQueryMessages.length; i++) {
+                                    console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
+                                }
+        
+        
+                            }
+        
                         }
+        
+        
+                        , 500
+        
+                    );
 
-
-                    }
+                   
                     /*if (event_title != '') {
                         urlApiTevo = tevo.API_URL + 'events?q=' + event_title
                         searchByName = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
@@ -657,6 +668,23 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             sendTextMessage(sender, responseText);
     }
 }
+
+
+function addToArray(data, array) {
+    const promise = new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            array.push(data)
+            resolve(array)
+        }, 100);
+
+        if (!array) {
+            reject(new Error('No existe un array'))
+        }
+    })
+
+    return promise
+}
+
 
 var startTevoByQuery = (senderId, urlApiTevo, position, messageTitle) => {
     return new Promise((resolve, reject) => {
