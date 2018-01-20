@@ -309,59 +309,61 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     var arrayQueryMessages = []
                     var queryMessage = {
+                        searchBy: '',
                         query: '',
                         messageTitle: ''
                     }
 
                     if (event_title != '') {
-                        searchByNameAndCityAndDate = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
-                        queryMessage.query = searchByNameAndCityAndDate
+                        queryMessage.searchBy = 'NameAndCityAndDate'
+                        queryMessage.query = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
                         queryMessage.messageTitle = 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
                         arrayQueryMessages.push(queryMessage);
 
 
-                        searchByNameAndCity = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&' + only_with + '&order_by=events.occurs_at'
-                        queryMessage.query = searchByNameAndCity
+                        queryMessage.searchBy = 'NameAndCity'
+                        queryMessage.query = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&' + only_with + '&order_by=events.occurs_at'
                         queryMessage.messageTitle = 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
                         arrayQueryMessages.push(queryMessage);
 
 
-                        searchByNameAndDate = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
-                        queryMessage.query = searchByNameAndDate
+                        queryMessage.searchBy = 'NameAndDate'
+                        queryMessage.query = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
                         queryMessage.messageTitle = 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
                         arrayQueryMessages.push(queryMessage);
 
 
 
-                        searchByName = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&' + only_with + '&order_by=events.occurs_at'
-                        queryMessage.query = searchByName
+                        queryMessage.searchBy = 'ByName'
+                        queryMessage.query = tevo.API_URL + 'events?q=' + event_title + page_per_page + '&' + only_with + '&order_by=events.occurs_at'
                         queryMessage.messageTitle = 'Cool, I looked for "' + event_title + '".  Book a ticket'
                         arrayQueryMessages.push(queryMessage);
 
 
 
-                        searchByCityAndDate = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
-                        queryMessage.query = searchByCityAndDate
+                        queryMessage.searchBy = 'CityAndDate'
+                        queryMessage.query = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
                         queryMessage.messageTitle = 'Cool, I looked for ' + city + ' shows.  Book a ticket'
                         arrayQueryMessages.push(queryMessage);
 
 
 
 
-                        searchByCity = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
-                        queryMessage.query = searchByCity
+                        queryMessage.searchBy = 'City'
+                        queryMessage.query = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
                         queryMessage.messageTitle = 'Cool, I looked for ' + city + ' shows.  Book a ticket'
                         arrayQueryMessages.push(queryMessage);
 
 
                     } else {
-                        searchByCityAndDate = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
-                        queryMessage.query = searchByCityAndDate
+                        queryMessage.searchBy = 'CityAndDate'
+                        queryMessage.query = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
                         queryMessage.messageTitle = 'Cool, I looked for ' + city + ' shows.  Book a ticket'
                         arrayQueryMessages.push(queryMessage);
 
-                        searchByCity = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
-                        queryMessage.query = searchByCity
+
+                        queryMessage.searchBy = 'City'
+                        queryMessage.query = tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at'
                         queryMessage.messageTitle = 'Cool, I looked for ' + city + ' shows.  Book a ticket'
                         arrayQueryMessages.push(queryMessage);
 
@@ -372,7 +374,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     if (responseText = "end.events.search") {
                         console.log('responseText = end.events.search ')
                         for (var i = 0; i < arrayQueryMessages.length; i++) {
-                            console.log('i > ' + i +' '+ arrayQueryMessages[i].query)
+                            console.log('i > '+ i + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
                         }
 
 
