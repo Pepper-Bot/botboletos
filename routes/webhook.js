@@ -413,20 +413,20 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                     if (json.events.length > 0) {
                                         queryMessage_ = arrayQueryMessages[index]
                                         salir = true;
-
+                                        console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
                                     }
                                 }
                                 index += 1;
                             }).catch((err) => {
-                                console.log("Error al ejecutar la tevo query  " + arrayQueryMessages[index].query + 'err.message: ' + err.message);
+                                console.log("Error al ejecutar la tevo query  " + queryMessage_.query + 'err.message: ' + err.message);
                             }).then(() => {
 
                             })
                             if (salir = true) {
-                                console.log("queryMessage_ escogido  >>> " + JSON.stringify(arrayQueryMessages[index]));
+                                console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
 
 
-                                TevoModule.start(sender, queryMessage_.query, 1, queryMessage_.messageTitle);
+                                TevoModule.start(sender, queryMessage_, 1, queryMessage_.messageTitle);
 
                                 break;
                             }
