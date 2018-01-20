@@ -372,7 +372,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     if (responseText = "end.events.search") {
                         console.log('responseText = end.events.search ')
                         for (var i = 0; i < arrayQueryMessages.length; i++) {
-                            console.log(arrayQueryMessages[i].query)
+                            console.log('i > ' + i +' '+ arrayQueryMessages[i].query)
                         }
 
 
