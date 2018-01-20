@@ -416,12 +416,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 }
                             }).catch(err => console.log("Error al ejecutar la tevo query  " + arrayQueryMessages[i].query + 'err.message: ' + err.message));
                             if (salir = true) {
+                                console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
                                 break;
                             }
                         }
-                        setTimeout(function () {
-                            console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
-                        }, 3000);
+                    
 
                     }
 
