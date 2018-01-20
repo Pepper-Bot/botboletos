@@ -402,9 +402,9 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         var queryMessage_ = {}
                         var salir = false;
                         var index = 0;
-                        for (var i = 0; i < arrayQueryMessages.length; i++) {
+                        for (let i = 0; i < arrayQueryMessages.length; i++) {
                             // 
-                            tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
+                            tevoClient.getJSON(arrayQueryMessages[index].query).then((json) => {
 
                                 if (json.error) {
                                     console.log('error al consultar tevo ', error);
@@ -416,11 +416,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                         console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
                                     }
                                 }
-                                index += 1;
+                               
                             }).catch((err) => {
                                 console.log("Error al ejecutar la tevo query  " + queryMessage_.query + 'err.message: ' + err.message);
                             }).then(() => {
-
+                                index += 1;
                             })
                             if (salir = true) {
                                 console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
