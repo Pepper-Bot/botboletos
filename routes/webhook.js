@@ -385,7 +385,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         }
         
         
-                        , 500
+                        , 1000
         
                     );
 
