@@ -405,28 +405,38 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                     if (responseText = "end.events.search") {
-                        console.log('responseText = end.events.search ')
-                        var queryMessage_ = []
-                        var salir = false;
-                        var index = 0;
-                        var contador = 0;
+                        if (city != '') {
+                            if (date_time != '') {
+                                console.log('responseText = end.events.search ')
+                                var queryMessage_ = []
+                                var salir = false;
+                                var index = 0;
+                                var contador = 0;
 
-                        startTevoByQuery(arrayQueryMessages).then((query) => {
-                            if (query.query) {
-                                console.log("query Tevo >>> " + JSON.stringify(query));
-                                TevoModule.start(sender, query.query, 1, query.messageTitle);
-                            } else {
-                                console.log('Not Found Events')
+                                startTevoByQuery(arrayQueryMessages).then((query) => {
+                                    if (query.query) {
+                                        console.log("query Tevo >>> " + JSON.stringify(query));
+                                        TevoModule.start(sender, query.query, 1, query.messageTitle);
+                                    } else {
+                                        console.log('Not Found Events')
+
+                                    }
+
+                                })
 
                             }
-
-                        })
-
+                        }
                     }
 
-                } else {
+                }
+
+                
+                if (responseText != "end.events.search") {
                     sendTextMessage(sender, responseText);
                 }
+                
+
+
 
 
 
