@@ -312,38 +312,36 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                     if (event_title != '') {
-                        if (city != '') {
-                            if (date_time != '') {
-                                var queryMessage = {
-                                    prioridad: 1,
-                                    searchBy: 'NameAndCityAndDate',
-                                    query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
-                                    messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
-                                }
-                                arrayQueryMessages.push(queryMessage)
-                            }
+
+                        var queryMessage = {
+                            prioridad: 1,
+                            searchBy: 'NameAndCityAndDate',
+                            query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                            messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
                         }
+                        arrayQueryMessages[0] = queryMessage;
 
 
-                        if (city != '') {
-                            var queryMessage = {
-                                prioridad: 2,
-                                searchBy: 'NameAndCity',
-                                query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&' + only_with + '&order_by=events.occurs_at',
-                                messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
-                            }
-                            arrayQueryMessages.push(queryMessage)
-                        }
 
-                        if (date != '') {
-                            var queryMessage = {
-                                prioridad: 3,
-                                searchBy: 'NameAndDate',
-                                query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
-                                messageTitle: 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
-                            }
-                            arrayQueryMessages.push(queryMessage)
+
+                        var queryMessage = {
+                            prioridad: 2,
+                            searchBy: 'NameAndCity',
+                            query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&' + only_with + '&order_by=events.occurs_at',
+                            messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
                         }
+                        arrayQueryMessages[1] = queryMessage;
+
+
+
+                        var queryMessage = {
+                            prioridad: 3,
+                            searchBy: 'NameAndDate',
+                            query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                            messageTitle: 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
+                        }
+                        arrayQueryMessages[2] = queryMessage;
+
 
 
                         var queryMessage = {
@@ -352,53 +350,49 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
                             messageTitle: 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
                         }
-                        arrayQueryMessages.push(queryMessage)
+                        arrayQueryMessages[3] = queryMessage;
 
 
 
-                        if (city != '') {
-                            if (date_time != '') {
-                                var queryMessage = {
-                                    prioridad: 5,
-                                    searchBy: 'CityAndDate',
-                                    query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
-                                    messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
-                                }
-                                arrayQueryMessages.push(queryMessage)
-                            }
+
+                        var queryMessage = {
+                            prioridad: 5,
+                            searchBy: 'CityAndDate',
+                            query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                            messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
                         }
+                        arrayQueryMessages[4] = queryMessage;
 
-                        if (city != '') {
-                            var queryMessage = {
-                                prioridad: 6,
-                                searchBy: 'City',
-                                query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
-                                messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
-                            }
-                            arrayQueryMessages.push(queryMessage)
+
+
+                        var queryMessage = {
+                            prioridad: 6,
+                            searchBy: 'City',
+                            query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
+                            messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
                         }
+                        arrayQueryMessages[5] = queryMessage;
+
 
                     } else {
-                        if (city != '') {
-                            if (date_time != '') {
-                                var queryMessage = {
-                                    prioridad: 1,
-                                    searchBy: 'CityAndDate',
-                                    query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
-                                    messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
-                                }
-                                arrayQueryMessages.push(queryMessage)
-                            }
+
+                        var queryMessage = {
+                            prioridad: 1,
+                            searchBy: 'CityAndDate',
+                            query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                            messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
                         }
-                        if (city != '') {
-                            var queryMessage = {
-                                prioridad: 2,
-                                searchBy: 'City',
-                                query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
-                                messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
-                            }
-                            arrayQueryMessages.push(queryMessage)
+                        arrayQueryMessages[0] = queryMessage;
+
+
+                        var queryMessage = {
+                            prioridad: 2,
+                            searchBy: 'City',
+                            query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
+                            messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
                         }
+                        arrayQueryMessages[1] = queryMessage;
+
                     }
 
                     //setTimeout(function () {}, 1000);
@@ -570,8 +564,7 @@ var startTevoByQuery = (arrayQueryMessages) => {
             tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
                 let salir = false;
                 if (json.error) {
-                    console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
-
+                    console.log('error al consultar tevo ', error);
                 } else {
                     console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
                     if (json.events.length > 0) {
