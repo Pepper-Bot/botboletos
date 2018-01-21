@@ -558,19 +558,21 @@ function addToArray(data, array) {
 
 var startTevoByQuery = (arrayQueryMessages) => {
     return new Promise((resolve, reject) => {
+       
         for (let i = 0; i < arrayQueryMessages.length; i++) {
             tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
+                let salir = false;
                 if (json.error) {
                     console.log('error al consultar tevo ', error);
                 } else {
                     console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
                     if (json.events.length > 0) {
                         resolve(arrayQueryMessages[i])
-
+                        salir = true;
                     }
                 }
 
-                if (salir = false && i == arrayQueryMessages.length - 1) {
+                if (salir == false && (i == arrayQueryMessages.length - 1)) {
                     resolve({})
                 }
 
