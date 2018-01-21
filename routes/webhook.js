@@ -424,8 +424,9 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             }).catch((err) => {
                                 console.log("Error al ejecutar la tevo query  " + queryMessage_.query + 'err.message: ' + err.message);
                             }).then(() => {
-                                index += 1;
+                               
                             })
+                            index += 1;
                         }
 
 
