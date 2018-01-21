@@ -416,7 +416,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                                         console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
 
-                                        if (isDefined(queryMessage_[0].query)) {
+                                        if (isDefined(queryMessage_[0])) {
                                             TevoModule.start(sender, queryMessage_[0].query, 1, queryMessage_[0].messageTitle);
                                             contador = 1
                                         }
