@@ -401,8 +401,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         console.log('responseText = end.events.search ')
                         var queryMessage_ = []
                         var salir = false;
-                        let index = 0;
-                        let contador = 0;
+                        var index = 0;
+                        var contador = 0;
 
                         while (index < arrayQueryMessages.length && contador != 1) {
                             if (isDefined(arrayQueryMessages[index])) {
