@@ -405,22 +405,208 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         var contador = 0;
 
                         startTevoByQuery(arrayQueryMessages).then((query) => {
-                            if (query.query) {
-                                TevoModule.start(sender, query.query, 1, query.messageTitle);
+                            TevoModule.start(sender, query.query, 1, query.messageTitle);
+                        })
+
+                    }
+                    /*  for (let i = 0; i < arrayQueryMessages.length; i++) {
+                            tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
+                                if (json.error) {
+                                    console.log('error al consultar tevo ', error);
+                                } else {
+                                    console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
+                                    if (json.events.length > 0) {
+                                        TevoModule.start(sender, arrayQueryMessages[i].query, 1, arrayQueryMessages[i].messageTitle);
+                                        salir = true;
+
+                                    }
+                                }
+
+                                if (salir = false && i == arrayQueryMessages.length - 1) {
+                                    console.log('Not Found Events')
+                                }
+
+                            }).catch((err) => {
+                                console.log("Error al ejecutar la tevo query  " + arrayQueryMessages[i].query + 'err.message: ' + err.message);
+                            })
+
+                        }
+                    }*/
+
+                    /* Promise.all(queryMessage_).then(() => {
+                         if (isDefined(queryMessage_[0])) {
+                             TevoModule.start(sender, queryMessage_[0].query, 1, queryMessage_[0].messageTitle);
+                         } else {
+                             console.log('Not Found Events')
+                         }
+
+                     });*/
+
+
+
+
+                    /*if (event_title != '') {
+                        urlApiTevo = tevo.API_URL + 'events?q=' + event_title
+                        searchByName = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+
+                        messageTitle += '"' + event_title + '"'
+                        if (city != '') {
+                            urlApiTevo += '&city_state=' + city
+                            searchByCity = tevo.API_URL + 'events?city_state=' + city + +'&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+                            searchByNameAndCity = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+
+                            messageTitle += ' ' + city + ' shows '
+                        }
+
+
+                        if (date_time != '') {
+                            urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
+                            searchByNameAndCityAndDate = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+                            messageTitle += ' in ' + date_time
+                            searchByNameAndDate = tevo.API_URL + 'events?q=' + event_title + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+                        }
+                    } else {
+                        if (city != '') {
+                            urlApiTevo += tevo.API_URL + 'events?city_state=' + city
+                            searchByCity = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+
+                            if (date_time != '') {
+                                urlApiTevo += '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
+                                searchByCityAndDate = urlApiTevo + '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+                                messageTitle += ' ' + city + ' shows '
+                            }
+
+                        } else {
+                            if (date_time != '') {
+                                urlApiTevo += tevo.API_URL + 'events?&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate
+
+
+
+                                messageTitle += ' in ' + date_time
                             } else {
 
 
                             }
 
-                        })
+                        }
+
+
 
                     }
 
+                    urlApiTevo += '&page=1&per_page=50&' + only_with + '&order_by=events.occurs_at'
+                    messageTitle += ' Book a ticket:'
+
+                    var position = 0
+                    console.log('urlApiTevo >' + urlApiTevo)
+                    if (responseText = "end.events.search") {
+                        console.log('responseText = end.events.search ')
+                        tevoClient.getJSON(urlApiTevo).then((json) => {
+                            if (json.error) {
+                                sendTextMessage(sender, error);
+                            } else {
+                                if (json.events.length > 0) {
+                                    console.log('urlApiTevo length > 0' + urlApiTevo)
+                                    TevoModule.start(sender, urlApiTevo, position, messageTitle);
+                                } else {
+                                    if (searchByName != '') {
+                                        console.log('name_1')
+                                        if (searchByCity != '') {
+                                            console.log('name_and_city')
+                                            tevoClient.getJSON(searchByNameAndCity).then((json) => {
+                                                if (json.error) {
+                                                    sendTextMessage(sender, error);
+                                                } else {
+                                                    if (json.events.length > 0) {
+                                                        console.log('searchByNameAndCity ' + searchByNameAndCity)
+                                                        TevoModule.start(sender, searchByNameAndCity, position, messageTitle);
+                                                    } else {
+                                                        console.log('name_and_date')
+                                                        tevoClient.getJSON(searchByNameAndDate).then((json) => {
+                                                            if (json.error) {
+                                                                sendTextMessage(sender, error);
+                                                            } else {
+                                                                if (json.events.length > 0) {
+                                                                    console.log('searchByNameAndDate ' + searchByNameAndDate)
+                                                                    TevoModule.start(sender, searchByNameAndDate, position, messageTitle);
+                                                                } else {
+                                                                    tevoClient.getJSON(searchByName).then((json) => {
+                                                                        if (json.error) {
+                                                                            sendTextMessage(sender, error);
+                                                                        } else {
+                                                                            if (json.events.length > 0) {
+                                                                                console.log('searchByName ' + searchByName)
+                                                                                TevoModule.start(sender, searchByName, position, messageTitle);
+                                                                            } else {
+
+                                                                                //NO HAY NO ENCONTRÉ
+
+
+
+
+
+
+                                                                            }
+                                                                        }
+                                                                    }); //fin searchByNameAndDate
+                                                                }
+                                                            }
+                                                        }); //fin searchByName
+                                                    }
+                                                }
+                                            })
+                                        }
+                                    } else
+                                    if (searchByCity != '') {
+                                        if (searchByCityAndDate != '') {
+                                            tevoClient.getJSON(searchByCityAndDate).then((json) => {
+                                                if (json.error) {
+                                                    sendTextMessage(sender, error);
+                                                } else {
+                                                    if (json.events.length > 0) {
+                                                        console.log('searchByCityAndDate ' + searchByName)
+                                                        TevoModule.start(sender, searchByCityAndDate, position, messageTitle);
+                                                    } else {
+                                                        tevoClient.getJSON(searchByCity).then((json) => {
+                                                            if (json.error) {
+                                                                sendTextMessage(sender, error);
+                                                            } else {
+                                                                if (json.events.length > 0) {
+                                                                    console.log('searchByCity ' + searchByCity)
+                                                                    TevoModule.start(sender, searchByCity, position, messageTitle);
+                                                                } else {
+
+
+                                                                    //NO HAY NO ENCONTRÉ
+
+
+                                                                }
+                                                            }
+                                                        }); //fin searchByCity
+
+
+                                                    }
+                                                }
+                                            }); //fin searchByCityAndDate
+
+
+
+
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    }*/
                 } else {
                     sendTextMessage(sender, responseText);
                 }
 
 
+
+                if (responseText != "end.events.search") {
+
+                }
 
                 break;
             }
@@ -570,7 +756,7 @@ var startTevoByQuery = (arrayQueryMessages) => {
                 }
 
                 if (salir = false && i == arrayQueryMessages.length - 1) {
-                    resolve({})
+                    resolve('')
                 }
 
             }).catch((err) => {
