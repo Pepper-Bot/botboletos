@@ -404,30 +404,34 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         let index = 0;
                         let contador = 0;
 
-                        while (index < arrayQueryMessages.length  && contador != 1) {
+                        while (index < arrayQueryMessages.length && contador != 1) {
+                            if (isDefined(arrayQueryMessages[index])) {
+                                tevoClient.getJSON(arrayQueryMessages[index].query).then((json) => {
+                                    if (json.error) {
+                                        console.log('error al consultar tevo ', error);
+                                    } else {
+                                        console.log('i > ' + index + ' ' + arrayQueryMessages[index].searchBy + ' ' + arrayQueryMessages[index].query)
+                                        if (json.events.length > 0) {
+                                            queryMessage_.push(arrayQueryMessages[index])
 
-                            tevoClient.getJSON(arrayQueryMessages[index].query).then((json) => {
-                                if (json.error) {
-                                    console.log('error al consultar tevo ', error);
-                                } else {
-                                    console.log('i > ' + index + ' ' + arrayQueryMessages[index].searchBy + ' ' + arrayQueryMessages[index].query)
-                                    if (json.events.length > 0) {
-                                        queryMessage_.push(arrayQueryMessages[index])
+                                            console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
 
-                                        console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
+                                            if (isDefined(queryMessage_[0])) {
+                                                TevoModule.start(sender, queryMessage_[0].query, 1, queryMessage_[0].messageTitle);
+                                                contador = 1
+                                            }
 
-                                        if (isDefined(queryMessage_[0])) {
-                                            TevoModule.start(sender, queryMessage_[0].query, 1, queryMessage_[0].messageTitle);
-                                            contador = 1
                                         }
-
                                     }
-                                }
-                            }).catch((err) => {
-                                console.log("Error al ejecutar la tevo query  " + queryMessage_.query + 'err.message: ' + err.message);
-                            }).then(() => {
+                                }).catch((err) => {
+                                    console.log("Error al ejecutar la tevo query  " + queryMessage_.query + 'err.message: ' + err.message);
+                                }).then(() => {
 
-                            })
+                                })
+
+
+                            }
+
                             index += 1;
                         }
 
