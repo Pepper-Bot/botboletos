@@ -190,7 +190,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             {
                 console.log(" Action events.search >>> ");
 
-                //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
+                console.log("handleApiAiResponse >>> " + JSON.stringify(response));
                 //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
 
 
@@ -203,9 +203,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 let startDate = ''
                 let finalDate = ''
                 if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
-
-
-                    
                     if ((isDefined(contexts[0].parameters.location))) {
                         if (isDefined(contexts[0].parameters.location.city)) {
                             city = contexts[0].parameters.location.city
@@ -406,14 +403,14 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             console.log('end.events.search city< '+ city)
                             if (date_time != '') {
                                 console.log('end.events.search date_time< '+ date_time)
-                                 
-                          
+                                
                                 startTevoByQuery(arrayQueryMessages).then((query) => {
                                     if (query.query) {
                                         console.log("query Tevo >>> " + JSON.stringify(query));
                                         TevoModule.start(sender, query.query, 1, query.messageTitle);
                                     } else {
                                         console.log('Not Found Events')
+                                        find_my_event(sender, 1, '');
 
                                     }
 
@@ -550,6 +547,24 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             sendTextMessage(sender, responseText);
     }
 }
+
+function find_my_event(senderId, hi = 0, event_name = '') {
+
+    user_queries.createUpdateUserDatas(senderId, '').then((foundUser)=>{
+        var name = foundUser.first_name
+        var greeting = "Hi " + name;
+        var messagetxt = greeting + ", you can search events by:";
+        if (hi == 1) {
+            messagetxt = 'Oops, I looked for: "' + event_name + '" but found no events. ' + name + ", you can search events by:";
+            greeting = name;
+        }
+        var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
+        SearchQuickReply.send(Message, senderId, messagetxt);
+
+    });//end user_queries
+  
+};
+
 
 
 function addToArray(data, array) {
@@ -716,7 +731,7 @@ function handleCardMessages(messages, sender) {
 
 function handleApiAiResponse(sender, response) {
 
-    console.log("handleApiAiResponse >>> " + JSON.stringify(response));
+    //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
 
     let responseText = response.result.fulfillment.speech;
     let responseData = response.result.fulfillment.data;

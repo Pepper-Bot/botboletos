@@ -114,7 +114,7 @@
 
                              foundUser.save(function (err, userSaved) {
                                  if (!err) {
-                                     console.log("foundUser Saved!!! " + JSON.stringify(userSaved));
+                                     console.log("foundUser Saved!!! " + JSON.stringify(userSaved.fbId));
 
                                      resolve(userSaved)
 
@@ -177,7 +177,7 @@
 
                                  User.save(function (err, userSaved) {
                                      if (!err) {
-                                         console.log("user New Saved Saved!!! " + JSON.stringify(userSaved));
+                                         console.log("user New Saved Saved!!! " + JSON.stringify(userSaved.fbId));
 
                                          resolve(userSaved)
 
