@@ -404,7 +404,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         let index = 0;
                         let contador = 0;
 
-                        while (contador != 1) {
+                        while (index < arrayQueryMessages.length  && contador != 1) {
 
                             tevoClient.getJSON(arrayQueryMessages[index].query).then((json) => {
                                 if (json.error) {
