@@ -440,7 +440,9 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
+                        
                         }
+                    }
 
                         /* Promise.all(queryMessage_).then(() => {
                              if (isDefined(queryMessage_[0])) {
