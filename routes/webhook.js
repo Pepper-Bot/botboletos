@@ -211,7 +211,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             if (isDefined(contexts[0].parameters.location.country)) {
                                 country = contexts[0].parameters.location.country
                                 console.log('country>> ' + country)
-
+                                city = country
                             }
                         }
 
@@ -295,9 +295,9 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         event_title = artist
                     }
 
-                  
 
-                   
+
+
                     var page = 1;
                     var per_page = 50;
                     var page_per_page = '&page=' + page + '&per_page=' + per_page
@@ -400,10 +400,10 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     if (responseText === "end.events.search") {
                         if (city != '') {
-                            console.log('end.events.search city< '+ city)
+                            console.log('end.events.search city< ' + city)
                             if (date_time != '') {
-                                console.log('end.events.search date_time< '+ date_time)
-                                
+                                console.log('end.events.search date_time< ' + date_time)
+
                                 startTevoByQuery(arrayQueryMessages).then((query) => {
                                     if (query.query) {
                                         console.log("query Tevo >>> " + JSON.stringify(query));
@@ -426,7 +426,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 if (responseText != "end.events.search") {
                     sendTextMessage(sender, responseText);
                 }
-                
+
 
 
 
@@ -550,7 +550,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 function find_my_event(senderId, hi = 0, event_name = '') {
 
-    user_queries.createUpdateUserDatas(senderId, '').then((foundUser)=>{
+    user_queries.createUpdateUserDatas(senderId, '').then((foundUser) => {
         var name = foundUser.first_name
         var greeting = "Hi " + name;
         var messagetxt = greeting + ", you can search events by:";
@@ -561,8 +561,8 @@ function find_my_event(senderId, hi = 0, event_name = '') {
         var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
         SearchQuickReply.send(Message, senderId, messagetxt);
 
-    });//end user_queries
-  
+    }); //end user_queries
+
 };
 
 
