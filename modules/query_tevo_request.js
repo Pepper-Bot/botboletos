@@ -1,5 +1,3 @@
-
-
 var Message = require('../bot/messages');
 var imageCards = require('../modules/imageCards'); // Google images
 var TevoClient = require('ticketevolution-node');
@@ -9,11 +7,12 @@ var UserData2 = require('../schemas/userinfo');
 var tevo = require('../config/config_vars').tevo;
 var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
 var only_with = require('../config/config_vars').only_with;
+var user_queries = require('../schemas/queries/user_queries');
 
 module.exports = function () {
     return {
         start: function (senderId, urlApiTevo, position = 0, messageTitle) {
-            
+
 
             var tevoClient = new TevoClient({
                 apiToken: tevo.API_TOKEN,
@@ -163,8 +162,11 @@ module.exports = function () {
                                 Message.sendMessage(senderId, messageTitle);
 
 
-                                 console.log("luego del GButons event_name >>>>> " + urlApiTevo);
-                                saveUsuarioAndEventSearchLastSelected(senderId, urlApiTevo);
+                                console.log("luego del GButons event_name >>>>> " + urlApiTevo);
+                                //saveUsuarioAndEventSearchLastSelected(senderId, urlApiTevo);
+                                //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
+                                user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo)
+
 
                                 var GenericButton = require('../bot/generic_buttton');
                                 GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
@@ -419,87 +421,7 @@ var getGoogleImage2 = (search) => {
     });
 }
 
-function saveUsuarioAndEventSearchLastSelected(senderId, lastSelected) {
-    var UserData = require('../bot/userinfo');
-    var UserData2 = require('../schemas/userinfo');
 
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, result) {
-
-        if (!err) {
-
-            if (null != result) {
-                result.eventSearchSelected.push(lastSelected);
-
-                result.save(function (err, userSaved) {
-                    if (!err) {
-                        console.log(userSaved)
-                        console.log(
-                            "userSaved.fbId " + userSaved.fbId + "\n" +
-                            "userSaved.firstName " + userSaved.firstName + "\n" +
-                            "userSaved.LastName " + userSaved.LastName + "\n" +
-                            "userSaved.profilePic " + userSaved.profilePic + "\n" +
-                            "userSaved.locale " + userSaved.locale + "\n" +
-                            "userSaved.timeZone " + userSaved.timeZone + "\n" +
-                            "userSaved.gender " + userSaved.gender + "\n" +
-                            "userSaved.sessionStart " + userSaved.sessionStart + "\n" +
-                            "userSaved.eventSearchSelected " + userSaved.eventSearchSelected.length + "\n"
-                        );
-
-
-
-                        console.log("Consulto y Actualizo el result.fbId>>>> " + result.fbId);
-                        console.log('Guardamos la seleccion' + lastSelected);
-                    } else {
-                        console.log('Error guardando selección')
-                    }
-                });
-            } else {
-
-                UserData.getInfo(senderId, function (err, result) {
-                    console.log('Dentro de UserData');
-                    if (!err) {
-
-                        var bodyObj = JSON.parse(result);
-                        console.log(result);
-
-                        var User = new UserData2; {
-                            User.fbId = senderId;
-                            User.firstName = bodyObj.first_name;
-                            User.LastName = bodyObj.last_name;
-                            User.profilePic = bodyObj.profile_pic;
-                            User.locale = bodyObj.locale;
-                            User.timeZone = bodyObj.timezone;
-                            User.gender = bodyObj.gender;
-                            User.messageNumber = 1;
-
-                            User.eventSearchSelected.push(lastSelected);
-
-                            User.save();
-                            console.log("Guardé el senderId result.fbId>>>> " + result.fbId);
-                        }
-
-
-
-                        var name = bodyObj.first_name;
-                        var greeting = "Hi " + name;
-                        var messagetxt = greeting + ", what would you like to do?";
-                        //Message.sendMessage(senderId, message);
-                        /* INSERT TO MONGO DB DATA FROM SESSION*/
-
-
-                    }
-                });
-            }
-        }
-
-    });
-}
 
 
 

@@ -147,14 +147,15 @@ function receivedMessage(event) {
 
     if (messageText) {
         //send message to api.ai
-        //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
+        //
         var userSays = {
             typed: messageText
         }
         if (messageText != '') {
-            // user_queries.createUpdateUserDatas(senderID, '', '', userSays).then((foundUser) => {
-            sendToApiAi(senderID, messageText);
-            //})
+            //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
+            user_queries.createUpdateUserDatas(senderID, '', '', userSays).then((foundUser) => {
+                sendToApiAi(senderID, messageText);
+            })
         }
 
     } else if (messageAttachments) {
@@ -558,7 +559,7 @@ function addToArray(data, array) {
 
 var startTevoByQuery = (arrayQueryMessages) => {
     return new Promise((resolve, reject) => {
-       
+
         for (let i = 0; i < arrayQueryMessages.length; i++) {
             tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
                 let salir = false;
