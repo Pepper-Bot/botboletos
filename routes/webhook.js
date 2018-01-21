@@ -194,16 +194,18 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
 
 
-                var city = ''
-                var country = ''
-                var artist = ''
-                var date_time = ''
-                var date_time_original = ''
-                var event_title = ''
-                var startDate = ''
-                var finalDate = ''
+                let city = ''
+                let country = ''
+                let artist = ''
+                let date_time = ''
+                let date_time_original = ''
+                let event_title = ''
+                let startDate = ''
+                let finalDate = ''
                 if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
 
+
+                    
                     if ((isDefined(contexts[0].parameters.location))) {
                         if (isDefined(contexts[0].parameters.location.city)) {
                             city = contexts[0].parameters.location.city
@@ -298,12 +300,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     var messageTitle = 'Cool, I looked for '
 
-                    var searchByNameAndCityAndDate = ''
-                    var searchByName = ''
-                    var searchByNameAndCity = ''
-                    var searchByNameAndDate = ''
-                    var searchByCity = ''
-                    var searchByCityAndDate = ''
+                   
                     var page = 1;
                     var per_page = 50;
                     var page_per_page = '&page=' + page + '&per_page=' + per_page
@@ -404,15 +401,13 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     //setTimeout(function () {}, 1000);
 
 
-                    if (responseText = "end.events.search") {
+                    if (responseText === "end.events.search") {
                         if (city != '') {
+                            console.log('end.events.search city< '+ city)
                             if (date_time != '') {
-                                console.log('responseText = end.events.search ')
-                                var queryMessage_ = []
-                                var salir = false;
-                                var index = 0;
-                                var contador = 0;
-
+                                console.log('end.events.search date_time< '+ date_time)
+                                 
+                          
                                 startTevoByQuery(arrayQueryMessages).then((query) => {
                                     if (query.query) {
                                         console.log("query Tevo >>> " + JSON.stringify(query));
@@ -430,7 +425,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                 }
 
-                
+
                 if (responseText != "end.events.search") {
                     sendTextMessage(sender, responseText);
                 }
@@ -580,7 +575,7 @@ var startTevoByQuery = (arrayQueryMessages) => {
             tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
                 let salir = false;
                 if (json.error) {
-                    console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
+                    //console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
 
                 } else {
                     console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
