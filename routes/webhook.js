@@ -404,86 +404,34 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         var index = 0;
                         var contador = 0;
 
-                        while (index < arrayQueryMessages.length && contador != 1) {
-                            if (isDefined(arrayQueryMessages[index])) {
-                                tevoClient.getJSON(arrayQueryMessages[index].query).then((json) => {
-                                    if (json.error) {
-                                        console.log('error al consultar tevo ', error);
-                                    } else {
-                                        console.log('i > ' + index + ' ' + arrayQueryMessages[index].searchBy + ' ' + arrayQueryMessages[index].query)
-                                        if (json.events.length > 0) {
-                                            queryMessage_.push(arrayQueryMessages[index])
+                        startTevoByQuery(arrayQueryMessages).then((query) => {
+                            TevoModule.start(sender, query.query, 1, query.messageTitle);
+                        })
 
-                                            console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
-
-                                            if (isDefined(queryMessage_[0])) {
-                                                TevoModule.start(sender, queryMessage_[0].query, 1, queryMessage_[0].messageTitle);
-                                                contador = 1
-                                            }
-
-                                        }
-                                    }
-                                    index += 1
-                                    console.log(' index '+  index)
-                                }).catch((err) => {
-                                    console.log('Error al ejecutar la tevo query err.message: ' + err.message);
-                                }).then(() => {
-
-                                })
-
-
-                            }
-
-
-                        }
-
-
-
-
-                        /*for (let i = 0; i < arrayQueryMessages.length; i++) {
+                    }
+                    /*  for (let i = 0; i < arrayQueryMessages.length; i++) {
                             tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
                                 if (json.error) {
                                     console.log('error al consultar tevo ', error);
                                 } else {
                                     console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
                                     if (json.events.length > 0) {
-                                        queryMessage_.push(arrayQueryMessages[i])
-
-                                        console.log("queryMessage_ escogido  >>> " + JSON.stringify(queryMessage_));
-
+                                        TevoModule.start(sender, arrayQueryMessages[i].query, 1, arrayQueryMessages[i].messageTitle);
                                         salir = true;
-                                        if (queryMessage_.length == 1) {
-                                            TevoModule.start(sender, queryMessage_[0].query, 1, queryMessage_[0].messageTitle);
-                                        }
 
                                     }
-
-
                                 }
 
-                                if (salir = false && index == arrayQueryMessages.length - 1) {
+                                if (salir = false && i == arrayQueryMessages.length - 1) {
                                     console.log('Not Found Events')
                                 }
 
                             }).catch((err) => {
-                                console.log("Error al ejecutar la tevo query  " + queryMessage_.query + 'err.message: ' + err.message);
-                            }).then(() => {
-                                index += 1;
-
+                                console.log("Error al ejecutar la tevo query  " + arrayQueryMessages[i].query + 'err.message: ' + err.message);
                             })
-                            if (queryMessage_.length == 1) {
 
-                                break;
-                            }
-
-
-
-
-
-
-
-                        }*/
-                    }
+                        }
+                    }*/
 
                     /* Promise.all(queryMessage_).then(() => {
                          if (isDefined(queryMessage_[0])) {
@@ -793,24 +741,32 @@ function addToArray(data, array) {
 }
 
 
-var startTevoByQuery = (query) => {
+var startTevoByQuery = (arrayQueryMessages) => {
     return new Promise((resolve, reject) => {
-        tevoClient.getJSON(query).then((json) => {
-            if (json.error) {
-                console.log('error en ' + error)
-            } else {
-                if (json.events.length > 0) {
-                    resolve(query)
+        for (let i = 0; i < arrayQueryMessages.length; i++) {
+            tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
+                if (json.error) {
+                    console.log('error al consultar tevo ', error);
                 } else {
-                    resolve(undefined)
-                }
-            }
-        }).catch((err) => {
-            console.err("Error en la query enviada a Tevo " + err);
+                    console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
+                    if (json.events.length > 0) {
+                        resolve(arrayQueryMessages[i])
 
-        });
-    });
+                    }
+                }
+
+                if (salir = false && i == arrayQueryMessages.length - 1) {
+                    resolve('')
+                }
+
+            }).catch((err) => {
+                console.log("Error al ejecutar la tevo query  " + arrayQueryMessages[i].query + 'err.message: ' + err.message);
+            })
+
+        }
+    })
 }
+
 
 function sendEmail(subject, content) {
     // using SendGrid's v3 Node.js Library
