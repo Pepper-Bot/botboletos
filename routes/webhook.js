@@ -406,9 +406,10 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                         startTevoByQuery(arrayQueryMessages).then((query) => {
                             if (query.query) {
+                                console.log("query Tevo >>> " + JSON.stringify(query));
                                 TevoModule.start(sender, query.query, 1, query.messageTitle);
                             } else {
-
+                                console.log('Not Found Events')
 
                             }
 
