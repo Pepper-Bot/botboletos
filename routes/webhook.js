@@ -350,7 +350,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
-                        if (city != '') {
+                        /*if (city != '') {
                             if (date_time != '') {
                                 var queryMessage = {
                                     prioridad: 5,
@@ -370,7 +370,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
                             }
                             arrayQueryMessages.push(queryMessage)
-                        }
+                        }*/
 
                     } else {
                         if (city != '') {
