@@ -298,7 +298,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         event_title = artist
                     }
 
-                    var messageTitle = 'Cool, I looked for '
+                  
 
                    
                     var page = 1;
@@ -332,7 +332,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             arrayQueryMessages.push(queryMessage)
                         }
 
-                        if (date != '') {
+                        if (date_time != '') {
                             var queryMessage = {
                                 prioridad: 3,
                                 searchBy: 'NameAndDate',
