@@ -166,12 +166,13 @@ function receivedMessage(event) {
 
 
 
-function handleMessageAttachments(messageAttachments, senderID) {
+function handleMessageAttachments(messageAttachments, senderId) {
 
-    /*if ('location' == messageAttachments[0].type) {
-        processLocation(event.sender.id, event.message.attachments[0]);
-    }*/
-    sendTextMessage(senderID, "Attachment received. Thank you.");
+    if ('location' == messageAttachments[0].type) {
+       // processLocation(senderId, messageAttachments);
+       console.log("Procesando ubicación!!" + JSON.stringify(messageAttachments ) );
+    }
+    
 }
 
 
