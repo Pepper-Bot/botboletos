@@ -198,7 +198,7 @@ function handleApiAiResponse(sender, response) {
     } else if (responseText == '' && !isDefined(action)) {
         //api ai could not evaluate input.
         console.log('Unknown query' + response.result.resolvedQuery);
-       
+
         Message.sendMessage(sender, "I'm not sure what you want. Can you be more specific?");
     } else if (isDefined(action)) {
         handleApiAiAction(sender, response, action, responseText, contexts, parameters);
@@ -216,11 +216,21 @@ function handleApiAiResponse(sender, response) {
 }
 
 function processMessage(senderId, textMessage) {
- 
+
+    if (!sessionIds.has(senderId)) {
+        sessionIds.set(senderId, uuid.v1());
+    }
+    var userSays = {
+        typed: textMessage
+    }
+
+    //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
     user_queries.createUpdateUserDatas(senderId, '', '', userSays).then((foundUser) => {
-        sendToApiAi(senderId, textMessage);
+        sendToApiAi(senderId, messageText);
     })
 
+
+ 
 
 
     if ('start again' === textMessage.toLowerCase()) {
@@ -505,7 +515,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                 if (responseText != "end.events.search") {
                     Message.sendMessage(sender, responseText);
-                    
+
                 }
 
 
@@ -517,19 +527,20 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             }
         case "detalied-application":
             {
- 
+
 
 
 
 
                 break;
             }
-        case "job-enquiry":{
+        case "job-enquiry":
+            {
 
 
-            break;
-        }
-            
+                break;
+            }
+
 
 
         default:
@@ -1634,7 +1645,7 @@ function processPostback(event) {
         case "Greetings":
             var menu = require('../bot/get_started');
             menu.deleteAndCreatePersistentMenu();
-            
+
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
                 console.log('Dentro de referrals handler');
