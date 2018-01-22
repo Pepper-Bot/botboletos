@@ -183,21 +183,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
     switch (quickReplyPayload) {
         case "find_my_event_search_event":
             {
-                /*var SearchQuickReply = require('../modules/tevo/search_quick_replay');
-                SearchQuickReply.send(Message, senderId);
-                context = ''
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    foundUser.context = ''
-                    foundUser.save();
-                });*/
                 find_my_event(senderId);
-
 
                 break;
             }
