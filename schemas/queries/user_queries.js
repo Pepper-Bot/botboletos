@@ -53,7 +53,7 @@
 
      return new Promise((resolve, reject) => {
          UserData.getInfo(senderId, function (err, FBUser) {
-             console.log('Dentro de UserData');
+            console.log('FBUser.first_name'+  FBUser.first_name )
              if (!err) {
                  UserData2.findOne({
                      fbId: senderId
@@ -65,7 +65,7 @@
                      if (!err) {
                          if (null != foundUser) {
                              foundUser.fbId = senderId;
-                             console.log('FBUser.first_name'+  FBUser.first_name )
+                            
                              foundUser.firstName = FBUser.first_name;
                              foundUser.LastName = FBUser.last_name;
                              foundUser.profilePic = FBUser.profile_pic;
