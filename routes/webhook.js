@@ -283,9 +283,7 @@ function processLocation(senderId, locationData) {
 
             } else if ('Events' == lastSelected) {
 
-
-
-                let event_title = referral
+ 
                 let page = 1;
                 let per_page = 50;
                 let page_per_page = '&page=' + page + '&per_page=' + per_page
