@@ -198,6 +198,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
             });*/
             find_my_event(senderId);
     
+            
             break;
         }
        
