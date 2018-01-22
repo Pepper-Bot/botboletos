@@ -216,8 +216,8 @@ function handleApiAiResponse(sender, response) {
 }
 
 function processMessage(senderId, textMessage) {
-    if (!sessionIds.has(senderID)) {
-        sessionIds.set(senderID, uuid.v1());
+    if (!sessionIds.has(senderId)) {
+        sessionIds.set(senderId, uuid.v1());
     }
     user_queries.createUpdateUserDatas(senderId, '', '', userSays).then((foundUser) => {
         sendToApiAi(senderId, textMessage);
