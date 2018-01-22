@@ -181,6 +181,22 @@ function handleQuickReply(senderId, quickReply, messageId) {
     console.log("Quick reply for message %s with payload %s", messageId, quickReplyPayload);
     //send payload to api.ai
     switch (quickReplyPayload) {
+
+        case "find_my_event_by_location":
+            {
+
+                Message.markSeen(senderId);
+                Message.getLocation(senderId, 'What location would you like to catch show?');
+                Message.typingOn(senderId);
+
+                //senderId, context = '', mlinkSelected = '', eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
+                user_queries.createUpdateUserDatas(senderId, '-', '', '', '', '', '', 'Events')
+
+
+
+
+                break;
+            }
         case "find_my_event_search_event":
             {
                 find_my_event(senderId);
@@ -1558,7 +1574,6 @@ function handleReferrals(event) {
 function chooseMlink(referral, senderId) {
 
     //senderId, context = '', mlinkSelected = '', eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-
     user_queries.createUpdateUserDatas(senderId, '-', referral).then((foundUser) => {
         switch (referral) {
             case "SAN_VALENTIN":
