@@ -53,7 +53,9 @@
 
      return new Promise((resolve, reject) => {
          UserData.getInfo(senderId, function (err, FBUser) {
-            console.log('FBUser.first_name'+  FBUser.first_name )
+            //console.log('FBUser.first_name'+  FBUser.first_name )
+            console.log("FBUser.first_name' >>> " + JSON.stringify(FBUser));
+
              if (!err) {
                  UserData2.findOne({
                      fbId: senderId
