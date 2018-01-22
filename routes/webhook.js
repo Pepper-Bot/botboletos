@@ -838,7 +838,7 @@ function handleQuickReply(senderId, quickReply, messageId) {
 
 
     sendToApiAi(senderId, quickReplyPayload);
-    break;
+   
 
 }
 
@@ -1962,8 +1962,8 @@ function receivedPostback(event) {
     // button for Structured Messages. 
     var payload = event.postback.payload;
 
-    /* switch (payload) {
-
+   switch (payload) {
+/*
 
         case "HAPPY_NEW_YEAR":
             {
@@ -2203,11 +2203,11 @@ function receivedPostback(event) {
 
 
             break;
-
+    */ 
             //inicio
         case "Greetings":
-            var menu = require('../bot/get_started');
-            menu.deleteAndCreatePersistentMenu();
+            //var menu = require('../bot/get_started');
+            //menu.deleteAndCreatePersistentMenu();
 
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
@@ -2304,7 +2304,7 @@ function receivedPostback(event) {
             //break;
 
     }
-*/
+
     console.log("Received postback for user %d and page %d with payload '%s' " +
         "at %d", senderId, recipientID, payload, timeOfPostback);
 
