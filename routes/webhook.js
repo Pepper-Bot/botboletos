@@ -154,10 +154,7 @@ function receivedMessage(event) {
         }
         if (messageText != '') {
             //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-            senderID,
-            '',
-            '',
-            userSays).then((foundUser) => {
+            user_queries.createUpdateUserDatas(senderID , '', '', userSays).then((foundUser) => {
             sendToApiAi(senderID, messageText);
         })
     }
