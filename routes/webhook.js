@@ -176,7 +176,7 @@ function handleMessageAttachments(messageAttachments, senderID) {
 
 
 
-function handleQuickReply(senderID, quickReply, messageId) {
+function handleQuickReply(senderId, quickReply, messageId) {
     var quickReplyPayload = quickReply.payload;
     console.log("Quick reply for message %s with payload %s", messageId, quickReplyPayload);
     //send payload to api.ai
@@ -190,7 +190,7 @@ function handleQuickReply(senderID, quickReply, messageId) {
 
         default:
             {
-                sendToApiAi(senderID, quickReplyPayload);
+                sendToApiAi(senderId, quickReplyPayload);
                 break;
             }
     }
