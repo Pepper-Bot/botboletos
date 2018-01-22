@@ -180,35 +180,36 @@ function handleQuickReply(senderID, quickReply, messageId) {
     var quickReplyPayload = quickReply.payload;
     console.log("Quick reply for message %s with payload %s", messageId, quickReplyPayload);
     //send payload to api.ai
-    switch (quickReplyPayload){
+    switch (quickReplyPayload) {
         case "find_my_event_search_event":
-        {
-            /*var SearchQuickReply = require('../modules/tevo/search_quick_replay');
-            SearchQuickReply.send(Message, senderId);
-            context = ''
-            UserData2.findOne({
-                fbId: senderId
-            }, {}, {
-                sort: {
-                    'sessionStart': -1
-                }
-            }, function (err, foundUser) {
-                foundUser.context = ''
-                foundUser.save();
-            });*/
-            find_my_event(senderId);
-    
-            
-            break;
-        }
-       
-        defalut:{
-            sendToApiAi(senderID, quickReplyPayload);
-            break;
-        }
+            {
+                /*var SearchQuickReply = require('../modules/tevo/search_quick_replay');
+                SearchQuickReply.send(Message, senderId);
+                context = ''
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, foundUser) {
+                    foundUser.context = ''
+                    foundUser.save();
+                });*/
+                find_my_event(senderId);
+
+
+                break;
+            }
+
+        default:
+            {
+                sendToApiAi(senderID, quickReplyPayload);
+                break;
+            }
     }
-    
-     
+
+
 }
 
 
@@ -917,7 +918,7 @@ function handleApiAiResponse(sender, response) {
     } else if (responseText == '' && !isDefined(action)) {
         //api ai could not evaluate input.
         console.log('Unknown query' + response.result.resolvedQuery);
-         sendTextMessage(sender, "I'm not sure what you want. Can you be more specific?");
+        sendTextMessage(sender, "I'm not sure what you want. Can you be more specific?");
 
 
 
@@ -1330,7 +1331,7 @@ function callSendAPI(messageData) {
  * 
  */
 function receivedPostback(event) {
-    var senderId= event.sender.id;
+    var senderId = event.sender.id;
     var recipientID = event.recipient.id;
     var timeOfPostback = event.timestamp;
 
@@ -1340,8 +1341,8 @@ function receivedPostback(event) {
 
     switch (payload) {
         case "Greetings":
-           // var menu = require('../bot/get_started');
-           // menu.deleteAndCreatePersistentMenu();
+            // var menu = require('../bot/get_started');
+            // menu.deleteAndCreatePersistentMenu();
 
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
