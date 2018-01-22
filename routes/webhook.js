@@ -180,7 +180,34 @@ function handleQuickReply(senderID, quickReply, messageId) {
     var quickReplyPayload = quickReply.payload;
     console.log("Quick reply for message %s with payload %s", messageId, quickReplyPayload);
     //send payload to api.ai
-    sendToApiAi(senderID, quickReplyPayload);
+    switch (quickReplyPayload){
+        case "find_my_event_search_event":
+        {
+            /*var SearchQuickReply = require('../modules/tevo/search_quick_replay');
+            SearchQuickReply.send(Message, senderId);
+            context = ''
+            UserData2.findOne({
+                fbId: senderId
+            }, {}, {
+                sort: {
+                    'sessionStart': -1
+                }
+            }, function (err, foundUser) {
+                foundUser.context = ''
+                foundUser.save();
+            });*/
+            find_my_event(senderId);
+    
+            break;
+        }
+       
+        defalut:{
+            sendToApiAi(senderID, quickReplyPayload);
+            break;
+        }
+    }
+    
+     
 }
 
 
