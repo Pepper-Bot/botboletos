@@ -164,23 +164,23 @@ function receivedMessage(event) {
 }
 
 
-
+ 
 
 function handleMessageAttachments(messageAttachments, senderID) {
-
+      
     /*if ('location' == messageAttachments[0].type) {
         processLocation(event.sender.id, event.message.attachments[0]);
     }*/
-    sendTextMessage(senderID, "Attachment received. Thank you.");
+	sendTextMessage(senderID, "Attachment received. Thank you.");
 }
 
 
 
 function handleQuickReply(senderID, quickReply, messageId) {
-    var quickReplyPayload = quickReply.payload;
-    console.log("Quick reply for message %s with payload %s", messageId, quickReplyPayload);
-    //send payload to api.ai
-    sendToApiAi(senderID, quickReplyPayload);
+	var quickReplyPayload = quickReply.payload;
+	console.log("Quick reply for message %s with payload %s", messageId, quickReplyPayload);
+	//send payload to api.ai
+	sendToApiAi(senderID, quickReplyPayload);
 }
 
 
@@ -889,15 +889,7 @@ function handleApiAiResponse(sender, response) {
     } else if (responseText == '' && !isDefined(action)) {
         //api ai could not evaluate input.
         console.log('Unknown query' + response.result.resolvedQuery);
-        //sendTextMessage(sender, "I'm not sure what you want. Can you be more specific?");
-
-
-
-
-
-
-
-
+        sendTextMessage(sender, "I'm not sure what you want. Can you be more specific?");
     } else if (isDefined(action)) {
         handleApiAiAction(sender, response, action, responseText, contexts, parameters);
     } else if (isDefined(responseData) && isDefined(responseData.facebook)) {
@@ -1302,39 +1294,24 @@ function callSendAPI(messageData) {
  * 
  */
 function receivedPostback(event) {
-    var senderID = event.sender.id;
-    var recipientID = event.recipient.id;
-    var timeOfPostback = event.timestamp;
+	var senderID = event.sender.id;
+	var recipientID = event.recipient.id;
+	var timeOfPostback = event.timestamp;
 
-    // The 'payload' param is a developer-defined field which is set in a postback 
-    // button for Structured Messages. 
-    var payload = event.postback.payload;
+	// The 'payload' param is a developer-defined field which is set in a postback 
+	// button for Structured Messages. 
+	var payload = event.postback.payload;
 
-    switch (payload) {
-        case "Greetings":
-           // var menu = require('../bot/get_started');
-           // menu.deleteAndCreatePersistentMenu();
+	switch (payload) {
+		default:
+			//unindentified payload
+			sendTextMessage(senderID, "I'm not sure what you want. Can you be more specific?");
+			break;
 
-            if (undefined !== event.postback.referral) {
-                // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
-                console.log('Dentro de referrals handler');
-                handleReferrals(event);
-            } else {
-                // De lo contrario saludamos.
-                console.log('#######################################################################################');
-                console.log('saludamos');
-                saluda(senderId);
-            }
-            break;
-        default:
-            //unindentified payload
-            sendTextMessage(senderID, "I'm not sure what you want. Can you be more specific?");
-            break;
+	}
 
-    }
-
-    console.log("Received postback for user %d and page %d with payload '%s' " +
-        "at %d", senderID, recipientID, payload, timeOfPostback);
+	console.log("Received postback for user %d and page %d with payload '%s' " +
+		"at %d", senderID, recipientID, payload, timeOfPostback);
 
 }
 
