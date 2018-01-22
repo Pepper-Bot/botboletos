@@ -226,7 +226,7 @@ function processMessage(senderId, textMessage) {
 
     //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
     user_queries.createUpdateUserDatas(senderId, '', '', userSays).then((foundUser) => {
-        sendToApiAi(senderId, messageText);
+        sendToApiAi(senderId, textMessage);
     })
 
 
