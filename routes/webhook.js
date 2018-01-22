@@ -166,7 +166,13 @@ function handleApiAiResponse(sender, response) {
 
     Message.typingOff(sender);
 
-    if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
+    if (isDefined(action)) {
+        handleApiAiAction(sender, response, action, responseText, contexts, parameters)
+    } else if (isDefined(responseText)) {
+        Message.sendMessage(sender, responseText);
+    }
+
+   /* if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
         let timeoutInterval = 1100;
         let previousType;
         let cardTypes = [];
@@ -212,7 +218,7 @@ function handleApiAiResponse(sender, response) {
     } else if (isDefined(responseText)) {
 
         Message.sendMessage(sender, responseText);
-    }
+    }*/
 }
 
 function processMessage(senderId, textMessage) {
@@ -230,7 +236,7 @@ function processMessage(senderId, textMessage) {
     })
 
 
- 
+
 
 
     if ('start again' === textMessage.toLowerCase()) {
@@ -547,7 +553,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             //unhandled action, just send back the text
             Message.sendMessage(senderId, responseText);
 
-           
+
     }
 }
 
@@ -1770,7 +1776,7 @@ function find_my_event(senderId, hi = 0, event_name = '') {
 
             var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
             SearchQuickReply.send(Message, senderId, messagetxt);
-            
+
             UserData2.findOne({
                 fbId: senderId
             }, {}, {
