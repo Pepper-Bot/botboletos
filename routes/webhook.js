@@ -772,6 +772,7 @@ function sendEmail(subject, content) {
 function handleMessage(message, sender) {
     switch (message.type) {
         case 0: //text
+            console.log('handleMessage  text 0')
             sendTextMessage(sender, message.speech);
             break;
         case 2: //quick replies
@@ -784,13 +785,17 @@ function handleMessage(message, sender) {
                 }
                 replies.push(reply);
             }
+            console.log('handleMessage  quick replies 2')
             sendQuickReply(sender, message.title, replies);
             break;
         case 3: //image
+            console.log('handleMessage  image 3')
+
             sendImageMessage(sender, message.imageUrl);
             break;
         case 4:
             // custom payload
+            console.log('handleMessage   custom payload 4')
             var messageData = {
                 recipient: {
                     id: sender
@@ -889,7 +894,7 @@ function handleApiAiResponse(sender, response) {
     } else if (responseText == '' && !isDefined(action)) {
         //api ai could not evaluate input.
         console.log('Unknown query' + response.result.resolvedQuery);
-         sendTextMessage(sender, "I'm not sure what you want. Can you be more specific?");
+        sendTextMessage(sender, "I'm not sure what you want. Can you be more specific?");
 
 
 
@@ -1302,7 +1307,7 @@ function callSendAPI(messageData) {
  * 
  */
 function receivedPostback(event) {
-    var senderId= event.sender.id;
+    var senderId = event.sender.id;
     var recipientID = event.recipient.id;
     var timeOfPostback = event.timestamp;
 
@@ -1312,13 +1317,13 @@ function receivedPostback(event) {
 
 
     console.log("Received postback for user %d and page %d with payload '%s' " +
-    "at %d", senderID, recipientID, payload, timeOfPostback);
+        "at %d", senderID, recipientID, payload, timeOfPostback);
 
-    
+
     switch (payload) {
         case "Greetings":
-           // var menu = require('../bot/get_started');
-           // menu.deleteAndCreatePersistentMenu();
+            // var menu = require('../bot/get_started');
+            // menu.deleteAndCreatePersistentMenu();
 
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
@@ -1336,7 +1341,7 @@ function receivedPostback(event) {
 
     }
 
-  
+
 
 }
 
