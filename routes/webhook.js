@@ -84,7 +84,6 @@ router.post('/', function (req, res) {
             pageEntry.messaging.forEach(function (messagingEvent) {
 
                 if (messagingEvent.referral) {
-                    console.log('messagingEvent.referral');
                     handleReferrals(messagingEvent);
                 }
                 if (messagingEvent.optin) {
@@ -154,14 +153,14 @@ function receivedMessage(event) {
         }
         if (messageText != '') {
             //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-            user_queries.createUpdateUserDatas(senderID , '', '', userSays).then((foundUser) => {
-            sendToApiAi(senderID, messageText);
-        })
-    }
+            user_queries.createUpdateUserDatas(senderID, '', '', userSays).then((foundUser) => {
+                sendToApiAi(senderID, messageText);
+            })
+        }
 
-} else if (messageAttachments) {
-    handleMessageAttachments(messageAttachments, senderID);
-}
+    } else if (messageAttachments) {
+        handleMessageAttachments(messageAttachments, senderID);
+    }
 }
 
 
@@ -179,7 +178,7 @@ function handleMessageAttachments(messageAttachments, senderID) {
 function handleQuickReply(senderId, quickReply, messageId) {
     var quickReplyPayload = quickReply.payload;
     console.log("Quick reply for message %s with payload %s", messageId, quickReplyPayload);
-    switch (quickReplyPayload) {
+    /* switch (quickReplyPayload) {
 
         case "find_my_event_Patriots":
             {
@@ -835,7 +834,11 @@ function handleQuickReply(senderId, quickReply, messageId) {
             break;
     }
 
+*/
 
+
+    sendToApiAi(senderId, quickReplyPayload);
+    break;
 
 }
 
@@ -1959,7 +1962,7 @@ function receivedPostback(event) {
     // button for Structured Messages. 
     var payload = event.postback.payload;
 
-    switch (payload) {
+    /* switch (payload) {
 
 
         case "HAPPY_NEW_YEAR":
@@ -2301,7 +2304,7 @@ function receivedPostback(event) {
             //break;
 
     }
-
+*/
     console.log("Received postback for user %d and page %d with payload '%s' " +
         "at %d", senderId, recipientID, payload, timeOfPostback);
 
