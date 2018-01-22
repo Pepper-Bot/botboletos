@@ -1302,7 +1302,7 @@ function callSendAPI(messageData) {
  * 
  */
 function receivedPostback(event) {
-    var senderID = event.sender.id;
+    var senderId= event.sender.id;
     var recipientID = event.recipient.id;
     var timeOfPostback = event.timestamp;
 
@@ -1320,15 +1320,13 @@ function receivedPostback(event) {
                 console.log('Dentro de referrals handler');
                 handleReferrals(event);
             } else {
-                // De lo contrario saludamos.
-                console.log('#######################################################################################');
-                console.log('saludamos');
+
                 saluda(senderId);
             }
             break;
         default:
             //unindentified payload
-            sendTextMessage(senderID, "I'm not sure what you want. Can you be more specific?");
+            sendTextMessage(senderId, "I'm not sure what you want. Can you be more specific?");
             break;
 
     }
@@ -1342,7 +1340,7 @@ function receivedPostback(event) {
 
 
 function saluda(senderId) {
-
+    console.log('Saludamos!!');
     console.log('Greetings Payload');
     // Metemos el ID
     UserData.getInfo(senderId, function (err, result) {
