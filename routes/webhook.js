@@ -166,13 +166,8 @@ function handleApiAiResponse(sender, response) {
 
     Message.typingOff(sender);
 
-    if (isDefined(action)) {
-        handleApiAiAction(sender, response, action, responseText, contexts, parameters)
-    } else if (isDefined(responseText)) {
-        Message.sendMessage(sender, responseText);
-    }
-
-   /* if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
+  
+    if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
         let timeoutInterval = 1100;
         let previousType;
         let cardTypes = [];
@@ -218,7 +213,7 @@ function handleApiAiResponse(sender, response) {
     } else if (isDefined(responseText)) {
 
         Message.sendMessage(sender, responseText);
-    }*/
+    } 
 }
 
 function processMessage(senderId, textMessage) {
