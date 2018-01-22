@@ -114,7 +114,7 @@
 
                              foundUser.save(function (err, userSaved) {
                                  if (!err) {
-                                     console.log("foundUser Saved!!! " + JSON.stringify(userSaved.fbId));
+                                     console.log("foundUser Saved!!! " + JSON.stringify(userSaved));
 
                                      resolve(userSaved)
 

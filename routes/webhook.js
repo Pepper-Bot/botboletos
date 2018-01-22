@@ -682,7 +682,7 @@ function find_my_event(senderId, hi = 0, event_name = '') {
 
     user_queries.createUpdateUserDatas(senderId, '').then((foundUser) => {
         //var greeting = "Hi " + foundUser.firstName;
-        console.log("foundUser de  find_my_event >>> " + JSON.stringify(foundUser));
+        //console.log("foundUser de  find_my_event >>> " + JSON.stringify(foundUser));
         var greeting = foundUser.firstName;
         var messagetxt = greeting + ", you can search events by:";
         if (hi == 1) {
