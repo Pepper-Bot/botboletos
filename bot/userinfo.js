@@ -17,8 +17,14 @@ var userInfo = function () {
 				if (error) {
 					callback(true, null);
 				} else {
-					console.log("User Info >>> " + JSON.stringify(body));
-					callback(null, body);
+					
+
+					var bodyObj = JSON.parse(body);
+
+					console.log("User Info >>> " + JSON.stringify(bodyObj));
+
+
+					callback(null, bodyObj);
 				}
 			});
 			/*request({
