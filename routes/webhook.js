@@ -1383,9 +1383,9 @@ function saluda(senderId) {
         console.log('Dentro de UserData');
         if (!err) {
 
-          
-            console.log(result);
 
+            console.log(result);
+            var bodyObj = result
 
             var User = new UserData2; {
                 User.fbId = senderId;
