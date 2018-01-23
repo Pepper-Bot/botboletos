@@ -258,11 +258,12 @@ function processQuickReplayBox(senderId) {
 function processLocation(senderId, locationData) {
     let lat = locationData.payload.coordinates.lat;
     let lon = locationData.payload.coordinates.long;
-    console.log('lat_ ' + lat)
-    console.log('lon_  ' + lon)
+
     user_queries.createUpdateUserDatas(senderId).then((foundUser) => {
 
-
+        console.log('lat_ ' + lat)
+        console.log('lon_  ' + lon)
+        console.log('processLocation> foundUser.optionsSelected.length ' + foundUser.optionsSelected.length)
 
 
         /* if (foundUser.context == "find_my_event_by_category") {
