@@ -146,8 +146,8 @@ function receivedMessage(event) {
 
 
     if (messageText) {
-        //send message to api.ai
-        //
+
+        console.log('send messageText ' + messageText)
         var userSays = {
             typed: messageText
         }
@@ -264,62 +264,62 @@ function processLocation(senderId, locationData) {
         console.log("Process Location foundUser %s  lat  %d  lon  %d", foundUser.fbId, lat, lon);
 
 
-       /* if (foundUser.context == "find_my_event_by_category") {
-            let totalElements = foundUser.categorySearchSelected.length;
-            let category = foundUser.categorySearchSelected[totalElements - 1];
+        /* if (foundUser.context == "find_my_event_by_category") {
+             let totalElements = foundUser.categorySearchSelected.length;
+             let category = foundUser.categorySearchSelected[totalElements - 1];
 
-            tevoCategories.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
-            user_queries.createUpdateUserDatas(senderId, '-')
-        } else {
-
-
-            var totalElements = foundUser.optionsSelected.length;
-            console.log('foundUser.optionsSelected.length %s', )
-            if (totalElements < 1) {
-                return;
-            }
-
-            var lastSelected = foundUser.optionsSelected[totalElements - 1];
-
-            console.log('lastSelected >>' + lastSelected)
-            if ('Food' == lastSelected) {
-                var Food = require('../modules/food');
-                Food.get(Message, foundUser, locationData);
-
-            } else if ('Events' == lastSelected) {
+             tevoCategories.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
+             user_queries.createUpdateUserDatas(senderId, '-')
+         } else {
 
 
-                let page = 1;
-                let per_page = 50;
-                let page_per_page = '&page=' + page + '&per_page=' + per_page
-                let query = {
-                    searchBy: 'ByLocation',
-                    query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100',
-                    messageTitle: 'Cool, I looked for your selected Location.  Book a ticket'
-                }
-                TevoModule.start(senderId, query.query, 1, query.messageTitle);
+             var totalElements = foundUser.optionsSelected.length;
+             console.log('foundUser.optionsSelected.length %s', )
+             if (totalElements < 1) {
+                 return;
+             }
+
+             var lastSelected = foundUser.optionsSelected[totalElements - 1];
+
+             console.log('lastSelected >>' + lastSelected)
+             if ('Food' == lastSelected) {
+                 var Food = require('../modules/food');
+                 Food.get(Message, foundUser, locationData);
+
+             } else if ('Events' == lastSelected) {
 
 
-            } else if ('Drinks' == lastSelected) {
+                 let page = 1;
+                 let per_page = 50;
+                 let page_per_page = '&page=' + page + '&per_page=' + per_page
+                 let query = {
+                     searchBy: 'ByLocation',
+                     query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100',
+                     messageTitle: 'Cool, I looked for your selected Location.  Book a ticket'
+                 }
+                 TevoModule.start(senderId, query.query, 1, query.messageTitle);
 
-                var Drink = require('../modules/drink');
-                Drink.get(Message, result, locationData);
 
-            }
+             } else if ('Drinks' == lastSelected) {
+
+                 var Drink = require('../modules/drink');
+                 Drink.get(Message, result, locationData);
+
+             }
 
 
-        }
+         }
 
-        foundUser.location.coordinates = [lat, lon];
-        foundUser.locationURL = locationData.url;
-        foundUser.save(function (err) {
-            if (!err) {
+         foundUser.location.coordinates = [lat, lon];
+         foundUser.locationURL = locationData.url;
+         foundUser.save(function (err) {
+             if (!err) {
 
-                console.log('Guardamos la localizacion');
-            } else {
-                console.log('Error guardando selección')
-            }
-        });*/
+                 console.log('Guardamos la localizacion');
+             } else {
+                 console.log('Error guardando selección')
+             }
+         });*/
     })
 
 
