@@ -1,50 +1,29 @@
-var userInfo = function () {
+var userInfo = function() 
+{
 
 	var request = require('request');
 	return {
 
-		getInfo: function (userId, callback) {
+		getInfo: function(userId, callback){
 
-			//const userFieldSet = 'id, name, about, email, accounts, link, is_verified, significant_other, relationship_status, website, picture, photos, feed';
-			request({
-				url: 'https://graph.facebook.com/v2.8/' + userId,
-				qs: {
-					access_token: process.env.PAGE_ACCESS_TOKEN,
-					//fields: userFieldSet
-				},
+
+		request({
+				url: 'https://graph.facebook.com/v2.6/'+ userId,
+				qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
 				method: "GET",
-			}, function (error, response, body) {
-				if (error) {
+			}, function(error, response, body){
+				if(error)
+				{
 					callback(true, null);
-				} else {
-					
-
-					var bodyObj = JSON.parse(body);
-
-					console.log("User Info >>> " + JSON.stringify(bodyObj));
-
-
-					callback(null, bodyObj);
 				}
-			});
-			/*request({
-				url: 'https://graph.facebook.com/v2.8/' + userId + '/feed',
-				qs: {
-					access_token: process.env.PAGE_ACCESS_TOKEN,
-					message: 'Hello world!'
-				},
-				method: "POST",
-			}, function (error, response, body) {
-				if (error) {
-					callback(true, null);
-				} else {
-					console.log("User Info >>> " + JSON.stringify(body));
+				else
+				{
+
 					callback(null, body);
 				}
-			})*/
-
+			});
 		}
-	};
+	};	
 }();
 
 module.exports = userInfo;
