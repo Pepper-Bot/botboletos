@@ -206,6 +206,9 @@ function processMessage(senderId, textMessage) {
                             sendToApiAi(senderId, textMessage)
                         }
 
+                    }).catch((textMessage) => {
+                        console.log('Error en TevoModule.searchEventsByName line 193' + textMessage)
+                        //sendToApiAi(senderId, textMessage)
                     })
                 }
                 /* 
