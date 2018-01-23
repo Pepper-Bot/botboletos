@@ -545,10 +545,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                     if (responseText === "end.events.search") {
-                        //if (city != '') {
-                        //console.log('end.events.search city< ' + city)
-                        //if (date_time != '') {
-                        //console.log('end.events.search date_time< ' + date_time)
 
                         startTevoByQuery(arrayQueryMessages).then((query) => {
                             if (query.query) {
@@ -562,8 +558,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                         })
 
-                        //}
-                        //}
+
                     }
 
                 }
@@ -573,10 +568,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     Message.sendMessage(sender, responseText);
 
                 }
-
-
-
-
 
 
                 break;
@@ -1841,8 +1832,8 @@ function processPostback(event) {
 
             //inicio
         case "Greetings":
-            var menu = require('../bot/get_started');
-            menu.deleteAndCreatePersistentMenu();
+            //var menu = require('../bot/get_started');
+            //menu.deleteAndCreatePersistentMenu();
 
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
