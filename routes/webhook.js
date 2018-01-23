@@ -37,8 +37,8 @@ const tevoClient = new TevoClient({
     apiSecretKey: tevo.API_SECRET_KEY
 });
 
- 
- 
+
+
 
 var datos = {}; // Para saber si estamos o no con el ID
 
@@ -140,7 +140,7 @@ function sendToApiAi(sender, text) {
 
     apiaiRequest.on('response', (response) => {
         if (isDefined(response.result)) {
-            console.log( 'Api.ai response messages' + JSON.stringify(response  )  ) 
+            console.log('Api.ai response messages' + JSON.stringify(response))
             handleApiAiResponse(sender, response);
         }
     });
@@ -151,7 +151,7 @@ function sendToApiAi(sender, text) {
 
 
 function processMessage(senderId, textMessage) {
-   
+
 
     UserData2.findOne({
         fbId: senderId
@@ -192,14 +192,14 @@ function processMessage(senderId, textMessage) {
                                 startTevoModuleWithMlink(textMessage, senderId, 0, 1);
                             } else {
                                 console.log("textMessage " + textMessage)
-                               find_my_event(senderId, 1, textMessage);
-                               // sendToApiAi(senderId,textMessage )
+                                //find_my_event(senderId, 1, textMessage);
+                                sendToApiAi(senderId, textMessage)
                             }
 
                         } else {
                             console.log("textMessage " + textMessage)
-                           find_my_event(senderId, 1, textMessage);
-                           // sendToApiAi(senderId,textMessage )
+                            //find_my_event(senderId, 1, textMessage);
+                            sendToApiAi(senderId, textMessage)
                         }
 
                     })
@@ -271,7 +271,7 @@ function handleApiAiResponse(sender, response) {
     let parameters = response.result.parameters;
 
     Message.typingOff(sender);
-    console.log( 'Api.ai response messages' + JSON.stringify(response  )  )
+    console.log('Api.ai response messages' + JSON.stringify(response))
 
     /*if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
 
@@ -567,7 +567,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                 if (responseText != "end.events.search") {
                     Message.sendMessage(sender, responseText);
-                     
+
                 }
 
 
@@ -577,7 +577,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                 break;
             }
-        
+
         default:
             //unhandled action, just send back the text
             Message.sendMessage(sender, responseText);
@@ -1934,7 +1934,7 @@ function find_my_event(senderId, hi = 0, event_name = '') {
 
             var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
             SearchQuickReply.send(Message, senderId, messagetxt);
-           
+
             UserData2.findOne({
                 fbId: senderId
             }, {}, {
