@@ -1,44 +1,16 @@
-'use strict';
 var express = require('express');
 var router = express.Router();
 var request = require('request');
 var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
-var API_AI_CLIENT_ACCESS_TOKEN = require('../config/config_vars').API_AI_CLIENT_ACCESS_TOKEN;
-var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
-var PAGE_ACCESS_TOKEN = require('../config/config_vars').PAGE_ACCESS_TOKEN;
 
-var FB_APP_SECRET = require('../config/config_vars').FB_APP_SECRET;
-
-var TevoClient = require('ticketevolution-node');
-var only_with = require('../config/config_vars').only_with;
-var tevo = require('../config/config_vars').tevo;
-var tevoCategories = require('../modules/tevo/tevo');
+//--
 
 
-const apiai = require('apiai');
-const crypto = require('crypto');
-const uuid = require('uuid');
-var moment = require('moment');
 
 
-var user_queries = require('../schemas/queries/user_queries');
-var TevoModule = require('../modules/query_tevo_request');
 
-
-const apiAiService = apiai(API_AI_CLIENT_ACCESS_TOKEN, {
-    language: "en",
-    requestSource: "fb"
-});
-
-const tevoClient = new TevoClient({
-    apiToken: tevo.API_TOKEN,
-    apiSecretKey: tevo.API_SECRET_KEY
-});
-
- 
- 
 
 var datos = {}; // Para saber si estamos o no con el ID
 
@@ -130,28 +102,9 @@ function isDefined(obj) {
 
 
 
-function sendToApiAi(sender, text) {
-
-    console.log('texto enviado a api.ai> ' + text)
-    Message.typingOn(sender);
-    let apiaiRequest = apiAiService.textRequest(text, {
-        sessionId: sessionIds.get(sender)
-    });
-
-    apiaiRequest.on('response', (response) => {
-        if (isDefined(response.result)) {
-            console.log( 'Api.ai response messages' + JSON.stringify(response  )  ) 
-            handleApiAiResponse(sender, response);
-        }
-    });
-
-    apiaiRequest.on('error', (error) => console.error(error));
-    apiaiRequest.end();
-}
 
 
 function processMessage(senderId, textMessage) {
-   
 
     UserData2.findOne({
         fbId: senderId
@@ -191,15 +144,11 @@ function processMessage(senderId, textMessage) {
                             if (resultado.events.length > 0) {
                                 startTevoModuleWithMlink(textMessage, senderId, 0, 1);
                             } else {
-                                console.log("textMessage " + textMessage)
-                               find_my_event(senderId, 1, textMessage);
-                               // sendToApiAi(senderId,textMessage )
+                                find_my_event(senderId, 1, textMessage);
                             }
 
                         } else {
-                            console.log("textMessage " + textMessage)
-                           find_my_event(senderId, 1, textMessage);
-                           // sendToApiAi(senderId,textMessage )
+                            find_my_event(senderId, 1, textMessage);
                         }
 
                     })
@@ -257,493 +206,6 @@ function processMessage(senderId, textMessage) {
 
 
 }
-
-
-function handleApiAiResponse(sender, response) {
-
-    //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
-
-    let responseText = response.result.fulfillment.speech;
-    let responseData = response.result.fulfillment.data;
-    let messages = response.result.fulfillment.messages;
-    let action = response.result.action;
-    let contexts = response.result.contexts;
-    let parameters = response.result.parameters;
-
-    Message.typingOff(sender);
-    console.log( 'Api.ai response messages' + JSON.stringify(response  )  )
-
-    /*if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
-
-        console.log( 'Api.ai response messages' + JSON.stringify(messages  )  )
-        let timeoutInterval = 1100;
-        let previousType;
-        let cardTypes = [];
-        let timeout = 0;
-        for (var i = 0; i < messages.length; i++) {
-
-            if (previousType == 1 && (messages[i].type != 1 || i == messages.length - 1)) {
-
-                timeout = (i - 1) * timeoutInterval;
-                setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
-                cardTypes = [];
-                timeout = i * timeoutInterval;
-                setTimeout(handleMessage.bind(null, messages[i], sender), timeout);
-            } else if (messages[i].type == 1 && i == messages.length - 1) {
-                cardTypes.push(messages[i]);
-                timeout = (i - 1) * timeoutInterval;
-                setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
-                cardTypes = [];
-            } else if (messages[i].type == 1) {
-                cardTypes.push(messages[i]);
-            } else {
-                timeout = i * timeoutInterval;
-                setTimeout(handleMessage.bind(null, messages[i], sender), timeout);
-            }
-
-            previousType = messages[i].type;
-
-        }
-    } else if (responseText == '' && !isDefined(action)) {
-        //api ai could not evaluate input.
-        console.log('Unknown query' + response.result.resolvedQuery);
-
-        Message.sendMessage(sender, "I'm not sure what you want. Can you be more specific?");
-    } else if (isDefined(action)) {
-        handleApiAiAction(sender, response, action, responseText, contexts, parameters);
-    } else if (isDefined(responseData) && isDefined(responseData.facebook)) {
-        try {
-            console.log('Response as formatted message' + responseData.facebook);
-            Message.sendMessage(sender, responseData.facebook);
-        } catch (err) {
-            Message.sendMessage(sender, err.message);
-        }
-    } else if (isDefined(responseText)) {
-
-        Message.sendMessage(sender, responseText);
-    }*/
-}
-
-
-function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
-    console.log('>> handleApiAiAction');
-    switch (action) {
-        case "events.search":
-            {
-                console.log(" Action events.search >>> ");
-
-                //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
-                //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
-
-
-                let city = ''
-                let country = ''
-                let artist = ''
-                let date_time = ''
-                let date_time_original = ''
-                let event_title = ''
-                let startDate = ''
-                let finalDate = ''
-                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
-                    if ((isDefined(contexts[0].parameters.location))) {
-                        if (isDefined(contexts[0].parameters.location.city)) {
-                            city = contexts[0].parameters.location.city
-                            console.log('city>> ' + city)
-                        } else {
-                            if (isDefined(contexts[0].parameters.location.country)) {
-                                country = contexts[0].parameters.location.country
-                                console.log('country>> ' + country)
-                                city = country
-                            }
-                        }
-
-                    }
-
-                    if ((isDefined(contexts[0].parameters.date_time))) {
-                        if (contexts[0].parameters.date_time != "") {
-                            date_time = contexts[0].parameters.date_time
-
-
-                            var cadena = date_time,
-                                separador = "/",
-                                arregloDeSubCadenas = cadena.split(separador);
-
-                            if (isDefined(arregloDeSubCadenas[0])) {
-
-                                startDate = arregloDeSubCadenas[0]
-
-                                if (moment(startDate).isSameOrAfter(moment())) {
-                                    console.log('Es mayor !!')
-
-                                } else {
-                                    console.log('La fecha inicial es menor a la actual!!!')
-                                    startDate = moment()
-                                }
-
-
-                                startDate = moment(startDate, moment.ISO_8601).format()
-
-
-                                startDate = startDate.substring(0, startDate.length - 6)
-
-
-
-
-                                console.log("startDate>>> " + startDate);
-
-
-                            }
-
-                            if (isDefined(arregloDeSubCadenas[1])) {
-                                finalDate = arregloDeSubCadenas[1]
-                                finalDate = moment(finalDate, moment.ISO_8601).format()
-                                finalDate = finalDate.substring(0, finalDate.length - 6)
-
-                                console.log("finalDate>>> " + finalDate);
-                            }
-
-                            if (finalDate == '') {
-                                finalDate = moment(startDate, moment.ISO_8601).endOf('day').format();
-                                finalDate = finalDate.substring(0, finalDate.length - 6)
-                                console.log("finalDate = startDate >>> " + finalDate);
-                            }
-
-
-
-
-                            console.log('date_time>> ' + date_time)
-
-                        }
-
-                    }
-
-                    if ((isDefined(contexts[0].parameters.artist))) {
-                        if (contexts[0].parameters.artist != "") {
-                            artist = contexts[0].parameters.artist
-                            console.log('artist>> ' + artist)
-                        }
-                    }
-
-                    if ((isDefined(contexts[0].parameters.event_title))) {
-                        if (contexts[0].parameters.event_title != "") {
-                            event_title = contexts[0].parameters.event_title
-                            console.log('event_title>> ' + event_title)
-                        }
-                    }
-                    var urlApiTevo = ''
-                    var urlsApiTevo = []
-
-                    if (artist != '') {
-                        event_title = artist
-                    }
-
-
-
-
-                    var page = 1;
-                    var per_page = 50;
-                    var page_per_page = '&page=' + page + '&per_page=' + per_page
-
-                    var arrayQueryMessages = []
-
-
-                    if (event_title != '') {
-                        if (city != '') {
-                            if (date_time != '') {
-                                var queryMessage = {
-                                    prioridad: 1,
-                                    searchBy: 'NameAndCityAndDate',
-                                    query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
-                                    messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
-                                }
-                                arrayQueryMessages.push(queryMessage)
-                            }
-                        }
-
-
-                        if (city != '') {
-                            var queryMessage = {
-                                prioridad: 2,
-                                searchBy: 'NameAndCity',
-                                query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&' + only_with + '&order_by=events.occurs_at',
-                                messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
-                            }
-                            arrayQueryMessages.push(queryMessage)
-                        }
-
-                        if (date_time != '') {
-                            var queryMessage = {
-                                prioridad: 3,
-                                searchBy: 'NameAndDate',
-                                query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
-                                messageTitle: 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
-                            }
-                            arrayQueryMessages.push(queryMessage)
-                        }
-
-
-                        var queryMessage = {
-                            prioridad: 4,
-                            searchBy: 'ByName',
-                            query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
-                            messageTitle: 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
-                        }
-                        arrayQueryMessages.push(queryMessage)
-
-
-
-                        /*if (city != '') {
-                            if (date_time != '') {
-                                var queryMessage = {
-                                    prioridad: 5,
-                                    searchBy: 'CityAndDate',
-                                    query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
-                                    messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
-                                }
-                                arrayQueryMessages.push(queryMessage)
-                            }
-                        }
-
-                        if (city != '') {
-                            var queryMessage = {
-                                prioridad: 6,
-                                searchBy: 'City',
-                                query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
-                                messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
-                            }
-                            arrayQueryMessages.push(queryMessage)
-                        }*/
-
-                    } else {
-                        if (city != '') {
-                            if (date_time != '') {
-                                var queryMessage = {
-                                    prioridad: 1,
-                                    searchBy: 'CityAndDate',
-                                    query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
-                                    messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
-                                }
-                                arrayQueryMessages.push(queryMessage)
-                            }
-                        }
-                        if (city != '') {
-                            var queryMessage = {
-                                prioridad: 2,
-                                searchBy: 'City',
-                                query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
-                                messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
-                            }
-                            arrayQueryMessages.push(queryMessage)
-                        }
-                    }
-
-                    //setTimeout(function () {}, 1000);
-
-
-                    if (responseText === "end.events.search") {
-                        if (city != '') {
-                            console.log('end.events.search city< ' + city)
-                            if (date_time != '') {
-                                console.log('end.events.search date_time< ' + date_time)
-
-                                startTevoByQuery(arrayQueryMessages).then((query) => {
-                                    if (query.query) {
-                                        console.log("query Tevo >>> " + JSON.stringify(query));
-                                        TevoModule.start(sender, query.query, 1, query.messageTitle);
-                                    } else {
-                                        console.log('Not Found Events')
-                                        find_my_event(sender, 1, '');
-
-                                    }
-
-                                })
-
-                            }
-                        }
-                    }
-
-                }
-
-
-                if (responseText != "end.events.search") {
-                    Message.sendMessage(sender, responseText);
-                     
-                }
-
-
-
-
-
-
-                break;
-            }
-        
-        default:
-            //unhandled action, just send back the text
-            Message.sendMessage(sender, responseText);
-    }
-}
-
-
-
-
-function handleMessage(message, sender) {
-    switch (message.type) {
-        case 0: //text
-
-            Message.sendMessage(senderId, message.speech);
-
-            break;
-        case 2: //quick replies
-            let replies = [];
-            for (var b = 0; b < message.replies.length; b++) {
-                let reply = {
-                    "content_type": "text",
-                    "title": message.replies[b],
-                    "payload": message.replies[b]
-                }
-                replies.push(reply);
-            }
-            sendQuickReply(sender, message.title, replies);
-            break;
-        case 3: //image
-            sendImageMessage(sender, message.imageUrl);
-            break;
-        case 4:
-            // custom payload
-            var messageData = {
-                recipient: {
-                    id: sender
-                },
-                message: message.payload.facebook
-
-            };
-
-            callSendAPI(messageData);
-
-            break;
-    }
-}
-
-
-function sendImageMessage(recipientId, imageUrl) {
-    var messageData = {
-        recipient: {
-            id: recipientId
-        },
-        message: {
-            attachment: {
-                type: "image",
-                payload: {
-                    url: imageUrl
-                }
-            }
-        }
-    };
-
-    callSendAPI(messageData);
-}
-
-function sendQuickReply(recipientId, text, replies, metadata) {
-    var messageData = {
-        recipient: {
-            id: recipientId
-        },
-        message: {
-            text: text,
-            metadata: isDefined(metadata) ? metadata : '',
-            quick_replies: replies
-        }
-    };
-
-    callSendAPI(messageData);
-}
-
-function handleCardMessages(messages, sender) {
-
-    let elements = [];
-    for (var m = 0; m < messages.length; m++) {
-        let message = messages[m];
-        let buttons = [];
-        for (var b = 0; b < message.buttons.length; b++) {
-            let isLink = (message.buttons[b].postback.substring(0, 4) === 'http');
-            let button;
-            if (isLink) {
-                button = {
-                    "type": "web_url",
-                    "title": message.buttons[b].text,
-                    "url": message.buttons[b].postback
-                }
-            } else {
-                button = {
-                    "type": "postback",
-                    "title": message.buttons[b].text,
-                    "payload": message.buttons[b].postback
-                }
-            }
-            buttons.push(button);
-        }
-
-
-        let element = {
-            "title": message.title,
-            "image_url": message.imageUrl,
-            "subtitle": message.subtitle,
-            "buttons": buttons
-        };
-        elements.push(element);
-    }
-    sendGenericMessage(sender, elements);
-}
-
-function sendGenericMessage(recipientId, elements) {
-    var messageData = {
-        recipient: {
-            id: recipientId
-        },
-        message: {
-            attachment: {
-                type: "template",
-                payload: {
-                    template_type: "generic",
-                    elements: elements
-                }
-            }
-        }
-    };
-
-    callSendAPI(messageData);
-}
-
-
-function callSendAPI(messageData) {
-    request({
-        uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: {
-            access_token: PAGE_ACCESS_TOKEN
-        },
-        method: 'POST',
-        json: messageData
-
-    }, function (error, response, body) {
-        if (!error && response.statusCode == 200) {
-            var recipientId = body.recipient_id;
-            var messageId = body.message_id;
-
-            if (messageId) {
-                console.log("Successfully sent message with id %s to recipient %s",
-                    messageId, recipientId);
-            } else {
-                console.log("Successfully called Send API for recipient %s",
-                    recipientId);
-            }
-        } else {
-            console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
-        }
-    });
-}
-
-
 
 function processLocation(senderId, locationData) {
 
@@ -1811,7 +1273,7 @@ function processPostback(event) {
         case "Greetings":
             var menu = require('../bot/get_started');
             menu.deleteAndCreatePersistentMenu();
-
+            
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
                 console.log('Dentro de referrals handler');
@@ -1934,7 +1396,7 @@ function find_my_event(senderId, hi = 0, event_name = '') {
 
             var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
             SearchQuickReply.send(Message, senderId, messagetxt);
-           
+            context = ''
             UserData2.findOne({
                 fbId: senderId
             }, {}, {
