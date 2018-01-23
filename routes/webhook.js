@@ -257,7 +257,7 @@ function processQuickReplayBox(senderId) {
 
 function processLocation(senderId, locationData) {
     console.log('processLocation> foundUser.optionsSelected.length ' + locationData.payload.coordinates.lat)
-
+    Message.sendMessage(senderId, locationData.payload.coordinates.lat);
     //var lat = locationData.payload.coordinates.lat;
     //var lon = locationData.payload.coordinates.long;
 
