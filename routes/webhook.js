@@ -37,14 +37,8 @@ const tevoClient = new TevoClient({
     apiSecretKey: tevo.API_SECRET_KEY
 });
 
-
-const sessionIds = new Map();
-
-
-
-
-
-
+ 
+ 
 
 var datos = {}; // Para saber si estamos o no con el ID
 
@@ -484,12 +478,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 function processMessage(senderId, textMessage) {
-    if (!sessionIds.has(senderId)) {
-        sessionIds.set(senderId, uuid.v1());
-    }
-    var userSays = {
-        typed: textMessage
-    }
+   
 
     UserData2.findOne({
         fbId: senderId
