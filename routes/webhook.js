@@ -277,9 +277,9 @@ function handleApiAiResponse(sender, response) {
     Message.typingOff(sender);
     console.log('Api.ai response messages' + JSON.stringify(response))
 
-    /*if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
+    if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
 
-        console.log( 'Api.ai response messages' + JSON.stringify(messages  )  )
+        console.log('Api.ai response messages' + JSON.stringify(messages))
         let timeoutInterval = 1100;
         let previousType;
         let cardTypes = [];
@@ -325,7 +325,7 @@ function handleApiAiResponse(sender, response) {
     } else if (isDefined(responseText)) {
 
         Message.sendMessage(sender, responseText);
-    }*/
+    }
 }
 
 
@@ -545,25 +545,25 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                     if (responseText === "end.events.search") {
-                        if (city != '') {
-                            console.log('end.events.search city< ' + city)
-                            if (date_time != '') {
-                                console.log('end.events.search date_time< ' + date_time)
+                        //if (city != '') {
+                        //console.log('end.events.search city< ' + city)
+                        //if (date_time != '') {
+                        //console.log('end.events.search date_time< ' + date_time)
 
-                                startTevoByQuery(arrayQueryMessages).then((query) => {
-                                    if (query.query) {
-                                        console.log("query Tevo >>> " + JSON.stringify(query));
-                                        TevoModule.start(sender, query.query, 1, query.messageTitle);
-                                    } else {
-                                        console.log('Not Found Events')
-                                        find_my_event(sender, 1, '');
-
-                                    }
-
-                                })
+                        startTevoByQuery(arrayQueryMessages).then((query) => {
+                            if (query.query) {
+                                console.log("query Tevo >>> " + JSON.stringify(query));
+                                TevoModule.start(sender, query.query, 1, query.messageTitle);
+                            } else {
+                                console.log('Not Found Events')
+                                find_my_event(sender, 1, '');
 
                             }
-                        }
+
+                        })
+
+                        //}
+                        //}
                     }
 
                 }
