@@ -277,14 +277,14 @@ function processLocation(senderId, locationData) {
 
 
             var totalElements = foundUser.optionsSelected.length;
-            console.log('foundUser.optionsSelected.length %s', foundUser.optionsSelected.length  )
+            console.log('foundUser.optionsSelected.length %s', foundUser.optionsSelected.length)
             if (totalElements < 1) {
                 return;
             }
 
             var lastSelected = foundUser.optionsSelected[totalElements - 1];
- 
-            console.log('lastSelected >>' +  lastSelected  )
+
+            console.log('lastSelected >>' + lastSelected)
             if ('Food' == lastSelected) {
                 var Food = require('../modules/food');
                 Food.get(Message, foundUser, locationData);
@@ -1386,7 +1386,6 @@ function saluda(senderId) {
         console.log('Dentro de UserData');
         if (!err) {
 
-            var bodyObj = JSON.parse(result);
             console.log(result);
 
 
