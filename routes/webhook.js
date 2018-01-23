@@ -261,9 +261,9 @@ function processLocation(senderId, locationData) {
 
     user_queries.createUpdateUserDatas(senderId).then((foundUser) => {
 
-        console.log('lat_ ' + lat)
-        console.log('lon_  ' + lon)
-        console.log('processLocation> foundUser.optionsSelected.length ' + foundUser.optionsSelected.length)
+        //console.log('lat_ ' + lat)
+        //console.log('lon_  ' + lon)
+        //console.log('processLocation> foundUser.optionsSelected.length ' + foundUser.optionsSelected.length)
 
 
         /* if (foundUser.context == "find_my_event_by_category") {
