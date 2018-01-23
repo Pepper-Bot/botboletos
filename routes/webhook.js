@@ -146,6 +146,7 @@ function sendToApiAi(sender, text) {
 
     apiaiRequest.on('response', (response) => {
         if (isDefined(response.result)) {
+            console.log( 'Api.ai response messages' + JSON.stringify(response  )  ) 
             handleApiAiResponse(sender, response);
         }
     });
