@@ -169,7 +169,7 @@ function receivedMessage(event) {
 function handleMessageAttachments(messageAttachments, senderId) {
 
     if ('location' == messageAttachments[0].type) {
-        processLocation(senderId, messageAttachments);
+       //processLocation(senderId, messageAttachments);
         console.log("Procesando ubicación!!" + JSON.stringify(messageAttachments));
     }
 
