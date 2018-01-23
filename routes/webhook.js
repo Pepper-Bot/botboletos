@@ -1376,24 +1376,50 @@ function receivedPostback(event) {
 
 
 function saluda(senderId) {
-    //senderId, context = '', mlinkSelected = '', eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-    user_queries.createUpdateUserDatas(senderId).then((foundUser) => {
-        console.log('Saludamos!!');
-        console.log('Greetings Payload');
-        var greeting = "Hi " + foundUser.firstName
-        var messagetxt = greeting + ", what would you like to do?";
+
+    console.log('Greetings Payload');
+    // Metemos el ID
+    UserData.getInfo(senderId, function (err, result) {
+        console.log('Dentro de UserData');
+        if (!err) {
+
+          
+            console.log(result);
 
 
-        Message.markSeen(senderId);
-        Message.typingOn2(senderId, function (error, response, body) {
+            var User = new UserData2; {
+                User.fbId = senderId;
+                User.firstName = bodyObj.first_name;
+                User.LastName = bodyObj.last_name;
+                User.profilePic = bodyObj.profile_pic;
+                User.locale = bodyObj.locale;
+                User.timeZone = bodyObj.timezone;
+                User.gender = bodyObj.gender;
+                User.messageNumber = 1;
 
-            var GreetingsReply = require('../modules/greetings');
-            GreetingsReply.send(Message, senderId, messagetxt);
+                User.save();
+            }
 
-        });
+
+
+            var name = bodyObj.first_name;
+            var greeting = "Hi " + name;
+            var messagetxt = greeting + ", what would you like to do?";
+            //Message.sendMessage(senderId, message);
+            /* INSERT TO MONGO DB DATA FROM SESSION*/
+
+
+            Message.markSeen(senderId);
+            Message.typingOn2(senderId, function (error, response, body) {
+
+                var GreetingsReply = require('../modules/greetings');
+                GreetingsReply.send(Message, senderId, messagetxt);
+
+            });
+
+
+        }
     });
-
- 
 };
 
 
