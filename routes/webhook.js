@@ -170,6 +170,8 @@ function handleApiAiResponse(sender, response) {
 
 
     if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
+
+        console.log( 'Api.ai response messages' + JSON.stringify(messages  )  )
         let timeoutInterval = 1100;
         let previousType;
         let cardTypes = [];
