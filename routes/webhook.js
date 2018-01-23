@@ -136,6 +136,145 @@ function isDefined(obj) {
 
 
 
+function sendToApiAi(sender, text) {
+
+    console.log('texto enviado a api.ai> ' + text)
+    Message.typingOn(sender);
+    let apiaiRequest = apiAiService.textRequest(text, {
+        sessionId: sessionIds.get(sender)
+    });
+
+    apiaiRequest.on('response', (response) => {
+        if (isDefined(response.result)) {
+            handleApiAiResponse(sender, response);
+        }
+    });
+
+    apiaiRequest.on('error', (error) => console.error(error));
+    apiaiRequest.end();
+}
+
+
+function handleApiAiResponse(sender, response) {
+
+    //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
+
+    let responseText = response.result.fulfillment.speech;
+    let responseData = response.result.fulfillment.data;
+    let messages = response.result.fulfillment.messages;
+    let action = response.result.action;
+    let contexts = response.result.contexts;
+    let parameters = response.result.parameters;
+
+    Message.typingOff(sender);
+
+
+    if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
+        let timeoutInterval = 1100;
+        let previousType;
+        let cardTypes = [];
+        let timeout = 0;
+        for (var i = 0; i < messages.length; i++) {
+
+            if (previousType == 1 && (messages[i].type != 1 || i == messages.length - 1)) {
+
+                timeout = (i - 1) * timeoutInterval;
+                setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
+                cardTypes = [];
+                timeout = i * timeoutInterval;
+                setTimeout(handleMessage.bind(null, messages[i], sender), timeout);
+            } else if (messages[i].type == 1 && i == messages.length - 1) {
+                cardTypes.push(messages[i]);
+                timeout = (i - 1) * timeoutInterval;
+                setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
+                cardTypes = [];
+            } else if (messages[i].type == 1) {
+                cardTypes.push(messages[i]);
+            } else {
+                timeout = i * timeoutInterval;
+                setTimeout(handleMessage.bind(null, messages[i], sender), timeout);
+            }
+
+            previousType = messages[i].type;
+
+        }
+    } else if (responseText == '' && !isDefined(action)) {
+        //api ai could not evaluate input.
+        console.log('Unknown query' + response.result.resolvedQuery);
+
+        Message.sendMessage(sender, "I'm not sure what you want. Can you be more specific?");
+    } else if (isDefined(action)) {
+        handleApiAiAction(sender, response, action, responseText, contexts, parameters);
+    } else if (isDefined(responseData) && isDefined(responseData.facebook)) {
+        try {
+            console.log('Response as formatted message' + responseData.facebook);
+            Message.sendMessage(sender, responseData.facebook);
+        } catch (err) {
+            Message.sendMessage(sender, err.message);
+        }
+    } else if (isDefined(responseText)) {
+
+        Message.sendMessage(sender, responseText);
+    }
+}
+
+
+function processMessage1(senderId, textMessage) {
+
+    if (!sessionIds.has(senderId)) {
+        sessionIds.set(senderId, uuid.v1());
+    }
+    var userSays = {
+        typed: textMessage
+    }
+
+    //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
+    user_queries.createUpdateUserDatas(senderId, '', '', userSays).then((foundUser) => {
+        sendToApiAi(senderId, textMessage);
+    })
+
+
+
+
+
+    if ('start again' === textMessage.toLowerCase()) {
+
+        UserData.getInfo(senderId, function (err, result) {
+            console.log('Dentro de UserData');
+            if (!err) {
+
+                var bodyObj = JSON.parse(result);
+                console.log(result);
+
+                var name = bodyObj.first_name;
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, result) {
+
+                    var greeting = "Hi " + name;
+                    var messagetxt = greeting + ", what would you like to do?";
+
+                    var GreetingsReply = require('../modules/greetings');
+                    GreetingsReply.send(Message, senderId, messagetxt);
+
+                });
+
+
+            }
+        });
+        ///break;
+    }
+    //aaki iba esta respuesta por default
+    //var DefaultReply = require('../modules/defaultreply');
+    //DefaultReply.send(Message, senderId);
+
+
+}
 
 
 function processMessage(senderId, textMessage) {
