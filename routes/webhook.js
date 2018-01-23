@@ -219,62 +219,265 @@ function handleApiAiResponse(sender, response) {
 }
 
 
-function processMessage1(senderId, textMessage) {
+function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
+    console.log('>> handleApiAiAction');
+    switch (action) {
+        case "events.search":
+            {
+                console.log(" Action events.search >>> ");
 
-    if (!sessionIds.has(senderId)) {
-        sessionIds.set(senderId, uuid.v1());
-    }
-    var userSays = {
-        typed: textMessage
-    }
-
-    //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-    user_queries.createUpdateUserDatas(senderId, '', '', userSays).then((foundUser) => {
-        sendToApiAi(senderId, textMessage);
-    })
+                //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
+                //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
 
 
+                let city = ''
+                let country = ''
+                let artist = ''
+                let date_time = ''
+                let date_time_original = ''
+                let event_title = ''
+                let startDate = ''
+                let finalDate = ''
+                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
+                    if ((isDefined(contexts[0].parameters.location))) {
+                        if (isDefined(contexts[0].parameters.location.city)) {
+                            city = contexts[0].parameters.location.city
+                            console.log('city>> ' + city)
+                        } else {
+                            if (isDefined(contexts[0].parameters.location.country)) {
+                                country = contexts[0].parameters.location.country
+                                console.log('country>> ' + country)
+                                city = country
+                            }
+                        }
 
-
-
-    if ('start again' === textMessage.toLowerCase()) {
-
-        UserData.getInfo(senderId, function (err, result) {
-            console.log('Dentro de UserData');
-            if (!err) {
-
-                var bodyObj = JSON.parse(result);
-                console.log(result);
-
-                var name = bodyObj.first_name;
-
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
                     }
-                }, function (err, result) {
 
-                    var greeting = "Hi " + name;
-                    var messagetxt = greeting + ", what would you like to do?";
-
-                    var GreetingsReply = require('../modules/greetings');
-                    GreetingsReply.send(Message, senderId, messagetxt);
-
-                });
+                    if ((isDefined(contexts[0].parameters.date_time))) {
+                        if (contexts[0].parameters.date_time != "") {
+                            date_time = contexts[0].parameters.date_time
 
 
+                            var cadena = date_time,
+                                separador = "/",
+                                arregloDeSubCadenas = cadena.split(separador);
+
+                            if (isDefined(arregloDeSubCadenas[0])) {
+
+                                startDate = arregloDeSubCadenas[0]
+
+                                if (moment(startDate).isSameOrAfter(moment())) {
+                                    console.log('Es mayor !!')
+
+                                } else {
+                                    console.log('La fecha inicial es menor a la actual!!!')
+                                    startDate = moment()
+                                }
+
+
+                                startDate = moment(startDate, moment.ISO_8601).format()
+
+
+                                startDate = startDate.substring(0, startDate.length - 6)
+
+
+
+
+                                console.log("startDate>>> " + startDate);
+
+
+                            }
+
+                            if (isDefined(arregloDeSubCadenas[1])) {
+                                finalDate = arregloDeSubCadenas[1]
+                                finalDate = moment(finalDate, moment.ISO_8601).format()
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
+
+                                console.log("finalDate>>> " + finalDate);
+                            }
+
+                            if (finalDate == '') {
+                                finalDate = moment(startDate, moment.ISO_8601).endOf('day').format();
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
+                                console.log("finalDate = startDate >>> " + finalDate);
+                            }
+
+
+
+
+                            console.log('date_time>> ' + date_time)
+
+                        }
+
+                    }
+
+                    if ((isDefined(contexts[0].parameters.artist))) {
+                        if (contexts[0].parameters.artist != "") {
+                            artist = contexts[0].parameters.artist
+                            console.log('artist>> ' + artist)
+                        }
+                    }
+
+                    if ((isDefined(contexts[0].parameters.event_title))) {
+                        if (contexts[0].parameters.event_title != "") {
+                            event_title = contexts[0].parameters.event_title
+                            console.log('event_title>> ' + event_title)
+                        }
+                    }
+                    var urlApiTevo = ''
+                    var urlsApiTevo = []
+
+                    if (artist != '') {
+                        event_title = artist
+                    }
+
+
+
+
+                    var page = 1;
+                    var per_page = 50;
+                    var page_per_page = '&page=' + page + '&per_page=' + per_page
+
+                    var arrayQueryMessages = []
+
+
+                    if (event_title != '') {
+                        if (city != '') {
+                            if (date_time != '') {
+                                var queryMessage = {
+                                    prioridad: 1,
+                                    searchBy: 'NameAndCityAndDate',
+                                    query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                                    messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
+                                }
+                                arrayQueryMessages.push(queryMessage)
+                            }
+                        }
+
+
+                        if (city != '') {
+                            var queryMessage = {
+                                prioridad: 2,
+                                searchBy: 'NameAndCity',
+                                query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&' + only_with + '&order_by=events.occurs_at',
+                                messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
+                            }
+                            arrayQueryMessages.push(queryMessage)
+                        }
+
+                        if (date_time != '') {
+                            var queryMessage = {
+                                prioridad: 3,
+                                searchBy: 'NameAndDate',
+                                query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                                messageTitle: 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
+                            }
+                            arrayQueryMessages.push(queryMessage)
+                        }
+
+
+                        var queryMessage = {
+                            prioridad: 4,
+                            searchBy: 'ByName',
+                            query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
+                            messageTitle: 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
+                        }
+                        arrayQueryMessages.push(queryMessage)
+
+
+
+                        /*if (city != '') {
+                            if (date_time != '') {
+                                var queryMessage = {
+                                    prioridad: 5,
+                                    searchBy: 'CityAndDate',
+                                    query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                                    messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                                }
+                                arrayQueryMessages.push(queryMessage)
+                            }
+                        }
+
+                        if (city != '') {
+                            var queryMessage = {
+                                prioridad: 6,
+                                searchBy: 'City',
+                                query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
+                                messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                            }
+                            arrayQueryMessages.push(queryMessage)
+                        }*/
+
+                    } else {
+                        if (city != '') {
+                            if (date_time != '') {
+                                var queryMessage = {
+                                    prioridad: 1,
+                                    searchBy: 'CityAndDate',
+                                    query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                                    messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                                }
+                                arrayQueryMessages.push(queryMessage)
+                            }
+                        }
+                        if (city != '') {
+                            var queryMessage = {
+                                prioridad: 2,
+                                searchBy: 'City',
+                                query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
+                                messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                            }
+                            arrayQueryMessages.push(queryMessage)
+                        }
+                    }
+
+                    //setTimeout(function () {}, 1000);
+
+
+                    if (responseText === "end.events.search") {
+                        if (city != '') {
+                            console.log('end.events.search city< ' + city)
+                            if (date_time != '') {
+                                console.log('end.events.search date_time< ' + date_time)
+
+                                startTevoByQuery(arrayQueryMessages).then((query) => {
+                                    if (query.query) {
+                                        console.log("query Tevo >>> " + JSON.stringify(query));
+                                        TevoModule.start(sender, query.query, 1, query.messageTitle);
+                                    } else {
+                                        console.log('Not Found Events')
+                                        find_my_event(sender, 1, '');
+
+                                    }
+
+                                })
+
+                            }
+                        }
+                    }
+
+                }
+
+
+                if (responseText != "end.events.search") {
+                    Message.sendMessage(sender, responseText);
+                     
+                }
+
+
+
+
+
+
+                break;
             }
-        });
-        ///break;
+        
+        default:
+            //unhandled action, just send back the text
+            Message.sendMessage(sender, responseText);
     }
-    //aaki iba esta respuesta por default
-    //var DefaultReply = require('../modules/defaultreply');
-    //DefaultReply.send(Message, senderId);
-
-
 }
+
 
 
 function processMessage(senderId, textMessage) {
@@ -323,11 +526,14 @@ function processMessage(senderId, textMessage) {
                             if (resultado.events.length > 0) {
                                 startTevoModuleWithMlink(textMessage, senderId, 0, 1);
                             } else {
-                                find_my_event(senderId, 1, textMessage);
+                                //find_my_event(senderId, 1, textMessage);
+                                sendToApiAi(sender,textMessage )
                             }
 
                         } else {
-                            find_my_event(senderId, 1, textMessage);
+                           
+                            //find_my_event(senderId, 1, textMessage);
+                            sendToApiAi(sender,textMessage )
                         }
 
                     })
