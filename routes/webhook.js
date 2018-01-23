@@ -1941,7 +1941,7 @@ function find_my_event(senderId, hi = 0, event_name = '') {
 
             var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
             SearchQuickReply.send(Message, senderId, messagetxt);
-            context = ''
+           
             UserData2.findOne({
                 fbId: senderId
             }, {}, {
