@@ -1380,7 +1380,7 @@ function saluda(senderId) {
     user_queries.createUpdateUserDatas(senderId).then((foundUser) => {
         console.log('Saludamos!!');
         console.log('Greetings Payload');
-        var greeting = "Hi " + foundUser.first_name;;
+        var greeting = "Hi " + foundUser.firstName
         var messagetxt = greeting + ", what would you like to do?";
 
 
@@ -1535,20 +1535,59 @@ function isDefined(obj) {
 function handleReferrals(event) {
     // Handle Referrals lo que hace  es verificar si el short link viene de una ventana nueva
     // o una conversación PRE-EXISTENTE.
+
     var senderId = event.sender.id;
     var referral;
 
-    if (undefined !== event.postback) {
-        console.log('event.postback definido');
-        referral = event.postback.referral.ref;
+    console.log('0.1');
 
+    console.log('0.2');
+    if (undefined !== event.postback) {
+        console.log('0.3');
+        // Obtenemos la referencia por "Start Button" o sea una conversación nueva.
+        referral = event.postback.referral.ref;
+        chooseMlink(referral, senderId);
     } else {
-        console.log('event.referral.ref definido');
+        // Msgr tiene un error, cuando detecta que ya es una conversacion abierta
+        // envia 3 requests y por ende repite los mensajes, para evitar esto
+        // se almacena el id en mongodb hasta la 3ra vuelta se envia la informacion 
+        // no se si esto es problema de msgr como tal o heroku (quiero pensar que es de msgr)        
         referral = event.referral.ref;
+
+        var FBSessions = require('../schemas/boletos');
+        // Buscamos el id del usuario
+        FBSessions.find({
+            fbId: senderId
+        }, {}, function (err, result) {
+
+            if (!err) {
+
+                if (result.length < 2) {
+                    // si estamos dentro del rango de dos peticiones guardamos el id
+                    var FBSession = new FBSessions; {
+                        FBSession.fbId = senderId;
+                        FBSession.save();
+                    }
+                } else {
+                    // tercera peticion, mandamos a llamar a los boletos y elminamos los registros.
+
+                    chooseMlink(referral, senderId);
+                    FBSessions.remove({
+                        fbId: senderId
+                    }, function (err) {
+
+                    });
+
+                }
+
+            }
+
+
+        });
+        // Ya tiene iniciada una conversacion el usuario con el robot
 
     }
 
-    chooseMlink(referral, senderId);
 }
 
 function chooseMlink(referral, senderId) {
