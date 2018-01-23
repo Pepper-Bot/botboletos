@@ -152,7 +152,11 @@ function sendToApiAi(sender, text) {
 
 function processMessage(senderId, textMessage) {
 
+    if (!sessionIds.has(senderId)) {
+        sessionIds.set(senderId, uuid.v1());
+    }
 
+    
     UserData2.findOne({
         fbId: senderId
     }, {}, {
