@@ -529,14 +529,15 @@ function processMessage(senderId, textMessage) {
                             if (resultado.events.length > 0) {
                                 startTevoModuleWithMlink(textMessage, senderId, 0, 1);
                             } else {
-                                //find_my_event(senderId, 1, textMessage);
-                                sendToApiAi(senderId,textMessage )
+                                console.log("textMessage " + textMessage)
+                               find_my_event(senderId, 1, textMessage);
+                               // sendToApiAi(senderId,textMessage )
                             }
 
                         } else {
-                           
-                            //find_my_event(senderId, 1, textMessage);
-                            sendToApiAi(senderId,textMessage )
+                            console.log("textMessage " + textMessage)
+                           find_my_event(senderId, 1, textMessage);
+                           // sendToApiAi(senderId,textMessage )
                         }
 
                     })
