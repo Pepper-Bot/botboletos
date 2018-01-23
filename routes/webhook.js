@@ -1,14 +1,41 @@
+'use strict';
 var express = require('express');
 var router = express.Router();
 var request = require('request');
 var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
+var API_AI_CLIENT_ACCESS_TOKEN = require('../config/config_vars').API_AI_CLIENT_ACCESS_TOKEN;
+var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
+var PAGE_ACCESS_TOKEN = require('../config/config_vars').PAGE_ACCESS_TOKEN;
 
-//--
+var FB_APP_SECRET = require('../config/config_vars').FB_APP_SECRET;
+
+var TevoClient = require('ticketevolution-node');
+var only_with = require('../config/config_vars').only_with;
+var tevo = require('../config/config_vars').tevo;
+var tevoCategories = require('../modules/tevo/tevo');
 
 
+const apiai = require('apiai');
+const crypto = require('crypto');
+const uuid = require('uuid');
+var moment = require('moment');
 
+
+var user_queries = require('../schemas/queries/user_queries');
+var TevoModule = require('../modules/query_tevo_request');
+
+
+const apiAiService = apiai(API_AI_CLIENT_ACCESS_TOKEN, {
+    language: "en",
+    requestSource: "fb"
+});
+
+const tevoClient = new TevoClient({
+    apiToken: tevo.API_TOKEN,
+    apiSecretKey: tevo.API_SECRET_KEY
+});
 
 
 
