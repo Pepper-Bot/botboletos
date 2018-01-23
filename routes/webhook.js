@@ -278,6 +278,12 @@ function processMessage1(senderId, textMessage) {
 
 
 function processMessage(senderId, textMessage) {
+    if (!sessionIds.has(senderId)) {
+        sessionIds.set(senderId, uuid.v1());
+    }
+    var userSays = {
+        typed: textMessage
+    }
 
     UserData2.findOne({
         fbId: senderId
@@ -380,12 +386,12 @@ function processMessage(senderId, textMessage) {
 
 }
 
- 
+
 
 function handleMessage(message, sender) {
     switch (message.type) {
         case 0: //text
-            
+
             Message.sendMessage(senderId, message.speech);
 
             break;
@@ -1606,7 +1612,7 @@ function processPostback(event) {
         case "Greetings":
             var menu = require('../bot/get_started');
             menu.deleteAndCreatePersistentMenu();
-            
+
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
                 console.log('Dentro de referrals handler');
