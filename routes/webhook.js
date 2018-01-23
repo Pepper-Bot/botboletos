@@ -527,13 +527,13 @@ function processMessage(senderId, textMessage) {
                                 startTevoModuleWithMlink(textMessage, senderId, 0, 1);
                             } else {
                                 //find_my_event(senderId, 1, textMessage);
-                                sendToApiAi(sender,textMessage )
+                                sendToApiAi(senderId,textMessage )
                             }
 
                         } else {
                            
                             //find_my_event(senderId, 1, textMessage);
-                            sendToApiAi(sender,textMessage )
+                            sendToApiAi(senderId,textMessage )
                         }
 
                     })
