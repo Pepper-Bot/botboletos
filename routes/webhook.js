@@ -169,7 +169,7 @@ function receivedMessage(event) {
 function handleMessageAttachments(messageAttachments, senderId) {
 
     if ('location' == messageAttachments[0].type) {
-       //processLocation(senderId, messageAttachments);
+        processLocation(senderId, messageAttachments);
         console.log("Procesando ubicación!!" + JSON.stringify(messageAttachments));
     }
 
@@ -258,10 +258,11 @@ function processQuickReplayBox(senderId) {
 function processLocation(senderId, locationData) {
     let lat = locationData.payload.coordinates.lat;
     let lon = locationData.payload.coordinates.long;
-
+    console.log( 'lat' + lat    )
+    console.log( 'lon' + lon    )
     user_queries.createUpdateUserDatas(senderId).then((foundUser) => {
 
-        console.log("Process Location foundUser %s  lat  %d  lon  %d", foundUser.fbId, lat, lon);
+      
 
 
         /* if (foundUser.context == "find_my_event_by_category") {
