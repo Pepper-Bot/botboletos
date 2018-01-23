@@ -37,8 +37,8 @@ const tevoClient = new TevoClient({
     apiSecretKey: tevo.API_SECRET_KEY
 });
 
-const sessionIds = new Map();
-
+ 
+ 
 
 
 var datos = {}; // Para saber si estamos o no con el ID
