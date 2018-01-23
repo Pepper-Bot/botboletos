@@ -169,8 +169,8 @@ function receivedMessage(event) {
 function handleMessageAttachments(messageAttachments, senderId) {
 
     if ('location' == messageAttachments[0].type) {
-       // processLocation(senderId, messageAttachments);
-        console.log("Procesando ubicación!!" + JSON.stringify(messageAttachments));
+        processLocation(senderId, messageAttachments);
+        //console.log("Procesando ubicación!!" + JSON.stringify(messageAttachments));
     }
 
 }
@@ -256,14 +256,15 @@ function processQuickReplayBox(senderId) {
 
 
 function processLocation(senderId, locationData) {
-    let lat = locationData.payload.coordinates.lat;
-    let lon = locationData.payload.coordinates.long;
+    console.log('processLocation> foundUser.optionsSelected.length ' + locationData.payload.coordinates.lat)
+
+    //var lat = locationData.payload.coordinates.lat;
+    //var lon = locationData.payload.coordinates.long;
 
     user_queries.createUpdateUserDatas(senderId).then((foundUser) => {
 
-        //console.log('lat_ ' + lat)
-        //console.log('lon_  ' + lon)
-        //console.log('processLocation> foundUser.optionsSelected.length ' + foundUser.optionsSelected.length)
+    
+         
 
 
         /* if (foundUser.context == "find_my_event_by_category") {
