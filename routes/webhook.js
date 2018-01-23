@@ -263,6 +263,10 @@ function processLocation(senderId, locationData) {
     let lon = locationData.payload.coordinates.long;
 
     user_queries.createUpdateUserDatas(senderId).then((foundUser) => {
+
+        console.log("Process Location foundUser %s  lat  %d  lon  %d", foundUser.fbId, lat, lon);
+
+
         if (foundUser.context == "find_my_event_by_category") {
             let totalElements = foundUser.categorySearchSelected.length;
             let category = foundUser.categorySearchSelected[totalElements - 1];
@@ -270,20 +274,24 @@ function processLocation(senderId, locationData) {
             tevoCategories.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
             user_queries.createUpdateUserDatas(senderId, '-')
         } else {
+
+
             var totalElements = foundUser.optionsSelected.length;
+            console.log('foundUser.optionsSelected.length %s', foundUser.optionsSelected.length  )
             if (totalElements < 1) {
                 return;
             }
 
             var lastSelected = foundUser.optionsSelected[totalElements - 1];
-
+ 
+            console.log('lastSelected >>' +  lastSelected  )
             if ('Food' == lastSelected) {
                 var Food = require('../modules/food');
                 Food.get(Message, foundUser, locationData);
 
             } else if ('Events' == lastSelected) {
 
- 
+
                 let page = 1;
                 let per_page = 50;
                 let page_per_page = '&page=' + page + '&per_page=' + per_page
