@@ -167,9 +167,9 @@ function handleApiAiResponse(sender, response) {
     let parameters = response.result.parameters;
 
     Message.typingOff(sender);
+    console.log( 'Api.ai response messages' + JSON.stringify(response  )  )
 
-
-    if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
+    /*if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
 
         console.log( 'Api.ai response messages' + JSON.stringify(messages  )  )
         let timeoutInterval = 1100;
@@ -217,7 +217,7 @@ function handleApiAiResponse(sender, response) {
     } else if (isDefined(responseText)) {
 
         Message.sendMessage(sender, responseText);
-    }
+    }*/
 }
 
 
