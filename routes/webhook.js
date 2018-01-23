@@ -216,7 +216,6 @@ function handleQuickReply(senderId, quickReply, messageId) {
 }
 
 
-
 var processQuickReplayShakira = (senderId, payload) => {
     console.log("Shakira votación Module " + payload)
     Message.markSeen(senderId);
@@ -256,8 +255,6 @@ function processQuickReplayBox(senderId) {
 
 
 
-
-
 function processLocation(senderId, locationData) {
     let lat = locationData.payload.coordinates.lat;
     let lon = locationData.payload.coordinates.long;
@@ -277,7 +274,7 @@ function processLocation(senderId, locationData) {
 
 
             var totalElements = foundUser.optionsSelected.length;
-            console.log('foundUser.optionsSelected.length %s', foundUser.optionsSelected.length)
+            console.log('foundUser.optionsSelected.length %s', )
             if (totalElements < 1) {
                 return;
             }
@@ -1379,50 +1376,27 @@ function receivedPostback(event) {
 
 
 function saluda(senderId) {
-    console.log('Saludamos!!');
-    console.log('Greetings Payload');
-    // Metemos el ID
-    UserData.getInfo(senderId, function (err, result) {
-        console.log('Dentro de UserData');
-        if (!err) {
-
-            console.log(result);
+    //senderId, context = '', mlinkSelected = '', eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
+    user_queries.createUpdateUserDatas(senderId).then((foundUser) => {
+        console.log('Saludamos!!');
+        console.log('Greetings Payload');
+        var greeting = "Hi " + foundUser.first_name;;
+        var messagetxt = greeting + ", what would you like to do?";
 
 
-            var User = new UserData2; {
-                User.fbId = senderId;
-                User.firstName = bodyObj.first_name;
-                User.LastName = bodyObj.last_name;
-                User.profilePic = bodyObj.profile_pic;
-                User.locale = bodyObj.locale;
-                User.timeZone = bodyObj.timezone;
-                User.gender = bodyObj.gender;
-                User.messageNumber = 1;
+        Message.markSeen(senderId);
+        Message.typingOn2(senderId, function (error, response, body) {
 
-                User.save();
-            }
+            var GreetingsReply = require('../modules/greetings');
+            GreetingsReply.send(Message, senderId, messagetxt);
 
-
-
-            var name = bodyObj.first_name;
-            var greeting = "Hi " + name;
-            var messagetxt = greeting + ", what would you like to do?";
-            //Message.sendMessage(senderId, message);
-            /* INSERT TO MONGO DB DATA FROM SESSION*/
-
-
-            Message.markSeen(senderId);
-            Message.typingOn2(senderId, function (error, response, body) {
-
-                var GreetingsReply = require('../modules/greetings');
-                GreetingsReply.send(Message, senderId, messagetxt);
-
-            });
-
-
-        }
+        });
     });
+
+ 
 };
+
+
 /*
  * Message Read Event
  *
