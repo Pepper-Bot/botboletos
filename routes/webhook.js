@@ -264,7 +264,7 @@ function processLocation(senderId, locationData) {
         console.log("Process Location foundUser %s  lat  %d  lon  %d", foundUser.fbId, lat, lon);
 
 
-        if (foundUser.context == "find_my_event_by_category") {
+       /* if (foundUser.context == "find_my_event_by_category") {
             let totalElements = foundUser.categorySearchSelected.length;
             let category = foundUser.categorySearchSelected[totalElements - 1];
 
@@ -319,8 +319,7 @@ function processLocation(senderId, locationData) {
             } else {
                 console.log('Error guardando selección')
             }
-        });
-
+        });*/
     })
 
 
