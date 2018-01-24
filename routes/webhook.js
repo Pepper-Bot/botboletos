@@ -556,7 +556,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                     if (responseText === "end.events.search") {
-                        console.log('responseText === "end.events.search"')
+                        console.log('responseText === "end.events.search"  arrayQueryMessages.length '+ arrayQueryMessages.length )
                         if (arrayQueryMessages.length < 1) {
                             startTevoByQuery(arrayQueryMessages).then((query) => {
                                 if (query.query) {
