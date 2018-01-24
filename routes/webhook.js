@@ -644,7 +644,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     if (responseText === "end.events.search") {
 
                         UserData2.findOne({
-                            fbId: senderId
+                            fbId: sender
                         }, {}, {
                             sort: {
                                 'sessionStart': -1
