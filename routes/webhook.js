@@ -680,28 +680,22 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                                     } else {
                                                         console.log('Not Found Events')
                                                         find_my_event(sender, 1, '');
-                        
+
                                                     }
-                        
+
                                                 })
 
 
                                             } else {
                                                 startTevoModuleByLocation(sender, lat, lon)
 
-                                        
+                                            }
                                         }
                                     }
-
-
-                                    //foundUser.save();
                                 }
                             }
                         })
-
-
                     }
-
                 }
 
 
