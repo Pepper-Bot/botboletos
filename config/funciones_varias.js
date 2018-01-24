@@ -11,7 +11,7 @@ function getCleanedString(cadena){
     cadena = cadena.toLowerCase();
  
     // Quitamos espacios y los sustituimos por _ porque nos gusta mas asi
-    cadena = cadena.replace(/ /g,"_");
+   // cadena = cadena.replace(/ /g,"_");
  
     // Quitamos acentos y "ñ". Fijate en que va sin comillas el primer parametro
     cadena = cadena.replace(/á/gi,"a");
