@@ -15,7 +15,7 @@ var TevoClient = require('ticketevolution-node');
 var only_with = require('../config/config_vars').only_with;
 var tevo = require('../config/config_vars').tevo;
 var tevoCategories = require('../modules/tevo/tevo');
-
+var fsStrings = require('../config/funciones_varias');
 
 const apiai = require('apiai');
 const crypto = require('crypto');
@@ -37,11 +37,7 @@ const tevoClient = new TevoClient({
     apiSecretKey: tevo.API_SECRET_KEY
 });
 
-
 const sessionIds = new Map();
-
-
-
 
 
 var datos = {}; // Para saber si estamos o no con el ID
@@ -144,12 +140,137 @@ function sendToApiAi(sender, text) {
 
     apiaiRequest.on('response', (response) => {
         if (isDefined(response.result)) {
+            console.log('Api.ai response messages' + JSON.stringify(response))
             handleApiAiResponse(sender, response);
         }
     });
 
     apiaiRequest.on('error', (error) => console.error(error));
     apiaiRequest.end();
+}
+
+
+function processMessage(senderId, textMessage) {
+
+    textMessage =   fsStrings.getCleanedString(textMessage);
+    
+
+    if (!sessionIds.has(senderId)) {
+        sessionIds.set(senderId, uuid.v1());
+    }
+
+
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, foundUser) {
+        if (foundUser) {
+
+            if (foundUser.context === 'find_my_event_by_name') {
+                console.log(foundUser.context);
+                var TevoModule = require('../modules/tevo/tevo');
+                TevoModule.searchEventsByName(textMessage).then((resultado) => {
+                    if (resultado.events) {
+                        if (resultado.events.length > 0) {
+                            startTevoModuleWithMlink(textMessage, senderId, 0, 0);
+                        } else {
+                            //find_my_event(senderId, 1, textMessage);
+                            sendToApiAi(senderId, textMessage)
+                        }
+
+                    } else {
+                        //find_my_event(senderId, 1, textMessage);
+                        sendToApiAi(senderId, textMessage)
+                    }
+
+                }).catch((err) => {
+                    console.log('Error en TevoModule.searchEventsByName line 193' + err)
+                    //sendToApiAi(senderId, textMessage)
+                })
+                foundUser.context = '';
+                foundUser.save();
+            } else {
+                //sendToApiAi(senderId, textMessage);
+
+
+                if (textMessage) {
+                    var TevoModule = require('../modules/tevo/tevo');
+                    TevoModule.searchEventsByName(textMessage).then((resultado) => {
+                        if (resultado.events) {
+                            if (resultado.events.length > 0) {
+                                startTevoModuleWithMlink(textMessage, senderId, 0, 1);
+                            } else {
+                                console.log("textMessage " + textMessage)
+                                //find_my_event(senderId, 1, textMessage);
+                                sendToApiAi(senderId, textMessage)
+                            }
+
+                        } else {
+                            console.log("textMessage " + textMessage)
+                            //find_my_event(senderId, 1, textMessage);
+                            sendToApiAi(senderId, textMessage)
+                        }
+
+                    }).catch((err) => {
+                        console.log('Error en TevoModule.searchEventsByName line 193' + err)
+                        //sendToApiAi(senderId, textMessage)
+                    })
+                }
+                /* 
+                               if (textMessage) {
+                                    var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
+                                    yes_no.send(Message, senderId, textMessage);
+                                    foundUser.context = textMessage
+                                    foundUser.save();
+                                }*/
+
+            }
+        }
+
+    });
+
+
+
+    if ('start again' === textMessage.toLowerCase()) {
+
+        UserData.getInfo(senderId, function (err, result) {
+            console.log('Dentro de UserData');
+            if (!err) {
+
+                var bodyObj = JSON.parse(result);
+                console.log(result);
+
+                var name = bodyObj.first_name;
+
+                UserData2.findOne({
+                    fbId: senderId
+                }, {}, {
+                    sort: {
+                        'sessionStart': -1
+                    }
+                }, function (err, result) {
+
+                    var greeting = "Hi " + name;
+                    var messagetxt = greeting + ", what would you like to do?";
+
+                    var GreetingsReply = require('../modules/greetings');
+                    GreetingsReply.send(Message, senderId, messagetxt);
+
+                });
+
+
+            }
+        });
+        ///break;
+    }
+    //aaki iba esta respuesta por default
+    //var DefaultReply = require('../modules/defaultreply');
+    //DefaultReply.send(Message, senderId);
+
+
 }
 
 
@@ -165,9 +286,11 @@ function handleApiAiResponse(sender, response) {
     let parameters = response.result.parameters;
 
     Message.typingOff(sender);
+    console.log('Api.ai response messages' + JSON.stringify(response))
 
-  
     if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
+
+        console.log('Api.ai response messages' + JSON.stringify(messages))
         let timeoutInterval = 1100;
         let previousType;
         let cardTypes = [];
@@ -213,64 +336,7 @@ function handleApiAiResponse(sender, response) {
     } else if (isDefined(responseText)) {
 
         Message.sendMessage(sender, responseText);
-    } 
-}
-
-function processMessage(senderId, textMessage) {
-
-    if (!sessionIds.has(senderId)) {
-        sessionIds.set(senderId, uuid.v1());
     }
-    var userSays = {
-        typed: textMessage
-    }
-
-    //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-    user_queries.createUpdateUserDatas(senderId, '', '', userSays).then((foundUser) => {
-        sendToApiAi(senderId, textMessage);
-    })
-
-
-
-
-
-    if ('start again' === textMessage.toLowerCase()) {
-
-        UserData.getInfo(senderId, function (err, result) {
-            console.log('Dentro de UserData');
-            if (!err) {
-
-                var bodyObj = JSON.parse(result);
-                console.log(result);
-
-                var name = bodyObj.first_name;
-
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, result) {
-
-                    var greeting = "Hi " + name;
-                    var messagetxt = greeting + ", what would you like to do?";
-
-                    var GreetingsReply = require('../modules/greetings');
-                    GreetingsReply.send(Message, senderId, messagetxt);
-
-                });
-
-
-            }
-        });
-        ///break;
-    }
-    //aaki iba esta respuesta por default
-    //var DefaultReply = require('../modules/defaultreply');
-    //DefaultReply.send(Message, senderId);
-
-
 }
 
 
@@ -490,25 +556,20 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                     if (responseText === "end.events.search") {
-                        if (city != '') {
-                            console.log('end.events.search city< ' + city)
-                            if (date_time != '') {
-                                console.log('end.events.search date_time< ' + date_time)
 
-                                startTevoByQuery(arrayQueryMessages).then((query) => {
-                                    if (query.query) {
-                                        console.log("query Tevo >>> " + JSON.stringify(query));
-                                        TevoModule.start(sender, query.query, 1, query.messageTitle);
-                                    } else {
-                                        console.log('Not Found Events')
-                                        find_my_event(sender, 1, '');
-
-                                    }
-
-                                })
+                        startTevoByQuery(arrayQueryMessages).then((query) => {
+                            if (query.query) {
+                                console.log("query Tevo >>> " + JSON.stringify(query));
+                                TevoModule.start(sender, query.query, 1, query.messageTitle);
+                            } else {
+                                console.log('Not Found Events')
+                                find_my_event(sender, 1, '');
 
                             }
-                        }
+
+                        })
+
+
                     }
 
                 }
@@ -520,37 +581,195 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 }
 
 
-
-
-
-
                 break;
             }
-        case "detalied-application":
+        case "events.search.implicit":
             {
+                console.log('dentro de events.search.implicit')
+                let lat = ''
+                let lon = ''
+                let date_time = ''
+                let startDate = ''
+                let finalDate = ''
+                let arrayQueryMessages = []
+                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
+                    if ((isDefined(contexts[0].parameters.date_time))) {
+                        if (contexts[0].parameters.date_time != "") {
+                            date_time = contexts[0].parameters.date_time
+
+                            var cadena = date_time,
+                                separador = "/",
+                                arregloDeSubCadenas = cadena.split(separador);
+
+                            if (isDefined(arregloDeSubCadenas[0])) {
+
+                                startDate = arregloDeSubCadenas[0]
+
+                                if (moment(startDate).isSameOrAfter(moment())) {
+                                    console.log('Es mayor !!')
+
+                                } else {
+                                    console.log('La fecha inicial es menor a la actual!!!')
+                                    startDate = moment()
+                                }
+
+
+                                startDate = moment(startDate, moment.ISO_8601).format()
+
+
+                                startDate = startDate.substring(0, startDate.length - 6)
 
 
 
+
+                                console.log("startDate>>> " + startDate);
+
+
+                            }
+
+                            if (isDefined(arregloDeSubCadenas[1])) {
+                                finalDate = arregloDeSubCadenas[1]
+                                finalDate = moment(finalDate, moment.ISO_8601).format()
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
+
+                                console.log("finalDate>>> " + finalDate);
+                            }
+
+                            if (finalDate == '') {
+                                finalDate = moment(startDate, moment.ISO_8601).endOf('day').format();
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
+                                console.log("finalDate = startDate >>> " + finalDate);
+                            }
+
+
+
+
+                            console.log('date_time>> ' + date_time)
+
+                        }
+
+                    }
+
+                    if (responseText === "end.events.search") {
+                        console.log('respondiendo en events.search.implicit')
+                        UserData2.findOne({
+                            fbId: sender
+                        }, {}, {
+                            sort: {
+                                'sessionStart': -1
+                            }
+                        }, function (err, foundUser) {
+                            //--
+                            if (!err) {
+                                if (foundUser !== null) {
+
+                                    lat = foundUser.location.coordinates[0];
+                                    lon = foundUser.location.coordinates[1];
+                                    // startTevoModuleByLocation(senderId, lat, lon);
+                                    //foundUser.context = ''
+
+                                    console.log('lat ' + lat + ' lon ' + lon)
+
+                                    if (isDefined(lat) && isDefined(lon)) {
+                                        if (lat != '' && lon != '') {
+                                            if (date_time != '') {
+                                                var queryMessage = {
+                                                    prioridad: 1,
+                                                    searchBy: 'LocationAndDate',
+                                                    query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100' + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate,
+                                                    messageTitle: 'Cool, I found events in your location.  Book a ticket'
+                                                }
+                                                arrayQueryMessages.push(queryMessage)
+
+
+
+                                                startTevoByQuery(arrayQueryMessages).then((query) => {
+                                                    if (query.query) {
+                                                        console.log("query Tevo >>> " + JSON.stringify(query));
+                                                        TevoModule.start(sender, query.query, 1, query.messageTitle);
+                                                    } else {
+                                                        console.log('Not Found Events')
+                                                        find_my_event(sender, 1, '');
+
+                                                    }
+
+                                                })
+
+
+                                            } else {
+                                                startTevoModuleByLocation(sender, lat, lon)
+
+                                            }
+                                        } else {
+                                            console.log('localización  vacía events.search.implicit ')
+
+                                            Message.markSeen(sender);
+                                            Message.getLocation(sender, 'What location would you like to catch show?');
+                                            Message.typingOn(sender);
+                                            saveUserSelection(sender, 'Events');
+
+                                            UserData2.findOne({
+                                                fbId: sender
+                                            }, {}, {
+                                                sort: {
+                                                    'sessionStart': -1
+                                                }
+                                            }, function (err, foundUser) {
+                                                foundUser.context = ''
+                                                foundUser.save();
+                                            });
+
+
+
+                                        }
+                                    } else {
+                                        console.log('no está definida la localización del usario events.search.implicit ')
+
+                                        Message.markSeen(sender);
+                                        Message.getLocation(sender, 'What location would you like to catch show?');
+                                        Message.typingOn(sender);
+                                        saveUserSelection(sender, 'Events');
+
+                                        UserData2.findOne({
+                                            fbId: sender
+                                        }, {}, {
+                                            sort: {
+                                                'sessionStart': -1
+                                            }
+                                        }, function (err, foundUser) {
+                                            foundUser.context = ''
+                                            foundUser.save();
+                                        });
+
+
+                                    }
+                                } else {
+                                    console.log('no encontré  el  usario events.search.implicit ')
+                                }
+                            } else {
+                                console.log('error en la busqueda  events.search.implicit')
+                            }
+                        })
+                    }
+                }
+
+
+
+                if (responseText != "end.events.search") {
+                    Message.sendMessage(sender, responseText);
+
+                }
 
 
                 break;
             }
-        case "job-enquiry":
-            {
-
-
-                break;
-            }
-
-
-
         default:
             //unhandled action, just send back the text
-            Message.sendMessage(senderId, responseText);
-
-
+            Message.sendMessage(sender, responseText);
     }
 }
+
+
 
 var startTevoByQuery = (arrayQueryMessages) => {
     return new Promise((resolve, reject) => {
@@ -580,6 +799,163 @@ var startTevoByQuery = (arrayQueryMessages) => {
         }
     })
 }
+
+function handleMessage(message, sender) {
+    switch (message.type) {
+        case 0: //text
+
+            Message.sendMessage(senderId, message.speech);
+
+            break;
+        case 2: //quick replies
+            let replies = [];
+            for (var b = 0; b < message.replies.length; b++) {
+                let reply = {
+                    "content_type": "text",
+                    "title": message.replies[b],
+                    "payload": message.replies[b]
+                }
+                replies.push(reply);
+            }
+            sendQuickReply(sender, message.title, replies);
+            break;
+        case 3: //image
+            sendImageMessage(sender, message.imageUrl);
+            break;
+        case 4:
+            // custom payload
+            var messageData = {
+                recipient: {
+                    id: sender
+                },
+                message: message.payload.facebook
+
+            };
+
+            callSendAPI(messageData);
+
+            break;
+    }
+}
+
+
+function sendImageMessage(recipientId, imageUrl) {
+    var messageData = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            attachment: {
+                type: "image",
+                payload: {
+                    url: imageUrl
+                }
+            }
+        }
+    };
+
+    callSendAPI(messageData);
+}
+
+function sendQuickReply(recipientId, text, replies, metadata) {
+    var messageData = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            text: text,
+            metadata: isDefined(metadata) ? metadata : '',
+            quick_replies: replies
+        }
+    };
+
+    callSendAPI(messageData);
+}
+
+function handleCardMessages(messages, sender) {
+
+    let elements = [];
+    for (var m = 0; m < messages.length; m++) {
+        let message = messages[m];
+        let buttons = [];
+        for (var b = 0; b < message.buttons.length; b++) {
+            let isLink = (message.buttons[b].postback.substring(0, 4) === 'http');
+            let button;
+            if (isLink) {
+                button = {
+                    "type": "web_url",
+                    "title": message.buttons[b].text,
+                    "url": message.buttons[b].postback
+                }
+            } else {
+                button = {
+                    "type": "postback",
+                    "title": message.buttons[b].text,
+                    "payload": message.buttons[b].postback
+                }
+            }
+            buttons.push(button);
+        }
+
+
+        let element = {
+            "title": message.title,
+            "image_url": message.imageUrl,
+            "subtitle": message.subtitle,
+            "buttons": buttons
+        };
+        elements.push(element);
+    }
+    sendGenericMessage(sender, elements);
+}
+
+function sendGenericMessage(recipientId, elements) {
+    var messageData = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            attachment: {
+                type: "template",
+                payload: {
+                    template_type: "generic",
+                    elements: elements
+                }
+            }
+        }
+    };
+
+    callSendAPI(messageData);
+}
+
+
+function callSendAPI(messageData) {
+    request({
+        uri: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {
+            access_token: PAGE_ACCESS_TOKEN
+        },
+        method: 'POST',
+        json: messageData
+
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var recipientId = body.recipient_id;
+            var messageId = body.message_id;
+
+            if (messageId) {
+                console.log("Successfully sent message with id %s to recipient %s",
+                    messageId, recipientId);
+            } else {
+                console.log("Successfully called Send API for recipient %s",
+                    recipientId);
+            }
+        } else {
+            console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
+        }
+    });
+}
+
 
 
 function processLocation(senderId, locationData) {
@@ -820,7 +1196,7 @@ function processQuickReplies(event) {
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -839,7 +1215,7 @@ function processQuickReplies(event) {
             {
                 /*var SearchQuickReply = require('../modules/tevo/search_quick_replay');
                 SearchQuickReply.send(Message, senderId);
-                context = ''
+                
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -974,7 +1350,7 @@ function processQuickReplies(event) {
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1502,7 +1878,7 @@ function processPostback(event) {
             {
                 var busqueda = ''
                 startTevoModuleWithMlink(busqueda, senderId)
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1519,14 +1895,14 @@ function processPostback(event) {
 
         case "find_my_event_show_me_more":
             {
-                var aki = ""
+
                 //var MonthsQuickReply = require('../modules/tevo/months_replay');
                 //MonthsQuickReply.send(Message, senderId, "Please choose month...");
                 Message.markSeen(senderId);
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1545,7 +1921,7 @@ function processPostback(event) {
             {
                 var SearchQuickReply = require('../modules/tevo/search_quick_replay');
                 SearchQuickReply.send(Message, senderId);
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1588,7 +1964,7 @@ function processPostback(event) {
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1620,7 +1996,7 @@ function processPostback(event) {
 
                     }
                 });
-                context = ''
+
 
                 UserData2.findOne({
                     fbId: senderId
@@ -1646,8 +2022,8 @@ function processPostback(event) {
 
             //inicio
         case "Greetings":
-            var menu = require('../bot/get_started');
-            menu.deleteAndCreatePersistentMenu();
+            //var menu = require('../bot/get_started');
+            //menu.deleteAndCreatePersistentMenu();
 
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.

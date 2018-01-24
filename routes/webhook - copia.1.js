@@ -1,15 +1,43 @@
+'use strict';
 var express = require('express');
 var router = express.Router();
 var request = require('request');
 var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
+var API_AI_CLIENT_ACCESS_TOKEN = require('../config/config_vars').API_AI_CLIENT_ACCESS_TOKEN;
+var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
+var PAGE_ACCESS_TOKEN = require('../config/config_vars').PAGE_ACCESS_TOKEN;
 
-//--
+var FB_APP_SECRET = require('../config/config_vars').FB_APP_SECRET;
+
+var TevoClient = require('ticketevolution-node');
+var only_with = require('../config/config_vars').only_with;
+var tevo = require('../config/config_vars').tevo;
+var tevoCategories = require('../modules/tevo/tevo');
+var fsStrings = require('../config/funciones_varias');
+
+const apiai = require('apiai');
+const crypto = require('crypto');
+const uuid = require('uuid');
+var moment = require('moment');
 
 
+var user_queries = require('../schemas/queries/user_queries');
+var TevoModule = require('../modules/query_tevo_request');
 
 
+const apiAiService = apiai(API_AI_CLIENT_ACCESS_TOKEN, {
+    language: "en",
+    requestSource: "fb"
+});
+
+const tevoClient = new TevoClient({
+    apiToken: tevo.API_TOKEN,
+    apiSecretKey: tevo.API_SECRET_KEY
+});
+
+const sessionIds = new Map();
 
 
 var datos = {}; // Para saber si estamos o no con el ID
@@ -67,7 +95,9 @@ router.post('/', function (req, res) {
                     }
                 } else if (undefined !== event.message.text) {
                     console.log('5');
-                    processMessage(event.sender.id, event.message.text);
+                    var isEcho = event.message.is_echo;
+                    if (!isEcho)
+                        processMessage(event.sender.id, event.message.text);
                 }
             });
         });
@@ -100,9 +130,35 @@ function isDefined(obj) {
 
 
 
+function sendToApiAi(sender, text) {
+
+    console.log('texto enviado a api.ai> ' + text)
+    Message.typingOn(sender);
+    let apiaiRequest = apiAiService.textRequest(text, {
+        sessionId: sessionIds.get(sender)
+    });
+
+    apiaiRequest.on('response', (response) => {
+        if (isDefined(response.result)) {
+            console.log('Api.ai response messages' + JSON.stringify(response))
+            handleApiAiResponse(sender, response);
+        }
+    });
+
+    apiaiRequest.on('error', (error) => console.error(error));
+    apiaiRequest.end();
+}
 
 
 function processMessage(senderId, textMessage) {
+
+    textMessage =   fsStrings.getCleanedString(textMessage);
+    
+
+    if (!sessionIds.has(senderId)) {
+        sessionIds.set(senderId, uuid.v1());
+    }
+
 
     UserData2.findOne({
         fbId: senderId
@@ -121,13 +177,18 @@ function processMessage(senderId, textMessage) {
                         if (resultado.events.length > 0) {
                             startTevoModuleWithMlink(textMessage, senderId, 0, 0);
                         } else {
-                            find_my_event(senderId, 1, textMessage);
+                            //find_my_event(senderId, 1, textMessage);
+                            sendToApiAi(senderId, textMessage)
                         }
 
                     } else {
-                        find_my_event(senderId, 1, textMessage);
+                        //find_my_event(senderId, 1, textMessage);
+                        sendToApiAi(senderId, textMessage)
                     }
 
+                }).catch((err) => {
+                    console.log('Error en TevoModule.searchEventsByName line 193' + err)
+                    //sendToApiAi(senderId, textMessage)
                 })
                 foundUser.context = '';
                 foundUser.save();
@@ -142,13 +203,20 @@ function processMessage(senderId, textMessage) {
                             if (resultado.events.length > 0) {
                                 startTevoModuleWithMlink(textMessage, senderId, 0, 1);
                             } else {
-                                find_my_event(senderId, 1, textMessage);
+                                console.log("textMessage " + textMessage)
+                                //find_my_event(senderId, 1, textMessage);
+                                sendToApiAi(senderId, textMessage)
                             }
 
                         } else {
-                            find_my_event(senderId, 1, textMessage);
+                            console.log("textMessage " + textMessage)
+                            //find_my_event(senderId, 1, textMessage);
+                            sendToApiAi(senderId, textMessage)
                         }
 
+                    }).catch((err) => {
+                        console.log('Error en TevoModule.searchEventsByName line 193' + err)
+                        //sendToApiAi(senderId, textMessage)
                     })
                 }
                 /* 
@@ -204,6 +272,691 @@ function processMessage(senderId, textMessage) {
 
 
 }
+
+
+function handleApiAiResponse(sender, response) {
+
+    //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
+
+    let responseText = response.result.fulfillment.speech;
+    let responseData = response.result.fulfillment.data;
+    let messages = response.result.fulfillment.messages;
+    let action = response.result.action;
+    let contexts = response.result.contexts;
+    let parameters = response.result.parameters;
+
+    Message.typingOff(sender);
+    console.log('Api.ai response messages' + JSON.stringify(response))
+
+    if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
+
+        console.log('Api.ai response messages' + JSON.stringify(messages))
+        let timeoutInterval = 1100;
+        let previousType;
+        let cardTypes = [];
+        let timeout = 0;
+        for (var i = 0; i < messages.length; i++) {
+
+            if (previousType == 1 && (messages[i].type != 1 || i == messages.length - 1)) {
+
+                timeout = (i - 1) * timeoutInterval;
+                setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
+                cardTypes = [];
+                timeout = i * timeoutInterval;
+                setTimeout(handleMessage.bind(null, messages[i], sender), timeout);
+            } else if (messages[i].type == 1 && i == messages.length - 1) {
+                cardTypes.push(messages[i]);
+                timeout = (i - 1) * timeoutInterval;
+                setTimeout(handleCardMessages.bind(null, cardTypes, sender), timeout);
+                cardTypes = [];
+            } else if (messages[i].type == 1) {
+                cardTypes.push(messages[i]);
+            } else {
+                timeout = i * timeoutInterval;
+                setTimeout(handleMessage.bind(null, messages[i], sender), timeout);
+            }
+
+            previousType = messages[i].type;
+
+        }
+    } else if (responseText == '' && !isDefined(action)) {
+        //api ai could not evaluate input.
+        console.log('Unknown query' + response.result.resolvedQuery);
+
+        Message.sendMessage(sender, "I'm not sure what you want. Can you be more specific?");
+    } else if (isDefined(action)) {
+        handleApiAiAction(sender, response, action, responseText, contexts, parameters);
+    } else if (isDefined(responseData) && isDefined(responseData.facebook)) {
+        try {
+            console.log('Response as formatted message' + responseData.facebook);
+            Message.sendMessage(sender, responseData.facebook);
+        } catch (err) {
+            Message.sendMessage(sender, err.message);
+        }
+    } else if (isDefined(responseText)) {
+
+        Message.sendMessage(sender, responseText);
+    }
+}
+
+
+function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
+    console.log('>> handleApiAiAction');
+    switch (action) {
+        case "events.search":
+            {
+                console.log(" Action events.search >>> ");
+
+                //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
+                //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
+
+
+                let city = ''
+                let country = ''
+                let artist = ''
+                let date_time = ''
+                let date_time_original = ''
+                let event_title = ''
+                let startDate = ''
+                let finalDate = ''
+                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
+                    if ((isDefined(contexts[0].parameters.location))) {
+                        if (isDefined(contexts[0].parameters.location.city)) {
+                            city = contexts[0].parameters.location.city
+                            console.log('city>> ' + city)
+                        } else {
+                            if (isDefined(contexts[0].parameters.location.country)) {
+                                country = contexts[0].parameters.location.country
+                                console.log('country>> ' + country)
+                                city = country
+                            }
+                        }
+
+                    }
+
+                    if ((isDefined(contexts[0].parameters.date_time))) {
+                        if (contexts[0].parameters.date_time != "") {
+                            date_time = contexts[0].parameters.date_time
+
+
+                            var cadena = date_time,
+                                separador = "/",
+                                arregloDeSubCadenas = cadena.split(separador);
+
+                            if (isDefined(arregloDeSubCadenas[0])) {
+
+                                startDate = arregloDeSubCadenas[0]
+
+                                if (moment(startDate).isSameOrAfter(moment())) {
+                                    console.log('Es mayor !!')
+
+                                } else {
+                                    console.log('La fecha inicial es menor a la actual!!!')
+                                    startDate = moment()
+                                }
+
+
+                                startDate = moment(startDate, moment.ISO_8601).format()
+
+
+                                startDate = startDate.substring(0, startDate.length - 6)
+
+
+
+
+                                console.log("startDate>>> " + startDate);
+
+
+                            }
+
+                            if (isDefined(arregloDeSubCadenas[1])) {
+                                finalDate = arregloDeSubCadenas[1]
+                                finalDate = moment(finalDate, moment.ISO_8601).format()
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
+
+                                console.log("finalDate>>> " + finalDate);
+                            }
+
+                            if (finalDate == '') {
+                                finalDate = moment(startDate, moment.ISO_8601).endOf('day').format();
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
+                                console.log("finalDate = startDate >>> " + finalDate);
+                            }
+
+
+
+
+                            console.log('date_time>> ' + date_time)
+
+                        }
+
+                    }
+
+                    if ((isDefined(contexts[0].parameters.artist))) {
+                        if (contexts[0].parameters.artist != "") {
+                            artist = contexts[0].parameters.artist
+                            console.log('artist>> ' + artist)
+                        }
+                    }
+
+                    if ((isDefined(contexts[0].parameters.event_title))) {
+                        if (contexts[0].parameters.event_title != "") {
+                            event_title = contexts[0].parameters.event_title
+                            console.log('event_title>> ' + event_title)
+                        }
+                    }
+                    var urlApiTevo = ''
+                    var urlsApiTevo = []
+
+                    if (artist != '') {
+                        event_title = artist
+                    }
+
+
+
+
+                    var page = 1;
+                    var per_page = 50;
+                    var page_per_page = '&page=' + page + '&per_page=' + per_page
+
+                    var arrayQueryMessages = []
+
+
+                    if (event_title != '') {
+                        if (city != '') {
+                            if (date_time != '') {
+                                var queryMessage = {
+                                    prioridad: 1,
+                                    searchBy: 'NameAndCityAndDate',
+                                    query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                                    messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
+                                }
+                                arrayQueryMessages.push(queryMessage)
+                            }
+                        }
+
+
+                        if (city != '') {
+                            var queryMessage = {
+                                prioridad: 2,
+                                searchBy: 'NameAndCity',
+                                query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&city_state=' + city + '&' + only_with + '&order_by=events.occurs_at',
+                                messageTitle: 'Cool, I looked for "' + event_title + '" ' + city + ' shows.  Book a ticket'
+                            }
+                            arrayQueryMessages.push(queryMessage)
+                        }
+
+                        if (date_time != '') {
+                            var queryMessage = {
+                                prioridad: 3,
+                                searchBy: 'NameAndDate',
+                                query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                                messageTitle: 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
+                            }
+                            arrayQueryMessages.push(queryMessage)
+                        }
+
+
+                        var queryMessage = {
+                            prioridad: 4,
+                            searchBy: 'ByName',
+                            query: tevo.API_URL + 'events?q=' + event_title + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
+                            messageTitle: 'Cool, I looked for "' + event_title + '" at ' + date_time + ' shows.  Book a ticket'
+                        }
+                        arrayQueryMessages.push(queryMessage)
+
+
+
+                        /*if (city != '') {
+                            if (date_time != '') {
+                                var queryMessage = {
+                                    prioridad: 5,
+                                    searchBy: 'CityAndDate',
+                                    query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                                    messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                                }
+                                arrayQueryMessages.push(queryMessage)
+                            }
+                        }
+
+                        if (city != '') {
+                            var queryMessage = {
+                                prioridad: 6,
+                                searchBy: 'City',
+                                query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
+                                messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                            }
+                            arrayQueryMessages.push(queryMessage)
+                        }*/
+
+                    } else {
+                        if (city != '') {
+                            if (date_time != '') {
+                                var queryMessage = {
+                                    prioridad: 1,
+                                    searchBy: 'CityAndDate',
+                                    query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                                    messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                                }
+                                arrayQueryMessages.push(queryMessage)
+                            }
+                        }
+                        if (city != '') {
+                            var queryMessage = {
+                                prioridad: 2,
+                                searchBy: 'City',
+                                query: tevo.API_URL + 'events?city_state=' + city + page_per_page + '&' + only_with + '&order_by=events.occurs_at',
+                                messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
+                            }
+                            arrayQueryMessages.push(queryMessage)
+                        }
+                    }
+
+                    //setTimeout(function () {}, 1000);
+
+
+                    if (responseText === "end.events.search") {
+
+                        startTevoByQuery(arrayQueryMessages).then((query) => {
+                            if (query.query) {
+                                console.log("query Tevo >>> " + JSON.stringify(query));
+                                TevoModule.start(sender, query.query, 1, query.messageTitle);
+                            } else {
+                                console.log('Not Found Events')
+                                find_my_event(sender, 1, '');
+
+                            }
+
+                        })
+
+
+                    }
+
+                }
+
+
+                if (responseText != "end.events.search") {
+                    Message.sendMessage(sender, responseText);
+
+                }
+
+
+                break;
+            }
+        case "events.search.implicit":
+            {
+                console.log('dentro de events.search.implicit')
+                let lat = ''
+                let lon = ''
+                let date_time = ''
+                let startDate = ''
+                let finalDate = ''
+                let arrayQueryMessages = []
+                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
+                    if ((isDefined(contexts[0].parameters.date_time))) {
+                        if (contexts[0].parameters.date_time != "") {
+                            date_time = contexts[0].parameters.date_time
+
+                            var cadena = date_time,
+                                separador = "/",
+                                arregloDeSubCadenas = cadena.split(separador);
+
+                            if (isDefined(arregloDeSubCadenas[0])) {
+
+                                startDate = arregloDeSubCadenas[0]
+
+                                if (moment(startDate).isSameOrAfter(moment())) {
+                                    console.log('Es mayor !!')
+
+                                } else {
+                                    console.log('La fecha inicial es menor a la actual!!!')
+                                    startDate = moment()
+                                }
+
+
+                                startDate = moment(startDate, moment.ISO_8601).format()
+
+
+                                startDate = startDate.substring(0, startDate.length - 6)
+
+
+
+
+                                console.log("startDate>>> " + startDate);
+
+
+                            }
+
+                            if (isDefined(arregloDeSubCadenas[1])) {
+                                finalDate = arregloDeSubCadenas[1]
+                                finalDate = moment(finalDate, moment.ISO_8601).format()
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
+
+                                console.log("finalDate>>> " + finalDate);
+                            }
+
+                            if (finalDate == '') {
+                                finalDate = moment(startDate, moment.ISO_8601).endOf('day').format();
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
+                                console.log("finalDate = startDate >>> " + finalDate);
+                            }
+
+
+
+
+                            console.log('date_time>> ' + date_time)
+
+                        }
+
+                    }
+
+                    if (responseText === "end.events.search") {
+                        console.log('respondiendo en events.search.implicit')
+                        UserData2.findOne({
+                            fbId: sender
+                        }, {}, {
+                            sort: {
+                                'sessionStart': -1
+                            }
+                        }, function (err, foundUser) {
+                            //--
+                            if (!err) {
+                                if (foundUser !== null) {
+
+                                    lat = foundUser.location.coordinates[0];
+                                    lon = foundUser.location.coordinates[1];
+                                    // startTevoModuleByLocation(senderId, lat, lon);
+                                    //foundUser.context = ''
+
+                                    console.log('lat ' + lat + ' lon ' + lon)
+
+                                    if (isDefined(lat) && isDefined(lon)) {
+                                        if (lat != '' && lon != '') {
+                                            if (date_time != '') {
+                                                var queryMessage = {
+                                                    prioridad: 1,
+                                                    searchBy: 'LocationAndDate',
+                                                    query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100' + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate,
+                                                    messageTitle: 'Cool, I found events in your location.  Book a ticket'
+                                                }
+                                                arrayQueryMessages.push(queryMessage)
+
+
+
+                                                startTevoByQuery(arrayQueryMessages).then((query) => {
+                                                    if (query.query) {
+                                                        console.log("query Tevo >>> " + JSON.stringify(query));
+                                                        TevoModule.start(sender, query.query, 1, query.messageTitle);
+                                                    } else {
+                                                        console.log('Not Found Events')
+                                                        find_my_event(sender, 1, '');
+
+                                                    }
+
+                                                })
+
+
+                                            } else {
+                                                startTevoModuleByLocation(sender, lat, lon)
+
+                                            }
+                                        } else {
+                                            console.log('localización  vacía events.search.implicit ')
+
+                                            Message.markSeen(sender);
+                                            Message.getLocation(sender, 'What location would you like to catch show?');
+                                            Message.typingOn(sender);
+                                            saveUserSelection(sender, 'Events');
+
+                                            UserData2.findOne({
+                                                fbId: sender
+                                            }, {}, {
+                                                sort: {
+                                                    'sessionStart': -1
+                                                }
+                                            }, function (err, foundUser) {
+                                                foundUser.context = ''
+                                                foundUser.save();
+                                            });
+
+
+
+                                        }
+                                    } else {
+                                        console.log('no está definida la localización del usario events.search.implicit ')
+
+                                        Message.markSeen(sender);
+                                        Message.getLocation(sender, 'What location would you like to catch show?');
+                                        Message.typingOn(sender);
+                                        saveUserSelection(sender, 'Events');
+
+                                        UserData2.findOne({
+                                            fbId: sender
+                                        }, {}, {
+                                            sort: {
+                                                'sessionStart': -1
+                                            }
+                                        }, function (err, foundUser) {
+                                            foundUser.context = ''
+                                            foundUser.save();
+                                        });
+
+
+                                    }
+                                } else {
+                                    console.log('no encontré  el  usario events.search.implicit ')
+                                }
+                            } else {
+                                console.log('error en la busqueda  events.search.implicit')
+                            }
+                        })
+                    }
+                }
+
+
+
+                if (responseText != "end.events.search") {
+                    Message.sendMessage(sender, responseText);
+
+                }
+
+
+                break;
+            }
+        default:
+            //unhandled action, just send back the text
+            Message.sendMessage(sender, responseText);
+    }
+}
+
+
+
+var startTevoByQuery = (arrayQueryMessages) => {
+    return new Promise((resolve, reject) => {
+
+        for (let i = 0; i < arrayQueryMessages.length; i++) {
+            tevoClient.getJSON(arrayQueryMessages[i].query).then((json) => {
+                let salir = false;
+                if (json.error) {
+                    //console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
+
+                } else {
+                    console.log('i > ' + i + ' ' + arrayQueryMessages[i].searchBy + ' ' + arrayQueryMessages[i].query)
+                    if (json.events.length > 0) {
+                        resolve(arrayQueryMessages[i])
+                        salir = true;
+                    }
+                }
+
+                if (salir == false && (i == arrayQueryMessages.length - 1)) {
+                    resolve({})
+                }
+
+            }).catch((err) => {
+                console.log("Error al ejecutar la tevo query  " + arrayQueryMessages[i].query + 'err.message: ' + err.message);
+            })
+
+        }
+    })
+}
+
+function handleMessage(message, sender) {
+    switch (message.type) {
+        case 0: //text
+
+            Message.sendMessage(senderId, message.speech);
+
+            break;
+        case 2: //quick replies
+            let replies = [];
+            for (var b = 0; b < message.replies.length; b++) {
+                let reply = {
+                    "content_type": "text",
+                    "title": message.replies[b],
+                    "payload": message.replies[b]
+                }
+                replies.push(reply);
+            }
+            sendQuickReply(sender, message.title, replies);
+            break;
+        case 3: //image
+            sendImageMessage(sender, message.imageUrl);
+            break;
+        case 4:
+            // custom payload
+            var messageData = {
+                recipient: {
+                    id: sender
+                },
+                message: message.payload.facebook
+
+            };
+
+            callSendAPI(messageData);
+
+            break;
+    }
+}
+
+
+function sendImageMessage(recipientId, imageUrl) {
+    var messageData = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            attachment: {
+                type: "image",
+                payload: {
+                    url: imageUrl
+                }
+            }
+        }
+    };
+
+    callSendAPI(messageData);
+}
+
+function sendQuickReply(recipientId, text, replies, metadata) {
+    var messageData = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            text: text,
+            metadata: isDefined(metadata) ? metadata : '',
+            quick_replies: replies
+        }
+    };
+
+    callSendAPI(messageData);
+}
+
+function handleCardMessages(messages, sender) {
+
+    let elements = [];
+    for (var m = 0; m < messages.length; m++) {
+        let message = messages[m];
+        let buttons = [];
+        for (var b = 0; b < message.buttons.length; b++) {
+            let isLink = (message.buttons[b].postback.substring(0, 4) === 'http');
+            let button;
+            if (isLink) {
+                button = {
+                    "type": "web_url",
+                    "title": message.buttons[b].text,
+                    "url": message.buttons[b].postback
+                }
+            } else {
+                button = {
+                    "type": "postback",
+                    "title": message.buttons[b].text,
+                    "payload": message.buttons[b].postback
+                }
+            }
+            buttons.push(button);
+        }
+
+
+        let element = {
+            "title": message.title,
+            "image_url": message.imageUrl,
+            "subtitle": message.subtitle,
+            "buttons": buttons
+        };
+        elements.push(element);
+    }
+    sendGenericMessage(sender, elements);
+}
+
+function sendGenericMessage(recipientId, elements) {
+    var messageData = {
+        recipient: {
+            id: recipientId
+        },
+        message: {
+            attachment: {
+                type: "template",
+                payload: {
+                    template_type: "generic",
+                    elements: elements
+                }
+            }
+        }
+    };
+
+    callSendAPI(messageData);
+}
+
+
+function callSendAPI(messageData) {
+    request({
+        uri: 'https://graph.facebook.com/v2.6/me/messages',
+        qs: {
+            access_token: PAGE_ACCESS_TOKEN
+        },
+        method: 'POST',
+        json: messageData
+
+    }, function (error, response, body) {
+        if (!error && response.statusCode == 200) {
+            var recipientId = body.recipient_id;
+            var messageId = body.message_id;
+
+            if (messageId) {
+                console.log("Successfully sent message with id %s to recipient %s",
+                    messageId, recipientId);
+            } else {
+                console.log("Successfully called Send API for recipient %s",
+                    recipientId);
+            }
+        } else {
+            console.error("Failed calling Send API", response.statusCode, response.statusMessage, body.error);
+        }
+    });
+}
+
+
 
 function processLocation(senderId, locationData) {
 
@@ -299,6 +1052,23 @@ var processQuickReplayShakira = (senderId, payload) => {
     shakiraModule.sendMessageAndChoiceImage(senderId, payload);
 }
 
+var processQuickReplayChristmasSongs = (senderId, payload) => {
+    console.log("ChristmasSongs votación Module " + payload)
+    Message.markSeen(senderId);
+    var christmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs');
+    christmasSongsModule.sendMessageAndChoiceImage(senderId, payload);
+}
+
+var processQuickReplaySuperBowl = (senderId, payload) => {
+    console.log("SuperBowl Module " + payload)
+    Message.markSeen(senderId);
+    var superBowlModule = require('../modules/tevo/super_bowl/super_bowl');
+    superBowlModule.sendMessageAndChoiceImage(senderId, payload);
+}
+
+
+
+
 function processQuickReplayBox(senderId) {
 
     console.log("Rigondeaux  Lomachenko   ")
@@ -324,6 +1094,72 @@ function processQuickReplies(event) {
 
 
     switch (payload) {
+
+        case "find_my_event_Patriots":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+
+        case "find_my_event_Broncos":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+
+
+        case "find_my_event_Seahawks":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+        case "find_my_event_Cowboys":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+
+        case "find_my_event_Packers":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+
+        case "find_my_event_Steelers":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+        case "find_my_event_Falcons":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+        case "find_my_event_Eagles":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+        case "find_my_event_mariah":
+            {
+                processQuickReplayChristmasSongs(senderId, payload);
+            }
+            break;
+
+        case "find_my_event_ariana":
+            {
+                processQuickReplayChristmasSongs(senderId, payload);
+            }
+            break;
+
+        case "find_my_event_katy":
+            {
+                processQuickReplayChristmasSongs(senderId, payload);
+            }
+            break;
+
+
+
         case "la_bicicleta":
             {
                 processQuickReplayShakira(senderId, payload);
@@ -360,7 +1196,7 @@ function processQuickReplies(event) {
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -379,7 +1215,7 @@ function processQuickReplies(event) {
             {
                 /*var SearchQuickReply = require('../modules/tevo/search_quick_replay');
                 SearchQuickReply.send(Message, senderId);
-                context = ''
+                
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -514,7 +1350,7 @@ function processQuickReplies(event) {
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -947,6 +1783,24 @@ function processPostback(event) {
 
 
     switch (payload) {
+        case "HAPPY_NEW_YEAR":
+            {
+                startHappyNewYear(senderId, referral)
+            }
+            break;
+        case "VEGAS_SHOW":
+            {
+                startVegasShow(senderId, referral)
+            }
+            break;
+
+        case "CHRISTMAS_SONGS":
+            {
+                startChristmasSongs(senderId, payload);
+            }
+            break;
+
+
         case "CHRISTMAS_PROMO":
             {
                 startChristmas(senderId, payload);
@@ -1024,7 +1878,7 @@ function processPostback(event) {
             {
                 var busqueda = ''
                 startTevoModuleWithMlink(busqueda, senderId)
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1041,14 +1895,14 @@ function processPostback(event) {
 
         case "find_my_event_show_me_more":
             {
-                var aki = ""
+
                 //var MonthsQuickReply = require('../modules/tevo/months_replay');
                 //MonthsQuickReply.send(Message, senderId, "Please choose month...");
                 Message.markSeen(senderId);
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1067,7 +1921,7 @@ function processPostback(event) {
             {
                 var SearchQuickReply = require('../modules/tevo/search_quick_replay');
                 SearchQuickReply.send(Message, senderId);
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1110,7 +1964,7 @@ function processPostback(event) {
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                context = ''
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1142,7 +1996,7 @@ function processPostback(event) {
 
                     }
                 });
-                context = ''
+
 
                 UserData2.findOne({
                     fbId: senderId
@@ -1168,6 +2022,8 @@ function processPostback(event) {
 
             //inicio
         case "Greetings":
+            //var menu = require('../bot/get_started');
+            //menu.deleteAndCreatePersistentMenu();
 
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
@@ -1208,6 +2064,34 @@ function processPostback(event) {
 
                         } else {
                             console.log('No guardé el mlink DE  CHRISTMAS_PROMO ?? O_O << ' + foundUser.mlinkSelected);
+                        }
+
+                        if (foundUser.mlinkSelected == "CHRISTMAS_SONGS") {
+                            startTevoModuleWithMlink(payload, senderId);
+
+                        } else {
+                            console.log('No guardé el mlink DE  CHRISTMAS_SONGS ?? O_O << ' + foundUser.mlinkSelected);
+                        }
+
+                        if (foundUser.mlinkSelected == "VEGAS_SHOW") {
+                            startTevoModuleWithMlink(payload, senderId);
+
+                        } else {
+                            console.log('No guardé el mlink DE  SHOW_VEGAS ?? O_O << ' + foundUser.mlinkSelected);
+                        }
+
+                        if (foundUser.mlinkSelected == "HAPPY_NEW_YEAR") {
+                            startTevoModuleWithMlink(payload, senderId);
+
+                        } else {
+                            console.log('No guardé el mlink DE  HAPPY_NEW_YEAR ?? O_O << ' + foundUser.mlinkSelected);
+                        }
+
+                        if (foundUser.mlinkSelected == "SAN_VALENTIN") {
+                            startTevoModuleWithMlink(payload, senderId);
+
+                        } else {
+                            console.log('No guardé el mlink DE  SAN_VALENTIN ?? O_O << ' + foundUser.mlinkSelected);
                         }
 
                     }
@@ -1263,7 +2147,7 @@ function find_my_event(senderId, hi = 0, event_name = '') {
 
             var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
             SearchQuickReply.send(Message, senderId, messagetxt);
-            context = ''
+
             UserData2.findOne({
                 fbId: senderId
             }, {}, {
@@ -1476,9 +2360,45 @@ function chooseReferral(referral, senderId) {
     // y llamando a su modulo correspondiente.
     switch (referral) {
 
+
+        case "SAN_VALENTIN":
+            {
+                startSanValentin(senderId, referral)
+            }
+            break;
+
+        case "HappyNewYear":
+            {
+                startHappyNewYear(senderId, referral, false)
+            }
+            break;
+
+        case "HAPPY_NEW_YEAR":
+            {
+                startHappyNewYear(senderId, referral)
+            }
+            break;
+
+        case "VEGAS_SHOW":
+            {
+                startVegasShow(senderId, referral)
+            }
+            break;
+
+        case "SUPER_BOWL":
+            {
+
+                startSuperBowl(senderId, referral)
+            }
+            break;
+        case "CHRISTMAS_SONGS":
+            {
+                startChristmasSongs(senderId, referral)
+            }
+            break;
         case "CHRISTMAS_PROMO":
             {
-                startChristmas(senderId , referral)
+                startChristmas(senderId, referral)
             }
             break;
         case "SHAKIRA_PROMO":
@@ -1561,7 +2481,94 @@ var starShakiraPromo = (senderId, referral) => {
     promoModule.startShakira(senderId);
 }
 
+var startSuperBowl = (senderId, referral) => {
+    var superBowlModule = require('../modules/tevo/super_bowl/super_bowl')
+    superBowlModule.startSuperBowl(senderId, referral)
+}
 
+var startVegasShow = (senderId, referral) => {
+    var vegasShowModule = require('../modules/tevo/vegas_show/vegas_show')
+    vegasShowModule.startVegasShow(senderId, referral)
+}
+
+var startHappyNewYear = (senderId, referral, con = true) => {
+    var happyNewYearModule = require('../modules/tevo/happy_new_year/happy_new_year')
+    happyNewYearModule.startHappyNewYear(senderId, referral, con)
+}
+
+
+var startSanValentin = (senderId, referral) => {
+    var sanValentinModule = require('../modules/tevo/san_valentin/san_valentin')
+    sanValentinModule.startSanValentin(senderId, referral)
+}
+
+
+var startChristmasSongs = (senderId, referral) => {
+    var chirstmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs')
+
+
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionStart': -1
+        }
+    }, function (err, foundUser) {
+        if (!err) {
+            if (foundUser) {
+                foundUser.mlinkSelected = referral
+                foundUser.save((err, foundUserBefore) => {
+                    if (err) {
+                        console.log('Error al guardar el usuario');
+                    } else {
+                        console.log('usuario actualizado:' + foundUser.mlinkSelected);
+                        chirstmasSongsModule.startChirstmasSongs(senderId);
+                    }
+
+                });
+
+            } else {
+                UserData.getInfo(senderId, function (err, result) {
+                    console.log('Dentro de UserData');
+                    if (!err) {
+
+                        var bodyObj = JSON.parse(result);
+                        console.log(result);
+
+                        var User = new UserData2; {
+                            User.fbId = senderId;
+                            User.firstName = bodyObj.first_name;
+                            User.LastName = bodyObj.last_name;
+                            User.profilePic = bodyObj.profile_pic;
+                            User.locale = bodyObj.locale;
+                            User.timeZone = bodyObj.timezone;
+                            User.gender = bodyObj.gender;
+                            User.messageNumber = 1;
+                            User.mlinkSelected = referral
+
+                            User.save();
+                            chirstmasSongsModule.startChirstmasSongs(senderId);
+
+                            User.save((err, foundUserBefore) => {
+                                if (err) {
+                                    console.log('Error al guardar el usuario ');
+                                } else {
+                                    console.log('usuario guardado:' + foundUserBefore.mlinkSelected);
+                                    SixtEventModule.start(senderId);
+                                }
+
+                            });
+
+
+                        }
+                    }
+                });
+            }
+        }
+    });
+
+
+}
 var startChristmas = (senderId, referral) => {
     var chirstmasModule = require('../modules/tevo/chirstmas/christmas')
 
@@ -1698,7 +2705,8 @@ function starSixEvent(senderId, referral) {
 }
 
 
-function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0) {
+
+function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, messageTitle = "") {
     console.log("event_name " + event_name);
 
     UserData2.findOne({
@@ -1740,7 +2748,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0) {
                 }
 
                 var TevoModule = require('../modules/tevo_request');
-                TevoModule.start(senderId, event_name, position, cool);
+                TevoModule.start(senderId, event_name, position, cool, messageTitle);
 
 
                 foundUser.save(function (err, userSaved) {
@@ -1775,7 +2783,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0) {
 
                             let TevoModule = require('../modules/tevo_request');
                             let position = 0;
-                            TevoModule.start(senderId, referral, position, cool);
+                            TevoModule.start(senderId, event_name, position, cool, messageTitle);
 
 
 
