@@ -174,14 +174,19 @@ function processMessage(senderId, textMessage) {
                         if (resultado.events.length > 0) {
                             startTevoModuleWithMlink(textMessage, senderId, 0, 0);
                         } else {
-                            find_my_event(senderId, 1, textMessage);
+                            //find_my_event(senderId, 1, textMessage);
+                            sendToApiAi(senderId, textMessage)
                         }
 
                     } else {
-                        find_my_event(senderId, 1, textMessage);
+                         //find_my_event(senderId, 1, textMessage);
+                         sendToApiAi(senderId, textMessage)
                     }
 
-                })
+                }).catch((err) => {
+                        console.log('Error en TevoModule.searchEventsByName line 193' + err)
+                        //sendToApiAi(senderId, textMessage)
+                    })
                 foundUser.context = '';
                 foundUser.save();
             } else {
@@ -206,8 +211,8 @@ function processMessage(senderId, textMessage) {
                             sendToApiAi(senderId, textMessage)
                         }
 
-                    }).catch((textMessage) => {
-                        console.log('Error en TevoModule.searchEventsByName line 193' + textMessage)
+                    }).catch((err) => {
+                        console.log('Error en TevoModule.searchEventsByName line 193' + err)
                         //sendToApiAi(senderId, textMessage)
                     })
                 }
