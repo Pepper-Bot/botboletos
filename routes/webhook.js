@@ -552,10 +552,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         }
                     }
 
-                    //setTimeout(function () {}, 1000);
+                   
 
 
                     if (responseText === "end.events.search") {
+                        console.log('responseText === "end.events.search"')
                         if (arrayQueryMessages.length < 1) {
                             startTevoByQuery(arrayQueryMessages).then((query) => {
                                 if (query.query) {
@@ -570,8 +571,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             })
                         }
                         else{
+                            console.log('Opps no tengo coincidencias"')
                             find_my_event(sender, 1, '');
                         }
+                    }else{
+                        console.log('responseText !=== "end.events.search"')
                     }
 
                 }
