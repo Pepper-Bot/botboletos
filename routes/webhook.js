@@ -660,7 +660,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                     // startTevoModuleByLocation(senderId, lat, lon);
                                     //foundUser.context = ''
 
-                                    console.log('lat ' + lat + ' lon ' + lon )
+                                    console.log('lat ' + lat + ' lon ' + lon)
 
                                     if (isDefined(lat) && isDefined(lon)) {
                                         if (lat != '' && lon != '') {
@@ -692,12 +692,53 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                                 startTevoModuleByLocation(sender, lat, lon)
 
                                             }
+                                        } else {
+                                            console.log('localización  vacía events.search.implicit ')
+                                            //XXXX
+                                            Message.markSeen(senderId);
+                                            Message.getLocation(senderId, 'What location would you like to catch show?');
+                                            Message.typingOn(senderId);
+                                            saveUserSelection(senderId, 'Events');
+                                            context = ''
+                                            UserData2.findOne({
+                                                fbId: senderId
+                                            }, {}, {
+                                                sort: {
+                                                    'sessionStart': -1
+                                                }
+                                            }, function (err, foundUser) {
+                                                foundUser.context = ''
+                                                foundUser.save();
+                                            });
+
+
+
                                         }
+                                    } else {
+                                        console.log('no está definida la localización del usario events.search.implicit ')
+
+                                        Message.markSeen(senderId);
+                                        Message.getLocation(senderId, 'What location would you like to catch show?');
+                                        Message.typingOn(senderId);
+                                        saveUserSelection(senderId, 'Events');
+                                        context = ''
+                                        UserData2.findOne({
+                                            fbId: senderId
+                                        }, {}, {
+                                            sort: {
+                                                'sessionStart': -1
+                                            }
+                                        }, function (err, foundUser) {
+                                            foundUser.context = ''
+                                            foundUser.save();
+                                        });
+
+
                                     }
-                                }else{
+                                } else {
                                     console.log('no encontré  el  usario events.search.implicit ')
                                 }
-                            }else{
+                            } else {
                                 console.log('error en la busqueda  events.search.implicit')
                             }
                         })
