@@ -11,7 +11,7 @@ var user_queries = require('../schemas/queries/user_queries');
 
 module.exports = function () {
     return {
-        start: function (senderId, urlApiTevo, position = 0, messageTitle) {
+        start: function (senderId, urlApiTevo, position = 0, messageTitle = '', userPreferences = {}) {
 
 
             var tevoClient = new TevoClient({

@@ -50,14 +50,29 @@ var UserData = mongoose.Schema({
 	mlinkSelected: String,
 	categorySearchSelected: [],
 	querysTevo: [],
-
+	queryTevoFinal: String,
+	queryTevoReplace:String,
+	page:{
+		type:Number,
+		default:0
+	},
+	per_page:{
+		type:Number,
+		default: 0
+	},
+	artists: [],
+	musical_genres:[],
+	teams:[],
+	cities:[],
+	
 	userSays: [{
 		typed: String,
 		writtenAt: {
 			type: Date,
 			default: Date.now
 		}
-	}]
+	}],
+
 
 
 
