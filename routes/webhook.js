@@ -15,7 +15,7 @@ var TevoClient = require('ticketevolution-node');
 var only_with = require('../config/config_vars').only_with;
 var tevo = require('../config/config_vars').tevo;
 var tevoCategories = require('../modules/tevo/tevo');
-
+var fsStrings = require('../config/funciones_varias');
 
 const apiai = require('apiai');
 const crypto = require('crypto');
@@ -152,8 +152,8 @@ function sendToApiAi(sender, text) {
 
 function processMessage(senderId, textMessage) {
 
-
-    textMessage.replace(/[^a-zA-Z 0-9.]+/g,' ')
+    textMessage =   fsStrings.getCleanedString(textMessage);
+    //textMessage.replace(/[^a-zA-Z 0-9.]+/g,' ')
 
     if (!sessionIds.has(senderId)) {
         sessionIds.set(senderId, uuid.v1());
