@@ -575,7 +575,129 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                 break;
             }
+        case "events.search.implicit":
+            {
+                let lat = ''
+                let lon = ''
+                let date_time = ''
+                let startDate = ''
+                let finalDate = ''
+                let arrayQueryMessages = []
+                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
+                    if ((isDefined(contexts[0].parameters.date_time))) {
+                        if (contexts[0].parameters.date_time != "") {
+                            date_time = contexts[0].parameters.date_time
 
+                            var cadena = date_time,
+                                separador = "/",
+                                arregloDeSubCadenas = cadena.split(separador);
+
+                            if (isDefined(arregloDeSubCadenas[0])) {
+
+                                startDate = arregloDeSubCadenas[0]
+
+                                if (moment(startDate).isSameOrAfter(moment())) {
+                                    console.log('Es mayor !!')
+
+                                } else {
+                                    console.log('La fecha inicial es menor a la actual!!!')
+                                    startDate = moment()
+                                }
+
+
+                                startDate = moment(startDate, moment.ISO_8601).format()
+
+
+                                startDate = startDate.substring(0, startDate.length - 6)
+
+
+
+
+                                console.log("startDate>>> " + startDate);
+
+
+                            }
+
+                            if (isDefined(arregloDeSubCadenas[1])) {
+                                finalDate = arregloDeSubCadenas[1]
+                                finalDate = moment(finalDate, moment.ISO_8601).format()
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
+
+                                console.log("finalDate>>> " + finalDate);
+                            }
+
+                            if (finalDate == '') {
+                                finalDate = moment(startDate, moment.ISO_8601).endOf('day').format();
+                                finalDate = finalDate.substring(0, finalDate.length - 6)
+                                console.log("finalDate = startDate >>> " + finalDate);
+                            }
+
+
+
+
+                            console.log('date_time>> ' + date_time)
+
+                        }
+
+                    }
+
+                    if (responseText === "end.events.search") {
+
+                        UserData2.findOne({
+                            fbId: senderId
+                        }, {}, {
+                            sort: {
+                                'sessionStart': -1
+                            }
+                        }, function (err, foundUser) {
+                            //--
+                            if (!err) {
+                                if (foundUser !== null) {
+
+                                    lat = foundUser.location.coordinates[0];
+                                    lon = foundUser.location.coordinates[1];
+                                    // startTevoModuleByLocation(senderId, lat, lon);
+                                    //foundUser.context = ''
+
+
+                                    if (isDefined(lat) && isDefined(lon)) {
+                                        if (lat != '' && lon != '') {
+                                            if (date_time != '') {
+                                                var queryMessage = {
+                                                    prioridad: 1,
+                                                    searchBy: 'LocationAndDate',
+                                                    query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100' + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate,
+                                                    messageTitle: 'Cool, I found events in your location.  Book a ticket'
+                                                }
+                                                arrayQueryMessages.push(queryMessage)
+                                            } else {
+                                                startTevoModuleByLocation(senderId, lat, lon)
+
+                                            }
+                                        }
+                                    }
+
+
+                                    //foundUser.save();
+                                }
+                            }
+                        })
+
+
+                    }
+
+                }
+
+
+
+                if (responseText != "end.events.search") {
+                    Message.sendMessage(sender, responseText);
+
+                }
+
+
+                break;
+            }
         default:
             //unhandled action, just send back the text
             Message.sendMessage(sender, responseText);
