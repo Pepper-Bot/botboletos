@@ -221,7 +221,8 @@ module.exports = function () {
 
                     } //fin  de else json.error
                 }).catch((err) => {
-                    console.err(err);
+                    
+                    console.err('Hay algo erróneo en la consulta '+ err);
                 });
 
 

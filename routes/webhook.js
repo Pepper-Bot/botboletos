@@ -179,14 +179,14 @@ function processMessage(senderId, textMessage) {
                         }
 
                     } else {
-                         //find_my_event(senderId, 1, textMessage);
-                         sendToApiAi(senderId, textMessage)
+                        //find_my_event(senderId, 1, textMessage);
+                        sendToApiAi(senderId, textMessage)
                     }
 
                 }).catch((err) => {
-                        console.log('Error en TevoModule.searchEventsByName line 193' + err)
-                        //sendToApiAi(senderId, textMessage)
-                    })
+                    console.log('Error en TevoModule.searchEventsByName line 193' + err)
+                    //sendToApiAi(senderId, textMessage)
+                })
                 foundUser.context = '';
                 foundUser.save();
             } else {
@@ -699,12 +699,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                             }
                                         } else {
                                             console.log('localización  vacía events.search.implicit ')
-                                            
+
                                             Message.markSeen(sender);
                                             Message.getLocation(sender, 'What location would you like to catch show?');
                                             Message.typingOn(sender);
                                             saveUserSelection(sender, 'Events');
-                                             
+
                                             UserData2.findOne({
                                                 fbId: sender
                                             }, {}, {
@@ -726,7 +726,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                         Message.getLocation(sender, 'What location would you like to catch show?');
                                         Message.typingOn(sender);
                                         saveUserSelection(sender, 'Events');
-                                       
+
                                         UserData2.findOne({
                                             fbId: sender
                                         }, {}, {
@@ -1193,7 +1193,7 @@ function processQuickReplies(event) {
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1347,7 +1347,7 @@ function processQuickReplies(event) {
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1875,7 +1875,7 @@ function processPostback(event) {
             {
                 var busqueda = ''
                 startTevoModuleWithMlink(busqueda, senderId)
-                
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1892,14 +1892,14 @@ function processPostback(event) {
 
         case "find_my_event_show_me_more":
             {
-            
+
                 //var MonthsQuickReply = require('../modules/tevo/months_replay');
                 //MonthsQuickReply.send(Message, senderId, "Please choose month...");
                 Message.markSeen(senderId);
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-                
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1918,7 +1918,7 @@ function processPostback(event) {
             {
                 var SearchQuickReply = require('../modules/tevo/search_quick_replay');
                 SearchQuickReply.send(Message, senderId);
-                
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1961,7 +1961,7 @@ function processPostback(event) {
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-               
+
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
@@ -1993,7 +1993,7 @@ function processPostback(event) {
 
                     }
                 });
-                
+
 
                 UserData2.findOne({
                     fbId: senderId
