@@ -577,6 +577,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             }
         case "events.search.implicit":
             {
+                console.log('dentro de events.search.implicit')
                 let lat = ''
                 let lon = ''
                 let date_time = ''
@@ -642,7 +643,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     }
 
                     if (responseText === "end.events.search") {
-
+                        console.log('respondiendo en events.search.implicit')
                         UserData2.findOne({
                             fbId: sender
                         }, {}, {
@@ -659,6 +660,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                     // startTevoModuleByLocation(senderId, lat, lon);
                                     //foundUser.context = ''
 
+                                    console.log('lat ' + lat + ' lon ' + lon )
 
                                     if (isDefined(lat) && isDefined(lon)) {
                                         if (lat != '' && lon != '') {
@@ -692,7 +694,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                             }
                                         }
                                     }
+                                }else{
+                                    console.log('no encontré  el  usario events.search.implicit ')
                                 }
+                            }else{
+                                console.log('error en la busqueda  events.search.implicit')
                             }
                         })
                     }
