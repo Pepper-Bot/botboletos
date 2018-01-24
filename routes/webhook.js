@@ -694,14 +694,14 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                             }
                                         } else {
                                             console.log('localización  vacía events.search.implicit ')
-                                            //XXXX
-                                            Message.markSeen(senderId);
-                                            Message.getLocation(senderId, 'What location would you like to catch show?');
-                                            Message.typingOn(senderId);
-                                            saveUserSelection(senderId, 'Events');
+                                            
+                                            Message.markSeen(sender);
+                                            Message.getLocation(sender, 'What location would you like to catch show?');
+                                            Message.typingOn(sender);
+                                            saveUserSelection(sender, 'Events');
                                             context = ''
                                             UserData2.findOne({
-                                                fbId: senderId
+                                                fbId: sender
                                             }, {}, {
                                                 sort: {
                                                     'sessionStart': -1
@@ -717,13 +717,13 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                     } else {
                                         console.log('no está definida la localización del usario events.search.implicit ')
 
-                                        Message.markSeen(senderId);
-                                        Message.getLocation(senderId, 'What location would you like to catch show?');
-                                        Message.typingOn(senderId);
-                                        saveUserSelection(senderId, 'Events');
+                                        Message.markSeen(sender);
+                                        Message.getLocation(sender, 'What location would you like to catch show?');
+                                        Message.typingOn(sender);
+                                        saveUserSelection(sender, 'Events');
                                         context = ''
                                         UserData2.findOne({
-                                            fbId: senderId
+                                            fbId: sender
                                         }, {}, {
                                             sort: {
                                                 'sessionStart': -1
