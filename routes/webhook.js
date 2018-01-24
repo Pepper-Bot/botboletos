@@ -552,12 +552,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         }
                     }
 
-                   
+
 
 
                     if (responseText === "end.events.search") {
-                        console.log('responseText === "end.events.search"  arrayQueryMessages.length '+ arrayQueryMessages.length )
-                        if (arrayQueryMessages.length < 1) {
+                        console.log('responseText === "end.events.search"  arrayQueryMessages.length ' + arrayQueryMessages.length)
+                        if (arrayQueryMessages.length >= 1) {
                             startTevoByQuery(arrayQueryMessages).then((query) => {
                                 if (query.query) {
                                     console.log("query Tevo >>> " + JSON.stringify(query));
@@ -569,12 +569,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 }
 
                             })
-                        }
-                        else{
+                        } else {
                             console.log('Opps no tengo coincidencias"')
                             find_my_event(sender, 1, '');
                         }
-                    }else{
+                    } else {
                         console.log('responseText !=== "end.events.search"')
                     }
 
