@@ -152,6 +152,9 @@ function sendToApiAi(sender, text) {
 
 function processMessage(senderId, textMessage) {
 
+
+    textMessage.replace(/[^a-zA-Z 0-9.]+/g,' ')
+
     if (!sessionIds.has(senderId)) {
         sessionIds.set(senderId, uuid.v1());
     }
