@@ -11,7 +11,7 @@ var user_queries = require('../schemas/queries/user_queries');
 
 module.exports = function () {
     return {
-        start: function (senderId, urlApiTevo, position = 0, messageTitle = '', userPreferences = {}) {
+        start: function (senderId, urlApiTevo, position = 0, messageTitle = '', userPreferences = {}, query ={}) {
 
 
             var tevoClient = new TevoClient({
@@ -22,6 +22,9 @@ module.exports = function () {
 
 
             console.log('url api tevo>>>>>>>' + urlApiTevo);
+            console.log("query Tevo Complete >" + JSON.stringify(query))
+            console.log("user Preferences >" + JSON.stringify(userPreferences))
+
 
             var event_id = 0;
             if (tevoClient) {
@@ -165,7 +168,7 @@ module.exports = function () {
                                 console.log("luego del GButons event_name >>>>> " + urlApiTevo);
                                 //saveUsuarioAndEventSearchLastSelected(senderId, urlApiTevo);
                                 //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-                                user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo)
+                                user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo,)
 
 
                                 var GenericButton = require('../bot/generic_buttton');

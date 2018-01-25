@@ -47,14 +47,14 @@
 
 
 
- var createUpdateUserDatas = (senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
+ var createUpdateUserDatas = (senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', queryTevoFinal = '', page = 0, per_page = 0, artists = '', musical_genres = '', teams = '', cities = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
      var dbObj = require('../mongodb');
      dbObj.getConnection();
 
      return new Promise((resolve, reject) => {
          UserData.getInfo(senderId, function (err, FBUser) {
-            //console.log('FBUser.first_name'+  FBUser.first_name )
-            console.log("FBUser.first_name' >>> " + JSON.stringify(FBUser));
+             //console.log('FBUser.first_name'+  FBUser.first_name )
+             console.log("FBUser.first_name' >>> " + JSON.stringify(FBUser));
 
              if (!err) {
                  UserData2.findOne({
@@ -66,8 +66,11 @@
                  }, function (err, foundUser) {
                      if (!err) {
                          if (null != foundUser) {
+                             foundUser = JSON.parse(foundUser);
+
+                             
                              foundUser.fbId = senderId;
-                            
+
                              foundUser.firstName = FBUser.first_name;
                              foundUser.LastName = FBUser.last_name;
                              foundUser.profilePic = FBUser.profile_pic;
@@ -93,6 +96,37 @@
                              if (querysTevo != '') {
                                  foundUser.querysTevo.push(querysTevo)
                              }
+                           
+                             if (queryTevoFinal != '') {
+                                 foundUser.queryTevoFinal = queryTevoFinal
+                             }
+
+                             if (page > 0) {
+                                 foundUser.page = foundUser.page + page
+                             } else {
+                                 foundUser.page = 0
+                             }
+
+                             if (per_page > 0) {
+                                 foundUser.per_page = per_page
+                             }
+
+                             if(artists !=''){
+                                foundUser.artists = artists
+                             }
+
+                             if(musical_genres !=''){
+                                foundUser.musical_genres = musical_genres
+                             }
+
+                             if(teams !=''){
+                                foundUser.teams = teams
+                             }
+                  
+
+                             if(cities !=''){
+                                foundUser.cities = cities
+                             }
 
 
                              if (categorySearchSelected != '') {
@@ -105,9 +139,9 @@
 
                              if (userSays.typed) {
                                  foundUser.userSays.push(userSays)
-                                
+
                              }
-                             
+
                              console.log("foundUser.userSays.lenght " + JSON.stringify(userSays));
 
                              foundUser.showMemore.index1 = index1
@@ -158,18 +192,50 @@
 
 
 
-                                 if (categorySearchSelected != '') {
-                                     User.categorySearchSelected.push(categorySearchSelected)
-                                 }
-
-                                 if (optionsSelected != '') {
-                                     User.optionsSelected.push(optionsSelected)
-                                 }
-
-
-                                 if (userSays.typed) {
-                                     User.userSays.push(userSays)
-                                 }
+                                 if (queryTevoFinal != '') {
+                                    User.queryTevoFinal = queryTevoFinal
+                                }
+   
+                                if (page > 0) {
+                                    User.page = foundUser.page + page
+                                } else {
+                                    User.page = 0
+                                }
+   
+                                if (per_page > 0) {
+                                    User.per_page = per_page
+                                }
+   
+                                if(artists !=''){
+                                    User.artists = artists
+                                }
+   
+                                if(musical_genres !=''){
+                                    User.musical_genres = musical_genres
+                                }
+   
+                                if(teams !=''){
+                                    User.teams = teams
+                                }
+                     
+   
+                                if(cities !=''){
+                                    User.cities = cities
+                                }
+   
+   
+                                if (categorySearchSelected != '') {
+                                    User.categorySearchSelected.push(categorySearchSelected)
+                                }
+   
+                                if (optionsSelected != '') {
+                                    foundUserUser.optionsSelected.push(optionsSelected)
+                                }
+   
+                                if (userSays.typed) {
+                                    User.userSays.push(userSays)
+   
+                                }
 
 
                                  User.showMemore.index1 = index1

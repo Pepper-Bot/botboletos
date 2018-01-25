@@ -605,7 +605,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             startTevoByQuery(arrayQueryMessages).then((query) => {
                                 if (query.query) {
                                     console.log("query Tevo >>> " + JSON.stringify(query));
-                                    TevoModule.start(sender, query.query, 1, query.messageTitle);
+                                    TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
                                 } else {
                                     console.log('Not Found Events')
                                     find_my_event(sender, 1, '');
@@ -650,7 +650,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                                 startTevoByQuery(arrayQueryMessages).then((query) => {
                                                     if (query.query) {
                                                         console.log("query Tevo >>> " + JSON.stringify(query));
-                                                        TevoModule.start(sender, query.query, 1, query.messageTitle);
+                                                        TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
                                                     } else {
                                                         console.log('Not Found Events')
                                                         find_my_event(sender, 1, '');
