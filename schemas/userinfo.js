@@ -64,7 +64,7 @@ var UserData = mongoose.Schema({
 	musical_genres:[],
 	teams:[],
 	cities:[],
-	
+
 	userSays: [{
 		typed: String,
 		writtenAt: {
@@ -73,6 +73,7 @@ var UserData = mongoose.Schema({
 		}
 	}],
 
+	 
 
 
 

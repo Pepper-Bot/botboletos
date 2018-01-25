@@ -16,7 +16,7 @@ var only_with = require('../config/config_vars').only_with;
 var tevo = require('../config/config_vars').tevo;
 var tevoCategories = require('../modules/tevo/tevo');
 var fsStrings = require('../config/funciones_varias');
-
+var categories_queries = require('../schemas/queries/categories_queries')
 const apiai = require('apiai');
 const crypto = require('crypto');
 const uuid = require('uuid');
@@ -364,6 +364,17 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 let team = ''
 
                 if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
+                   
+                    if ((isDefined(contexts[0].parameters.event_type))) {
+                        if (isDefined(contexts[0].parameters.event_type)) {
+                            event_type = contexts[0].parameters.event_type
+                            console.log('event_type>> ' + event_type)
+                            categories_queries.getIdCategories(event_type).then((categories)=>{
+                                console.log("categories query Tevo >>> " + JSON.stringify(categories));
+                                 
+                            })
+                        }
+                    }
                     if ((isDefined(contexts[0].parameters.location))) {
                         if (isDefined(contexts[0].parameters.location.city)) {
                             city = contexts[0].parameters.location.city
@@ -553,14 +564,16 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     }
 
 
-                    var userPreferences= {
+                    //var queryTevoCate = tevo.API_URL + 'events?category_id=' + category_id + '&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
+
+                    var userPreferences = {
                         event_title: event_title,
                         city: city,
                         artist: artist,
                         team: team,
                         event_type: event_type
                     }
-                   
+
 
 
                     if (responseText === "end.events.search") {
@@ -2148,7 +2161,7 @@ function find_my_event(senderId, hi = 0, event_name = '') {
             var greeting = "Hi " + name;
             var messagetxt = greeting + ", you can search events by:";
             if (hi == 1) {
-                messagetxt = 'Oops, I looked for: "' + event_name + '" but found no events. ' + name + ", you can search events by:";
+                messagetxt = 'I didn’t find any of that. ' + name + ", you can search events by:";
                 greeting = name;
             }
 
