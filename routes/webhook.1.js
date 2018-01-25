@@ -160,7 +160,6 @@ function processMessage(senderId, textMessage) {
     }
 
 
-    
     UserData2.findOne({
         fbId: senderId
     }, {}, {
@@ -576,7 +575,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                             queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].slug  + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' +'&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at',
                                             queryPage: page,
                                             queryPerPage: per_page,
-                                            messageTitle: 'Cool, I looked for ' + event_type + ' shows.  Book a ticket'
+                                            messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
                                         }
                                         arrayQueryMessages.push(queryMessage)
                                     }
@@ -586,12 +585,18 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                         prioridad: 2,
                                         searchBy: 'Category',
                                         query: tevo.API_URL + 'events?category_id=' + categories[0].slug + '&page=' + page + '&per_page=' + per_page + '&' + only_with +  '&order_by=events.occurs_at',
-                                        queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].slug + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with +  '&order_by=events.occurs_at',
+                                        queryReplace: tevo.API_URL + 'events?city_state=' + city + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
                                         queryPage: page,
                                         queryPerPage: per_page,
-                                        messageTitle: 'Cool, I looked for ' + event_type + ' shows.  Book a ticket'
+                                        messageTitle: 'Cool, I looked for ' + city + ' shows.  Book a ticket'
                                     }
                                     arrayQueryMessages.push(queryMessage)
+
+
+
+
+
+
                                 }
                             }
                         })
