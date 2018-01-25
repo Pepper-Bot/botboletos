@@ -367,18 +367,23 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
 
                     if ((isDefined(contexts[0].parameters.event_type))) {
-                        if (isDefined(contexts[0].parameters.event_type)) {
+                        if (isDefined(contexts[0].parameters.event_type !='')) {
                             event_type = contexts[0].parameters.event_type
                             console.log('event_type>> ' + event_type)
 
-                        }else{
-                            if (isDefined(contexts[0].parameters.music_genre)) {
-                                music_genre = contexts[0].parameters.music_genre
-                                console.log('music_genre>> ' + music_genre)
-                             
-                            }
-                        }
+                        } 
                     }
+
+                    
+                    if ((isDefined(contexts[0].parameters.music_genre))) {
+                        if (isDefined(contexts[0].parameters.music_genre !='')) {
+                            music_genre = contexts[0].parameters.music_genre
+                            console.log('music_genre>> ' + music_genre)
+
+                        } 
+                    }
+
+
                   
                     if ((isDefined(contexts[0].parameters.location))) {
                         if (isDefined(contexts[0].parameters.location.city)) {
