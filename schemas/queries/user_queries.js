@@ -55,9 +55,9 @@
          UserData.getInfo(senderId, function (err, FBUser) {
              //console.log('FBUser.first_name'+  FBUser.first_name )
              console.log("FBUser.first_name' >>> " + JSON.stringify(FBUser));
-          
+
              if (!err) {
-                var  FBUser = JSON.parse(FBUser);
+                 var FBUser = JSON.parse(FBUser);
                  UserData2.findOne({
                      fbId: senderId
                  }, {}, {
@@ -67,7 +67,7 @@
                  }, function (err, foundUser) {
                      if (!err) {
                          if (null != foundUser) {
-                           
+
 
 
                              foundUser.fbId = senderId;
@@ -97,7 +97,7 @@
                              if (querysTevo != '') {
                                  foundUser.querysTevo.push(querysTevo)
                              }
-                           
+
                              if (queryTevoFinal != '') {
                                  foundUser.queryTevoFinal = queryTevoFinal
                              }
@@ -112,21 +112,21 @@
                                  foundUser.per_page = per_page
                              }
 
-                             if(artists !=''){
-                                foundUser.artists = artists
+                             if (artists != '') {
+                                 foundUser.artists = artists
                              }
 
-                             if(musical_genres !=''){
-                                foundUser.musical_genres = musical_genres
+                             if (musical_genres != '') {
+                                 foundUser.musical_genres = musical_genres
                              }
 
-                             if(teams !=''){
-                                foundUser.teams = teams
+                             if (teams != '') {
+                                 foundUser.teams = teams
                              }
-                  
 
-                             if(cities !=''){
-                                foundUser.cities = cities
+
+                             if (cities != '') {
+                                 foundUser.cities = cities
                              }
 
 
@@ -161,119 +161,104 @@
                                  }
                              });
                          } else {
-                            console.log('Voy a guardar un usuario nuevo FBUser.first_name'+  FBUser.first_name )
 
-                             var User = new UserData2; {
-                                 User.fbId = senderId;
-                                 User.firstName = FBUser.first_name;
-                                 User.LastName = FBUser.last_name;
-                                 User.profilePic = FBUser.profile_pic;
-                                 User.locale = FBUser.locale;
-                                 User.timeZone = FBUser.timezone;
-                                 User.gender = FBUser.gender;
-                                 User.messageNumber = 1;
+                             UserData.getInfo(senderId, function (err, result) {
+                                 console.log('Dentro de UserData');
+                                 if (!err) {
+
+                                     var bodyObj = JSON.parse(result);
+                                     console.log('guardando el usuario ' + result);
 
 
-
-                                 if (context != '') {
-                                     User.context = context
-                                 }
-
-                                 if (mlinkSelected != '') {
-                                     User.mlinkSelected = mlinkSelected
-                                 }
-
-                                 if (eventSearchSelected != '') {
-                                     User.eventSearchSelected.push(eventSearchSelected)
-                                 }
-
-                                 if (querysTevo != '') {
-                                     User.querysTevo.push(querysTevo)
-                                 }
+                                     var User = new UserData2; {
+                                         User.fbId = senderId;
+                                         User.firstName = bodyObj.first_name;
+                                         User.LastName = bodyObj.last_name;
+                                         User.profilePic = bodyObj.profile_pic;
+                                         User.locale = bodyObj.locale;
+                                         User.timeZone = bodyObj.timezone;
+                                         User.gender = bodyObj.gender;
+                                         User.messageNumber = 1;
 
 
 
-                                 if (queryTevoFinal != '') {
-                                    User.queryTevoFinal = queryTevoFinal
-                                }
-   
-                                if (page > 0) {
-                                    User.page = foundUser.page + page
-                                } else {
-                                    User.page = 0
-                                }
-   
-                                if (per_page > 0) {
-                                    User.per_page = per_page
-                                }
-   
-                                if(artists !=''){
-                                    User.artists = artists
-                                }
-   
-                                if(musical_genres !=''){
-                                    User.musical_genres = musical_genres
-                                }
-   
-                                if(teams !=''){
-                                    User.teams = teams
-                                }
-                     
-   
-                                if(cities !=''){
-                                    User.cities = cities
-                                }
-   
-   
-                                if (categorySearchSelected != '') {
-                                    User.categorySearchSelected.push(categorySearchSelected)
-                                }
-   
-                                if (optionsSelected != '') {
-                                    User.optionsSelected.push(optionsSelected)
-                                }
-   
-                                if (userSays.typed) {
-                                    User.userSays.push(userSays)
-   
-                                }
+                                         if (context != '') {
+                                             User.context = context
+                                         }
 
+                                         if (mlinkSelected != '') {
+                                             User.mlinkSelected = mlinkSelected
+                                         }
 
-                                 User.showMemore.index1 = index1
-                                 User.showMemore.index2 = index2
-                                 User.showMemore.index3 = index3
+                                         if (eventSearchSelected != '') {
+                                             User.eventSearchSelected.push(eventSearchSelected)
+                                         }
+
+                                         if (querysTevo != '') {
+                                             User.querysTevo.push(querysTevo)
+                                         }
 
 
 
-                                 User.save(function (err, userSaved) {
-                                     if (!err) {
-                                         console.log("user New Saved Saved!!! " + JSON.stringify(userSaved.fbId));
+                                         if (queryTevoFinal != '') {
+                                             User.queryTevoFinal = queryTevoFinal
+                                         }
 
-                                         resolve(userSaved)
+                                         if (page > 0) {
+                                             User.page = foundUser.page + page
+                                         } else {
+                                             User.page = 0
+                                         }
 
-                                     } else {
-                                         console.log('Error guardando en userdatas New UserData' + err)
+                                         if (per_page > 0) {
+                                             User.per_page = per_page
+                                         }
+
+                                         if (artists != '') {
+                                             User.artists = artists
+                                         }
+
+                                         if (musical_genres != '') {
+                                             User.musical_genres = musical_genres
+                                         }
+
+                                         if (teams != '') {
+                                             User.teams = teams
+                                         }
+
+
+                                         if (cities != '') {
+                                             User.cities = cities
+                                         }
+
+
+                                         if (categorySearchSelected != '') {
+                                             User.categorySearchSelected.push(categorySearchSelected)
+                                         }
+
+                                         if (optionsSelected != '') {
+                                             User.optionsSelected.push(optionsSelected)
+                                         }
+
+                                         if (userSays.typed) {
+                                             User.userSays.push(userSays)
+
+                                         }
+
+
+                                         User.showMemore.index1 = index1
+                                         User.showMemore.index2 = index2
+                                         User.showMemore.index3 = index3
+
+                                         User.save();
                                      }
-                                 });
-
-                             }
-
-
-
+                                 }
+                             });
                          }
                      }
-
                  });
-
-
-
-
-
              }
          })
-
-
-
      });
  }
 
