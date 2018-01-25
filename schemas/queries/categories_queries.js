@@ -39,7 +39,7 @@ var getIdCategories1 = (event_type) => {
 
 var getIdCategories = (event_type) => {
     return new Promise((resolve, reject) => {
-        db.collection.find({
+        CategoryModel.find({
             name: {
                 $regex: new RegExp(event_type, "ig")
             }
