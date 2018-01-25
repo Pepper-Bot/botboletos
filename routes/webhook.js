@@ -570,7 +570,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                                     if (date_time != '') {
                                         var queryMessage = {
-                                            prioridad: 2,
+                                            prioridad: 1,
                                             searchBy: 'CategoryAndDate',
                                             query: tevo.API_URL + 'events?category_id=' + categories[0].slug  + '&page=' + page + '&per_page=' + per_page +'&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at',
                                             queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].slug  + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' +'&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at',
