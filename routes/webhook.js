@@ -367,24 +367,24 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
 
                     if ((isDefined(contexts[0].parameters.event_type))) {
-                        if (isDefined(contexts[0].parameters.event_type !='')) {
+                        if (isDefined(contexts[0].parameters.event_type != '')) {
                             event_type = contexts[0].parameters.event_type
                             console.log('event_type>> ' + event_type)
 
-                        } 
+                        }
                     }
 
-                    
+
                     if ((isDefined(contexts[0].parameters.music_genre))) {
-                        if (isDefined(contexts[0].parameters.music_genre !='')) {
+                        if (isDefined(contexts[0].parameters.music_genre != '')) {
                             music_genre = contexts[0].parameters.music_genre
                             console.log('music_genre>> ' + music_genre)
 
-                        } 
+                        }
                     }
 
 
-                  
+
                     if ((isDefined(contexts[0].parameters.location))) {
                         if (isDefined(contexts[0].parameters.location.city)) {
                             city = contexts[0].parameters.location.city
@@ -487,15 +487,15 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     if (artist != '') {
                         event_title = artist
                     }
-                   
-                    if( music_genre != ''   ){
+
+                    if (music_genre != '') {
                         event_type = music_genre
                     }
-                        
-                    
 
 
-                  
+
+
+
 
                     var page = 1;
                     var per_page = 50;
@@ -595,7 +595,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
-                
+
 
 
 
@@ -623,7 +623,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                                 var queryMessage = {
                                                     prioridad: 1,
                                                     searchBy: 'CategoryAndDate',
-                                                    query: tevo.API_URL + 'events?category_id=' + categories[0].id + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at,events.popularity_score DESC',  //
+                                                    query: tevo.API_URL + 'events?category_id=' + categories[0].id + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at,events.popularity_score DESC', //
                                                     queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].id + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at,events.popularity_score DESC',
                                                     queryPage: page,
                                                     queryPerPage: per_page,
@@ -673,12 +673,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                         find_my_event(sender, 1, '');
                                     }
                                 })
-                            }else{
+                            } else {
                                 console.log('no  tengo categorías')
                                 find_my_event(sender, 1, '');
                             }
 
-                       }
+                        }
                     } else {
                         console.log('responseText !=== "end.events.search"')
                     }
@@ -1894,6 +1894,12 @@ function processPostback(event) {
 
 
     switch (payload) {
+        case "VEGAS_SHOW":
+            {
+                startVegasShow(senderId, referral)
+            }
+            break;
+
         case "HAPPY_NEW_YEAR":
             {
                 startHappyNewYear(senderId, referral)
