@@ -479,8 +479,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         city: city,
                         artist: artist,
                         team: team,
-                        event_type: event_type,
-                        music_genre:music_genre
+                        event_type: event_type
                     }
 
 

@@ -231,7 +231,6 @@
                                              User.cities = cities
                                          }
 
-
                                          if (categorySearchSelected != '') {
                                              User.categorySearchSelected.push(categorySearchSelected)
                                          }
