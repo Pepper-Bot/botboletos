@@ -160,7 +160,7 @@ function processMessage(senderId, textMessage) {
     }
 
 
-    
+
     UserData2.findOne({
         fbId: senderId
     }, {}, {
@@ -563,41 +563,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                     //var queryTevoCate = tevo.API_URL + 'events?category_id=' + category_id + '&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at'
-                    if (event_type != '') {
-                        categories_queries.getIdCategories(event_type).then((categories) => {
-                            if (categories) {
-                                if (categories.length >= 1) {
-
-                                    if (date_time != '') {
-                                        var queryMessage = {
-                                            prioridad: 1,
-                                            searchBy: 'CategoryAndDate',
-                                            query: tevo.API_URL + 'events?category_id=' + categories[0].slug  + '&page=' + page + '&per_page=' + per_page +'&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at',
-                                            queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].slug  + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' +'&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at',
-                                            queryPage: page,
-                                            queryPerPage: per_page,
-                                            messageTitle: 'Cool, I looked for ' + event_type + ' shows.  Book a ticket'
-                                        }
-                                        arrayQueryMessages.push(queryMessage)
-                                    }
-
-
-                                    var queryMessage = {
-                                        prioridad: 2,
-                                        searchBy: 'Category',
-                                        query: tevo.API_URL + 'events?category_id=' + categories[0].slug + '&page=' + page + '&per_page=' + per_page + '&' + only_with +  '&order_by=events.occurs_at',
-                                        queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].slug + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with +  '&order_by=events.occurs_at',
-                                        queryPage: page,
-                                        queryPerPage: per_page,
-                                        messageTitle: 'Cool, I looked for ' + event_type + ' shows.  Book a ticket'
-                                    }
-                                    arrayQueryMessages.push(queryMessage)
-                                }else{
-                                    console.log('categories.length ' +categories.length )
-                                }
-                            }
-                        })
-                    }
 
 
 
@@ -626,9 +591,71 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                             })
                         } else {
-                            console.log('Opps no tengo coincidencias"')
-                            find_my_event(sender, 1, '');
-                        }
+                            console.log('Opps no tengo coincidencias busco por categorías ahora...')
+                            if (event_type != '') {
+                                categories_queries.getIdCategories(event_type).then((categories) => {
+                                    if (categories) {
+                                        if (categories.length >= 1) {
+                                            if (date_time != '') {
+                                                var queryMessage = {
+                                                    prioridad: 1,
+                                                    searchBy: 'CategoryAndDate',
+                                                    query: tevo.API_URL + 'events?category_id=' + categories[0].slug + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at',
+                                                    queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].slug + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at',
+                                                    queryPage: page,
+                                                    queryPerPage: per_page,
+                                                    messageTitle: 'Cool, I looked for ' + event_type + ' shows.  Book a ticket'
+                                                }
+                                                arrayQueryMessages.push(queryMessage)
+                                            }
+
+
+                                            var queryMessage = {
+                                                prioridad: 2,
+                                                searchBy: 'Category',
+                                                query: tevo.API_URL + 'events?category_id=' + categories[0].slug + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
+                                                queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].slug + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
+                                                queryPage: page,
+                                                queryPerPage: per_page,
+                                                messageTitle: 'Cool, I looked for ' + event_type + ' shows.  Book a ticket'
+                                            }
+                                            arrayQueryMessages.push(queryMessage)
+
+
+
+                                            if (arrayQueryMessages.length >= 1) {
+                                                startTevoByQuery(arrayQueryMessages).then((query) => {
+                                                    if (query.query) {
+                                                        console.log("query Tevo >>> " + JSON.stringify(query));
+                                                        TevoModule.start(sender, query.query, 1, query.messageTitle);
+                                                    } else {
+                                                        console.log('Not Found Events')
+                                                        find_my_event(sender, 1, '');
+
+                                                    }
+
+                                                })
+                                            } else {
+                                                console.log('Not Found Events')
+                                                find_my_event(sender, 1, '');
+                                            }
+
+
+                                        } else {
+                                            console.log('categories.length ' + categories.length)
+                                            find_my_event(sender, 1, '');
+                                        }
+                                    } else {
+                                        console.log('categories.length ' + categories.length)
+                                        find_my_event(sender, 1, '');
+                                    }
+                                })
+                            }else{
+                                console.log('no  tengo categorías')
+                                find_my_event(sender, 1, '');
+                            }
+
+                       }
                     } else {
                         console.log('responseText !=== "end.events.search"')
                     }
