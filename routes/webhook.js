@@ -623,8 +623,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                                 var queryMessage = {
                                                     prioridad: 1,
                                                     searchBy: 'CategoryAndDate',
-                                                    query: tevo.API_URL + 'events?category_id=' + categories[0].id + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at',
-                                                    queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].id + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at',
+                                                    query: tevo.API_URL + 'events?category_id=' + categories[0].id + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at,events.popularity_score DESC',  //
+                                                    queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].id + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&occurs_at.gte=' + occurs_at_gte + '&occurs_at.lte=' + occurs_at_lte + '&order_by=events.occurs_at,events.popularity_score DESC',
                                                     queryPage: page,
                                                     queryPerPage: per_page,
                                                     messageTitle: 'Cool, I looked for ' + event_type + ' shows.  Book a ticket'
@@ -636,8 +636,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                             var queryMessage = {
                                                 prioridad: 2,
                                                 searchBy: 'Category',
-                                                query: tevo.API_URL + 'events?category_id=' + categories[0].id + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
-                                                queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].id + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
+                                                query: tevo.API_URL + 'events?category_id=' + categories[0].id + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at,events.popularity_score DESC',
+                                                queryReplace: tevo.API_URL + 'events?category_id=' + categories[0].id + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at,events.popularity_score DESC',
                                                 queryPage: page,
                                                 queryPerPage: per_page,
                                                 messageTitle: 'Cool, I looked for ' + event_type + ' shows.  Book a ticket'
