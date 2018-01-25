@@ -373,9 +373,9 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                         }else{
                             if (isDefined(contexts[0].parameters.music_genre)) {
-                                country = contexts[0].parameters.music_genre
+                                music_genre = contexts[0].parameters.music_genre
                                 console.log('music_genre>> ' + music_genre)
-                                event_type = music_genre
+                             
                             }
                         }
                     }
@@ -477,7 +477,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         event_type: event_type
                     }
 
-                    
+
 
                     if (artist != '') {
                         event_title = artist
