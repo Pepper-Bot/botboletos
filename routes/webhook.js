@@ -371,8 +371,15 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             event_type = contexts[0].parameters.event_type
                             console.log('event_type>> ' + event_type)
 
+                        }else{
+                            if (isDefined(contexts[0].parameters.music_genre)) {
+                                country = contexts[0].parameters.music_genre
+                                console.log('music_genre>> ' + music_genre)
+                                event_type = music_genre
+                            }
                         }
                     }
+                  
                     if ((isDefined(contexts[0].parameters.location))) {
                         if (isDefined(contexts[0].parameters.location.city)) {
                             city = contexts[0].parameters.location.city
@@ -461,12 +468,26 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     var urlApiTevo = ''
                     var urlsApiTevo = []
 
+
+                    var userPreferences = {
+                        event_title: event_title,
+                        city: city,
+                        artist: artist,
+                        team: team,
+                        event_type: event_type
+                    }
+
+                    
+
                     if (artist != '') {
                         event_title = artist
                     }
+                    if(event_type == ''){
+                        event_type = music_genre
+                    }
 
 
-
+                  
 
                     var page = 1;
                     var per_page = 50;
@@ -566,13 +587,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
-                    var userPreferences = {
-                        event_title: event_title,
-                        city: city,
-                        artist: artist,
-                        team: team,
-                        event_type: event_type
-                    }
+                
 
 
 
