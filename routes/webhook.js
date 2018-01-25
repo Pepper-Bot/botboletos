@@ -482,9 +482,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     if (artist != '') {
                         event_title = artist
                     }
-                    if(event_type == ''){
+                   
+                    if( music_genre != ''   ){
                         event_type = music_genre
                     }
+                        
+                    
 
 
                   
