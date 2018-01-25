@@ -229,7 +229,7 @@
                                 }
    
                                 if (optionsSelected != '') {
-                                    foundUserUser.optionsSelected.push(optionsSelected)
+                                    User.optionsSelected.push(optionsSelected)
                                 }
    
                                 if (userSays.typed) {
