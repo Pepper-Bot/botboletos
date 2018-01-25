@@ -370,7 +370,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             event_type = contexts[0].parameters.event_type
                             console.log('event_type>> ' + event_type)
                             categories_queries.getIdCategories(event_type).then((categories)=>{
-                                console.log("categories query Tevo >>> " + JSON.stringify(categories));
+                              
                                  
                             })
                         }
