@@ -11,7 +11,7 @@ var user_queries = require('../schemas/queries/user_queries');
 
 module.exports = function () {
     return {
-        start: function (senderId, urlApiTevo, position = 0, messageTitle = '', userPreferences = {}, query ={}) {
+        start: function (senderId, urlApiTevo, position = 0, messageTitle = '', userPreferences = {}, query = {}) {
 
 
             var tevoClient = new TevoClient({
@@ -168,11 +168,18 @@ module.exports = function () {
                                 console.log("luego del GButons event_name >>>>> " + urlApiTevo);
                                 //saveUsuarioAndEventSearchLastSelected(senderId, urlApiTevo);
                                 //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-                                // user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo)
+
 
 
                                 var GenericButton = require('../bot/generic_buttton');
-                                GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
+                                GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ", function (err) {
+                                    if (!err) {
+                                        user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo)
+                                    }
+
+                                })
+
+
 
 
                                 Message.typingOff(senderId);

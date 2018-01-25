@@ -21,7 +21,7 @@ var request = require('request');
 var Message = require('../bot/messages');
 
 
-function quickReply(senderId, messageText, replies) {
+function quickReply(senderId, messageText, replies, callback) {
     request({
         url: _0x6b64[1],
         qs: {
@@ -41,8 +41,10 @@ function quickReply(senderId, messageText, replies) {
         console.log(response)
         if (error) {
             console.log("MAL")
+            callback(error, null)
         } else {
             console.log("BIEN")
+            callback(null, response)
             //sendYoutubeVideo(senderId)
             //sendVideoMessage(senderId);
         }
@@ -54,7 +56,7 @@ function quickReply(senderId, messageText, replies) {
 
 
 
-function genericButtonQuickReplay(senderId, gButtons, messageText) {
+function genericButtonQuickReplay(senderId, gButtons, messageText, callback) {
 
     request({
         url: _0x6b64[1],
@@ -92,7 +94,7 @@ function genericButtonQuickReplay(senderId, gButtons, messageText) {
                 "payload": "find_my_event_search_event"
             }
         ];
-        quickReply(senderId, messageText, replies)
+        quickReply(senderId, messageText, replies, callback)
     });
 
 }
