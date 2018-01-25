@@ -66,9 +66,9 @@
                  }, function (err, foundUser) {
                      if (!err) {
                          if (null != foundUser) {
-                             foundUser = JSON.parse(foundUser);
+                            FBUser = JSON.parse(FBUser);
 
-                             
+
                              foundUser.fbId = senderId;
 
                              foundUser.firstName = FBUser.first_name;
