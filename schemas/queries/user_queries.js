@@ -55,8 +55,9 @@
          UserData.getInfo(senderId, function (err, FBUser) {
              //console.log('FBUser.first_name'+  FBUser.first_name )
              console.log("FBUser.first_name' >>> " + JSON.stringify(FBUser));
-           var  FBUser = JSON.parse(FBUser);
+          
              if (!err) {
+                var  FBUser = JSON.parse(FBUser);
                  UserData2.findOne({
                      fbId: senderId
                  }, {}, {
@@ -160,7 +161,7 @@
                                  }
                              });
                          } else {
-
+                            console.log('Voy a guardar un usuario nuevo FBUser.first_name'+  FBUser.first_name )
 
                              var User = new UserData2; {
                                  User.fbId = senderId;
