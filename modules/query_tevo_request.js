@@ -168,7 +168,7 @@ module.exports = function () {
                                 console.log("luego del GButons event_name >>>>> " + urlApiTevo);
                                 //saveUsuarioAndEventSearchLastSelected(senderId, urlApiTevo);
                                 //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-                                user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo,)
+                                // user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo)
 
 
                                 var GenericButton = require('../bot/generic_buttton');
