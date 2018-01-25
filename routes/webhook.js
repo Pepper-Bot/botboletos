@@ -592,6 +592,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                         messageTitle: 'Cool, I looked for ' + event_type + ' shows.  Book a ticket'
                                     }
                                     arrayQueryMessages.push(queryMessage)
+                                }else{
+                                    console.log('categories.length ' +categories.length )
                                 }
                             }
                         })
