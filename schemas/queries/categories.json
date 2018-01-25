@@ -1,0 +1,1483 @@
+[
+    {
+      "value": "jazz concert",
+      "synonyms": [
+        "jazz concert",
+        "jazz concerts"
+      ]
+    },
+    {
+      "value": "music concerts",
+      "synonyms": [
+        "music concerts"
+      ]
+    },
+    {
+      "value": "club",
+      "synonyms": [
+        "club"
+      ]
+    },
+    {
+      "value": "exhibition",
+      "synonyms": [
+        "exhibition",
+        "exhibitions"
+      ]
+    },
+    {
+      "value": "band concert",
+      "synonyms": [
+        "band concerts"
+      ]
+    },
+    {
+      "value": "competition",
+      "synonyms": [
+        "competition",
+        "competitions"
+      ]
+    },
+    {
+      "value": "art exhibition",
+      "synonyms": [
+        "art exhibitions",
+        "art exhibition"
+      ]
+    },
+    {
+      "value": "baseball game",
+      "synonyms": [
+        "baseball game",
+        "baseball"
+      ]
+    },
+    {
+      "value": "beer festival",
+      "synonyms": [
+        "beer festivals",
+        "beer festival"
+      ]
+    },
+    {
+      "value": "concert",
+      "synonyms": [
+        "concert",
+        "concerts"
+      ]
+    },
+    {
+      "value": "wine festival",
+      "synonyms": [
+        "wine festivals",
+        "wine festival"
+      ]
+    },
+    {
+      "value": "adult movies",
+      "synonyms": [
+        "adult movies"
+      ]
+    },
+    {
+      "value": "play",
+      "synonyms": [
+        "play"
+      ]
+    },
+    {
+      "value": "movie",
+      "synonyms": [
+        "movie",
+        "movies",
+        "film",
+        "movietickets",
+        "movieticket"
+      ]
+    },
+    {
+      "value": "live concert",
+      "synonyms": [
+        "live concerts",
+        "live concert"
+      ]
+    },
+    {
+      "value": "rock concert",
+      "synonyms": [
+        "rock concerts"
+      ]
+    },
+    {
+      "value": "festival",
+      "synonyms": [
+        "festival",
+        "festivals"
+      ]
+    },
+    {
+      "value": "game",
+      "synonyms": [
+        "game"
+      ]
+    },
+    {
+      "value": "stand-up",
+      "synonyms": [
+        "stand-up",
+        "stand-up comedy",
+        "stand-up concert"
+      ]
+    },
+    {
+      "value": "opera performance",
+      "synonyms": [
+        "opera performances"
+      ]
+    },
+    {
+      "value": "clothes exhibition",
+      "synonyms": [
+        "clothes exhibition",
+        "clothes exhibitions"
+      ]
+    },
+    {
+      "value": "music festival",
+      "synonyms": [
+        "music festival",
+        "music festivals"
+      ]
+    },
+    {
+      "value": "musical",
+      "synonyms": [
+        "musical",
+        "musicals"
+      ]
+    },
+    {
+      "value": "open-air festival",
+      "synonyms": [
+        "open-air festival",
+        "open air festival",
+        "open air festivals",
+        "open-air festivals"
+      ]
+    },
+    {
+      "value": "conference",
+      "synonyms": [
+        "conference",
+        "conferences"
+      ]
+    },
+    {
+      "value": "AFL",
+      "synonyms": [
+        "AFL"
+      ]
+    },
+    {
+      "value": "AHL",
+      "synonyms": [
+        "AHL"
+      ]
+    },
+    {
+      "value": "Alternative Indie",
+      "synonyms": [
+        "Alternative  Indie"
+      ]
+    },
+    {
+      "value": "Alternative Rock",
+      "synonyms": [
+        "Alternative Rock"
+      ]
+    },
+    {
+      "value": "Amateur",
+      "synonyms": [
+        "Amateur"
+      ]
+    },
+    {
+      "value": "Attractions",
+      "synonyms": [
+        "Attractions"
+      ]
+    },
+    {
+      "value": "Auto Racing",
+      "synonyms": [
+        "Auto Racing"
+      ]
+    },
+    {
+      "value": "Award Shows",
+      "synonyms": [
+        "Award Shows"
+      ]
+    },
+    {
+      "value": "Ballet  Dance",
+      "synonyms": [
+        "Ballet  Dance"
+      ]
+    },
+    {
+      "value": "Baseball",
+      "synonyms": [
+        "Baseball"
+      ]
+    },
+    {
+      "value": "Basketball",
+      "synonyms": [
+        "Basketball"
+      ]
+    },
+    {
+      "value": "Boxing",
+      "synonyms": [
+        "Boxing"
+      ]
+    },
+    {
+      "value": "Bundesliga",
+      "synonyms": [
+        "Bundesliga"
+      ]
+    },
+    {
+      "value": "CFL",
+      "synonyms": [
+        "CFL"
+      ]
+    },
+    {
+      "value": "Cabaret",
+      "synonyms": [
+        "Cabaret"
+      ]
+    },
+    {
+      "value": "Champions",
+      "synonyms": [
+        "Champions"
+      ]
+    },
+    {
+      "value": "Classical",
+      "synonyms": [
+        "Classical"
+      ]
+    },
+    {
+      "value": "Comedy",
+      "synonyms": [
+        "Comedy"
+      ]
+    },
+    {
+      "value": "Concerts",
+      "synonyms": [
+        "Concerts"
+      ]
+    },
+    {
+      "value": "Confederação Brasileira de Futebol",
+      "synonyms": [
+        "Confederação Brasileira de Futebol"
+      ]
+    },
+    {
+      "value": "Country  Folk",
+      "synonyms": [
+        "Country  Folk"
+      ]
+    },
+    {
+      "value": "Cycling",
+      "synonyms": [
+        "Cycling"
+      ]
+    },
+    {
+      "value": "DanceElectronic",
+      "synonyms": [
+        "DanceElectronic"
+      ]
+    },
+    {
+      "value": "ECHL",
+      "synonyms": [
+        "ECHL"
+      ]
+    },
+    {
+      "value": "English Premiere League",
+      "synonyms": [
+        "English Premiere League"
+      ]
+    },
+    {
+      "value": "Euroleague Basketball",
+      "synonyms": [
+        "Euroleague Basketball"
+      ]
+    },
+    {
+      "value": "European",
+      "synonyms": [
+        "European"
+      ]
+    },
+    {
+      "value": "Exclusive Parties",
+      "synonyms": [
+        "Exclusive Parties"
+      ]
+    },
+    {
+      "value": "Extreme Sports",
+      "synonyms": [
+        "Extreme Sports"
+      ]
+    },
+    {
+      "value": "FIBA World Championship",
+      "synonyms": [
+        "FIBA World Championship"
+      ]
+    },
+    {
+      "value": "Family",
+      "synonyms": [
+        "Family"
+      ]
+    },
+    {
+      "value": "Federacion Mexicana de Futbol",
+      "synonyms": [
+        "Federacion Mexicana de Futbol"
+      ]
+    },
+    {
+      "value": "Festivals",
+      "synonyms": [
+        "Festivals"
+      ]
+    },
+    {
+      "value": "Fighting",
+      "synonyms": [
+        "Fighting"
+      ]
+    },
+    {
+      "value": "Football",
+      "synonyms": [
+        "Football"
+      ]
+    },
+    {
+      "value": "Formula 1",
+      "synonyms": [
+        "Formula 1"
+      ]
+    },
+    {
+      "value": "Fundraisers",
+      "synonyms": [
+        "Fundraisers"
+      ]
+    },
+    {
+      "value": "Golf",
+      "synonyms": [
+        "Golf"
+      ]
+    },
+    {
+      "value": "Hard RockMetal",
+      "synonyms": [
+        "Hard RockMetal"
+      ]
+    },
+    {
+      "value": "High School",
+      "synonyms": [
+        "High School"
+      ]
+    },
+    {
+      "value": "Hockey",
+      "synonyms": [
+        "Hockey"
+      ]
+    },
+    {
+      "value": "Horse Racing",
+      "synonyms": [
+        "Horse Racing"
+      ]
+    },
+    {
+      "value": "IndyCar Series",
+      "synonyms": [
+        "IndyCar Series"
+      ]
+    },
+    {
+      "value": "International",
+      "synonyms": [
+        "International"
+      ]
+    },
+    {
+      "value": "International Friendlies",
+      "synonyms": [
+        "International Friendlies"
+      ]
+    },
+    {
+      "value": "International Games",
+      "synonyms": [
+        "International Games"
+      ]
+    },
+    {
+      "value": "Italian Serie A",
+      "synonyms": [
+        "Italian Serie A"
+      ]
+    },
+    {
+      "value": "Jazz  Blues",
+      "synonyms": [
+        "Jazz  Blues"
+      ]
+    },
+    {
+      "value": "Junior",
+      "synonyms": [
+        "Junior"
+      ]
+    },
+    {
+      "value": "LPGA",
+      "synonyms": [
+        "LPGA"
+      ]
+    },
+    {
+      "value": "Lacrosse",
+      "synonyms": [
+        "Lacrosse"
+      ]
+    },
+    {
+      "value": "Latin",
+      "synonyms": [
+        "Latin"
+      ]
+    },
+    {
+      "value": "Legends Football League",
+      "synonyms": [
+        "Legends Football League"
+      ]
+    },
+    {
+      "value": "Ligat HaAl",
+      "synonyms": [
+        "Ligat HaAl"
+      ]
+    },
+    {
+      "value": "MLB",
+      "synonyms": [
+        "MLB"
+      ]
+    },
+    {
+      "value": "MLS Major League Soccer",
+      "synonyms": [
+        "MLS Major League Soccer"
+      ]
+    },
+    {
+      "value": "Mexican League",
+      "synonyms": [
+        "Mexican League"
+      ]
+    },
+    {
+      "value": "Minor League",
+      "synonyms": [
+        "Minor League"
+      ]
+    },
+    {
+      "value": "Miscellaneous",
+      "synonyms": [
+        "Miscellaneous"
+      ]
+    },
+    {
+      "value": "Mixed Martial Arts MMA",
+      "synonyms": [
+        "Mixed Martial Arts MMA"
+      ]
+    },
+    {
+      "value": "Monster Trucks",
+      "synonyms": [
+        "Monster Trucks"
+      ]
+    },
+    {
+      "value": "Movies",
+      "synonyms": [
+        "Movies"
+      ]
+    },
+    {
+      "value": "Museums",
+      "synonyms": [
+        "Museums"
+      ]
+    },
+    {
+      "value": "Musicals",
+      "synonyms": [
+        "Musicals"
+      ]
+    },
+    {
+      "value": "NASCAR",
+      "synonyms": [
+        "NASCAR"
+      ]
+    },
+    {
+      "value": "NBA",
+      "synonyms": [
+        "NBA"
+      ]
+    },
+    {
+      "value": "NBA D-League",
+      "synonyms": [
+        "NBA D-League"
+      ]
+    },
+    {
+      "value": "NCAA",
+      "synonyms": [
+        "NCAA"
+      ]
+    },
+    {
+      "value": "NCAA",
+      "synonyms": [
+        "NCAA"
+      ]
+    },
+    {
+      "value": "NCAA Men",
+      "synonyms": [
+        "NCAA Men"
+      ]
+    },
+    {
+      "value": "NCAA Men",
+      "synonyms": [
+        "NCAA Men"
+      ]
+    },
+    {
+      "value": "NCAA Men",
+      "synonyms": [
+        "NCAA Men"
+      ]
+    },
+    {
+      "value": "NCAA Men",
+      "synonyms": [
+        "NCAA Men"
+      ]
+    },
+    {
+      "value": "NCAA Women",
+      "synonyms": [
+        "NCAA Women"
+      ]
+    },
+    {
+      "value": "NCAA Women",
+      "synonyms": [
+        "NCAA Women"
+      ]
+    },
+    {
+      "value": "NCAA Women",
+      "synonyms": [
+        "NCAA Women"
+      ]
+    },
+    {
+      "value": "NFL",
+      "synonyms": [
+        "NFL"
+      ]
+    },
+    {
+      "value": "NHL",
+      "synonyms": [
+        "NHL"
+      ]
+    },
+    {
+      "value": "NLL",
+      "synonyms": [
+        "NLL"
+      ]
+    },
+    {
+      "value": "New Age  Spiritual",
+      "synonyms": [
+        "New Age  Spiritual"
+      ]
+    },
+    {
+      "value": "Opera",
+      "synonyms": [
+        "Opera"
+      ]
+    },
+    {
+      "value": "PGA",
+      "synonyms": [
+        "PGA"
+      ]
+    },
+    {
+      "value": "Plays",
+      "synonyms": [
+        "Plays"
+      ]
+    },
+    {
+      "value": "RBUrban Soul",
+      "synonyms": [
+        "RBUrban Soul"
+      ]
+    },
+    {
+      "value": "Rap  Hip-Hop",
+      "synonyms": [
+        "Rap  Hip-Hop"
+      ]
+    },
+    {
+      "value": "Rock  Pop",
+      "synonyms": [
+        "Rock  Pop"
+      ]
+    },
+    {
+      "value": "Rodeo",
+      "synonyms": [
+        "Rodeo"
+      ]
+    },
+    {
+      "value": "Rugby",
+      "synonyms": [
+        "Rugby"
+      ]
+    },
+    {
+      "value": "Scottish Premiere League",
+      "synonyms": [
+        "Scottish Premiere League"
+      ]
+    },
+    {
+      "value": "Skiing",
+      "synonyms": [
+        "Skiing"
+      ]
+    },
+    {
+      "value": "Soccer",
+      "synonyms": [
+        "Soccer"
+      ]
+    },
+    {
+      "value": "Softball",
+      "synonyms": [
+        "Softball"
+      ]
+    },
+    {
+      "value": "Spanish Primera División",
+      "synonyms": [
+        "Spanish Primera División"
+      ]
+    },
+    {
+      "value": "Special Events",
+      "synonyms": [
+        "Special Events"
+      ]
+    },
+    {
+      "value": "Sports",
+      "synonyms": [
+        "Sports"
+      ]
+    },
+    {
+      "value": "Summer Games",
+      "synonyms": [
+        "Summer Games"
+      ]
+    },
+    {
+      "value": "Supercross",
+      "synonyms": [
+        "Supercross"
+      ]
+    },
+    {
+      "value": "TV Shows",
+      "synonyms": [
+        "TV Shows"
+      ]
+    },
+    {
+      "value": "Tennis",
+      "synonyms": [
+        "Tennis"
+      ]
+    },
+    {
+      "value": "Theatre",
+      "synonyms": [
+        "Theatre"
+      ]
+    },
+    {
+      "value": "UFL",
+      "synonyms": [
+        "UFL"
+      ]
+    },
+    {
+      "value": "Volleyball",
+      "synonyms": [
+        "Volleyball"
+      ]
+    },
+    {
+      "value": "WNBA",
+      "synonyms": [
+        "WNBA"
+      ]
+    },
+    {
+      "value": "Winter Games",
+      "synonyms": [
+        "Winter Games"
+      ]
+    },
+    {
+      "value": "World Baseball Classic",
+      "synonyms": [
+        "World Baseball Classic"
+      ]
+    },
+    {
+      "value": "World Cup",
+      "synonyms": [
+        "World Cup"
+      ]
+    },
+    {
+      "value": "World Music",
+      "synonyms": [
+        "World Music"
+      ]
+    },
+    {
+      "value": "Wrestling",
+      "synonyms": [
+        "Wrestling"
+      ]
+    },
+    {
+      "value": "X-Games",
+      "synonyms": [
+        "X-Games"
+      ]
+    }{
+      "value": "AFL",
+      "synonyms": [
+        "AFL"
+      ]
+    },
+    {
+      "value": "AHL",
+      "synonyms": [
+        "AHL"
+      ]
+    },
+    {
+      "value": "Alternative  Indie",
+      "synonyms": [
+        "Alternative  Indie"
+      ]
+    },
+    {
+      "value": "Alternative Rock",
+      "synonyms": [
+        "Alternative Rock"
+      ]
+    },
+    {
+      "value": "Amateur",
+      "synonyms": [
+        "Amateur"
+      ]
+    },
+    {
+      "value": "Attractions",
+      "synonyms": [
+        "Attractions"
+      ]
+    },
+    {
+      "value": "Auto Racing",
+      "synonyms": [
+        "Auto Racing"
+      ]
+    },
+    {
+      "value": "Award Shows",
+      "synonyms": [
+        "Award Shows"
+      ]
+    },
+    {
+      "value": "Ballet  Dance",
+      "synonyms": [
+        "Ballet  Dance"
+      ]
+    },
+    {
+      "value": "Baseball",
+      "synonyms": [
+        "Baseball"
+      ]
+    },
+    {
+      "value": "Basketball",
+      "synonyms": [
+        "Basketball"
+      ]
+    },
+    {
+      "value": "Boxing",
+      "synonyms": [
+        "Boxing"
+      ]
+    },
+    {
+      "value": "Bundesliga",
+      "synonyms": [
+        "Bundesliga"
+      ]
+    },
+    {
+      "value": "CFL",
+      "synonyms": [
+        "CFL"
+      ]
+    },
+    {
+      "value": "Cabaret",
+      "synonyms": [
+        "Cabaret"
+      ]
+    },
+    {
+      "value": "Champions",
+      "synonyms": [
+        "Champions"
+      ]
+    },
+    {
+      "value": "Classical",
+      "synonyms": [
+        "Classical"
+      ]
+    },
+    {
+      "value": "Comedy",
+      "synonyms": [
+        "Comedy"
+      ]
+    },
+    {
+      "value": "Concerts",
+      "synonyms": [
+        "Concerts"
+      ]
+    },
+    {
+      "value": "Confederação Brasileira de Futebol",
+      "synonyms": [
+        "Confederação Brasileira de Futebol"
+      ]
+    },
+    {
+      "value": "Country  Folk",
+      "synonyms": [
+        "Country  Folk"
+      ]
+    },
+    {
+      "value": "Cycling",
+      "synonyms": [
+        "Cycling"
+      ]
+    },
+    {
+      "value": "DanceElectronic",
+      "synonyms": [
+        "DanceElectronic"
+      ]
+    },
+    {
+      "value": "ECHL",
+      "synonyms": [
+        "ECHL"
+      ]
+    },
+    {
+      "value": "English Premiere League",
+      "synonyms": [
+        "English Premiere League"
+      ]
+    },
+    {
+      "value": "Euroleague Basketball",
+      "synonyms": [
+        "Euroleague Basketball"
+      ]
+    },
+    {
+      "value": "European",
+      "synonyms": [
+        "European"
+      ]
+    },
+    {
+      "value": "Exclusive Parties",
+      "synonyms": [
+        "Exclusive Parties"
+      ]
+    },
+    {
+      "value": "Extreme Sports",
+      "synonyms": [
+        "Extreme Sports"
+      ]
+    },
+    {
+      "value": "FIBA World Championship",
+      "synonyms": [
+        "FIBA World Championship"
+      ]
+    },
+    {
+      "value": "Family",
+      "synonyms": [
+        "Family"
+      ]
+    },
+    {
+      "value": "Federacion Mexicana de Futbol",
+      "synonyms": [
+        "Federacion Mexicana de Futbol"
+      ]
+    },
+    {
+      "value": "Festivals",
+      "synonyms": [
+        "Festivals"
+      ]
+    },
+    {
+      "value": "Fighting",
+      "synonyms": [
+        "Fighting"
+      ]
+    },
+    {
+      "value": "Football",
+      "synonyms": [
+        "Football"
+      ]
+    },
+    {
+      "value": "Formula 1",
+      "synonyms": [
+        "Formula 1"
+      ]
+    },
+    {
+      "value": "Fundraisers",
+      "synonyms": [
+        "Fundraisers"
+      ]
+    },
+    {
+      "value": "Golf",
+      "synonyms": [
+        "Golf"
+      ]
+    },
+    {
+      "value": "Hard RockMetal",
+      "synonyms": [
+        "Hard RockMetal"
+      ]
+    },
+    {
+      "value": "High School",
+      "synonyms": [
+        "High School"
+      ]
+    },
+    {
+      "value": "Hockey",
+      "synonyms": [
+        "Hockey"
+      ]
+    },
+    {
+      "value": "Horse Racing",
+      "synonyms": [
+        "Horse Racing"
+      ]
+    },
+    {
+      "value": "IndyCar Series",
+      "synonyms": [
+        "IndyCar Series"
+      ]
+    },
+    {
+      "value": "International",
+      "synonyms": [
+        "International"
+      ]
+    },
+    {
+      "value": "International Friendlies",
+      "synonyms": [
+        "International Friendlies"
+      ]
+    },
+    {
+      "value": "International Games",
+      "synonyms": [
+        "International Games"
+      ]
+    },
+    {
+      "value": "Italian Serie A",
+      "synonyms": [
+        "Italian Serie A"
+      ]
+    },
+    {
+      "value": "Jazz  Blues",
+      "synonyms": [
+        "Jazz  Blues"
+      ]
+    },
+    {
+      "value": "Junior",
+      "synonyms": [
+        "Junior"
+      ]
+    },
+    {
+      "value": "LPGA",
+      "synonyms": [
+        "LPGA"
+      ]
+    },
+    {
+      "value": "Lacrosse",
+      "synonyms": [
+        "Lacrosse"
+      ]
+    },
+    {
+      "value": "Latin",
+      "synonyms": [
+        "Latin"
+      ]
+    },
+    {
+      "value": "Legends Football League",
+      "synonyms": [
+        "Legends Football League"
+      ]
+    },
+    {
+      "value": "Ligat HaAl",
+      "synonyms": [
+        "Ligat HaAl"
+      ]
+    },
+    {
+      "value": "MLB",
+      "synonyms": [
+        "MLB"
+      ]
+    },
+    {
+      "value": "MLS (Major League Soccer)",
+      "synonyms": [
+        "MLS (Major League Soccer)"
+      ]
+    },
+    {
+      "value": "Mexican League",
+      "synonyms": [
+        "Mexican League"
+      ]
+    },
+    {
+      "value": "Minor League",
+      "synonyms": [
+        "Minor League"
+      ]
+    },
+    {
+      "value": "Miscellaneous",
+      "synonyms": [
+        "Miscellaneous"
+      ]
+    },
+    {
+      "value": "Mixed Martial Arts (MMA)",
+      "synonyms": [
+        "Mixed Martial Arts (MMA)"
+      ]
+    },
+    {
+      "value": "Monster Trucks",
+      "synonyms": [
+        "Monster Trucks"
+      ]
+    },
+    {
+      "value": "Movies",
+      "synonyms": [
+        "Movies"
+      ]
+    },
+    {
+      "value": "Museums",
+      "synonyms": [
+        "Museums"
+      ]
+    },
+    {
+      "value": "Musicals",
+      "synonyms": [
+        "Musicals"
+      ]
+    },
+    {
+      "value": "NASCAR",
+      "synonyms": [
+        "NASCAR"
+      ]
+    },
+    {
+      "value": "NBA",
+      "synonyms": [
+        "NBA"
+      ]
+    },
+    {
+      "value": "NBA D-League",
+      "synonyms": [
+        "NBA D-League"
+      ]
+    },
+    {
+      "value": "NCAA",
+      "synonyms": [
+        "NCAA"
+      ]
+    },
+    {
+      "value": "NCAA",
+      "synonyms": [
+        "NCAA"
+      ]
+    },
+    {
+      "value": "NCAA Men",
+      "synonyms": [
+        "NCAA Men"
+      ]
+    },
+    {
+      "value": "NCAA Men",
+      "synonyms": [
+        "NCAA Men"
+      ]
+    },
+    {
+      "value": "NCAA Men",
+      "synonyms": [
+        "NCAA Men"
+      ]
+    },
+    {
+      "value": "NCAA Men",
+      "synonyms": [
+        "NCAA Men"
+      ]
+    },
+    {
+      "value": "NCAA Women",
+      "synonyms": [
+        "NCAA Women"
+      ]
+    },
+    {
+      "value": "NCAA Women",
+      "synonyms": [
+        "NCAA Women"
+      ]
+    },
+    {
+      "value": "NCAA Women",
+      "synonyms": [
+        "NCAA Women"
+      ]
+    },
+    {
+      "value": "NFL",
+      "synonyms": [
+        "NFL"
+      ]
+    },
+    {
+      "value": "NHL",
+      "synonyms": [
+        "NHL"
+      ]
+    },
+    {
+      "value": "NLL",
+      "synonyms": [
+        "NLL"
+      ]
+    },
+    {
+      "value": "New Age  Spiritual",
+      "synonyms": [
+        "New Age  Spiritual"
+      ]
+    },
+    {
+      "value": "Opera",
+      "synonyms": [
+        "Opera"
+      ]
+    },
+    {
+      "value": "PGA",
+      "synonyms": [
+        "PGA"
+      ]
+    },
+    {
+      "value": "Plays",
+      "synonyms": [
+        "Plays"
+      ]
+    },
+    {
+      "value": "RBUrban Soul",
+      "synonyms": [
+        "RBUrban Soul"
+      ]
+    },
+    {
+      "value": "Rap  Hip-Hop",
+      "synonyms": [
+        "Rap  Hip-Hop"
+      ]
+    },
+    {
+      "value": "Rock  Pop",
+      "synonyms": [
+        "Rock  Pop"
+      ]
+    },
+    {
+      "value": "Rodeo",
+      "synonyms": [
+        "Rodeo"
+      ]
+    },
+    {
+      "value": "Rugby",
+      "synonyms": [
+        "Rugby"
+      ]
+    },
+    {
+      "value": "Scottish Premiere League",
+      "synonyms": [
+        "Scottish Premiere League"
+      ]
+    },
+    {
+      "value": "Skiing",
+      "synonyms": [
+        "Skiing"
+      ]
+    },
+    {
+      "value": "Soccer",
+      "synonyms": [
+        "Soccer"
+      ]
+    },
+    {
+      "value": "Softball",
+      "synonyms": [
+        "Softball"
+      ]
+    },
+    {
+      "value": "Spanish Primera División",
+      "synonyms": [
+        "Spanish Primera División"
+      ]
+    },
+    {
+      "value": "Special Events",
+      "synonyms": [
+        "Special Events"
+      ]
+    },
+    {
+      "value": "Sports",
+      "synonyms": [
+        "Sports"
+      ]
+    },
+    {
+      "value": "Summer Games",
+      "synonyms": [
+        "Summer Games"
+      ]
+    },
+    {
+      "value": "Supercross",
+      "synonyms": [
+        "Supercross"
+      ]
+    },
+    {
+      "value": "TV Shows",
+      "synonyms": [
+        "TV Shows"
+      ]
+    },
+    {
+      "value": "Tennis",
+      "synonyms": [
+        "Tennis"
+      ]
+    },
+    {
+      "value": "Theatre",
+      "synonyms": [
+        "Theatre"
+      ]
+    },
+    {
+      "value": "UFL",
+      "synonyms": [
+        "UFL"
+      ]
+    },
+    {
+      "value": "Volleyball",
+      "synonyms": [
+        "Volleyball"
+      ]
+    },
+    {
+      "value": "WNBA",
+      "synonyms": [
+        "WNBA"
+      ]
+    },
+    {
+      "value": "Winter Games",
+      "synonyms": [
+        "Winter Games"
+      ]
+    },
+    {
+      "value": "World Baseball Classic",
+      "synonyms": [
+        "World Baseball Classic"
+      ]
+    },
+    {
+      "value": "World Cup",
+      "synonyms": [
+        "World Cup"
+      ]
+    },
+    {
+      "value": "World Music",
+      "synonyms": [
+        "World Music"
+      ]
+    },
+    {
+      "value": "Wrestling",
+      "synonyms": [
+        "Wrestling"
+      ]
+    },
+    {
+      "value": "X-Games",
+      "synonyms": [
+        "X-Games"
+      ]
+    }
+]
+  
