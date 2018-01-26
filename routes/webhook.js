@@ -354,7 +354,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 console.log(" Action events.search >>> ");
 
                 //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
-                //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
+                console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
 
 
                 let city = ''
