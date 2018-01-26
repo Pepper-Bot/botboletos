@@ -1957,15 +1957,15 @@ function processPostback(event) {
                 }, function (err, foundUser) {
 
 
-                    var query1 = foundUser.queryTevoFinal
-                    var page = foundUser.page + 1
-                    var per_page = foundUser.per_page
+                    let query1 = foundUser.queryTevoFinal
+                    let page = foundUser.page + 1
+                    let per_page = foundUser.per_page
 
                     query1 = query1.replace('{{page}}', page);
                     query1 = query1.replace('{{per_page}}', per_page);
-                    console.log('find_my_event_see_more_events_by_query query1' + query1)
+                    console.log('find_my_event_see_more_events_by_query query1 ' + query1)
 
-                    var query = {
+                    let query = {
                         prioridad: 1,
                         searchBy: '-',
                         query: query1,
@@ -1975,7 +1975,7 @@ function processPostback(event) {
                         messageTitle: ''
                     }
 
-                    var userPreferences = {
+                    let userPreferences = {
                         event_title: '',
                         city: '',
                         artist: '',
@@ -1990,17 +1990,19 @@ function processPostback(event) {
 
                         } else {
                             if (json.events.length > 0) {
+                                console.log('1- find_my_event_see_more_events_by_query json.events.length ' + json.events.length)
+                                console.log('query.query '+ query.query)
                                 TevoModule.start(senderId, query.query, 0, query.messageTitle, userPreferences, query);
                             } else {
-                                var query1 = foundUser.queryTevoFinal
-                                var page = 1
-                                var per_page = 9
+                                 query1 = foundUser.queryTevoFinal
+                                 page = 1
+                                 per_page = 9
 
                                 query1 = query1.replace('{{page}}', page);
                                 query1 = query1.replace('{{per_page}}', per_page);
 
 
-                                var query = {
+                                 query = {
                                     prioridad: 1,
                                     searchBy: '-',
                                     query: query1,
@@ -2011,11 +2013,13 @@ function processPostback(event) {
                                 }
 
                                 tevoClient.getJSON(query1).then((json) => {
-                                    let salir = false;
+                                    
                                     if (json.error) {
 
                                     } else {
                                         if (json.events.length > 0) {
+                                            console.log('2- find_my_event_see_more_events_by_query json.events.length ' + json.events.length)
+                                            console.log('query.query '+ query.query)
                                             TevoModule.start(senderId, query.query, 0, query.messageTitle, userPreferences, query);
                                         } else {
                                             console.log('No hay eventos O_O, imposible!! ')
