@@ -148,7 +148,7 @@ module.exports = function () {
                                     "buttons": [{
                                         "type": "postback",
                                         "title": "More event times",
-                                        "payload": "find_my_event_see_more_events"
+                                        "payload": "find_my_event_see_more_events_by_query"
                                     }]
                                 });
 
