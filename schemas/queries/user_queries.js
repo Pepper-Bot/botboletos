@@ -47,7 +47,7 @@
 
 
 
- var createUpdateUserDatas = (senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', queryTevoFinal = '', page = 0, per_page = 0, artists = '', musical_genres = '', teams = '', cities = '', messageTitle = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
+ var createUpdateUserDatas = (senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', queryTevoFinal = '', page = 0, per_page = 0, artists = '', musical_genres = '', teams = '', cities = '', messageTitle = '', event_type = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
      var dbObj = require('../mongodb');
      dbObj.getConnection();
 
@@ -131,6 +131,9 @@
 
                              if (messageTitle != '') {
                                  foundUser.messageTitle = messageTitle
+                             }
+                             if(event_type !=''){
+                                foundUser.event_type.push(event_type)
                              }
 
 
@@ -238,7 +241,10 @@
                                          if (messageTitle != '') {
                                             User.messageTitle = messageTitle
                                         }
-
+                                        if(event_type !=''){
+                                            User.event_type.push(event_type)
+                                         }
+            
                                         
                                          if (categorySearchSelected != '') {
                                              User.categorySearchSelected.push(categorySearchSelected)

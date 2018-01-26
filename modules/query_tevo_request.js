@@ -180,7 +180,7 @@ module.exports = function () {
                                       
            
 
-                                        user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle)
+                                        user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle,  userPreferences.event_type)
                                     }
 
                                 })

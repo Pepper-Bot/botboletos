@@ -64,6 +64,7 @@ var UserData = mongoose.Schema({
 	musical_genres:[],
 	teams:[],
 	cities:[],
+	event_type:[],
 
 	userSays: [{
 		typed: String,

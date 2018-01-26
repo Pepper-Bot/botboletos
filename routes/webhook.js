@@ -166,77 +166,6 @@ function processMessage(senderId, textMessage) {
         sendToApiAi(senderId, textMessage)
     })
 
-    /* UserData2.findOne({
-         fbId: senderId
-     }, {}, {
-         sort: {
-             'sessionStart': -1
-         }
-     }, function (err, foundUser) {
-         if (foundUser) {
-
-             if (foundUser.context === 'find_my_event_by_name') {
-                 console.log(foundUser.context);
-                 var TevoModule = require('../modules/tevo/tevo');
-                 TevoModule.searchEventsByName(textMessage).then((resultado) => {
-                     if (resultado.events) {
-                         if (resultado.events.length > 0) {
-                             startTevoModuleWithMlink(textMessage, senderId, 0, 0);
-                         } else {
-                             //find_my_event(senderId, 1, textMessage);
-                             sendToApiAi(senderId, textMessage)
-                         }
-
-                     } else {
-                         //find_my_event(senderId, 1, textMessage);
-                         sendToApiAi(senderId, textMessage)
-                     }
-
-                 }).catch((err) => {
-                     console.log('Error en TevoModule.searchEventsByName line 193' + err)
-                     //sendToApiAi(senderId, textMessage)
-                 })
-                 foundUser.context = '';
-                 foundUser.save();
-             } else {
-                 //sendToApiAi(senderId, textMessage);
-
-
-                 if (textMessage) {
-                     var TevoModule = require('../modules/tevo/tevo');
-                     TevoModule.searchEventsByName(textMessage).then((resultado) => {
-                         if (resultado.events) {
-                             if (resultado.events.length > 0) {
-                                 startTevoModuleWithMlink(textMessage, senderId, 0, 1);
-                             } else {
-                                 console.log("textMessage " + textMessage)
-                                 //find_my_event(senderId, 1, textMessage);
-                                 sendToApiAi(senderId, textMessage)
-                             }
-
-                         } else {
-                             console.log("textMessage " + textMessage)
-                             //find_my_event(senderId, 1, textMessage);
-                             sendToApiAi(senderId, textMessage)
-                         }
-
-                     }).catch((err) => {
-                         console.log('Error en TevoModule.searchEventsByName line 193' + err)
-                         //sendToApiAi(senderId, textMessage)
-                     })
-                 }
-                 /* 
-                                if (textMessage) {
-                                     var yes_no = require('../modules/tevo/yes_no_find_quick_replay')
-                                     yes_no.send(Message, senderId, textMessage);
-                                     foundUser.context = textMessage
-                                     foundUser.save();
-                                 }
-
-             }
-         }
-
-     });*/
 
 
 
@@ -270,12 +199,9 @@ function processMessage(senderId, textMessage) {
 
             }
         });
-        ///break;
+        
     }
-    //aaki iba esta respuesta por default
-    //var DefaultReply = require('../modules/defaultreply');
-    //DefaultReply.send(Message, senderId);
-
+ 
 
 }
 
