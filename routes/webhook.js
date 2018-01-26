@@ -1947,12 +1947,12 @@ function processPostback(event) {
 
         case "find_my_event_see_more_events_by_query":
             {
-
+                console.log("find_my_event_see_more_events_by_query   ")
                 UserData2.findOne({
                     fbId: senderId
                 }, {}, {
                     sort: {
-                        'sessionStart': -1
+                        'sessionEnd': -1
                     }
                 }, function (err, foundUser) {
 
@@ -1963,7 +1963,7 @@ function processPostback(event) {
 
                     query1 = query1.replace('{{page}}', page);
                     query1 = query1.replace('{{per_page}}', per_page);
-
+                    console.log('find_my_event_see_more_events_by_query query1' + query1)
 
                     var query = {
                         prioridad: 1,
@@ -1993,7 +1993,7 @@ function processPostback(event) {
                                 TevoModule.start(senderId, query.query, 0, query.messageTitle, userPreferences, query);
                             } else {
                                 var query1 = foundUser.queryTevoFinal
-                                var page =  1
+                                var page = 1
                                 var per_page = 9
 
                                 query1 = query1.replace('{{page}}', page);
@@ -2018,7 +2018,7 @@ function processPostback(event) {
                                         if (json.events.length > 0) {
                                             TevoModule.start(senderId, query.query, 0, query.messageTitle, userPreferences, query);
                                         } else {
-                                      
+                                            console.log('No hay eventos O_O, imposible!! ')
 
                                         }
                                     }
