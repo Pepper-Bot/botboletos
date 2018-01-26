@@ -103,9 +103,9 @@
                              }
 
                              if (page > 0) {
-                                 foundUser.page = foundUser.page + page
+                                 foundUser.page =  page
                              } else {
-                                 foundUser.page = 0
+                                 foundUser.page = 1
                              }
 
                              if (per_page > 0) {
@@ -209,9 +209,9 @@
                                          }
 
                                          if (page > 0) {
-                                             User.page = foundUser.page + page
+                                             User.page =  page
                                          } else {
-                                             User.page = 0
+                                             User.page = 1
                                          }
 
                                          if (per_page > 0) {
