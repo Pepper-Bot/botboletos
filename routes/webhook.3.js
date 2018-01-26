@@ -1993,8 +1993,8 @@ function processPostback(event) {
                                 TevoModule.start(senderId, query.query, 0, query.messageTitle, userPreferences, query);
                             } else {
                                 var query1 = foundUser.queryTevoFinal
-                                var page =  1
-                                var per_page = 9
+                                var page = foundUser.page + 1
+                                var per_page = json.events.length
 
                                 query1 = query1.replace('{{page}}', page);
                                 query1 = query1.replace('{{per_page}}', per_page);
@@ -2010,6 +2010,16 @@ function processPostback(event) {
                                     messageTitle: ''
                                 }
 
+                                var userPreferences = {
+                                    event_title: '',
+                                    city: '',
+                                    artist: '',
+                                    team: '',
+                                    event_type: '',
+                                    music_genre: ''
+                                }
+
+
                                 tevoClient.getJSON(query1).then((json) => {
                                     let salir = false;
                                     if (json.error) {
@@ -2018,13 +2028,11 @@ function processPostback(event) {
                                         if (json.events.length > 0) {
                                             TevoModule.start(senderId, query.query, 0, query.messageTitle, userPreferences, query);
                                         } else {
-                                      
 
+                                            
                                         }
                                     }
-                                }).catch((err) => {
-                                    console.log('Error' + err)
-                                })
+                                });
                             }
                         }
                     }).catch((err) => {

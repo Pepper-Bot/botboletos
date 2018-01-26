@@ -177,10 +177,10 @@ module.exports = function () {
 
                                         // createUpdateUserDatas = (senderId, context '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', queryTevoFinal = '', page = 0, per_page = 0, artists = '', musical_genres = '', teams = '', cities = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
 
+                                      
+           
 
-
-
-                                        user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city)
+                                        user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle)
                                     }
 
                                 })

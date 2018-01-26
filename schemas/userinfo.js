@@ -72,7 +72,7 @@ var UserData = mongoose.Schema({
 			default: Date.now
 		}
 	}],
-
+	messageTitle: String 
 	 
 
 
