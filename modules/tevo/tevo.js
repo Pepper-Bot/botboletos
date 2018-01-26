@@ -257,7 +257,9 @@ var setImagesToEventsTemplate = (senderId, resultEvent, gButtons, counter, posit
                     //Message.genericButton(senderId, gButtons);
                     Message.sendMessage(senderId, "Book Events:");
                     var GenericButton = require('../../bot/generic_buttton');
-                    GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
+                    GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ", function (err) {
+
+                    })
                     // GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
 
                 }

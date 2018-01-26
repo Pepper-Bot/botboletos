@@ -197,7 +197,9 @@ module.exports = function () {
 
 
                                         var GenericButton = require('../../bot/generic_buttton');
-                                        GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
+                                        GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ", function (err) {
+
+                                        })
                                         //GenericButton.genericButtonAndTemplateButtons(senderId, gButtons, "You Can choice other options... ")
 
                                         Message.typingOff(senderId);

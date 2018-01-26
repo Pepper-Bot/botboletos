@@ -41,11 +41,11 @@ module.exports = function () {
                     } else {
 
                         if (json.events.length > 0) {
-                          
+
                             Message.markSeen(senderId);
                             Message.typingOn(senderId);
 
-                       
+
                             console.log('TENEMOS  ' + json.events.length + ' EVENTOS <<<<<<<<<<<POSITION > ' + position);
                             var resultEvent = [];
                             resultEvent = json.events;
@@ -182,7 +182,7 @@ module.exports = function () {
                                             Message.sendMessage(senderId, 'Thank your for your vote. Now, do you want to go to the concert?');
                                         }
                                         break;
-                                        case 3:
+                                    case 3:
                                         {
                                             Message.sendMessage(senderId, messageTitle);
                                         }
@@ -193,12 +193,14 @@ module.exports = function () {
                                         }
                                         break;
                                 }
-    
+
                                 console.log("luego del GButons event_name >>>>> " + event_name);
                                 saveUsuarioAndEventSearchLastSelected(senderId, event_name);
 
                                 var GenericButton = require('../bot/generic_buttton');
-                                GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ")
+                                GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ", function (err) {
+
+                                })
 
 
                                 Message.typingOff(senderId);
@@ -221,8 +223,8 @@ module.exports = function () {
 
                     } //fin  de else json.error
                 }).catch((err) => {
-                    
-                    console.err('Hay algo erróneo en la consulta '+ err);
+
+                    console.err('Hay algo erróneo en la consulta ' + err);
                 });
 
 
