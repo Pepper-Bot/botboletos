@@ -199,9 +199,9 @@ function processMessage(senderId, textMessage) {
 
             }
         });
-        
+
     }
- 
+
 
 }
 
@@ -1074,6 +1074,8 @@ function callSendAPI(messageData) {
 
 
 function processLocation(senderId, locationData) {
+    console.log('lat ' + locationData.payload.coordinates.lat)
+    console.log('long ' + locationData.payload.coordinates.long)
 
     UserData2.findOne({
         fbId: senderId

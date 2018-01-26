@@ -166,19 +166,12 @@ module.exports = function () {
 
 
                                 console.log("luego del GButons event_name >>>>> " + urlApiTevo);
-                                //saveUsuarioAndEventSearchLastSelected(senderId, urlApiTevo);
-                                //senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-
-
-
+                               
                                 var GenericButton = require('../bot/generic_buttton');
                                 GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ", function (err) {
                                     if (!err) {
 
                                         // createUpdateUserDatas = (senderId, context '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', queryTevoFinal = '', page = 0, per_page = 0, artists = '', musical_genres = '', teams = '', cities = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
-
-                                      
-           
 
                                         user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle,  userPreferences.event_type)
                                     }
@@ -191,13 +184,6 @@ module.exports = function () {
                                 Message.typingOff(senderId);
 
                             });
-
-
-
-
-
-
-
 
 
 
