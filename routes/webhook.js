@@ -681,7 +681,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 })
                             } else {
                                 console.log('no  tengo categorías')
-                         
+
                                 find_my_event(sender, 1, '');
                             }
 
@@ -881,78 +881,80 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                 break;
             }
-        default:{
-            var page = 1;
-            var per_page = 9;
+
+        default:
+            {
+                var page = 1;
+                var per_page = 9;
 
 
-            var arrayQueryMessages = []
-            var userPreferences = {
-                event_title: '',
-                city: '',
-                artist: '',
-                team: '',
-                event_type: '',
-                music_genre: ''
-            }
-            UserData2.findOne({
-                fbId: sender
-            }, {}, {
-                sort: {
-                    'sessionEnd': -1
+                var arrayQueryMessages = []
+                var userPreferences = {
+                    event_title: '',
+                    city: '',
+                    artist: '',
+                    team: '',
+                    event_type: '',
+                    music_genre: ''
                 }
-            }, function (err, foundUser) {
-                if (foundUser) {
-                    let userSays = founder.userSays[founder.userSays.length - 1]
-                    if (userSays) {
-                        if (userSays.typed) {
+                UserData2.findOne({
+                    fbId: sender
+                }, {}, {
+                    sort: {
+                        'sessionEnd': -1
+                    }
+                }, function (err, foundUser) {
+                    if (foundUser) {
+                        let userSays = foundUser.userSays[foundUser.userSays.length - 1]
+                        if (userSays) {
+                            if (userSays.typed) {
 
-                            var queryMessage = {
-                                prioridad: 4,
-                                searchBy: 'ByName',
-                                query: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
-                                queryReplace: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
-                                queryPage: page,
-                                queryPerPage: per_page,
-                                messageTitle: 'Cool, I looked for "' + userSays.typed + '" shows.  Book a ticket'
-                            }
-                            arrayQueryMessages.push(queryMessage)
+                                var queryMessage = {
+                                    prioridad: 4,
+                                    searchBy: 'ByName',
+                                    query: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
+                                    queryReplace: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
+                                    queryPage: page,
+                                    queryPerPage: per_page,
+                                    messageTitle: 'Cool, I looked for "' + userSays.typed + '" shows.  Book a ticket'
+                                }
+                                arrayQueryMessages.push(queryMessage)
 
-                            if (arrayQueryMessages.length >= 1) {
-                                startTevoByQuery(arrayQueryMessages).then((query) => {
-                                    if (query.query) {
-                                        console.log("query Tevo >>> " + JSON.stringify(query));
-                                        TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
-                                    } else {
-                                        console.log('Events Not found by usersSays escrita por el user')
-                                        Message.sendMessage(sender, responseText);
-    
-                                    }
-    
-                                })
-                            }else{
-                                console.log('Events Not found by q escrita por el user')
+                                if (arrayQueryMessages.length >= 1) {
+                                    startTevoByQuery(arrayQueryMessages).then((query) => {
+                                        if (query.query) {
+                                            console.log("query Tevo >>> " + JSON.stringify(query));
+                                            TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
+                                        } else {
+                                            console.log('Events Not found by usersSays escrita por el user')
+                                            Message.sendMessage(sender, responseText);
+
+                                        }
+
+                                    })
+                                } else {
+                                    console.log('Events Not found by q escrita por el user')
+                                    Message.sendMessage(sender, responseText);
+                                }
+
+
+                            } else {
+                                console.log('no tengo guardado lo ultimo que escribió el usuario')
                                 Message.sendMessage(sender, responseText);
                             }
-
-
-                        }else{
-                            console.log('no tengo guardado lo ultimo que escribió el usuario')
-                            Message.sendMessage(sender, responseText);
                         }
+
+                    } else {
+                        console.log('user no found !!!! consultado by fbId en  ')
+                        Message.sendMessage(sender, responseText);
                     }
-
-                }else{
-                    console.log('user no found !!!! consultado by fbId en  ')
-                    Message.sendMessage(sender, responseText);
-                }
-            })
+                })
 
 
-            break;
-        }
+                break;
+            }
             //unhandled action, just send back the text
-         
+
     }
 }
 
