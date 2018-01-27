@@ -2681,8 +2681,8 @@ function chooseReferral(referral, senderId) {
 
         default:
             {
-
-                startTevoModuleWithMlink(referral, senderId, 1);
+                sendToApiAi(senderId, referral)
+                //startTevoModuleWithMlink(referral, senderId, 1);
 
             }
             break;
