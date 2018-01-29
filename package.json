@@ -38,7 +38,8 @@
     "redis": "^2.8.0",
     "request": "^2.81.0",
     "serve-favicon": "~2.4.2",
-    "ticketevolution-node": "^1.1.0"
+    "ticketevolution-node": "^1.1.0",
+    "zomato": "^1.1.0"
   },
   "devDependencies": {
     "dotenv": "^4.0.0"
