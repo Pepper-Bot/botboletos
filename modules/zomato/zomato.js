@@ -219,7 +219,7 @@ var getEstablishments = (city_id, establishment='Bakery') => {
     zomatoClient.getEstablishments(qs , function (err, result) {
       if (!err) {
         var establishmentsResponse = JSON.parse(result);
-        console.log('venuesResponse ' + JSON.stringify(establishmentsResponse))
+        console.log('venuesResponse ' + JSON.stringify(establishmentsResponse.establishments))
 
         var allBakeries = query('establishment.name').is(establishment).on(establishmentsResponse.establishments);
         console.log('allBakeries ' + JSON.stringify(allBakeries))
