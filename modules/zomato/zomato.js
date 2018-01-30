@@ -221,7 +221,7 @@ var getEstablishments = (city_id, establishment='Bakery') => {
         var establishmentsResponse = JSON.parse(result);
         console.log('venuesResponse ' + JSON.stringify(establishmentsResponse))
 
-        var allBakeries = query('establishment.name').is(establishment).on(establishmentsResponse);
+        var allBakeries = query('establishment.name').is(establishment).on(establishmentsResponse.establishments);
         console.log('allBakeries ' + JSON.stringify(allBakeries))
 
         resolve(establishmentsResponse)
