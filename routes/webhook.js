@@ -21,7 +21,7 @@ const apiai = require('apiai');
 const crypto = require('crypto');
 const uuid = require('uuid');
 var moment = require('moment');
-
+var zomato = require('../modules/zomato/zomato');
 
 var user_queries = require('../schemas/queries/user_queries');
 var TevoModule = require('../modules/query_tevo_request');
@@ -828,7 +828,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     let city = ''
                     let country = ''
                     let venue_type = ''
-                   
+
 
                     if ((isDefined(contexts[0].parameters.beverage))) {
                         if (contexts[0].parameters.beverage != "") {
@@ -849,6 +849,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         if (isDefined(contexts[0].parameters.location.city)) {
                             city = contexts[0].parameters.location.city
                             console.log('city>> ' + city)
+
                         } else {
                             if (isDefined(contexts[0].parameters.location.country)) {
                                 country = contexts[0].parameters.location.country
@@ -859,6 +860,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     }
 
+                    if (city != '') {
+                        zomato.getCities(city).then((cityResponse) => {
+                            console.log('cityResponse' + JSON.stringify(cityResponse))
+                        })
+                    }
 
 
 
