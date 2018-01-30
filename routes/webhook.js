@@ -986,7 +986,7 @@ function handleMessage(message, sender) {
     switch (message.type) {
         case 0: //text
 
-            Message.sendMessage(senderId, message.speech);
+            Message.sendMessage(sender, message.speech);
 
             break;
         case 2: //quick replies
