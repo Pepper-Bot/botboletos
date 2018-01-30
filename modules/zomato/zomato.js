@@ -1,7 +1,7 @@
 var zomato = require('zomato');
 var Message = require('../../bot/messages');
 var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
-
+var query = require('array-query');
 var zomatoClient = zomato.createClient({
   userKey: '2889c298c45512452b6b32e46df88ffa',
 });
@@ -208,7 +208,7 @@ var establishments = {
   ]
 }
 
-var getEstablishments = (city_id) => {
+var getEstablishments = (city_id, establishment='Bakery') => {
   let qs = {
     city_id: city_id, //id of the city for which collections are needed 
     //lat: "28.613939", //latitude 
@@ -220,6 +220,10 @@ var getEstablishments = (city_id) => {
       if (!err) {
         var establishmentsResponse = JSON.parse(result);
         console.log('venuesResponse ' + JSON.stringify(establishmentsResponse))
+
+        var allBakeries = query('establishment.name').is(establishment).on(establishmentsResponse);
+        console.log('allBakeries ' + JSON.stringify(allBakeries))
+
         resolve(establishmentsResponse)
       } else {
         console.log(err);
