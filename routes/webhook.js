@@ -275,6 +275,14 @@ function handleApiAiResponse(sender, response) {
 function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
     console.log('>> handleApiAiAction');
     switch (action) {
+
+
+        case "input.welcome":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
         case "events.search":
             {
                 console.log(" Action events.search >>> ");
@@ -405,7 +413,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     var urlsApiTevo = []
 
                     if ('superbowl' == event_title.toLowerCase()) {
-                        event_title = 'Super Bowl'  
+                        event_title = 'Super Bowl'
                     }
 
                     var userPreferences = {
@@ -806,6 +814,62 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     Message.sendMessage(sender, responseText);
 
                 }
+
+
+                break;
+            }
+
+
+        case 'venues.nightlife.search':
+            {
+                if (isDefined(contexts[0]) && contexts[0].name == 'venues-nightlife' && contexts[0].parameters) {
+
+                    let beverage = ''
+                    let city = ''
+                    let country = ''
+                    let venue_type = ''
+                   
+
+                    if ((isDefined(contexts[0].parameters.beverage))) {
+                        if (contexts[0].parameters.beverage != "") {
+                            beverage = contexts[0].parameters.beverage
+                            console.log('beverage>> ' + beverage)
+                        }
+                    }
+
+                    if ((isDefined(contexts[0].parameters.venue_type))) {
+                        if (contexts[0].parameters.venue_type != "") {
+                            venue_type = contexts[0].parameters.venue_type
+                            console.log('venue_type>> ' + venue_type)
+                        }
+                    }
+
+
+                    if ((isDefined(contexts[0].parameters.location))) {
+                        if (isDefined(contexts[0].parameters.location.city)) {
+                            city = contexts[0].parameters.location.city
+                            console.log('city>> ' + city)
+                        } else {
+                            if (isDefined(contexts[0].parameters.location.country)) {
+                                country = contexts[0].parameters.location.country
+                                console.log('country>> ' + country)
+                                city = country
+                            }
+                        }
+
+                    }
+
+
+
+
+
+                }
+
+
+
+
+
+
 
 
                 break;
