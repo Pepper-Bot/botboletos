@@ -273,10 +273,10 @@ function handleApiAiResponse(sender, response) {
 
 
 function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
-    console.log('>> handleApiAiAction');
+    console.log('>> handleApiAiAction ' + action );
     switch (action) {
 
-
+      
         case "input.welcome":
             {
                 Message.sendMessage(sender, responseText);
@@ -822,7 +822,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
         case 'venues.nightlife.search':
             {
-                console.log('action ' + venues.nightlife.search)
+                console.log('action ' + 'venues.nightlife.search')
                 if (isDefined(contexts[0]) && contexts[0].name == 'venues-nightlife' && contexts[0].parameters) {
                     console.log('contexto ' + contexts[0].name)
                     let beverage = ''
