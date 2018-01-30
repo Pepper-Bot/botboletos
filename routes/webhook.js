@@ -140,7 +140,7 @@ function sendToApiAi(sender, text) {
 
     apiaiRequest.on('response', (response) => {
         if (isDefined(response.result)) {
-            console.log('Api.ai response messages' + JSON.stringify(response))
+            //console.log('Api.ai response messages' + JSON.stringify(response))
             handleApiAiResponse(sender, response);
         }
     });
@@ -218,11 +218,11 @@ function handleApiAiResponse(sender, response) {
     let parameters = response.result.parameters;
 
     Message.typingOff(sender);
-    console.log('Api.ai response messages' + JSON.stringify(response))
+    //console.log('Api.ai response messages' + JSON.stringify(response))
 
     if (isDefined(messages) && (messages.length == 1 && messages[0].type != 0 || messages.length > 1)) {
 
-        console.log('Api.ai response messages' + JSON.stringify(messages))
+        //console.log('Api.ai response messages' + JSON.stringify(messages))
         let timeoutInterval = 1100;
         let previousType;
         let cardTypes = [];
@@ -257,6 +257,7 @@ function handleApiAiResponse(sender, response) {
 
         Message.sendMessage(sender, "I'm not sure what you want. Can you be more specific?");
     } else if (isDefined(action)) {
+        console.log('action ' + action);
         handleApiAiAction(sender, response, action, responseText, contexts, parameters);
     } else if (isDefined(responseData) && isDefined(responseData.facebook)) {
         try {
