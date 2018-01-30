@@ -304,7 +304,8 @@ var search = (qs) => {
     return new Promise((resolve, reject) => {
         zomatoClient.search(qs, function (err, result) {
             if (!err) {
-                resolve(result)
+              var venuesResponse = JSON.parse(result);
+                resolve(venuesResponse)
             } else {
                 reject(err)
             }
@@ -314,7 +315,7 @@ var search = (qs) => {
 
 
 var getTemplateBySearch = function (senderId,  qs) {
-    search(qs).then((json) => {
+    search(qs).then((body) => {
         var json = JSON.parse(body);
         if (json.results_found > 0) {
             console.log('Estos son los resultados:');
