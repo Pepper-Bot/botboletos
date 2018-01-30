@@ -1,5 +1,7 @@
 var zomato = require('zomato');
 var Message = require('../../bot/messages');
+var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
+
 var zomatoClient = zomato.createClient({
   userKey: '2889c298c45512452b6b32e46df88ffa',
 });
@@ -205,6 +207,30 @@ var establishments = {
     }
   ]
 }
+
+var getEstablishments = (city_id) => {
+  let qs = {
+    city_id: city_id, //id of the city for which collections are needed 
+    //lat: "28.613939", //latitude 
+    //lon: "77.209021" //longitude 
+  }
+
+  return new Promise((resolve, reject) => {
+    zomatoClient.getEstablishments(qs , function (err, result) {
+      if (!err) {
+        var establishmentsResponse = JSON.parse(result);
+        console.log('venuesResponse ' + JSON.stringify(establishmentsResponse))
+        resolve(establishmentsResponse)
+      } else {
+        console.log(err);
+        reject(err)
+      }
+    });
+  });
+}
+
+
+
 var getCuisines = (city_id = 0, lat = 0, lon = 0) => {
   let qs = {}
 
@@ -335,7 +361,7 @@ var getTemplateBySearch = function (senderId, qs) {
           "subtitle": json.restaurants[i].restaurant.cuisines,
           "default_action": {
             "type": "web_url",
-            "url": 'https://botboletos.herokuapp.com/redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId
+            "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId
             /*,
                                                                   "messenger_extensions": true,
                                                                   "webview_height_ratio": "tall",
@@ -343,7 +369,7 @@ var getTemplateBySearch = function (senderId, qs) {
           },
           "buttons": [{
             "type": "web_url",
-            "url": 'https://botboletos.herokuapp.com/redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId,
+            "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId,
             "title": "Go"
           }]
         });
@@ -509,6 +535,7 @@ module.exports = {
   getCuisines,
   getCities,
   getTemplateBySearch,
+  getEstablishments,
 
 
 }
