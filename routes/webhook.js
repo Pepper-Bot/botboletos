@@ -288,7 +288,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 console.log(" Action events.search >>> ");
 
                 //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
-                console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
+                //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
 
 
                 let city = ''
@@ -822,8 +822,9 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
         case 'venues.nightlife.search':
             {
+                console.log('action ' + venues.nightlife.search)
                 if (isDefined(contexts[0]) && contexts[0].name == 'venues-nightlife' && contexts[0].parameters) {
-
+                    console.log('contexto ' + contexts[0].name)
                     let beverage = ''
                     let city = ''
                     let country = ''
