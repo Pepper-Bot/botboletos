@@ -251,7 +251,8 @@ var getCities = (q) => {
     return new Promise((resolve, reject) => {
         zomatoClient.getCities(qs, function (err, result) {
             if (!err) {
-                resolve(result)
+               var citiesResponse = JSON.parse(result);
+                resolve(citiesResponse)
             } else {
                 reject(err)
             }
