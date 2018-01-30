@@ -315,8 +315,8 @@ var search = (qs) => {
 
 
 var getTemplateBySearch = function (senderId,  qs) {
-    search(qs).then((body) => {
-        var json = JSON.parse(body);
+    search(qs).then((json) => {
+     
         if (json.results_found > 0) {
             console.log('Estos son los resultados:');
             console.log(json);
