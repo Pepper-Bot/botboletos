@@ -209,18 +209,22 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         let cuisinesR = JSON.parse(result);
         console.log('cuisines ' + JSON.stringify(cuisinesR))
         let cuisines = cuisinesR.cuisines
-        console.log('cuisine> ' + cuisine)
+
         console.log('cuisines ' + JSON.stringify(cuisines))
 
 
-        console.log('getCityCuisineQs----> '+ cuisine)
-
+        console.log('getCityCuisineQs---->' + cuisine)
+        if (cuisine === 'Spanish') {
+          console.log('getCityCuisineQs---->' + 'Son iguales!!!')
+        } else {
+          console.log('getCityCuisineQs---->' + 'No Son iguales!!!')
+        }
         let cocina = query('cuisine.cuisine_name').is('Spanish').on(cuisines);
         //let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
 
         console.log('cocina > ' + JSON.stringify(cocina))
 
-        resolve(cuisines)
+        resolve(cocina)
 
       } else {
         reject(err)
@@ -296,7 +300,7 @@ var getCityCuisineQs = (city_name, cuisine) => {
       console.log('cityResponse' + JSON.stringify(cityResponse))
       let city_id = cityResponse.location_suggestions[0].id
 
-     
+
       getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
 
 
