@@ -225,7 +225,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         for (let i = 0; i < cuisines.length; i++) {
           if (cuisines[i].cuisine.cuisine_name == cuisine) {
             console.log(cuisines[i].cuisine.cuisine_name)
-             cocina = cuisines[i].cuisine.cuisine_name
+             cocina.push(cuisines[i].cuisine.cuisine_name)
              console.log('cocina ' + JSON.stringify(cocina))
              resolve(cocina)
             break;
