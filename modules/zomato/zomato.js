@@ -305,7 +305,7 @@ var getCityCuisineQs = (city_name, cuisine) => {
 
       getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
         let cuisine_id = cousineRes[0].cuisine.cuisine_id
-        console.log('cousineRes ' + JSON.stringify(cousineRes))
+       
         if (cuisine_id) {
           let qs = {
             entity_id: city_id, //location id 
@@ -315,6 +315,9 @@ var getCityCuisineQs = (city_name, cuisine) => {
             order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
           }
           resolve(qs)
+
+          console.log('qs ' + JSON.stringify(qs))
+
         } else {
 
           console.log('error no tengo cuisine_id ')
