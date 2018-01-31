@@ -207,7 +207,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
     zomatoClient.getCuisines(qs, function (err, result) {
       if (!err) {
         let cuisinesR = JSON.parse(result);
-        console.log('cuisines ' + JSON.stringify(cuisinesR))
+      
         let cuisines = cuisinesR.cuisines
 
         console.log('cuisines ' + JSON.stringify(cuisines))
@@ -222,7 +222,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisinesR.cuisines);
         // let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
 
-        //let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
+        let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
 
 
         console.log('cocina ' + JSON.stringify(cocina))
