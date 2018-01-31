@@ -225,7 +225,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         //let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
 
 
-
+        console.log('cocina ' + JSON.stringify(cocina))
         resolve(cocina)
 
       } else {
