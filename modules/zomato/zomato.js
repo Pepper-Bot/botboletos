@@ -221,7 +221,9 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         }
         //let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisinesR.cuisines);
         // let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
-
+        for( let i =  0 ; i< cuisines.length ; i++){
+          console.log( cuisines[i].cuisine.cuisine_name )
+        }
         let cocina = query('cuisine.cuisine_name').startsWith(cossina).or('cuisine.cuisine_name').endsWith(cossina).on(cuisines);
 
 
