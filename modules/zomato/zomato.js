@@ -206,16 +206,16 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
   return new Promise((resolve, reject) => {
     zomatoClient.getCuisines(qs, function (err, result) {
       if (!err) {
-        let cuisines = JSON.parse(result);
+        let cuisinesR = JSON.parse(result);
         console.log('cuisines ' + JSON.stringify(cuisines))
-        //let establishments = establishmentsResponse.establishments
+        let cuisines = cuisinesR.cuisines
         //console.log('establishments ' + JSON.stringify(establishments))
         //var allBakeries = query('establishment.name').is(establishment).on(establishments);
-        //let cocina = query('establishment.name').startsWith(establishment).or('establishment.name').endsWith(establishment).on(establishments);
+        let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
 
-        //console.log('establecimiento > ' + JSON.stringify(establecimiento))
+        console.log('cocina > ' + JSON.stringify(cocina))
 
-        resolve(result)
+        resolve(cuisines)
 
       } else {
         reject(err)
@@ -293,11 +293,11 @@ var getCityCuisineQs = (city_name, cousine) => {
       getCuisines(city_id, 0, 0, cousine).then((cousineRes) => {
 
 
-      
+
         let qs = {
           entity_id: city_id, //location id 
           entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-         // cuisines: cousineRes.id,
+          // cuisines: cousineRes.id,
           sort: " cost,rating,real_distance", //choose any one out of these available choices 
           order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
         }
