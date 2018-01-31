@@ -217,9 +217,9 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0) => {
 }
 
 
-var getCities = (q) => {
+var getCities = (city_name) => {
   var qs = {
-    q: q, //query by city name 
+    q: city_name, //query by city name 
     //lat: "28.613939", //latitude 
     /// lon: "77.209021", //longitude 
     //city_ids: "1,2,3", //comma separated city_ids value 
@@ -238,6 +238,48 @@ var getCities = (q) => {
   });
 
 }
+
+var getCityQs = (city_name) => {
+  return new Promise((resolve, reject) => {
+    getCities(q).then((cityResponse) => {
+      console.log('cityResponse' + JSON.stringify(cityResponse))
+      let city_id = cityResponse.location_suggestions[0].id
+      let qs = {
+        entity_id: city_id, //location id 
+        entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+        sort: " cost,rating,real_distance", //choose any one out of these available choices 
+        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      }
+      resolve(qs)
+    })
+  })
+}
+
+var getCityEstablishmentQs = (city_name, venue_type) => {
+  return new Promise((resolve, reject) => {
+    getCities(city_name).then((cityResponse) => {
+      console.log('cityResponse' + JSON.stringify(cityResponse))
+      let city_id = cityResponse.location_suggestions[0].id
+      getEstablishments(city_id, venue_type).then((establishment_type) => {
+        let qs = {
+          entity_id: city_id, //location id 
+          entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+          establishment_type: establishment_type.id,
+          sort: " cost,rating,real_distance", //choose any one out of these available choices 
+          order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        }
+        resolve(qs)
+      })
+    })
+  })
+}
+
+
+
+
+
+
+
 
 var getCategories = (q) => {
   var qs = {
@@ -488,6 +530,9 @@ module.exports = {
   getCities,
   getTemplateBySearch,
   getEstablishments,
+  getCityQs,
+  getCityEstablishmentQs,
 
+  
 
 }
