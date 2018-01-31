@@ -867,9 +867,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     let zomatoQs = []
                     if (city != '') {
                         if (venue_type != '') {
-
+                            zomatoQs.push(zomato.getCityEstablishmentQs(city, venue_type).then(qs))
                         }
 
+
+                        
                         zomatoQs.push(zomato.getCityQs(city).then(qs))
 
 
