@@ -870,9 +870,9 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                         }
 
-                        zomatoQs.push(zomato.getCityQs(city))
+                        zomatoQs.push(zomato.getCityQs(city).then(qs))
 
-                        
+
                         Promise.all(zomatoQs).then(function (data) {
                             console.log('zomatoQs ' + JSON.stringify(zomatoQs))
                         });
