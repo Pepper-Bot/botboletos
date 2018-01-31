@@ -306,11 +306,11 @@ var getCityCuisineQs = (city_name, cuisine) => {
       getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
 
 
-        if (cousineRes.cuisine_id) {
+        if (cousineRes.cuisine.cuisine_id) {
           let qs = {
             entity_id: city_id, //location id 
             entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-            cuisines: cousineRes.cuisine_id,
+            cuisines: cousineRes.cuisine.cuisine_id,
             sort: " cost,rating,real_distance", //choose any one out of these available choices 
             order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
           }
