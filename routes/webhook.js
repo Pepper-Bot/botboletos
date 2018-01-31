@@ -869,10 +869,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             let city_id = cityResponse.location_suggestions[0].id
                             console.log('city_id' + city_id)
 
+                            if (venue_type != '') {
+                                zomato.getEstablishments(city_id, venue_type ).then((establishmentsRes) => {
 
-                            zomato.getEstablishments(city_id).then((establishmentsRes) => {
-                                console.log('establishmentsRes' + JSON.stringify(establishmentsRes))
-                            })
+                                })
+                            }
+
 
 
 

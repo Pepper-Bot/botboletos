@@ -6,209 +6,154 @@ var zomatoClient = zomato.createClient({
   userKey: '2889c298c45512452b6b32e46df88ffa',
 });
 
-var establishments = {
-  "establishments": [{
-      "establishment": {
-        "id": 21,
-        "name": "Quick Bites"
-      }
-    },
-    {
-      "establishment": {
-        "id": 271,
-        "name": "Sandwich Shop"
-      }
-    },
-    {
-      "establishment": {
-        "id": 1,
-        "name": "Café"
-      }
-    },
-    {
-      "establishment": {
-        "id": 281,
-        "name": "Fast Food"
-      }
-    },
-    {
-      "establishment": {
-        "id": 7,
-        "name": "Bar"
-      }
-    },
-    {
-      "establishment": {
-        "id": 16,
-        "name": "Casual Dining"
-      }
-    },
-    {
-      "establishment": {
-        "id": 24,
-        "name": "Deli"
-      }
-    },
-    {
-      "establishment": {
-        "id": 31,
-        "name": "Bakery"
-      }
-    },
-    {
-      "establishment": {
-        "id": 18,
-        "name": "Fine Dining"
-      }
-    },
-    {
-      "establishment": {
-        "id": 275,
-        "name": "Pizzeria"
-      }
-    },
-    {
-      "establishment": {
-        "id": 101,
-        "name": "Diner"
-      }
-    },
-    {
-      "establishment": {
-        "id": 5,
-        "name": "Lounge"
-      }
-    },
-    {
-      "establishment": {
-        "id": 278,
-        "name": "Wine Bar"
-      }
-    },
-    {
-      "establishment": {
-        "id": 6,
-        "name": "Pub"
-      }
-    },
-    {
-      "establishment": {
-        "id": 286,
-        "name": "Coffee Shop"
-      }
-    },
-    {
-      "establishment": {
-        "id": 23,
-        "name": "Dessert Parlour"
-      }
-    },
-    {
-      "establishment": {
-        "id": 285,
-        "name": "Fast Casual"
-      }
-    },
-    {
-      "establishment": {
-        "id": 8,
-        "name": "Club"
-      }
-    },
-    {
-      "establishment": {
-        "id": 91,
-        "name": "Bistro"
-      }
-    },
-    {
-      "establishment": {
-        "id": 283,
-        "name": "Brewery"
-      }
-    },
-    {
-      "establishment": {
-        "id": 284,
-        "name": "Juice Bar"
-      }
-    },
-    {
-      "establishment": {
-        "id": 20,
-        "name": "Food Court"
-      }
-    },
-    {
-      "establishment": {
-        "id": 295,
-        "name": "Noodle Shop"
-      }
-    },
-    {
-      "establishment": {
-        "id": 292,
-        "name": "Beer Garden"
-      }
-    },
-    {
-      "establishment": {
-        "id": 282,
-        "name": "Taqueria"
-      }
-    },
-    {
-      "establishment": {
-        "id": 272,
-        "name": "Cocktail Bar"
-      }
-    },
-    {
-      "establishment": {
-        "id": 291,
-        "name": "Sweet Shop"
-      }
-    },
-    {
-      "establishment": {
-        "id": 81,
-        "name": "Food Truck"
-      }
-    },
-    {
-      "establishment": {
-        "id": 294,
-        "name": "Izakaya"
-      }
-    },
-    {
-      "establishment": {
-        "id": 161,
-        "name": "Microbrewery"
-      }
-    },
-    {
-      "establishment": {
-        "id": 290,
-        "name": "Vineyard"
-      }
-    },
-    {
-      "establishment": {
-        "id": 293,
-        "name": "Shack"
-      }
-    },
-    {
-      "establishment": {
-        "id": 41,
-        "name": "Beverage Shop"
-      }
-    }
-  ]
-}
+var establishments = [{
+  "establishment": {
+    "id": 16,
+    "name": "Casual Dining"
+  }
+}, {
+  "establishment": {
+    "id": 275,
+    "name": "Pizzeria"
+  }
+}, {
+  "establishment": {
+    "id": 18,
+    "name": "Fine Dining"
+  }
+}, {
+  "establishment": {
+    "id": 31,
+    "name": "Bakery"
+  }
+}, {
+  "establishment": {
+    "id": 1,
+    "name": "Café"
+  }
+}, {
+  "establishment": {
+    "id": 7,
+    "name": "Bar"
+  }
+}, {
+  "establishment": {
+    "id": 5,
+    "name": "Lounge"
+  }
+}, {
+  "establishment": {
+    "id": 281,
+    "name": "Fast Food"
+  }
+}, {
+  "establishment": {
+    "id": 24,
+    "name": "Deli"
+  }
+}, {
+  "establishment": {
+    "id": 271,
+    "name": "Sandwich Shop"
+  }
+}, {
+  "establishment": {
+    "id": 295,
+    "name": "Noodle Shop"
+  }
+}, {
+  "establishment": {
+    "id": 6,
+    "name": "Pub"
+  }
+}, {
+  "establishment": {
+    "id": 283,
+    "name": "Brewery"
+  }
+}, {
+  "establishment": {
+    "id": 285,
+    "name": "Fast Casual"
+  }
+}, {
+  "establishment": {
+    "id": 286,
+    "name": "Coffee Shop"
+  }
+}, {
+  "establishment": {
+    "id": 81,
+    "name": "Food Truck"
+  }
+}, {
+  "establishment": {
+    "id": 8,
+    "name": "Club"
+  }
+}, {
+  "establishment": {
+    "id": 21,
+    "name": "Quick Bites"
+  }
+}, {
+  "establishment": {
+    "id": 101,
+    "name": "Diner"
+  }
+}, {
+  "establishment": {
+    "id": 278,
+    "name": "Wine Bar"
+  }
+}, {
+  "establishment": {
+    "id": 91,
+    "name": "Bistro"
+  }
+}, {
+  "establishment": {
+    "id": 23,
+    "name": "Dessert Parlour"
+  }
+}, {
+  "establishment": {
+    "id": 20,
+    "name": "Food Court"
+  }
+}, {
+  "establishment": {
+    "id": 282,
+    "name": "Taqueria"
+  }
+}, {
+  "establishment": {
+    "id": 284,
+    "name": "Juice Bar"
+  }
+}, {
+  "establishment": {
+    "id": 291,
+    "name": "Sweet Shop"
+  }
+}, {
+  "establishment": {
+    "id": 41,
+    "name": "Beverage Shop"
+  }
+}, {
+  "establishment": {
+    "id": 272,
+    "name": "Cocktail Bar"
+  }
+}, {
+  "establishment": {
+    "id": 292,
+    "name": "Beer Garden"
+  }
+}]
 
-var getEstablishments = (city_id, establishment='Bakery') => {
+var getEstablishments = (city_id, establishment = '') => {
   let qs = {
     city_id: city_id, //id of the city for which collections are needed 
     //lat: "28.613939", //latitude 
@@ -216,15 +161,18 @@ var getEstablishments = (city_id, establishment='Bakery') => {
   }
 
   return new Promise((resolve, reject) => {
-    zomatoClient.getEstablishments(qs , function (err, result) {
+    zomatoClient.getEstablishments(qs, function (err, result) {
       if (!err) {
-        var establishmentsResponse = JSON.parse(result);
-        console.log('venuesResponse ' + JSON.stringify(establishmentsResponse.establishments))
+        let establishmentsResponse = JSON.parse(result);
+        let establishments = establishmentsResponse.establishments
+        console.log('establishments ' + JSON.stringify(establishments))
+        //var allBakeries = query('establishment.name').is(establishment).on(establishments);
+        let establecimiento = query('establishment.name').startsWith(establishment).or('establishment.name').endsWith(establishment).on(establishments);
 
-        var allBakeries = query('establishment.name').is(establishment).on(establishmentsResponse.establishments);
-        console.log('allBakeries ' + JSON.stringify(allBakeries))
+        console.log('establecimiento > ' + JSON.stringify(establecimiento))
 
-        resolve(establishmentsResponse)
+
+        resolve(establecimiento)
       } else {
         console.log(err);
         reject(err)
