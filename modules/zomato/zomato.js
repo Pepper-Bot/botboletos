@@ -210,8 +210,8 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         console.log('cuisines ' + JSON.stringify(cuisinesR))
         let cuisines = cuisinesR.cuisines
         //console.log('establishments ' + JSON.stringify(establishments))
-        //var allBakeries = query('establishment.name').is(establishment).on(establishments);
-        let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
+        let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
+        //let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
 
         console.log('cocina > ' + JSON.stringify(cocina))
 
