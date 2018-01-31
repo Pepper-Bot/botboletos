@@ -212,6 +212,9 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         console.log('cuisine> ' + cuisine)
         console.log('cuisines ' + JSON.stringify(cuisines))
 
+
+        console.log('getCityCuisineQs----> '+ cousine)
+
         let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
         //let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
 
@@ -293,7 +296,7 @@ var getCityCuisineQs = (city_name, cousine) => {
       console.log('cityResponse' + JSON.stringify(cityResponse))
       let city_id = cityResponse.location_suggestions[0].id
 
-      console.log('getCityCuisineQs  cousine '+ cousine)
+     
       getCuisines(city_id, 0, 0, cousine).then((cousineRes) => {
 
 
