@@ -213,7 +213,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         console.log('cuisines ' + JSON.stringify(cuisines))
 
 
-        console.log('getCityCuisineQs----> '+ cousine)
+        console.log('getCityCuisineQs----> '+ cuisine)
 
         let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
         //let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
@@ -290,14 +290,14 @@ var getCityEstablishmentQs = (city_name, venue_type) => {
 
 
 
-var getCityCuisineQs = (city_name, cousine) => {
+var getCityCuisineQs = (city_name, cuisine) => {
   return new Promise((resolve, reject) => {
     getCities(city_name).then((cityResponse) => {
       console.log('cityResponse' + JSON.stringify(cityResponse))
       let city_id = cityResponse.location_suggestions[0].id
 
      
-      getCuisines(city_id, 0, 0, cousine).then((cousineRes) => {
+      getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
 
 
 
