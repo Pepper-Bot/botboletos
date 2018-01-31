@@ -864,7 +864,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                     let qs = {}
-                    zomatoQs = []
+                    let zomatoQs = []
                     if (city != '') {
                         if (venue_type != '') {
 
