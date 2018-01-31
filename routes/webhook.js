@@ -949,7 +949,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     if ((isDefined(contexts[0].parameters.cuisine))) {
                         if (contexts[0].parameters.cuisine != "") {
                             cuisine = contexts[0].parameters.cuisine
-                            console.log('venue_type>> ' + cuisine)
+                            console.log('cuisineV >> ' + cuisine)
                         }
                     }
 
