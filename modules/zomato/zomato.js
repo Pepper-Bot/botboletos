@@ -217,7 +217,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         if (cuisine === 'Spanish') {
           console.log('getCityCuisineQs---->' + 'Son iguales!!!')
         } else {
-          console.log('getCityCuisineQs---->' + 'No Son iguales!!!')
+          console.log('getCityCuisineQs---->' + 'No Son iguales!!!'+cuisine)
         }
         let cocina = query('cuisine.cuisine_name').is('Spanish').on(cuisines);
         //let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
