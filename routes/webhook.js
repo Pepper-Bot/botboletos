@@ -871,7 +871,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         }
 
 
-                        
+
                         zomatoQs.push(zomato.getCityQs(city).then(qs))
 
 
@@ -900,6 +900,104 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 break;
             }
 
+
+
+        case 'venues.eating_out.search':
+            {
+
+
+                console.log('action ' + 'venues.eating_out.search')
+                if (isDefined(contexts[0]) && contexts[0].name == 'venueseating_outsearch-followup' && contexts[0].parameters) {
+                    console.log('contexto ' + contexts[0].name)
+                    let beverage = ''
+                    let city = ''
+                    let country = ''
+                    let venue_type = ''
+                    let cuisine = ''
+
+                    if ((isDefined(contexts[0].parameters.beverage))) {
+                        if (contexts[0].parameters.beverage != "") {
+                            beverage = contexts[0].parameters.beverage
+                            console.log('beverage>> ' + beverage)
+                        }
+                    }
+
+                    if ((isDefined(contexts[0].parameters.venue_type))) {
+                        if (contexts[0].parameters.venue_type != "") {
+                            venue_type = contexts[0].parameters.venue_type
+                            console.log('venue_type>> ' + venue_type)
+                        }
+                    }
+
+
+                    if ((isDefined(contexts[0].parameters.location))) {
+                        if (isDefined(contexts[0].parameters.location.city)) {
+                            city = contexts[0].parameters.location.city
+                            console.log('city>> ' + city)
+
+                        } else {
+                            if (isDefined(contexts[0].parameters.location.country)) {
+                                country = contexts[0].parameters.location.country
+                                console.log('country>> ' + country)
+                                city = country
+                            }
+                        }
+
+                    }
+
+
+                    if ((isDefined(contexts[0].parameters.cuisine))) {
+                        if (contexts[0].parameters.cuisine != "") {
+                            cuisine = contexts[0].parameters.cuisine
+                            console.log('venue_type>> ' + cuisine)
+                        }
+                    }
+
+
+
+                    let qs = {}
+                    let zomatoQs = []
+                    if (city != '') {
+                        if (venue_type != '') {
+                            zomatoQs.push(zomato.getCityEstablishmentQs(city, venue_type).then(qs))
+                        }
+
+                        if (cuisine != '') {
+                            zomato.getCityCuisineQs(city, cuisine).then((qs)=>{
+
+                            })
+                            //zomatoQs.push(zomato.getCityEstablishmentQs(city, venue_type).then(qs))
+                        }
+
+
+
+                        zomatoQs.push(zomato.getCityQs(city).then(qs))
+
+
+
+
+                        Promise.all(zomatoQs).then(values => {
+                            console.log('zomatoQs ' + JSON.stringify(values))
+                        });
+
+
+
+                    }
+
+
+
+
+                }
+
+
+
+
+
+
+
+
+                break;
+            }
         default:
             {
                 var page = 1;

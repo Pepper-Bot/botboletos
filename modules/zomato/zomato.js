@@ -183,7 +183,7 @@ var getEstablishments = (city_id, establishment = '') => {
 
 
 
-var getCuisines = (city_id = 0, lat = 0, lon = 0) => {
+var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
   let qs = {}
 
   if (city_id != 0) {
@@ -206,6 +206,15 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0) => {
   return new Promise((resolve, reject) => {
     zomatoClient.getCuisines(qs, function (err, result) {
       if (!err) {
+        let cuisines = JSON.parse(result);
+        console.log('cuisines ' + JSON.stringify(cuisines))
+        //let establishments = establishmentsResponse.establishments
+        //console.log('establishments ' + JSON.stringify(establishments))
+        //var allBakeries = query('establishment.name').is(establishment).on(establishments);
+        //let cocina = query('establishment.name').startsWith(establishment).or('establishment.name').endsWith(establishment).on(establishments);
+
+        //console.log('establecimiento > ' + JSON.stringify(establecimiento))
+
         resolve(result)
 
       } else {
@@ -273,6 +282,31 @@ var getCityEstablishmentQs = (city_name, venue_type) => {
     })
   })
 }
+
+
+
+var getCityCuisineQs = (city_name, cousine) => {
+  return new Promise((resolve, reject) => {
+    getCities(city_name).then((cityResponse) => {
+      console.log('cityResponse' + JSON.stringify(cityResponse))
+      let city_id = cityResponse.location_suggestions[0].id
+      getCuisines(city_id, 0, 0, cousine).then((cousineRes) => {
+
+
+      
+        let qs = {
+          entity_id: city_id, //location id 
+          entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+         // cuisines: cousineRes.id,
+          sort: " cost,rating,real_distance", //choose any one out of these available choices 
+          order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        }
+        resolve(qs)
+      })
+    })
+  })
+}
+
 
 
 
@@ -525,13 +559,10 @@ var start = function (Message, result, locationData) {
 
 
 module.exports = {
-  getCategories,
-  getCuisines,
-  getCities,
-  getTemplateBySearch,
-  getEstablishments,
+
   getCityQs,
   getCityEstablishmentQs,
+  getCityCuisineQs
 
 
 
