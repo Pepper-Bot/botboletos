@@ -226,14 +226,15 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
           if (cuisines[i].cuisine.cuisine_name == cuisine) {
             console.log(cuisines[i].cuisine.cuisine_name)
              cocina = cuisines[i].cuisine.cuisine_name
+             console.log('cocina ' + JSON.stringify(cocina))
+             resolve(cocina)
             break;
           }
         }
         //let cocina = query('cuisine.cuisine_name').startsWith(cossina).or('cuisine.cuisine_name').endsWith(cossina).on(cuisines);
 
 
-        console.log('cocina ' + JSON.stringify(cocina))
-        resolve(cocina)
+      
 
       } else {
         reject(err)
