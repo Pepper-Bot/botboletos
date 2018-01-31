@@ -220,7 +220,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
           console.log('getCityCuisineQs---->' + 'No Son iguales!!!' + cuisine)
         }
         let cocina = query('cuisine.cuisine_name').is('Spanish').on(cuisines);
-       // let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
+        // let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
 
         //let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
 
@@ -304,13 +304,13 @@ var getCityCuisineQs = (city_name, cuisine) => {
 
 
       getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
-        let cuisine_id = cousineRes.cuisine_id
+        let cuisine_id = cousineRes.cuisine.cuisine_id
 
         if (cuisine_id) {
           let qs = {
             entity_id: city_id, //location id 
             entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-            cuisines: cousineRes.cuisine.cuisine_id,
+            cuisines: cuisine_id,
             sort: " cost,rating,real_distance", //choose any one out of these available choices 
             order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
           }
