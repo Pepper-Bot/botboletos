@@ -219,7 +219,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         } else {
           console.log('getCityCuisineQs---->' + 'No Son iguales!!!' + cuisine)
         }
-        let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
+        let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisinesR.cuisines);
         // let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
 
         //let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
@@ -304,24 +304,30 @@ var getCityCuisineQs = (city_name, cuisine) => {
 
 
       getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
-        let cuisine_id = cousineRes[0].cuisine.cuisine_id
-       
-        if (cuisine_id) {
-          let qs = {
-            entity_id: city_id, //location id 
-            entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-            cuisines: cuisine_id,
-            sort: " cost,rating,real_distance", //choose any one out of these available choices 
-            order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        if (cousineRes.length > 0) {
+          let cuisine_id = cousineRes[0].cuisine.cuisine_id
+
+          if (cuisine_id) {
+            let qs = {
+              entity_id: city_id, //location id 
+              entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+              cuisines: cuisine_id,
+              sort: " cost,rating,real_distance", //choose any one out of these available choices 
+              order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+            }
+            resolve(qs)
+
+            console.log('qs ' + JSON.stringify(qs))
+
+          } else {
+            console.log('error no tengo cuisine_id ')
+            resolve({})
           }
-          resolve(qs)
-
-          console.log('qs ' + JSON.stringify(qs))
-
         } else {
-
           console.log('error no tengo cuisine_id ')
+          resolve({})
         }
+
 
       })
     })
