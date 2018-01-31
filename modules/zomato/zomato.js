@@ -304,8 +304,8 @@ var getCityCuisineQs = (city_name, cuisine) => {
 
 
       getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
-        let cuisine_id = cousineRes.cuisine.cuisine_id
-
+        let cuisine_id = cousineRes.cuisine_id
+        console.log('cuisine_id ' + cuisine_id)
         if (cuisine_id) {
           let qs = {
             entity_id: city_id, //location id 
