@@ -212,7 +212,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         console.log('cuisine> ' + cuisine)
         console.log('cuisines ' + JSON.stringify(cuisines))
 
-        let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
+        let cocina = query('cuisine.cuisine_name').is('African').on(cuisines);
         //let cocina = query('cuisine.cuisine_name').startsWith(cuisine).or('cuisine.cuisine_name').endsWith(cuisine).on(cuisines);
 
         console.log('cocina > ' + JSON.stringify(cocina))
@@ -234,7 +234,7 @@ var getCities = (city_name) => {
     //lat: "28.613939", //latitude 
     /// lon: "77.209021", //longitude 
     //city_ids: "1,2,3", //comma separated city_ids value 
-    count: "2" // number of maximum result to display 
+    count: "2" // number of maximum result to display   
   }
   return new Promise((resolve, reject) => {
     zomatoClient.getCities(qs, function (err, result) {
