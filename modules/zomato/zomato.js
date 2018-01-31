@@ -209,7 +209,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         let cuisinesR = JSON.parse(result);
         console.log('cuisines ' + JSON.stringify(cuisinesR))
         let cuisines = cuisinesR.cuisines
-        console.log('cuisine> ' + JSON.stringify(cuisine))
+        console.log('cuisine> ' + cuisine)
         console.log('cuisines ' + JSON.stringify(cuisines))
 
         let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
