@@ -214,7 +214,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
 
 
         console.log('getCityCuisineQs---->' + cuisine)
-        if (cuisine === 'Spanish') {
+        if (cuisine == 'Spanish') {
           console.log('getCityCuisineQs---->' + 'Son iguales!!!')
         } else {
           console.log('getCityCuisineQs---->' + 'No Son iguales!!!'+cuisine)
