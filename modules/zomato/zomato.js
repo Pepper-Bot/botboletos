@@ -241,7 +241,7 @@ var getCities = (city_name) => {
 
 var getCityQs = (city_name) => {
   return new Promise((resolve, reject) => {
-    getCities(q).then((cityResponse) => {
+    getCities(city_name).then((cityResponse) => {
       console.log('cityResponse' + JSON.stringify(cityResponse))
       let city_id = cityResponse.location_suggestions[0].id
       let qs = {
@@ -533,6 +533,6 @@ module.exports = {
   getCityQs,
   getCityEstablishmentQs,
 
-  
+
 
 }
