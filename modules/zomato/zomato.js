@@ -217,59 +217,58 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
 
         //let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisinesR.cuisines);
         // let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
-        let cocina = [];
 
-        for (let i = 0; i < cuisines.length; i++) {
-          cuisineQueries.getCuisineById(cuisines[i].cuisine.cuisine_id).then((cusinesSalida) => {
-            if (cusinesSalida) {
-              if (cusinesSalida.length <= 0) {
-                let v_cuisineSchema = new cuisineSchema; {
-                  v_cuisineSchema.name = cuisines[i].cuisine.cuisine_name;
-                  v_cuisineSchema.id = cuisines[i].cuisine.cuisine_id;
-                  v_cuisineSchema.value = cuisines[i].cuisine.cuisine_name;
-                  v_cuisineSchema.synonyms.push(cuisines[i].cuisine.cuisine_name)
-                  v_cuisineSchema.save()
+
+
+        cuisineQueries.getCuisineByName(cuisine).then((cocinaEncontrada) => {
+          if (cocinaEncontrada.length > 0) {
+            resolve(cocinaEncontrada)
+          } else {
+            for (let i = 0; i < cuisines.length; i++) {
+              cuisineQueries.getCuisineById(cuisines[i].cuisine.cuisine_id).then((cusinesSalida) => {
+                if (cusinesSalida) {
+                  if (cusinesSalida.length <= 0) {
+                    let v_cuisineSchema = new cuisineSchema; {
+                      v_cuisineSchema.name = cuisines[i].cuisine.cuisine_name;
+                      v_cuisineSchema.id = cuisines[i].cuisine.cuisine_id;
+                      v_cuisineSchema.value = cuisines[i].cuisine.cuisine_name;
+                      v_cuisineSchema.synonyms.push(cuisines[i].cuisine.cuisine_name)
+                      v_cuisineSchema.save()
+                    }
+                  }
+                } else {
+                  let v_cuisineSchema = new cuisineSchema; {
+                    v_cuisineSchema.name = cuisines[i].cuisine.cuisine_name;
+                    v_cuisineSchema.id = cuisines[i].cuisine.cuisine_id;
+                    v_cuisineSchema.value = cuisines[i].cuisine.cuisine_name;
+                    v_cuisineSchema.synonyms.push(cuisines[i].cuisine.cuisine_name)
+                    v_cuisineSchema.save()
+                  }
                 }
+              })
+
+              if (i == cuisines.length - 1) {
+                /*for (let j = 0; j < cuisines.length; j++) {
+                  if (cuisines[j].cuisine.cuisine_name == cuisine) {
+                    console.log(cuisines[j].cuisine.cuisine_name)
+                    cocina.push(cuisines[j])
+                    console.log('cocina ' + JSON.stringify(cocina))
+                    resolve(cocina)
+                    break;
+                  }*/
+
+                cuisineQueries.getCuisineByName(cuisine).then((cocinaEncontrada) => {
+                  console.log('cocina encontrada... >' + JSON.stringify(cocinaEncontrada))
+                  resolve(cocinaEncontrada)
+                })
               }
-            } else {
-              let v_cuisineSchema = new cuisineSchema; {
-                v_cuisineSchema.name = cuisines[i].cuisine.cuisine_name;
-                v_cuisineSchema.id = cuisines[i].cuisine.cuisine_id;
-                v_cuisineSchema.value = cuisines[i].cuisine.cuisine_name;
-                v_cuisineSchema.synonyms.push(cuisines[i].cuisine.cuisine_name)
-                v_cuisineSchema.save()
-              }
+
             }
-          })
-
-          if (i == cuisines.length - 1) {
-            /*for (let j = 0; j < cuisines.length; j++) {
-              if (cuisines[j].cuisine.cuisine_name == cuisine) {
-                console.log(cuisines[j].cuisine.cuisine_name)
-                cocina.push(cuisines[j])
-                console.log('cocina ' + JSON.stringify(cocina))
-                resolve(cocina)
-                break;
-              }*/
-
-            cuisineQueries.getCuisineByName(cuisine).then((cocina) => {
-              console.log('cocina encontrada... >' + JSON.stringify(cocina))
-            })
           }
-
-        }
+        })
       }
 
-
-
-
-
-
-
-
-
     });
-
   });
 }
 
@@ -342,8 +341,8 @@ var getCityCuisineQs = (city_name, cuisine) => {
 
       getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
         if (cousineRes.length > 0) {
-          let cuisine_id = cousineRes[0].cuisine.cuisine_id
-
+          //let cuisine_id = cousineRes[0].cuisine.cuisine_id
+          let cuisine_id = cousineRes[0].id
           if (cuisine_id) {
             let qs = {
               entity_id: city_id, //location id 
