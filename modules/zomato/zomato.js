@@ -229,7 +229,13 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
             cuisineQueries.getCuisineById(cuisines[i].cuisine.cuisine_id).then((cusinesSalida) => {
               if (cusinesSalida) {
                 if (cusinesSalida.length <= 0) {
-
+                  let v_cuisineSchema = new cuisineSchema; {
+                    v_cuisineSchema.name = cuisines[i].cuisine.cuisine_name;
+                    v_cuisineSchema.id = cuisines[i].cuisine.cuisine_id;
+                    v_cuisineSchema.value = cuisines[i].cuisine.cuisine_name;
+                    v_cuisineSchema.synonyms.push(cuisines[i].cuisine.cuisine_name)
+                    v_cuisineSchema.save()
+                  }
                 }
               } else {
                 let v_cuisineSchema = new cuisineSchema; {
@@ -240,11 +246,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
                   v_cuisineSchema.save()
                 }
               }
-
             })
-
-
-
           }
         }
 

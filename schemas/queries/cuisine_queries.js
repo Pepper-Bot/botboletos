@@ -24,7 +24,7 @@
                          reject(err)
                      }
                      if (cuisines) {
-                         resolve(categories)
+                         resolve(cuisines)
                          console.log("cuisines zomato >>> " + JSON.stringify(cuisines));
                      }
                  });
