@@ -219,7 +219,10 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         // let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
 
 
-
+        cuisineQueries.getCuisinesForAI().then((cocinasForAI) => {
+          console.log('cocinasForAI ' + JSON.stringify(cocinasForAI))
+        })
+        
         cuisineQueries.getCuisineByName(cuisine).then((cocinaEncontrada) => {
           if (cocinaEncontrada.length > 0) {
             resolve(cocinaEncontrada)

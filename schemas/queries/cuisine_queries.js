@@ -25,7 +25,7 @@
                      }
                      if (cuisines) {
 
-                        
+
                          resolve(cuisines)
                          //console.log("cuisines zomato >>> " + JSON.stringify(cuisines));
                      }
@@ -48,7 +48,7 @@
 
              }
              if (!cusines) {
-                console.log('Error al consultar cuisine en   getCuisine !' + err)
+                 console.log('Error al consultar cuisine en   getCuisine !' + err)
                  reject(err)
              }
              if (cusines) {
@@ -61,8 +61,43 @@
  }
 
 
+
+
+
+
+ var getCuisinesForAI = () => {
+     return new Promise((resolve, reject) => {
+         CusineModel.find({
+
+             }, {
+                 value: 1,
+                 synonyms: 1,
+                 _id: 0
+             },
+
+             function (err, cusines) {
+                 if (err) {
+                     console.log('Error al consultar cuisine en   getCuisine ' + err)
+                     reject(err)
+
+                 }
+                 if (!cusines) {
+                     console.log('Error al consultar cuisine en   getCuisine !' + err)
+                     reject(err)
+                 }
+                 if (cusines) {
+                     resolve(cusines)
+                     console.log("getCuisinesForAI  >>> " + JSON.stringify(cusines));
+                 }
+             });
+
+     })
+ }
+
+
  module.exports = {
      getCuisineById,
-     getCuisineByName
+     getCuisineByName,
+     getCuisinesForAI,
 
  }
