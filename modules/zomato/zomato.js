@@ -2,6 +2,8 @@ var zomato = require('zomato');
 var Message = require('../../bot/messages');
 var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 var query = require('array-query');
+var cuisineSchema = require('../../schemas/cuisine')
+var cuisineQueries = require('../../schemas/queries/cuisine_queries')
 var zomatoClient = zomato.createClient({
   userKey: '2889c298c45512452b6b32e46df88ffa',
 });
@@ -212,29 +214,54 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
 
         console.log('cuisines ' + JSON.stringify(cuisines))
 
-        let cossina = cuisine
-        console.log('getCityCuisineQs---->' + cuisine)
-        if (cuisine == 'Spanish') {
-          console.log('getCityCuisineQs---->' + 'Son iguales!!!' + cuisine)
-        } else {
-          console.log('getCityCuisineQs---->' + 'No Son iguales!!!' + cuisine)
-        }
+
         //let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisinesR.cuisines);
         // let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisines);
-        let cocina = []; 
+        let cocina = [];
+
         for (let i = 0; i < cuisines.length; i++) {
           if (cuisines[i].cuisine.cuisine_name == cuisine) {
             console.log(cuisines[i].cuisine.cuisine_name)
-             cocina.push(cuisines[i])
-             console.log('cocina ' + JSON.stringify(cocina))
-             resolve(cocina)
+            cocina.push(cuisines[i])
+            console.log('cocina ' + JSON.stringify(cocina))
+
+
+            cuisineQueries.getCuisineById(cuisines[i].cuisine.cuisine_id).then((cusinesSalida) => {
+              if (cusinesSalida) {
+                if (cusinesSalida.length <= 0) {
+
+                }
+              } else {
+                let v_cuisineSchema = new cuisineSchema; {
+                  v_cuisineSchema.name = cuisines[i].cuisine.cuisine_name;
+                  v_cuisineSchema.id = cuisines[i].cuisine.cuisine_id;
+                  v_cuisineSchema.value = cuisines[i].cuisine.cuisine_name;
+                  v_cuisineSchema.synonyms.push(cuisines[i].cuisine.cuisine_name)
+                  v_cuisineSchema.save()
+                }
+              }
+
+            })
+
+
+
+          }
+        }
+
+
+        for (let i = 0; i < cuisines.length; i++) {
+          if (cuisines[i].cuisine.cuisine_name == cuisine) {
+            console.log(cuisines[i].cuisine.cuisine_name)
+            cocina.push(cuisines[i])
+            console.log('cocina ' + JSON.stringify(cocina))
+            resolve(cocina)
             break;
           }
         }
         //let cocina = query('cuisine.cuisine_name').startsWith(cossina).or('cuisine.cuisine_name').endsWith(cossina).on(cuisines);
 
 
-      
+
 
       } else {
         reject(err)
