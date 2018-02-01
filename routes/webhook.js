@@ -1376,38 +1376,39 @@ function processLocation(senderId, locationData) {
                             let userSays = result.userSays[totalElements - 1];
                             if (isDefined(userSays)) {
                                 if (isDefined(userSays.typed)) {
+                                    console.log('userSays  find_venue_to_eat ' + JSON.stringify(userSays))
                                     sendToApiAi(userSays.typed)
-                                    
+
                                 }
                             }
-        
+
                         }
-        
+
                         if (result.context == "find_my_event_by_category") {
-        
+
                             let totalElements = result.categorySearchSelected.length;
                             let category = result.categorySearchSelected[totalElements - 1];
-        
+
                             let lat = locationData.payload.coordinates.lat;
                             let lon = locationData.payload.coordinates.long;
-        
+
                             var tevo = require('../modules/tevo/tevo');
                             tevo.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
                             saveContext(senderId, "");
-        
-        
+
+
                         } else {
                             var totalElements = result.optionsSelected.length;
                             if (totalElements < 1) {
                                 return;
                             }
-        
+
                             var lastSelected = result.optionsSelected[totalElements - 1];
-        
+
                             if ('Food' == lastSelected) {
                                 var Food = require('../modules/food');
                                 Food.get(Message, result, locationData);
-        
+
                             } else if ('Events' == lastSelected) {
                                 /* Llamamos al módulo de ventos */
                                 /*                           var Events = require('../modules/events');
@@ -1418,17 +1419,17 @@ function processLocation(senderId, locationData) {
                                 */
                                 let lat = locationData.payload.coordinates.lat;
                                 let lon = locationData.payload.coordinates.long;
-        
+
                                 startTevoModuleByLocation(senderId, lat, lon);
-        
+
                             } else if ('Drinks' == lastSelected) {
-        
+
                                 var Drink = require('../modules/drink');
                                 Drink.get(Message, result, locationData);
-        
+
                             }
-        
-        
+
+
                         }
                     } else {
                         console.log('Error guardando selección')
