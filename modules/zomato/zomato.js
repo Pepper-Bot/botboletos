@@ -252,8 +252,8 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
                 break;
               }*/
 
-            cuisineQueries.getCuisineByName(cuisine).then((cocina)=>{
-              console.log( JSON.stringify('cocina encontrada... >'  + cocina ) )
+            cuisineQueries.getCuisineByName(cuisine).then((cocina) => {
+              console.log('cocina encontrada... >' + JSON.stringify(cocina))
             })
           }
 
@@ -262,7 +262,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
 
 
 
-      
+
 
 
 
