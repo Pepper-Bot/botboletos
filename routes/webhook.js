@@ -988,6 +988,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                 } else {
                     //preguntar la localización 
+                    console.log('contexto ' + contexts[0].name)
                     Message.sendMessage(sender, responseText);
                 }
 
