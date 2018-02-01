@@ -222,7 +222,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         cuisineQueries.getCuisinesForAI().then((cocinasForAI) => {
           console.log('cocinasForAI ' + JSON.stringify(cocinasForAI))
         })
-        
+
         cuisineQueries.getCuisineByName(cuisine).then((cocinaEncontrada) => {
           if (cocinaEncontrada.length > 0) {
             resolve(cocinaEncontrada)
@@ -334,7 +334,6 @@ var getCityEstablishmentQs = (city_name, venue_type) => {
 }
 
 
-
 var getCityCuisineQs = (city_name, cuisine) => {
   return new Promise((resolve, reject) => {
     getCities(city_name).then((cityResponse) => {
@@ -373,7 +372,21 @@ var getCityCuisineQs = (city_name, cuisine) => {
   })
 }
 
-
+var getCityVenueTitleQs = (city_name, venue_title) => {
+  return new Promise((resolve, reject) => {
+    getCities(city_name).then((cityResponse) => {
+      let city_id = cityResponse.location_suggestions[0].id
+      let qs = {
+        entity_id: city_id, //location id 
+        entity_type: "city",
+        q: venue_title,
+        sort: " cost,rating,real_distance", //choose any one out of these available choices 
+        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      }
+      resolve(qs)
+    })
+  })
+}
 
 
 
@@ -628,8 +641,8 @@ module.exports = {
 
   getCityQs,
   getCityEstablishmentQs,
-  getCityCuisineQs
-
+  getCityCuisineQs,
+  getCityVenueTitleQs,
 
 
 }

@@ -1369,71 +1369,78 @@ function processLocation(senderId, locationData) {
         //--
         if (!err) {
             if (result !== null) {
+
+                if (result.context == "find_venue_to_eat") {
+                    let totalElements = result.userSays.length;
+                    let userSays = result.userSays[totalElements - 1];
+                    if (isDefined(userSays)) {
+                        if (isDefined(userSays.typed)) {
+                            sendToApiAi(userSays.typed)
+                        }
+                    }
+
+                }
+
+                if (result.context == "find_my_event_by_category") {
+
+                    let totalElements = result.categorySearchSelected.length;
+                    let category = result.categorySearchSelected[totalElements - 1];
+
+                    let lat = locationData.payload.coordinates.lat;
+                    let lon = locationData.payload.coordinates.long;
+
+                    var tevo = require('../modules/tevo/tevo');
+                    tevo.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
+                    saveContext(senderId, "");
+
+
+                } else {
+                    var totalElements = result.optionsSelected.length;
+                    if (totalElements < 1) {
+                        return;
+                    }
+
+                    var lastSelected = result.optionsSelected[totalElements - 1];
+
+                    if ('Food' == lastSelected) {
+                        var Food = require('../modules/food');
+                        Food.get(Message, result, locationData);
+
+                    } else if ('Events' == lastSelected) {
+                        /* Llamamos al módulo de ventos */
+                        /*                           var Events = require('../modules/events');
+                                                    Events.get(Message, result, locationData);
+
+                        var Evo = require('../modules/ticketevo');
+                        Evo.get(Message, result, locationData);
+                        */
+                        let lat = locationData.payload.coordinates.lat;
+                        let lon = locationData.payload.coordinates.long;
+
+                        startTevoModuleByLocation(senderId, lat, lon);
+
+                    } else if ('Drinks' == lastSelected) {
+
+                        var Drink = require('../modules/drink');
+                        Drink.get(Message, result, locationData);
+
+                    }
+
+
+                }
+
+
+
+
+
+
+
                 result.location.coordinates = [locationData.payload.coordinates.lat, locationData.payload.coordinates.long];
                 result.locationURL = locationData.url;
                 result.save(function (err) {
                     if (!err) {
+
                         console.log('Guardamos la localizacion');
-                        
-                        if (result.context == "find_venue_to_eat") {
-                            let totalElements = result.userSays.length;
-                            let userSays = result.userSays[totalElements - 1];
-                            if (isDefined(userSays)) {
-                                if (isDefined(userSays.typed)) {
-                                    sendToApiAi(userSays.typed)
-                                    
-                                }
-                            }
-        
-                        }
-        
-                        if (result.context == "find_my_event_by_category") {
-        
-                            let totalElements = result.categorySearchSelected.length;
-                            let category = result.categorySearchSelected[totalElements - 1];
-        
-                            let lat = locationData.payload.coordinates.lat;
-                            let lon = locationData.payload.coordinates.long;
-        
-                            var tevo = require('../modules/tevo/tevo');
-                            tevo.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
-                            saveContext(senderId, "");
-        
-        
-                        } else {
-                            var totalElements = result.optionsSelected.length;
-                            if (totalElements < 1) {
-                                return;
-                            }
-        
-                            var lastSelected = result.optionsSelected[totalElements - 1];
-        
-                            if ('Food' == lastSelected) {
-                                var Food = require('../modules/food');
-                                Food.get(Message, result, locationData);
-        
-                            } else if ('Events' == lastSelected) {
-                                /* Llamamos al módulo de ventos */
-                                /*                           var Events = require('../modules/events');
-                                                            Events.get(Message, result, locationData);
-        
-                                var Evo = require('../modules/ticketevo');
-                                Evo.get(Message, result, locationData);
-                                */
-                                let lat = locationData.payload.coordinates.lat;
-                                let lon = locationData.payload.coordinates.long;
-        
-                                startTevoModuleByLocation(senderId, lat, lon);
-        
-                            } else if ('Drinks' == lastSelected) {
-        
-                                var Drink = require('../modules/drink');
-                                Drink.get(Message, result, locationData);
-        
-                            }
-        
-        
-                        }
                     } else {
                         console.log('Error guardando selección')
                     }

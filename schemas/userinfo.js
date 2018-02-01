@@ -73,7 +73,19 @@ var UserData = mongoose.Schema({
 			default: Date.now
 		}
 	}],
-	messageTitle: String 
+	messageTitle: String,
+
+	coordinates: {
+		lat: {
+			type: Number,
+			default: 0
+		},
+		lon: {
+			type: Number,
+			default: 0
+		}
+	},
+	
 	 
 
 

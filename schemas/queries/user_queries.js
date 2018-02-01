@@ -45,9 +45,34 @@
  }
 
 
+ var getUserByFbId = (senderId) => {
+     return new Promise((resolve, reject) => {
+         UserData2.findOne({
+             fbId: senderId
+         }, {}, {
+             sort: {
+                 'sessionEnd': -1
+             }
+         }, function (err, foundUser) {
+            if (err) {
+                console.log('Error en getUserByFbId user_queries ' + err)
+                reject(err)
+
+            }
+            if (!foundUser) {
+                console.log('Error en getUserByFbId user_queries ' + err)
+                reject(err)
+            }
+            if (foundUser) {
+                resolve(foundUser)
+                console.log("cusines zomato  >>> " + JSON.stringify(foundUser));
+            }
+         })
+     })
+ }
 
 
- var createUpdateUserDatas = (senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', queryTevoFinal = '', page = 0, per_page = 0, artists = '', musical_genres = '', teams = '', cities = '', messageTitle = '', event_type = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
+ var createUpdateUserDatas = (senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', queryTevoFinal = '', page = 0, per_page = 0, artists = '', musical_genres = '', teams = '', cities = '', messageTitle = '', event_type = '',   categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
      var dbObj = require('../mongodb');
      dbObj.getConnection();
 
@@ -62,7 +87,7 @@
                      fbId: senderId
                  }, {}, {
                      sort: {
-                         'sessionStart': -1
+                         'sessionEnd': -1
                      }
                  }, function (err, foundUser) {
                      if (!err) {
@@ -103,7 +128,7 @@
                              }
 
                              if (page > 0) {
-                                 foundUser.page =  page
+                                 foundUser.page = page
                              } else {
                                  foundUser.page = 1
                              }
@@ -132,8 +157,8 @@
                              if (messageTitle != '') {
                                  foundUser.messageTitle = messageTitle
                              }
-                             if(event_type !=''){
-                                foundUser.event_type.push(event_type)
+                             if (event_type != '') {
+                                 foundUser.event_type.push(event_type)
                              }
 
 
@@ -212,7 +237,7 @@
                                          }
 
                                          if (page > 0) {
-                                             User.page =  page
+                                             User.page = page
                                          } else {
                                              User.page = 1
                                          }
@@ -239,13 +264,13 @@
                                          }
 
                                          if (messageTitle != '') {
-                                            User.messageTitle = messageTitle
-                                        }
-                                        if(event_type !=''){
-                                            User.event_type.push(event_type)
+                                             User.messageTitle = messageTitle
                                          }
-            
-                                        
+                                         if (event_type != '') {
+                                             User.event_type.push(event_type)
+                                         }
+
+
                                          if (categorySearchSelected != '') {
                                              User.categorySearchSelected.push(categorySearchSelected)
                                          }
@@ -283,6 +308,7 @@
 
  module.exports = {
      getUsersGroupByFBId,
-     createUpdateUserDatas
+     createUpdateUserDatas,
+     getUserByFbId,
 
  }
