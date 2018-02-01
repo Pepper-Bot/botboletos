@@ -904,9 +904,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
         case 'venues.eating_out.search':
             {
-
-
-                console.log('action ' + 'venues.eating_out.search')
+               console.log('action ' + 'venues.eating_out.search')
                 if (isDefined(contexts[0]) && contexts[0].name == 'venueseating_outsearch-followup' && contexts[0].parameters) {
                     console.log('contexto ' + contexts[0].name)
                     let beverage = ''
@@ -954,7 +952,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     }
 
 
-
                     let qs = {}
                     let zomatoQs = []
                     if (city != '') {
@@ -963,7 +960,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         }
 
                         if (cuisine != '') {
-                            zomato.getCityCuisineQs(city, cuisine).then((qs)=>{
+                            zomato.getCityCuisineQs(city, cuisine).then((qs) => {
 
                             })
                             //zomatoQs.push(zomato.getCityEstablishmentQs(city, venue_type).then(qs))
@@ -987,6 +984,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
+
+
+                } else {
+                    //preguntar la localización 
+                    Message.sendMessage(sender, responseText);
                 }
 
 
