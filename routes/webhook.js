@@ -904,7 +904,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
         case 'venues.eating_out.search':
             {
-               console.log('action ' + 'venues.eating_out.search')
+                console.log('action ' + 'venues.eating_out.search')
                 if (isDefined(contexts[0]) && contexts[0].name == 'venueseating_outsearch-followup' && contexts[0].parameters) {
                     console.log('contexto ' + contexts[0].name)
                     let beverage = ''
@@ -986,10 +986,12 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
-                } else {
-                    //preguntar la localización 
-                    console.log('contexto ' + contexts[0].name)
+                }
+
+                 
+                if (responseText != "end.venues.eating_out.search") {
                     Message.sendMessage(sender, responseText);
+
                 }
 
 
