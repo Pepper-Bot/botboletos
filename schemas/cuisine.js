@@ -9,4 +9,4 @@ var CuisineSchema = new Schema({
      
 });
 
-module.exports = mongoose.model("cuisine", CategoriesSchema);
+module.exports = mongoose.model("cuisine", CuisineSchema);
