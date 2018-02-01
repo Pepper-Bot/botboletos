@@ -220,24 +220,9 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
         let cocina = [];
 
         for (let i = 0; i < cuisines.length; i++) {
-          if (cuisines[i].cuisine.cuisine_name == cuisine) {
-            console.log(cuisines[i].cuisine.cuisine_name)
-            cocina.push(cuisines[i])
-            console.log('cocina ' + JSON.stringify(cocina))
-
-
-            cuisineQueries.getCuisineById(cuisines[i].cuisine.cuisine_id).then((cusinesSalida) => {
-              if (cusinesSalida) {
-                if (cusinesSalida.length <= 0) {
-                  let v_cuisineSchema = new cuisineSchema; {
-                    v_cuisineSchema.name = cuisines[i].cuisine.cuisine_name;
-                    v_cuisineSchema.id = cuisines[i].cuisine.cuisine_id;
-                    v_cuisineSchema.value = cuisines[i].cuisine.cuisine_name;
-                    v_cuisineSchema.synonyms.push(cuisines[i].cuisine.cuisine_name)
-                    v_cuisineSchema.save()
-                  }
-                }
-              } else {
+          cuisineQueries.getCuisineById(cuisines[i].cuisine.cuisine_id).then((cusinesSalida) => {
+            if (cusinesSalida) {
+              if (cusinesSalida.length <= 0) {
                 let v_cuisineSchema = new cuisineSchema; {
                   v_cuisineSchema.name = cuisines[i].cuisine.cuisine_name;
                   v_cuisineSchema.id = cuisines[i].cuisine.cuisine_id;
@@ -246,28 +231,43 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
                   v_cuisineSchema.save()
                 }
               }
+            } else {
+              let v_cuisineSchema = new cuisineSchema; {
+                v_cuisineSchema.name = cuisines[i].cuisine.cuisine_name;
+                v_cuisineSchema.id = cuisines[i].cuisine.cuisine_id;
+                v_cuisineSchema.value = cuisines[i].cuisine.cuisine_name;
+                v_cuisineSchema.synonyms.push(cuisines[i].cuisine.cuisine_name)
+                v_cuisineSchema.save()
+              }
+            }
+          })
+
+          if (i == cuisines.length - 1) {
+            /*for (let j = 0; j < cuisines.length; j++) {
+              if (cuisines[j].cuisine.cuisine_name == cuisine) {
+                console.log(cuisines[j].cuisine.cuisine_name)
+                cocina.push(cuisines[j])
+                console.log('cocina ' + JSON.stringify(cocina))
+                resolve(cocina)
+                break;
+              }*/
+
+            cuisineQueries.getCuisineByName(cuisine).then((cocina)=>{
+              console.log( JSON.stringify('cocina encontrada... >'  + cocina ) )
             })
           }
+
         }
-
-
-        for (let i = 0; i < cuisines.length; i++) {
-          if (cuisines[i].cuisine.cuisine_name == cuisine) {
-            console.log(cuisines[i].cuisine.cuisine_name)
-            cocina.push(cuisines[i])
-            console.log('cocina ' + JSON.stringify(cocina))
-            resolve(cocina)
-            break;
-          }
-        }
-        //let cocina = query('cuisine.cuisine_name').startsWith(cossina).or('cuisine.cuisine_name').endsWith(cossina).on(cuisines);
-
-
-
-
-      } else {
-        reject(err)
       }
+
+
+
+      
+
+
+
+
+
     });
 
   });
