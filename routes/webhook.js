@@ -1378,8 +1378,7 @@ function processLocation(senderId, locationData) {
                                 if (isDefined(userSays.typed)) {
                                     console.log('userSays  find_venue_to_eat ' + userSays.typed)
                                     user_queries.createUpdateUserDatas(senderId, '-');
-                                    sendToApiAi(userSays.typed)
-
+                                    sendToApiAi(senderId, userSays.typed)
                                 }
                             }
 
