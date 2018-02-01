@@ -1076,10 +1076,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 }
 
 
-                if (responseText != "end.venues.eating_out.search") {
-                    Message.sendMessage(sender, responseText);
-
-                }
 
 
 
@@ -1374,7 +1370,7 @@ function processLocation(senderId, locationData) {
                 result.save(function (err) {
                     if (!err) {
                         console.log('Guardamos la localizacion');
-                        
+
                         if (result.context == "find_venue_to_eat") {
                             let totalElements = result.userSays.length;
                             let userSays = result.userSays[totalElements - 1];
