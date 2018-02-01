@@ -1376,7 +1376,8 @@ function processLocation(senderId, locationData) {
                             let userSays = result.userSays[totalElements - 1];
                             if (isDefined(userSays)) {
                                 if (isDefined(userSays.typed)) {
-                                    console.log('userSays  find_venue_to_eat ' + JSON.stringify(userSays))
+                                    console.log('userSays  find_venue_to_eat ' + userSays.typed)
+                                    user_queries.createUpdateUserDatas(senderId, '-');
                                     sendToApiAi(userSays.typed)
 
                                 }
