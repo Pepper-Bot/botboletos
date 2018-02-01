@@ -1050,7 +1050,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                                 } else { //pedir coordenadas....
                                     user_queries.createUpdateUserDatas(sender, 'find_venue_to_eat').then(() => {
-                                        Message.getLocation(senderId, 'What location would you like to get a venue to eat at?');
+                                        Message.getLocation(sender, 'What location would you like to get a venue to eat at?');
                                     })
 
 
