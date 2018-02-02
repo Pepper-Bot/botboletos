@@ -589,7 +589,8 @@ var starRenderFBTemplate = function (senderId, qs) {
 
       Message.typingOn(senderId);
       //sleep(2000);
-      var eventResults = [];
+      let eventResults = [];
+      
       for (let i = 0; i < json.restaurants.length; i++) {
         let search = json.restaurants[i].restaurant.name
         let gButtons = json.restaurants
