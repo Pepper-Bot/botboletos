@@ -1,30 +1,22 @@
 var request = require('request');
-var userInfo = function () {
 
+var getInfo = (userId, callback) => {
 
-	return {
+	request({
+		url: 'https://graph.facebook.com/v2.6/' + userId,
+		qs: {
+			access_token: process.env.PAGE_ACCESS_TOKEN
+		},
+		method: "GET",
+	}, function (error, response, body) {
+		if (error) {
+			callback(true, null);
+		} else {
 
-		getInfo: function (userId, callback) {
-
-
-			request({
-				url: 'https://graph.facebook.com/v2.6/' + userId,
-				qs: {
-					access_token: process.env.PAGE_ACCESS_TOKEN
-				},
-				method: "GET",
-			}, function (error, response, body) {
-				if (error) {
-					callback(true, null);
-				} else {
-
-					callback(null, body);
-				}
-			});
+			callback(null, body);
 		}
-	};
-}();
-
+	});
+}
 
 var getUserLikes = (userId) => {
 	return new Promise((resolve, reject) => {
@@ -47,9 +39,8 @@ var getUserLikes = (userId) => {
 }
 
 
+
 module.exports = {
-	userInfo,
+	getInfo,
 	getUserLikes,
-
-
 }
