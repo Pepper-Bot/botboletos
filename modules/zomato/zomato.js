@@ -533,7 +533,7 @@ var search = (qs) => {
     zomatoClient.search(qs, function (err, result) {
       if (!err) {
         var venuesResponse = JSON.parse(result);
-        console.log('venuesResponse ' + JSON.stringify(venuesResponse))
+        //console.log('venuesResponse ' + JSON.stringify(venuesResponse))
         resolve(venuesResponse)
       } else {
         reject(err)
@@ -575,8 +575,10 @@ var selectQsByPriority = (arrayQs) => {
 
 
 var starRenderFBTemplate = function (senderId, qs) {
+  console.log('qs>>' +JSON.stringify( qs))
+  
   search(qs).then((json) => {
-    console.log('qs>>' +JSON.stringify( qs))
+  
     if (json.results_found > 0) {
       console.log('Estos son los resultados:');
       console.log(json);
