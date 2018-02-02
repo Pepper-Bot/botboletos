@@ -590,25 +590,32 @@ var starRenderFBTemplate = function (senderId, qs) {
       Message.typingOn(senderId);
       //sleep(2000);
       var eventResults = [];
-      for (var i = 0; i < json.restaurants.length; i++) {
-        eventResults.push({
-          "title": json.restaurants[i].restaurant.name,
-          "image_url": json.restaurants[i].restaurant.thumb,
-          "subtitle": json.restaurants[i].restaurant.cuisines,
-          "default_action": {
-            "type": "web_url",
-            "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId
-            /*,
-                                                                  "messenger_extensions": true,
-                                                                  "webview_height_ratio": "tall",
-                                                                  "fallback_url": 'https://botboletos.herokuapp.com/redirect/?u='+json.restaurants[i].restaurant.url + '&id='+result.fbId*/
-          },
-          "buttons": [{
-            "type": "web_url",
-            "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId,
-            "title": "Go"
-          }]
-        });
+      for (let i = 0; i < json.restaurants.length; i++) {
+        let search = json.restaurants[i].restaurant.name
+        let gButtons = json.restaurants
+        getGoogleImage(search, gButtons).then((images) => {
+          eventResults.push({
+            "title": json.restaurants[i].restaurant.name,
+            //"image_url": json.restaurants[i].restaurant.thumb,
+            "image_url": images[0].url,
+            "subtitle": json.restaurants[i].restaurant.cuisines,
+            "default_action": {
+              "type": "web_url",
+              "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId
+              /*,
+                                                                    "messenger_extensions": true,
+                                                                    "webview_height_ratio": "tall",
+                                                                    "fallback_url": 'https://botboletos.herokuapp.com/redirect/?u='+json.restaurants[i].restaurant.url + '&id='+result.fbId*/
+            },
+            "buttons": [{
+              "type": "web_url",
+              "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId,
+              "title": "Go"
+            }]
+          });
+
+        })
+
 
       }
 
@@ -617,6 +624,7 @@ var starRenderFBTemplate = function (senderId, qs) {
       console.log('Sender Id:' + senderId);
       Message.genericButton(senderId, eventResults);
       Message.typingOff(senderId);
+
     } else {
       console.log('zomato venues not found ')
     }
@@ -632,6 +640,23 @@ var starRenderFBTemplate = function (senderId, qs) {
 }
 
 
+
+var getGoogleImage = (search, matriz = []) => {
+  return new Promise((resolve, reject) => {
+
+    var gis = require('g-i-s');
+    gis(search, logResults);
+
+    function logResults(error, results) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results, matriz);
+      }
+    }
+
+  });
+}
 
 
 
