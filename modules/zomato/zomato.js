@@ -581,7 +581,7 @@ var starRenderFBTemplate = function (senderId, qs) {
 
     if (json.results_found > 0) {
       console.log('Estos son los resultados:');
-      console.log(JSON.stringify(json));
+      console.log(json);
       Message.typingOn(senderId);
       //sleep(2000);
       Message.sendMessage(senderId, 'Check out these dine outs.');
