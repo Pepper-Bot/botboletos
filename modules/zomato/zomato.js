@@ -4,156 +4,12 @@ var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_D
 var query = require('array-query');
 var cuisineSchema = require('../../schemas/cuisine')
 var cuisineQueries = require('../../schemas/queries/cuisine_queries')
+var arraySort = require('array-sort');
 var zomatoClient = zomato.createClient({
   userKey: '2889c298c45512452b6b32e46df88ffa',
 });
 
-var establishments = [{
-  "establishment": {
-    "id": 16,
-    "name": "Casual Dining"
-  }
-}, {
-  "establishment": {
-    "id": 275,
-    "name": "Pizzeria"
-  }
-}, {
-  "establishment": {
-    "id": 18,
-    "name": "Fine Dining"
-  }
-}, {
-  "establishment": {
-    "id": 31,
-    "name": "Bakery"
-  }
-}, {
-  "establishment": {
-    "id": 1,
-    "name": "Café"
-  }
-}, {
-  "establishment": {
-    "id": 7,
-    "name": "Bar"
-  }
-}, {
-  "establishment": {
-    "id": 5,
-    "name": "Lounge"
-  }
-}, {
-  "establishment": {
-    "id": 281,
-    "name": "Fast Food"
-  }
-}, {
-  "establishment": {
-    "id": 24,
-    "name": "Deli"
-  }
-}, {
-  "establishment": {
-    "id": 271,
-    "name": "Sandwich Shop"
-  }
-}, {
-  "establishment": {
-    "id": 295,
-    "name": "Noodle Shop"
-  }
-}, {
-  "establishment": {
-    "id": 6,
-    "name": "Pub"
-  }
-}, {
-  "establishment": {
-    "id": 283,
-    "name": "Brewery"
-  }
-}, {
-  "establishment": {
-    "id": 285,
-    "name": "Fast Casual"
-  }
-}, {
-  "establishment": {
-    "id": 286,
-    "name": "Coffee Shop"
-  }
-}, {
-  "establishment": {
-    "id": 81,
-    "name": "Food Truck"
-  }
-}, {
-  "establishment": {
-    "id": 8,
-    "name": "Club"
-  }
-}, {
-  "establishment": {
-    "id": 21,
-    "name": "Quick Bites"
-  }
-}, {
-  "establishment": {
-    "id": 101,
-    "name": "Diner"
-  }
-}, {
-  "establishment": {
-    "id": 278,
-    "name": "Wine Bar"
-  }
-}, {
-  "establishment": {
-    "id": 91,
-    "name": "Bistro"
-  }
-}, {
-  "establishment": {
-    "id": 23,
-    "name": "Dessert Parlour"
-  }
-}, {
-  "establishment": {
-    "id": 20,
-    "name": "Food Court"
-  }
-}, {
-  "establishment": {
-    "id": 282,
-    "name": "Taqueria"
-  }
-}, {
-  "establishment": {
-    "id": 284,
-    "name": "Juice Bar"
-  }
-}, {
-  "establishment": {
-    "id": 291,
-    "name": "Sweet Shop"
-  }
-}, {
-  "establishment": {
-    "id": 41,
-    "name": "Beverage Shop"
-  }
-}, {
-  "establishment": {
-    "id": 272,
-    "name": "Cocktail Bar"
-  }
-}, {
-  "establishment": {
-    "id": 292,
-    "name": "Beer Garden"
-  }
-}]
+
 
 var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
   let qs = {}
@@ -329,6 +185,23 @@ var getCityQs = (city_name) => {
   })
 }
 
+var searchByCity = (city_id, priority = 1, start = 1, count = 9) => {
+  return new Promise((resolve, reject) => {
+    let qs = {
+      priority: priority,
+      start: start,
+      count: count,
+      entity_id: city_id, //location id 
+      entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+      sort: " cost,rating,real_distance", //choose any one out of these available choices 
+      order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+    }
+    resolve(qs)
+  })
+}
+
+
+
 var getCityEstablishmentQs = (city_name, venue_type) => {
   return new Promise((resolve, reject) => {
     getCities(city_name).then((cityResponse) => {
@@ -350,10 +223,96 @@ var getCityEstablishmentQs = (city_name, venue_type) => {
 
 
 
-var getEstablishmentsByCoordinatesQs = (lat, lon, venue_type) => {
+
+
+var searchByCityEstablishment = (city_id, venue_type, priority = 1, start = 1, count = 9) => {
+  getEstablishments(city_id, venue_type).then((establishment_type) => {
+    let qs = {
+      priority: priority,
+      start: start,
+      count: count,
+      entity_id: city_id, //location id 
+      entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+      establishment_type: establishment_type.id,
+      sort: " cost,rating,real_distance", //choose any one out of these available choices 
+      order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+    }
+    resolve(qs)
+  })
+}
+
+var searchByCityCuisineEstablishment = (city_id, venue_type, cuisine, priority = 1, start = 1, count = 9) => {
+  return new Promise((resolve, reject) => {
+    getEstablishments(city_id, venue_type).then((establishment_type) => {
+      getCuisines(city_id, 0, 0, cuisine).then(() => {
+        let cuisine_id = cousineRes[0].id
+
+        let qs = {
+          priority: priority,
+          start: start,
+          count: count,
+          entity_id: city_id, //location id 
+          entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+          establishment_type: establishment_type.id,
+          cuisines: cuisine_id,
+          sort: " cost,rating,real_distance", //choose any one out of these available choices 
+          order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        }
+        resolve(qs)
+
+      })
+    })
+  })
+}
+
+var searchByCityVenueTitleEstablishment = (city_id, venue_type, venue_title, priority = 1, start = 1, count = 9) => {
+  return new Promise((resolve, reject) => {
+    getEstablishments(city_id, venue_type).then((establishment_type) => {
+      let qs = {
+        priority: priority,
+        start: start,
+        count: count,
+        entity_id: city_id, //location id 
+        entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+        establishment_type: establishment_type.id,
+        q: venue_title,
+        sort: " cost,rating,real_distance", //choose any one out of these available choices 
+        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      }
+      resolve(qs)
+    })
+
+  })
+}
+
+
+var searchByCityVenueTitleCusine = (city_id, venue_title, cuisine, priority = 1, start = 1, count = 9) => {
+  getCuisines(city_id, 0, 0, cuisine).then(() => {
+    let cuisine_id = cousineRes[0].id
+    let qs = {
+      priority: priority,
+      start: start,
+      count: count,
+      entity_id: city_id, //location id 
+      entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+      q: venue_title,
+      cuisines: cuisine_id,
+      sort: " cost,rating,real_distance", //choose any one out of these available choices 
+      order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+    }
+    resolve(qs)
+  })
+}
+
+
+
+var searchByEstablismentAndCoordinates = (lat, lon, venue_type, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getEstablishments(0, venue_type, lat, lon).then((establishment_type) => {
       let qs = {
+        priority: priority,
+        start: start,
+        count: count,
         lat: lat, //latitude 
         lon: lon, //longitude 
         establishment_type: establishment_type.id,
@@ -403,8 +362,41 @@ var getCityCuisineQs = (city_name, cuisine) => {
 }
 
 
+var searchByCityCuisine = (city_id, cuisine, priority = 1, start = 1, count = 9) => {
+  getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
+    if (cousineRes.length > 0) {
+      //let cuisine_id = cousineRes[0].cuisine.cuisine_id
+      let cuisine_id = cousineRes[0].id
+      if (cuisine_id) {
+        let qs = {
+          priority: priority,
+          start: start,
+          count: start,
+          entity_id: city_id, //location id 
+          entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+          cuisines: cuisine_id,
+          sort: " cost,rating,real_distance", //choose any one out of these available choices 
+          order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        }
+        resolve(qs)
 
-var getCuisineByCoordinatesQs = (cuisine, lat = 0, lon = 0) => {
+        console.log('qs ' + JSON.stringify(qs))
+
+      } else {
+        console.log('error no tengo cuisine_id ')
+        resolve({})
+      }
+    } else {
+      console.log('error no tengo cuisine_id ')
+      resolve({})
+    }
+  })
+
+}
+
+
+
+var searchByCuisineAndCoordinates = (cuisine, lat = 0, lon = 0) => {
   return new Promise((resolve, reject) => {
     getCuisines(0, lat, lon, cuisine).then((cousineRes) => {
       if (cousineRes.length > 0) {
@@ -455,8 +447,26 @@ var getCityVenueTitleQs = (city_name, venue_title) => {
   })
 }
 
+var searchByCityVenueTitle = (city_id, venue_title, priority = 1, start = 1, count = 9) => {
+  return new Promise((resolve, reject) => {
+    let qs = {
+      priority: priority,
+      start: start,
+      count: count,
+      entity_id: city_id, //location id 
+      entity_type: "city",
+      q: venue_title,
+      sort: " cost,rating,real_distance", //choose any one out of these available choices 
+      order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+    }
+    resolve(qs)
+  })
+}
 
-var getVenueTitleByCoordinatesQs = (venue_title, lat, lon) => {
+
+
+
+var searchByVenueTitleAndCoordinates = (venue_title, lat, lon) => {
   return new Promise((resolve, reject) => {
     let qs = {
       lat: lat,
@@ -526,8 +536,39 @@ var search = (qs) => {
   });
 }
 
+var hasVenues = (qs) => {
+  return new Promise((resolve, reject) => {
+    search(qs).then((json) => {
+      if (json.results_found > 0) {
+        resolve(true)
+      } else {
+        resolve(false)
+      }
+    })
+  })
+}
 
-var getTemplateBySearch = function (senderId, qs) {
+
+var selectQsByPriority = (arrayQs) => {
+
+  var arrayQueryMessages = arraySort(arrayQs, ['priority'], {
+    reverse: true
+  });
+
+  console.log('arrayQueryMessages ' + JSON.stringify(arrayQueryMessages))
+  return new Promise((resolve, reject) => {
+    for (let i = 0; i < arrayQueryMessages.length; i++) {
+      hasVenues(arrayQueryMessages[i]).then((tiene) => {
+        if (tiene === true)
+          resolve(arrayQueryMessages[i])
+      })
+    }
+  })
+}
+
+
+
+var starRenderFBTemplate = function (senderId, qs) {
   search(qs).then((json) => {
 
     if (json.results_found > 0) {
@@ -585,146 +626,26 @@ var getTemplateBySearch = function (senderId, qs) {
 
 
 
-var start = function (Message, result, locationData) {
-  var request = require('request');
-  request({
-    url: 'https://developers.zomato.com/api/v2.1/search',
-    qs: {
-      apikey: '2889c298c45512452b6b32e46df88ffa',
-      count: "4",
-      category: "2",
-      sort: "rating",
-
-      lat: locationData.payload.coordinates.lat,
-      lon: locationData.payload.coordinates.long
-      /*
-                                      "lat": "40.742051",
-                                      "lon": "-74.004821"*/
-    },
-    method: 'GET'
-  }, function (error, response, body) {
-
-    if (error) {
-
-
-
-      Message.markSeen(result.fbId);
-      Message.typingOn(result.fbId);
-      //sleep(2000);
-      var replies = [];
-
-      replies.push({
-        "content_type": "text",
-        "title": "Yes",
-        "payload": "TRYAGAIN_YES"
-      });
-      replies.push({
-        "content_type": "text",
-        "title": "No",
-        "payload": "TRYAGAIN_NO"
-      });
-      Message.quickReply(result.fbId, 'Sorry, something went wrong with sending the location. Want to try again?', replies);
-
-
-    } else {
-      try {
-        var json = JSON.parse(body);
-        if (json.results_found > 0) {
-          console.log('Estos son los resultados:');
-          console.log(json);
-          Message.typingOn(result.fbId);
-          //sleep(2000);
-          Message.sendMessage(result.fbId, 'Check out these dine outs.');
-          Message.typingOff(result.fbId);
-
-          Message.typingOn(result.fbId);
-          //sleep(2000);
-          var eventResults = [];
-          for (var i = 0; i < 4; i++) {
-            eventResults.push({
-              "title": json.restaurants[i].restaurant.name,
-              "image_url": json.restaurants[i].restaurant.thumb,
-              "subtitle": json.restaurants[i].restaurant.cuisines,
-              "default_action": {
-                "type": "web_url",
-                "url": 'https://botboletos.herokuapp.com/redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + result.fbId
-                /*,
-                                                                      "messenger_extensions": true,
-                                                                      "webview_height_ratio": "tall",
-                                                                      "fallback_url": 'https://botboletos.herokuapp.com/redirect/?u='+json.restaurants[i].restaurant.url + '&id='+result.fbId*/
-              },
-              "buttons": [{
-                "type": "web_url",
-                "url": 'https://botboletos.herokuapp.com/redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + result.fbId,
-                "title": "Go"
-              }]
-            });
-
-          }
-
-          console.log('Resultados para button:');
-          console.log(eventResults);
-          console.log('Sender Id:' + result.fbId);
-          Message.genericButton(result.fbId, eventResults);
-          Message.typingOff(result.fbId);
-        } else {
-
-          Message.markSeen(result.fbId);
-          Message.typingOn(result.fbId);
-          //sleep(2000);
-          var replies = [{
-              "content_type": "text",
-              "title": "Yes",
-              "payload": "TRYAGAIN_YES"
-
-            },
-            {
-              "content_type": "text",
-              "title": "No",
-              "payload": "TRYAGAIN_NO"
-            }
-          ];
-          Message.quickReply(result.fbId, 'Sorry, something went wrong with sending the location. Want to try again?', replies);
-
-        }
-      } catch (e) {
-
-        Message.markSeen(result.fbId);
-        Message.typingOn(result.fbId);
-        //sleep(2000);
-        var replies = [{
-            "content_type": "text",
-            "title": "Yes",
-            "payload": "TRYAGAIN_YES"
-
-          },
-          {
-            "content_type": "text",
-            "title": "No",
-            "payload": "TRYAGAIN_NO"
-          }
-        ];
-        Message.quickReply(result.fbId, 'Sorry, something went wrong with sending the location. Want to try again?', replies);
-
-      }
-
-    }
-
-
-  });
-
-}
-
 
 
 module.exports = {
-
+  getCities,
   getCityQs,
   getCityEstablishmentQs,
+  searchByCityEstablishment,
   getCityCuisineQs,
+  searchByCityCuisine,
   getCityVenueTitleQs,
-  getCuisineByCoordinatesQs,
-  getEstablishmentsByCoordinatesQs,
-  getVenueTitleByCoordinatesQs,
+
+  searchByCuisineAndCoordinates,
+  searchByEstablismentAndCoordinates,
+  searchByVenueTitleAndCoordinates,
+  searchByCityCuisineEstablishment,
+  searchByCityVenueTitle,
+  searchByCityVenueTitleEstablishment,
+  searchByCityVenueTitleCusine,
+  selectQsByPriority,
+
+  starRenderFBTemplate,
 
 }

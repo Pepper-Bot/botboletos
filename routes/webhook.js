@@ -1000,37 +1000,67 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     }
 
 
+                    if (venue_chain != '') {
+                        venue_title = venue_chain
+                    }
+
+                    if (dish != '') {
+                        venue_title = dish
+                    }
+
+
                     let qs = {}
                     let zomatoQs = []
                     if (city != '') {
-                        if (venue_type != '') {
-                            zomatoQs.push(zomato.getCityEstablishmentQs(city, venue_type).then(qs))
-                        }
+                        zomato.getCities(city).then((cityResponse) => {
+                            console.log('cityResponse' + JSON.stringify(cityResponse))
+                            let city_id = cityResponse.location_suggestions[0].id
 
-                        if (cuisine != '') {
-                            // zomato.getCityCuisineQs(city, cuisine).then((qs) => {})
-                            zomatoQs.push(zomato.getCityCuisineQs(city, cuisine).then(qs))
-                        }
+                            if (cuisine != '' && venue_type != '') {
+                                zomatoQs.push(zomato.searchByCityCuisineEstablishment(city_id, venue_type, cuisine, 1).then(qs))
+                            }
 
-                        if (venue_title != '') {
-                            //zomato.getCityVenueTitleQs(city, venue_title).then((qs) => {})
-                            zomatoQs.push(zomato.getCityVenueTitleQs(city, venue_title).then(qs))
+                            if (venue_title != '' && venue_type != '') {
+                                zomatoQs.push(zomato.searchByCityVenueTitleEstablishment(city_id, venue_type, venue_title, 2).then(qs))
+                            }
+
+                            if (venue_title != '' && cuisine != '') {
+                                zomatoQs.push(zomato.searchByCityVenueTitleCusine(city_id, venue_title, cuisine, 3).then(qs))
+                            }
+
+                            if (venue_type != '') {
+                                zomatoQs.push(zomato.searchByCityEstablishment(city_id, venue_type, 4).then(qs))
+                            }
+
+                            if (cuisine != '') {
+                                zomatoQs.push(zomato.searchByCityCuisine(city_id, cuisine, 5).then(qs))
+                            }
+
+                            if (venue_title != '') {
+                                zomatoQs.push(zomato.searchByCityVenueTitle(city_id, venue_title, 6).then(qs))
+
+                            }
+                            zomatoQs.push(zomato.searchByCity(city_id).then(qs))
 
 
-                        }
+                            Promise.all(zomatoQs).then(ArrayQs => {
+                                console.log('zomatoQs ' + JSON.stringify(ArrayQs))
+                                zomato.selectQsByPriority(ArrayQs).then((qs) => {
+                                 
+                                    delete qs.priorty;
 
-                        UserData.getUserLikes('1489159701297780').then(() => {
+                                    zomato.starRenderFBTemplate(sender, qs)
+
+                                })
+
+                            });
+
+
 
                         })
 
-                        zomatoQs.push(zomato.getCityQs(city).then(qs))
 
 
-
-
-                        Promise.all(zomatoQs).then(values => {
-                            console.log('zomatoQs ' + JSON.stringify(values))
-                        });
 
 
 
@@ -1042,17 +1072,17 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 if (isDefined(lat) && isDefined(lon)) {
 
                                     if (venue_type != '') {
-                                        zomatoQs.push(zomato.getEstablishmentsByCoordinatesQs(lat, lon, venue_type).then(qs))
+                                        zomatoQs.push(zomato.searchByEstablismentAndCoordinates(lat, lon, venue_type).then(qs))
                                     }
 
                                     if (cuisine != '') {
                                         // zomato.getCityCuisineQs(city, cuisine).then((qs) => {})
-                                        zomatoQs.push(zomato.getCuisineByCoordinatesQs(cuisine, lat, lon).then(qs))
+                                        zomatoQs.push(zomato.searchByCuisineAndCoordinates(cuisine, lat, lon).then(qs))
                                     }
 
                                     if (venue_title != '') {
                                         //zomato.getCityVenueTitleQs(city, venue_title).then((qs) => {})
-                                        zomatoQs.push(zomato.getVenueTitleByCoordinatesQs(venue_title, lat, lon).then(qs))
+                                        zomatoQs.push(zomato.searchByVenueTitleAndCoordinates(venue_title, lat, lon).then(qs))
 
 
                                     }
