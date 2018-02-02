@@ -246,7 +246,7 @@ var searchByCityEstablishment = (city_id, venue_type, priority = 1, start = 1, c
 var searchByCityCuisineEstablishment = (city_id, venue_type, cuisine, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getEstablishments(city_id, venue_type).then((establishment_type) => {
-      getCuisines(city_id, 0, 0, cuisine).then(() => {
+      getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
         let cuisine_id = cousineRes[0].id
 
         let qs = {
@@ -290,7 +290,7 @@ var searchByCityVenueTitleEstablishment = (city_id, venue_type, venue_title, pri
 
 var searchByCityVenueTitleCusine = (city_id, venue_title, cuisine, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
-    getCuisines(city_id, 0, 0, cuisine).then(() => {
+    getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
       let cuisine_id = cousineRes[0].id
       let qs = {
         priority: priority,
