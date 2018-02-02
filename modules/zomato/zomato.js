@@ -616,7 +616,7 @@ var starRenderFBTemplate = function (senderId, qs) {
 
 
 
-          if (i == json.restaurants.length - 1) {
+          if (i === json.restaurants.length - 1) {
             console.log('Resultados para button:');
             console.log(eventResults);
             console.log('Sender Id:' + senderId);
