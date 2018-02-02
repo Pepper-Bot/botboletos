@@ -226,18 +226,20 @@ var getCityEstablishmentQs = (city_name, venue_type) => {
 
 
 var searchByCityEstablishment = (city_id, venue_type, priority = 1, start = 1, count = 9) => {
-  getEstablishments(city_id, venue_type).then((establishment_type) => {
-    let qs = {
-      priority: priority,
-      start: start,
-      count: count,
-      entity_id: city_id, //location id 
-      entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-      establishment_type: establishment_type.id,
-      sort: " cost,rating,real_distance", //choose any one out of these available choices 
-      order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
-    }
-    resolve(qs)
+  return new Promise((resolve, reject) => {
+    getEstablishments(city_id, venue_type).then((establishment_type) => {
+      let qs = {
+        priority: priority,
+        start: start,
+        count: count,
+        entity_id: city_id, //location id 
+        entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+        establishment_type: establishment_type.id,
+        sort: " cost,rating,real_distance", //choose any one out of these available choices 
+        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      }
+      resolve(qs)
+    })
   })
 }
 
@@ -287,20 +289,22 @@ var searchByCityVenueTitleEstablishment = (city_id, venue_type, venue_title, pri
 
 
 var searchByCityVenueTitleCusine = (city_id, venue_title, cuisine, priority = 1, start = 1, count = 9) => {
-  getCuisines(city_id, 0, 0, cuisine).then(() => {
-    let cuisine_id = cousineRes[0].id
-    let qs = {
-      priority: priority,
-      start: start,
-      count: count,
-      entity_id: city_id, //location id 
-      entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-      q: venue_title,
-      cuisines: cuisine_id,
-      sort: " cost,rating,real_distance", //choose any one out of these available choices 
-      order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
-    }
-    resolve(qs)
+  return new Promise((resolve, reject) => {
+    getCuisines(city_id, 0, 0, cuisine).then(() => {
+      let cuisine_id = cousineRes[0].id
+      let qs = {
+        priority: priority,
+        start: start,
+        count: count,
+        entity_id: city_id, //location id 
+        entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+        q: venue_title,
+        cuisines: cuisine_id,
+        sort: " cost,rating,real_distance", //choose any one out of these available choices 
+        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      }
+      resolve(qs)
+    })
   })
 }
 
@@ -363,35 +367,36 @@ var getCityCuisineQs = (city_name, cuisine) => {
 
 
 var searchByCityCuisine = (city_id, cuisine, priority = 1, start = 1, count = 9) => {
-  getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
-    if (cousineRes.length > 0) {
-      //let cuisine_id = cousineRes[0].cuisine.cuisine_id
-      let cuisine_id = cousineRes[0].id
-      if (cuisine_id) {
-        let qs = {
-          priority: priority,
-          start: start,
-          count: start,
-          entity_id: city_id, //location id 
-          entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-          cuisines: cuisine_id,
-          sort: " cost,rating,real_distance", //choose any one out of these available choices 
-          order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+  return new Promise((resolve, reject) => {
+    getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
+      if (cousineRes.length > 0) {
+        //let cuisine_id = cousineRes[0].cuisine.cuisine_id
+        let cuisine_id = cousineRes[0].id
+        if (cuisine_id) {
+          let qs = {
+            priority: priority,
+            start: start,
+            count: start,
+            entity_id: city_id, //location id 
+            entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+            cuisines: cuisine_id,
+            sort: " cost,rating,real_distance", //choose any one out of these available choices 
+            order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+          }
+          resolve(qs)
+
+          console.log('qs ' + JSON.stringify(qs))
+
+        } else {
+          console.log('error no tengo cuisine_id ')
+          resolve({})
         }
-        resolve(qs)
-
-        console.log('qs ' + JSON.stringify(qs))
-
       } else {
         console.log('error no tengo cuisine_id ')
         resolve({})
       }
-    } else {
-      console.log('error no tengo cuisine_id ')
-      resolve({})
-    }
+    })
   })
-
 }
 
 
