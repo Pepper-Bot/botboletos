@@ -179,7 +179,7 @@ var getCityQs = (city_name) => {
         entity_id: city_id, //location id 
         entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
         sort: " cost,rating,real_distance", //choose any one out of these available choices 
-        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
       }
       resolve(qs)
     })
@@ -195,7 +195,7 @@ var searchByCity = (city_id, priority = 1, start = 1, count = 9) => {
       entity_id: city_id, //location id 
       entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
       sort: " cost,rating,real_distance", //choose any one out of these available choices 
-      order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
     }
     resolve(qs)
   })
@@ -214,7 +214,7 @@ var getCityEstablishmentQs = (city_name, venue_type) => {
           entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
           establishment_type: establishment_type.id,
           sort: " cost,rating,real_distance", //choose any one out of these available choices 
-          order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+          order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
         }
         resolve(qs)
       })
@@ -237,7 +237,7 @@ var searchByCityEstablishment = (city_id, venue_type, priority = 1, start = 1, c
         entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
         establishment_type: establishment_type.id,
         sort: " cost,rating,real_distance", //choose any one out of these available choices 
-        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
       }
       resolve(qs)
     })
@@ -259,7 +259,7 @@ var searchByCityCuisineEstablishment = (city_id, venue_type, cuisine, priority =
           establishment_type: establishment_type.id,
           cuisines: cuisine_id,
           sort: " cost,rating,real_distance", //choose any one out of these available choices 
-          order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+          order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
         }
         resolve(qs)
 
@@ -280,7 +280,7 @@ var searchByCityVenueTitleEstablishment = (city_id, venue_type, venue_title, pri
         establishment_type: establishment_type.id,
         q: venue_title,
         sort: " cost,rating,real_distance", //choose any one out of these available choices 
-        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
       }
       resolve(qs)
     })
@@ -302,7 +302,7 @@ var searchByCityVenueTitleCusine = (city_id, venue_title, cuisine, priority = 1,
         q: venue_title,
         cuisines: cuisine_id,
         sort: " cost,rating,real_distance", //choose any one out of these available choices 
-        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
       }
       resolve(qs)
     })
@@ -322,7 +322,7 @@ var searchByEstablismentAndCoordinates = (lat, lon, venue_type, priority = 1, st
         lon: lon, //longitude 
         establishment_type: establishment_type.id,
         sort: " cost,rating,real_distance", //choose any one out of these available choices 
-        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
       }
       resolve(qs)
     })
@@ -347,7 +347,7 @@ var getCityCuisineQs = (city_name, cuisine) => {
               entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
               cuisines: cuisine_id,
               sort: " cost,rating,real_distance", //choose any one out of these available choices 
-              order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+              order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
             }
             resolve(qs)
 
@@ -382,7 +382,7 @@ var searchByCityCuisine = (city_id, cuisine, priority = 1, start = 1, count = 9)
             entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
             cuisines: cuisine_id,
             sort: " cost,rating,real_distance", //choose any one out of these available choices 
-            order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+            order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
           }
           resolve(qs)
 
@@ -414,7 +414,7 @@ var searchByCuisineAndCoordinates = (cuisine, lat = 0, lon = 0) => {
             lon: lot,
             cuisines: cuisine_id,
             sort: " cost,rating,real_distance", //choose any one out of these available choices 
-            order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+            order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
           }
           resolve(qs)
 
@@ -446,7 +446,7 @@ var getCityVenueTitleQs = (city_name, venue_title) => {
         entity_type: "city",
         q: venue_title,
         sort: " cost,rating,real_distance", //choose any one out of these available choices 
-        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
       }
       resolve(qs)
     })
@@ -463,7 +463,7 @@ var searchByCityVenueTitle = (city_id, venue_title, priority = 1, start = 1, cou
       entity_type: "city",
       q: venue_title,
       sort: " cost,rating,real_distance", //choose any one out of these available choices 
-      order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
     }
     resolve(qs)
   })
@@ -479,7 +479,7 @@ var searchByVenueTitleAndCoordinates = (venue_title, lat, lon) => {
       lon: lon,
       q: venue_title,
       sort: " cost,rating,real_distance", //choose any one out of these available choices 
-      order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
     }
     resolve(qs)
   })
@@ -526,7 +526,7 @@ var search = (qs) => {
       collection_id: "29", //collection id obtained from collections call 
       category: "9", //	category ids obtained from categories call 
       sort: " cost,rating,real_distance", //choose any one out of these available choices 
-      order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
 
   }*/
   return new Promise((resolve, reject) => {
