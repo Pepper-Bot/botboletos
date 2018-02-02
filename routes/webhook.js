@@ -1011,7 +1011,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             // zomato.getCityCuisineQs(city, cuisine).then((qs) => {})
                             zomatoQs.push(zomato.getCityCuisineQs(city, cuisine).then(qs))
                         }
-                        
+
                         if (venue_title != '') {
                             //zomato.getCityVenueTitleQs(city, venue_title).then((qs) => {})
                             zomatoQs.push(zomato.getCityVenueTitleQs(city, venue_title).then(qs))
@@ -1019,7 +1019,9 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                         }
 
+                        UserData.getUserLikes(sender).then(() => {
 
+                        })
 
                         zomatoQs.push(zomato.getCityQs(city).then(qs))
 
