@@ -377,7 +377,7 @@ var searchByCityCuisine = (city_id, cuisine, priority = 1, start = 1, count = 9)
           let qs = {
             priority: priority,
             start: start,
-            count: start,
+            count: count,
             entity_id: city_id, //location id 
             entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
             cuisines: cuisine_id,
@@ -558,7 +558,7 @@ var hasVenues = (qs) => {
 var selectQsByPriority = (arrayQs) => {
 
   var arrayQueryMessages = arraySort(arrayQs, ['priority'], {
-    reverse: true
+    reverse: false
   });
 
   console.log('arrayQueryMessages ' + JSON.stringify(arrayQueryMessages))
@@ -576,7 +576,7 @@ var selectQsByPriority = (arrayQs) => {
 
 var starRenderFBTemplate = function (senderId, qs) {
   console.log('qs>>' +JSON.stringify( qs))
-  
+
   search(qs).then((json) => {
   
     if (json.results_found > 0) {
