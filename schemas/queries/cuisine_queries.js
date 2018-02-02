@@ -87,7 +87,7 @@
                  }
                  if (cusines) {
                      resolve(cusines)
-                     console.log("getCuisinesForAI  >>> " + JSON.stringify(cusines));
+                     //console.log("getCuisinesForAI  >>> " + JSON.stringify(cusines));
                  }
              });
 
