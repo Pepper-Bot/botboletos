@@ -1019,7 +1019,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                         }
 
-                        UserData.getUserLikes(sender).then(() => {
+                        UserData.getUserLikes('1489159701297780').then(() => {
 
                         })
 
