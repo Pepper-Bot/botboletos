@@ -1,29 +1,55 @@
-var userInfo = function() 
-{
+var request = require('request');
+var userInfo = function () {
 
-	var request = require('request');
+
 	return {
 
-		getInfo: function(userId, callback){
+		getInfo: function (userId, callback) {
 
 
-		request({
-				url: 'https://graph.facebook.com/v2.6/'+ userId,
-				qs: {access_token: process.env.PAGE_ACCESS_TOKEN},
+			request({
+				url: 'https://graph.facebook.com/v2.6/' + userId,
+				qs: {
+					access_token: process.env.PAGE_ACCESS_TOKEN
+				},
 				method: "GET",
-			}, function(error, response, body){
-				if(error)
-				{
+			}, function (error, response, body) {
+				if (error) {
 					callback(true, null);
-				}
-				else
-				{
+				} else {
 
 					callback(null, body);
 				}
 			});
 		}
-	};	
+	};
 }();
 
-module.exports = userInfo;
+
+var getUserLikes = (userId) => {
+	return new Promise((resolve, reject) => {
+		request({
+			url: 'https://graph.facebook.com/v2.12/' + userId + 'likes',
+			qs: {
+				access_token: process.env.PAGE_ACCESS_TOKEN
+			},
+			method: "GET",
+		}, function (error, response, body) {
+			if (error) {
+				reject(error);
+
+			} else {
+				console.log('Likes del usuario ' + userId + ' ' + JSON.stringify(body))
+				resolve(body)
+			}
+		});
+	})
+}
+
+
+module.exports = {
+	userInfo,
+	getUserLikes,
+
+
+}

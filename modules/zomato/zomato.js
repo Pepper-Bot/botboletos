@@ -155,12 +155,27 @@ var establishments = [{
   }
 }]
 
-var getEstablishments = (city_id, establishment = '') => {
-  let qs = {
-    city_id: city_id, //id of the city for which collections are needed 
-    //lat: "28.613939", //latitude 
-    //lon: "77.209021" //longitude 
+var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
+  let qs = {}
+
+
+  if (lat != 0 && lon != 0) {
+    qs = {
+      lat: lat, //latitude 
+      lon: lot //longitude 
+    }
   }
+
+
+
+  if (city_id != 0) {
+    qs = {
+      city_id: city_id, //id of the city for which collections are needed 
+      //lat: "28.613939", //latitude 
+      //lon: "77.209021" //longitude 
+    }
+  }
+
 
   return new Promise((resolve, reject) => {
     zomatoClient.getEstablishments(qs, function (err, result) {
@@ -334,13 +349,30 @@ var getCityEstablishmentQs = (city_name, venue_type) => {
 }
 
 
+
+var getEstablishmentsByCoordinatesQs = (lat, lon, venue_type) => {
+  return new Promise((resolve, reject) => {
+    getEstablishments(0, venue_type, lat, lon).then((establishment_type) => {
+      let qs = {
+        lat: lat, //latitude 
+        lon: lon, //longitude 
+        establishment_type: establishment_type.id,
+        sort: " cost,rating,real_distance", //choose any one out of these available choices 
+        order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      }
+      resolve(qs)
+    })
+
+  })
+}
+
+
+
 var getCityCuisineQs = (city_name, cuisine) => {
   return new Promise((resolve, reject) => {
     getCities(city_name).then((cityResponse) => {
       console.log('cityResponse' + JSON.stringify(cityResponse))
       let city_id = cityResponse.location_suggestions[0].id
-
-
       getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
         if (cousineRes.length > 0) {
           //let cuisine_id = cousineRes[0].cuisine.cuisine_id
@@ -365,12 +397,47 @@ var getCityCuisineQs = (city_name, cuisine) => {
           console.log('error no tengo cuisine_id ')
           resolve({})
         }
-
-
       })
     })
   })
 }
+
+
+
+var getCuisineByCoordinatesQs = (cuisine, lat = 0, lon = 0) => {
+  return new Promise((resolve, reject) => {
+    getCuisines(0, lat, lon, cuisine).then((cousineRes) => {
+      if (cousineRes.length > 0) {
+        //let cuisine_id = cousineRes[0].cuisine.cuisine_id
+        let cuisine_id = cousineRes[0].id
+        if (cuisine_id) {
+          let qs = {
+            lat: lat,
+            lon: lot,
+            cuisines: cuisine_id,
+            sort: " cost,rating,real_distance", //choose any one out of these available choices 
+            order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+          }
+          resolve(qs)
+
+          console.log('qs ' + JSON.stringify(qs))
+
+        } else {
+          console.log('error no tengo cuisine_id ')
+          resolve({})
+        }
+      } else {
+        console.log('error no tengo cuisine_id ')
+        resolve({})
+      }
+
+
+    })
+
+  })
+}
+
+
 
 var getCityVenueTitleQs = (city_name, venue_title) => {
   return new Promise((resolve, reject) => {
@@ -388,6 +455,19 @@ var getCityVenueTitleQs = (city_name, venue_title) => {
   })
 }
 
+
+var getVenueTitleByCoordinatesQs = (venue_title, lat, lon) => {
+  return new Promise((resolve, reject) => {
+    let qs = {
+      lat: lat,
+      lon: lon,
+      q: venue_title,
+      sort: " cost,rating,real_distance", //choose any one out of these available choices 
+      order: "asc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+    }
+    resolve(qs)
+  })
+}
 
 
 
@@ -643,6 +723,8 @@ module.exports = {
   getCityEstablishmentQs,
   getCityCuisineQs,
   getCityVenueTitleQs,
-
+  getCuisineByCoordinatesQs,
+  getEstablishmentsByCoordinatesQs,
+  getVenueTitleByCoordinatesQs,
 
 }

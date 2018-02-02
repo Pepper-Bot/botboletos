@@ -922,7 +922,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     if ((isDefined(contexts[0].parameters.meal))) {
                         if (contexts[0].parameters.meal != "") {
                             meal = contexts[0].parameters.meal
-                            console.log('venue_facility>> ' + meal)
+                            console.log('meal>> ' + meal)
                         }
                     }
 
@@ -1010,10 +1010,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         if (cuisine != '') {
                             // zomato.getCityCuisineQs(city, cuisine).then((qs) => {})
                             zomatoQs.push(zomato.getCityCuisineQs(city, cuisine).then(qs))
-
-
-
                         }
+                        
                         if (venue_title != '') {
                             //zomato.getCityVenueTitleQs(city, venue_title).then((qs) => {})
                             zomatoQs.push(zomato.getCityVenueTitleQs(city, venue_title).then(qs))
@@ -1039,12 +1037,34 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                             if (isDefined(foundUser)) {
                                 let lat = foundUser.location.coordinates[0];
                                 let lon = foundUser.location.coordinates[1];
-
                                 if (isDefined(lat) && isDefined(lon)) {
 
+                                    if (venue_type != '') {
+                                        zomatoQs.push(zomato.getEstablishmentsByCoordinatesQs(lat, lon, venue_type).then(qs))
+                                    }
+
+                                    if (cuisine != '') {
+                                        // zomato.getCityCuisineQs(city, cuisine).then((qs) => {})
+                                        zomatoQs.push(zomato.getCuisineByCoordinatesQs(cuisine, lat, lon).then(qs))
+                                    }
+
+                                    if (venue_title != '') {
+                                        //zomato.getCityVenueTitleQs(city, venue_title).then((qs) => {})
+                                        zomatoQs.push(zomato.getVenueTitleByCoordinatesQs(venue_title, lat, lon).then(qs))
+
+
+                                    }
 
 
 
+                                    zomatoQs.push(zomato.getCityQs(city).then(qs))
+
+
+
+
+                                    Promise.all(zomatoQs).then(values => {
+                                        console.log('zomatoQs ' + JSON.stringify(values))
+                                    });
 
 
 
@@ -1052,10 +1072,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                     user_queries.createUpdateUserDatas(sender, 'find_venue_to_eat').then(() => {
                                         Message.getLocation(sender, 'What location would you like to get a venue to eat at?');
                                     })
-
-
-
-
 
                                 }
                             }
