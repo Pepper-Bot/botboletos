@@ -1047,8 +1047,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 console.log('zomatoQs ' + JSON.stringify(ArrayQs))
                                 zomato.selectQsByPriority(ArrayQs).then((qs) => {
                                  
-                                    delete qs.priorty;
-
+                                    delete qs.priority;
+                                    
                                     zomato.starRenderFBTemplate(sender, qs)
 
                                 })
