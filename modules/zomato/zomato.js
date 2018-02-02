@@ -614,16 +614,22 @@ var starRenderFBTemplate = function (senderId, qs) {
             }]
           });
 
+
+
+          if (i == json.restaurants.length - 1) {
+            console.log('Resultados para button:');
+            console.log(eventResults);
+            console.log('Sender Id:' + senderId);
+            Message.genericButton(senderId, eventResults);
+            Message.typingOff(senderId);
+          }
+
+
         })
 
 
       }
 
-      console.log('Resultados para button:');
-      console.log(eventResults);
-      console.log('Sender Id:' + senderId);
-      Message.genericButton(senderId, eventResults);
-      Message.typingOff(senderId);
 
     } else {
       console.log('zomato venues not found ')
