@@ -590,7 +590,7 @@ var starRenderFBTemplate = function (senderId, qs) {
       Message.typingOn(senderId);
       //sleep(2000);
       var eventResults = [];
-      for (var i = 0; i < 4; i++) {
+      for (var i = 0; i < json.restaurants.length; i++) {
         eventResults.push({
           "title": json.restaurants[i].restaurant.name,
           "image_url": json.restaurants[i].restaurant.thumb,
