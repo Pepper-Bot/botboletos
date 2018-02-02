@@ -575,13 +575,13 @@ var selectQsByPriority = (arrayQs) => {
 
 
 var starRenderFBTemplate = function (senderId, qs) {
-  console.log('qs>>' +JSON.stringify( qs))
+  console.log('qs>>' + JSON.stringify(qs))
 
   search(qs).then((json) => {
-  
+
     if (json.results_found > 0) {
       console.log('Estos son los resultados:');
-      console.log(json);
+      console.log(JSON.stringify(json));
       Message.typingOn(senderId);
       //sleep(2000);
       Message.sendMessage(senderId, 'Check out these dine outs.');
