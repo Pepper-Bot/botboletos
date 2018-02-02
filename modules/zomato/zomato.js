@@ -652,5 +652,5 @@ module.exports = {
   selectQsByPriority,
 
   starRenderFBTemplate,
-
+  searchByCity,
 }
