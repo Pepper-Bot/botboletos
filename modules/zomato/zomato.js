@@ -38,11 +38,11 @@ var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
       if (!err) {
         let establishmentsResponse = JSON.parse(result);
         let establishments = establishmentsResponse.establishments
-        console.log('establishments ' + JSON.stringify(establishments))
+        //console.log('establishments ' + JSON.stringify(establishments))
         //var allBakeries = query('establishment.name').is(establishment).on(establishments);
         let establecimiento = query('establishment.name').startsWith(establishment).or('establishment.name').endsWith(establishment).on(establishments);
 
-        console.log('establecimiento > ' + JSON.stringify(establecimiento))
+        //console.log('establecimiento > ' + JSON.stringify(establecimiento))
 
 
         resolve(establecimiento)
@@ -83,7 +83,7 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
 
         let cuisines = cuisinesR.cuisines
 
-        console.log('cuisines ' + JSON.stringify(cuisines))
+        //console.log('cuisines ' + JSON.stringify(cuisines))
 
 
         //let cocina = query('cuisine.cuisine_name').is(cuisine).on(cuisinesR.cuisines);
@@ -91,11 +91,12 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
 
 
         cuisineQueries.getCuisinesForAI().then((cocinasForAI) => {
-          console.log('cocinasForAI ' + JSON.stringify(cocinasForAI))
+          //console.log('cocinasForAI ' + JSON.stringify(cocinasForAI))
         })
 
         cuisineQueries.getCuisineByName(cuisine).then((cocinaEncontrada) => {
           if (cocinaEncontrada.length > 0) {
+            console.log('cocina encontrada... >' + JSON.stringify(cocinaEncontrada))
             resolve(cocinaEncontrada)
           } else {
             for (let i = 0; i < cuisines.length; i++) {
@@ -172,7 +173,7 @@ var getCities = (city_name) => {
 var getCityQs = (city_name) => {
   return new Promise((resolve, reject) => {
     getCities(city_name).then((cityResponse) => {
-      console.log('cityResponse' + JSON.stringify(cityResponse))
+      //console.log('cityResponse' + JSON.stringify(cityResponse))
       let city_id = cityResponse.location_suggestions[0].id
       let qs = {
         entity_id: city_id, //location id 
@@ -575,7 +576,7 @@ var selectQsByPriority = (arrayQs) => {
 
 var starRenderFBTemplate = function (senderId, qs) {
   search(qs).then((json) => {
-
+    console.log('qs>>' +JSON.stringify( qs))
     if (json.results_found > 0) {
       console.log('Estos son los resultados:');
       console.log(json);
