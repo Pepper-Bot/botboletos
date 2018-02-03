@@ -590,9 +590,9 @@ var starRenderFBTemplate = function (senderId, qs) {
       Message.typingOn(senderId);
       //sleep(2000);
       let eventResults = [];
-      
+
       for (let i = 0; i < json.restaurants.length; i++) {
-        let search = json.restaurants[i].restaurant.name
+        let search = json.restaurants[i].restaurant.name + ' ' + json.restaurants[i].restaurant.cuisines
         let gButtons = json.restaurants
         getGoogleImage(search, gButtons).then((images) => {
           eventResults.push({
@@ -652,7 +652,19 @@ var getGoogleImage = (search, matriz = []) => {
   return new Promise((resolve, reject) => {
 
     var gis = require('g-i-s');
-    gis(search, logResults);
+
+
+    var opts = {
+      searchTerm: search,
+      queryStringAddition: '&tbs=ic:trans',
+      filterOutDomains: [
+
+
+      ]
+    };
+
+    gis(opts, logResults);
+    //gis(search, logResults);
 
     function logResults(error, results) {
       if (error) {
