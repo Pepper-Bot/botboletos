@@ -614,7 +614,7 @@ var starRenderFBTemplate = function (senderId, qs) {
           eventResults.push({
             "title": json.restaurants[i].restaurant.name,
             //"image_url": json.restaurants[i].restaurant.thumb,
-            "image_url": images[0].url,
+            "image_url": images[1].url,
             "subtitle": json.restaurants[i].restaurant.cuisines,
             "default_action": {
               "type": "web_url",
