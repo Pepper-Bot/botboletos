@@ -608,7 +608,7 @@ var starRenderFBTemplate = function (senderId, qs) {
       let eventResults = [];
       let counter = 0;
       for (let i = 0; i < json.restaurants.length; i++) {
-        let search = json.restaurants[i].restaurant.name + ' zomato  ' + json.restaurants[i].restaurant.cuisines
+        let search = json.restaurants[i].restaurant.name + ' zomato  ' + json.restaurants[i].restaurant.location.locality
         let gButtons = json.restaurants
         getGoogleImage(search, gButtons).then((images) => {
           eventResults.push({
