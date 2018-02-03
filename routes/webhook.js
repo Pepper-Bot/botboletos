@@ -1065,6 +1065,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
                     } else { //busquedas por cordenadas...
+                        console.log('Se activa busqueda por coordenadas...')
                         user_queries.getUserByFbId(sender).then((foundUser) => {
                             if (isDefined(foundUser)) {
                                 let lat = foundUser.location.coordinates[0];
@@ -1084,19 +1085,19 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                     }
 
                                     if (venue_type != '') {
-                                        zomatoQs.push(zomato.searchByEstablismentAndCoordinates(lat, lon, venue_type).then(qs))
+                                        zomatoQs.push(zomato.searchByEstablismentAndCoordinates(lat, lon, venue_type, 4).then(qs))
                                     }
 
                                     if (cuisine != '') {
-                                        zomatoQs.push(zomato.searchByCuisineAndCoordinates(cuisine, lat, lon).then(qs))
+                                        zomatoQs.push(zomato.searchByCuisineAndCoordinates(cuisine, lat, lon, 5).then(qs))
                                     }
 
                                     if (venue_title != '') {
-                                        zomatoQs.push(zomato.searchByVenueTitleAndCoordinates(venue_title, lat, lon).then(qs))
+                                        zomatoQs.push(zomato.searchByVenueTitleAndCoordinates(venue_title, lat, lon, 6).then(qs))
                                     }
 
 
-                                    zomatoQs.push(zomato.searchByCoordinates(lat, lon).then(qs))
+                                    zomatoQs.push(zomato.searchByCoordinates(lat, lon, 7).then(qs))
 
 
 

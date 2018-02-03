@@ -466,7 +466,7 @@ var searchByCityCuisine = (city_id, cuisine, priority = 1, start = 1, count = 9)
 
 
 
-var searchByCuisineAndCoordinates = (cuisine, lat = 0, lon = 0) => {
+var searchByCuisineAndCoordinates = (cuisine, lat = 0, lon = 0, priority = 1 , start = 1, count=9) => {
   return new Promise((resolve, reject) => {
     getCuisines(0, lat, lon, cuisine).then((cousineRes) => {
       if (cousineRes.length > 0) {
@@ -474,6 +474,9 @@ var searchByCuisineAndCoordinates = (cuisine, lat = 0, lon = 0) => {
         let cuisine_id = cousineRes[0].id
         if (cuisine_id) {
           let qs = {
+            priority: priority,
+            start: start,
+            count: count,
             lat: lat,
             lon: lot,
             cuisines: cuisine_id,
@@ -536,9 +539,12 @@ var searchByCityVenueTitle = (city_id, venue_title, priority = 1, start = 1, cou
 
 
 
-var searchByVenueTitleAndCoordinates = (venue_title, lat, lon) => {
+var searchByVenueTitleAndCoordinates = (venue_title, lat, lon, priority, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     let qs = {
+      priority: priority,
+      start: start,
+      count: count,
       lat: lat,
       lon: lon,
       q: venue_title,
@@ -549,9 +555,12 @@ var searchByVenueTitleAndCoordinates = (venue_title, lat, lon) => {
   })
 }
 
-var searchByCoordinates = (lat, lon) => {
+var searchByCoordinates = (lat, lon, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     let qs = {
+      priority: priority,
+      start: start,
+      count: count,
       lat: lat,
       lon: lon,
       sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
