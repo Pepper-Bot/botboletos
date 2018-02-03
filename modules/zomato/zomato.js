@@ -561,15 +561,39 @@ var selectQsByPriority = (arrayQs) => {
     reverse: false
   });
 
+  let arraySelected = []
+  let counter = 0
   console.log('arrayQueryMessages ' + JSON.stringify(arrayQueryMessages))
   return new Promise((resolve, reject) => {
     for (let i = 0; i < arrayQueryMessages.length; i++) {
       hasVenues(arrayQueryMessages[i]).then((tiene) => {
-        if (tiene === true)
-          resolve(arrayQueryMessages[i])
+        if (tiene === true) {
+          arraySelected.push(arrayQueryMessages[i])
+        }
+
+        if (counter === arrayQueryMessages.length - 1) {
+          let arrayFinal = arraySort(arraySelected, ['priority'], {
+            reverse: false
+          });
+          resolve(arrayFinal[0])
+       }
+  
+        counter++
+
       })
+
+
+  
     }
   })
+
+
+
+
+
+  resolve(arrayQueryMessages[i])
+
+
 }
 
 
