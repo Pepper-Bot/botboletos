@@ -557,7 +557,7 @@ var hasVenues = (qs) => {
 
 var selectQsByPriority = (arrayQs) => {
 
-  let arrayQueryMessages = arraySort(arrayQs, ['priority'], {
+  var arrayQueryMessages = arraySort(arrayQs, ['priority'], {
     reverse: false
   });
 
@@ -590,7 +590,7 @@ var starRenderFBTemplate = function (senderId, qs) {
       Message.typingOn(senderId);
       //sleep(2000);
       let eventResults = [];
-
+      let counter = 0;
       for (let i = 0; i < json.restaurants.length; i++) {
         let search = json.restaurants[i].restaurant.name + ' ' + json.restaurants[i].restaurant.cuisines
         let gButtons = json.restaurants
@@ -617,7 +617,7 @@ var starRenderFBTemplate = function (senderId, qs) {
 
 
 
-          if (i === json.restaurants.length - 1) {
+          if (counter === json.restaurants.length - 1) {
             console.log('Resultados para button:');
             console.log(eventResults);
             console.log('Sender Id:' + senderId);
@@ -625,7 +625,7 @@ var starRenderFBTemplate = function (senderId, qs) {
             Message.typingOff(senderId);
           }
 
-
+          counter++;
         })
 
 
