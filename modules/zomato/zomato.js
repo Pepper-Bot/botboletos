@@ -575,7 +575,7 @@ var selectQsByPriority = (arrayQs) => {
           let arrayFinal = arraySort(arraySelected, ['priority'], {
             reverse: false
           });
-          
+
           resolve(arrayFinal[0])
        }
           counter++
@@ -672,11 +672,8 @@ var getGoogleImage = (search, matriz = []) => {
 
     var opts = {
       searchTerm: search,
-      queryStringAddition: '&tbs=ic:trans',
-      filterOutDomains: [
-
-
-      ]
+      //queryStringAddition: '&tbs=ic:trans',
+      //filterOutDomains: [ ]
     };
 
     gis(opts, logResults);
