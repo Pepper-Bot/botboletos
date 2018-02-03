@@ -575,23 +575,15 @@ var selectQsByPriority = (arrayQs) => {
           let arrayFinal = arraySort(arraySelected, ['priority'], {
             reverse: false
           });
+          
           resolve(arrayFinal[0])
        }
-  
-        counter++
-
+          counter++
       })
-
-
-  
     }
   })
 
-
-
-
-
-  resolve(arrayQueryMessages[i])
+ 
 
 
 }
