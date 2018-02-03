@@ -1040,15 +1040,15 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 zomatoQs.push(zomato.searchByCityVenueTitle(city_id, venue_title, 6).then(qs))
 
                             }
-                            zomatoQs.push(zomato.searchByCity(city_id).then(qs))
+                            zomatoQs.push(zomato.searchByCity(city_id, 7).then(qs))
 
 
                             Promise.all(zomatoQs).then(ArrayQs => {
                                 console.log('zomatoQs ' + JSON.stringify(ArrayQs))
                                 zomato.selectQsByPriority(ArrayQs).then((qs) => {
-                                 
+                                    console.log('priority ' + qs.priority)
                                     delete qs.priority;
-                                    
+
                                     zomato.starRenderFBTemplate(sender, qs)
 
                                 })
