@@ -309,6 +309,25 @@ var searchByCityVenueTitleCusine = (city_id, venue_title, cuisine, priority = 1,
   })
 }
 
+var searchByVenueTitleCusineAndCoordinates = (lat, lon, venue_title, cuisine, priority = 1, start = 1, count = 9) => {
+  return new Promise((resolve, reject) => {
+    getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
+      let cuisine_id = cousineRes[0].id
+      let qs = {
+        priority: priority,
+        start: start,
+        count: count,
+        lat: lat,
+        lon: lon,
+        q: venue_title,
+        cuisines: cuisine_id,
+        sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
+        order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      }
+      resolve(qs)
+    })
+  })
+}
 
 
 var searchByEstablismentAndCoordinates = (lat, lon, venue_type, priority = 1, start = 1, count = 9) => {
@@ -329,6 +348,51 @@ var searchByEstablismentAndCoordinates = (lat, lon, venue_type, priority = 1, st
 
   })
 }
+
+var searchByCuisineEstablishmentAndCoordinates = (lat, lon, cuisine, venue_type, priority = 1, start = 1, count = 9) => {
+  return new Promise((resolve, reject) => {
+    getEstablishments(0, lat, lon, venue_type).then((establishment_type) => {
+      getCuisines(0, lat, lon, cuisine).then((cousineRes) => {
+        let cuisine_id = cousineRes[0].id
+        let qs = {
+          priority: priority,
+          start: start,
+          count: count,
+          entity_id: city_id, //location id 
+          entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
+          establishment_type: establishment_type.id,
+          cuisines: cuisine_id,
+          sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
+          order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+        }
+        resolve(qs)
+
+      })
+    })
+  })
+}
+
+
+var searchByVenueTitleEstablishmentAndCoordinates = (lat, lon, venue_type, venue_title, priority, start = 1, count = 9) => {
+  return new Promise((resolve, reject) => {
+    getEstablishments(city_id, venue_type).then((establishment_type) => {
+      let qs = {
+        priority: priority,
+        start: start,
+        count: count,
+        lat: lat,
+        lon: lon,
+        establishment_type: establishment_type.id,
+        q: venue_title,
+        sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
+        order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+      }
+      resolve(qs)
+    })
+  })
+}
+
+
 
 
 
@@ -485,6 +549,18 @@ var searchByVenueTitleAndCoordinates = (venue_title, lat, lon) => {
   })
 }
 
+var searchByCoordinates = (lat, lon) => {
+  return new Promise((resolve, reject) => {
+    let qs = {
+      lat: lat,
+      lon: lon,
+      sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
+      order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
+    }
+    resolve(qs)
+  })
+}
+
 
 
 
@@ -608,14 +684,14 @@ var starRenderFBTemplate = function (senderId, qs) {
       let eventResults = [];
       let counter = 0;
       for (let i = 0; i < json.restaurants.length; i++) {
-        let search = json.restaurants[i].restaurant.name + ' ' + json.restaurants[i].restaurant.location.locality + ' '  + json.restaurants[i].restaurant.location.city
+        let search = json.restaurants[i].restaurant.name + ' ' + json.restaurants[i].restaurant.location.locality + ' ' + json.restaurants[i].restaurant.location.city
         let gButtons = json.restaurants
         getGoogleImage(search, gButtons).then((images) => {
           eventResults.push({
             "title": json.restaurants[i].restaurant.name,
             //"image_url": json.restaurants[i].restaurant.thumb,
             "image_url": images[0].url,
-            "subtitle": json.restaurants[i].restaurant.cuisines,
+            "subtitle": json.restaurants[i].restaurant.cuisines + ' ' + json.restaurants[i].restaurant.location.city,
             "default_action": {
               "type": "web_url",
               "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId
@@ -710,7 +786,11 @@ module.exports = {
   searchByCityVenueTitleEstablishment,
   searchByCityVenueTitleCusine,
   selectQsByPriority,
-
+  searchByCuisineEstablishmentAndCoordinates,
   starRenderFBTemplate,
   searchByCity,
+  searchByCoordinates,
+  searchByVenueTitleEstablishmentAndCoordinates,
+  searchByVenueTitleCusineAndCoordinates,
+
 }

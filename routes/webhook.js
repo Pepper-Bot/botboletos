@@ -1071,31 +1071,47 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                                 let lon = foundUser.location.coordinates[1];
                                 if (isDefined(lat) && isDefined(lon)) {
 
+                                    if (cuisine != '' && venue_type != '') {
+                                        zomatoQs.push(zomato.searchByCuisineEstablishmentAndCoordinates(lat, lon, cuisine, venue_type, 1).then(qs))
+                                    }
+
+                                    if (venue_title != '' && venue_type != '') {
+                                        zomatoQs.push(zomato.searchByVenueTitleEstablishmentAndCoordinates(lat, lon, venue_type, venue_title, 2).then(qs))
+                                    }
+
+                                    if (venue_title != '' && cuisine != '') {
+                                        zomatoQs.push(zomato.searchByVenueTitleCusineAndCoordinates(lat, lon, venue_title, cuisine, 3).then(qs))
+                                    }
+
                                     if (venue_type != '') {
                                         zomatoQs.push(zomato.searchByEstablismentAndCoordinates(lat, lon, venue_type).then(qs))
                                     }
 
                                     if (cuisine != '') {
-                                        // zomato.getCityCuisineQs(city, cuisine).then((qs) => {})
                                         zomatoQs.push(zomato.searchByCuisineAndCoordinates(cuisine, lat, lon).then(qs))
                                     }
 
                                     if (venue_title != '') {
-                                        //zomato.getCityVenueTitleQs(city, venue_title).then((qs) => {})
                                         zomatoQs.push(zomato.searchByVenueTitleAndCoordinates(venue_title, lat, lon).then(qs))
-
-
                                     }
 
 
-
-                                    zomatoQs.push(zomato.getCityQs(city).then(qs))
-
+                                    zomatoQs.push(zomato.searchByCoordinates(lat, lon).then(qs))
 
 
 
-                                    Promise.all(zomatoQs).then(values => {
-                                        console.log('zomatoQs ' + JSON.stringify(values))
+
+
+                                    Promise.all(zomatoQs).then(ArrayQs => {
+                                        console.log('zomatoQs ' + JSON.stringify(ArrayQs))
+                                        zomato.selectQsByPriority(ArrayQs).then((qs) => {
+                                            console.log('priority ' + qs.priority)
+                                            delete qs.priority;
+
+                                            zomato.starRenderFBTemplate(sender, qs)
+
+                                        })
+
                                     });
 
 
