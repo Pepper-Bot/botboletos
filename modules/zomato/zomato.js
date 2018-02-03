@@ -557,7 +557,7 @@ var hasVenues = (qs) => {
 
 var selectQsByPriority = (arrayQs) => {
 
-  var arrayQueryMessages = arraySort(arrayQs, ['priority'], {
+  let arrayQueryMessages = arraySort(arrayQs, ['priority'], {
     reverse: false
   });
 
