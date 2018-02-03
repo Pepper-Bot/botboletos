@@ -577,13 +577,13 @@ var selectQsByPriority = (arrayQs) => {
           });
 
           resolve(arrayFinal[0])
-       }
-          counter++
+        }
+        counter++
       })
     }
   })
 
- 
+
 
 
 }
@@ -672,7 +672,7 @@ var getGoogleImage = (search, matriz = []) => {
 
     var opts = {
       searchTerm: search,
-      //queryStringAddition: '&tbs=ic:trans',
+      queryStringAddition: '&tbs=ic:trans',
       //filterOutDomains: [ ]
     };
 
