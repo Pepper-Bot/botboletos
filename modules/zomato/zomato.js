@@ -675,12 +675,15 @@ var selectQsByPriority = (arrayQs) => {
 
 var starRenderFBTemplate = (senderId, qs) => {
   preparateRenderFBTemplate(senderId, qs).then((eventResults) => {
-    sendTemplatesFromArray( senderId, eventResults ).then(()=>{
-
+    sendTemplatesFromArray(senderId, eventResults).then((eventResults) => {
+      Message.sendMessage(senderId, 'Check out these dine outs.');
+      console.log('Resultados para button:');
+      console.log(eventResults);
+      console.log('Sender Id:' + senderId);
+      Message.genericButton(senderId, eventResults);
+      Message.typingOff(senderId);
     })
-
   })
-
 }
 
 var preparateRenderFBTemplate = function (senderId, qs) {
@@ -693,7 +696,7 @@ var preparateRenderFBTemplate = function (senderId, qs) {
         console.log(json);
         Message.typingOn(senderId);
         //sleep(2000);
-        Message.sendMessage(senderId, 'Check out these dine outs.');
+     
         Message.typingOff(senderId);
 
         Message.typingOn(senderId);
@@ -752,31 +755,29 @@ var preparateRenderFBTemplate = function (senderId, qs) {
 }
 
 var sendTemplatesFromArray = (senderId, eventResults) => {
-  if (eventResults == 9) {
-    eventResults.push({
-      "title": "Can’t make any of these venues+?",
-      "image_url": "https://ticketdelivery.herokuapp.com/images/ciudad.jpg",
-      "subtitle": "My Pepper Bot",
-      "default_action": {
-        "type": "web_url",
-        "url": "https://www.facebook.com/mypepperbot/"
-        /*,
-        "messenger_extensions": true,
-        "webview_height_ratio": "tall",
-        "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
-      },
-      "buttons": [{
-        "type": "postback",
-        "title": "More venues",
-        "payload": "zomato_see_more_venues"
-      }]
-    });
-  }
-  console.log('Resultados para button:');
-  console.log(eventResults);
-  console.log('Sender Id:' + senderId);
-  Message.genericButton(senderId, eventResults);
-  Message.typingOff(senderId);
+  return new Promise((resolve, reject) => {
+    if (eventResults == 9) {
+      eventResults.push({
+        "title": "Can’t make any of these venues+?",
+        "image_url": "https://ticketdelivery.herokuapp.com/images/ciudad.jpg",
+        "subtitle": "My Pepper Bot",
+        "default_action": {
+          "type": "web_url",
+          "url": "https://www.facebook.com/mypepperbot/"
+          /*,
+          "messenger_extensions": true,
+          "webview_height_ratio": "tall",
+          "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
+        },
+        "buttons": [{
+          "type": "postback",
+          "title": "More venues",
+          "payload": "zomato_see_more_venues"
+        }]
+      });
+    }
+     resolve(eventResults)
+  })
 }
 
 
