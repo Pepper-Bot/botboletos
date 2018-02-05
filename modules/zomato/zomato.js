@@ -466,7 +466,7 @@ var searchByCityCuisine = (city_id, cuisine, priority = 1, start = 1, count = 9)
 
 
 
-var searchByCuisineAndCoordinates = (cuisine, lat = 0, lon = 0, priority = 1 , start = 1, count=9) => {
+var searchByCuisineAndCoordinates = (cuisine, lat = 0, lon = 0, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getCuisines(0, lat, lon, cuisine).then((cousineRes) => {
       if (cousineRes.length > 0) {
@@ -673,79 +673,112 @@ var selectQsByPriority = (arrayQs) => {
 
 }
 
+var starRenderFBTemplate = (senderId, qs) => {
+  preparateRenderFBTemplate(senderId, qs).then((eventResults) => {
+    sendTemplatesFromArray( senderId, eventResults ).then(()=>{
 
-
-var starRenderFBTemplate = function (senderId, qs) {
-  console.log('qs>>' + JSON.stringify(qs))
-
-  search(qs).then((json) => {
-
-    if (json.results_found > 0) {
-      console.log('Estos son los resultados:');
-      console.log(json);
-      Message.typingOn(senderId);
-      //sleep(2000);
-      Message.sendMessage(senderId, 'Check out these dine outs.');
-      Message.typingOff(senderId);
-
-      Message.typingOn(senderId);
-      //sleep(2000);
-      let eventResults = [];
-      let counter = 0;
-      for (let i = 0; i < json.restaurants.length; i++) {
-        let search = json.restaurants[i].restaurant.name + ' ' + json.restaurants[i].restaurant.location.locality + ' ' + json.restaurants[i].restaurant.location.city
-        let gButtons = json.restaurants
-        getGoogleImage(search, gButtons).then((images) => {
-          eventResults.push({
-            "title": json.restaurants[i].restaurant.name,
-            //"image_url": json.restaurants[i].restaurant.thumb,
-            "image_url": images[0].url,
-            "subtitle": json.restaurants[i].restaurant.cuisines + ' ' + json.restaurants[i].restaurant.location.city,
-            "default_action": {
-              "type": "web_url",
-              "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId
-              /*,
-                                                                    "messenger_extensions": true,
-                                                                    "webview_height_ratio": "tall",
-                                                                    "fallback_url": 'https://botboletos.herokuapp.com/redirect/?u='+json.restaurants[i].restaurant.url + '&id='+result.fbId*/
-            },
-            "buttons": [{
-              "type": "web_url",
-              "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId,
-              "title": "Go"
-            }]
-          });
-
-
-
-          if (counter === json.restaurants.length - 1) {
-            console.log('Resultados para button:');
-            console.log(eventResults);
-            console.log('Sender Id:' + senderId);
-            Message.genericButton(senderId, eventResults);
-            Message.typingOff(senderId);
-          }
-
-          counter++;
-        })
-
-
-      }
-
-
-    } else {
-      console.log('zomato venues not found ')
-    }
-
-
-
-
-  }).catch((err) => {
-    console.log('Error en la función getTemplateBySearch' + err)
+    })
 
   })
 
 }
+
+var preparateRenderFBTemplate = function (senderId, qs) {
+  console.log('qs>>' + JSON.stringify(qs))
+  return new Promise((resolve, reject) => {
+    search(qs).then((json) => {
+
+      if (json.results_found > 0) {
+        console.log('Estos son los resultados:');
+        console.log(json);
+        Message.typingOn(senderId);
+        //sleep(2000);
+        Message.sendMessage(senderId, 'Check out these dine outs.');
+        Message.typingOff(senderId);
+
+        Message.typingOn(senderId);
+        //sleep(2000);
+        let eventResults = [];
+        let counter = 0;
+        for (let i = 0; i < json.restaurants.length; i++) {
+          let search = json.restaurants[i].restaurant.name + ' ' + json.restaurants[i].restaurant.location.locality + ' ' + json.restaurants[i].restaurant.location.city
+          let gButtons = json.restaurants
+          getGoogleImage(search, gButtons).then((images) => {
+            eventResults.push({
+              "title": json.restaurants[i].restaurant.name,
+              //"image_url": json.restaurants[i].restaurant.thumb,
+              "image_url": images[0].url,
+              "subtitle": json.restaurants[i].restaurant.cuisines + ' ' + json.restaurants[i].restaurant.location.city,
+              "default_action": {
+                "type": "web_url",
+                "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId
+                /*,
+                                                                      "messenger_extensions": true,
+                                                                      "webview_height_ratio": "tall",
+                                                                      "fallback_url": 'https://botboletos.herokuapp.com/redirect/?u='+json.restaurants[i].restaurant.url + '&id='+result.fbId*/
+              },
+              "buttons": [{
+                "type": "web_url",
+                "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId,
+                "title": "Go"
+              }]
+            });
+
+
+
+            if (counter === json.restaurants.length - 1) {
+              resolve(eventResults)
+            }
+
+            counter++;
+          })
+
+
+        }
+
+
+      } else {
+        console.log('zomato venues not found ')
+      }
+
+
+
+
+    }).catch((err) => {
+      console.log('Error en la función getTemplateBySearch' + err)
+
+    })
+  })
+}
+
+var sendTemplatesFromArray = (senderId, eventResults) => {
+  if (eventResults == 9) {
+    eventResults.push({
+      "title": "Can’t make any of these venues+?",
+      "image_url": "https://ticketdelivery.herokuapp.com/images/ciudad.jpg",
+      "subtitle": "My Pepper Bot",
+      "default_action": {
+        "type": "web_url",
+        "url": "https://www.facebook.com/mypepperbot/"
+        /*,
+        "messenger_extensions": true,
+        "webview_height_ratio": "tall",
+        "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
+      },
+      "buttons": [{
+        "type": "postback",
+        "title": "More venues",
+        "payload": "zomato_see_more_venues"
+      }]
+    });
+  }
+  console.log('Resultados para button:');
+  console.log(eventResults);
+  console.log('Sender Id:' + senderId);
+  Message.genericButton(senderId, eventResults);
+  Message.typingOff(senderId);
+}
+
 
 
 
