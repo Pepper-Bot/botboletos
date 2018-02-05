@@ -756,7 +756,7 @@ var preparateRenderFBTemplate = function (senderId, qs) {
 
 var sendTemplatesFromArray = (senderId, eventResults) => {
   return new Promise((resolve, reject) => {
-    if (eventResults == 9) {
+    if (eventResults.length == 9) {
       eventResults.push({
         "title": "Can’t make any of these venues+?",
         "image_url": "https://ticketdelivery.herokuapp.com/images/ciudad.jpg",
