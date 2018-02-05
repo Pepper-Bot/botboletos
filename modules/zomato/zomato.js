@@ -681,7 +681,7 @@ var starRenderFBTemplate = (senderId, qs) => {
     sendTemplatesFromArray(senderId, eventResults).then((eventResults) => {
 
      
-      console.log('Resultados para button:');
+      console.log('Resultados para la consulta qs: ' +   JSON.stringify(qs));
       console.log(eventResults);
       console.log('Sender Id:' + senderId);
 
