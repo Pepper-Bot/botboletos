@@ -54,25 +54,25 @@
                  'sessionEnd': -1
              }
          }, function (err, foundUser) {
-            if (err) {
-                console.log('Error en getUserByFbId user_queries ' + err)
-                reject(err)
+             if (err) {
+                 console.log('Error en getUserByFbId user_queries ' + err)
+                 reject(err)
 
-            }
-            if (!foundUser) {
-                console.log('Error en getUserByFbId user_queries ' + err)
-                reject(err)
-            }
-            if (foundUser) {
-                resolve(foundUser)
-                console.log("cusines zomato  >>> " + JSON.stringify(foundUser));
-            }
+             }
+             if (!foundUser) {
+                 console.log('Error en getUserByFbId user_queries ' + err)
+                 reject(err)
+             }
+             if (foundUser) {
+                 resolve(foundUser)
+                 console.log("cusines zomato  >>> " + JSON.stringify(foundUser));
+             }
          })
      })
  }
 
 
- var createUpdateUserDatas = (senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', queryTevoFinal = '', page = 0, per_page = 0, artists = '', musical_genres = '', teams = '', cities = '', messageTitle = '', event_type = '',   categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0) => {
+ var createUpdateUserDatas = (senderId, context = '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', queryTevoFinal = '', page = 0, per_page = 0, artists = '', musical_genres = '', teams = '', cities = '', messageTitle = '', event_type = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0, zomatoQs = {}) => {
      var dbObj = require('../mongodb');
      dbObj.getConnection();
 
@@ -182,6 +182,13 @@
                              foundUser.showMemore.index3 = index3
 
 
+                             if (zomatoQs.start){
+                                foundUser.qs = zomatoQs
+                             }
+
+
+
+
                              foundUser.save(function (err, userSaved) {
                                  if (!err) {
                                      console.log("foundUser Saved!!! " + JSON.stringify(userSaved.fbId));
@@ -289,6 +296,14 @@
                                          User.showMemore.index2 = index2
                                          User.showMemore.index3 = index3
 
+
+                                         if (zomatoQs.start){
+                                            foundUser.qs = zomatoQs
+                                         }
+
+                                         
+
+                                         
                                          User.save();
                                      }
                                  }

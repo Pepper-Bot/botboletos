@@ -1,11 +1,13 @@
 var zomato = require('zomato');
 var Message = require('../../bot/messages');
-var Message_2 = require ('../../bot/generic_buttton')// Define new card layout 
+var Message_2 = require('../../bot/generic_buttton') // Define new card layout 
 var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 var query = require('array-query');
 var cuisineSchema = require('../../schemas/cuisine')
 var cuisineQueries = require('../../schemas/queries/cuisine_queries')
 var arraySort = require('array-sort');
+var user_queries = require('../../schemas/queries/user_queries');
+
 var zomatoClient = zomato.createClient({
   userKey: '2889c298c45512452b6b32e46df88ffa',
 });
@@ -677,17 +679,22 @@ var selectQsByPriority = (arrayQs) => {
 var starRenderFBTemplate = (senderId, qs) => {
   preparateRenderFBTemplate(senderId, qs).then((eventResults) => {
     sendTemplatesFromArray(senderId, eventResults).then((eventResults) => {
-      Message.sendMessage(senderId, 'Check out these dine outs.');
+
+     
       console.log('Resultados para button:');
       console.log(eventResults);
       console.log('Sender Id:' + senderId);
 
-       
-      Message_2.genericTemplate(senderId, eventResults, 'square');
+
+      Message_2.genericTemplate(senderId, eventResults).then(() => {
+        Message.sendMessage(senderId, 'Check out these dine outs.');
+        Message.typingOff(senderId);
+        user_queries.createUpdateUserDatas(senderId, 'zomato_search', '', {}, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', 0, 0, qs)
+      })
 
 
       //Message.genericButton(senderId, eventResults);
-      Message.typingOff(senderId);
+      
     })
   })
 }
@@ -702,7 +709,7 @@ var preparateRenderFBTemplate = function (senderId, qs) {
         console.log(json);
         Message.typingOn(senderId);
         //sleep(2000);
-     
+
         Message.typingOff(senderId);
 
         Message.typingOn(senderId);
@@ -782,7 +789,7 @@ var sendTemplatesFromArray = (senderId, eventResults) => {
         }]
       });
     }
-     resolve(eventResults)
+    resolve(eventResults)
   })
 }
 
@@ -841,5 +848,5 @@ module.exports = {
   searchByCoordinates,
   searchByVenueTitleEstablishmentAndCoordinates,
   searchByVenueTitleCusineAndCoordinates,
-
+  hasVenues
 }
