@@ -183,7 +183,7 @@
 
 
                              if (zomatoQs.start){
-                                foundUser.qs = zomatoQs
+                                foundUser.zomatoQs = zomatoQs
                              }
 
 
@@ -298,12 +298,12 @@
 
 
                                          if (zomatoQs.start){
-                                            foundUser.qs = zomatoQs
+                                            User.zomatoQs = zomatoQs
                                          }
 
                                          
 
-                                         
+
                                          User.save();
                                      }
                                  }
