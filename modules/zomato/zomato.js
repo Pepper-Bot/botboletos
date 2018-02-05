@@ -685,9 +685,9 @@ var starRenderFBTemplate = (senderId, qs) => {
       console.log(eventResults);
       console.log('Sender Id:' + senderId);
 
-
+      Message.sendMessage(senderId, 'Check out these dine outs.');
       Message_2.genericTemplate(senderId, eventResults).then(() => {
-        Message.sendMessage(senderId, 'Check out these dine outs.');
+       
         Message.typingOff(senderId);
         user_queries.createUpdateUserDatas(senderId, 'zomato_search', '', {}, '', '', '', 0, 0, '', '', '', '', '', '', '', '', '', 0, 0, qs)
       })
