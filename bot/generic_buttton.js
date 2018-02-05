@@ -431,6 +431,6 @@ module.exports = {
     sendImageWithQuickReplay,
     sendMessage,
     genericTemplate,
- 
+
 
 }

@@ -686,7 +686,7 @@ var starRenderFBTemplate = (senderId, qs) => {
       Message_2.genericTemplate(senderId, eventResults, 'square');
 
 
-      Message.genericButton(senderId, eventResults);
+      //Message.genericButton(senderId, eventResults);
       Message.typingOff(senderId);
     })
   })
