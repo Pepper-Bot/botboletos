@@ -53,7 +53,39 @@ function quickReply(senderId, messageText, replies, callback) {
 
 
 
-
+var genericTemplate = (senderId, gButtons, image_aspect_ratio = 'horizontal' /*square*/ ) => {
+    return new Promise((resolve, reject) => {
+        request({
+            url: 'https://graph.facebook.com/v2.6/me/messages',
+            qs: {
+                access_token: process.env.PAGE_ACCES_TOKEN,
+            },
+            method: 'POST',
+            json: {
+                "recipient": {
+                    "id": senderId
+                },
+                "message": {
+                    "attachment": {
+                        "type": 'template',
+                        "payload": {
+                            "template_type": 'generic',
+                            "image_aspect_ratio": image_aspect_ratio, //square
+                            "elements": gButtons
+                        }
+                    }
+                }
+            }
+        }, function (error, response, body) {
+            console.log(response);
+            if (!error) {
+                resolve(response)
+            } else {
+                console.log('Tenemos un error al ejecutar  generiTemplate' + error)
+            }
+        })
+    })
+}
 
 
 function genericButtonQuickReplay(senderId, gButtons, messageText, callback) {
@@ -356,7 +388,7 @@ function listTemplateButtons(senderId, gButtons) {
         if (error) {
             console.log("MAL")
         } else {
-           
+
             console.log(" listTemplateButtons  BIEN")
         }
 
@@ -397,7 +429,8 @@ module.exports = {
     listTemplateButtons,
     sendImage,
     sendImageWithQuickReplay,
-    sendMessage
-
+    sendMessage,
+    genericTemplate,
+ 
 
 }

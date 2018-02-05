@@ -51,20 +51,20 @@ var UserData = mongoose.Schema({
 	categorySearchSelected: [],
 	querysTevo: [],
 	queryTevoFinal: String,
-	queryTevoReplace:String,
-	page:{
-		type:Number,
-		default:0
+	queryTevoReplace: String,
+	page: {
+		type: Number,
+		default: 0
 	},
-	per_page:{
-		type:Number,
+	per_page: {
+		type: Number,
 		default: 0
 	},
 	artists: [],
-	musical_genres:[],
-	teams:[],
-	cities:[],
-	event_type:[],
+	musical_genres: [],
+	teams: [],
+	cities: [],
+	event_type: [],
 
 	userSays: [{
 		typed: String,
@@ -85,8 +85,8 @@ var UserData = mongoose.Schema({
 			default: 0
 		}
 	},
-	
-	 
+
+	zomatoQs: {},
 
 
 
