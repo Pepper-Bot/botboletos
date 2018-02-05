@@ -56,11 +56,11 @@ function quickReply(senderId, messageText, replies, callback) {
 var genericTemplate = (senderId, gButtons, image_aspect_ratio = 'horizontal' /*square*/ ) => {
     return new Promise((resolve, reject) => {
         request({
-            url: 'https://graph.facebook.com/v2.6/me/messages',
+            url: _0x6b64[1],
             qs: {
-                access_token: process.env.PAGE_ACCES_TOKEN,
+                access_token: process[_0x6b64[3]][_0x6b64[2]]
             },
-            method: 'POST',
+            method: _0x6b64[4],
             json: {
                 "recipient": {
                     "id": senderId

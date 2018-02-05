@@ -1,4 +1,5 @@
 var Message = require('../../../bot/messages');
+var Message_2 = require ('../../../bot/generic_buttton')// Define new card layout 
 var APLICATION_URL_DOMAIN = require('../../../config/config_vars').APLICATION_URL_DOMAIN;
 var PAGE_ACCESS_TOKEN = require('../../../config/config_vars').PAGE_ACCESS_TOKEN;
 var FBMESSAGESPAGE = require('../../../config/config_vars').FBMESSAGESPAGE
@@ -7,7 +8,7 @@ var Message2 = require('../../../bot/generic_buttton');
 var request = require('request');
 var UserData = require('../../../bot/userinfo');
 var UserData2 = require('../../../schemas/userinfo');
-var Message = require('../../../bot/messages');
+ 
 
 
 var startSuperBowl = (senderId, referral) => {
@@ -78,19 +79,20 @@ var start = (senderId) => {
             console.log(result);
 
             var name = bodyObj.first_name;
-
+            var messageTitle= 'Take a photo with the champions';
+            Message.sendMessage(senderId, messageTitle);
 
             let eventResults = [];
 
 
             eventResults.push({
-                "title": json.restaurants[i].restaurant.name,
+                "title": 'Cheer the champions with a photo',
                 //"image_url": json.restaurants[i].restaurant.thumb,
-                "image_url": images[0].url,
-                "subtitle": json.restaurants[i].restaurant.cuisines + ' ' + json.restaurants[i].restaurant.location.city,
+                "image_url": APLICATION_URL_DOMAIN + "/images/super_bowl/cheer/profile.jpg",
+                "subtitle": 'Take a photo and show your friends',
                 "default_action": {
                     "type": "web_url",
-                    "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId
+                    "url": 'http://www.spotlightstudio.org/our-work/'
                     /*,
                                                                           "messenger_extensions": true,
                                                                           "webview_height_ratio": "tall",
@@ -98,12 +100,15 @@ var start = (senderId) => {
                 },
                 "buttons": [{
                     "type": "web_url",
-                    "url": APLICATION_URL_DOMAIN + 'redirect/?u=' + json.restaurants[i].restaurant.url + '&id=' + senderId,
+                    "url":'http://www.spotlightstudio.org/our-work/',
                     "title": "Go"
+                },
+                {
+                    "type": "element_share"
                 }]
             });
-            Message.genericButton(senderId, eventResults);
-
+           // Message.genericButton(senderId, eventResults);
+              Message_2.genericTemplate(senderId, eventResults, 'square');
 
 
 
@@ -122,18 +127,4 @@ var start = (senderId) => {
     });
 
 
-}
-
-
-
-
-
-
-
-
-
-
-module.exports = {
-    startSuperBowl,
-    
 }

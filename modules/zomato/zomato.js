@@ -1,5 +1,6 @@
 var zomato = require('zomato');
 var Message = require('../../bot/messages');
+var Message_2 = require ('../../bot/generic_buttton')// Define new card layout 
 var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 var query = require('array-query');
 var cuisineSchema = require('../../schemas/cuisine')
@@ -680,6 +681,11 @@ var starRenderFBTemplate = (senderId, qs) => {
       console.log('Resultados para button:');
       console.log(eventResults);
       console.log('Sender Id:' + senderId);
+
+       
+      Message_2.genericTemplate(senderId, eventResults, 'square');
+
+
       Message.genericButton(senderId, eventResults);
       Message.typingOff(senderId);
     })
