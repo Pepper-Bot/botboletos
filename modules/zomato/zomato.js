@@ -771,7 +771,7 @@ var sendTemplatesFromArray = (senderId, eventResults) => {
   return new Promise((resolve, reject) => {
     if (eventResults.length == 9) {
       eventResults.push({
-        "title": "Can’t make any of these venues?",
+        "title": "Would you like to see more options?",
         "image_url": "https://ticketdelivery.herokuapp.com/images/ciudad.jpg",
         "subtitle": "My Pepper Bot",
         "default_action": {
