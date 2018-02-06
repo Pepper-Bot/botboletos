@@ -826,78 +826,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 console.log('action ' + 'venues.nightlife.search')
                 if (isDefined(contexts[0]) && contexts[0].name == 'venues-nightlife' && contexts[0].parameters) {
                     zomato.zomatoStartAI(sender, contexts);
-                    /*console.log('contexto ' + contexts[0].name)
-                    let beverage = ''
-                    let city = ''
-                    let country = ''
-                    let venue_type = ''
-
-
-                    if ((isDefined(contexts[0].parameters.beverage))) {
-                        if (contexts[0].parameters.beverage != "") {
-                            beverage = contexts[0].parameters.beverage
-                            console.log('beverage>> ' + beverage)
-                        }
-                    }
-
-                    if ((isDefined(contexts[0].parameters.venue_type))) {
-                        if (contexts[0].parameters.venue_type != "") {
-                            venue_type = contexts[0].parameters.venue_type
-                            console.log('venue_type>> ' + venue_type)
-                        }
-                    }
-
-
-                    if ((isDefined(contexts[0].parameters.location))) {
-                        if (isDefined(contexts[0].parameters.location.city)) {
-                            city = contexts[0].parameters.location.city
-                            console.log('city>> ' + city)
-
-                        } else {
-                            if (isDefined(contexts[0].parameters.location.country)) {
-                                country = contexts[0].parameters.location.country
-                                console.log('country>> ' + country)
-                                city = country
-                            }
-                        }
-
-                    }
-
-
-                    let qs = {}
-                    let zomatoQs = []
-                    if (city != '') {
-                        if (venue_type != '') {
-                            zomatoQs.push(zomato.getCityEstablishmentQs(city, venue_type).then(qs))
-                        }
-
-
-
-                        zomatoQs.push(zomato.getCityQs(city).then(qs))
-
-
-
-
-                        Promise.all(zomatoQs).then(values => {
-                            console.log('zomatoQs ' + JSON.stringify(values))
-                        });
-
-
-
-                    }aki borarr*/
-
-
-
-
                 }
-
-
-
-
-
-
-
-
                 break;
             }
 
