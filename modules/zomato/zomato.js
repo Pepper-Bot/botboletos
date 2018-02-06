@@ -41,7 +41,7 @@ var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
       if (!err) {
         let establishmentsResponse = JSON.parse(result);
         let establishments = establishmentsResponse.establishments
-        //console.log('establishments ' + JSON.stringify(establishments))
+        console.log('establishments ' + JSON.stringify(establishments))
         //var allBakeries = query('establishment.name').is(establishment).on(establishments);
         let establecimiento = query('establishment.name').startsWith(establishment).or('establishment.name').endsWith(establishment).on(establishments);
 
