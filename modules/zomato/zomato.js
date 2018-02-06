@@ -24,7 +24,7 @@ var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
   if (lat != 0 && lon != 0) {
     qs = {
       lat: lat, //latitude 
-      lon: lot //longitude 
+      lon: lon //longitude 
     }
   }
 

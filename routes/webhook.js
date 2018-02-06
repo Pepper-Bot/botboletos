@@ -823,6 +823,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             {
                 console.log('action ' + 'venues.nightlife.search')
                 if (isDefined(contexts[0]) && contexts[0].name == 'venues-nightlife' && contexts[0].parameters) {
+                    console.log('contexto ' + contexts[0].name)
                     zomato.zomatoStartAI(sender, contexts);
                 }
                 break;
