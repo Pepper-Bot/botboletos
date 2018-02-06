@@ -5,6 +5,8 @@ var request = require('request');
 var Message = require('../bot/messages');
 var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
+var reqExternas = require('../bot/requestExternas');
+
 var API_AI_CLIENT_ACCESS_TOKEN = require('../config/config_vars').API_AI_CLIENT_ACCESS_TOKEN;
 var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
 var PAGE_ACCESS_TOKEN = require('../config/config_vars').PAGE_ACCESS_TOKEN;
@@ -104,14 +106,10 @@ router.post('/', function (req, res) {
         res.sendStatus(200);
         res.end();
     } else {
-
         res.sendStatus(200);
         res.end();
     }
-    console.log('#######################################################')
-    //console.log(event);
-    console.log('#######################################################')
-
+   
 });
 
 
@@ -159,9 +157,7 @@ function processMessage(senderId, textMessage) {
     }
 
 
-
     if ('start again' === textMessage.toLowerCase()) {
-
         UserData.getInfo(senderId, function (err, result) {
             console.log('Dentro de UserData');
             if (!err) {
@@ -1936,6 +1932,13 @@ function processPostback(event) {
 
 
     switch (payload) {
+
+        case "SUPER_BOWL_CHEER_TAKE_FOTO":
+        {
+            reqExternas.takePhoto(senderId)
+        }
+        break;
+
         case "VEGAS_SHOW":
             {
                 startVegasShow(senderId, referral)
