@@ -61,7 +61,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res) {
 
-
+    console.log('evento detectado '+ JSON.stringify(req))
     if (req.body.object == "page") {
         // Iterate over each entry
         // There may be multiple entries if batched
