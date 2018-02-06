@@ -69,7 +69,6 @@ router.post('/', function (req, res) {
             // Iterate over each messaging event
             entry.messaging.forEach(function (event) {
 
-
                console.log('evento detectado '+ JSON.stringify(event))
 
                 if (event.referral) {
