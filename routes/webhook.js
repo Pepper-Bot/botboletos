@@ -276,8 +276,6 @@ function handleApiAiResponse(sender, response) {
 function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
     console.log('>> handleApiAiAction ' + action);
     switch (action) {
-
-
         case "input.welcome":
             {
                 Message.sendMessage(sender, responseText);
