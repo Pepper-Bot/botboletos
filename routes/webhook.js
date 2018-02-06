@@ -1933,7 +1933,7 @@ function processPostback(event) {
 
     var senderId = event.sender.id;
     var payload = event.postback.payload;
-
+    console.log('processPostback ' +payload  )
 
 
     switch (payload) {
