@@ -825,7 +825,8 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             {
                 console.log('action ' + 'venues.nightlife.search')
                 if (isDefined(contexts[0]) && contexts[0].name == 'venues-nightlife' && contexts[0].parameters) {
-                    console.log('contexto ' + contexts[0].name)
+                    zomato.zomatoStartAI(sender, contexts);
+                    /*console.log('contexto ' + contexts[0].name)
                     let beverage = ''
                     let city = ''
                     let country = ''
@@ -883,7 +884,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
-                    }
+                    }aki borarr*/
 
 
 
@@ -1112,7 +1113,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
-                                    
+
                                 } else { //pedir coordenadas....
                                     user_queries.createUpdateUserDatas(sender, 'find_venue_to_eat').then(() => {
                                         Message.getLocation(sender, 'What location would you like to eat at?');
