@@ -2309,7 +2309,7 @@ function processPostback(event) {
                     let qs = foundUser.zomatoQs;
                     if (isDefined(qs)) {
                         if (isDefined(qs.start) && isDefined(qs.count)) {
-                            qs.start = qs.start + 1
+                            qs.start = qs.start + 9
                             zomato.hasVenues(qs)
 
                             zomato.hasVenues(qs).then((tiene) => {
