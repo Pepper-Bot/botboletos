@@ -765,7 +765,7 @@ var starRenderFBTemplate = (senderId, qs) => {
       console.log('Resultados para la consulta qs: ' + JSON.stringify(qs));
       console.log(eventResults);
       console.log('Sender Id:' + senderId);
-      Message.typingOn(senderId);
+    
       Message.sendMessage(senderId, 'Check out these dine outs.');
       Message_2.genericTemplate(senderId, eventResults).then(() => {
 
@@ -899,6 +899,7 @@ var getGoogleImage = (search, matriz = []) => {
 }
 
 var zomatoStartAI = (sender, contexts) => {
+  Message.typingOn(senderId);
   console.log('contexto ' + contexts[0].name)
   let beverage = ''
   let city = ''
