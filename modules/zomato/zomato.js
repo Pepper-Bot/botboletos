@@ -1002,6 +1002,11 @@ var zomatoStartAI = (sender, contexts) => {
   if (dish != '') {
     venue_title = dish
   }
+  
+  if (beverage != '') {
+    venue_title = beverage
+  }
+
 
 
   let qs = {}
