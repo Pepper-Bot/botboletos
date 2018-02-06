@@ -61,7 +61,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res) {
 
-    console.log('evento detectado '+ JSON.stringify(req))
+    console.log('evento detectado ' + JSON.stringify(req))
     if (req.body.object == "page") {
         // Iterate over each entry
         // There may be multiple entries if batched
@@ -69,7 +69,7 @@ router.post('/', function (req, res) {
             // Iterate over each messaging event
             entry.messaging.forEach(function (event) {
 
-               console.log('evento detectado '+ JSON.stringify(event))
+                console.log('evento detectado ' + JSON.stringify(event))
 
                 if (event.referral) {
 
@@ -158,14 +158,6 @@ function processMessage(senderId, textMessage) {
         sessionIds.set(senderId, uuid.v1());
     }
 
-    var userSays = {
-        typed: textMessage
-    }
-    user_queries.createUpdateUserDatas(senderId, '', '', userSays).then(() => {
-        sendToApiAi(senderId, textMessage)
-    })
-
-
 
 
     if ('start again' === textMessage.toLowerCase()) {
@@ -183,7 +175,7 @@ function processMessage(senderId, textMessage) {
                     fbId: senderId
                 }, {}, {
                     sort: {
-                        'sessionStart': -1
+                        'sessionEnd': -1
                     }
                 }, function (err, result) {
 
@@ -198,6 +190,14 @@ function processMessage(senderId, textMessage) {
 
             }
         });
+
+    } else {
+        var userSays = {
+            typed: textMessage
+        }
+        user_queries.createUpdateUserDatas(senderId, '', '', userSays).then(() => {
+            sendToApiAi(senderId, textMessage)
+        })
 
     }
 
@@ -1932,7 +1932,7 @@ function processPostback(event) {
 
     var senderId = event.sender.id;
     var payload = event.postback.payload;
-    console.log('processPostback ' +payload  )
+    console.log('processPostback ' + payload)
 
 
     switch (payload) {
