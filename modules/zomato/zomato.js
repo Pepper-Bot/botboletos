@@ -75,7 +75,7 @@ var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
 
 
         establishmentQueries.getEstablishmentsForAI().then((establecimientosForAI) => {
-          //console.log('establecimientosForAI ' + JSON.stringify(establecimientosForAI))
+          console.log('establecimientosForAI ' + JSON.stringify(establecimientosForAI))
         })
 
         establishmentQueries.getEstablishmentByName(establishment).then((establecimientoEncontrada) => {
