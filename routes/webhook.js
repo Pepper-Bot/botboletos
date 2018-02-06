@@ -1059,11 +1059,6 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                         })
 
-
-
-
-
-
                     } else { //busquedas por cordenadas...
                         console.log('Se activa busqueda por coordenadas...')
                         user_queries.getUserByFbId(sender).then((foundUser) => {
@@ -1119,7 +1114,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                                 } else { //pedir coordenadas....
                                     user_queries.createUpdateUserDatas(sender, 'find_venue_to_eat').then(() => {
-                                        Message.getLocation(sender, 'What location would you like to get a venue to eat at?');
+                                        Message.getLocation(sender, 'What location would you like to eat at?');
                                     })
 
                                 }
