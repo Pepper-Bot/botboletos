@@ -119,7 +119,10 @@ var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
                 establishmentQueries.getEstablishmentByName(establishment).then((establecimientoEncontrada) => {
                   console.log('establecimiento encontrada... >' + JSON.stringify(establecimientoEncontrada))
                   if (establecimientoEncontrada.length <= 0) {
-                    establecimientoEncontrada[0].id = 0
+                    establecimientoEncontrada.push({
+                      id: 0,
+                      name: '',
+                    })
 
                   }
                   resolve(establecimientoEncontrada)
@@ -1002,7 +1005,7 @@ var zomatoStartAI = (sender, contexts) => {
   if (dish != '') {
     venue_title = dish
   }
-  
+
   if (beverage != '') {
     venue_title = beverage
   }
