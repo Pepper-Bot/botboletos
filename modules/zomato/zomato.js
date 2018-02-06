@@ -5,6 +5,7 @@ var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_D
 var query = require('array-query');
 var cuisineSchema = require('../../schemas/cuisine')
 var cuisineQueries = require('../../schemas/queries/cuisine_queries')
+var establishmentSchema = require('../../schemas/establishment')
 var establishmentQueries = require('../../schemas/queries/establishment_queries')
 
 var arraySort = require('array-sort');
@@ -86,21 +87,21 @@ var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
               establishmentQueries.getEstablishmentById(establishments[i].establishment.id).then((cusinesSalida) => {
                 if (cusinesSalida) {
                   if (cusinesSalida.length <= 0) {
-                    let v_establishmentschema = new establishmentschema; {
-                      v_establishmentschema.name = establishments[i].establishment.name;
-                      v_establishmentschema.id = establishments[i].establishment.id;
-                      v_establishmentschema.value = establishments[i].establishment.name;
-                      v_establishmentschema.synonyms.push(establishments[i].establishment.name)
-                      v_establishmentschema.save()
+                    let v_establishmentSchema = new establishmentSchema; {
+                      v_establishmentSchema.name = establishments[i].establishment.name;
+                      v_establishmentSchema.id = establishments[i].establishment.id;
+                      v_establishmentSchema.value = establishments[i].establishment.name;
+                      v_establishmentSchema.synonyms.push(establishments[i].establishment.name)
+                      v_establishmentSchema.save()
                     }
                   }
                 } else {
-                  let v_establishmentschema = new establishmentschema; {
-                    v_establishmentschema.name = establishments[i].establishment.name;
-                    v_establishmentschema.id = establishments[i].establishment.id;
-                    v_establishmentschema.value = establishments[i].establishment.name;
-                    v_establishmentschema.synonyms.push(establishments[i].establishment.name)
-                    v_establishmentschema.save()
+                  let v_establishmentSchema = new establishmentSchema; {
+                    v_establishmentSchema.name = establishments[i].establishment.name;
+                    v_establishmentSchema.id = establishments[i].establishment.id;
+                    v_establishmentSchema.value = establishments[i].establishment.name;
+                    v_establishmentSchema.synonyms.push(establishments[i].establishment.name)
+                    v_establishmentSchema.save()
                   }
                 }
               })
