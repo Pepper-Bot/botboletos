@@ -899,7 +899,7 @@ var getGoogleImage = (search, matriz = []) => {
 }
 
 var zomatoStartAI = (sender, contexts) => {
-  Message.typingOn(senderId);
+  Message.typingOn(sender);
   console.log('contexto ' + contexts[0].name)
   let beverage = ''
   let city = ''
