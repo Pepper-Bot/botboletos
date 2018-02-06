@@ -5,6 +5,8 @@ var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_D
 var query = require('array-query');
 var cuisineSchema = require('../../schemas/cuisine')
 var cuisineQueries = require('../../schemas/queries/cuisine_queries')
+var establishmentQueries = require('../../schemas/queries/establishment_queries')
+
 var arraySort = require('array-sort');
 var user_queries = require('../../schemas/queries/user_queries');
 
@@ -36,7 +38,7 @@ var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
   }
 
 
-  return new Promise((resolve, reject) => {
+  /*return new Promise((resolve, reject) => {
     zomatoClient.getEstablishments(qs, function (err, result) {
       if (!err) {
         let establishmentsResponse = JSON.parse(result);
@@ -53,6 +55,77 @@ var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
         console.log(err);
         reject(err)
       }
+    });
+  });*/
+
+
+  return new Promise((resolve, reject) => {
+    zomatoClient.getEstablishments(qs, function (err, result) {
+      if (!err) {
+        let establishmentsR = JSON.parse(result);
+
+        let establishments = establishmentsR.establishments
+
+        //console.log('establishments ' + JSON.stringify(establishments))
+
+
+        //let establecimiento = query('establishment.establishment_name').is(establishment).on(establishmentsR.establishments);
+        // let establecimiento = query('establishment.establishment_name').is(establishment).on(establishments);
+
+
+        establishmentQueries.getEstablishmentsForAI().then((establecimientosForAI) => {
+          //console.log('establecimientosForAI ' + JSON.stringify(establecimientosForAI))
+        })
+
+        establishmentQueries.getEstablishmentByName(establishment).then((establecimientoEncontrada) => {
+          if (establecimientoEncontrada.length > 0) {
+            console.log('establecimiento encontrada... >' + JSON.stringify(establecimientoEncontrada))
+            resolve(establecimientoEncontrada)
+          } else {
+            for (let i = 0; i < establishments.length; i++) {
+              establishmentQueries.getEstablishmentById(establishments[i].establishment.id).then((cusinesSalida) => {
+                if (cusinesSalida) {
+                  if (cusinesSalida.length <= 0) {
+                    let v_establishmentschema = new establishmentschema; {
+                      v_establishmentschema.name = establishments[i].establishment.name;
+                      v_establishmentschema.id = establishments[i].establishment.id;
+                      v_establishmentschema.value = establishments[i].establishment.name;
+                      v_establishmentschema.synonyms.push(establishments[i].establishment.name)
+                      v_establishmentschema.save()
+                    }
+                  }
+                } else {
+                  let v_establishmentschema = new establishmentschema; {
+                    v_establishmentschema.name = establishments[i].establishment.name;
+                    v_establishmentschema.id = establishments[i].establishment.id;
+                    v_establishmentschema.value = establishments[i].establishment.name;
+                    v_establishmentschema.synonyms.push(establishments[i].establishment.name)
+                    v_establishmentschema.save()
+                  }
+                }
+              })
+
+              if (i == establishments.length - 1) {
+                /*for (let j = 0; j < establishments.length; j++) {
+                  if (establishments[j].establishment.establishment_name == establishment) {
+                    console.log(establishments[j].establishment.establishment_name)
+                    establecimiento.push(establishments[j])
+                    console.log('establecimiento ' + JSON.stringify(establecimiento))
+                    resolve(establecimiento)
+                    break;
+                  }*/
+
+                establishmentQueries.getEstablishmentByName(establishment).then((establecimientoEncontrada) => {
+                  console.log('establecimiento encontrada... >' + JSON.stringify(establecimientoEncontrada))
+                  resolve(establecimientoEncontrada)
+                })
+              }
+
+            }
+          }
+        })
+      }
+
     });
   });
 }
@@ -211,11 +284,11 @@ var getCityEstablishmentQs = (city_name, venue_type) => {
     getCities(city_name).then((cityResponse) => {
       console.log('cityResponse' + JSON.stringify(cityResponse))
       let city_id = cityResponse.location_suggestions[0].id
-      getEstablishments(city_id, venue_type).then((establishment_type) => {
+      getEstablishments(city_id, venue_type).then((establishmentRes) => {
         let qs = {
           entity_id: city_id, //location id 
           entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-          establishment_type: establishment_type.id,
+          establishment_type: establishmentRes[0].id,
           sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
           order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
         }
@@ -231,14 +304,14 @@ var getCityEstablishmentQs = (city_name, venue_type) => {
 
 var searchByCityEstablishment = (city_id, venue_type, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
-    getEstablishments(city_id, venue_type).then((establishment_type) => {
+    getEstablishments(city_id, venue_type).then((establishmentRes) => {
       let qs = {
         priority: priority,
         start: start,
         count: count,
         entity_id: city_id, //location id 
         entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-        establishment_type: establishment_type.id,
+        establishment_type: establishmentRes[0].id,
         sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
         order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
       }
@@ -249,7 +322,7 @@ var searchByCityEstablishment = (city_id, venue_type, priority = 1, start = 1, c
 
 var searchByCityCuisineEstablishment = (city_id, venue_type, cuisine, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
-    getEstablishments(city_id, venue_type).then((establishment_type) => {
+    getEstablishments(city_id, venue_type).then((establishmentRes) => {
       getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
         let cuisine_id = cousineRes[0].id
 
@@ -259,7 +332,7 @@ var searchByCityCuisineEstablishment = (city_id, venue_type, cuisine, priority =
           count: count,
           entity_id: city_id, //location id 
           entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-          establishment_type: establishment_type.id,
+          establishment_type: establishmentRes[0].id,
           cuisines: cuisine_id,
           sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
           order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
@@ -273,14 +346,14 @@ var searchByCityCuisineEstablishment = (city_id, venue_type, cuisine, priority =
 
 var searchByCityVenueTitleEstablishment = (city_id, venue_type, venue_title, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
-    getEstablishments(city_id, venue_type).then((establishment_type) => {
+    getEstablishments(city_id, venue_type).then((establishmentRes) => {
       let qs = {
         priority: priority,
         start: start,
         count: count,
         entity_id: city_id, //location id 
         entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-        establishment_type: establishment_type.id,
+        establishment_type: establishmentRes[0].id,
         q: venue_title,
         sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
         order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
@@ -335,14 +408,14 @@ var searchByVenueTitleCusineAndCoordinates = (lat, lon, venue_title, cuisine, pr
 
 var searchByEstablismentAndCoordinates = (lat, lon, venue_type, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
-    getEstablishments(0, venue_type, lat, lon).then((establishment_type) => {
+    getEstablishments(0, venue_type, lat, lon).then((establishmentRes) => {
       let qs = {
         priority: priority,
         start: start,
         count: count,
         lat: lat, //latitude 
         lon: lon, //longitude 
-        establishment_type: establishment_type.id,
+        establishment_type: establishmentRes[0].id,
         sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
         order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
       }
@@ -354,7 +427,7 @@ var searchByEstablismentAndCoordinates = (lat, lon, venue_type, priority = 1, st
 
 var searchByCuisineEstablishmentAndCoordinates = (lat, lon, cuisine, venue_type, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
-    getEstablishments(0, lat, lon, venue_type).then((establishment_type) => {
+    getEstablishments(0, lat, lon, venue_type).then((establishmentRes) => {
       getCuisines(0, lat, lon, cuisine).then((cousineRes) => {
         let cuisine_id = cousineRes[0].id
         let qs = {
@@ -363,7 +436,7 @@ var searchByCuisineEstablishmentAndCoordinates = (lat, lon, cuisine, venue_type,
           count: count,
           entity_id: city_id, //location id 
           entity_type: "city", // location type (city,subzone,zone , landmark, metro,group) 
-          establishment_type: establishment_type.id,
+          establishment_type: establishmentRes[0].id,
           cuisines: cuisine_id,
           sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
           order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
@@ -378,14 +451,14 @@ var searchByCuisineEstablishmentAndCoordinates = (lat, lon, cuisine, venue_type,
 
 var searchByVenueTitleEstablishmentAndCoordinates = (lat, lon, venue_type, venue_title, priority, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
-    getEstablishments(city_id, venue_type).then((establishment_type) => {
+    getEstablishments(city_id, venue_type).then((establishmentRes) => {
       let qs = {
         priority: priority,
         start: start,
         count: count,
         lat: lat,
         lon: lon,
-        establishment_type: establishment_type.id,
+        establishment_type: establishmentRes[0].id,
         q: venue_title,
         sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
         order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
@@ -1084,5 +1157,5 @@ module.exports = {
 
   zomatoStartAI
 
-  
+
 }
