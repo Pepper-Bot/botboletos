@@ -70,7 +70,7 @@ router.post('/', function (req, res) {
             entry.messaging.forEach(function (event) {
 
 
-                //console.log(event);
+               console.log('evento detectado '+ JSON.stringify(event))
 
                 if (event.referral) {
 
