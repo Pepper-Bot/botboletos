@@ -765,7 +765,7 @@ var starRenderFBTemplate = (senderId, qs) => {
       console.log('Resultados para la consulta qs: ' + JSON.stringify(qs));
       console.log(eventResults);
       console.log('Sender Id:' + senderId);
-
+      Message.typingOn(senderId);
       Message.sendMessage(senderId, 'Check out these dine outs.');
       Message_2.genericTemplate(senderId, eventResults).then(() => {
 
@@ -789,12 +789,7 @@ var preparateRenderFBTemplate = function (senderId, qs) {
         console.log('Estos son los resultados:');
         console.log(json);
         Message.typingOn(senderId);
-        //sleep(2000);
 
-        Message.typingOff(senderId);
-
-        Message.typingOn(senderId);
-        //sleep(2000);
         let eventResults = [];
         let counter = 0;
         for (let i = 0; i < json.restaurants.length; i++) {
