@@ -2315,17 +2315,15 @@ function processPostback(event) {
 
             //inicio
         case "Greetings":
-            //var menu = require('../bot/get_started');
-            //menu.deleteAndCreatePersistentMenu();
+         
 
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
-                console.log('Dentro de referrals handler');
+                console.log('Esta definido event.postback.referral ');
                 handleReferrals(event);
             } else {
-                // De lo contrario saludamos.
-                console.log('#######################################################################################');
-                console.log('saludamos');
+                console.log('NO Esta definido event.postback.referral ');
+                console.log('Greetings');
                 saluda(senderId);
             }
 
@@ -2569,9 +2567,7 @@ function saluda(senderId) {
             var name = bodyObj.first_name;
             var greeting = "Hi " + name;
             var messagetxt = greeting + ", what would you like to do?";
-            //Message.sendMessage(senderId, message);
-            /* INSERT TO MONGO DB DATA FROM SESSION*/
-
+         
 
             Message.markSeen(senderId);
             Message.typingOn2(senderId, function (error, response, body) {
@@ -3095,12 +3091,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, mes
                         }
 
 
-
-                        var name = bodyObj.first_name;
-                        var greeting = "Hi " + name;
-                        var messagetxt = greeting + ", what would you like to do?";
-                        //Message.sendMessage(senderId, message);
-                        /* INSERT TO MONGO DB DATA FROM SESSION*/
+ 
 
 
                     }
@@ -3171,15 +3162,7 @@ function startTevoModuleByLocation(senderId, lat, lon) {
 
 
                         }
-
-
-
-                        var name = bodyObj.first_name;
-                        var greeting = "Hi " + name;
-                        var messagetxt = greeting + ", what would you like to do?";
-                        //Message.sendMessage(senderId, message);
-                        /* INSERT TO MONGO DB DATA FROM SESSION*/
-
+ 
 
                     }
                 });
