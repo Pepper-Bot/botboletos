@@ -49,9 +49,20 @@ dbObj.getConnection();
 
 
 
+router.get('/', function (req, res, next) {
+
+    if (req.query['hub.verify_token'] === process.env.BOT_TOKEN) {
+
+        res.status(200).send(req.query['hub.challenge']);
+    } else {
+
+        res.sendStatus(403);
+    }
+
+});
 
 
-var intitGetFB = (req, res) => {
+var intitGetFB = (req, res)=>{
     if (req.query['hub.verify_token'] === process.env.BOT_TOKEN) {
 
         res.status(200).send(req.query['hub.challenge']);
@@ -64,7 +75,60 @@ var intitGetFB = (req, res) => {
 
 
 
-var initFBEvents = (req, res) => {
+router.post('/', function (req, res) {
+
+    
+    if (req.body.object == "page") {
+        // Iterate over each entry
+        // There may be multiple entries if batched
+        req.body.entry.forEach(function (entry) {
+            // Iterate over each messaging event
+            entry.messaging.forEach(function (event) {
+
+                console.log('evento detectado ' + JSON.stringify(event))
+
+                if (event.referral) {
+
+                    console.log('0');
+                    handleReferrals(event);
+                }
+                console.log('1');
+                if (event.postback) {
+                    console.log('2');
+                    processPostback(event);
+                } else if (undefined !== event.message.quick_reply) {
+
+                    console.log('3');
+                    processQuickReplies(event);
+
+                } else if (undefined !== event.message.attachments /* && event.message.attachments[0].type == "location" */ ) {
+                    console.log('4');
+
+                    if ('location' == event.message.attachments[0].type) {
+                        console.log('4.1');
+                        processLocation(event.sender.id, event.message.attachments[0]);
+                    }
+                } else if (undefined !== event.message.text) {
+                    console.log('5');
+                    var isEcho = event.message.is_echo;
+                    if (!isEcho)
+                        processMessage(event.sender.id, event.message.text);
+                }
+            });
+        });
+
+        res.sendStatus(200);
+        res.end();
+    } else {
+        res.sendStatus(200);
+        res.end();
+    }
+
+});
+
+
+
+var initFBEvents  =  (req, res)=> {
     if (req.body.object == "page") {
         // Iterate over each entry
         // There may be multiple entries if batched
@@ -196,7 +260,7 @@ function processMessage(senderId, textMessage) {
         });
 
     } else {
-
+        
 
     }
 
@@ -2316,7 +2380,7 @@ function processPostback(event) {
 
             //inicio
         case "Greetings":
-
+         
 
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
@@ -2568,7 +2632,7 @@ function saluda(senderId) {
             var name = bodyObj.first_name;
             var greeting = "Hi " + name;
             var messagetxt = greeting + ", what would you like to do?";
-
+         
 
             Message.markSeen(senderId);
             Message.typingOn2(senderId, function (error, response, body) {
@@ -2652,10 +2716,10 @@ function chooseReferral(referral, senderId) {
         switch (referral) {
 
             case "SUPERBOWL_CHEER": // Here we create the new CASE w new Me Link name
-                {
-                    startSuperBowlCheer(senderId, referral) //We create a new variable
-                }
-                break;
+            {
+                startSuperBowlCheer(senderId, referral) //We create a new variable
+            }
+            break;
 
 
             case "SAN_VALENTIN":
@@ -3092,7 +3156,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, mes
                         }
 
 
-
+ 
 
 
                     }
@@ -3163,7 +3227,7 @@ function startTevoModuleByLocation(senderId, lat, lon) {
 
 
                         }
-
+ 
 
                     }
                 });
@@ -3178,7 +3242,4 @@ function startTevoModuleByLocation(senderId, lat, lon) {
 
 }
 
-module.exports = {
-    initFBEvents,
-    intitGetFB
-};
+module.exports = {router, initFBEvents, intitGetFB};
