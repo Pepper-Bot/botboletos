@@ -251,6 +251,7 @@ function processMessage(senderId, textMessage) {
         });
 
     } else {
+
         if (!sessionIds.has(senderId)) {
             sessionIds.set(senderId, uuid.v1());
         }
@@ -338,6 +339,12 @@ function handleApiAiResponse(sender, response) {
 function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
     console.log('>> handleApiAiAction ' + action);
     switch (action) {
+        case "take_fb_photo":
+            {
+                startSuperBowlCheer(senderId, 'user_says')
+            }
+            break;
+
         case "input.welcome":
             {
                 Message.sendMessage(sender, responseText);
