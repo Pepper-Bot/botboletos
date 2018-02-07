@@ -109,7 +109,7 @@ router.post('/', function (req, res) {
         res.sendStatus(200);
         res.end();
     }
-   
+
 });
 
 
@@ -1934,10 +1934,10 @@ function processPostback(event) {
     switch (payload) {
 
         case "SUPER_BOWL_CHEER_TAKE_FOTO":
-        {
-            reqExternas.takePhoto(senderId)
-        }
-        break;
+            {
+                reqExternas.takePhoto(senderId)
+            }
+            break;
 
         case "VEGAS_SHOW":
             {
@@ -2652,6 +2652,11 @@ function chooseReferral(referral, senderId) {
     user_queries.createUpdateUserDatas(senderId, '', referral).then(() => {
         switch (referral) {
 
+            case "SUPERBOWL_CHEER": // Here we create the new CASE w new Me Link name
+            {
+                startSuperBowlCheer(senderId, referral) //We create a new variable
+            }
+            break;
 
 
             case "SAN_VALENTIN":
@@ -2796,6 +2801,10 @@ var startSanValentin = (senderId, referral) => {
     sanValentinModule.startSanValentin(senderId, referral)
 }
 
+var startSuperBowlCheer = (senderId, referral) => {
+    var superBowlCheerModule = require('../modules/tevo/super_bowl/super_bowl_cheer.js')
+    superBowlCheerModule.startSuperBowl(senderId, referral)
+}
 
 var startChristmasSongs = (senderId, referral) => {
     var chirstmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs')
