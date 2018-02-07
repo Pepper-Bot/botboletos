@@ -341,7 +341,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
     switch (action) {
         case "take_fb_photo":
             {
-                startSuperBowlCheer(senderId, 'user_says')
+                startSuperBowlCheer(sender, 'user_says')
             }
             break;
 
