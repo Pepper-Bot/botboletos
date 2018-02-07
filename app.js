@@ -87,7 +87,6 @@ app.use(function (req, res, next) {
 //############MANEJO DE PLANTILLAS express-handlebars####################
 
 
-
 var hbs = exphbs.create({
   defaultLayout: 'default',
   extname: '.hbs',
@@ -168,7 +167,9 @@ app.use(session(sess))
 //app.use(express.static(__dirname + '/public'));
 app.use('/dashboard', index);
 //app.use('/users', users);
-app.use('/webhook2/', webhook);
+// xxx  app.use('/webhook2/', webhook);
+app.get('/webhook2/', webhook.intitGetFB);
+app.post('/webhook2/', webhook.initFBEvents);
 app.use('/redirect/', storeUrl);
 
 //app.use('/event/', ticketSales);
