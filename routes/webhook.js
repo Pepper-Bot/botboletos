@@ -63,7 +63,7 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req, res) {
 
-    console.log('evento detectado ' + JSON.stringify(req))
+    
     if (req.body.object == "page") {
         // Iterate over each entry
         // There may be multiple entries if batched
@@ -156,6 +156,13 @@ function processMessage(senderId, textMessage) {
         sessionIds.set(senderId, uuid.v1());
     }
 
+    var userSays = {
+        typed: textMessage
+    }
+    user_queries.createUpdateUserDatas(senderId, '', '', userSays).then(() => {
+        sendToApiAi(senderId, textMessage)
+    })
+
 
     if ('start again' === textMessage.toLowerCase()) {
         UserData.getInfo(senderId, function (err, result) {
@@ -188,12 +195,7 @@ function processMessage(senderId, textMessage) {
         });
 
     } else {
-        var userSays = {
-            typed: textMessage
-        }
-        user_queries.createUpdateUserDatas(senderId, '', '', userSays).then(() => {
-            sendToApiAi(senderId, textMessage)
-        })
+        
 
     }
 
