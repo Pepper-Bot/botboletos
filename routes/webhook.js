@@ -62,7 +62,7 @@ router.get('/', function (req, res, next) {
 });
 
 
-var intitGetFB = (req, res)=>{
+var intitGetFB = (req, res) => {
     if (req.query['hub.verify_token'] === process.env.BOT_TOKEN) {
 
         res.status(200).send(req.query['hub.challenge']);
@@ -77,7 +77,7 @@ var intitGetFB = (req, res)=>{
 
 router.post('/', function (req, res) {
 
-    
+
     if (req.body.object == "page") {
         // Iterate over each entry
         // There may be multiple entries if batched
@@ -128,7 +128,7 @@ router.post('/', function (req, res) {
 
 
 
-var initFBEvents  =  (req, res)=> {
+var initFBEvents = (req, res) => {
     if (req.body.object == "page") {
         // Iterate over each entry
         // There may be multiple entries if batched
@@ -217,16 +217,7 @@ function processMessage(senderId, textMessage) {
     textMessage = fsStrings.getCleanedString(textMessage);
 
 
-    if (!sessionIds.has(senderId)) {
-        sessionIds.set(senderId, uuid.v1());
-    }
 
-    var userSays = {
-        typed: textMessage
-    }
-    user_queries.createUpdateUserDatas(senderId, '', '', userSays).then(() => {
-        sendToApiAi(senderId, textMessage)
-    })
 
 
     if ('start again' === textMessage.toLowerCase()) {
@@ -260,7 +251,16 @@ function processMessage(senderId, textMessage) {
         });
 
     } else {
-        
+        if (!sessionIds.has(senderId)) {
+            sessionIds.set(senderId, uuid.v1());
+        }
+
+        var userSays = {
+            typed: textMessage
+        }
+        user_queries.createUpdateUserDatas(senderId, '', '', userSays).then(() => {
+            sendToApiAi(senderId, textMessage)
+        })
 
     }
 
@@ -2380,7 +2380,7 @@ function processPostback(event) {
 
             //inicio
         case "Greetings":
-         
+
 
             if (undefined !== event.postback.referral) {
                 // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
@@ -2632,7 +2632,7 @@ function saluda(senderId) {
             var name = bodyObj.first_name;
             var greeting = "Hi " + name;
             var messagetxt = greeting + ", what would you like to do?";
-         
+
 
             Message.markSeen(senderId);
             Message.typingOn2(senderId, function (error, response, body) {
@@ -2716,10 +2716,10 @@ function chooseReferral(referral, senderId) {
         switch (referral) {
 
             case "SUPERBOWL_CHEER": // Here we create the new CASE w new Me Link name
-            {
-                startSuperBowlCheer(senderId, referral) //We create a new variable
-            }
-            break;
+                {
+                    startSuperBowlCheer(senderId, referral) //We create a new variable
+                }
+                break;
 
 
             case "SAN_VALENTIN":
@@ -3156,7 +3156,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, mes
                         }
 
 
- 
+
 
 
                     }
@@ -3227,7 +3227,7 @@ function startTevoModuleByLocation(senderId, lat, lon) {
 
 
                         }
- 
+
 
                     }
                 });
@@ -3242,4 +3242,8 @@ function startTevoModuleByLocation(senderId, lat, lon) {
 
 }
 
-module.exports = {router, initFBEvents, intitGetFB};
+module.exports = {
+    router,
+    initFBEvents,
+    intitGetFB
+};
