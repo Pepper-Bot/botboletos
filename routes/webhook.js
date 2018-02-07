@@ -340,7 +340,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
     switch (action) {
         case "input.welcome":
             {
-                Message.sendMessage(sender, responseText);
+                saluda(sender);
             }
             break;
 
