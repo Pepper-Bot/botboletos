@@ -339,11 +339,6 @@ function handleApiAiResponse(sender, response) {
 function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
     console.log('>> handleApiAiAction ' + action);
     switch (action) {
-        case "take_fb_photo":
-            {
-                startSuperBowlCheer(sender, 'user_says')
-            }
-            break;
 
         case "input.welcome":
             {
@@ -911,6 +906,13 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                 break;
             }
+
+        case "take_fb_photo":
+            {
+                startSuperBowlCheer(sender, 'user_says')
+            }
+            break;
+
         default:
             {
                 var page = 1;
