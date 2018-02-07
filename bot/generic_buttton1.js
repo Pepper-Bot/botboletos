@@ -81,52 +81,11 @@ var genericTemplate = (senderId, gButtons, image_aspect_ratio = 'horizontal' /*s
             if (!error) {
                 resolve(response)
             } else {
-                console.log('Tenemos un error al ejecutar  genericTemplate' + error)
+                console.log('Tenemos un error al ejecutar  generiTemplate' + error)
             }
         })
     })
 }
-
-
-
-
-var listButtons = (senderId, title, buttons) => {
-    return new Promise((resolve, reject) => {
-        request({
-            url: _0x6b64[1],
-            qs: {
-                access_token: process[_0x6b64[3]][_0x6b64[2]]
-            },
-            method: _0x6b64[4],
-            json: {
-                "recipient": {
-                    "id": senderId
-                },
-                "message": {
-                    "attachment": {
-                        "type": "template",
-                        "payload": {
-                            "template_type": "button",
-                            "text": title,
-                            "buttons": buttons
-                        }
-                    }
-                }
-            }
-        }, function (error, response, body) {
-            console.log(response)
-            if (error) {
-                console.log("MAL")
-            } else {
-                console.log(" listarBotones  BIEN")
-                resolve(response )
-            }
-
-        });
-    });
-
-}
-
 
 
 function genericButtonQuickReplay(senderId, gButtons, messageText, callback) {
@@ -472,6 +431,6 @@ module.exports = {
     sendImageWithQuickReplay,
     sendMessage,
     genericTemplate,
-    listButtons,
+
 
 }

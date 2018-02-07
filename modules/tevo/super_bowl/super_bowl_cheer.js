@@ -90,12 +90,12 @@ var start = (senderId) => {
             let buttons = [{
                     "type": "web_url",
                     "url": "https://www.facebook.com/fbcameraeffects/tryit/1949359401991479/",
-                    "title": "Take photo (mobile)"
+                    "title": "Take selfie (mobile)"
                 },
                 {
                     "type": "web_url",
                     "url": "https://www.facebook.com/profilepicframes/?overlay_source_object_id=1880544458923368&selected_page_id=1593266137651203&selected_overlay_id=1887674384877846",
-                    "title": "Update profile pic"
+                    "title": "Change profile picture"
                 }
 
             ]
