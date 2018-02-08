@@ -6,10 +6,7 @@ var UserData2 = require('../../schemas/userinfo');
 
 var auth = (req, res) => {
 
-    res.status(200);
-    res.send('Entre a auth');
-    res.end();
-   
+  
     // we don't have a code yet
     // so we'll redirect to the oauth dialog
     if (!req.query.code) {
