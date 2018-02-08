@@ -29,7 +29,7 @@ var conf = {
     ,
   redirect_uri: APLICATION_URL_DOMAIN + 'auth'
 };
-var fbgraph = require('./routes/fbgraph/fb_graph');
+var fbgraphModule = require('./routes/fbgraph/fb_graph');
 
 
 var index = require('./routes/index');
@@ -209,11 +209,11 @@ app.post('/finish_pay_credit_card/', creditcard_finish_controller.finishCC);
 
 
 
-app.get('/auth/', fbgraph.auth);
+app.get('/auth/', fbgraphModule.auth);
 
 
 // user gets sent here after being authorized
-app.get('/UserHasLoggedIn/', fbgraph.UserHasLoggedIn);
+app.get('/UserHasLoggedIn/', fbgraphModule.UserHasLoggedIn);
 
 
 
