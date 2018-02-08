@@ -22,6 +22,12 @@ var APLICATION_URL_DOMAIN = config.APLICATION_URL_DOMAIN
 
 var fbgraphModule = require('./routes/facebook_graph_module/fb_graph_module');
 
+var welcome = require('./routes/welcome/welcome');
+
+
+app.get('/webhook2/', webhook.intitGetFB);
+
+
 var index = require('./routes/index');
 //var users = require('./routes/users');
 var webhook = require('./routes/webhook');
@@ -174,6 +180,8 @@ app.use(session(sess))
 app.use('/dashboard', index);
 //app.use('/users', users);
 // xxx  app.use('/webhook2/', webhook);
+app.get('/', welcome.welcome);
+
 app.get('/webhook2/', webhook.intitGetFB);
 app.post('/webhook2/', webhook.initFBEvents);
 app.use('/redirect/', storeUrl);
