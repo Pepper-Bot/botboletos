@@ -29,7 +29,9 @@ var conf = {
     ,
   redirect_uri: APLICATION_URL_DOMAIN + 'auth'
 };
-var fbgraphModule = require('./routes/fbgraph/fb_graph');
+
+
+var fbgraphModule = require('./routes/fbgraph/fb_graph_module');
 
 
 var index = require('./routes/index');
