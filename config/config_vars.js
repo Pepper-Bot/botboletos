@@ -1,8 +1,13 @@
 /////////////////////tevo/////////////////////////////
-var API_AI_CLIENT_ACCESS_TOKEN =  process.env.API_AI_CLIENT_ACCESS_TOKEN
-var FB_APP_SECRET  = process.env.FB_APP_SECRET
+var API_AI_CLIENT_ACCESS_TOKEN = process.env.API_AI_CLIENT_ACCESS_TOKEN
+
+
 var APLICATION_URL_DOMAIN = process.env.APLICATION_URL_DOMAIN
 var PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
+
+var FB_APP_PUBLIC_ID = process.env.FB_APP_PUBLIC_ID
+var FB_APP_SECRET_ID =   process.env.FB_APP_SECRET_ID
+
 var FBMESSAGESPAGE = 'https://graph.facebook.com/v2.6/me/messages'
 var FINISH_SESSION_URL_REDIRECT = process.env.FINISH_SESSION_URL_REDIRECT
 var mlink = {
@@ -19,7 +24,7 @@ var redis = {
   REDIS_HOST: process.env.REDIS_HOST
 }
 
-var only_with = 'only_with_available_tickets=true' 
+var only_with = 'only_with_available_tickets=true'
 //var only_with = 'only_with_tickets=all' 
 //var only_with = 'only_with_tickets=etickets'
 
@@ -93,5 +98,8 @@ module.exports = {
   only_with,
   format_tickets,
   API_AI_CLIENT_ACCESS_TOKEN,
-  FB_APP_SECRET, 
+  FB_APP_PUBLIC_ID,
+  FB_APP_SECRET_ID,
+
+  
 };
