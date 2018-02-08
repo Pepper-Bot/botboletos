@@ -218,8 +218,8 @@ function sendToApiAi(sender, text) {
 
 function processMessage(senderId, textMessage) {
 
-    console.log('process message ' + textMessage)
-    UserData.getUserLikes(sender)
+   
+    
 
 
     textMessage = fsStrings.getCleanedString(textMessage);
@@ -272,7 +272,7 @@ function processMessage(senderId, textMessage) {
         })
 
     }
-
+    console.log('process message ' + textMessage)
 
 }
 
