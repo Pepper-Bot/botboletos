@@ -28,6 +28,7 @@ var getUserLikes = (userId) => {
 			method: "GET",
 		}, function (error, response, body) {
 			if (error) {
+				console.log('error en getUserLikes ' + error)
 				reject(error);
 
 			} else {

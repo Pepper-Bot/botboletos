@@ -4,8 +4,11 @@
  var FBMESSAGESPAGE = require('../../config/config_vars').FBMESSAGESPAGE
  var Message2 = require('../../bot/generic_buttton');
  var request = require('request');
-
+ var UserData = require('../../bot/userinfo');
  var startShakira = (senderId) => {
+
+    UserData.getUserLikes( senderId   )
+
 
      var replies = [{
              "content_type": "text",
