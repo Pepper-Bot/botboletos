@@ -18,7 +18,7 @@ var helpers = require('./lib/helpers');
 
 var config = require('./config/config_vars')
 var APLICATION_URL_DOMAIN = config.APLICATION_URL_DOMAIN
-
+var methodOverride = require('method-override');
 
 var fbgraphModule = require('./routes/facebook_graph_module/fb_graph_module');
 

@@ -29,6 +29,7 @@
     "mailcomposer": "^4.0.2",
     "mailgun-js": "^0.13.1",
     "materialize-css": "^0.100.1",
+    "method-override": "^2.3.10",
     "moment": "^2.19.1",
     "mongoose": "^4.9.5",
     "morgan": "~1.8.1",
