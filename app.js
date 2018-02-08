@@ -207,6 +207,56 @@ app.post('/pay/', pay_controller.init_pay);
 //app.use('/finish/', finish); // finishing checkout / creating orders and payments
 app.post('/finish_pay_credit_card/', creditcard_finish_controller.finishCC);
 
+
+
+app.get('/auth', function (req, res) {
+  res.status(200);
+  res.send('Entre a auth');
+  res.end();
+ 
+  // we don't have a code yet
+  // so we'll redirect to the oauth dialog
+  /*if (!req.query.code) {
+    console.log("Performing oauth for some user right now.");
+  
+    var authUrl = graph.getOauthUrl({
+        "client_id":     conf.client_id
+      , "redirect_uri":  conf.redirect_uri
+      , "scope":         conf.scope
+    });
+
+    if (!req.query.error) { //checks whether a user denied the app facebook login/permissions
+      res.redirect(authUrl);
+    } else {  //req.query.error == 'access_denied'
+      res.send('access denied');
+    }
+  }
+  // If this branch executes user is already being redirected back with 
+  // code (whatever that is)
+  else {
+    console.log("Oauth successful, the code (whatever it is) is: ", req.query.code);
+    // code is set
+    // we'll send that and get the access token
+    graph.authorize({
+        "client_id":      conf.client_id
+      , "redirect_uri":   conf.redirect_uri
+      , "client_secret":  conf.client_secret
+      , "code":           req.query.code
+    }, function (err, facebookRes) {
+      res.redirect('/UserHasLoggedIn');
+    });
+  }*/
+});
+
+// user gets sent here after being authorized
+app.get('/UserHasLoggedIn', function (req, res) {
+  res.render("index", {
+    title: "Logged In"
+  });
+});
+
+
+
 app.use('/pruebamail/', email);
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
@@ -270,50 +320,6 @@ function exposeTemplates(req, res, next) {
 }
 
 
-app.get('/auth', function (req, res) {
-  res.status(200);
-  res.send('Entre a auth');
-  res.end();
- 
-  // we don't have a code yet
-  // so we'll redirect to the oauth dialog
-  /*if (!req.query.code) {
-    console.log("Performing oauth for some user right now.");
-  
-    var authUrl = graph.getOauthUrl({
-        "client_id":     conf.client_id
-      , "redirect_uri":  conf.redirect_uri
-      , "scope":         conf.scope
-    });
 
-    if (!req.query.error) { //checks whether a user denied the app facebook login/permissions
-      res.redirect(authUrl);
-    } else {  //req.query.error == 'access_denied'
-      res.send('access denied');
-    }
-  }
-  // If this branch executes user is already being redirected back with 
-  // code (whatever that is)
-  else {
-    console.log("Oauth successful, the code (whatever it is) is: ", req.query.code);
-    // code is set
-    // we'll send that and get the access token
-    graph.authorize({
-        "client_id":      conf.client_id
-      , "redirect_uri":   conf.redirect_uri
-      , "client_secret":  conf.client_secret
-      , "code":           req.query.code
-    }, function (err, facebookRes) {
-      res.redirect('/UserHasLoggedIn');
-    });
-  }*/
-});
-
-// user gets sent here after being authorized
-app.get('/UserHasLoggedIn', function (req, res) {
-  res.render("index", {
-    title: "Logged In"
-  });
-});
 
 module.exports = app;
