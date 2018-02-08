@@ -20,7 +20,7 @@ var conf = {
 
 
 var auth = (req, res) => {
-
+  console.log(APLICATION_URL_DOMAIN + 'auth')
   // we don't have a code yet
   // so we'll redirect to the oauth dialog
   if (!req.query.code) {
