@@ -136,7 +136,7 @@ var initFBEvents = (req, res) => {
             // Iterate over each messaging event
             entry.messaging.forEach(function (event) {
 
-                console.log('evento detectado ' + JSON.stringify(event))
+                //console.log('evento detectado ' + JSON.stringify(event))
 
                 if (event.referral) {
 
@@ -195,7 +195,7 @@ function isDefined(obj) {
 function sendToApiAi(sender, text) {
 
 
-    
+
 
 
     console.log('texto enviado a api.ai> ' + text)
@@ -218,10 +218,10 @@ function sendToApiAi(sender, text) {
 
 function processMessage(senderId, textMessage) {
 
-
+    console.log('process message ' + textMessage)
     UserData.getUserLikes(sender)
 
-    
+
     textMessage = fsStrings.getCleanedString(textMessage);
 
 
