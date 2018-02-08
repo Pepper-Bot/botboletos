@@ -12,7 +12,7 @@ var auth = (req, res) => {
    
     // we don't have a code yet
     // so we'll redirect to the oauth dialog
-    /*if (!req.query.code) {
+    if (!req.query.code) {
       console.log("Performing oauth for some user right now.");
     
       var authUrl = graph.getOauthUrl({
@@ -41,7 +41,7 @@ var auth = (req, res) => {
       }, function (err, facebookRes) {
         res.redirect('/UserHasLoggedIn');
       });
-    }*/
+    }
 }
 
 
