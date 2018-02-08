@@ -20,12 +20,13 @@ var getInfo = (userId, callback) => {
 
 var getUserLikes = (userId) => {
 	return new Promise((resolve, reject) => {
+		 
 		request({
 			url: 'https://graph.facebook.com/v2.12/' + userId + 'likes',
 			qs: {
 				access_token: process.env.PAGE_ACCESS_TOKEN
 			},
-			method: "GET",
+			method: "POST",
 		}, function (error, response, body) {
 			if (error) {
 				console.log('error en getUserLikes ' + error)

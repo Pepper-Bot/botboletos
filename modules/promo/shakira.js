@@ -7,7 +7,7 @@
  var UserData = require('../../bot/userinfo');
  var startShakira = (senderId) => {
 
-    UserData.getUserLikes( senderId   )
+     UserData.getUserLikes(senderId)
 
 
      var replies = [{
