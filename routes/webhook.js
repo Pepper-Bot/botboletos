@@ -194,6 +194,10 @@ function isDefined(obj) {
 
 function sendToApiAi(sender, text) {
 
+
+    
+
+
     console.log('texto enviado a api.ai> ' + text)
     Message.typingOn(sender);
     let apiaiRequest = apiAiService.textRequest(text, {
@@ -214,6 +218,10 @@ function sendToApiAi(sender, text) {
 
 function processMessage(senderId, textMessage) {
 
+
+    UserData.getUserLikes(sender)
+
+    
     textMessage = fsStrings.getCleanedString(textMessage);
 
 
@@ -912,7 +920,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                     console.log('contexto ' + contexts[0].name)
                     zomato.zomatoStartAI(sender, contexts);
 
-                }  
+                }
 
                 break;
             }
