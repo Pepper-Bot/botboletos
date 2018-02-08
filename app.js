@@ -271,7 +271,7 @@ function exposeTemplates(req, res, next) {
 
 
 app.get('/auth', function(req, res) {
-
+  console.log("entramos a auth.");
   // we don't have a code yet
   // so we'll redirect to the oauth dialog
   if (!req.query.code) {
