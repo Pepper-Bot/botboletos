@@ -31,7 +31,7 @@ var conf = {
 };
 
 
-var fbgraphModule = require('./routes/fbgraph/fb_graph_module');
+var fbgraphModule = require('./routes/facebook_graph_module/fb_graph_module');
 
 var index = require('./routes/index');
 //var users = require('./routes/users');
