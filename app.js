@@ -270,8 +270,11 @@ function exposeTemplates(req, res, next) {
 }
 
 
-app.get('/auth', function(req, res) {
-  console.log("entramos a auth.");
+app.get('/auth', function (req, res) {
+  res.status(200);
+  res.send('Entre a auth');
+  res.end();
+ 
   // we don't have a code yet
   // so we'll redirect to the oauth dialog
   /*if (!req.query.code) {
@@ -307,9 +310,9 @@ app.get('/auth', function(req, res) {
 });
 
 // user gets sent here after being authorized
-app.get('/UserHasLoggedIn', function(req, res) {
-  res.render("index", { 
-      title: "Logged In" 
+app.get('/UserHasLoggedIn', function (req, res) {
+  res.render("index", {
+    title: "Logged In"
   });
 });
 
