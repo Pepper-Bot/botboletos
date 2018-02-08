@@ -274,7 +274,7 @@ app.get('/auth', function(req, res) {
   console.log("entramos a auth.");
   // we don't have a code yet
   // so we'll redirect to the oauth dialog
-  if (!req.query.code) {
+  /*if (!req.query.code) {
     console.log("Performing oauth for some user right now.");
   
     var authUrl = graph.getOauthUrl({
@@ -303,7 +303,7 @@ app.get('/auth', function(req, res) {
     }, function (err, facebookRes) {
       res.redirect('/UserHasLoggedIn');
     });
-  }
+  }*/
 });
 
 // user gets sent here after being authorized
