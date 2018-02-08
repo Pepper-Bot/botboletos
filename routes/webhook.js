@@ -494,6 +494,11 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                         event_title = artist
                     }
 
+                    if (team != '') {
+                        event_title = team
+                    }
+
+
                     if (music_genre != '') {
                         event_type = music_genre
                     }
@@ -897,12 +902,17 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
         case 'venues.eating_out.search':
             {
+
+                if (isDefined(contexts[0])) {
+                    console.log('contexto definido ' + contexts[0].name)
+                }
+
                 console.log('action ' + 'venues.eating_out.search')
                 if (isDefined(contexts[0]) && contexts[0].name == 'venueseating_outsearch-followup' && contexts[0].parameters) {
                     console.log('contexto ' + contexts[0].name)
                     zomato.zomatoStartAI(sender, contexts);
 
-                }
+                }  
 
                 break;
             }
@@ -1439,18 +1449,18 @@ function processQuickReplies(event) {
         case "find_my_event_search_event":
             {
                 /*var SearchQuickReply = require('../modules/tevo/search_quick_replay');
-                SearchQuickReply.send(Message, senderId);
+                    SearchQuickReply.send(Message, senderId);
                 
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    foundUser.context = ''
-                    foundUser.save();
-                });*/
+                    UserData2.findOne({
+                        fbId: senderId
+                    }, {}, {
+                        sort: {
+                            'sessionStart': -1
+                        }
+                    }, function (err, foundUser) {
+                        foundUser.context = ''
+                        foundUser.save();
+                    });*/
                 find_my_event(senderId);
 
             }
