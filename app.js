@@ -18,17 +18,6 @@ var helpers = require('./lib/helpers');
 
 var config = require('./config/config_vars')
 var APLICATION_URL_DOMAIN = config.APLICATION_URL_DOMAIN
-var graph = require('fbgraph');
-
-var conf = {
-  client_id: config.FB_APP_PUBLIC_ID,
-  client_secret: config.FB_APP_SECRET_ID,
-  scope: 'email, user_about_me, user_birthday, user_location, publish_actions'
-    // You have to set http://localhost:3000/ as your website
-    // using Settings -> Add platform -> Website
-    ,
-  redirect_uri: APLICATION_URL_DOMAIN + 'auth'
-};
 
 
 var fbgraphModule = require('./routes/facebook_graph_module/fb_graph_module');
