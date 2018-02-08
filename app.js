@@ -68,7 +68,7 @@ app.listen(3000, function () {
 });
 
 
-
+ 
 /*
 app.use(function(req, res, next) {
 
@@ -168,6 +168,7 @@ if (app.get('env') === 'production') {
 }
 
 app.use(session(sess))
+app.use(methodOverride());
 
 
 //app.use(express.static(__dirname + '/public'));
