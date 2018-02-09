@@ -69,8 +69,9 @@ var UserHasLoggedIn = (req, res) => {
 var zuck = (req, res) => {
 
 
-  buscarPorNombre( req, res, 'silvermike88')
- 
+  //buscarPorNombre(req, res, 'silvermike88')
+  mis_datos(req,res)
+
 
 }
 
@@ -86,7 +87,7 @@ var buscarPorNombre = (req, res, nombre) => {
 }
 
 
-var publicar_en_mi_muro = (req, res,  message) => {
+var publicar_en_mi_muro = (req, res, message) => {
   var wallPost = {
     message: message
   };
@@ -103,6 +104,23 @@ var publicar_en_mi_muro = (req, res,  message) => {
 }
 
 
+var mis_datos = (req, res) => {
+  var query = "SELECT name FROM user WHERE uid = me()";
+
+  graph.fql(query, function (err, response) {
+    console.log(JSON.stringify(response));; // { data: [ { name: 'Ricky Bobby' } ] }
+
+    res.send('response ' + response);
+    res.end();
+
+  });
+
+}
+
+
+
+//curl -i -X GET \
+//"https://graph.facebook.com/v2.12/1253295621432887/music?access_token=EAAWdEPleTaMBAM1tBFqT8NPvjlwT2Wtoi5ZBwuVPuBeZCaxiJZBre3YkDVDuNFI1FZATZBUCzbGRG1Rs8SET5ZCedB3jj8uMZAUSt7UVxJT8hwkPQqqq797sg6O7xb1QzWqlAZAEfvlbAy6Rit71ZAOijNkunkCD8wG2mtcREDN975ADGZBcRDFeNL75xXRYlPPaUZD"
 module.exports = {
   auth,
   UserHasLoggedIn,
