@@ -83,7 +83,7 @@ var zuck = (req, res) => {
   
   graph.post("/feed", wallPost, function(err, response) {
     // returns the post id
-    console.log(res); // { id: xxxxx}
+    console.log("Feed >" + response); // { id: xxxxx}
 
     res.send('response ' + response);
     res.end();
