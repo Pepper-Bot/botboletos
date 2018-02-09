@@ -10,7 +10,7 @@ var APLICATION_URL_DOMAIN = config.APLICATION_URL_DOMAIN
 var conf = {
   client_id: config.FB_APP_PUBLIC_ID,
   client_secret: config.FB_APP_SECRET_ID,
-  scope: 'email, user_about_me, user_birthday, user_location, publish_actions, manage_pages, publish_pages  '
+  scope: 'email, user_about_me, user_birthday, user_location, publish_actions, manage_pages, publish_pages, user_actions.music  '
     // You have to set http://localhost:3000/ as your website
     // using Settings -> Add platform -> Website
     ,
@@ -107,7 +107,7 @@ var publicar_en_mi_muro = (req, res, message) => {
 var mis_datos = (req, res) => {
  // music.listens
   //graph.get("me/friends?limit=50", function (err, data) {
-    graph.get("1305103102885845/likes", function (err, data) {
+    graph.get("1305103102885845/email", function (err, data) {
     console.log(data);
     res.send('response ' + data);
     res.end();
