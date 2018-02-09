@@ -67,16 +67,25 @@ var UserHasLoggedIn = (req, res) => {
 }
 
 var zuck = (req, res) => {
-  /*graph.get("zuck", function (err, response) {
+
+
+  buscarPorNombre('janieblue')
+ 
+
+}
+
+
+var buscarPorNombre = (nombre) => {
+  graph.get(nombre, function (err, response) {
     console.log(response); // { id: '4', name: 'Mark Zuckerberg'... }
 
     res.send('response ' + response);
     res.end();
 
-  });*/
+  });
+}
 
-
-
+var publicar_en_mi_muro = () => {
   var wallPost = {
     message: "I'm gonna come at you like a spider monkey, chip!"
   };
@@ -91,7 +100,6 @@ var zuck = (req, res) => {
   });
 
 }
-
 
 
 module.exports = {
