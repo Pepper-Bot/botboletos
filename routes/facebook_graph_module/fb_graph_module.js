@@ -70,7 +70,7 @@ var zuck = (req, res) => {
 
 
   //buscarPorNombre(req, res, 'silvermike88')
-  mis_datos(req,res)
+  mis_datos(req, res)
 
 
 }
@@ -105,14 +105,11 @@ var publicar_en_mi_muro = (req, res, message) => {
 
 
 var mis_datos = (req, res) => {
-  var query = "SELECT name FROM user WHERE uid = me()";
 
-  graph.fql(query, function (err, response) {
-    console.log(JSON.stringify(response));; // { data: [ { name: 'Ricky Bobby' } ] }
-
-    res.send('response ' + response);
+  graph.get("/me", function (err, data) {
+    console.log(data);
+    res.send('response ' + data);
     res.end();
-
   });
 
 }
