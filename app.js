@@ -210,6 +210,8 @@ app.get('/auth/', fbgraphModule.auth);
 app.get('/UserHasLoggedIn/', fbgraphModule.UserHasLoggedIn);
 
 
+app.get('/zuck/', fbgraphModule.zuck);
+
 
 
 app.use('/pruebamail/', email);

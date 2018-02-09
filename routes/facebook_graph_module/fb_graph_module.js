@@ -19,6 +19,9 @@ var conf = {
 
 
 
+graph.setAccessToken(config.PAGE_ACCESS_TOKEN);
+
+
 var auth = (req, res) => {
   console.log(APLICATION_URL_DOMAIN + 'auth')
   // we don't have a code yet
@@ -63,12 +66,20 @@ var UserHasLoggedIn = (req, res) => {
 
 }
 
+var zuck = (req, res) => {
+  graph.get("zuck", function (err, response) {
+    console.log(response); // { id: '4', name: 'Mark Zuckerberg'... }
 
+    res.send('response ' + response);
+    res.end();
 
+  });
+}
 
 
 
 module.exports = {
   auth,
-  UserHasLoggedIn
+  UserHasLoggedIn,
+  zuck
 };
