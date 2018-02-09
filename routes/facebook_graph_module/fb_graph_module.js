@@ -67,13 +67,29 @@ var UserHasLoggedIn = (req, res) => {
 }
 
 var zuck = (req, res) => {
-  graph.get("zuck", function (err, response) {
+  /*graph.get("zuck", function (err, response) {
     console.log(response); // { id: '4', name: 'Mark Zuckerberg'... }
 
     res.send('response ' + response);
     res.end();
 
+  });*/
+
+
+
+  var wallPost = {
+    message: "I'm gonna come at you like a spider monkey, chip!"
+  };
+  
+  graph.post("/feed", wallPost, function(err, res) {
+    // returns the post id
+    console.log(res); // { id: xxxxx}
+
+    res.send('response ' + response);
+    res.end();
+    
   });
+
 }
 
 
