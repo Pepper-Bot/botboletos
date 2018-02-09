@@ -67,7 +67,7 @@ var UserHasLoggedIn = (req, res) => {
 }
 
 var zuck = (req, res) => {
-  graph.setAccessToken(config.PAGE_ACCESS_TOKEN);
+  graph.setAccessToken(process.env.PAGE_ACCESS_TOKEN1);
 
   //buscarPorNombre(req, res, 'silvermike88')
   mis_datos(req, res)
