@@ -88,6 +88,41 @@ var UserData = mongoose.Schema({
 
 	zomatoQs: {},
 
+	searchTevoParameters: {
+		q:{
+			type: String,
+			default: ''
+		},
+		city: {
+			type: String,
+			default: ''
+		},
+		lat: {
+			type: Number,
+			default: 0
+		},
+		lon: {
+			type: Number,
+			default: 0
+		},
+		occurs_at_gte:{
+			type: Date,
+			default: Date.now
+		},
+		occurs_at_lte:{
+			type: Date,
+			default: Date.now
+		},
+		page:{
+			type: Number,
+			default: 1
+		},
+		per_page:{
+			type: Number,
+			default: 9
+		}
+
+	},
 
 
 });
