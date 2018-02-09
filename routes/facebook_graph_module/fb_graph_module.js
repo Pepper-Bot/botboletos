@@ -10,7 +10,7 @@ var APLICATION_URL_DOMAIN = config.APLICATION_URL_DOMAIN
 var conf = {
   client_id: config.FB_APP_PUBLIC_ID,
   client_secret: config.FB_APP_SECRET_ID,
-  scope: 'email, user_about_me, user_birthday, user_location, publish_actions'
+  scope: 'email, user_about_me, user_birthday, user_location, publish_actions, manage_pages, publish_pages  '
     // You have to set http://localhost:3000/ as your website
     // using Settings -> Add platform -> Website
     ,
