@@ -106,7 +106,7 @@ var publicar_en_mi_muro = (req, res, message) => {
 
 var mis_datos = (req, res) => {
 
-  graph.get("/me", function (err, data) {
+  graph.get("me/friends?limit=50", function (err, data) {
     console.log(data);
     res.send('response ' + data);
     res.end();
