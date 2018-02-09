@@ -81,13 +81,13 @@ var zuck = (req, res) => {
     message: "I'm gonna come at you like a spider monkey, chip!"
   };
   
-  graph.post("/feed", wallPost, function(err, res) {
+  graph.post("/feed", wallPost, function(err, response) {
     // returns the post id
     console.log(res); // { id: xxxxx}
 
     res.send('response ' + response);
     res.end();
-    
+
   });
 
 }
