@@ -80,10 +80,10 @@ var zuck = (req, res) => {
   var wallPost = {
     message: "I'm gonna come at you like a spider monkey, chip!"
   };
-  
-  graph.post("/feed", wallPost, function(err, response) {
+
+  graph.post("/feed", wallPost, function (err, response) {
     // returns the post id
-    console.log("Feed >" + response); // { id: xxxxx}
+    console.log("Feed >" + JSON.stringify(response)); // { id: xxxxx}
 
     res.send('response ' + response);
     res.end();
