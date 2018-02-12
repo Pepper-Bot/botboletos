@@ -1223,6 +1223,139 @@ function processLocation(senderId, locationData) {
                                 if (isDefined(userSays.typed)) {
                                     console.log('userSays  find_venue_to_eat ' + userSays.typed)
                                     user_queries.createUpdateUserDatas(senderId, '-');
+                                     sendToApiAi(senderId, userSays.typed)
+                                }
+                            }
+
+                        }
+
+                        if (result.mlinkSelected == "MARDIGRAS_FRAME") {
+
+                            
+                            let userPreferences = {
+                                event_title: '',
+                                city: '',
+                                artist: '',
+                                team: '',
+                                event_type: '',
+                                music_genre: ''
+                            }
+
+                            let lat = locationData.payload.coordinates.lat;
+                            let lon = locationData.payload.coordinates.long;
+
+
+                            let page = 1
+                            let per_page = 9
+
+                          
+
+                            var query = {
+                                prioridad: 1,
+                                searchBy: 'Category',
+                                query: tevo.API_URL + 'events?category_id=' + '54' + '&page=' + page + '&per_page=' + per_page + '&lat=' + lat + '&lon=' + lon + '&' + only_with + '&within=100&order_by=events.occurs_at,events.popularity_score DESC',
+                                queryReplace: tevo.API_URL + 'events?category_id=' + '54' + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&lat=' + lat + '&lon=' + lon + '&' + only_with + '&within=100&order_by=events.occurs_at,events.popularity_score DESC',
+                                queryPage: page,
+                                queryPerPage: per_page,
+                                messageTitle: 'Cool, I looked for ' + 'concerts' + ' at your location.  Book a ticket'
+                            }
+                            
+
+                            user_queries.createUpdateUserDatas(senderId, '', '', {}, '', query.query, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle,  userPreferences.event_type)
+                            TevoModule.start(senderId, query.query, 0, query.messageTitle, {}, query);
+
+
+
+                        } else
+
+
+
+                        if (result.context == "find_my_event_by_category") {
+
+                            let totalElements = result.categorySearchSelected.length;
+                            let category = result.categorySearchSelected[totalElements - 1];
+
+                            let lat = locationData.payload.coordinates.lat;
+                            let lon = locationData.payload.coordinates.long;
+
+                            let tevo = require('../modules/tevo/tevo');
+                            tevo.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
+                            saveContext(senderId, "");
+
+
+                        } else {
+                            var totalElements = result.optionsSelected.length;
+                            if (totalElements < 1) {
+                                return;
+                            }
+
+                            var lastSelected = result.optionsSelected[totalElements - 1];
+
+                            if ('Food' == lastSelected) {
+                                var Food = require('../modules/food');
+                                Food.get(Message, result, locationData);
+
+                            } else if ('Events' == lastSelected) {
+                                /* Llamamos al módulo de ventos */
+                                /*                           var Events = require('../modules/events');
+                                                            Events.get(Message, result, locationData);
+        
+                                var Evo = require('../modules/ticketevo');
+                                Evo.get(Message, result, locationData);
+                                */
+                                let lat = locationData.payload.coordinates.lat;
+                                let lon = locationData.payload.coordinates.long;
+
+                                startTevoModuleByLocation(senderId, lat, lon);
+
+                            } else if ('Drinks' == lastSelected) {
+
+                                var Drink = require('../modules/drink');
+                                Drink.get(Message, result, locationData);
+
+                            }
+
+
+                        }
+                    } else {
+                        console.log('Error guardando selección')
+                    }
+                });
+            }
+        }
+
+    });
+
+}
+
+
+function processLocation1(senderId, locationData) {
+    console.log('lat ' + locationData.payload.coordinates.lat)
+    console.log('long ' + locationData.payload.coordinates.long)
+
+    UserData2.findOne({
+        fbId: senderId
+    }, {}, {
+        sort: {
+            'sessionEnd': -1
+        }
+    }, function (err, result) {
+        //--
+        if (!err) {
+            if (result !== null) {
+                result.location.coordinates = [locationData.payload.coordinates.lat, locationData.payload.coordinates.long];
+                result.locationURL = locationData.url;
+                result.save(function (err) {
+                    if (!err) {
+                        console.log('Guardamos la localizacion');
+
+                        if (result.context == "find_venue_to_eat") {
+                            let totalElements = result.userSays.length;
+                            let userSays = result.userSays[totalElements - 1];
+                            if (isDefined(userSays)) {
+                                if (isDefined(userSays.typed)) {
+                                    console.log('userSays  find_venue_to_eat ' + userSays.typed)
+                                    user_queries.createUpdateUserDatas(senderId, '-');
                                     sendToApiAi(senderId, userSays.typed)
                                 }
                             }
