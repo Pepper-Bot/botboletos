@@ -25,6 +25,7 @@
     "fbgraph": "^1.4.1",
     "format-number": "^3.0.0",
     "g-i-s": "^2.0.0",
+    "google-images": "^2.1.0",
     "jade": "~1.11.0",
     "mailcomposer": "^4.0.2",
     "mailgun-js": "^0.13.1",

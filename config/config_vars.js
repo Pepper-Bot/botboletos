@@ -1,4 +1,14 @@
 /////////////////////tevo/////////////////////////////
+
+
+var google = {
+  GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
+  GOOGLE_CSE_ID: process.env.GOOGLE_CSE_ID,
+  
+}
+
+
+
 var API_AI_CLIENT_ACCESS_TOKEN = process.env.API_AI_CLIENT_ACCESS_TOKEN
 
 
@@ -100,6 +110,7 @@ module.exports = {
   API_AI_CLIENT_ACCESS_TOKEN,
   FB_APP_PUBLIC_ID,
   FB_APP_SECRET_ID,
+  google
 
-  
+
 };

@@ -6,6 +6,10 @@ var UserData = require('../bot/userinfo');
 var UserData2 = require('../schemas/userinfo');
 var tevo = require('../config/config_vars').tevo;
 var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
+
+var google = require('../config/config_vars').google;
+
+
 var only_with = require('../config/config_vars').only_with;
 var user_queries = require('../schemas/queries/user_queries');
 
@@ -166,14 +170,14 @@ module.exports = function () {
 
 
                                 console.log("luego del GButons event_name >>>>> " + urlApiTevo);
-                               
+
                                 var GenericButton = require('../bot/generic_buttton');
                                 GenericButton.genericButtonQuickReplay(senderId, gButtons, "Find something else? ", function (err) {
                                     if (!err) {
 
                                         // createUpdateUserDatas = (senderId, context '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', queryTevoFinal = '', page = 0, per_page = 0, artists = '', musical_genres = '', teams = '', cities = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
 
-                                        user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle,  userPreferences.event_type)
+                                        user_queries.createUpdateUserDatas(senderId, '', '', {}, '', urlApiTevo, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle, userPreferences.event_type)
                                     }
 
                                 })
@@ -286,7 +290,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 
-        var gis = require('g-i-s');
+        /*var gis = require('g-i-s');
         gis(search, logResults);
 
         function logResults(error, results) {
@@ -297,7 +301,32 @@ var getGoogleImage = (search, matriz = []) => {
 
 
             }
-        }
+        }*/
+
+
+        const GoogleImages = require('google-images');
+
+        const client = new GoogleImages(google.GOOGLE_CSE_ID, google.GOOGLE_API_KEY);
+
+        client.search(search)
+            .then(images => {
+                /*
+                [{
+                    "url": "http://steveangello.com/boss.jpg",
+                    "type": "image/jpeg",
+                    "width": 1024,
+                    "height": 768,
+                    "size": 102451,
+                    "thumbnail": {
+                        "url": "http://steveangello.com/thumbnail.jpg",
+                        "width": 512,
+                        "height": 512
+                    }
+                }]
+                 */
+                console.log('imagenes ' + JSON.stringify(images))
+                resolve(images)
+            });
 
     });
 }
