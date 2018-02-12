@@ -290,7 +290,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 var getGoogleImage = (search, matriz = []) => {
     return new Promise((resolve, reject) => {
 
-         /*var gis = require('g-i-s');
+         var gis = require('g-i-s');
         gis(search, logResults);
 
         function logResults(error, results) {
@@ -301,17 +301,17 @@ var getGoogleImage = (search, matriz = []) => {
 
 
             }
-        } */
+        } 
 
 
-         const GoogleImages = require('google-images');
+     /*    const GoogleImages = require('google-images');
 
         const client = new GoogleImages(google.GOOGLE_CSE_ID, google.GOOGLE_API_KEY);
 
         client.search(search)
             .then(images => {
              
-                /*[{
+                [{
                     "url": "http://steveangello.com/boss.jpg",
                     "type": "image/jpeg",
                     "width": 1024,
@@ -322,11 +322,11 @@ var getGoogleImage = (search, matriz = []) => {
                         "width": 512,
                         "height": 512
                     }
-                }]*/
+                }] 
                 
                 console.log('imagenes ' + JSON.stringify(images))
                 resolve(images)
-            }); 
+            }); */
 
     });
 }
