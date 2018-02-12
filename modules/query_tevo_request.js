@@ -311,7 +311,7 @@ var getGoogleImage = (search, matriz = []) => {
         client.search(search)
             .then(images => {
              
-                [{
+                /*[{
                     "url": "http://steveangello.com/boss.jpg",
                     "type": "image/jpeg",
                     "width": 1024,
@@ -322,7 +322,7 @@ var getGoogleImage = (search, matriz = []) => {
                         "width": 512,
                         "height": 512
                     }
-                }]
+                }]*/
                 
                 console.log('imagenes ' + JSON.stringify(images))
                 resolve(images)
