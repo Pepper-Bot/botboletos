@@ -325,7 +325,7 @@ var getGoogleImage = (search, matriz = []) => {
                 }]
                  */
                 console.log('imagenes ' + JSON.stringify(images))
-                resolve(images)
+                //resolve(images)
             });
 
     });
