@@ -218,8 +218,8 @@ function sendToApiAi(sender, text) {
 
 function processMessage(senderId, textMessage) {
 
-   
-    
+
+
 
 
     textMessage = fsStrings.getCleanedString(textMessage);
@@ -353,6 +353,15 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
                 Message.sendMessage(sender, responseText);
             }
             break;
+
+        case "smalltalk.agent.acquaintanc":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
 
         case "events.search":
             {
@@ -1223,7 +1232,7 @@ function processLocation(senderId, locationData) {
                                 if (isDefined(userSays.typed)) {
                                     console.log('userSays  find_venue_to_eat ' + userSays.typed)
                                     user_queries.createUpdateUserDatas(senderId, '-');
-                                     sendToApiAi(senderId, userSays.typed)
+                                    sendToApiAi(senderId, userSays.typed)
                                 }
                             }
 
@@ -1231,7 +1240,7 @@ function processLocation(senderId, locationData) {
 
                         if (result.mlinkSelected == "MARDIGRAS_FRAME") {
 
-                            
+
                             let userPreferences = {
                                 event_title: '',
                                 city: '',
@@ -1248,7 +1257,7 @@ function processLocation(senderId, locationData) {
                             let page = 1
                             let per_page = 9
 
-                          
+
 
                             var query = {
                                 prioridad: 1,
@@ -1259,9 +1268,9 @@ function processLocation(senderId, locationData) {
                                 queryPerPage: per_page,
                                 messageTitle: 'Cool, I looked for ' + 'concerts' + ' at your location.  Book a ticket'
                             }
-                            
 
-                            user_queries.createUpdateUserDatas(senderId, '', '', {}, '', query.query, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle,  userPreferences.event_type)
+
+                            user_queries.createUpdateUserDatas(senderId, '', '', {}, '', query.query, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle, userPreferences.event_type)
                             TevoModule.start(senderId, query.query, 0, query.messageTitle, {}, query);
 
 
