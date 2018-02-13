@@ -1027,140 +1027,177 @@ var zomatoStartAI = (sender, contexts) => {
   }
 
 
+  let segir = true;
 
-  startTevoByName(sender, venue_title).then((cantidad) => {
-    if (cantidad == 0) {
-      startTevoByName(sender, venue_type).then((cantidad) => {
-        if (cantidad == 0) {
-          let qs = {}
-          let zomatoQs = []
-          if (city != '') {
-            getCities(city).then((cityResponse) => {
-              console.log('cityResponse' + JSON.stringify(cityResponse))
-              let city_id = cityResponse.location_suggestions[0].id
+  if (venue_title != '') {
+    evaluateIfUserSaysIsInTevo(sender, venue_title).then((continuar) => {
+      if (continuar == false) {
+        segir = false;
+      } else {
+        seguir = true
+      }
+    })
 
-              if (cuisine != '' && venue_type != '') {
-                zomatoQs.push(searchByCityCuisineEstablishment(city_id, venue_type, cuisine, 1).then(qs))
-              }
+  }
 
-              if (venue_title != '' && venue_type != '') {
-                zomatoQs.push(searchByCityVenueTitleEstablishment(city_id, venue_type, venue_title, 2).then(qs))
-              }
-
-              if (venue_title != '' && cuisine != '') {
-                zomatoQs.push(searchByCityVenueTitleCusine(city_id, venue_title, cuisine, 3).then(qs))
-              }
-
-              if (venue_type != '') {
-                zomatoQs.push(searchByCityEstablishment(city_id, venue_type, 4).then(qs))
-              }
-
-              if (cuisine != '') {
-                zomatoQs.push(searchByCityCuisine(city_id, cuisine, 5).then(qs))
-              }
-
-              if (venue_title != '') {
-                zomatoQs.push(searchByCityVenueTitle(city_id, venue_title, 6).then(qs))
-
-              }
-              zomatoQs.push(searchByCity(city_id, 7).then(qs))
-
-
-              Promise.all(zomatoQs).then(ArrayQs => {
-                console.log('zomatoQs ' + JSON.stringify(ArrayQs))
-                selectQsByPriority(ArrayQs).then((qs) => {
-                  if (isDefined(qs)) {
-                    console.log('priority ' + qs.priority)
-                    delete qs.priority;
-
-                    starRenderFBTemplate(sender, qs)
-                  } else {
-                    console.log('qs de zomato está indefinida ')
-
-                    defaultTevoSearch(sender)
-
-                  }
-
-
-                })
-
-              });
-
-
-
-            })
-
-          } else { //busquedas por cordenadas...
-            console.log('Se activa busqueda por coordenadas...')
-            user_queries.getUserByFbId(sender).then((foundUser) => {
-              if (isDefined(foundUser)) {
-                let lat = foundUser.location.coordinates[0];
-                let lon = foundUser.location.coordinates[1];
-                if (isDefined(lat) && isDefined(lon)) {
-
-                  if (cuisine != '' && venue_type != '') {
-                    zomatoQs.push(searchByCuisineEstablishmentAndCoordinates(lat, lon, cuisine, venue_type, 1).then(qs))
-                  }
-
-                  if (venue_title != '' && venue_type != '') {
-                    zomatoQs.push(searchByVenueTitleEstablishmentAndCoordinates(lat, lon, venue_type, venue_title, 2).then(qs))
-                  }
-
-                  if (venue_title != '' && cuisine != '') {
-                    zomatoQs.push(searchByVenueTitleCusineAndCoordinates(lat, lon, venue_title, cuisine, 3).then(qs))
-                  }
-
-                  if (venue_type != '') {
-                    zomatoQs.push(searchByEstablismentAndCoordinates(lat, lon, venue_type, 4).then(qs))
-                  }
-
-                  if (cuisine != '') {
-                    zomatoQs.push(searchByCuisineAndCoordinates(cuisine, lat, lon, 5).then(qs))
-                  }
-
-                  if (venue_title != '') {
-                    zomatoQs.push(searchByVenueTitleAndCoordinates(venue_title, lat, lon, 6).then(qs))
-                  }
-
-
-                  zomatoQs.push(searchByCoordinates(lat, lon, 7).then(qs))
+  if (segir == true) {
+    if (venue_title != '') {
+      evaluateIfUserSaysIsInTevo(sender, venue_type).then((continuar) => {
+        if (continuar == false) {
+          segir = false;
+        }
+      })
+    }
+  }
 
 
 
 
+  if (segir == true) {
+    let qs = {}
+    let zomatoQs = []
+    if (city != '') {
+      getCities(city).then((cityResponse) => {
+        console.log('cityResponse' + JSON.stringify(cityResponse))
+        let city_id = cityResponse.location_suggestions[0].id
 
-                  Promise.all(zomatoQs).then(ArrayQs => {
-                    console.log('zomatoQs ' + JSON.stringify(ArrayQs))
-                    selectQsByPriority(ArrayQs).then((qs) => {
-                      if (isDefined(qs)) {
-                        console.log('priority ' + qs.priority)
-                        delete qs.priority;
+        if (cuisine != '' && venue_type != '') {
+          zomatoQs.push(searchByCityCuisineEstablishment(city_id, venue_type, cuisine, 1).then(qs))
+        }
 
-                        starRenderFBTemplate(sender, qs)
-                      } else {
-                        console.log('qs de zomato está indefinida ' + qs.priority)
-                        defaultTevoSearch(sender)
+        if (venue_title != '' && venue_type != '') {
+          zomatoQs.push(searchByCityVenueTitleEstablishment(city_id, venue_type, venue_title, 2).then(qs))
+        }
 
-                      }
+        if (venue_title != '' && cuisine != '') {
+          zomatoQs.push(searchByCityVenueTitleCusine(city_id, venue_title, cuisine, 3).then(qs))
+        }
 
-                    })
+        if (venue_type != '') {
+          zomatoQs.push(searchByCityEstablishment(city_id, venue_type, 4).then(qs))
+        }
 
-                  });
+        if (cuisine != '') {
+          zomatoQs.push(searchByCityCuisine(city_id, cuisine, 5).then(qs))
+        }
 
-                } else { //pedir coordenadas....
-                  user_queries.createUpdateUserDatas(sender, 'find_venue_to_eat').then(() => {
-                    Message.getLocation(sender, 'What location would you like to eat at?');
-                  })
+        if (venue_title != '') {
+          zomatoQs.push(searchByCityVenueTitle(city_id, venue_title, 6).then(qs))
+
+        }
+        zomatoQs.push(searchByCity(city_id, 7).then(qs))
+
+
+        Promise.all(zomatoQs).then(ArrayQs => {
+          console.log('zomatoQs ' + JSON.stringify(ArrayQs))
+          selectQsByPriority(ArrayQs).then((qs) => {
+            if (isDefined(qs)) {
+              console.log('priority ' + qs.priority)
+              delete qs.priority;
+
+              starRenderFBTemplate(sender, qs)
+            } else {
+              console.log('qs de zomato está indefinida ')
+
+              defaultTevoSearch(sender)
+
+            }
+
+
+          })
+
+        });
+
+
+
+      })
+
+    } else { //busquedas por cordenadas...
+      console.log('Se activa busqueda por coordenadas...')
+      user_queries.getUserByFbId(sender).then((foundUser) => {
+        if (isDefined(foundUser)) {
+          let lat = foundUser.location.coordinates[0];
+          let lon = foundUser.location.coordinates[1];
+          if (isDefined(lat) && isDefined(lon)) {
+
+            if (cuisine != '' && venue_type != '') {
+              zomatoQs.push(searchByCuisineEstablishmentAndCoordinates(lat, lon, cuisine, venue_type, 1).then(qs))
+            }
+
+            if (venue_title != '' && venue_type != '') {
+              zomatoQs.push(searchByVenueTitleEstablishmentAndCoordinates(lat, lon, venue_type, venue_title, 2).then(qs))
+            }
+
+            if (venue_title != '' && cuisine != '') {
+              zomatoQs.push(searchByVenueTitleCusineAndCoordinates(lat, lon, venue_title, cuisine, 3).then(qs))
+            }
+
+            if (venue_type != '') {
+              zomatoQs.push(searchByEstablismentAndCoordinates(lat, lon, venue_type, 4).then(qs))
+            }
+
+            if (cuisine != '') {
+              zomatoQs.push(searchByCuisineAndCoordinates(cuisine, lat, lon, 5).then(qs))
+            }
+
+            if (venue_title != '') {
+              zomatoQs.push(searchByVenueTitleAndCoordinates(venue_title, lat, lon, 6).then(qs))
+            }
+
+
+            zomatoQs.push(searchByCoordinates(lat, lon, 7).then(qs))
+
+
+
+
+
+            Promise.all(zomatoQs).then(ArrayQs => {
+              console.log('zomatoQs ' + JSON.stringify(ArrayQs))
+              selectQsByPriority(ArrayQs).then((qs) => {
+                if (isDefined(qs)) {
+                  console.log('priority ' + qs.priority)
+                  delete qs.priority;
+
+                  starRenderFBTemplate(sender, qs)
+                } else {
+                  console.log('qs de zomato está indefinida ' + qs.priority)
+                  defaultTevoSearch(sender)
 
                 }
-              }
+
+              })
+
+            });
+
+          } else { //pedir coordenadas....
+            user_queries.createUpdateUserDatas(sender, 'find_venue_to_eat').then(() => {
+              Message.getLocation(sender, 'What location would you like to eat at?');
             })
+
           }
         }
       })
     }
-  })
+  }
 
+}
+
+var evaluateIfUserSaysIsInTevo = (sender, event_title) => {
+  return new Promise((resolve, reject) => {
+    startTevoByName(sender, event_title).then((cantidad1) => {
+      if (cantidad1 == 0) {
+        defaultTevoSearch(sender).then((cantidad2) => {
+          if (cantidad2 == 0) {
+            resolve(true)
+          } else {
+            resolve(false)
+          }
+        })
+      } else {
+        resolve(true)
+      }
+    })
+  })
 }
 
 var startTevoByName = (senderId, event_title) => {
@@ -1275,71 +1312,76 @@ function find_my_event(senderId, hi = 0, event_name = '') {
 
 
 var defaultTevoSearch = (sender) => {
+  return new Promise((resolve, reject) => {
+    var page = 1;
+    var per_page = 9;
 
-  var page = 1;
-  var per_page = 9;
 
-
-  var arrayQueryMessages = []
-  var userPreferences = {
-    event_title: '',
-    city: '',
-    artist: '',
-    team: '',
-    event_type: '',
-    music_genre: ''
-  }
-  UserData2.findOne({
-    fbId: sender
-  }, {}, {
-    sort: {
-      'sessionEnd': -1
+    var arrayQueryMessages = []
+    var userPreferences = {
+      event_title: '',
+      city: '',
+      artist: '',
+      team: '',
+      event_type: '',
+      music_genre: ''
     }
-  }, function (err, foundUser) {
-    if (foundUser) {
-      let userSays = foundUser.userSays[foundUser.userSays.length - 1]
-      if (userSays) {
-        if (userSays.typed) {
+    UserData2.findOne({
+      fbId: sender
+    }, {}, {
+      sort: {
+        'sessionEnd': -1
+      }
+    }, function (err, foundUser) {
+      if (foundUser) {
+        let userSays = foundUser.userSays[foundUser.userSays.length - 1]
+        if (userSays) {
+          if (userSays.typed) {
 
-          var query = {
-            prioridad: 4,
-            searchBy: 'ByName',
-            query: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
-            queryReplace: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
-            queryPage: page,
-            queryPerPage: per_page,
-            messageTitle: 'Cool, I looked for "' + userSays.typed + '" shows.  Book a ticket'
-          }
+            var query = {
+              prioridad: 4,
+              searchBy: 'ByName',
+              query: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
+              queryReplace: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
+              queryPage: page,
+              queryPerPage: per_page,
+              messageTitle: 'Cool, I looked for "' + userSays.typed + '" shows.  Book a ticket'
+            }
 
 
-          tevoClient.getJSON(query.query).then((json) => {
-            if (json.error) {
-              //console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
-            } else {
-              if (json.events.length > 0) {
-                console.log("query Tevo >>> " + JSON.stringify(query));
-                TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
+            tevoClient.getJSON(query.query).then((json) => {
+              if (json.error) {
+                //console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
+                resolve(0)
               } else {
+                if (json.events.length > 0) {
+                  console.log("query Tevo >>> " + JSON.stringify(query));
+                  TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
+                  resolve(json.events.length)
+                } else {
 
-                console.log('definitivamente no encontré nada!!')
-                Message.sendMessage(sender, 'What was that?');
+                  console.log('definitivamente no encontré nada!!')
+
+                  resolve(0)
+                }
 
               }
+            }).catch((error) => {
+              console.log('Error en la consulta!')
+              resolve(0)
 
-            }
-          })
-
-
-        } else {
-          console.log('no tengo guardado lo ultimo que escribió el usuario')
-          Message.sendMessage(sender, 'What was that?');
+            })
+          } else {
+            console.log('no tengo guardado lo ultimo que escribió el usuario')
+            resolve(0)
+          }
         }
-      }
 
-    } else {
-      console.log('user no found !!!! consultado by fbId en  ')
-      Message.sendMessage(sender, 'What was that?');
-    }
+      } else {
+        console.log('user no found !!!! consultado by fbId en  ')
+        resolve(0)
+      }
+    })
   })
 
 }
