@@ -16,6 +16,7 @@ var zomatoClient = zomato.createClient({
   userKey: '2889c298c45512452b6b32e46df88ffa',
 });
 
+var only_with = require('../../config/config_vars').only_with;
 var tevo = require('../../config/config_vars').tevo;
 var TevoModule = require('../../modules/query_tevo_request');
 var TevoClient = require('ticketevolution-node');
