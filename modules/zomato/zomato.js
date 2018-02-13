@@ -1032,7 +1032,7 @@ var zomatoStartAI = (sender, contexts) => {
   if (venue_title != '') {
     evaluateIfUserSaysIsInTevo(sender, venue_title).then((continuar) => {
       if (continuar == false) {
-        segir = false;
+        seguir = false
       } else {
         seguir = true
       }
@@ -1044,7 +1044,7 @@ var zomatoStartAI = (sender, contexts) => {
     if (venue_title != '') {
       evaluateIfUserSaysIsInTevo(sender, venue_type).then((continuar) => {
         if (continuar == false) {
-          segir = false;
+          return
         }
       })
     }
@@ -1185,16 +1185,30 @@ var zomatoStartAI = (sender, contexts) => {
 var evaluateIfUserSaysIsInTevo = (sender, event_title) => {
   return new Promise((resolve, reject) => {
     startTevoByName(sender, event_title).then((cantidad1) => {
+
+
+      console.log('cantidad 1 ' + cantidad1)
       if (cantidad1 == 0) {
         defaultTevoSearch(sender).then((cantidad2) => {
+
+          console.log('cantidad 2 ' + cantidad2)
+
+
           if (cantidad2 == 0) {
+            console.log('No Resolví en Tevo !! defaultTevoSearch  cantidad 2 == 0')
             resolve(true)
+
           } else {
+            console.log('Resolví en Tevo !! defaultTevoSearch cantidad 2 != 0')
             resolve(false)
           }
         })
       } else {
         resolve(true)
+      
+
+
+
       }
     })
   })
@@ -1229,7 +1243,7 @@ var startTevoByName = (senderId, event_title) => {
       tevoClient.getJSON(query.query).then((json) => {
         let salir = false;
         if (json.error) {
-          //console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
+          console.log('Error al ejecutar la tevo query ' + query.query + 'err.message: ' + json.error);
           resolve(0)
         } else {
           if (json.events.length > 0) {
@@ -1237,6 +1251,7 @@ var startTevoByName = (senderId, event_title) => {
             resolve(json.events.length)
             //user_queries.createUpdateUserDatas(senderId, '', '', {}, '', query.query, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle, userPreferences.event_type)
           } else {
+            console.log('No encontré nada con  '   +  event_title);
             resolve(0)
           }
         }
