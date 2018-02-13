@@ -414,6 +414,17 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                 if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
 
+
+
+                    if ((isDefined(contexts[0].parameters.team))) {
+                        if (isDefined(contexts[0].parameters.team != '')) {
+                            team = contexts[0].parameters.team
+                            console.log('team>> ' + team)
+
+                        }
+                    }
+
+
                     if ((isDefined(contexts[0].parameters.event_type))) {
                         if (isDefined(contexts[0].parameters.event_type != '')) {
                             event_type = contexts[0].parameters.event_type
@@ -949,7 +960,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
                     console.log('contexto ' + contexts[0].name)
 
-                    
+
 
                 }
                 break;
