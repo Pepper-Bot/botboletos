@@ -366,7 +366,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             }
             break;
 
-            
+
 
         case "smalltalk.agent.annoying":
             {
@@ -376,7 +376,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
-            case "smalltalk.agent.bad":
+        case "smalltalk.agent.bad":
             {
                 Message.sendMessage(sender, responseText);
             }
@@ -384,7 +384,7 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
 
 
-            
+
 
 
 
@@ -936,10 +936,21 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
         case 'venues.nightlife.search':
             {
+
+                if (isDefined(contexts[0])) {
+                    console.log('contexto definido ' + contexts[0].name)
+                }
+
                 console.log('action ' + 'venues.nightlife.search')
                 if (isDefined(contexts[0]) && contexts[0].name == 'venues-nightlife' && contexts[0].parameters) {
                     console.log('contexto ' + contexts[0].name)
                     zomato.zomatoStartAI(sender, contexts);
+                } else {
+
+                    console.log('contexto ' + contexts[0].name)
+
+                    
+
                 }
                 break;
             }
