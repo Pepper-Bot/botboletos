@@ -1027,6 +1027,7 @@ var zomatoStartAI = (sender, contexts) => {
   }
 
 
+
   startTevoByName(sender, venue_title).then((cantidad) => {
     if (cantidad == 0) {
       startTevoByName(sender, venue_type).then((cantidad) => {
@@ -1164,48 +1165,52 @@ var zomatoStartAI = (sender, contexts) => {
 
 var startTevoByName = (senderId, event_title) => {
   return new Promise((resolve, reject) => {
-    console.log('Esta Busqueda que debe ser corregida en diccionario de Dialog Flow!' + event_title)
-    let userPreferences = {
-      event_title: '',
-      city: '',
-      artist: '',
-      team: '',
-      event_type: '',
-      music_genre: ''
-    }
-
-    let page = 1
-    let per_page = 9
-
-
-    var query = {
-      prioridad: 4,
-      searchBy: 'ByName',
-      query: tevo.API_URL + 'events?q=' + event_title + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
-      queryReplace: tevo.API_URL + 'events?q=' + event_title + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
-      queryPage: page,
-      queryPerPage: per_page,
-      messageTitle: 'Cool, I looked for "' + event_title + '" shows.  Book a ticket'
-    }
-
-    tevoClient.getJSON(query.query).then((json) => {
-      let salir = false;
-      if (json.error) {
-        //console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
-        resolve(0)
-      } else {
-        if (json.events.length > 0) {
-          TevoModule.start(senderId, query.query, 0, query.messageTitle, {}, query);
-          resolve(json.events.length)
-          //user_queries.createUpdateUserDatas(senderId, '', '', {}, '', query.query, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle, userPreferences.event_type)
-        } else {
-          resolve(0)
-        }
+    if (event_title != '') {
+      console.log('Esta Busqueda que debe ser corregida en diccionario de Dialog Flow!' + event_title)
+      let userPreferences = {
+        event_title: '',
+        city: '',
+        artist: '',
+        team: '',
+        event_type: '',
+        music_genre: ''
       }
-    }).catch((error) => {
-      console.log('error en la consulta enviada a tevo')
+
+      let page = 1
+      let per_page = 9
+
+      var query = {
+        prioridad: 4,
+        searchBy: 'ByName',
+        query: tevo.API_URL + 'events?q=' + event_title + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
+        queryReplace: tevo.API_URL + 'events?q=' + event_title + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
+        queryPage: page,
+        queryPerPage: per_page,
+        messageTitle: 'Cool, I looked for "' + event_title + '" shows.  Book a ticket'
+      }
+
+      tevoClient.getJSON(query.query).then((json) => {
+        let salir = false;
+        if (json.error) {
+          //console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
+          resolve(0)
+        } else {
+          if (json.events.length > 0) {
+            TevoModule.start(senderId, query.query, 0, query.messageTitle, {}, query);
+            resolve(json.events.length)
+            //user_queries.createUpdateUserDatas(senderId, '', '', {}, '', query.query, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle, userPreferences.event_type)
+          } else {
+            resolve(0)
+          }
+        }
+      }).catch((error) => {
+        console.log('error en la consulta enviada a tevo')
+        resolve(0)
+      })
+    } else {
       resolve(0)
-    })
+    }
+
   })
 
 }
