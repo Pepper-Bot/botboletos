@@ -25,7 +25,7 @@ const uuid = require('uuid');
 var moment = require('moment');
 var zomato = require('../modules/zomato/zomato');
 
-var user_queries = require('../schemas/queries/user_queries');
+var user_queries = require('../schemas/queries/user_queries');  
 var TevoModule = require('../modules/query_tevo_request');
 
 
