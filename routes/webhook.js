@@ -360,6 +360,35 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             }
             break;
 
+        case "smalltalk.agent.age":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+            
+
+        case "smalltalk.agent.annoying":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+            case "smalltalk.agent.bad":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+            
+
+
+
+
 
 
 
