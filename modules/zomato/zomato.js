@@ -10,6 +10,7 @@ var establishmentQueries = require('../../schemas/queries/establishment_queries'
 
 var arraySort = require('array-sort');
 var user_queries = require('../../schemas/queries/user_queries');
+var UserData2 = require('../../schemas/userinfo');
 
 var zomatoClient = zomato.createClient({
   userKey: '2889c298c45512452b6b32e46df88ffa',
@@ -741,22 +742,30 @@ var selectQsByPriority = (arrayQs) => {
   let counter = 0
   console.log('arrayQueryMessages ' + JSON.stringify(arrayQueryMessages))
   return new Promise((resolve, reject) => {
-    for (let i = 0; i < arrayQueryMessages.length; i++) {
-      hasVenues(arrayQueryMessages[i]).then((tiene) => {
-        if (tiene === true) {
-          arraySelected.push(arrayQueryMessages[i])
-        }
+    if (arrayQueryMessages.length > 0) {
+      for (let i = 0; i < arrayQueryMessages.length; i++) {
+        hasVenues(arrayQueryMessages[i]).then((tiene) => {
+          if (tiene === true) {
+            arraySelected.push(arrayQueryMessages[i])
+          }
 
-        if (counter === arrayQueryMessages.length - 1) {
-          let arrayFinal = arraySort(arraySelected, ['priority'], {
-            reverse: false
-          });
+          if (counter === arrayQueryMessages.length - 1) {
+            let arrayFinal = arraySort(arraySelected, ['priority'], {
+              reverse: false
+            });
 
-          resolve(arrayFinal[0])
-        }
-        counter++
-      })
+            resolve(arrayFinal[0])
+          }
+          counter++
+        })
+      }
+
+    } else {
+      resolve(undefined)
+
     }
+
+
   })
 
 
@@ -1084,8 +1093,9 @@ var zomatoStartAI = (sender, contexts) => {
 
                         starRenderFBTemplate(sender, qs)
                       } else {
-                        console.log('qs de zomato está indefinida ' + qs.priority)
-                        find_my_event(sender, 1, '');
+                        console.log('qs de zomato está indefinida ')
+
+                        defaultTevoSearch(sender)
 
                       }
 
@@ -1147,7 +1157,7 @@ var zomatoStartAI = (sender, contexts) => {
                             starRenderFBTemplate(sender, qs)
                           } else {
                             console.log('qs de zomato está indefinida ' + qs.priority)
-                            find_my_event(sender, 1, '');
+                            defaultTevoSearch(sender)
 
                           }
 
@@ -1264,6 +1274,78 @@ function find_my_event(senderId, hi = 0, event_name = '') {
   });
 };
 
+
+
+var defaultTevoSearch = (sender) => {
+
+  var page = 1;
+  var per_page = 9;
+
+
+  var arrayQueryMessages = []
+  var userPreferences = {
+    event_title: '',
+    city: '',
+    artist: '',
+    team: '',
+    event_type: '',
+    music_genre: ''
+  }
+  UserData2.findOne({
+    fbId: sender
+  }, {}, {
+    sort: {
+      'sessionEnd': -1
+    }
+  }, function (err, foundUser) {
+    if (foundUser) {
+      let userSays = foundUser.userSays[foundUser.userSays.length - 1]
+      if (userSays) {
+        if (userSays.typed) {
+
+          var query = {
+            prioridad: 4,
+            searchBy: 'ByName',
+            query: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
+            queryReplace: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
+            queryPage: page,
+            queryPerPage: per_page,
+            messageTitle: 'Cool, I looked for "' + userSays.typed + '" shows.  Book a ticket'
+          }
+
+
+          tevoClient.getJSON(query.query).then((json) => {
+            if (json.error) {
+              //console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
+            } else {
+              if (json.events.length > 0) {
+                console.log("query Tevo >>> " + JSON.stringify(query));
+                TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
+              } else {
+
+                console.log('definitivamente no encontré nada!!')
+                Message.sendMessage(sender, 'What was that?');
+
+              }
+
+            }
+          })
+
+
+        } else {
+          console.log('no tengo guardado lo ultimo que escribió el usuario')
+          Message.sendMessage(sender, 'What was that?');
+        }
+      }
+
+    } else {
+      console.log('user no found !!!! consultado by fbId en  ')
+      Message.sendMessage(sender, 'What was that?');
+    }
+  })
+
+
+}
 
 function isDefined(obj) {
   if (typeof obj == 'undefined') {
