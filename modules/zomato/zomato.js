@@ -1344,7 +1344,6 @@ var defaultTevoSearch = (sender) => {
     }
   })
 
-
 }
 
 function isDefined(obj) {
