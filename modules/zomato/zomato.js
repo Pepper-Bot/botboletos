@@ -18,12 +18,14 @@ var zomatoClient = zomato.createClient({
 
 var tevo = require('../../config/config_vars').tevo;
 var TevoModule = require('../../modules/query_tevo_request');
+var TevoClient = require('ticketevolution-node');
+
 const tevoClient = new TevoClient({
   apiToken: tevo.API_TOKEN,
   apiSecretKey: tevo.API_SECRET_KEY
 });
 
-var TevoClient = require('ticketevolution-node');
+
 
 
 var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
