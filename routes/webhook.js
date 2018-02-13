@@ -383,6 +383,586 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             break;
 
 
+        case "smalltalk.agent.answer_my_question":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.agent.be_clever":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.beautiful":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.birth_date":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.boss":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.agent.busy":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.can_you_help":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.agent.chatbot":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.clever":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.crazy":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.fired":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.agent.good":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.agent.happy":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.hobby":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.agent.hungry":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.agent.marry_user":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.my_friend":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.occupation":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.agent.origin":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.agent.origin":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.ready":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.agent.real":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.agent.residence":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.talk_to_me":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.agent.talk_to_me":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.agent.there":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.appraisal.bad":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.appraisal.bad":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.appraisal.good":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.appraisal.thank_you":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.appraisal.welcome":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.appraisal.well_done":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.emotions.wow":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.greetings.bye":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.greetings.goodevening":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.greetings.goodmorning":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+        case "smalltalk.greetings.goodnight":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.greetings.hello":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.greetings.how_are_you":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.greetings.nice_to_meet_you":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.greetings.nice_to_see_you":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.greetings.nice_to_talk_to_you":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.greetings.whatsup":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.angry":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.back":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.busy":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.can_not_sleep":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.does_not_want_to_talk":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.user.going_to_bed":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.user.good":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.user.happy":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.user.has_birthday":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.here":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.joking":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.likes_agent":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.user.lonely":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.looks_like":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.loves_agent":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.misses_agent":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.user.needs_advice":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.sad":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.user.sleepy":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.user.testing_agent":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+
+
+        case "smalltalk.user.tired":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.waits":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.wants_to_talk":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.user.will_be_back":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.confirmation.yes":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+        case "smalltalk.confirmation.no":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+
+        case "smalltalk.confirmation.cancel":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.dialog.hold_on":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.dialog.hug":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.dialog.i_do_not_care":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.dialog.sorry":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+        case "smalltalk.dialog.what_do_you_mean":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+
+        case "smalltalk.dialog.wrong":
+            {
+                Message.sendMessage(sender, responseText);
+            }
+            break;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
