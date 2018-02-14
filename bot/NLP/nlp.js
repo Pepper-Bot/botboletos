@@ -1249,6 +1249,18 @@ var handleApiAiAction=(sender, response, action, responseText, contexts, paramet
 }
 
 
+function isDefined(obj) {
+    if (typeof obj == 'undefined') {
+        return false;
+    }
+
+    if (!obj) {
+        return false;
+    }
+
+    return obj != null;
+}
+
 
 var defaultTevoSearchByUserSaid = (sender) => {
     return new Promise((resolve, reject) => {
