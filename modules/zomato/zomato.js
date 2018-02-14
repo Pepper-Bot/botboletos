@@ -1028,7 +1028,7 @@ var zomatoStartAI = (sender, contexts) => {
 
 
 
-  if (venue_title == '' && venue_type == '' && cousine == '') {
+  if (venue_title == '' && venue_type == '' && cuisine == '') {
     defaultTevoSearch(sender).then((cantidad) => {
       if (cantidad == 0) {
         zomatoStartLater(sender, cuisine, venue_type, venue_title)
@@ -1038,7 +1038,7 @@ var zomatoStartAI = (sender, contexts) => {
 
 
 
-  if (venue_title == '' && venue_type == '' && cousine != '') {
+  if (venue_title == '' && venue_type == '' && cuisine != '') {
     evaluateIfUserSaysIsInTevo(sender, cousine).then((continuar) => {
       if (continuar == true) {
         zomatoStartLater(sender, cuisine, venue_type, venue_title)
@@ -1047,7 +1047,7 @@ var zomatoStartAI = (sender, contexts) => {
   }
 
 
-  if (venue_title == '' && venue_type != '' && cousine == '') {
+  if (venue_title == '' && venue_type != '' && cuisine == '') {
     evaluateIfUserSaysIsInTevo(sender, venue_type).then((continuar) => {
       if (continuar == true) {
         zomatoStartLater(sender, cuisine, venue_type, venue_title)
@@ -1056,7 +1056,7 @@ var zomatoStartAI = (sender, contexts) => {
   }
 
 
-  if (venue_title == '' && venue_type != '' && cousine != '') {
+  if (venue_title == '' && venue_type != '' && cuisine != '') {
     evaluateIfUserSaysIsInTevo(sender, venue_type).then((continuar) => {
       if (continuar == true) {
         zomatoStartLater(sender, cuisine, venue_type, venue_title)
@@ -1065,7 +1065,7 @@ var zomatoStartAI = (sender, contexts) => {
   }
 
 
-  if (venue_title != '' && venue_type == '' && cousine == '') {
+  if (venue_title != '' && venue_type == '' && cuisine == '') {
     evaluateIfUserSaysIsInTevo(sender, venue_title).then((continuar) => {
       if (continuar == true) {
         zomatoStartLater(sender, cuisine, venue_type, venue_title)
@@ -1074,7 +1074,7 @@ var zomatoStartAI = (sender, contexts) => {
   }
 
 
-  if (venue_title != '' && venue_type == '' && cousine != '') {
+  if (venue_title != '' && venue_type == '' && cuisine != '') {
     evaluateIfUserSaysIsInTevo(sender, venue_title).then((continuar) => {
       if (continuar == true) {
         zomatoStartLater(sender, cuisine, venue_type, venue_title)
@@ -1083,7 +1083,7 @@ var zomatoStartAI = (sender, contexts) => {
   }
 
 
-  if (venue_title != '' && venue_type != '' && cousine == '') {
+  if (venue_title != '' && venue_type != '' && cuisine == '') {
     evaluateIfUserSaysIsInTevo(sender, venue_title).then((continuar) => {
       if (continuar == true) {
         zomatoStartLater(sender, cuisine, venue_type, venue_title)
@@ -1091,7 +1091,7 @@ var zomatoStartAI = (sender, contexts) => {
     })
   }
 
-  if (venue_title != '' && venue_type != '' && cousine != '') {
+  if (venue_title != '' && venue_type != '' && cuisine != '') {
     evaluateIfUserSaysIsInTevo(sender, venue_title).then((continuar) => {
       if (continuar == true) {
         zomatoStartLater(sender, cuisine, venue_type, venue_title)
