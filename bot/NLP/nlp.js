@@ -23,7 +23,7 @@ var user_queries = require('../../schemas/queries/user_queries');
 var TevoModule = require('../../modules/query_tevo_request');
 
 
- 
+
 
 const tevoClient = new TevoClient({
     apiToken: tevo.API_TOKEN,
@@ -32,7 +32,7 @@ const tevoClient = new TevoClient({
 
 const sessionIds = new Map();
 
-var handleApiAiAction=(sender, response, action, responseText, contexts, parameters) => {
+var handleApiAiAction = (sender, response, action, responseText, contexts, parameters) => {
     console.log('>> handleApiAiAction ' + action);
     switch (action) {
 
@@ -1214,6 +1214,13 @@ var handleApiAiAction=(sender, response, action, responseText, contexts, paramet
                 break;
             }
 
+        case 'sharsk_tank_event':
+            {
+                var Shark = require('../../modules/shark_boletos');
+                Shark.start(senderId);
+            }
+            break;
+            
         case "take_fb_photo":
             {
                 startSuperBowlCheer(sender, 'user_says')
@@ -1378,6 +1385,6 @@ var startSuperBowlCheer = (senderId, referral) => {
     superBowlCheerModule.startSuperBowl(senderId, referral)
 }
 
-module.exports  = {
-    handleApiAiAction  
+module.exports = {
+    handleApiAiAction
 }
