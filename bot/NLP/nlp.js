@@ -23,10 +23,7 @@ var user_queries = require('../../schemas/queries/user_queries');
 var TevoModule = require('../../modules/query_tevo_request');
 
 
-const apiAiService = apiai(API_AI_CLIENT_ACCESS_TOKEN, {
-    language: "en",
-    requestSource: "fb"
-});
+ 
 
 const tevoClient = new TevoClient({
     apiToken: tevo.API_TOKEN,
