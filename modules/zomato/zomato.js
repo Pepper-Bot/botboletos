@@ -925,7 +925,7 @@ var getGoogleImage = (search, matriz = []) => {
 
 var zomatoStartAI = (sender, contexts) => {
   Message.typingOn(sender);
-  console.log('contexto ' + contexts[0].name)
+  console.log('contexto ' + JSON.stringify(contexts[0]))
   let beverage = ''
   let city = ''
   let country = ''
@@ -936,6 +936,7 @@ var zomatoStartAI = (sender, contexts) => {
   let venue_chain = ''
   let venue_facility = ''
   let meal = ''
+
 
 
   if ((isDefined(contexts[0].parameters.meal))) {
@@ -1243,7 +1244,7 @@ var zomatoStartLater = (sender, city = '', cuisine = '', venue_type = '', venue_
 
                   starRenderFBTemplate(sender, qs)
                 } else {
-                  console.log('qs de zomato no está indefinida ' )
+                  console.log('qs de zomato no está indefinida ')
                   defaultTevoSearch(sender).then((cantidad) => {
                     if (cantidad == 0) {
                       Message.sendMessage(sender, 'What was that?');
