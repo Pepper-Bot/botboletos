@@ -1206,7 +1206,7 @@ var eventsSearchImplicit = (sender, response, action, responseText, contexts, pa
                                     let page = 1
                                     let per_page = 9
 
-                                    var queryMessage = {
+                                    var query = {
                                         prioridad: 1,
                                         searchBy: 'Location',
                                         query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&within=100',
