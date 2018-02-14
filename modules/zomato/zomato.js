@@ -1028,7 +1028,7 @@ var zomatoStartAI = (sender, contexts) => {
 
 
 
-
+  /*
   if (venue_title == '' && venue_type == '' && cuisine == '') {
     defaultTevoSearch(sender).then((cantidad) => {
       if (cantidad == 0) {
@@ -1116,12 +1116,12 @@ var zomatoStartAI = (sender, contexts) => {
     })
   }
 
+*/
 
 
 
 
-
-
+  zomatoStartLater(sender, city, cuisine, venue_type, venue_title)
 
 }
 
