@@ -1181,7 +1181,10 @@ var eventsSearchImplicit = (sender, response, action, responseText, contexts, pa
                                     var queryMessage = {
                                         prioridad: 1,
                                         searchBy: 'LocationAndDate',
-                                        query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100' + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate,
+                                        query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=9&' + only_with + '&within=100' + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate,
+                                        queryReplace:  tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page={{page}}&per_page={{per_page}}&' + only_with + '&within=100' + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate,
+                                        queryPage: page,
+                                        queryPerPage: per_page,
                                         messageTitle: 'Cool, I found events in your location.  Book a ticket'
                                     }
                                     arrayQueryMessages.push(queryMessage)
