@@ -27,7 +27,7 @@ var zomato = require('../modules/zomato/zomato');
 
 var user_queries = require('../schemas/queries/user_queries');
 var TevoModule = require('../modules/query_tevo_request');
-var nlp = require('../bot/nlp/nlp')
+var nlp = require('../bot/NLP/nlp')
 
 const apiAiService = apiai(API_AI_CLIENT_ACCESS_TOKEN, {
     language: "en",
