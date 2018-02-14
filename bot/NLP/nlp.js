@@ -627,7 +627,7 @@ var handleApiAiAction = (sender, response, action, responseText, contexts, param
                 eventsSearch(sender, response, action, responseText, contexts, parameters)
                 break;
             }
-            
+
         case "events.search.implicit":
             {
                 eventsSearchImplicit(sender, response, action, responseText, contexts, parameters)
@@ -677,7 +677,7 @@ var handleApiAiAction = (sender, response, action, responseText, contexts, param
 
         case 'sharsk_tank_event':
             {
-                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters){
+                if (isDefined(contexts[0]) && contexts[0].name == 'eventssearch-followup' && contexts[0].parameters) {
 
                 }
                 var Shark = require('../../modules/shark_boletos');
@@ -1203,14 +1203,35 @@ var eventsSearchImplicit = (sender, response, action, responseText, contexts, pa
 
                                 } else {
 
-                                    var query = {
+                                    let page = 1
+                                    let per_page = 9
+
+                                    var queryMessage = {
                                         prioridad: 1,
                                         searchBy: 'Location',
-                                        query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100' ,
+                                        query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&within=100',
+                                        queryReplace: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page={{page}}&per_page={{per_page}}&' + only_with + '&within=100',
+                                        queryPage: page,
+                                        queryPerPage: per_page,
                                         messageTitle: 'Cool, I found events in your location.  Book a ticket'
                                     }
-                                    TevoModule.start(sender, query.query, 1, query.messageTitle);
 
+
+                                    var userPreferences = {
+                                        event_title: '',
+                                        city: '',
+                                        artist: '',
+                                        team: '',
+                                        event_type: '',
+                                        music_genre: ''
+                                    }
+
+                                    tevoByQuery(sender, query, userPreferences).then((cantidad) => {
+                                        if (cantidad == 0) {
+                                            var ticketMaster = require('../../../botboletos/modules/tevo/ticket_master_request');
+                                            ticketMaster.get(Message, sender, lat, lon);
+                                        }
+                                    })
 
 
                                 }
@@ -1220,18 +1241,10 @@ var eventsSearchImplicit = (sender, response, action, responseText, contexts, pa
                                 Message.markSeen(sender);
                                 Message.getLocation(sender, 'What location would you like to catch show?');
                                 Message.typingOn(sender);
-                                saveUserSelection(sender, 'Events');
+                                //saveUserSelection(sender, 'Events');
 
-                                UserData2.findOne({
-                                    fbId: sender
-                                }, {}, {
-                                    sort: {
-                                        'sessionStart': -1
-                                    }
-                                }, function (err, foundUser) {
-                                    foundUser.context = ''
-                                    foundUser.save();
-                                });
+                                user_queries.createUpdateUserDatas(sender, '-', '', {}, '', '', '', 0, 0, '', '', '', '', '', '', '', 'Events')
+
 
 
 
@@ -1242,18 +1255,9 @@ var eventsSearchImplicit = (sender, response, action, responseText, contexts, pa
                             Message.markSeen(sender);
                             Message.getLocation(sender, 'What location would you like to catch show?');
                             Message.typingOn(sender);
-                            saveUserSelection(sender, 'Events');
+                            //saveUserSelection(sender, 'Events');
 
-                            UserData2.findOne({
-                                fbId: sender
-                            }, {}, {
-                                sort: {
-                                    'sessionStart': -1
-                                }
-                            }, function (err, foundUser) {
-                                foundUser.context = ''
-                                foundUser.save();
-                            });
+                            user_queries.createUpdateUserDatas(sender, '-', '', {}, '', '', '', 0, 0, '', '', '', '', '', '', '', 'Events')
 
 
                         }
@@ -1287,7 +1291,22 @@ function isDefined(obj) {
 
 
 function find_my_event(senderId, hi = 0, event_name = '') {
-    UserData.getInfo(senderId, function (err, result) {
+    user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {
+        let name = foundUser.firstName
+        var greeting = "Hi " + name;
+        var messagetxt = greeting + ", you can search events by:";
+        if (hi == 1) {
+            messagetxt = 'I didn’t find any of that. ' + name + ", you can search events by:";
+            greeting = name;
+        }
+
+        var SearchQuickReply = require('../../modules/tevo/search_init_quick_replay');
+        SearchQuickReply.send(Message, senderId, messagetxt);
+
+    })
+
+
+    /*UserData.getInfo(senderId, function (err, result) {
         if (!err) {
 
             var bodyObj = JSON.parse(result);
@@ -1338,9 +1357,35 @@ function find_my_event(senderId, hi = 0, event_name = '') {
 
 
         }
-    });
+    });*/
 };
 
+
+var tevoByQuery = (sender, query = {}, userPreferences = {}) => {
+    return new Promise((resolve, reject) => {
+        tevoClient.getJSON(query.query).then((json) => {
+            if (json.error) {
+                //console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
+                resolve(0)
+            } else {
+                if (json.events.length > 0) {
+                    console.log("query Tevo >>> " + JSON.stringify(query));
+                    TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
+                    resolve(0)
+                } else {
+
+                    console.log('definitivamente no encontré nada!!')
+                    //Message.sendMessage(sender, 'What was that?');
+                    resolve(0)
+                }
+
+            }
+        }).catch((error) => {
+            console.log('Error en la consulta!')
+            resolve(0)
+        })
+    })
+}
 
 var defaultTevoSearchByUserSaid = (sender) => {
     return new Promise((resolve, reject) => {
