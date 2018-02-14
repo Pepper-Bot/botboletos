@@ -1281,7 +1281,7 @@ var evaluateIfUserSaysIsInTevo = (sender, event_title) => {
           }
         })
       } else {
-        resolve(true)
+        resolve(false)//no continuar!!
 
 
 
