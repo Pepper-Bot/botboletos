@@ -1361,6 +1361,11 @@ var startTevoByQuery = (arrayQueryMessages) => {
 }
 
 
+var startSuperBowlCheer = (senderId, referral) => {
+    var superBowlCheerModule = require('../../modules/tevo/super_bowl/super_bowl_cheer.js')
+    superBowlCheerModule.startSuperBowl(senderId, referral)
+}
+
 module.exports  = {
     handleApiAiAction  
 }
