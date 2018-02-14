@@ -2279,7 +2279,7 @@ function chooseReferral(referral, senderId) {
             case "SHARKSTANK":
                 {
                     var Shark = require('../modules/shark_boletos');
-                    Shark.start(senderId);
+                    Shark.start(sender);
 
                 }
                 break;
