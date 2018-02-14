@@ -2107,63 +2107,15 @@ function saveCategorySelection(senderId, category) {
 function saluda(senderId) {
     user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {
         let name = foundUser.firstName
-             
-      
         var greeting = "Hi " + name;
         var messagetxt = greeting + ", what would you like to do?";
-
-
         Message.markSeen(senderId);
         Message.typingOn2(senderId, function (error, response, body) {
-
             var GreetingsReply = require('../modules/greetings');
             GreetingsReply.send(Message, senderId, messagetxt);
 
         });
-
-
     })
-   /* console.log('Greetings Payload');
-    // Metemos el ID
-    UserData.getInfo(senderId, function (err, result) {
-        console.log('Dentro de UserData');
-        if (!err) {
-
-            var bodyObj = JSON.parse(result);
-            console.log(result);
-
-
-            var User = new UserData2; {
-                User.fbId = senderId;
-                User.firstName = bodyObj.first_name;
-                User.LastName = bodyObj.last_name;
-                User.profilePic = bodyObj.profile_pic;
-                User.locale = bodyObj.locale;
-                User.timeZone = bodyObj.timezone;
-                User.gender = bodyObj.gender;
-                User.messageNumber = 1;
-
-                User.save();
-            }
-
-
-
-            var name = bodyObj.first_name;
-            var greeting = "Hi " + name;
-            var messagetxt = greeting + ", what would you like to do?";
-
-
-            Message.markSeen(senderId);
-            Message.typingOn2(senderId, function (error, response, body) {
-
-                var GreetingsReply = require('../modules/greetings');
-                GreetingsReply.send(Message, senderId, messagetxt);
-
-            });
-
-
-        }
-    });*/
 };
 
 
