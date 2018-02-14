@@ -1217,10 +1217,10 @@ var handleApiAiAction = (sender, response, action, responseText, contexts, param
         case 'sharsk_tank_event':
             {
                 var Shark = require('../../modules/shark_boletos');
-                Shark.start(senderId);
+                Shark.start(sender);
             }
             break;
-            
+
         case "take_fb_photo":
             {
                 startSuperBowlCheer(sender, 'user_says')
