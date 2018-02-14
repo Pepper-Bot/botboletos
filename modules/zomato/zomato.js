@@ -1119,7 +1119,7 @@ var zomatoStartAI = (sender, contexts) => {
 
 
 
-  
+
 
 
 
@@ -1161,31 +1161,35 @@ var zomatoStartLater = (sender, city = '', cuisine = '', venue_type = '', venue_
       }
       zomatoQs.push(searchByCity(city_id, 7).then(qs))
 
+      if (zomatoQs.length > 0) {
+        Promise.all(zomatoQs).then(ArrayQs => {
+          console.log('zomatoQs ' + JSON.stringify(ArrayQs))
+          selectQsByPriority(ArrayQs).then((qs) => {
+            if (isDefined(qs)) {
+              console.log('priority ' + qs.priority)
+              delete qs.priority;
 
-      Promise.all(zomatoQs).then(ArrayQs => {
-        console.log('zomatoQs ' + JSON.stringify(ArrayQs))
-        selectQsByPriority(ArrayQs).then((qs) => {
-          if (isDefined(qs)) {
-            console.log('priority ' + qs.priority)
-            delete qs.priority;
+              starRenderFBTemplate(sender, qs)
+            } else {
+              console.log('qs de zomato está indefinida ')
 
-            starRenderFBTemplate(sender, qs)
-          } else {
-            console.log('qs de zomato está indefinida ')
+              defaultTevoSearch(sender).then((cantidad) => {
+                if (cantidad == 0) {
+                  Message.sendMessage(sender, 'What was that?');
+                }
 
-            defaultTevoSearch(sender)
+              })
 
-          }
+            }
 
 
-        })
+          })
 
-      });
-
-
-
+        });
+      } else {
+        Message.sendMessage(sender, 'What was that?');
+      }
     })
-
   } else { //busquedas por cordenadas...
     console.log('Se activa busqueda por coordenadas...')
     user_queries.getUserByFbId(sender).then((foundUser) => {
@@ -1224,24 +1228,33 @@ var zomatoStartLater = (sender, city = '', cuisine = '', venue_type = '', venue_
 
 
 
+          if (zomatoQs.length > 0) {
+            Promise.all(zomatoQs).then(ArrayQs => {
+              console.log('zomatoQs ' + JSON.stringify(ArrayQs))
+              selectQsByPriority(ArrayQs).then((qs) => {
+                if (isDefined(qs)) {
+                  console.log('priority ' + qs.priority)
+                  delete qs.priority;
 
-          Promise.all(zomatoQs).then(ArrayQs => {
-            console.log('zomatoQs ' + JSON.stringify(ArrayQs))
-            selectQsByPriority(ArrayQs).then((qs) => {
-              if (isDefined(qs)) {
-                console.log('priority ' + qs.priority)
-                delete qs.priority;
+                  starRenderFBTemplate(sender, qs)
+                } else {
+                  console.log('qs de zomato está indefinida ' + qs.priority)
+                  defaultTevoSearch(sender).then((cantidad) => {
+                    if (cantidad == 0) {
+                      Message.sendMessage(sender, 'What was that?');
+                    }
 
-                starRenderFBTemplate(sender, qs)
-              } else {
-                console.log('qs de zomato está indefinida ' + qs.priority)
-                defaultTevoSearch(sender)
+                  })
 
-              }
+                }
 
-            })
+              })
 
-          });
+            });
+          } else {
+            Message.sendMessage(sender, 'What was that?');
+          }
+
 
         } else { //pedir coordenadas....
           user_queries.createUpdateUserDatas(sender, 'find_venue_to_eat').then(() => {
@@ -1281,7 +1294,7 @@ var evaluateIfUserSaysIsInTevo = (sender, event_title) => {
           }
         })
       } else {
-        resolve(false)//no continuar!!
+        resolve(false) //no continuar!!
 
 
 
@@ -1453,27 +1466,27 @@ var defaultTevoSearch = (sender) => {
                 } else {
 
                   console.log('definitivamente no encontré nada!!')
-                  Message.sendMessage(sender, 'What was that?');
+                  //Message.sendMessage(sender, 'What was that?');
                   resolve(0)
                 }
 
               }
             }).catch((error) => {
               console.log('Error en la consulta!')
-              Message.sendMessage(sender, 'What was that?');
+              // 
               resolve(0)
 
             })
           } else {
             console.log('no tengo guardado lo ultimo que escribió el usuario')
-            Message.sendMessage(sender, 'What was that?');
+            //
             resolve(0)
           }
         }
 
       } else {
         console.log('user no found !!!! consultado by fbId en  ')
-        Message.sendMessage(sender, 'What was that?');
+        // 
         resolve(0)
       }
     })
