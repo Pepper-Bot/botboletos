@@ -1202,7 +1202,16 @@ var eventsSearchImplicit = (sender, response, action, responseText, contexts, pa
 
 
                                 } else {
-                                    startTevoModuleByLocation(sender, lat, lon)
+
+                                    var query = {
+                                        prioridad: 1,
+                                        searchBy: 'Location',
+                                        query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=50&' + only_with + '&within=100' ,
+                                        messageTitle: 'Cool, I found events in your location.  Book a ticket'
+                                    }
+                                    TevoModule.start(sender, query.query, 1, query.messageTitle);
+
+
 
                                 }
                             } else {
