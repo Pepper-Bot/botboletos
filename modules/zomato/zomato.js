@@ -839,6 +839,8 @@ var preparateRenderFBTemplate = function (senderId, qs) {
 
 
             if (counter === json.restaurants.length - 1) {
+              console.log(JSON.stringify('Listo para enviar a FB ' + eventResults));
+
               resolve(eventResults)
             }
 
@@ -909,6 +911,7 @@ var getGoogleImage = (search, matriz = []) => {
 
     function logResults(error, results) {
       if (error) {
+        console.log(error + ' error en getGoogleImage de zomato searching  ' + search)
         reject(error);
       } else {
         resolve(results, matriz);
