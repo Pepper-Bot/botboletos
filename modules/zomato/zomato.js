@@ -1243,7 +1243,7 @@ var zomatoStartLater = (sender, city = '', cuisine = '', venue_type = '', venue_
 
                   starRenderFBTemplate(sender, qs)
                 } else {
-                  console.log('qs de zomato está indefinida ' + qs.priority)
+                  console.log('qs de zomato no está indefinida ' )
                   defaultTevoSearch(sender).then((cantidad) => {
                     if (cantidad == 0) {
                       Message.sendMessage(sender, 'What was that?');

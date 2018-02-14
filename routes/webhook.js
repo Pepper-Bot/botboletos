@@ -1571,74 +1571,26 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
             }
             break;
 
-        default:
+
+        case 'input.unknown':
             {
-                var page = 1;
-                var per_page = 9;
-
-
-                var arrayQueryMessages = []
-                var userPreferences = {
-                    event_title: '',
-                    city: '',
-                    artist: '',
-                    team: '',
-                    event_type: '',
-                    music_genre: ''
-                }
-                UserData2.findOne({
-                    fbId: sender
-                }, {}, {
-                    sort: {
-                        'sessionEnd': -1
-                    }
-                }, function (err, foundUser) {
-                    if (foundUser) {
-                        let userSays = foundUser.userSays[foundUser.userSays.length - 1]
-                        if (userSays) {
-                            if (userSays.typed) {
-
-                                var queryMessage = {
-                                    prioridad: 4,
-                                    searchBy: 'ByName',
-                                    query: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
-                                    queryReplace: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
-                                    queryPage: page,
-                                    queryPerPage: per_page,
-                                    messageTitle: 'Cool, I looked for "' + userSays.typed + '" shows.  Book a ticket'
-                                }
-                                arrayQueryMessages.push(queryMessage)
-
-                                if (arrayQueryMessages.length >= 1) {
-                                    startTevoByQuery(arrayQueryMessages).then((query) => {
-                                        if (query.query) {
-                                            console.log("query Tevo >>> " + JSON.stringify(query));
-                                            TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
-                                        } else {
-                                            console.log('Events Not found by usersSays escrita por el user')
-                                            Message.sendMessage(sender, responseText);
-
-                                        }
-
-                                    })
-                                } else {
-                                    console.log('Events Not found by q escrita por el user')
-                                    Message.sendMessage(sender, responseText);
-                                }
-
-
-                            } else {
-                                console.log('no tengo guardado lo ultimo que escribió el usuario')
-                                Message.sendMessage(sender, responseText);
-                            }
-                        }
-
-                    } else {
-                        console.log('user no found !!!! consultado by fbId en  ')
+                defaultTevoSearchByUserSaid(sender).then((cantidad) => {
+                    if (cantidad == 0) {
                         Message.sendMessage(sender, responseText);
                     }
-                })
 
+                })
+            }
+            break;
+
+        default:
+            {
+                defaultTevoSearchByUserSaid(sender).then((cantidad) => {
+                    if (cantidad == 0) {
+                        Message.sendMessage(sender, responseText);
+                    }
+
+                })
 
                 break;
             }
@@ -1646,6 +1598,86 @@ function handleApiAiAction(sender, response, action, responseText, contexts, par
 
     }
 }
+
+
+var defaultTevoSearchByUserSaid = (sender) => {
+    return new Promise((resolve, reject) => {
+        var page = 1;
+        var per_page = 9;
+
+
+        var arrayQueryMessages = []
+        var userPreferences = {
+            event_title: '',
+            city: '',
+            artist: '',
+            team: '',
+            event_type: '',
+            music_genre: ''
+        }
+        UserData2.findOne({
+            fbId: sender
+        }, {}, {
+            sort: {
+                'sessionEnd': -1
+            }
+        }, function (err, foundUser) {
+            if (foundUser) {
+                let userSays = foundUser.userSays[foundUser.userSays.length - 1]
+                if (userSays) {
+                    if (userSays.typed) {
+
+                        var query = {
+                            prioridad: 4,
+                            searchBy: 'ByName',
+                            query: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
+                            queryReplace: tevo.API_URL + 'events?q=' + userSays.typed + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
+                            queryPage: page,
+                            queryPerPage: per_page,
+                            messageTitle: 'Cool, I looked for "' + userSays.typed + '" shows.  Book a ticket'
+                        }
+
+
+                        tevoClient.getJSON(query.query).then((json) => {
+                            if (json.error) {
+                                //console.log('Error al ejecutar la tevo query ' + arrayQueryMessages[i].query + 'err.message: ' + json.error);
+                                resolve(0)
+                            } else {
+                                if (json.events.length > 0) {
+                                    console.log("query Tevo >>> " + JSON.stringify(query));
+                                    TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
+                                    resolve(json.events.length)
+                                } else {
+
+                                    console.log('definitivamente no encontré nada!!')
+                                    //Message.sendMessage(sender, 'What was that?');
+                                    resolve(0)
+                                }
+
+                            }
+                        }).catch((error) => {
+                            console.log('Error en la consulta!')
+                            // 
+                            resolve(0)
+
+                        })
+                    } else {
+                        console.log('no tengo guardado lo ultimo que escribió el usuario')
+                        //
+                        resolve(0)
+                    }
+                }
+
+            } else {
+                console.log('user no found !!!! consultado by fbId en  ')
+                // 
+                resolve(0)
+            }
+        })
+    })
+
+}
+
 
 
 
