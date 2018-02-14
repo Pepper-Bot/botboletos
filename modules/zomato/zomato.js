@@ -574,7 +574,7 @@ var searchByCuisineAndCoordinates = (cuisine, lat = 0, lon = 0, priority = 1, st
             start: start,
             count: count,
             lat: lat,
-            lon: lot,
+            lon: lon,
             cuisines: cuisine_id,
             sort: "rating", //cost,rating,real_distance choose any one out of these available choices 
             order: "desc" //	used with 'sort' parameter to define ascending(asc )/ descending(desc) 
