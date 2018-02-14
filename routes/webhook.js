@@ -1918,7 +1918,35 @@ function processPostback(event) {
                         }
 
                         if (foundUser.mlinkSelected == "SAN_VALENTIN") {
-                            startTevoModuleWithMlink(payload, senderId);
+
+                            let page = 1
+                            let per_page = 9
+
+                            let city = foundUser.searchTevoParameters.city
+                            let startDate = '20180201T000000'
+                            startDate = moment()
+                            startDate = moment(startDate, moment.ISO_8601).format()
+                            startDate = startDate.substring(0, startDate.length - 6)
+
+                            let finalDate = '20180218T230000'
+
+
+
+
+                            var query = {
+                                prioridad: 1,
+                                searchBy: 'NameAndCityAndDate',
+                                query: tevo.API_URL + 'events?q=' + payload + '&page=' + page + '&per_page=' + per_page + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                                queryReplace: tevo.API_URL + 'events?q=' + payload + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&city_state=' + city + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate + '&' + only_with + '&order_by=events.occurs_at',
+                                queryPage: page,
+                                queryPerPage: per_page,
+                                messageTitle: 'Cool, I looked for "' + payload + '" ' + city + ' shows.  Book a ticket'
+                            }
+
+
+
+                            TevoModule.start(senderId, query.query, 0, query.messageTitle, {}, query);
+                            //startTevoModuleWithMlink(payload, senderId);
 
                         } else {
                             console.log('No guardé el mlink DE  SAN_VALENTIN ?? O_O << ' + foundUser.mlinkSelected);
@@ -2189,16 +2217,78 @@ function chooseReferral(referral, senderId) {
     user_queries.createUpdateUserDatas(senderId, '', referral).then(() => {
         switch (referral) {
 
+            case "SAN_VALENTIN_CHICAGO":
+                {
+                    let searchTevoParameters = {
+                        city: 'Chicago'
+                    }
+                    user_queries.createUpdateUserDatas(senderId, '', 'SAN_VALENTIN', '', '', '', '', 0, 0, '', '', '', '', 'Las Vegas Events', '', '', '', '', 0, 0, {}, searchTevoParameters).then(() => {
+
+                    })
+                    startSanValentin(senderId, referral)
+                }
+                break; 
+
+
+            case "SAN_VALENTIN_SAN_FRANCISCO":
+                {
+                    let searchTevoParameters = {
+                        city: 'San Francisco'
+                    }
+                    user_queries.createUpdateUserDatas(senderId, '', 'SAN_VALENTIN', '', '', '', '', 0, 0, '', '', '', '', 'Las Vegas Events', '', '', '', '', 0, 0, {}, searchTevoParameters).then(() => {
+
+                    })
+                    startSanValentin(senderId, referral)
+                }
+                break; 
+
+
+            case "SAN_VALENTIN_NEW_YORK":
+                {
+                    let searchTevoParameters = {
+                        city: 'New York'
+                    }
+                    user_queries.createUpdateUserDatas(senderId, '', 'SAN_VALENTIN', '', '', '', '', 0, 0, '', '', '', '', 'Las Vegas Events', '', '', '', '', 0, 0, {}, searchTevoParameters).then(() => {
+
+                    })
+                    startSanValentin(senderId, referral)
+                }
+                break; 
+
+
+            case "SAN_VALENTIN_LAS_VEGAS":
+                {
+                    let searchTevoParameters = {
+                        city: 'Las Vegas'
+                    }
+                    user_queries.createUpdateUserDatas(senderId, '', 'SAN_VALENTIN', '', '', '', '', 0, 0, '', '', '', '', 'Las Vegas Events', '', '', '', '', 0, 0, {}, searchTevoParameters).then(() => {
+
+                    })
+                    startSanValentin(senderId, referral)
+                }
+                break; 
+
+            case "MARDIGRAS_FRAME": // Here we create the new CASE w new Me Link name 020918
+                {
+                    startMardiGrasFrame(senderId, referral) //We create a new variable
+                }
+                break;
+
+            case "VALENTINE_FRAME_CHEER": // Here we create the new CASE w new Me Link name
+                {
+                    startValentineFrameCheer(senderId, referral) //We create a new variable
+                }
+                break;
+
             case "SUPERBOWL_CHEER": // Here we create the new CASE w new Me Link name
                 {
                     startSuperBowlCheer(senderId, referral) //We create a new variable
                 }
                 break;
 
-
-            case "SAN_VALENTIN":
+            case "NEW_YEAR_MASSIVE":
                 {
-                    startSanValentin(senderId, referral)
+                    startNYMassive(senderId, referral)
                 }
                 break;
 
@@ -2213,6 +2303,7 @@ function chooseReferral(referral, senderId) {
                     startHappyNewYear(senderId, referral)
                 }
                 break;
+
 
             case "VEGAS_SHOW":
                 {
@@ -2333,6 +2424,11 @@ var startHappyNewYear = (senderId, referral, con = true) => {
 }
 
 
+var startNYMassive = (senderId, referral) => {
+    var NYMassiveModule = require('../modules/tevo/happy_new_year/new_year_massive')
+    NYMassiveModule.startNYMassive(senderId, referral)
+}
+
 var startSanValentin = (senderId, referral) => {
     var sanValentinModule = require('../modules/tevo/san_valentin/san_valentin')
     sanValentinModule.startSanValentin(senderId, referral)
@@ -2342,6 +2438,17 @@ var startSuperBowlCheer = (senderId, referral) => {
     var superBowlCheerModule = require('../modules/tevo/super_bowl/super_bowl_cheer.js')
     superBowlCheerModule.startSuperBowl(senderId, referral)
 }
+// Created Feb 9
+var startMardiGrasFrame = (senderId, referral) => {
+    var mardiGrasFrameModule = require('../modules/tevo/mardigras/mardigras_frame.js')
+    mardiGrasFrameModule.startMardiGrasFrame(senderId, referral)
+}
+
+var startValentineFrameCheer = (senderId, referral) => {
+    var valentineFrameCheerModule = require('../modules/tevo/san_valentin/valentine_frame_cheer.js')
+    valentineFrameCheerModule.startValentineFrame(senderId, referral)
+}
+
 
 var startChristmasSongs = (senderId, referral) => {
     var chirstmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs')

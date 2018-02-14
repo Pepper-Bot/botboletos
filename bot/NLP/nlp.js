@@ -627,6 +627,7 @@ var handleApiAiAction = (sender, response, action, responseText, contexts, param
                 eventsSearch(sender, response, action, responseText, contexts, parameters)
                 break;
             }
+            
         case "events.search.implicit":
             {
                 eventsSearchImplicit(sender, response, action, responseText, contexts, parameters)
