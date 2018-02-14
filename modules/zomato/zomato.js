@@ -21,6 +21,8 @@ var tevo = require('../../config/config_vars').tevo;
 var TevoModule = require('../../modules/query_tevo_request');
 var TevoClient = require('ticketevolution-node');
 
+var fsStrings = require('../../config/funciones_varias');
+
 const tevoClient = new TevoClient({
   apiToken: tevo.API_TOKEN,
   apiSecretKey: tevo.API_SECRET_KEY
@@ -899,7 +901,7 @@ var getGoogleImage = (search, matriz = []) => {
 
     var gis = require('g-i-s');
 
-
+    search = fsStrings.getCleanedString(search);
     var opts = {
       searchTerm: search,
       //queryStringAddition: '&tbs=ic:trans',
