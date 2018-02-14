@@ -2105,8 +2105,25 @@ function saveCategorySelection(senderId, category) {
 
 
 function saluda(senderId) {
+    user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {
+        let name = foundUser.firstName
+             
+      
+        var greeting = "Hi " + name;
+        var messagetxt = greeting + ", what would you like to do?";
 
-    console.log('Greetings Payload');
+
+        Message.markSeen(senderId);
+        Message.typingOn2(senderId, function (error, response, body) {
+
+            var GreetingsReply = require('../modules/greetings');
+            GreetingsReply.send(Message, senderId, messagetxt);
+
+        });
+
+
+    })
+   /* console.log('Greetings Payload');
     // Metemos el ID
     UserData.getInfo(senderId, function (err, result) {
         console.log('Dentro de UserData');
@@ -2146,7 +2163,7 @@ function saluda(senderId) {
 
 
         }
-    });
+    });*/
 };
 
 
