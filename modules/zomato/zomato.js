@@ -1027,6 +1027,7 @@ var zomatoStartAI = (sender, contexts) => {
   }
 
 
+if( city == ''){
 
   if (venue_title == '' && venue_type == '' && cuisine == '') {
     defaultTevoSearch(sender).then((cantidad) => {
@@ -1115,6 +1116,14 @@ var zomatoStartAI = (sender, contexts) => {
     })
   }
 
+
+
+
+}else {
+  zomatoStartLater(sender, city , cuisine , venue_type, venue_title)
+
+}
+  
 
 
 
@@ -1448,24 +1457,27 @@ var defaultTevoSearch = (sender) => {
                 } else {
 
                   console.log('definitivamente no encontré nada!!')
-
+                  Message.sendMessage(sender, 'What was that?');
                   resolve(0)
                 }
 
               }
             }).catch((error) => {
               console.log('Error en la consulta!')
+              Message.sendMessage(sender, 'What was that?');
               resolve(0)
 
             })
           } else {
             console.log('no tengo guardado lo ultimo que escribió el usuario')
+            Message.sendMessage(sender, 'What was that?');
             resolve(0)
           }
         }
 
       } else {
         console.log('user no found !!!! consultado by fbId en  ')
+        Message.sendMessage(sender, 'What was that?');
         resolve(0)
       }
     })
