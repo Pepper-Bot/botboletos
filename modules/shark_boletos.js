@@ -1,3 +1,5 @@
+var APLICATION_URL_DOMAIN = require('../config/config_vars').APLICATION_URL_DOMAIN;
+
 module.exports = function () {
 
     return {
@@ -11,54 +13,51 @@ module.exports = function () {
             Message.typingOn(senderId);
             // simulamos el tipeado
             // enviamos el mensaje    
-            Message.sendMessage(senderId, "Sharks Tank EnVivo® Episode 53 - with $50k in prizes!");
+            Message.sendMessage(senderId, "Sharks Tank EnVivo® Episode 56 - with $50k in prizes!");
             Message.typingOff(senderId);
 
             // tipeado off
-            
+
             // Guarda el url cada vez que el usuario hace click en la tarjeta
-            var URLAplication = "https://botboletos-test.herokuapp.com/redirect/?u="
+            var URLAplication = APLICATION_URL_DOMAIN + "redirect/?u="
             //configuramos los boletos
-            
- 
-            var boletos =
-                [
-                    {
-                        "titulo": "Discount - Limited Time",
-                        "imagen": "https://botboletos-test.herokuapp.com/images/sharks_image_discount.jpg",
-                        "subtitulo": "Live the Sharks Tank experience. You can also pitch and Win 50K",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-53-with-50k-in-prizes-tickets-39644885921?discount=Entrepreneur " + '&id=' + senderId
-                                               
-												
-                    },
 
 
-                    {
-                        "titulo": "General Admission - $20",
-                        "imagen": "https://botboletos-test.herokuapp.com/images/sharks_tank_16sec_video_attendees.png",
-                        "subtitulo": "Bring cards and network w Bay Area investors and entrepreneurs",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-53-with-50k-in-prizes-tickets-39644885921 " + '&id=' + senderId
+            var boletos = [{
+                    "titulo": "Discount - Limited Time",
+                    "imagen": APLICATION_URL_DOMAIN + "images/sharkstank/sharks_image_discount_20.jpg",
+                    "subtitulo": "Live the Sharks Tank experience. You can also pitch and Win 50K",
+                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-56-with-50k-in-prizes-tickets-42550402399?discount=SuperPromo " + '&id=' + senderId
 
-                    },
-                    {
-                        "titulo": "Startups - $150",
-                        "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_participant.png",
-                        "subtitulo": "PPitch your idea and Win 50K. Get Funded this Friday.",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-53-with-50k-in-prizes-tickets-39644885921 " + '&id=' + senderId
 
-                    },
+                },
 
-                    {
-                        "titulo": "Sponsors - from $500",
-                        "imagen": "https://botboletos-test.herokuapp.com/images/sharks_Fb_image_sponsor.png",
-                        "subtitulo": "Get your logo in front of 50 thousand people. Get a VIP table and join the smashing party.",
-                        "url": URLAplication + "https://www.eventbrite.com/e/sharks-tank-envivo-episode-53-with-50k-in-prizes-tickets-39644885921 " + '&id=' + senderId
+                {
+                    "titulo": "General Admission - $20",
+                    "imagen": APLICATION_URL_DOMAIN + "images/sharkstank/sharks_tank_16sec_video_attendees.png",
+                    "subtitulo": "Bring cards and network w Bay Area investors and entrepreneurs",
+                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-56-with-50k-in-prizes-tickets-42550402399 " + '&id=' + senderId
 
-                    }
+                },
+                {
+                    "titulo": "Startups - $150",
+                    "imagen": APLICATION_URL_DOMAIN + "images/sharkstank/sharks_Fb_image_participant.png",
+                    "subtitulo": "Pitch your idea and Win 50K. Get Funded this Friday.",
+                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-56-with-50k-in-prizes-tickets-42550402399 " + '&id=' + senderId
+
+                },
+
+                {
+                    "titulo": "Sponsors - from $500",
+                    "imagen": APLICATION_URL_DOMAIN + "images/sharkstank/sharks_Fb_image_sponsor.png",
+                    "subtitulo": "Get your logo in front of 50 thousand people. Get a VIP table and join the smashing party.",
+                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-56-with-50k-in-prizes-tickets-42550402399 " + '&id=' + senderId
+
+                }
 
 
 
-                ];
+            ];
 
             // creamos las tarjetas
             for (var i = 0, c = boletos.length; i < c; i++) {
@@ -69,20 +68,19 @@ module.exports = function () {
                     //"item_url": boletos[i].url,
                     "default_action": {
                         "type": "web_url",
-                        "url": boletos[i].url//,
+                        "url": boletos[i].url //,
                         //"messenger_extensions": true//,
                         // "webview_height_ratio": "tall",
                         // "fallback_url": boletos[i].url
                     },
-                    "buttons": [
-                        {
-                            "type":"web_url",
+                    "buttons": [{
+                            "type": "web_url",
                             "url": boletos[i].url,
-                            "title": "Reservar"
+                            "title": "Book"
                             //"payload": "TIBURON" + (i + 1)
                         },
                         {
-                              "type": "element_share"
+                            "type": "element_share"
                         }
                     ]
                 });
@@ -104,7 +102,7 @@ module.exports = function () {
 
 
             var GenericButton = require('../bot/generic_buttton');
-            GenericButton.genericButtonQuickReplay(senderId, eventResults, "Find something else? ", "horizontal")
+            GenericButton.genericButtonQuickReplay(senderId, eventResults, "Find something else? ", function () {})
 
 
             // dejamos de tipear
@@ -166,7 +164,9 @@ function callSendAPI(messageData) {
     //api de facebook
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
-        qs: { access_token: 'EAASJN3kpCzkBAA7KGHeSOpjEGtgmac84jMjLFU1PKYCgaC1oVUptbwKg1JOyytZAerOpBgNiTcnBxBzTVDeX2Py4Kdb7DJz67ZCiKPeHUZA9hCp6jtVnQi319i404nUxOn41Stm21SZAl6lZAl6IZB7VJDRPDCGQW3VqWxmhzbJQZDZD' },
+        qs: {
+            access_token: 'EAASJN3kpCzkBAA7KGHeSOpjEGtgmac84jMjLFU1PKYCgaC1oVUptbwKg1JOyytZAerOpBgNiTcnBxBzTVDeX2Py4Kdb7DJz67ZCiKPeHUZA9hCp6jtVnQi319i404nUxOn41Stm21SZAl6lZAl6IZB7VJDRPDCGQW3VqWxmhzbJQZDZD'
+        },
         method: 'POST',
         json: messageData
     }, function (error, response, data) {
