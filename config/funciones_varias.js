@@ -20,6 +20,9 @@ function getCleanedString(cadena){
     cadena = cadena.replace(/ó/gi,"o");
     cadena = cadena.replace(/ú/gi,"u");
     cadena = cadena.replace(/ñ/gi,"n");
+    cadena = cadena.replace(/ń/gi,"n");
+ 
+
     return cadena;
  }
 
