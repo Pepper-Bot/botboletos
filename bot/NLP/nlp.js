@@ -1182,7 +1182,7 @@ var eventsSearchImplicit = (sender, response, action, responseText, contexts, pa
                                         prioridad: 1,
                                         searchBy: 'LocationAndDate',
                                         query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=1&per_page=9&' + only_with + '&within=100' + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate,
-                                        queryReplace:  tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page={{page}}&per_page={{per_page}}&' + only_with + '&within=100' + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate,
+                                        queryReplace: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page={{page}}&per_page={{per_page}}&' + only_with + '&within=100' + '&occurs_at.gte=' + startDate + '&occurs_at.lte=' + finalDate,
                                         queryPage: page,
                                         queryPerPage: per_page,
                                         messageTitle: 'Cool, I found events in your location.  Book a ticket'
@@ -1307,60 +1307,6 @@ function find_my_event(senderId, hi = 0, event_name = '') {
         SearchQuickReply.send(Message, senderId, messagetxt);
 
     })
-
-
-    /*UserData.getInfo(senderId, function (err, result) {
-        if (!err) {
-
-            var bodyObj = JSON.parse(result);
-            console.log(result);
-
-
-            var User = new UserData2; {
-                User.fbId = senderId;
-                User.firstName = bodyObj.first_name;
-                User.LastName = bodyObj.last_name;
-                User.profilePic = bodyObj.profile_pic;
-                User.locale = bodyObj.locale;
-                User.timeZone = bodyObj.timezone;
-                User.gender = bodyObj.gender;
-                User.messageNumber = 1;
-
-                User.save();
-            }
-
-            var name = bodyObj.first_name;
-
-            var greeting = "Hi " + name;
-            var messagetxt = greeting + ", you can search events by:";
-            if (hi == 1) {
-                messagetxt = 'I didn’t find any of that. ' + name + ", you can search events by:";
-                greeting = name;
-            }
-
-
-
-            //var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
-            //var ButtonsEventsQuery = require('../modules/tevo/buttons_choise_again');
-            //ButtonsEventsQuery.send(Message, senderId, messagetxt);
-
-            var SearchQuickReply = require('../../modules/tevo/search_init_quick_replay');
-            SearchQuickReply.send(Message, senderId, messagetxt);
-
-            UserData2.findOne({
-                fbId: senderId
-            }, {}, {
-                sort: {
-                    'sessionStart': -1
-                }
-            }, function (err, foundUser) {
-                foundUser.context = ''
-                foundUser.save();
-            });
-
-
-        }
-    });*/
 };
 
 
