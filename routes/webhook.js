@@ -903,19 +903,6 @@ function processQuickReplies(event) {
 
         case "find_my_event_search_event":
             {
-                /*var SearchQuickReply = require('../modules/tevo/search_quick_replay');
-                    SearchQuickReply.send(Message, senderId);
-                
-                    UserData2.findOne({
-                        fbId: senderId
-                    }, {}, {
-                        sort: {
-                            'sessionStart': -1
-                        }
-                    }, function (err, foundUser) {
-                        foundUser.context = ''
-                        foundUser.save();
-                    });*/
                 find_my_event(senderId);
 
             }
@@ -1204,11 +1191,6 @@ function processQuickReplies(event) {
                 }
 
             });
-
-
-
-
-
             break;
 
         }
@@ -1343,41 +1325,11 @@ function processQuickReplies(event) {
 
             break;
         case "GET_LOCATION_DRINKS":
-
-
-
             Message.markSeen(senderId);
             Message.getLocation(senderId, 'What location would you like to get a drink at?');
             Message.typingOn(senderId);
-            //sleep(1000);
+            saveUserSelection(senderId, 'Events')
 
-            UserData2.findOne({
-                fbId: senderId
-            }, {}, {
-                sort: {
-                    'sessionStart': -1
-                }
-            }, function (err, result) {
-
-                if (!err) {
-
-                    if (null != result) {
-
-
-                        result.optionsSelected.push('Drinks');
-                        result.save(function (err) {
-                            if (!err) {
-
-                                console.log('Guardamos la seleccion de Drinks');
-                            } else {
-                                console.log('Error guardando selección')
-                            }
-                        });
-
-                    }
-                }
-
-            });
             break;
 
         case "GET_LOCATION_EVENTS":
@@ -1386,30 +1338,9 @@ function processQuickReplies(event) {
             Message.markSeen(senderId);
             Message.getLocation(senderId, 'What location would you like to catch a show?');
             Message.typingOn(senderId);
-            //sleep(1000);
-            UserData2.findOne({
-                fbId: senderId
-            }, {}, {
-                sort: {
-                    'sessionStart': -1
-                }
-            }, function (err, result) {
+            saveUserSelection(senderId, 'Events')
 
-                if (!err) {
-                    if (null != result) {
-                        result.optionsSelected.push('Events');
-                        result.save(function (err) {
-                            if (!err) {
 
-                                console.log('Guardamos la seleccion de Drinks');
-                            } else {
-                                console.log('Error guardando selección')
-                            }
-                        });
-                    }
-                }
-
-            });
             break;
 
         case "GET_LOCATION_FOOD":
@@ -1417,39 +1348,11 @@ function processQuickReplies(event) {
             Message.markSeen(senderId);
             Message.getLocation(senderId, 'What location would you like to get a bite at?');
             Message.typingOn(senderId);
-            //sleep(1000);
-
             console.log('Dentro de GET LOCATION FOOD');
             console.log('Sender ID: ' + senderId);
-            UserData2.findOne({
-                fbId: senderId
-            }, {}, {
-                sort: {
-                    'sessionStart': -1
-                }
-            }, function (err, result) {
 
-                if (!err) {
-                    if (null != result) {
+            saveUserSelection(senderId, 'Food')
 
-                        console.log('Resultado de buscar senderId:');
-                        console.log(result);
-
-                        console.log('Guardando selección');
-                        result.optionsSelected.push('Food');
-                        result.save(function (err) {
-                            if (!err) {
-
-                                console.log('Guardamos la seleccion de Drinks');
-                            } else {
-                                console.log('Error guardando selección')
-                            }
-                        });
-                    }
-
-                }
-
-            });
 
 
 
@@ -1710,17 +1613,7 @@ function processPostback(event) {
             {
                 var busqueda = ''
                 startTevoModuleWithMlink(busqueda, senderId)
-
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    foundUser.context = ''
-                    foundUser.save();
-                });
+                saveContext(senderId, '-')
 
             }
             break;
@@ -1734,17 +1627,7 @@ function processPostback(event) {
                 Message.getLocation(senderId, 'What location would you like to catch show?');
                 Message.typingOn(senderId);
                 saveUserSelection(senderId, 'Events');
-
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    foundUser.context = ''
-                    foundUser.save();
-                });
+                saveContext(senderId, '-')
 
             }
             break;
@@ -1754,16 +1637,7 @@ function processPostback(event) {
                 var SearchQuickReply = require('../modules/tevo/search_quick_replay');
                 SearchQuickReply.send(Message, senderId);
 
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    foundUser.context = ''
-                    foundUser.save();
-                });
+                saveContext(senderId, '-')
 
             }
             break;
@@ -1774,16 +1648,7 @@ function processPostback(event) {
                 Message.sendMessage(senderId, "What is the artist, sport team or event name?t");
                 context = 'find_my_event_by_name'
 
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    foundUser.context = 'find_my_event_by_name'
-                    foundUser.save();
-                });
+                saveContext(senderId, '-')
 
             }
             break;
@@ -1828,19 +1693,7 @@ function processPostback(event) {
 
                     }
                 });
-
-
-                UserData2.findOne({
-                    fbId: senderId
-                }, {}, {
-                    sort: {
-                        'sessionStart': -1
-                    }
-                }, function (err, foundUser) {
-                    foundUser.context = ''
-                    foundUser.save();
-                });
-
+                saveContext(senderId, '-')
 
             }
             break;
@@ -1871,8 +1724,6 @@ function processPostback(event) {
 
 
         default:
-
-
             UserData2.findOne({
                 fbId: senderId
             }, {}, {
@@ -1946,7 +1797,7 @@ function processPostback(event) {
 
 
                             TevoModule.start(senderId, query.query, 0, query.messageTitle, {}, query);
-                            //startTevoModuleWithMlink(payload, senderId);
+
 
                         } else {
                             console.log('No guardé el mlink DE  SAN_VALENTIN ?? O_O << ' + foundUser.mlinkSelected);
@@ -1967,140 +1818,35 @@ function processPostback(event) {
 
 }
 
-function find_my_event(senderId, hi = 0, event_name = '') {
-    UserData.getInfo(senderId, function (err, result) {
-        if (!err) {
-
-            var bodyObj = JSON.parse(result);
-            console.log(result);
-
-
-            var User = new UserData2; {
-                User.fbId = senderId;
-                User.firstName = bodyObj.first_name;
-                User.LastName = bodyObj.last_name;
-                User.profilePic = bodyObj.profile_pic;
-                User.locale = bodyObj.locale;
-                User.timeZone = bodyObj.timezone;
-                User.gender = bodyObj.gender;
-                User.messageNumber = 1;
-
-                User.save();
-            }
-
-            var name = bodyObj.first_name;
-
-            var greeting = "Hi " + name;
-            var messagetxt = greeting + ", you can search events by:";
-            if (hi == 1) {
-                messagetxt = 'I didn’t find any of that. ' + name + ", you can search events by:";
-                greeting = name;
-            }
-
-
-
-            //var ButtonsEventsQuery = require('../modules/tevo/buttons_event_query');
-            //var ButtonsEventsQuery = require('../modules/tevo/buttons_choise_again');
-            //ButtonsEventsQuery.send(Message, senderId, messagetxt);
-
-            var SearchQuickReply = require('../modules/tevo/search_init_quick_replay');
-            SearchQuickReply.send(Message, senderId, messagetxt);
-
-            UserData2.findOne({
-                fbId: senderId
-            }, {}, {
-                sort: {
-                    'sessionStart': -1
-                }
-            }, function (err, foundUser) {
-                foundUser.context = ''
-                foundUser.save();
-            });
-
-
+var find_my_event = (senderId, hi = 0, event_name = '') => {
+    user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {
+        let name = foundUser.firstName
+        var greeting = "Hi " + name;
+        var messagetxt = greeting + ", you can search events by:";
+        if (hi == 1) {
+            messagetxt = 'I didn’t find any of that. ' + name + ", you can search events by:";
+            greeting = name;
         }
-    });
+
+        var SearchQuickReply = require('../../modules/tevo/search_init_quick_replay');
+        SearchQuickReply.send(Message, senderId, messagetxt);
+    })
 };
 
 
+
 function saveContext(senderId, context) {
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, result) {
-
-        if (!err) {
-            if (null != result) {
-                result.context = context;
-                result.save(function (err) {
-                    if (!err) {
-
-                        console.log('Guardamos el context de ' + context);
-                    } else {
-                        console.log('Error guardando context')
-                    }
-                });
-            }
-        }
-
-    });
+    user_queries.createUpdateUserDatas(senderId, context)
 }
 
 
 
 function saveUserSelection(senderId, selection) {
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, result) {
-
-        if (!err) {
-            if (null != result) {
-                result.optionsSelected.push(selection);
-                result.save(function (err) {
-                    if (!err) {
-
-                        console.log('Guardamos la seleccion de ' + selection);
-                    } else {
-                        console.log('Error guardando selección')
-                    }
-                });
-            }
-        }
-
-    });
+    user_queries.createUpdateUserDatas(senderId, '', '', {}, '', '', '', 0, 0, '', '', '', '', '', '', '', selection)
 }
 
 function saveCategorySelection(senderId, category) {
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, result) {
-
-        if (!err) {
-            if (null != result) {
-                result.context = 'find_my_event_by_category'
-                result.categorySearchSelected.push(category);
-                result.save(function (err) {
-                    if (!err) {
-                        console.log('Guardamos la categoria seleccionada' + category);
-                    } else {
-                        console.log('Error guardando la categoria')
-                    }
-                });
-            }
-        }
-
-    });
+    user_queries.createUpdateUserDatas(senderId, 'find_my_event_by_category', '', {}, '', '', '', 0, 0, '', '', '', '', '', '', category)
 }
 
 
@@ -2421,374 +2167,80 @@ var startValentineFrameCheer = (senderId, referral) => {
 
 var startChristmasSongs = (senderId, referral) => {
     var chirstmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs')
-
-
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, foundUser) {
-        if (!err) {
-            if (foundUser) {
-                foundUser.mlinkSelected = referral
-                foundUser.save((err, foundUserBefore) => {
-                    if (err) {
-                        console.log('Error al guardar el usuario');
-                    } else {
-                        console.log('usuario actualizado:' + foundUser.mlinkSelected);
-                        chirstmasSongsModule.startChirstmasSongs(senderId);
-                    }
-
-                });
-
-            } else {
-                UserData.getInfo(senderId, function (err, result) {
-                    console.log('Dentro de UserData');
-                    if (!err) {
-
-                        var bodyObj = JSON.parse(result);
-                        console.log(result);
-
-                        var User = new UserData2; {
-                            User.fbId = senderId;
-                            User.firstName = bodyObj.first_name;
-                            User.LastName = bodyObj.last_name;
-                            User.profilePic = bodyObj.profile_pic;
-                            User.locale = bodyObj.locale;
-                            User.timeZone = bodyObj.timezone;
-                            User.gender = bodyObj.gender;
-                            User.messageNumber = 1;
-                            User.mlinkSelected = referral
-
-                            User.save();
-                            chirstmasSongsModule.startChirstmasSongs(senderId);
-
-                            User.save((err, foundUserBefore) => {
-                                if (err) {
-                                    console.log('Error al guardar el usuario ');
-                                } else {
-                                    console.log('usuario guardado:' + foundUserBefore.mlinkSelected);
-                                    SixtEventModule.start(senderId);
-                                }
-
-                            });
-
-
-                        }
-                    }
-                });
-            }
-        }
-    });
-
-
+    chirstmasSongsModule.startChirstmasSongs(senderId);
 }
 var startChristmas = (senderId, referral) => {
     var chirstmasModule = require('../modules/tevo/chirstmas/christmas')
-
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, foundUser) {
-        if (!err) {
-            if (foundUser) {
-                foundUser.mlinkSelected = referral
-                foundUser.save((err, foundUserBefore) => {
-                    if (err) {
-                        console.log('Error al guardar el usuario');
-                    } else {
-                        console.log('usuario actualizado:' + foundUser.mlinkSelected);
-                        chirstmasModule.startChirstmas(senderId);
-                    }
-
-                });
-
-            } else {
-                UserData.getInfo(senderId, function (err, result) {
-                    console.log('Dentro de UserData');
-                    if (!err) {
-
-                        var bodyObj = JSON.parse(result);
-                        console.log(result);
-
-                        var User = new UserData2; {
-                            User.fbId = senderId;
-                            User.firstName = bodyObj.first_name;
-                            User.LastName = bodyObj.last_name;
-                            User.profilePic = bodyObj.profile_pic;
-                            User.locale = bodyObj.locale;
-                            User.timeZone = bodyObj.timezone;
-                            User.gender = bodyObj.gender;
-                            User.messageNumber = 1;
-                            User.mlinkSelected = referral
-
-                            User.save();
-                            chirstmasModule.startChirstmas(senderId);
-
-                            User.save((err, foundUserBefore) => {
-                                if (err) {
-                                    console.log('Error al guardar el usuario ');
-                                } else {
-                                    console.log('usuario guardado:' + foundUserBefore.mlinkSelected);
-                                    SixtEventModule.start(senderId);
-                                }
-
-                            });
-
-
-                        }
-                    }
-                });
-            }
-        }
-    });
-
+    chirstmasModule.startChirstmas(senderId);
 }
 
 function starSixEvent(senderId, referral) {
     var SixtEventModule = require('../modules/tevo/six_event/six_event')
-
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, foundUser) {
-        if (!err) {
-            if (foundUser) {
-                foundUser.mlinkSelected = referral
-                foundUser.save((err, foundUserBefore) => {
-                    if (err) {
-                        console.log('Error al guardar el usuario');
-                    } else {
-                        console.log('usuario actualizado:' + foundUser.mlinkSelected);
-                        SixtEventModule.start(senderId);
-                    }
-
-                });
-
-            } else {
-                UserData.getInfo(senderId, function (err, result) {
-                    console.log('Dentro de UserData');
-                    if (!err) {
-
-                        var bodyObj = JSON.parse(result);
-                        console.log(result);
-
-                        var User = new UserData2; {
-                            User.fbId = senderId;
-                            User.firstName = bodyObj.first_name;
-                            User.LastName = bodyObj.last_name;
-                            User.profilePic = bodyObj.profile_pic;
-                            User.locale = bodyObj.locale;
-                            User.timeZone = bodyObj.timezone;
-                            User.gender = bodyObj.gender;
-                            User.messageNumber = 1;
-                            User.mlinkSelected = referral
-
-                            User.save();
-                            SixtEventModule.start(senderId);
-
-                            User.save((err, foundUserBefore) => {
-                                if (err) {
-                                    console.log('Error al guardar el usuario ');
-                                } else {
-                                    console.log('usuario guardado:' + foundUserBefore.mlinkSelected);
-                                    SixtEventModule.start(senderId);
-                                }
-
-                            });
-
-
-                        }
-                    }
-                });
-            }
-        }
-    });
-
-
-
-
-
-
+    SixtEventModule.start(senderId);
 }
 
 
 
 function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, messageTitle = "") {
     console.log("event_name " + event_name);
+    var userPreferences = {
+        event_title: '',
+        city: '',
+        artist: '',
+        team: '',
+        event_type: '',
+        music_genre: ''
+    }
 
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
+    var query = {
+        prioridad: 4,
+        searchBy: 'ByName',
+        query: tevo.API_URL + 'events?q=' + event_name + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
+        queryReplace: tevo.API_URL + 'events?q=' + event_name + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
+        queryPage: page,
+        queryPerPage: per_page,
+        messageTitle: 'Cool, I looked for "' + event_name + '" shows.  Book a ticket'
+    }
+
+    nlp.tevoByQuery(senderId, query, userPreferences).then((cantidad) => {
+        if (cantidad == 0) {
+            find_my_event(sender, 1, '')
         }
-    }, function (err, foundUser) {
-        if (!err) {
-            if (null != foundUser) {
-                var position = 0;
-                if (mlink == 0) {
-                    if (foundUser.eventSearchSelected) {
-                        if (foundUser.eventSearchSelected.length >= 2) {
-                            let anterior = foundUser.eventSearchSelected.length - 2;
-                            let actual = foundUser.eventSearchSelected.length - 1;
-
-                            let anteriorS = foundUser.eventSearchSelected[anterior];
-                            let actualS = foundUser.eventSearchSelected[actual];
-
-                            if (actualS == anteriorS) {
-                                foundUser.showMemore.index1 = foundUser.showMemore.index1 + 1
-                                position = foundUser.showMemore.index1
-                            }
-                        }
-                    }
-
-                } else {
-                    foundUser.showMemore.index1 = 0;
-                }
-
-
-
-
-                if (event_name == '') {
-                    let actual = foundUser.eventSearchSelected.length - 1;
-                    event_name = foundUser.eventSearchSelected[actual];
-                }
-
-                var TevoModule = require('../modules/tevo_request');
-                TevoModule.start(senderId, event_name, position, cool, messageTitle);
-
-
-                foundUser.save(function (err, userSaved) {
-                    if (!err) {
-                        console.log("se actualiza el index 1 userSaved.showMemore.index1 " + userSaved.showMemore.index1)
-
-                    } else {
-                        console.log("error al actualizar el index 1 ")
-                    }
-                });
-            } else {
-                UserData.getInfo(senderId, function (err, result) {
-                    console.log('Dentro de UserData');
-                    if (!err) {
-
-                        var bodyObj = JSON.parse(result);
-                        console.log(result);
-
-                        var User = new UserData2; {
-                            User.fbId = senderId;
-                            User.firstName = bodyObj.first_name;
-                            User.LastName = bodyObj.last_name;
-                            User.profilePic = bodyObj.profile_pic;
-                            User.locale = bodyObj.locale;
-                            User.timeZone = bodyObj.timezone;
-                            User.gender = bodyObj.gender;
-                            User.messageNumber = 1;
-
-
-                            User.save();
-                            console.log("Guardé el senderId result.fbId>>>> " + result.fbId);
-
-                            let TevoModule = require('../modules/tevo_request');
-                            let position = 0;
-                            TevoModule.start(senderId, event_name, position, cool, messageTitle);
-
-
-
-                        }
-
-
-
-
-
-                    }
-                });
-
-
-
-            }
-        }
-
-    });
-
+    })
 
 }
 
 
 function startTevoModuleByLocation(sender, lat, lon) {
-     UserData2.findOne({
-         fbId: senderId
-     }, {}, {
-         sort: {
-             'sessionStart': -1
-         }
-     }, function (err, foundUser) {
-         if (!err) {
-             if (null != foundUser) {
-                 foundUser.showMemore.index2 = foundUser.showMemore.index2 + 1
-                 let position = foundUser.showMemore.index2
+    let page = 1
+    let per_page = 9
 
-                 var ticketEvoByLocation = require('../modules/tevo/tevo_request_by_location');
-                 ticketEvoByLocation.startTevoRequestByLocation(senderId, lat, lon, position);
-
-                 foundUser.context = ''
-                 foundUser.save(function (err, userSaved) {
-                     if (!err) {
-                         console.log("se actualiza el index 1 userSaved.showMemore.index2 " + userSaved.showMemore.index2)
-
-                     } else {
-                         console.log("error al actualizar el index 2 ")
-                     }
-                 });
-             } else {
-                 UserData.getInfo(senderId, function (err, result) {
-                     console.log('Dentro de UserData');
-                     if (!err) {
-
-                         var bodyObj = JSON.parse(result);
-                         console.log(result);
-
-                         var User = new UserData2; {
-                             User.fbId = senderId;
-                             User.firstName = bodyObj.first_name;
-                             User.LastName = bodyObj.last_name;
-                             User.profilePic = bodyObj.profile_pic;
-                             User.locale = bodyObj.locale;
-                             User.timeZone = bodyObj.timezone;
-                             User.gender = bodyObj.gender;
-                             User.messageNumber = 1;
+    var query = {
+        prioridad: 1,
+        searchBy: 'Location',
+        query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&within=100',
+        queryReplace: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page={{page}}&per_page={{per_page}}&' + only_with + '&within=100',
+        queryPage: page,
+        queryPerPage: per_page,
+        messageTitle: 'Cool, I found events in your location.  Book a ticket'
+    }
 
 
-                             User.save();
-                             console.log("Guardé el senderId result.fbId>>>> " + result.fbId);
+    var userPreferences = {
+        event_title: '',
+        city: '',
+        artist: '',
+        team: '',
+        event_type: '',
+        music_genre: ''
+    }
 
-                             let TevoModule = require('../modules/tevo_request');
-                             let position = 0;
-                             TevoModule.start(senderId, referral, position);
-
-
-
-                         }
-
-
-                     }
-                 });
-
-
-
-             }
-         }
-
-     });
-
+    nlp.tevoByQuery(sender, query, userPreferences).then((cantidad) => {
+        if (cantidad == 0) {
+            var ticketMaster = require('../../botboletos/modules/tevo/ticket_master_request');
+            ticketMaster.get(Message, sender, lat, lon);
+        }
+    })
 
 }
 

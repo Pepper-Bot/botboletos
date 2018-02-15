@@ -1307,7 +1307,7 @@ function find_my_event(senderId, hi = 0, event_name = '') {
         SearchQuickReply.send(Message, senderId, messagetxt);
 
     })
-};
+}
 
 
 var tevoByQuery = (sender, query = {}, userPreferences = {}) => {
@@ -1453,5 +1453,6 @@ var startSuperBowlCheer = (senderId, referral) => {
 }
 
 module.exports = {
-    handleApiAiAction
+    handleApiAiAction,
+    tevoByQuery
 }
