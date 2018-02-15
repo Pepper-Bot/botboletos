@@ -735,6 +735,14 @@ function processLocation1(senderId, locationData) {
 }
 
 
+var processQuickReplaySanValentin = (senderId, payload) => {
+    console.log("San Valentin votación Module " + payload)
+    Message.markSeen(senderId);
+    var sanvalentinModule = require('../modules/tevo/san_valentin/san_valentin');
+    sanvalentinModule.sendMessageAndChoiceImage(senderId, payload);
+}
+
+
 var processQuickReplayShakira = (senderId, payload) => {
     console.log("Shakira votación Module " + payload)
     Message.markSeen(senderId);
@@ -784,6 +792,15 @@ function processQuickReplies(event) {
 
 
     switch (payload) {
+
+
+
+        case "romeo_juliet":
+            {
+                processQuickReplaySuperBowl(senderId, payload);
+            }
+            break;
+
 
         case "find_my_event_Patriots":
             {
@@ -848,7 +865,21 @@ function processQuickReplies(event) {
             }
             break;
 
-
+        case "the_notebook":
+            {
+                processQuickReplaySanValentin(senderId, payload);
+            }
+            break;
+        case "me_before_you":
+            {
+                processQuickReplaySanValentin(senderId, payload);
+            }
+            break;
+        case "romeo_juliet":
+            {
+                processQuickReplaySanValentin(senderId, payload);
+            }
+            break;
 
         case "la_bicicleta":
             {
@@ -1929,7 +1960,7 @@ function chooseReferral(referral, senderId) {
 
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
-    console.log( 'referral' + referral)
+    console.log('referral' + referral)
     user_queries.createUpdateUserDatas(senderId, '', referral).then(() => {
         switch (referral) {
 
