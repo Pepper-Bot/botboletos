@@ -1929,6 +1929,7 @@ function chooseReferral(referral, senderId) {
 
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
     // y llamando a su modulo correspondiente.
+    console.log( 'referral' + referral)
     user_queries.createUpdateUserDatas(senderId, '', referral).then(() => {
         switch (referral) {
 
