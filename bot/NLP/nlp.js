@@ -1320,7 +1320,7 @@ var tevoByQuery = (sender, query = {}, userPreferences = {}) => {
                 if (json.events.length > 0) {
                     console.log("query Tevo >>> " + JSON.stringify(query));
                     TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
-                    resolve(0)
+                    resolve(json.events.length)
                 } else {
 
                     console.log('definitivamente no encontré nada!!')
