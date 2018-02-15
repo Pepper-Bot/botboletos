@@ -409,7 +409,7 @@ var searchByCityVenueTitleCusine = (city_id, venue_title, cuisine, priority = 1,
 
 var searchByVenueTitleCusineAndCoordinates = (lat, lon, venue_title, cuisine, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
-    getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
+    getCuisines(0, lat, lon, cuisine).then((cousineRes) => {
       let cuisine_id = cousineRes[0].id
       let qs = {
         priority: priority,
@@ -473,7 +473,7 @@ var searchByCuisineEstablishmentAndCoordinates = (lat, lon, cuisine, venue_type,
 
 var searchByVenueTitleEstablishmentAndCoordinates = (lat, lon, venue_type, venue_title, priority, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
-    getEstablishments(city_id, venue_type).then((establishmentRes) => {
+    getEstablishments(0, venue_type, lat, lon).then((establishmentRes) => {
       let qs = {
         priority: priority,
         start: start,
@@ -729,8 +729,10 @@ var hasVenues = (qs) => {
   return new Promise((resolve, reject) => {
     search(qs).then((json) => {
       if (json.results_found > 0) {
+        console.log('resultados zomato ' + json.results_found)
         resolve(true)
       } else {
+        console.log('resultados zomato ' + json.results_found)
         resolve(false)
       }
     })
@@ -746,13 +748,17 @@ var selectQsByPriority = (arrayQs) => {
 
   let arraySelected = []
   let counter = 0
-  console.log('arrayQueryMessages ' + JSON.stringify(arrayQueryMessages))
+  console.log('selectQsByPriority ' + JSON.stringify(arrayQueryMessages) + ' largo > ' + arrayQueryMessages.length)
   return new Promise((resolve, reject) => {
-    if (arrayQueryMessages.length > 0) {
+    if (arrayQs.length > 0) {
+
       for (let i = 0; i < arrayQueryMessages.length; i++) {
         hasVenues(arrayQueryMessages[i]).then((tiene) => {
           if (tiene === true) {
+            console.log('tiene')
             arraySelected.push(arrayQueryMessages[i])
+          } else {
+            console.log('No tiene! ')
           }
 
           if (counter === arrayQueryMessages.length - 1) {
@@ -767,6 +773,7 @@ var selectQsByPriority = (arrayQs) => {
       }
 
     } else {
+      console.log('no tengo qs O_O !!!')
       resolve(undefined)
 
     }
@@ -1238,6 +1245,7 @@ var zomatoStartLater = (sender, city = '', cuisine = '', venue_type = '', venue_
             Promise.all(zomatoQs).then(ArrayQs => {
               console.log('zomatoQs ' + JSON.stringify(ArrayQs))
               selectQsByPriority(ArrayQs).then((qs) => {
+                console.log('qs Seleccionada ' + JSON.stringify(qs))
                 if (isDefined(qs)) {
                   console.log('priority ' + qs.priority)
                   delete qs.priority;
