@@ -794,14 +794,7 @@ function processQuickReplies(event) {
     switch (payload) {
 
 
-
-        case "romeo_juliet":
-            {
-                processQuickReplaySuperBowl(senderId, payload);
-            }
-            break;
-
-
+ 
         case "find_my_event_Patriots":
             {
                 processQuickReplaySuperBowl(senderId, payload);
