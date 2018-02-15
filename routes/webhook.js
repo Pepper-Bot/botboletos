@@ -2237,7 +2237,7 @@ function startTevoModuleByLocation(sender, lat, lon) {
 
     nlp.tevoByQuery(sender, query, userPreferences).then((cantidad) => {
         if (cantidad == 0) {
-            var ticketMaster = require('../../botboletos/modules/tevo/ticket_master_request');
+            var ticketMaster = require('../modules/tevo/ticket_master_request');
             ticketMaster.get(Message, sender, lat, lon);
         }
     })
