@@ -58,6 +58,8 @@ passport.deserializeUser(function(obj, done) {
 //   credentials (in this case, an accessToken, refreshToken, expires_in 
 //   and spotify profile), and invoke a callback with a user object.
 console.log('spotify.SPOTIFY_CLIENT_ID ' + spotify.SPOTIFY_CLIENT_ID)
+console.log('spotify.SPOTIFY_CLIENT_SECRET ' + spotify.SPOTIFY_CLIENT_SECRET)
+
 passport.use(new SpotifyStrategy({
   clientID: spotify.SPOTIFY_CLIENT_ID,
   clientSecret: spotify.SPOTIFY_CLIENT_SECRET,
