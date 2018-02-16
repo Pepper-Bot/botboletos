@@ -368,13 +368,13 @@ app.get('/auth/spotify',
 app.get('/auth/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: 'spotify/login' }),
   function(req, res) {
-    res.redirect('./layouts/spotify');
+    res.redirect('./layouts/spotify/index');
   });
 
 
 app.get('spotify/logout', function(req, res){
   req.logout();
-  res.redirect('./layouts/spotify');
+  res.redirect('./layouts/spotify/index');
 });
 
 
@@ -386,7 +386,7 @@ app.get('spotify/logout', function(req, res){
 //   login page.
 function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) { return next(); }
-  res.redirect('spotify/login');
+  res.redirect('./layouts/spotify/login');
 }
 
 
