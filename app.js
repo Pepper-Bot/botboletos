@@ -24,7 +24,7 @@ var fbgraphModule = require('./routes/facebook_graph_module/fb_graph_module');
 
 
 var passport = require('passport')
-var swig = require('swig')
+
 var SpotifyStrategy = require('./modules/spotify/passport-spotify/index').Strategy;
 var spotifyVar = require ('./config/config_vars').spotifyVar
 
@@ -336,16 +336,16 @@ function exposeTemplates(req, res, next) {
 
 
 app.get('/spotify', function(req, res){
-  res.render('spotify/index', { user: req.user });
+  res.render('./layouts/spotify/index', { user: req.user });
 });
 
 
 app.get('spotify/account', ensureAuthenticated, function(req, res){
-  res.render('spotify/account', { user: req.user });
+  res.render('./layouts/spotify/account', { user: req.user });
 });
 
 app.get('spotify/login', function(req, res){
-  res.render('spotify/login', { user: req.user });
+  res.render('./layouts/spotify/login', { user: req.user });
 });
 
 // GET /auth/spotify
@@ -368,13 +368,13 @@ app.get('/auth/spotify',
 app.get('/auth/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: 'spotify/login' }),
   function(req, res) {
-    res.redirect('/spotify');
+    res.redirect('./layouts/spotify');
   });
 
 
 app.get('spotify/logout', function(req, res){
   req.logout();
-  res.redirect('/spotify');
+  res.redirect('./layouts/spotify');
 });
 
 
