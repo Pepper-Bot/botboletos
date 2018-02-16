@@ -14,6 +14,7 @@
     "cheerio": "^1.0.0-rc.2",
     "connect-ensure-login": "^0.1.1",
     "connect-redis": "^3.3.2",
+    "consolidate": "^0.15.0",
     "cookie-parser": "~1.4.3",
     "dateformat": "^3.0.2",
     "debug": "~2.6.3",
@@ -44,6 +45,7 @@
     "request": "^2.81.0",
     "serve-favicon": "~2.4.2",
     "spotify-web-api-node": "^2.5.0",
+    "swig": "^1.4.2",
     "ticketevolution-node": "^1.1.0",
     "zomato": "^1.1.0"
   },
