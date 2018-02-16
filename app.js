@@ -26,8 +26,9 @@ var fbgraphModule = require('./routes/facebook_graph_module/fb_graph_module');
 var passport = require('passport')
 var swig = require('swig')
 var SpotifyStrategy = require('./modules/spotify/passport-spotify/index').Strategy;
-var spotify = require ('./config/config_vars').spotify
+var spotifyVar = require ('./config/config_vars').spotifyVar
 
+ 
 
 var consolidate = require('consolidate');
 
@@ -57,12 +58,11 @@ passport.deserializeUser(function(obj, done) {
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, expires_in 
 //   and spotify profile), and invoke a callback with a user object.
-console.log('spotify.SPOTIFY_CLIENT_ID ' + spotify.SPOTIFY_CLIENT_ID)
-console.log('spotify.SPOTIFY_CLIENT_SECRET ' + spotify.SPOTIFY_CLIENT_SECRET)
+ 
 
 passport.use(new SpotifyStrategy({
-  clientID: spotify.SPOTIFY_CLIENT_ID,
-  clientSecret: spotify.SPOTIFY_CLIENT_SECRET,
+  clientID: spotifyVar.SPOTIFY_CLIENT_ID,
+  clientSecret: spotifyVar.SPOTIFY_CLIENT_SECRET,
   callbackURL: APLICATION_URL_DOMAIN + '/auth/spotify/callback'
   },
   function(accessToken, refreshToken, expires_in, profile, done) {
