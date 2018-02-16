@@ -268,6 +268,10 @@ app.get('/UserHasLoggedIn/', fbgraphModule.UserHasLoggedIn);
 
 app.get('/zuck/', fbgraphModule.zuck);
 
+app.get('/spotify/', function(req, res){
+  //res.render('./layouts/spotify/index', { user: req.user });
+  res.send('Spotify');
+});
 
 
 app.use('/pruebamail/', email);
@@ -278,62 +282,6 @@ app.use(function (req, res, next) {
   next(err);
 });
 
-
-
-app.get('/spotify/', function(req, res){
-  res.render('./layouts/spotify/index', { user: req.user });
-});
-
-
-app.get('/spotify/account/', ensureAuthenticated, function(req, res){
-  res.render('./layouts/spotify/account', { user: req.user });
-});
-
-app.get('/spotify/login/', function(req, res){
-  res.render('./layouts/spotify/login', { user: req.user });
-});
-
-// GET /auth/spotify
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request. The first step in spotify authentication will involve redirecting
-//   the user to spotify.com. After authorization, spotify will redirect the user
-//   back to this application at /auth/spotify/callback
-app.get('/auth/spotify/',
-  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
-  function(req, res){
-// The request will be redirected to spotify for authentication, so this
-// function will not be called.
-});
-
-// GET /auth/spotify/callback
-//   Use passport.authenticate() as route middleware to authenticate the
-//   request. If authentication fails, the user will be redirected back to the
-//   login page. Otherwise, the primary route function function will be called,
-//   which, in this example, will redirect the user to the home page.
-app.get('/auth/spotify/callback/',
-  passport.authenticate('spotify', { failureRedirect: 'spotify/login' }),
-  function(req, res) {
-    console.log('/auth/spotify/callback' )
-   // res.redirect('./layouts/spotify/index');
-  });
-
-
-app.get('/spotify/logout/', function(req, res){
-  req.logout();
-  res.redirect('./layouts/spotify/index');
-});
-
-
-
-// Simple route middleware to ensure user is authenticated.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed. Otherwise, the user will be redirected to the
-//   login page.
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('./layouts/spotify/login');
-}
 
 
 app.use(function (req, res, next) {
@@ -392,6 +340,57 @@ function exposeTemplates(req, res, next) {
 
 
 
+
+
+app.get('/spotify/account/', ensureAuthenticated, function(req, res){
+  res.render('./layouts/spotify/account', { user: req.user });
+});
+
+app.get('/spotify/login/', function(req, res){
+  res.render('./layouts/spotify/login', { user: req.user });
+});
+
+// GET /auth/spotify
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request. The first step in spotify authentication will involve redirecting
+//   the user to spotify.com. After authorization, spotify will redirect the user
+//   back to this application at /auth/spotify/callback
+app.get('/auth/spotify/',
+  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
+  function(req, res){
+// The request will be redirected to spotify for authentication, so this
+// function will not be called.
+});
+
+// GET /auth/spotify/callback
+//   Use passport.authenticate() as route middleware to authenticate the
+//   request. If authentication fails, the user will be redirected back to the
+//   login page. Otherwise, the primary route function function will be called,
+//   which, in this example, will redirect the user to the home page.
+app.get('/auth/spotify/callback/',
+  passport.authenticate('spotify', { failureRedirect: 'spotify/login' }),
+  function(req, res) {
+    console.log('/auth/spotify/callback' )
+   // res.redirect('./layouts/spotify/index');
+  });
+
+
+app.get('/spotify/logout/', function(req, res){
+  req.logout();
+  res.redirect('./layouts/spotify/index');
+});
+
+
+
+// Simple route middleware to ensure user is authenticated.
+//   Use this route middleware on any resource that needs to be protected.  If
+//   the request is authenticated (typically via a persistent login session),
+//   the request will proceed. Otherwise, the user will be redirected to the
+//   login page.
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) { return next(); }
+  res.redirect('./layouts/spotify/login');
+}
 
 
 module.exports = app;
