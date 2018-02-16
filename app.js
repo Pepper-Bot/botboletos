@@ -270,9 +270,7 @@ app.get('/zuck/', fbgraphModule.zuck);
 
 app.get('/spotify/', function(req, res){
   res.render('./layouts/spotify/index', { user: req.user });
-  //res.send('Spotify');
-
-  
+   
 });
 
 
@@ -370,9 +368,9 @@ app.get('/auth/spotify/',
 //   login page. Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/spotify/callback/',
-  passport.authenticate('spotify', { failureRedirect: 'spotify/login' }),
+  passport.authenticate('spotify', { failureRedirect: '/spotify/login' }),
   function(req, res) {
-    console.log('/auth/spotify/callback' )
+    console.log('++++++++++++' )
    // res.redirect('./layouts/spotify/index');
   });
 
