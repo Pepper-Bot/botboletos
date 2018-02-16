@@ -336,7 +336,7 @@ function exposeTemplates(req, res, next) {
 
 
 app.get('/spotify/', function(req, res){
-  res.render('./layouts/spotify/index', { user: req.user });
+  res.render('Hola!', { user: req.user });
 });
 
 
