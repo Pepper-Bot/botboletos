@@ -4,12 +4,12 @@
 var google = {
   GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
   GOOGLE_CSE_ID: process.env.GOOGLE_CSE_ID,
-  
+
 }
 
-var spotify ={
-  SPOTIFY_CLIEND_ID =  process.env.SPOTIFY_CLIENT_ID ,
-  SPOTIFY_CLIEND_SECRET  =  process.env.SPOTIFY_CLIENT_SECRET
+var spotify = {
+  SPOTIFY_CLIEND_ID: process.env.SPOTIFY_CLIENT_ID,
+  SPOTIFY_CLIEND_SECRET: process.env.SPOTIFY_CLIENT_SECRET
 }
 
 var API_AI_CLIENT_ACCESS_TOKEN = process.env.API_AI_CLIENT_ACCESS_TOKEN
@@ -19,7 +19,7 @@ var APLICATION_URL_DOMAIN = process.env.APLICATION_URL_DOMAIN
 var PAGE_ACCESS_TOKEN = process.env.PAGE_ACCESS_TOKEN
 
 var FB_APP_PUBLIC_ID = process.env.FB_APP_PUBLIC_ID
-var FB_APP_SECRET_ID =   process.env.FB_APP_SECRET_ID
+var FB_APP_SECRET_ID = process.env.FB_APP_SECRET_ID
 
 var FBMESSAGESPAGE = 'https://graph.facebook.com/v2.6/me/messages'
 var FINISH_SESSION_URL_REDIRECT = process.env.FINISH_SESSION_URL_REDIRECT
