@@ -63,7 +63,7 @@ passport.deserializeUser(function(obj, done) {
 passport.use(new SpotifyStrategy({
   clientID: spotifyVar.SPOTIFY_CLIENT_ID,
   clientSecret: spotifyVar.SPOTIFY_CLIENT_SECRET,
-  callbackURL: APLICATION_URL_DOMAIN + '/auth/spotify/callback'
+  callbackURL: APLICATION_URL_DOMAIN + 'auth/spotify/callback'
   },
   function(accessToken, refreshToken, expires_in, profile, done) {
     // asynchronous verification, for effect...
