@@ -51,7 +51,12 @@ dbObj.getConnection();
 
 
 
-
+/**
+ * 
+ * @param {*} req Request 
+ * @param {*} res Response 
+ * @description Function route Webhook FaceBook. FaceBook verify token
+ */
 var intitGetFB = (req, res) => {
     if (req.query['hub.verify_token'] === process.env.BOT_TOKEN) {
 
@@ -66,7 +71,14 @@ var intitGetFB = (req, res) => {
 
 
 
-
+/**
+ * 
+ * @param {*} req Request 
+ * @param {*} res Response 
+ * @description Function detected what event ocurrs in a messenger dialog
+ * 
+ * 
+ */
 var initFBEvents = (req, res) => {
     if (req.body.object == "page") {
         // Iterate over each entry
@@ -117,6 +129,14 @@ var initFBEvents = (req, res) => {
 }
 
 
+
+/**
+ * 
+ * @param {*} obj Object 
+ * @description Function detected if object is undefined
+ * 
+ * 
+ */
 function isDefined(obj) {
     if (typeof obj == 'undefined') {
         return false;
@@ -130,7 +150,14 @@ function isDefined(obj) {
 }
 
 
-
+/**
+ * 
+ * @param {*} sender Face Book Id 
+ * @param {*} text text send to Dialog Flow API.AI 
+ * @description Function for send text to Dialog Flow API.AI will be analyzed
+ * 
+ * 
+ */
 function sendToApiAi(sender, text) {
     console.log('texto enviado a api.ai> ' + text)
     Message.typingOn(sender);
@@ -150,17 +177,15 @@ function sendToApiAi(sender, text) {
 }
 
 
+/**
+ * 
+ * @param {*} senderId Face Book Id 
+ * @param {*} textMessage text send to Dialog Flow API.AI 
+ * @description Function for send text to Dialog Flow API.AI will be analyzed
+ * 
+ */
 function processMessage(senderId, textMessage) {
-
-
-
-
-
     textMessage = fsStrings.getCleanedString(textMessage);
-
-
-
-
 
     if ('start again' === textMessage.toLowerCase()) {
         UserData.getInfo(senderId, function (err, result) {
@@ -211,6 +236,13 @@ function processMessage(senderId, textMessage) {
 }
 
 
+/**
+ * 
+ * @param {*} sender Face Book Id 
+ * @param {*} response Response from Dialog Flow API.AI
+ * @description Function managed Dialog Flow API.AI response 
+ * 
+ */
 function handleApiAiResponse(sender, response) {
 
     //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
@@ -277,14 +309,33 @@ function handleApiAiResponse(sender, response) {
     }
 }
 
-
+/**
+ * 
+ * @param {*} sender FaceBook Id
+ * @param {*} response Respuesta de DialogFlow API.A
+ * @param {*} action Action definida en Dialog Flow API.AI
+ * @param {*} responseText Respuesta Final del Intent de Dialog Flow API.AI
+ * @param {*} contexts Contextos Definidos en el Intent de Dialog Flow API.AI
+ * @param {*} parameters Parametros Definidos en el Intent de Dialog Flow API.AI
+ * 
+ * @description Función donde se procesan las acciones, contextos y parametros de la Acción events.search.implicit con los que se arma 
+ * una query que es enviadoa a Ticket Evolution, Zomato que termina en elaboración de un Generic Template de Facebook
+ * 
+ */
 function handleApiAiAction(sender, response, action, responseText, contexts, parameters) {
     nlp.handleApiAiAction(sender, response, action, responseText, contexts, parameters);
 }
 
 
 
-
+/**
+ * 
+ * @param {*} message message from DialogFlow API.AI
+ * @param {*} sender Facebook user Id
+ * 
+ * @description Función donde se manejan los mensajes que no poseen action que proceden del manejo de la respuesta de DialogFlow API.AI
+ * 
+ */
 function handleMessage(message, sender) {
     switch (message.type) {
         case 0: //text
@@ -323,7 +374,15 @@ function handleMessage(message, sender) {
     }
 }
 
-
+/**
+ * 
+ * @param {*} recipientId Facebook user Id
+ * @param {*} imageUrl imageUrl
+ * 
+ * @description Función donde se manejan los mensajes que no poseen action
+ * que proceden del manejo de la respuesta. Esta respuesta es una imagen de DialogFlow API.AI
+ * 
+ */
 function sendImageMessage(recipientId, imageUrl) {
     var messageData = {
         recipient: {
@@ -342,6 +401,16 @@ function sendImageMessage(recipientId, imageUrl) {
     callSendAPI(messageData);
 }
 
+/**
+ * 
+ * @param {*} recipientId Facebook user Id
+ * @param {*} text titulo de la estrucutra del quick reply
+ * @param {*} replies replies de DialogFlow API.AI
+ * 
+ * @description Función donde se manejan los mensajes que no poseen action
+ * que proceden del manejo de la respuesta. Esta respuesta es un quick replay desde DialogFlow API.AI
+ * 
+ */
 function sendQuickReply(recipientId, text, replies, metadata) {
     var messageData = {
         recipient: {
@@ -357,6 +426,15 @@ function sendQuickReply(recipientId, text, replies, metadata) {
     callSendAPI(messageData);
 }
 
+/**
+ * 
+ * @param {*} messages message from  DialogFlow API.AI
+ * @param {*} sender Facebook user Id
+ * 
+ * @description Función donde se manejan los mensajes que no poseen action
+ * que proceden del manejo de la respuesta. Esta respuesta es un generic template  DialogFlow API.AI
+ * 
+ */
 function handleCardMessages(messages, sender) {
 
     let elements = [];
@@ -394,6 +472,15 @@ function handleCardMessages(messages, sender) {
     sendGenericMessage(sender, elements);
 }
 
+/**
+ * 
+ * @param {*} recipientId Facebook user Id
+ * @param {*} elements generic template elements
+ * 
+ * @description Función donde se manejan los mensajes que no poseen action
+ * que proceden del manejo de la respuesta. Esta respuesta es un generic template  DialogFlow API.AI
+ * 
+ */
 function sendGenericMessage(recipientId, elements) {
     var messageData = {
         recipient: {
@@ -413,7 +500,13 @@ function sendGenericMessage(recipientId, elements) {
     callSendAPI(messageData);
 }
 
-
+/**
+ * 
+ * @param {*} messageData messageData
+ * 
+ * @description Función para enviar al graph de facebook el messageData armado
+ * 
+ */
 function callSendAPI(messageData) {
     request({
         uri: 'https://graph.facebook.com/v2.6/me/messages',
@@ -443,6 +536,13 @@ function callSendAPI(messageData) {
 
 
 
+/**
+ * 
+ * @param {*} senderId FaceBook user ID
+ * @param {*} locationData locationData from Facebook Map
+ * @description Función para procesar la localización enviada por el usuario mediante el mapa
+ * 
+ */
 function processLocation(senderId, locationData) {
     console.log('lat ' + locationData.payload.coordinates.lat)
     console.log('long ' + locationData.payload.coordinates.long)
@@ -577,98 +677,14 @@ function processLocation(senderId, locationData) {
 }
 
 
-function processLocation1(senderId, locationData) {
-    console.log('lat ' + locationData.payload.coordinates.lat)
-    console.log('long ' + locationData.payload.coordinates.long)
-
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionEnd': -1
-        }
-    }, function (err, result) {
-        //--
-        if (!err) {
-            if (result !== null) {
-                result.location.coordinates = [locationData.payload.coordinates.lat, locationData.payload.coordinates.long];
-                result.locationURL = locationData.url;
-                result.save(function (err) {
-                    if (!err) {
-                        console.log('Guardamos la localizacion');
-
-                        if (result.context == "find_venue_to_eat") {
-                            let totalElements = result.userSays.length;
-                            let userSays = result.userSays[totalElements - 1];
-                            if (isDefined(userSays)) {
-                                if (isDefined(userSays.typed)) {
-                                    console.log('userSays  find_venue_to_eat ' + userSays.typed)
-                                    user_queries.createUpdateUserDatas(senderId, '-');
-                                    sendToApiAi(senderId, userSays.typed)
-                                }
-                            }
-
-                        }
-
-                        if (result.context == "find_my_event_by_category") {
-
-                            let totalElements = result.categorySearchSelected.length;
-                            let category = result.categorySearchSelected[totalElements - 1];
-
-                            let lat = locationData.payload.coordinates.lat;
-                            let lon = locationData.payload.coordinates.long;
-
-                            var tevo = require('../modules/tevo/tevo');
-                            tevo.startByParentsCategoriesAndLocation(senderId, category, lat, lon)
-                            saveContext(senderId, "");
-
-
-                        } else {
-                            var totalElements = result.optionsSelected.length;
-                            if (totalElements < 1) {
-                                return;
-                            }
-
-                            var lastSelected = result.optionsSelected[totalElements - 1];
-
-                            if ('Food' == lastSelected) {
-                                var Food = require('../modules/food');
-                                Food.get(Message, result, locationData);
-
-                            } else if ('Events' == lastSelected) {
-                                /* Llamamos al módulo de ventos */
-                                /*                           var Events = require('../modules/events');
-                                                            Events.get(Message, result, locationData);
-        
-                                var Evo = require('../modules/ticketevo');
-                                Evo.get(Message, result, locationData);
-                                */
-                                let lat = locationData.payload.coordinates.lat;
-                                let lon = locationData.payload.coordinates.long;
-
-                                startTevoModuleByLocation(senderId, lat, lon);
-
-                            } else if ('Drinks' == lastSelected) {
-
-                                var Drink = require('../modules/drink');
-                                Drink.get(Message, result, locationData);
-
-                            }
-
-
-                        }
-                    } else {
-                        console.log('Error guardando selección')
-                    }
-                });
-            }
-        }
-
-    });
-
-}
-
-
+ 
+/**
+ * 
+ * @param {*} senderId FaceBook user ID
+ * @param {*} payload payload en el quick replay
+ * @description Función para evaluar un quick replay
+ * 
+ */
 var processQuickReplaySanValentin = (senderId, payload) => {
     console.log("San Valentin votación Module " + payload)
     Message.markSeen(senderId);
@@ -677,6 +693,13 @@ var processQuickReplaySanValentin = (senderId, payload) => {
 }
 
 
+/**
+ * 
+ * @param {*} senderId FaceBook user ID
+ * @param {*} payload payload en el quick replay
+ * @description Función para evaluar un quick replay
+ * 
+ */
 var processQuickReplayShakira = (senderId, payload) => {
     console.log("Shakira votación Module " + payload)
     Message.markSeen(senderId);
@@ -684,6 +707,14 @@ var processQuickReplayShakira = (senderId, payload) => {
     shakiraModule.sendMessageAndChoiceImage(senderId, payload);
 }
 
+
+/**
+ * 
+ * @param {*} senderId FaceBook user ID
+ * @param {*} payload payload en el quick replay
+ * @description Función para evaluar un quick replay
+ * 
+ */
 var processQuickReplayChristmasSongs = (senderId, payload) => {
     console.log("ChristmasSongs votación Module " + payload)
     Message.markSeen(senderId);
@@ -691,6 +722,14 @@ var processQuickReplayChristmasSongs = (senderId, payload) => {
     christmasSongsModule.sendMessageAndChoiceImage(senderId, payload);
 }
 
+
+/**
+ * 
+ * @param {*} senderId FaceBook user ID
+ * @param {*} payload payload en el quick replay
+ * @description Función para evaluar un quick replay
+ * 
+ */
 var processQuickReplaySuperBowl = (senderId, payload) => {
     console.log("SuperBowl Module " + payload)
     Message.markSeen(senderId);
@@ -700,7 +739,13 @@ var processQuickReplaySuperBowl = (senderId, payload) => {
 
 
 
-
+/**
+ * 
+ * @param {*} senderId FaceBook user ID
+ * @param {*} payload payload en el quick replay
+ * @description Función para evaluar un quick replay
+ * 
+ */
 function processQuickReplayBox(senderId) {
 
     console.log("Rigondeaux  Lomachenko   ")
@@ -715,7 +760,12 @@ function processQuickReplayBox(senderId) {
 
 
 
-
+/**
+ * 
+ * @param {*} event objeto que trae la información del evento
+ * @description Función que ha detectado la acción de un quick replay
+ * 
+ */
 function processQuickReplies(event) {
     var senderId = event.sender.id;
     var payload = event.message.quick_reply.payload;
@@ -1324,7 +1374,12 @@ function processQuickReplies(event) {
 }
 
 
-
+/**
+ * 
+ * @param {*} event objeto que trae la información del evento
+ * @description Función que ha detectado la acción de un postback
+ * 
+ */
 function processPostback(event) {
 
 
@@ -1776,6 +1831,14 @@ function processPostback(event) {
 
 }
 
+/**
+ * 
+ * @param {*} senderId Facebook user id
+ * @param {*} hi 
+ * @param {*} event_name 
+ * @description Función que se ejecuta cuando no se encuentra el evento buscado...
+ * 
+ */
 var find_my_event = (senderId, hi = 0, event_name = '') => {
     user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {
         let name = foundUser.firstName
@@ -1792,22 +1855,46 @@ var find_my_event = (senderId, hi = 0, event_name = '') => {
 };
 
 
-
+/**
+ * 
+ * @param {*} senderId Facebook user id
+ * @param {*} context
+ * @description Función para actualizar el contexto
+ * 
+ */
 function saveContext(senderId, context) {
     user_queries.createUpdateUserDatas(senderId, context)
 }
 
 
-
+/**
+ * 
+ * @param {*} senderId Facebook user id
+ * @param {*} selection selection optionSelect en la tabla userdatas.
+ * @description Función para guardar la optionSelect
+ * 
+ */
 function saveUserSelection(senderId, selection) {
     user_queries.createUpdateUserDatas(senderId, '', '', {}, '', '', '', 0, 0, '', '', '', '', '', '', '', selection)
 }
 
+/**
+ * 
+ * @param {*} senderId Facebook user id
+ * @param {*} category selection category en la tabla userdatas.
+ * @description Función para guardar la category
+ * 
+ */
 function saveCategorySelection(senderId, category) {
     user_queries.createUpdateUserDatas(senderId, 'find_my_event_by_category', '', {}, '', '', '', 0, 0, '', '', '', '', '', '', category)
 }
 
-
+/**
+ * 
+ * @param {*} senderId Facebook user id
+ * @description Función para saludar el usuario envia los quick replay de Food Drink y Events
+ * 
+ */
 function saluda(senderId) {
     user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {
         let name = foundUser.firstName
@@ -1823,22 +1910,21 @@ function saluda(senderId) {
 };
 
 
+/**
+ * 
+ * @param {*} event event
+ * @description Función que detecta el uso de un MLINK del bot. 
+ * Función que verificar si el short link viene de una ventana nueva
+ * o una conversación PRE-EXISTENTE
+ * 
+ */
 function handleReferrals(event) {
-    // Handle Referrals lo que hace  es verificar si el short link viene de una ventana nueva
-    // o una conversación PRE-EXISTENTE.
-
     var senderId = event.sender.id;
     var referral;
-
-    console.log('0.1');
-
-
-
-    console.log('0.2');
     if (undefined !== event.postback) {
-        console.log('0.3');
-        // Obtenemos la referencia por "Start Button" o sea una conversación nueva.
+        
         referral = event.postback.referral.ref;
+        console.log('event.postback.referral.ref '+ referral )
         chooseReferral(referral, senderId);
     } else {
         // Msgr tiene un error, cuando detecta que ya es una conversacion abierta
@@ -1846,7 +1932,7 @@ function handleReferrals(event) {
         // se almacena el id en mongodb hasta la 3ra vuelta se envia la informacion 
         // no se si esto es problema de msgr como tal o heroku (quiero pensar que es de msgr)        
         referral = event.referral.ref;
-
+        console.log('event.referral.ref '+ referral )
         var FBSessions = require('../schemas/boletos');
         // Buscamos el id del usuario
         FBSessions.find({
@@ -1883,6 +1969,13 @@ function handleReferrals(event) {
 
 }
 
+/**
+ * 
+ * @param {*} referral event
+ * @param {*} senderId FaceBook User Id
+ * @description Función que  procesa el uso de un MLINK
+ * 
+ */
 function chooseReferral(referral, senderId) {
 
     // Esta funcion nos permite agregar mas tipos de referrals links, unicamente agregando en case 
@@ -2027,14 +2120,6 @@ function chooseReferral(referral, senderId) {
             case "MAGICON":
                 {
 
-                    console.log('0.5');
-                    console.log('Sender ID:' + senderId);
-
-
-                    console.log('El sender id es:' + senderId);
-                    console.log('Estamos dentro de Start');
-
-                    // llamamos al módulo de boletos y los enviamos.
                     var Magic = require('../modules/boletos');
                     Magic.start(senderId);
 
@@ -2070,76 +2155,174 @@ function chooseReferral(referral, senderId) {
 }
 
 
-
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @description Función startPepperQUiz
+ * 
+ */
 function startPepperQUiz(senderId) {
     var QuizModule = require('../modules/quiz/quiz')
     QuizModule.start(senderId);
 
 }
 
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 var starShakiraPromo = (senderId, referral) => {
     var promoModule = require('../modules/promo/shakira')
     promoModule.startShakira(senderId);
 }
 
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 var startSuperBowl = (senderId, referral) => {
     var superBowlModule = require('../modules/tevo/super_bowl/super_bowl')
     superBowlModule.startSuperBowl(senderId, referral)
 }
 
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 var startVegasShow = (senderId, referral) => {
     var vegasShowModule = require('../modules/tevo/vegas_show/vegas_show')
     vegasShowModule.startVegasShow(senderId, referral)
 }
 
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 var startHappyNewYear = (senderId, referral, con = true) => {
     var happyNewYearModule = require('../modules/tevo/happy_new_year/happy_new_year')
     happyNewYearModule.startHappyNewYear(senderId, referral, con)
 }
 
-
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 var startNYMassive = (senderId, referral) => {
     var NYMassiveModule = require('../modules/tevo/happy_new_year/new_year_massive')
     NYMassiveModule.startNYMassive(senderId, referral)
 }
 
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 var startSanValentin = (senderId, referral) => {
     var sanValentinModule = require('../modules/tevo/san_valentin/san_valentin')
     sanValentinModule.startSanValentin(senderId, referral)
 }
 
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 var startSuperBowlCheer = (senderId, referral) => {
     var superBowlCheerModule = require('../modules/tevo/super_bowl/super_bowl_cheer.js')
     superBowlCheerModule.startSuperBowl(senderId, referral)
 }
+
 // Created Feb 9
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 var startMardiGrasFrame = (senderId, referral) => {
     var mardiGrasFrameModule = require('../modules/tevo/mardigras/mardigras_frame.js')
     mardiGrasFrameModule.startMardiGrasFrame(senderId, referral)
 }
 
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 var startValentineFrameCheer = (senderId, referral) => {
     var valentineFrameCheerModule = require('../modules/tevo/san_valentin/valentine_frame_cheer.js')
     valentineFrameCheerModule.startValentineFrame(senderId, referral)
 }
 
-
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 var startChristmasSongs = (senderId, referral) => {
     var chirstmasSongsModule = require('../modules/tevo/chirstmas/christmas_songs')
     chirstmasSongsModule.startChirstmasSongs(senderId);
 }
+
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 var startChristmas = (senderId, referral) => {
     var chirstmasModule = require('../modules/tevo/chirstmas/christmas')
     chirstmasModule.startChirstmas(senderId);
 }
 
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
 function starSixEvent(senderId, referral) {
     var SixtEventModule = require('../modules/tevo/six_event/six_event')
     SixtEventModule.start(senderId);
 }
 
 
-
+/**
+ * 
+ * @param {*} event_name nombre del evento
+ * @param {*} senderId  FaceBook Id
+ * @param {*} mlink  
+ * @param {*} cool  
+ * @param {*} messageTitle  Titulo que llevarán las tarjetas
+ * @description Función que inicia la busqueda de tarjetas por nombre de evento.
+ * 
+ */
 function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, messageTitle = "") {
     console.log("event_name " + event_name);
     var userPreferences = {
@@ -2169,7 +2352,14 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, mes
 
 }
 
-
+/**
+ * 
+ * @param {*} sender nombre del evento
+ * @param {*} lat Latitud
+ * @param {*} lat Longitud
+ * @description Función que inicia la busqueda de tarjetas por coordenadas
+ * 
+ */
 function startTevoModuleByLocation(sender, lat, lon) {
     let page = 1
     let per_page = 9
