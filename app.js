@@ -57,6 +57,7 @@ passport.deserializeUser(function(obj, done) {
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, expires_in 
 //   and spotify profile), and invoke a callback with a user object.
+console.log('spotify.SPOTIFY_CLIENT_ID ' + spotify.SPOTIFY_CLIENT_ID)
 passport.use(new SpotifyStrategy({
   clientID: spotify.SPOTIFY_CLIENT_ID,
   clientSecret: spotify.SPOTIFY_CLIENT_SECRET,
