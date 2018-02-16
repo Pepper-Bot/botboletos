@@ -335,16 +335,16 @@ function exposeTemplates(req, res, next) {
 
 
 
-app.get('/spotify', function(req, res){
+app.get('/spotify/', function(req, res){
   res.render('./layouts/spotify/index', { user: req.user });
 });
 
 
-app.get('spotify/account', ensureAuthenticated, function(req, res){
+app.get('/spotify/account/', ensureAuthenticated, function(req, res){
   res.render('./layouts/spotify/account', { user: req.user });
 });
 
-app.get('spotify/login', function(req, res){
+app.get('/spotify/login/', function(req, res){
   res.render('./layouts/spotify/login', { user: req.user });
 });
 
@@ -353,7 +353,7 @@ app.get('spotify/login', function(req, res){
 //   request. The first step in spotify authentication will involve redirecting
 //   the user to spotify.com. After authorization, spotify will redirect the user
 //   back to this application at /auth/spotify/callback
-app.get('/auth/spotify',
+app.get('/auth/spotify/',
   passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
   function(req, res){
 // The request will be redirected to spotify for authentication, so this
@@ -365,7 +365,7 @@ app.get('/auth/spotify',
 //   request. If authentication fails, the user will be redirected back to the
 //   login page. Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
-app.get('/auth/spotify/callback',
+app.get('/auth/spotify/callback/',
   passport.authenticate('spotify', { failureRedirect: 'spotify/login' }),
   function(req, res) {
     console.log('/auth/spotify/callback' )
@@ -373,7 +373,7 @@ app.get('/auth/spotify/callback',
   });
 
 
-app.get('spotify/logout', function(req, res){
+app.get('/spotify/logout/', function(req, res){
   req.logout();
   res.redirect('./layouts/spotify/index');
 });
