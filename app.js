@@ -368,7 +368,8 @@ app.get('/auth/spotify',
 app.get('/auth/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: 'spotify/login' }),
   function(req, res) {
-    res.redirect('./layouts/spotify/index');
+    console.log('/auth/spotify/callback' )
+   // res.redirect('./layouts/spotify/index');
   });
 
 
