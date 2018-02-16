@@ -7,7 +7,10 @@ var google = {
   
 }
 
-
+var spotify ={
+  SPOTIFY_CLIEND_ID =  process.env.SPOTIFY_CLIENT_ID ,
+  SPOTIFY_CLIEND_SECRET  =  process.env.SPOTIFY_CLIENT_SECRET
+}
 
 var API_AI_CLIENT_ACCESS_TOKEN = process.env.API_AI_CLIENT_ACCESS_TOKEN
 
@@ -110,7 +113,7 @@ module.exports = {
   API_AI_CLIENT_ACCESS_TOKEN,
   FB_APP_PUBLIC_ID,
   FB_APP_SECRET_ID,
-  google
-
+  google,
+  spotify
 
 };

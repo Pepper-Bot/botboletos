@@ -38,10 +38,12 @@
     "nodemailer": "^4.2.0",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
+    "passport-spotify": "^1.0.0",
     "paypal-rest-sdk": "^1.7.1",
     "redis": "^2.8.0",
     "request": "^2.81.0",
     "serve-favicon": "~2.4.2",
+    "spotify-web-api-node": "^2.5.0",
     "ticketevolution-node": "^1.1.0",
     "zomato": "^1.1.0"
   },
