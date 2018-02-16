@@ -269,8 +269,8 @@ app.get('/UserHasLoggedIn/', fbgraphModule.UserHasLoggedIn);
 app.get('/zuck/', fbgraphModule.zuck);
 
 app.get('/spotify/', function(req, res){
-  //res.render('./layouts/spotify/index', { user: req.user });
-  res.send('Spotify');
+  res.render('./layouts/spotify/index', { user: req.user });
+  //res.send('Spotify');
 });
 
 
