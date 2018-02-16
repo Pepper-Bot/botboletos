@@ -30,10 +30,15 @@ const tevoClient = new TevoClient({
 
 
 
-
+/**
+ * @param {*} city_id  city_id  id of the city for which collections are needed 
+ * @param {*} establishment Tipo de establecimiento en API.AI venue_type
+ * @param {*} lat Latitud
+ * @param {*} lon Longitud
+ * @description Función obtener el id de establishment
+ */
 var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
   let qs = {}
-
 
   if (lat != 0 && lon != 0) {
     qs = {
@@ -51,29 +56,6 @@ var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
       //lon: "77.209021" //longitude 
     }
   }
-
-
-  /*return new Promise((resolve, reject) => {
-    zomatoClient.getEstablishments(qs, function (err, result) {
-      if (!err) {
-        let establishmentsResponse = JSON.parse(result);
-        let establishments = establishmentsResponse.establishments
-        console.log('establishments ' + JSON.stringify(establishments))
-        //var allBakeries = query('establishment.name').is(establishment).on(establishments);
-        let establecimiento = query('establishment.name').startsWith(establishment).or('establishment.name').endsWith(establishment).on(establishments);
-
-        console.log('establecimiento > ' + JSON.stringify(establecimiento))
-
-
-        resolve(establecimiento)
-      } else {
-        console.log(err);
-        reject(err)
-      }
-    });
-  });*/
-
-
   return new Promise((resolve, reject) => {
     zomatoClient.getEstablishments(qs, function (err, result) {
       if (!err) {
@@ -154,6 +136,13 @@ var getEstablishments = (city_id, establishment = '', lat = 0, lon = 0) => {
 
 
 
+/**
+ * @param {*} city_id  city_id que debe ser obtenido de Zomato
+ * @param {*} lat Latitud
+ * @param {*} lon Longitud
+ * @param {*} cuisine  cuisine buscada
+ * Función obtener el id de una cuisine
+ */
 var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
   let qs = {}
 
@@ -245,7 +234,10 @@ var getCuisines = (city_id = 0, lat = 0, lon = 0, cuisine = '') => {
   });
 }
 
-
+/**
+ * @param {*} city_name city_name de la busqueda
+ * @description Función obtener el id de una ciudad
+ */
 var getCities = (city_name) => {
   var qs = {
     q: city_name, //query by city name 
@@ -268,6 +260,11 @@ var getCities = (city_name) => {
 
 }
 
+
+/**
+ * @param {*} city_name city_name de la busqueda
+ * @description Función obtener un qs de busqueda de zomato por nombre de ciudad.
+ */
 var getCityQs = (city_name) => {
   return new Promise((resolve, reject) => {
     getCities(city_name).then((cityResponse) => {
@@ -284,6 +281,14 @@ var getCityQs = (city_name) => {
   })
 }
 
+
+/**
+ * @param {*} city_id city_id
+ * @param {*} priority priority
+ * @param {*} start start
+ * @param {*} count count
+ * @description Función obtener un qs de busqueda de zomato por city_id.
+ */
 var searchByCity = (city_id, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     let qs = {
@@ -300,7 +305,11 @@ var searchByCity = (city_id, priority = 1, start = 1, count = 9) => {
 }
 
 
-
+/**
+ * @param {*} city_name city_name
+ * @param {*} venue_type venue_type
+ * @description Función obtener un qs de busqueda de zomato por nombre de ciudad y venue_type
+ */
 var getCityEstablishmentQs = (city_name, venue_type) => {
   return new Promise((resolve, reject) => {
     getCities(city_name).then((cityResponse) => {
@@ -322,8 +331,14 @@ var getCityEstablishmentQs = (city_name, venue_type) => {
 
 
 
-
-
+/**
+ * @param {*} city_id city_id
+ * @param {*} venue_type venue_type  tipo de establecimiento Pubs, Bars etc...
+ * @param {*} priority priority
+ * @param {*} start start desde donde empieza la selección
+ * @param {*} count count cantidad de resultados
+ * @description Función obtener un qs de busqueda de zomato por id de ciudad y  venue_type
+ */
 var searchByCityEstablishment = (city_id, venue_type, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getEstablishments(city_id, venue_type).then((establishmentRes) => {
@@ -342,6 +357,16 @@ var searchByCityEstablishment = (city_id, venue_type, priority = 1, start = 1, c
   })
 }
 
+
+/**
+ * @param {*} city_id city_id
+ * @param {*} venue_type venue_type  tipo de establecimiento Pubs, Bars etc...
+ * @param {*} cuisine cuisine  chinese, mexican, etc...
+ * @param {*} priority priority
+ * @param {*} start start desde donde empieza la selección
+ * @param {*} count  count cantidad de resultados
+ * @description Función obtener un qs de busqueda de zomato por id de ciudad, cuisine y  venue_type
+ */
 var searchByCityCuisineEstablishment = (city_id, venue_type, cuisine, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getEstablishments(city_id, venue_type).then((establishmentRes) => {
@@ -366,6 +391,18 @@ var searchByCityCuisineEstablishment = (city_id, venue_type, cuisine, priority =
   })
 }
 
+
+/**
+ * 
+ * @param {*} city_id city_id
+ * @param {*} venue_type venue_type  tipo de establecimiento Pubs, Bars etc...
+ * @param {*} venue_title nombre  del establecimiento
+ * @param {*} priority  priority
+ * @param {*} start start desde donde empieza la selección
+ * @param {*} count  count cantidad de resultados
+ * @description Función obtener un qs de busqueda de zomato por id de ciudad, venue_type y  venue_title
+ * 
+ */
 var searchByCityVenueTitleEstablishment = (city_id, venue_type, venue_title, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getEstablishments(city_id, venue_type).then((establishmentRes) => {
@@ -387,6 +424,15 @@ var searchByCityVenueTitleEstablishment = (city_id, venue_type, venue_title, pri
 }
 
 
+/**
+ * @param {*} city_id city_id
+ * @param {*} venue_title nombre  del establecimiento
+ * @param {*} cuisine cuisine  chinese, mexican, etc...
+ * @param {*} priority  priority
+ * @param {*} start start desde donde empieza la selección
+ * @param {*} count  count cantidad de resultados
+ * @description Función obtener un qs de busqueda de zomato por id de ciudad, venue_title y  cuisine
+ */
 var searchByCityVenueTitleCusine = (city_id, venue_title, cuisine, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
@@ -407,6 +453,16 @@ var searchByCityVenueTitleCusine = (city_id, venue_title, cuisine, priority = 1,
   })
 }
 
+/**
+ * @param {*} lat 
+ * @param {*} lon
+ * @param {*} venue_title 
+ * @param {*} cuisine 
+ * @param {*} priority 
+ * @param {*} start start desde donde empieza la selección
+ * @param {*} count  count cantidad de resultados
+ * Función obtener un qs de busqueda de zomato por lat, lon, venue_title y cuisine
+ */
 var searchByVenueTitleCusineAndCoordinates = (lat, lon, venue_title, cuisine, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getCuisines(0, lat, lon, cuisine).then((cousineRes) => {
@@ -427,7 +483,16 @@ var searchByVenueTitleCusineAndCoordinates = (lat, lon, venue_title, cuisine, pr
   })
 }
 
-
+/**
+ * @param {*} lat Latitud
+ * @param {*} lon Longitud
+ * @param {*} venue_type ike pub, bar, restaurant, etc
+ * @param {*} cuisine like chinese, mexican
+ * @param {*} priority priority
+ * @param {*} start  where begin selection
+ * @param {*} count  number of records
+ * @description Function to get a Zomato search qs by lat, lon and venue_type
+ */
 var searchByEstablismentAndCoordinates = (lat, lon, venue_type, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getEstablishments(0, venue_type, lat, lon).then((establishmentRes) => {
@@ -447,6 +512,16 @@ var searchByEstablismentAndCoordinates = (lat, lon, venue_type, priority = 1, st
   })
 }
 
+/**
+ * @param {*} lat Latitud
+ * @param {*} lon Longitud 
+ * @param {*} cuisine like chinese, mexican
+ * @param {*} venue_type like pub, bar, restaurant, etc
+ * @param {*} priority priority
+ * @param {*} start where begin selection
+ * @param {*} count number of records
+ * @description Function to get a Zomato search qs by lat, lon,  cuisine and venue_type
+ */
 var searchByCuisineEstablishmentAndCoordinates = (lat, lon, cuisine, venue_type, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getEstablishments(0, lat, lon, venue_type).then((establishmentRes) => {
@@ -471,6 +546,17 @@ var searchByCuisineEstablishmentAndCoordinates = (lat, lon, cuisine, venue_type,
 }
 
 
+/**
+ * 
+ * @param {*} lat Latitud
+ * @param {*} lon Longitud 
+ * @param {*} venue_type like pub, bar, restaurant, etc
+ * @param {*} venue_title establishment name
+ * @param {*} priority priority
+ * @param {*} start where begin selection
+ * @param {*} count number of records
+ * @description Function to get a Zomato search qs by lat, lon, venue_type and venue_title
+ */
 var searchByVenueTitleEstablishmentAndCoordinates = (lat, lon, venue_type, venue_title, priority, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getEstablishments(0, venue_type, lat, lon).then((establishmentRes) => {
@@ -493,7 +579,12 @@ var searchByVenueTitleEstablishmentAndCoordinates = (lat, lon, venue_type, venue
 
 
 
-
+/**
+ * 
+ * @param {*} city_name city's name
+ * @param {*} cuisine cuisine 
+ * @description Function to get a Zomato search qs by city's name and cuisine
+ */
 var getCityCuisineQs = (city_name, cuisine) => {
   return new Promise((resolve, reject) => {
     getCities(city_name).then((cityResponse) => {
@@ -528,7 +619,15 @@ var getCityCuisineQs = (city_name, cuisine) => {
   })
 }
 
-
+/**
+ * 
+ * @param {*} city_id city's name
+ * @param {*} cuisine cuisine 
+ * @param {*} priority priority
+ * @param {*} start where begin selection
+ * @param {*} count number of records
+ * @description Function to get a Zomato search qs by cuisine
+ */
 var searchByCityCuisine = (city_id, cuisine, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getCuisines(city_id, 0, 0, cuisine).then((cousineRes) => {
@@ -563,7 +662,16 @@ var searchByCityCuisine = (city_id, cuisine, priority = 1, start = 1, count = 9)
 }
 
 
-
+/**
+ * 
+ * @param {*} cuisine cuisine
+ * @param {*} lat Latitud 
+ * @param {*} lon Longitud 
+ * @param {*} priority priority
+ * @param {*} start where begin selection
+ * @param {*} count number of records
+ * @description Function to get a Zomato search qs by cuisine, latitud y longitud
+ */
 var searchByCuisineAndCoordinates = (cuisine, lat = 0, lon = 0, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     getCuisines(0, lat, lon, cuisine).then((cousineRes) => {
@@ -601,7 +709,12 @@ var searchByCuisineAndCoordinates = (cuisine, lat = 0, lon = 0, priority = 1, st
 }
 
 
-
+/**
+ * 
+ * @param {*} city_name city's name
+ * @param {*} venue_title estabishment's name 
+ * @description Function to get a Zomato search qs by city_name and venue_title
+ */
 var getCityVenueTitleQs = (city_name, venue_title) => {
   return new Promise((resolve, reject) => {
     getCities(city_name).then((cityResponse) => {
@@ -618,6 +731,16 @@ var getCityVenueTitleQs = (city_name, venue_title) => {
   })
 }
 
+
+/**
+ * 
+ * @param {*} city_id cuisine
+ * @param {*} venue_title venue_title 
+ * @param {*} priority priority
+ * @param {*} start where begin selection
+ * @param {*} count number of records
+ * @description Function to get a Zomato search qs by city, and venue_title
+ */
 var searchByCityVenueTitle = (city_id, venue_title, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     let qs = {
@@ -636,7 +759,16 @@ var searchByCityVenueTitle = (city_id, venue_title, priority = 1, start = 1, cou
 
 
 
-
+/**
+ * 
+ * @param {*} venue_title venue_title 
+ * @param {*} lat Latitud  
+ * @param {*} lon Longitud  
+ * @param {*} priority priority
+ * @param {*} start where begin selection
+ * @param {*} count number of records
+ * @description Function to get a Zomato search qs by  and venue_title and coordinates
+ */
 var searchByVenueTitleAndCoordinates = (venue_title, lat, lon, priority, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     let qs = {
@@ -653,6 +785,16 @@ var searchByVenueTitleAndCoordinates = (venue_title, lat, lon, priority, start =
   })
 }
 
+
+/**
+ * 
+ * @param {*} lat Latitud  
+ * @param {*} lon Longitud  
+ * @param {*} priority priority
+ * @param {*} start where begin selection
+ * @param {*} count number of records
+ * @description Function to get a Zomato search qs by coordinates
+ */
 var searchByCoordinates = (lat, lon, priority = 1, start = 1, count = 9) => {
   return new Promise((resolve, reject) => {
     let qs = {
@@ -673,6 +815,11 @@ var searchByCoordinates = (lat, lon, priority = 1, start = 1, count = 9) => {
 
 
 
+/**
+ * 
+ * @param {*} q city's name
+ * @description Function to get Zomato Categories by city name
+ */
 var getCategories = (q) => {
   var qs = {
     q: q, //query by city name 
@@ -693,7 +840,11 @@ var getCategories = (q) => {
 }
 
 
-
+/**
+ * 
+ * @param {*} qs  JavaScript Objet to get Zomato Search Records
+ * @description Function to get get Zomato Search Records
+ */
 var search = (qs) => {
   /*qs = {
       entity_id: "36932", //location id 
@@ -725,6 +876,12 @@ var search = (qs) => {
   });
 }
 
+
+/**
+ * 
+ * @param {*} qs  JavaScript Objet to get Zomato Search Records
+ * @description Function to get true or false if Zomato qs has records
+ */
 var hasVenues = (qs) => {
   return new Promise((resolve, reject) => {
     search(qs).then((json) => {
@@ -739,7 +896,11 @@ var hasVenues = (qs) => {
   })
 }
 
-
+/**
+ * 
+ * @param {*} arrayQs  qs Array []
+ * @description Function to get Zomato qs seleted
+ */
 var selectQsByPriority = (arrayQs) => {
 
   let arrayQueryMessages = arraySort(arrayQs, ['priority'], {
@@ -786,6 +947,13 @@ var selectQsByPriority = (arrayQs) => {
 
 }
 
+
+/**
+ * 
+ * @param {*} senderId  FaceBook User Id
+ * @param {*} qs  Zomato's qs
+ * @description Function to render FaceBook Generic Template
+ */
 var starRenderFBTemplate = (senderId, qs) => {
   preparateRenderFBTemplate(senderId, qs).then((eventResults) => {
     sendTemplatesFromArray(senderId, eventResults).then((eventResults) => {
@@ -809,6 +977,13 @@ var starRenderFBTemplate = (senderId, qs) => {
   })
 }
 
+/**
+ * 
+ * @param {*} senderId  FaceBook User Id
+ * @param {*} qs  Zomato's qs
+ * @returns {*} Array eventResults
+ * @description Function to preparate FaceBook Generic Template
+ */
 var preparateRenderFBTemplate = function (senderId, qs) {
   console.log('qs>>' + JSON.stringify(qs))
   return new Promise((resolve, reject) => {
@@ -874,6 +1049,13 @@ var preparateRenderFBTemplate = function (senderId, qs) {
   })
 }
 
+/**
+ * 
+ * @param {*} senderId  FaceBook User Id
+ * @param {*} eventResults  Zomato's qs
+ * @returns {*} Array eventResults
+ * @description Function to set image to final item in FB Generic Template
+ */
 var sendTemplatesFromArray = (senderId, eventResults) => {
   return new Promise((resolve, reject) => {
     if (eventResults.length == 9) {
@@ -902,7 +1084,13 @@ var sendTemplatesFromArray = (senderId, eventResults) => {
 
 
 
-
+/**
+ * 
+ * @param {*} search  search param
+ * @param {*} matriz  Array to set Images
+ * @returns {*} results
+ * @description Function to search google images
+ */
 var getGoogleImage = (search, matriz = []) => {
   return new Promise((resolve, reject) => {
 
@@ -930,6 +1118,12 @@ var getGoogleImage = (search, matriz = []) => {
   });
 }
 
+/**
+ * 
+ * @param {*} sender  Facebook user ID
+ * @param {*} contexts  Dialog Flow API.AI  contexts
+ * @description Function to make contexts params and begin Zomato Search
+ */
 var zomatoStartAI = (sender, contexts) => {
   Message.typingOn(sender);
   console.log('contexto ' + JSON.stringify(contexts[0]))
@@ -1040,107 +1234,20 @@ var zomatoStartAI = (sender, contexts) => {
   }
 
 
-
-  /*
-  if (venue_title == '' && venue_type == '' && cuisine == '') {
-    defaultTevoSearch(sender).then((cantidad) => {
-      if (cantidad == 0) {
-        zomatoStartLater(sender, city, cuisine, venue_type, venue_title)
-      }
-    })
-  }
-
-
-
-  if (venue_title == '' && venue_type == '' && cuisine != '') {
-    evaluateIfUserSaysIsInTevo(sender, cousine).then((continuar) => {
-      if (continuar == true) {
-        zomatoStartLater(sender, city, cuisine, venue_type, venue_title)
-      }
-    })
-  }
-
-
-  if (venue_title == '' && venue_type != '' && cuisine == '') {
-    evaluateIfUserSaysIsInTevo(sender, venue_type).then((continuar) => {
-      if (continuar == true) {
-        zomatoStartLater(sender, city, cuisine, venue_type, venue_title)
-      }
-    })
-  }
-
-
-  if (venue_title == '' && venue_type != '' && cuisine != '') {
-    evaluateIfUserSaysIsInTevo(sender, venue_type).then((continuar) => {
-      if (continuar == true) {
-        evaluateIfUserSaysIsInTevo(sender, cuisine).then((continuar) => {
-          if (continuar == true) {
-            zomatoStartLater(sender, city, cuisine, venue_type, venue_title)
-          }
-        })
-      }
-    })
-  }
-
-
-  if (venue_title != '' && venue_type == '' && cuisine == '') {
-    evaluateIfUserSaysIsInTevo(sender, venue_title).then((continuar) => {
-      if (continuar == true) {
-        zomatoStartLater(sender, city, cuisine, venue_type, venue_title)
-      }
-    })
-  }
-
-
-  if (venue_title != '' && venue_type == '' && cuisine != '') {
-    evaluateIfUserSaysIsInTevo(sender, venue_title).then((continuar) => {
-      if (continuar == true) {
-        evaluateIfUserSaysIsInTevo(sender, cuisine).then((continuar) => {
-          if (continuar == true) {
-            zomatoStartLater(sender, city, cuisine, venue_type, venue_title)
-          }
-        })
-      }
-    })
-  }
-
-
-  if (venue_title != '' && venue_type != '' && cuisine == '') {
-    evaluateIfUserSaysIsInTevo(sender, venue_title).then((continuar) => {
-      if (continuar == true) {
-        evaluateIfUserSaysIsInTevo(sender, venue_type).then((continuar) => {
-          if (continuar == true) {
-            zomatoStartLater(sender, city, cuisine, venue_type, venue_title)
-          }
-        })
-      }
-    })
-  }
-
-  if (venue_title != '' && venue_type != '' && cuisine != '') {
-    evaluateIfUserSaysIsInTevo(sender, venue_title).then((continuar) => {
-      if (continuar == true) {
-        evaluateIfUserSaysIsInTevo(sender, venue_type).then((continuar) => {
-          if (continuar == true) {
-            zomatoStartLater(sender, city, cuisine, venue_type, venue_title)
-          }
-        })
-      }
-    })
-  }
-
-*/
-
-
-
-
   zomatoStartLater(sender, city, cuisine, venue_type, venue_title)
 
 }
 
-
+/**
+ * 
+ * @param {*} sender  Facebook user ID
+ * @param {*} city  city obtain from  Dialog Flow API.AI  contexts
+ * @param {*} cuisine  cuisine obtain from  Dialog Flow API.AI  contexts
+ * @param {*} venue_type  venue_type obtain from  Dialog Flow API.AI  contexts
+ * @param {*} venue_title  venue_title obtain from  Dialog Flow API.AI  contexts
+ * @description Function to start Zomato Search in Facebook Generic Template
+ */
 var zomatoStartLater = (sender, city = '', cuisine = '', venue_type = '', venue_title = '') => {
-
   let qs = {}
   let zomatoQs = []
   if (city != '') {
@@ -1285,7 +1392,13 @@ var zomatoStartLater = (sender, city = '', cuisine = '', venue_type = '', venue_
 }
 
 
-
+/**
+ * 
+ * @param {*} sender  Facebook user ID
+ * @param {*} event_title  event's name
+ * @returns {*}  returns true if get results
+ * @description Function to start Ticket Evolution  Search and generate  Facebook Generic Template by event´s name
+ */
 var evaluateIfUserSaysIsInTevo = (sender, event_title) => {
   return new Promise((resolve, reject) => {
     startTevoByName(sender, event_title).then((cantidad1) => {
@@ -1318,6 +1431,13 @@ var evaluateIfUserSaysIsInTevo = (sender, event_title) => {
   })
 }
 
+/**
+ * 
+ * @param {*} sender  Facebook user ID
+ * @param {*} event_title  event's name
+ * @returns {*}  returns numbers of records obtained
+ * @description Function to start Ticket Evolution  Search and generate  Facebook Generic Template by event´s name
+ */
 var startTevoByName = (senderId, event_title) => {
   return new Promise((resolve, reject) => {
     if (event_title != '') {
@@ -1372,7 +1492,12 @@ var startTevoByName = (senderId, event_title) => {
 }
 
 
-
+/**
+ * 
+ * @param {*} senderId  Facebook user ID
+ * @param {*} event_name  event's name
+ * @description Function to send when no get Ticket Evololutions records
+ */
 function find_my_event(senderId, hi = 0, event_name = '') {
   UserData.getInfo(senderId, function (err, result) {
     if (!err) {
@@ -1429,7 +1554,12 @@ function find_my_event(senderId, hi = 0, event_name = '') {
 };
 
 
-
+/**
+ * 
+ * @param {*} sender  Facebook user ID
+ * @returns {*}  returns numbers of records obtained
+ * @description Function to start Ticket Evolution search by last user says
+ */
 var defaultTevoSearch = (sender) => {
   return new Promise((resolve, reject) => {
     var page = 1;

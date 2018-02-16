@@ -32,6 +32,17 @@ const tevoClient = new TevoClient({
 
 const sessionIds = new Map();
 
+/**
+ * 
+ * @param {FaceBook Id} sender 
+ * @param {Respuesta de DialogFlow API.AI} response 
+ * @param {Action definida en Dialog Flow API.AI} action 
+ * @param {Respuesta Final del Intent de Dialog Flow API.AI} responseText 
+ * @param {Contextos Definidos en el Intent de Dialog Flow API.AI} contexts 
+ * @param {Parametros Definidos en el Intent de Dialog Flow API.AI} parameters 
+ * 
+ * Función para manejar las respuestas en JSON obtenidas de Dialog Flow API.AI
+ */
 var handleApiAiAction = (sender, response, action, responseText, contexts, parameters) => {
     console.log('>> handleApiAiAction ' + action);
     switch (action) {
@@ -720,13 +731,22 @@ var handleApiAiAction = (sender, response, action, responseText, contexts, param
 }
 
 
-
+/**
+ * 
+ * @param {FaceBook Id} sender 
+ * @param {Respuesta de DialogFlow API.AI} response 
+ * @param {Action definida en Dialog Flow API.AI} action 
+ * @param {Respuesta Final del Intent de Dialog Flow API.AI} responseText 
+ * @param {Contextos Definidos en el Intent de Dialog Flow API.AI} contexts 
+ * @param {Parametros Definidos en el Intent de Dialog Flow API.AI} parameters 
+ * 
+ * Función donde se procesan las acciones, contextos y parametros con los que se arma 
+ * una query que es enviadoa a Ticket Evolution y que termina en elaboración de un Generic Template de Facebook
+ * 
+ */
 var eventsSearch = (sender, response, action, responseText, contexts, parameters) => {
-
     //console.log("handleApiAiResponse >>> " + JSON.stringify(response));
     //console.log("handleApiAiResponse contexts>>> " + JSON.stringify(contexts));
-
-
     let city = ''
     let country = ''
     let artist = ''
@@ -1089,6 +1109,19 @@ var eventsSearch = (sender, response, action, responseText, contexts, parameters
 
 }
 
+/**
+ * 
+ * @param {FaceBook Id} sender 
+ * @param {Respuesta de DialogFlow API.AI} response 
+ * @param {Action definida en Dialog Flow API.AI} action 
+ * @param {Respuesta Final del Intent de Dialog Flow API.AI} responseText 
+ * @param {Contextos Definidos en el Intent de Dialog Flow API.AI} contexts 
+ * @param {Parametros Definidos en el Intent de Dialog Flow API.AI} parameters 
+ * 
+ * Función donde se procesan las acciones, contextos y parametros de la Acción events.search.implicit con los que se arma 
+ * una query que es enviadoa a Ticket Evolution y que termina en elaboración de un Generic Template de Facebook
+ * 
+ */
 var eventsSearchImplicit = (sender, response, action, responseText, contexts, parameters) => {
     console.log('dentro de events.search.implicit')
     let lat = ''
@@ -1293,6 +1326,18 @@ function isDefined(obj) {
 }
 
 
+
+/**
+ * 
+ * @param {FaceBook Id} senderId 
+ * @param {Respuesta de DialogFlow API.AI} hi 
+ * @param {Action definida en Dialog Flow API.AI} action 
+ * @param {Respuesta Final del Intent de Dialog Flow API.AI} event_name 
+ * 
+ * Función que se lanza cuando no se encuentran eventos y se le muestra al usuario con 
+ * quick replays las opciones de busqueda de eventos que posee Pepper Bot
+ * 
+ */
 function find_my_event(senderId, hi = 0, event_name = '') {
     user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {
         let name = foundUser.firstName
@@ -1310,6 +1355,18 @@ function find_my_event(senderId, hi = 0, event_name = '') {
 }
 
 
+
+ 
+/**
+ * 
+ * @param {FaceBook Id} sender 
+ * @param {Objeto con  las siguientes propiedades: searchBy, queryReplace, queryPage, queryPerPage y messageTitle } query 
+ * @param {Objeto con las preferencias de usuario event_title, city, artist, team, event_type, y music_genre   } userPreferences 
+ * 
+ * Función  que se lanza cuando no se encuentran eventos y se le muestra al usuario con 
+ * quick replays las opciones de busqueda de eventos que posee Pepper Bot
+ * 
+ */
 var tevoByQuery = (sender, query = {}, userPreferences = {}) => {
     return new Promise((resolve, reject) => {
         tevoClient.getJSON(query.query).then((json) => {
@@ -1336,6 +1393,12 @@ var tevoByQuery = (sender, query = {}, userPreferences = {}) => {
     })
 }
 
+/**
+ * 
+ * @param {FaceBook Id} sender 
+ * Función  para realizar una busqueda por lo ultimo que le escribió el usuario al bot 
+ * 
+ */
 var defaultTevoSearchByUserSaid = (sender) => {
     return new Promise((resolve, reject) => {
         var page = 1;
@@ -1415,8 +1478,12 @@ var defaultTevoSearchByUserSaid = (sender) => {
 }
 
 
-
-
+/**
+ * 
+ * @param {Matriz que se recibe las posibles consultas que pueden generar resultado } arrayQueryMessages 
+ * Función  para escoger  la consulta que por orden de prioridad debe ser ejecutada
+ * 
+ */
 var startTevoByQuery = (arrayQueryMessages) => {
     return new Promise((resolve, reject) => {
 
@@ -1446,7 +1513,13 @@ var startTevoByQuery = (arrayQueryMessages) => {
     })
 }
 
-
+/**
+ * 
+ * @param {Facebook Id } senderId 
+ * @param {ref del mlink} referral 
+ * Función para mostrar como se toma una foto para el superBowl
+ * 
+ */
 var startSuperBowlCheer = (senderId, referral) => {
     var superBowlCheerModule = require('../../modules/tevo/super_bowl/super_bowl_cheer.js')
     superBowlCheerModule.startSuperBowl(senderId, referral)
