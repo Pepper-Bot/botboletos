@@ -172,7 +172,6 @@ app.set('view engine', '.hbs');
 
 
 
-
 app.use(sassMiddleware({
   /* Options */
   src: __dirname,
@@ -225,6 +224,9 @@ if (app.get('env') === 'production') {
 
 app.use(session(sess))
 app.use(methodOverride());
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 //app.use(express.static(__dirname + '/public'));
