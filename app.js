@@ -303,6 +303,7 @@ app.get('/auth/spotify/',
 app.get('/auth/spotify/callback',
   passport.authenticate('spotify', { failureRedirect: '/spotify/login/' }),
   function(req, res) {
+      console.log('ejecutar redirect')
       res.redirect('./layouts/spotify/index');
       //res.send('Loguiado!!!')
   });
