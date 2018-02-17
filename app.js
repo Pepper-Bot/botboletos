@@ -270,6 +270,8 @@ app.get('/zuck/', fbgraphModule.zuck);
 
 app.get('/spotify/', function (req, res) {
   res.render('./layouts/spotify/index', {
+    titulo: "Spotify",
+    APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
     user: req.user
   });
 
@@ -279,6 +281,8 @@ app.get('/spotify/', function (req, res) {
 
 app.get('/spotify/account/', ensureAuthenticated, function (req, res) {
   res.render('./layouts/spotify/account', {
+    titulo: "Spotify Account",
+    APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
     user: req.user
   });
 });
