@@ -315,7 +315,7 @@ app.get('/auth/spotify/callback',
   }),
   function (req, res) {
      // res.redirect(APLICATION_URL_DOMAIN + 'spotify/');
-      res.redirect(APLICATION_URL_DOMAIN + 'spotify/');
+      res.redirect(APLICATION_URL_DOMAIN);
        //res.send('Loguiado!!!')
   });
 
