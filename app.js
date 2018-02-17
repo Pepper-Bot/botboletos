@@ -285,6 +285,8 @@ app.get('/spotify/account/', ensureAuthenticated, function (req, res) {
 
 app.get('/spotify/login/', function (req, res) {
   res.render('./layouts/spotify/login', {
+    titulo: "Spotify Login",
+    APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
     user: req.user
   });
 });
