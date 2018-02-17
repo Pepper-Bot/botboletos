@@ -317,7 +317,7 @@ app.get('/auth/spotify/',
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/spotify/callback',
   passport.authenticate('spotify', {
-    failureRedirect: '/spotify/login/'
+    failureRedirect: APLICATION_URL_DOMAIN  + 'spotify/login/'
   }),
   function (req, res) {
     res.redirect(APLICATION_URL_DOMAIN + 'spotify/');
