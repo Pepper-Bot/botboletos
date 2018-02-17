@@ -311,18 +311,18 @@ app.get('/auth/spotify/',
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/spotify/callback',
   passport.authenticate('spotify', {
-    failureRedirect: APLICATION_URL_DOMAIN +'spotify/login/'
+    failureRedirect: '/spotify/login/'
   }),
   function (req, res) {
-     // res.redirect(APLICATION_URL_DOMAIN + 'spotify/');
-      res.redirect(APLICATION_URL_DOMAIN);
+      res.redirect('/spotify/');
+     
        //res.send('Loguiado!!!')
   });
 
 
 app.get('/spotify/logout/', function (req, res) {
   req.logout();
-  res.redirect(APLICATION_URL_DOMAIN + 'spotify/');
+  res.redirect('/spotify/');
 });
 
 
@@ -336,7 +336,7 @@ function ensureAuthenticated(req, res, next) {
   if (req.isAuthenticated()) {
     return next();
   }
-  res.redirect(APLICATION_URL_DOMAIN + 'spotify/login');
+  res.redirect('/spotify/login');
 }
 
 
