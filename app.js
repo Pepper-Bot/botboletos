@@ -320,9 +320,9 @@ app.get('/auth/spotify/callback',
     failureRedirect: '/spotify/login/'
   }),
   function (req, res) {
-      res.redirect('/spotify/');
-     
-       //res.send('Loguiado!!!')
+    res.redirect(APLICATION_URL_DOMAIN + 'spotify/');
+
+    //res.send('Loguiado!!!')
   });
 
 
