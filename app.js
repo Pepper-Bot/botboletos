@@ -314,8 +314,7 @@ app.get('/auth/spotify/callback',
     failureRedirect: APLICATION_URL_DOMAIN +'spotify/login/'
   }),
   function (req, res) {
-    console.log('ejecutar redirect')
-    res.redirect(APLICATION_URL_DOMAIN + 'spotify/');
+      res.redirect(APLICATION_URL_DOMAIN + 'spotify/');
     //res.send('Loguiado!!!')
   });
 
