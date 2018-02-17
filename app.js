@@ -26,9 +26,9 @@ var fbgraphModule = require('./routes/facebook_graph_module/fb_graph_module');
 var passport = require('passport')
 
 var SpotifyStrategy = require('./modules/spotify/passport-spotify/index').Strategy;
-var spotifyVar = require ('./config/config_vars').spotifyVar
+var spotifyVar = require('./config/config_vars').spotifyVar
 
- 
+
 
 var consolidate = require('consolidate');
 
@@ -45,11 +45,11 @@ var consolidate = require('consolidate');
 //   the user by ID when deserializing. However, since this example does not
 //   have a database of user records, the complete spotify profile is serialized
 //   and deserialized.
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(obj, done) {
+passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
@@ -58,14 +58,14 @@ passport.deserializeUser(function(obj, done) {
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an accessToken, refreshToken, expires_in 
 //   and spotify profile), and invoke a callback with a user object.
- 
+
 
 passport.use(new SpotifyStrategy({
-  clientID: spotifyVar.SPOTIFY_CLIENT_ID,
-  clientSecret: spotifyVar.SPOTIFY_CLIENT_SECRET,
-  callbackURL: APLICATION_URL_DOMAIN + 'auth/spotify/callback'
+    clientID: spotifyVar.SPOTIFY_CLIENT_ID,
+    clientSecret: spotifyVar.SPOTIFY_CLIENT_SECRET,
+    callbackURL: APLICATION_URL_DOMAIN + 'auth/spotify/callback'
   },
-  function(accessToken, refreshToken, expires_in, profile, done) {
+  function (accessToken, refreshToken, expires_in, profile, done) {
     // asynchronous verification, for effect...
     process.nextTick(function () {
       // To keep the example simple, the user's spotify profile is returned to
@@ -124,7 +124,7 @@ app.listen(3000, function () {
 });
 
 
- 
+
 /*
 app.use(function(req, res, next) {
 
@@ -268,19 +268,25 @@ app.get('/UserHasLoggedIn/', fbgraphModule.UserHasLoggedIn);
 
 app.get('/zuck/', fbgraphModule.zuck);
 
-app.get('/spotify/', function(req, res){
-  res.render('./layouts/spotify/index', { user: req.user });
-   
+app.get('/spotify/', function (req, res) {
+  res.render('./layouts/spotify/index', {
+    user: req.user
+  });
+
 });
 
 
 
-app.get('/spotify/account/', ensureAuthenticated, function(req, res){
-  res.render('./layouts/spotify/account', { user: req.user });
+app.get('/spotify/account/', ensureAuthenticated, function (req, res) {
+  res.render('./layouts/spotify/account', {
+    user: req.user
+  });
 });
 
-app.get('/spotify/login/', function(req, res){
-  res.render('./layouts/spotify/login', { user: req.user });
+app.get('/spotify/login/', function (req, res) {
+  res.render('./layouts/spotify/login', {
+    user: req.user
+  });
 });
 
 // GET /auth/spotify
@@ -289,11 +295,14 @@ app.get('/spotify/login/', function(req, res){
 //   the user to spotify.com. After authorization, spotify will redirect the user
 //   back to this application at /auth/spotify/callback
 app.get('/auth/spotify/',
-  passport.authenticate('spotify', {scope: ['user-read-email', 'user-read-private'], showDialog: true}),
-  function(req, res){
-// The request will be redirected to spotify for authentication, so this
-// function will not be called.
-});
+  passport.authenticate('spotify', {
+    scope: ['user-read-email', 'user-read-private'],
+    showDialog: true
+  }),
+  function (req, res) {
+    // The request will be redirected to spotify for authentication, so this
+    // function will not be called.
+  });
 
 // GET /auth/spotify/callback
 //   Use passport.authenticate() as route middleware to authenticate the
@@ -301,18 +310,35 @@ app.get('/auth/spotify/',
 //   login page. Otherwise, the primary route function function will be called,
 //   which, in this example, will redirect the user to the home page.
 app.get('/auth/spotify/callback',
-  passport.authenticate('spotify', { failureRedirect: '/spotify/login/' }),
-  function(req, res) {
-      console.log('ejecutar redirect')
-      res.redirect('./layouts/spotify/index');
-      //res.send('Loguiado!!!')
+  passport.authenticate('spotify', {
+    failureRedirect: APLICATION_URL_DOMAIN +'spotify/login/'
+  }),
+  function (req, res) {
+    console.log('ejecutar redirect')
+    res.redirect(APLICATION_URL_DOMAIN + 'spotify/');
+    //res.send('Loguiado!!!')
   });
 
 
-app.get('/spotify/logout/', function(req, res){
+app.get('/spotify/logout/', function (req, res) {
   req.logout();
-  res.redirect('./layouts/spotify/index');
+  res.redirect(APLICATION_URL_DOMAIN + 'spotify/');
 });
+
+
+
+// Simple route middleware to ensure user is authenticated.
+//   Use this route middleware on any resource that needs to be protected.  If
+//   the request is authenticated (typically via a persistent login session),
+//   the request will proceed. Otherwise, the user will be redirected to the
+//   login page.
+function ensureAuthenticated(req, res, next) {
+  if (req.isAuthenticated()) {
+    return next();
+  }
+  res.redirect(APLICATION_URL_DOMAIN + 'spotify/login');
+}
+
 
 
 
@@ -323,6 +349,8 @@ app.use(function (req, res, next) {
   err.status = 404;
   next(err);
 });
+
+
 
 
 
@@ -385,16 +413,6 @@ function exposeTemplates(req, res, next) {
 
 
 
-
-// Simple route middleware to ensure user is authenticated.
-//   Use this route middleware on any resource that needs to be protected.  If
-//   the request is authenticated (typically via a persistent login session),
-//   the request will proceed. Otherwise, the user will be redirected to the
-//   login page.
-function ensureAuthenticated(req, res, next) {
-  if (req.isAuthenticated()) { return next(); }
-  res.redirect('./layouts/spotify/login');
-}
 
 
 module.exports = app;
