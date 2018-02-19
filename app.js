@@ -165,6 +165,7 @@ var hbs = exphbs.create({
  
 
 }));*/
+app.set('views', __dirname + '/views');
 app.engine('.hbs', hbs.engine);
 app.set('view engine', '.hbs');
 //############MANEJO DE PLANTILLAS####################
@@ -324,7 +325,7 @@ app.get('/auth/spotify/callback',
     failureRedirect: '/spotify/login/'
   }),
   function (req, res) {
-    res.redirect('/spotify/');
+    res.redirect('/');
     
 
     //res.send('Loguiado!!!')
