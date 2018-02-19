@@ -223,13 +223,13 @@ if (app.get('env') === 'production') {
   sess.cookie.secure = true // serve secure cookies
 }
 
-app.use(session(sess))
+//app.use(session(sess))
 app.use(methodOverride());
 
 //app.use(session({ secret: 'keyboard cat' }));//esta
 
 app.use(passport.initialize());
-app.use(passport.session());
+app.use(passport.session(sess));
 
 
 app.use(express.static(__dirname + '/public'));//esta
