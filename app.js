@@ -225,7 +225,7 @@ if (app.get('env') === 'production') {
 app.use(session(sess))
 app.use(methodOverride());
 
-app.use(session({ secret: 'keyboard cat' }));//esta
+//app.use(session({ secret: 'keyboard cat' }));//esta
 
 app.use(passport.initialize());
 app.use(passport.session());
