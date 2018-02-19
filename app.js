@@ -225,11 +225,13 @@ if (app.get('env') === 'production') {
 app.use(session(sess))
 app.use(methodOverride());
 
+app.use(session({ secret: 'keyboard cat' }));//esta
+
 app.use(passport.initialize());
 app.use(passport.session());
 
 
-//app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/public'));//esta
 app.use('/dashboard', index);
 //app.use('/users', users);
 // xxx  app.use('/webhook2/', webhook);
