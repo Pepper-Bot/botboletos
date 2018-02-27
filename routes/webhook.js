@@ -2385,8 +2385,11 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, mes
     let query = {
         prioridad: 4,
         searchBy: 'ByName',
-        query: tevo.API_URL + 'events?q=' + event_name + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
-        queryReplace: tevo.API_URL + 'events?q=' + event_name + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
+        //query: tevo.API_URL + 'events?q=' + event_name + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
+        //queryReplace: tevo.API_URL + 'events?q=' + event_name + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
+        query: tevo.API_URL + 'events?q=' + event_name  + '&' + only_with + '&order_by=events.occurs_at'+ '&page=' + page + '&per_page=' + per_page,
+        queryReplace: tevo.API_URL + 'events?q=' + event_name + '&' + only_with + '&order_by=events.occurs_at' + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' ,
+
         queryPage: page,
         queryPerPage: per_page,
         messageTitle: 'Cool, I looked for "' + event_name + '" shows.  Book a ticket'
