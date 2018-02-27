@@ -787,7 +787,7 @@ function processQuickReplies(event) {
         case "PARIS_SAINT_GERMAN":
             {
                 console.log('entré al al Paris Saint-German FC')
-                startTevoModuleWithMlink('Paris Saint-German FC', senderId)
+                startTevoModuleWithMlink('Paris Saint-Germain FC', senderId)
             }
             break;
 
