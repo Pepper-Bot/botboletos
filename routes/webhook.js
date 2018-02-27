@@ -2131,6 +2131,9 @@ function chooseReferral(referral, senderId) {
                     var Oscars = require('../modules/oscars');
                     Oscars.start(senderId);
 
+                }
+                break;
+
 
             case "SHARKSTANK":
                 {
