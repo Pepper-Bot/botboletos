@@ -2391,11 +2391,11 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, mes
     }
 
     console.log('query.query ' + query.query)
-    nlp.tevoByQuery(senderId, query, userPreferences).then((cantidad) => {
+   /* nlp.tevoByQuery(senderId, query, userPreferences).then((cantidad) => {
         if (cantidad == 0) {
             find_my_event(sender, 1, '')
         }
-    })
+    })*/
 
 }
 
