@@ -2371,7 +2371,7 @@ function starSixEvent(senderId, referral) {
  */
 function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, messageTitle = "") {
     console.log("event_name " + event_name);
-    var userPreferences = {
+    let userPreferences = {
         event_title: '',
         city: '',
         artist: '',
@@ -2380,7 +2380,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, mes
         music_genre: ''
     }
 
-    var query = {
+    let query = {
         prioridad: 4,
         searchBy: 'ByName',
         query: tevo.API_URL + 'events?q=' + event_name + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
