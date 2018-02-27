@@ -12,11 +12,6 @@
            "title": "Start again",
            "payload": "Greetings",
            "webview_height_ratio": "compact"
-         },
-         {
-           "type": "web_url",
-           "title": "View Website",
-           "url": "https://pepperbussines.herokuapp.com/"
          }
        ]
      }]
@@ -25,7 +20,7 @@
    request({
      url: 'https://graph.facebook.com/v2.6/me/messenger_profile',
      qs: {
-       access_token: process.env.PAGE_ACCES_TOKEN,
+       access_token: process.env.PAGE_ACCES_TOKEN1,
      },
      json: true,
      body: requestData,
@@ -54,7 +49,7 @@
    request({
      url: 'https://graph.facebook.com/v2.6/me/messenger_profile',
      qs: {
-       access_token: process.env.PAGE_ACCES_TOKEN,
+       access_token: process.env.PAGE_ACCES_TOKEN1,
      },
      json: true,
      body: requestData,
@@ -79,7 +74,7 @@
      method: 'POST',
      url: 'https://graph.facebook.com/v2.6/me/messenger_profile',
      qs: {
-       access_token: process.env.PAGE_ACCES_TOKEN,
+       access_token: process.env.PAGE_ACCES_TOKEN1,
      },
      headers: {
        'content-type': 'application/json'

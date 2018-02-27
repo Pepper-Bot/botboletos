@@ -677,7 +677,7 @@ function processLocation(senderId, locationData) {
 }
 
 
- 
+
 /**
  * 
  * @param {*} senderId FaceBook user ID
@@ -778,7 +778,18 @@ function processQuickReplies(event) {
     switch (payload) {
 
 
- 
+        case "REAL_MADRID":
+            {
+                startTevoModuleWithMlink('Real Madrid', senderId)
+            }
+            break;
+        case "PARIS_SAINT_GERMAN":
+            {
+                startTevoModuleWithMlink('Paris Saint-German FC', senderId)
+            }
+            break;
+
+
         case "find_my_event_Patriots":
             {
                 processQuickReplaySuperBowl(senderId, payload);
@@ -1922,9 +1933,9 @@ function handleReferrals(event) {
     var senderId = event.sender.id;
     var referral;
     if (undefined !== event.postback) {
-        
+
         referral = event.postback.referral.ref;
-        console.log('event.postback.referral.ref '+ referral )
+        console.log('event.postback.referral.ref ' + referral)
         chooseReferral(referral, senderId);
     } else {
         // Msgr tiene un error, cuando detecta que ya es una conversacion abierta
@@ -1932,7 +1943,7 @@ function handleReferrals(event) {
         // se almacena el id en mongodb hasta la 3ra vuelta se envia la informacion 
         // no se si esto es problema de msgr como tal o heroku (quiero pensar que es de msgr)        
         referral = event.referral.ref;
-        console.log('event.referral.ref '+ referral )
+        console.log('event.referral.ref ' + referral)
         var FBSessions = require('../schemas/boletos');
         // Buscamos el id del usuario
         FBSessions.find({
@@ -2034,6 +2045,13 @@ function chooseReferral(referral, senderId) {
                     startSanValentin(senderId, referral)
                 }
                 break; 
+
+
+            case "CHAMPIONS_LEAGUE": // Here we create the new CASE w new Me Link name 020918
+                {
+                    startChampionsLeagueFrame(senderId, referral) //We create a new variable
+                }
+                break;
 
             case "MARDIGRAS_FRAME": // Here we create the new CASE w new Me Link name 020918
                 {
@@ -2161,6 +2179,23 @@ function chooseReferral(referral, senderId) {
 
         }
     })
+}
+
+
+
+
+
+
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral  mlink
+ * @description Función  para  inciar el mlink de la champions league
+ * 
+ */
+var startChampionsLeagueFrame= (senderId, referral) => {
+    let championsModule = require('../modules/tevo/champions/champions')
+    championsModule.startChampionsLeagueFrame(senderId )
 }
 
 
