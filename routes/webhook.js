@@ -2370,6 +2370,8 @@ function starSixEvent(senderId, referral) {
  * 
  */
 function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, messageTitle = "") {
+    let page = 1 
+    let per_page = 9
     console.log("event_name " + event_name);
     let userPreferences = {
         event_title: '',
@@ -2391,11 +2393,11 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, mes
     }
 
     console.log('query.query ' + query.query)
-   /* nlp.tevoByQuery(senderId, query, userPreferences).then((cantidad) => {
+     nlp.tevoByQuery(senderId, query, userPreferences).then((cantidad) => {
         if (cantidad == 0) {
             find_my_event(sender, 1, '')
         }
-    })*/
+    }) 
 
 }
 
