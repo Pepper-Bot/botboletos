@@ -22,7 +22,7 @@ module.exports = function () {
             Message.typingOn(senderId);
             // simulamos el tipeado
             // enviamos el mensaje    
-            Message.sendMessage(senderId, " Welcome to the Oscars 2018, Vote and Join the Oscars!");
+            Message.sendMessage(senderId, " Welcome to the Oscars 2018, Vote and live the Oscars!");
             Message.typingOff(senderId);
 
             // tipeado off
@@ -69,6 +69,14 @@ module.exports = function () {
                     "imagen": APLICATION_URL_DOMAIN + "images/oscars/animated.png",
                     "subtitulo": "Vote your favorite nominee. Win a new chatbot friend assistant.",
                     "url": URLAplication + "http://woobox.com/uc7mh2 " + '&id=' + senderId
+
+                },
+
+                {
+                    "titulo": "6. Best Music - Original Song!",
+                    "imagen": APLICATION_URL_DOMAIN + "images/oscars/original_song.png",
+                    "subtitulo": "Vote your favorite nominee. Win a new chatbot friend assistant.",
+                    "url": URLAplication + "http://woobox.com/cw9f9y " + '&id=' + senderId
 
                 }
 
