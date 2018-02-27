@@ -43,14 +43,14 @@ module.exports = function () {
 
                 {
                     "titulo": "2. Best Actor in a Leading Role!",
-                    "imagen": APLICATION_URL_DOMAIN + "images/oscar/actor.png",
+                    "imagen": APLICATION_URL_DOMAIN + "images/oscars/actor.png",
                     "subtitulo": "Vote your favorite nominee. Win a new chatbot friend assistant.",
                     "url": URLAplication + " http://woobox.com/s8t8ec " + '&id=' + senderId
 
                 },
                 {
                     "titulo": "3. Best Actress in a Leading Role!",
-                    "imagen": APLICATION_URL_DOMAIN + "images/oscar/actress.png",
+                    "imagen": APLICATION_URL_DOMAIN + "images/oscars/actress.png",
                     "subtitulo": "Vote your favorite nominee. Win a new chatbot friend assistant.",
                     "url": URLAplication + "http://woobox.com/hqytee " + '&id=' + senderId
 
