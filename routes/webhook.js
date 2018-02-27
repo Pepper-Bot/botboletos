@@ -780,11 +780,13 @@ function processQuickReplies(event) {
 
         case "REAL_MADRID":
             {
+                console.log('entré al al real madrid')
                 startTevoModuleWithMlink('Real Madrid', senderId)
             }
             break;
         case "PARIS_SAINT_GERMAN":
             {
+                console.log('entré al al Paris Saint-German FC')
                 startTevoModuleWithMlink('Paris Saint-German FC', senderId)
             }
             break;
