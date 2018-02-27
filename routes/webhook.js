@@ -2195,9 +2195,9 @@ function chooseReferral(referral, senderId) {
  * @description Función  para  inciar el mlink de la champions league
  * 
  */
-var startChampionsLeagueFrame= (senderId, referral) => {
+var startChampionsLeagueFrame = (senderId, referral) => {
     let championsModule = require('../modules/tevo/champions/champions')
-    championsModule.startChampionsLeagueFrame(senderId )
+    championsModule.startChampionsLeagueFrame(senderId)
 }
 
 
@@ -2390,6 +2390,7 @@ function startTevoModuleWithMlink(event_name, senderId, mlink = 0, cool = 0, mes
         messageTitle: 'Cool, I looked for "' + event_name + '" shows.  Book a ticket'
     }
 
+    console.log('query.query ' + query.query)
     nlp.tevoByQuery(senderId, query, userPreferences).then((cantidad) => {
         if (cantidad == 0) {
             find_my_event(sender, 1, '')
