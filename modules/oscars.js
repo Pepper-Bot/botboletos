@@ -45,7 +45,7 @@ module.exports = function () {
                     "titulo": "2. Best Actor in a Leading Role!",
                     "imagen": APLICATION_URL_DOMAIN + "images/oscars/actor.png",
                     "subtitulo": "Vote your favorite nominee. Win a new chatbot friend assistant.",
-                    "url": URLAplication + " http://woobox.com/s8t8ec " + '&id=' + senderId
+                    "url": URLAplication + "http://woobox.com/s8t8ec " + '&id=' + senderId
 
                 },
                 {
@@ -93,7 +93,7 @@ module.exports = function () {
                     "buttons": [{
                             "type": "web_url",
                             "url": boletos[i].url,
-                            "title": "Book"
+                            "title": "Vote"
                             //"payload": "TIBURON" + (i + 1)
                         },
                         {
