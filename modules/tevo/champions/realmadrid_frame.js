@@ -93,13 +93,13 @@ var start = (senderId) => {
 
             let buttons = [{
                     "type": "web_url",
-                    "url": "https://www.facebook.com/fbcameraeffects/tryit/824271497783333/",
-                    "title": "Take selfie (mobile)"
+                    "url": "www.facebook.com/fbcameraeffects/tryit/319319435256446/",
+                    "title": "Wear Real Madrid  "
             },
                 {
                     "type": "web_url",
-                    "url": "https://www.facebook.com/profilepicframes/?overlay_source_object_id=1881553218822492&selected_page_id=1593266137651203&selected_overlay_id=143206143013774",
-                    "title": "Change profile picture"
+                    "url": "www.facebook.com/fbcameraeffects/tryit/2065967663618433/",
+                    "title": "Wear Paris SG"
                 }
 
             ]
