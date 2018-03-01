@@ -94,12 +94,12 @@ var start = (senderId) => {
             let buttons = [{
                     "type": "web_url",
                     "url": "www.facebook.com/fbcameraeffects/tryit/319319435256446/",
-                    "title": "Try 'Real Madrid' Paint"
+                    "title": "Try Real Madrid"
             },
                 {
                     "type": "web_url",
                     "url": "www.facebook.com/fbcameraeffects/tryit/2065967663618433/",
-                    "title": " Try 'Paris SG' Paint"
+                    "title": " Try Paris SG"
                 }
 
             ]
