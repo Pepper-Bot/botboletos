@@ -94,16 +94,16 @@ var start = (senderId) => {
             let buttons = [{
                     "type": "web_url",
                     "url": "www.facebook.com/fbcameraeffects/tryit/319319435256446/",
-                    "title": "Wear Real Madrid  "
+                    "title": "Try Real Madrid"
             },
                 {
                     "type": "web_url",
                     "url": "www.facebook.com/fbcameraeffects/tryit/2065967663618433/",
-                    "title": "Wear Paris SG"
+                    "title": " Try Paris SG"
                 }
 
             ]
-            let title = 'Wear your team colors and support the victory!';
+            let title = 'Wear your team colors!';
             Message_2.listButtons(senderId, title, buttons).then(()=>{
               //  Message.getLocation(senderId, 'Check out these games for your team');
             
@@ -130,7 +130,7 @@ var startChampionsLeagueFrame = (senderId) => {
             "payload": "PARIS_SAINT_GERMAN"
         }
     ];
-    sendQuickReplay(senderId, "Which is your favorite? ", replies);
+    sendQuickReplay(senderId, "Get game tickets for your team. Choose a team: ", replies);
 }
 
 
