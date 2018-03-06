@@ -2438,8 +2438,8 @@ function startTevoModuleByLocation(sender, lat, lon) {
     var query = {
         prioridad: 1,
         searchBy: 'Location',
-        query: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&within=100',
-        queryReplace: tevo.API_URL + 'events?order_by=events.occurs_at,events.popularity_score DESC&lat=' + lat + '&lon=' + lon + '&page={{page}}&per_page={{per_page}}&' + only_with + '&within=100',
+        query: tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&' + only_with + '&order_by=events.occurs_at,events.popularity_score DESC' + '&page=' + page + '&per_page=' + per_page +  '&within=100',
+        queryReplace: tevo.API_URL + 'events?lat=' + lat + '&lon=' + lon + '&' + only_with + '&order_by=events.occurs_at,events.popularity_score DESC' + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' +  '&within=100',
         queryPage: page,
         queryPerPage: per_page,
         messageTitle: 'Cool, I found events in your location.  Book a ticket'
