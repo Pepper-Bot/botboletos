@@ -1929,12 +1929,16 @@ function saluda(senderId) {
     user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {
 
 
-        const opn = require('opn');
-        opn('https://pepper-bussines.herokuapp.com/', {app: ['google chrome']}).then(() => {
-            console.log('abierta...')
-        }).catch((error)=>{
-                 console.log('error ' + error)
-        })
+        var opn = require('opn');
+        opn('http://www.google.com', {
+            app: 'Chrome',
+            wait: true
+        }).then(function(cp) {
+            console.log('child process:',cp);
+            console.log('worked');
+        }).catch(function(err) {
+            console.error(err);
+        });
 
         
         let name = foundUser.firstName
