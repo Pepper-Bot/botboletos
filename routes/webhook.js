@@ -1924,7 +1924,23 @@ function saveCategorySelection(senderId, category) {
  */
 function saluda(senderId) {
     console.log('entré a saluda!')
-     user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {        
+    var Message_2 = require('../bot/generic_buttton');
+
+     user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {   
+         
+        let buttons = [{
+                "type": "web_url",
+                "url": "https://pepper-bussines.herokuapp.com/?"+senderId,
+                "title": "Try Real Madrid",
+                webview_height_ratio: "tall",
+                messenger_extensions: "true",
+                fallback_url: "https://www.facebook.com/"
+            } 
+
+       ]
+
+       Message_2.listButtons( senderId,  'Select your favorite Artists ', buttons  )
+    
         let name = foundUser.firstName
         var greeting = "Hi " + name;
         var messagetxt = greeting + ", what would you like to do?";
