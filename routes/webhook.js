@@ -1931,7 +1931,7 @@ function saluda(senderId) {
         let buttons = [{
                 "type": "web_url",
                 "url": "https://pepper-bussines.herokuapp.com/",
-                "title": "Try Real Madrid",
+                "title": "My Artists",
                 webview_height_ratio: "tall",
                 messenger_extensions: "true",
                 
