@@ -1923,6 +1923,7 @@ function saveCategorySelection(senderId, category) {
  * 
  */
 function saluda(senderId) {
+    console.log('entré a saluda!')
     user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {
         let name = foundUser.firstName
         var greeting = "Hi " + name;
