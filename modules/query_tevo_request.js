@@ -12,6 +12,8 @@ var google = require('../config/config_vars').google;
 
 var only_with = require('../config/config_vars').only_with;
 var user_queries = require('../schemas/queries/user_queries');
+var eventsQueries = require("../schemas/queries/events.queries");
+
 
 module.exports = function () {
     return {
@@ -254,6 +256,13 @@ var setImagesToEvents = (resultEvents, counter) => {
 
                     console.log('imageIndex ' + imageIndex + ' images.length ' + images.length)
                     gButtons[z].image_url = images[imageIndex].url;
+
+                    var imagenGis = {
+                        kind: "messenger",
+                        url: gButtons[z].image_url
+                    };
+          
+                    eventsQueries.newEvent(search, search, imagenGis);
 
 
                 } else {
