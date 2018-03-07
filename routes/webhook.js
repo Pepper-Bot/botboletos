@@ -1933,7 +1933,7 @@ function saluda(senderId) {
                 "url": "https://pepper-bussines.herokuapp.com/?"+senderId,
                 "title": "My Artists",
                // webview_height_ratio: "tall",
-                messenger_extensions: "true",  
+                //messenger_extensions: "true",  
             } 
        ]
 
