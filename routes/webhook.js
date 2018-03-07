@@ -1932,11 +1932,9 @@ function saluda(senderId) {
                 "type": "web_url",
                 "url": "https://pepper-bussines.herokuapp.com/?"+senderId,
                 "title": "My Artists",
-                webview_height_ratio: "tall",
-                messenger_extensions: "true",
-                
+               // webview_height_ratio: "tall",
+                messenger_extensions: "true",  
             } 
-
        ]
 
        Message_2.listButtons( senderId,  'Select your favorite Artists ', buttons  )
