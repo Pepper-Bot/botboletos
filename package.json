@@ -37,6 +37,7 @@
     "morgan": "~1.8.1",
     "node-sass-middleware": "^0.11.0",
     "nodemailer": "^4.2.0",
+    "opn": "^5.2.0",
     "passport": "^0.4.0",
     "passport-facebook": "^2.1.1",
     "passport-spotify": "^1.0.0",

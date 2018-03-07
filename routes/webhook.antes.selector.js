@@ -1924,17 +1924,7 @@ function saveCategorySelection(senderId, category) {
  */
 function saluda(senderId) {
     console.log('entré a saluda!')
- 
-
     user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {
-
-
-        const opn = require('opn');
-        opn('https://pepper-bussines.herokuapp.com/', {app: ['google chrome']}).then(() => {
-            console.log('abierta...')
-        });
-
-        
         let name = foundUser.firstName
         var greeting = "Hi " + name;
         var messagetxt = greeting + ", what would you like to do?";
