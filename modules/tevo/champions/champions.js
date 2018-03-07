@@ -27,6 +27,22 @@ var startChampionsLeagueFrame = (senderId) => {
 }
 
 
+var startBarcaVsChelsea = (senderId) => {
+    var replies = [{
+            "content_type": "text",
+            "title": "Barcelona",
+            "payload": "BARCELONA"
+
+        },
+        {
+            "content_type": "text",
+            "title": "Chelsea",
+            "payload": "CHELSEA"
+        }
+    ];
+    sendQuickReplay(senderId, "Which is your favorite? ", replies);
+}
+
 
 var sendQuickReplay = (senderId, messageText, replies) => {
     var messageData = {
@@ -62,6 +78,6 @@ function callSendAPI(messageData) {
 
 
 module.exports = {
-    startChampionsLeagueFrame,
+    startChampionsLeagueFrame, startBarcaVsChelsea
 
 }

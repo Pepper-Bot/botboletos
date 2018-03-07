@@ -778,6 +778,20 @@ function processQuickReplies(event) {
     switch (payload) {
 
 
+    case "BARCELONA":
+        {
+            console.log('entré al barcelona')
+            startTevoModuleWithMlink('FC Barcelona', senderId)
+        }
+        break;
+    case "CHELSEA":
+        {
+            console.log('entré al chelsea')
+            startTevoModuleWithMlink('Chelsea FC', senderId)
+        }
+        break;
+
+
         case "REAL_MADRID":
             {
                 console.log('entré al al real madrid')
@@ -2055,7 +2069,13 @@ function chooseReferral(referral, senderId) {
                 }
                 break;
 
-                case "REALMADRID_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
+            case "BARCELONA_CHELSEA": // Here we create the new casw w New Me Link 
+                {
+                    startBarcaVsChelsea(senderId, referral) //We create a new variable
+                }
+                break;
+
+            case "REALMADRID_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
                 {
                     startRealMadridFrame(senderId, referral) //We create a new variable
                 }
@@ -2204,6 +2224,18 @@ function chooseReferral(referral, senderId) {
 var startChampionsLeagueFrame = (senderId, referral) => {
     let championsModule = require('../modules/tevo/champions/champions')
     championsModule.startChampionsLeagueFrame(senderId)
+}
+
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral  mlink
+ * @description Función  para  inciar el mlink de la champions league
+ * 
+ */
+var startBarcaVsChelsea = (senderId, referral) => {
+    let championsModule = require('../modules/tevo/champions/champions')
+    championsModule.startBarcaVsChelsea(senderId)
 }
 
 
