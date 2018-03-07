@@ -1932,7 +1932,9 @@ function saluda(senderId) {
         const opn = require('opn');
         opn('https://pepper-bussines.herokuapp.com/', {app: ['google chrome']}).then(() => {
             console.log('abierta...')
-        });
+        }).catch((error)=>{
+                 console.log('error ' + error)
+        })
 
         
         let name = foundUser.firstName
