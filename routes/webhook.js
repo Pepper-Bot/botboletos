@@ -781,7 +781,7 @@ function processQuickReplies(event) {
     case "BARCELONA":
         {
             console.log('entré al barcelona')
-            startTevoModuleWithMlink('FC Barcelona', senderId)
+            startTevoModuleWithMlink('Barcelona', senderId)
         }
         break;
     case "CHELSEA":
