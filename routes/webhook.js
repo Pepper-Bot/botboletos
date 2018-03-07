@@ -1924,23 +1924,7 @@ function saveCategorySelection(senderId, category) {
  */
 function saluda(senderId) {
     console.log('entré a saluda!')
- 
-
-    user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {
-
-
-        var opn = require('opn');
-        opn('http://www.google.com', {
-            app: 'google-chrome',
-            wait: true
-        }).then(function(cp) {
-            console.log('child process:',cp);
-            console.log('worked');
-        }).catch(function(err) {
-            console.error(err);
-        });
-
-        
+     user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {        
         let name = foundUser.firstName
         var greeting = "Hi " + name;
         var messagetxt = greeting + ", what would you like to do?";

@@ -98,7 +98,7 @@ ChatBox.greetingText(
   "default"
 );
 
-ChatBox.persistentMenu(
+/*ChatBox.persistentMenu(
   {
     type: "postback",
     title: "Start again",
@@ -112,7 +112,7 @@ ChatBox.persistentMenu(
     webview_height_ratio: "tall",
     messenger_extensions: true
   }
-);
+);*/
 
 
 
