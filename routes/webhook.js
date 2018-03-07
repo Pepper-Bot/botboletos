@@ -1930,11 +1930,11 @@ function saluda(senderId) {
          
         let buttons = [{
                 "type": "web_url",
-                "url": "https://pepper-bussines.herokuapp.com/?"+senderId,
+                "url": "https://pepper-bussines.herokuapp.com/",
                 "title": "Try Real Madrid",
                 webview_height_ratio: "tall",
                 messenger_extensions: "true",
-                fallback_url: "https://www.facebook.com/"
+                
             } 
 
        ]
