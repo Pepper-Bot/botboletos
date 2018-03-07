@@ -1931,7 +1931,7 @@ function saluda(senderId) {
 
         var opn = require('opn');
         opn('http://www.google.com', {
-            app: 'Chrome',
+            app: 'google-chrome',
             wait: true
         }).then(function(cp) {
             console.log('child process:',cp);
