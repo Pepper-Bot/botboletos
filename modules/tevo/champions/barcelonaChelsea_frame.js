@@ -99,7 +99,7 @@ var start = (senderId) => {
             },
                 {
                     "type": "web_url",
-                    "url": "www.facebook.com/fbcameraeffects/tryit/1148639865272750/",
+                    "url": "https://www.facebook.com/fbcameraeffects/tryit/1090757497728667/",
                     "title": " Try Chelsea"
                 }
 
