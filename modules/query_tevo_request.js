@@ -262,6 +262,7 @@ var setImagesToEvents = (resultEvents, counter) => {
                         url: gButtons[z].image_url
                     };
           
+                    
                     eventsQueries.newEvent(search, search, imagenGis);
 
 

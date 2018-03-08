@@ -94,10 +94,10 @@ var newEvent = (value = "", synonyms = "", images = {}) => {
           event.images.push(images);
         }
 
-        artist.save(function(err, artistSaved) {
+        event.save(function(err, eventSaved) {
           if (!err) {
             console.log(
-              "Artist Saved!!! " + JSON.stringify(artistSaved.performer_id)
+              "Event Saved!!! " + JSON.stringify(eventSaved.value)
             );
             resolve(artistSaved);
           } else {
