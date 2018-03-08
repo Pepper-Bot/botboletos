@@ -323,16 +323,14 @@ var setImagesToEvents = (resultEvents, counter) => {
                 gButtons[z].image_url = eventFound.images[0].url;
               }
 
+              counter = counter + 1;
               if (counter + 1 == gButtons.length) {
                 if (gButtons[z].subtitle == "My Pepper Bot")
                   gButtons[gButtons.length - 1].image_url =
                     "https://ticketdelivery.herokuapp.com/images/ciudad.jpg";
                 resolve(gButtons);
               }
-            })
-            .then(() => {
-              counter = counter + 1;
-            });
+            })  
         });
       });
     }
