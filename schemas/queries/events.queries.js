@@ -99,7 +99,7 @@ var newEvent = (value = "", synonyms = "", images = {}) => {
             console.log(
               "Event Saved!!! " + JSON.stringify(eventSaved.value)
             );
-            resolve(artistSaved);
+            resolve(eventSaved);
           } else {
             console.log("Error guardando en userdatas " + err);
             resolve(undefined);
