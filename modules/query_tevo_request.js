@@ -262,8 +262,46 @@ var setImagesToEvents = (resultEvents, counter) => {
                 };
                 eventsQueries.newEvent(search, search, imagenGis)
                
+                /* 
+                eventsQueries
+                .getEvent(search)
+                .then(eventFound => {
+                  console.log("images.length " + images.length);
+    
+                  if (eventFound.images[0].url) {
+                    console.log("encontré imagen en la bd!!");
+                    gButtons[z].image_url = eventFound.images[0].url;
+                  }
+                })*/
+               if( search == 'Chelsea Blues at FC Barcelona') {
+                  gButtons[z].image_url = 'https://www.nigerianews360.com/wp-content/uploads/2018/02/chelsea-vs-barcelona-at-uefa-champions-league-who-will-succeed.png'
+               }
+               if( search == 'Athletic Bilbao at FC Barcelona') {
+                  gButtons[z].image_url = 'https://cdn.vox-cdn.com/thumbor/OFbCx66r30gwhimbKSqaAFnJz90=/0x15:3000x2015/1200x800/filters:focal(0x15:3000x2015)/cdn.vox-cdn.com/uploads/chorus_image/image/48578013/GettyImages-485084850.0.jpg'
+               }
+               if( search == 'CD Leganes at FC Barcelona') {
+                gButtons[z].image_url = 'https://media-public.fcbarcelona.com/20157/0/document_thumbnail/20197/84/78/115/41111124/1.0-10/41111124.jpg?t=1487152706000'
+               }
+               if( search == 'Valencia CF at FC Barcelona') {
+                 gButtons[z].image_url = 'https://cdn.vox-cdn.com/thumbor/uKXeHyddTi9FQKfF4ZCdAuVkerk=/0x0:3000x2002/1200x800/filters:focal(1220x462:1700x942)/cdn.vox-cdn.com/uploads/chorus_image/image/58385515/655316424.jpg.0.jpg'
+               }
+               if( search == 'Copa Del Rey - Sevilla FC at FC Barcelona') {
+                gButtons[z].image_url = 'https://media-public.fcbarcelona.com/20157/0/document_thumbnail/20197/127/140/110/57576575/1.0-10/57576575.jpg?t=1508237543000'
+               }
 
+               if( search == 'Real Madrid CF at FC Barcelona') {
+                gButtons[z].image_url = 'https://i.eurosport.com/2017/04/21/2067464-43344487-2560-1440.jpg?w=700'
+               }
+                
+               if( search == 'Villarreal CF at FC Barcelona') {
+                gButtons[z].image_url = 'https://i2.wp.com/i.gyazo.com/aaeeaa13da8d19997161bada47e00f8b.png?resize=760%2C508&ssl=1'
+               }
+//
+               if( search == 'Real Sociedad at FC Barcelona') {
+                gButtons[z].image_url = 'https://statics.sportskeeda.com/wp-content/uploads/2016/11/626150036-lionel-messi-of-fc-barcelona-duels-for-the-gettyimages-1480309071-800.jpg'
+               }
 
+               
 
                 } else {
                     console.log('Error con el tamaño de Images.   images.length ' + images.length + ' buscando  ' + search)
@@ -287,16 +325,7 @@ var setImagesToEvents = (resultEvents, counter) => {
                 counter = counter + 1;
 
 
-                eventsQueries
-                .getEvent(search)
-                .then(eventFound => {
-                  console.log("images.length " + images.length);
-    
-                  if (eventFound.images[0].url) {
-                    console.log("encontré imagen en la bd!!");
-                    gButtons[z].image_url = eventFound.images[0].url;
-                  }
-                })
+             
                 
             })
         }
