@@ -276,45 +276,46 @@ var setImagesToEvents = (resultEvents, counter) => {
       var images = [];
       //getGoogleImagesSelected(search, gButtons, results, images).then((images) => {
 
-      getGoogleImage(search, gButtons)
-        .then(images => {
-          var imageIndex = 0;
-          if (images.length > 0) {
-            if (images.length > 4) {
-              imageIndex = Math.round(Math.random() * 3);
-            } else {
-              imageIndex = Math.round(Math.random() * images.length - 1);
-            }
-
-            console.log(
-              "imageIndex " + imageIndex + " images.length " + images.length
-            );
-            gButtons[z].image_url = images[imageIndex].url;
+      getGoogleImage(search, gButtons).then(images => {
+        var imageIndex = 0;
+        if (images.length > 0) {
+          if (images.length > 4) {
+            imageIndex = Math.round(Math.random() * 3);
           } else {
-            console.log(
-              "Error con el tamaño de Images.   images.length " +
-                images.length +
-                " buscando  " +
-                search
-            );
-            gButtons[z].image_url =
-              APLICATION_URL_DOMAIN + "/images/no_found.png";
-          }
-
-          if (gButtons[z].subtitle == "My Pepper Bot") {
-            gButtons[z].image_url =
-              "https://ticketdelivery.herokuapp.com/images/ciudad.jpg";
+            imageIndex = Math.round(Math.random() * images.length - 1);
           }
 
           console.log(
-            "counter " + counter + " gButtons.length " + gButtons.length
+            "imageIndex " + imageIndex + " images.length " + images.length
           );
-          let imagenGis = {
-            kind: "messenger",
-            url: gButtons[z].image_url
-          };
-          eventsQueries.newEvent(search, search, imagenGis).then(() => {
-            eventsQueries.getEvent(search).then(eventFound => {
+          gButtons[z].image_url = images[imageIndex].url;
+        } else {
+          console.log(
+            "Error con el tamaño de Images.   images.length " +
+              images.length +
+              " buscando  " +
+              search
+          );
+          gButtons[z].image_url =
+            APLICATION_URL_DOMAIN + "/images/no_found.png";
+        }
+
+        if (gButtons[z].subtitle == "My Pepper Bot") {
+          gButtons[z].image_url =
+            "https://ticketdelivery.herokuapp.com/images/ciudad.jpg";
+        }
+
+        console.log(
+          "counter " + counter + " gButtons.length " + gButtons.length
+        );
+        let imagenGis = {
+          kind: "messenger",
+          url: gButtons[z].image_url
+        };
+        eventsQueries.newEvent(search, search, imagenGis).then(() => {
+          eventsQueries
+            .getEvent(search)
+            .then(eventFound => {
               console.log("images.length " + images.length);
 
               if (eventFound.images[0].url) {
@@ -328,12 +329,12 @@ var setImagesToEvents = (resultEvents, counter) => {
                     "https://ticketdelivery.herokuapp.com/images/ciudad.jpg";
                 resolve(gButtons);
               }
+            })
+            .then(() => {
+              counter = counter + 1;
             });
-          });
-        })
-        .then(() => {
-          counter = counter + 1;
         });
+      });
     }
   });
 
