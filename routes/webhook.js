@@ -2366,7 +2366,7 @@ var startSuperBowlCheer = (senderId, referral) => {
  * 
  */
 var startBarVsCheFrame = (senderId, referral) => {
-    var BarVsCheFrameModule = require('../modules/tevo/champions/BarVsChe_frame.js')
+    var BarVsCheFrameModule = require('../modules/tevo/champions/barcelonaChelsea_frame.js')
     BarVsCheFrameModule.startBarVsCheFrame(senderId, referral)
 }
 
