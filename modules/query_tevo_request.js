@@ -242,6 +242,7 @@ var setImagesToEvents = (resultEvents, counter) => {
             var results = []
             var images = []
             //getGoogleImagesSelected(search, gButtons, results, images).then((images) => {
+          
             getGoogleImage(search, gButtons).then((images) => {
 
                 console.log("images.length " + images.length)
@@ -262,8 +263,13 @@ var setImagesToEvents = (resultEvents, counter) => {
                         url: gButtons[z].image_url
                     };
           
-                    
+
+
                     eventsQueries.newEvent(search, search, imagenGis);
+
+                    eventsQueries.getEvent(search).then((eventFound)=>{
+                        gButtons[z].image_url = eventFound.images[0].url;
+                    })
 
 
                 } else {
