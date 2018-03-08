@@ -268,7 +268,11 @@ var setImagesToEvents = (resultEvents, counter) => {
                     eventsQueries.newEvent(search, search, imagenGis);
 
                     eventsQueries.getEvent(search).then((eventFound)=>{
-                        gButtons[z].image_url = eventFound.images[0].url;
+                        if( eventFound.images[0].url){
+                            console.log('encontré imagen en la bd!!')
+                            gButtons[z].image_url = eventFound.images[0].url;
+                        }
+                        
                     })
 
 
