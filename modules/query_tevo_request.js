@@ -12,7 +12,7 @@ var google = require('../config/config_vars').google;
 
 var only_with = require('../config/config_vars').only_with;
 var user_queries = require('../schemas/queries/user_queries');
-
+var eventsQueries = require("../schemas/queries/events.queries");
 module.exports = function () {
     return {
         start: function (senderId, urlApiTevo, position = 0, messageTitle = '', userPreferences = {}, query = {}) {
@@ -256,6 +256,15 @@ var setImagesToEvents = (resultEvents, counter) => {
                     gButtons[z].image_url = images[imageIndex].url;
 
 
+                let imagenGis = {
+                    kind: "messenger",
+                    url: gButtons[z].image_url
+                };
+                eventsQueries.newEvent(search, search, imagenGis)
+               
+
+
+
                 } else {
                     console.log('Error con el tamaño de Images.   images.length ' + images.length + ' buscando  ' + search)
                     gButtons[z].image_url = APLICATION_URL_DOMAIN + "/images/no_found.png"
@@ -276,6 +285,19 @@ var setImagesToEvents = (resultEvents, counter) => {
 
             }).then(() => {
                 counter = counter + 1;
+
+
+                eventsQueries
+                .getEvent(search)
+                .then(eventFound => {
+                  console.log("images.length " + images.length);
+    
+                  if (eventFound.images[0].url) {
+                    console.log("encontré imagen en la bd!!");
+                    gButtons[z].image_url = eventFound.images[0].url;
+                  }
+                })
+                
             })
         }
 
