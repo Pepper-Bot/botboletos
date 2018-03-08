@@ -15,7 +15,7 @@ var UserData2 = require('../../../schemas/userinfo');
 var Message = require('../../../bot/messages');
 var user_queries = require('../../../schemas/queries/user_queries');
 // Request the users ID from DB API
-var startRealMadridFrame = (senderId, referral) => {
+var startBarVsCheFrame = (senderId, referral) => {
     UserData2.findOne({
         fbId: senderId
     }, {}, {
@@ -86,20 +86,21 @@ var start = (senderId) => {
 
             var name = bodyObj.first_name;
 
-            let eventResults = [];
-            let urlLink = 'www.facebook.com/fbcameraeffects/tryit/1148639865272750/'
+            //Old shmack - Valentine etc
+            //let eventResults = [];
+            //let urlLink = 'www.facebook.com/fbcameraeffects/tryit/1148639865272750/'
             // Draw the FB UI Cards and elements
 
 
             let buttons = [{
                     "type": "web_url",
-                    "url": "www.facebook.com/fbcameraeffects/tryit/319319435256446/",
-                    "title": "Try Real Madrid"
+                    "url": "https://www.facebook.com/fbcameraeffects/tryit/1855012714531905/",
+                    "title": "Try Barcelona"
             },
                 {
                     "type": "web_url",
-                    "url": "www.facebook.com/fbcameraeffects/tryit/2065967663618433/",
-                    "title": " Try Paris SG"
+                    "url": "www.facebook.com/fbcameraeffects/tryit/1148639865272750/",
+                    "title": " Try Chelsea"
                 }
 
             ]
@@ -107,7 +108,7 @@ var start = (senderId) => {
             Message_2.listButtons(senderId, title, buttons).then(()=>{
               //  Message.getLocation(senderId, 'Check out these games for your team');
             
-            startChampionsLeagueFrame (senderId);
+            BarcelonaChelseaButtons (senderId);
                
 
             })
@@ -117,17 +118,17 @@ var start = (senderId) => {
 }
 
 
-var startChampionsLeagueFrame = (senderId) => {
+var BarcelonaChelseaButtons = (senderId) => {
     var replies = [{
             "content_type": "text",
-            "title": "Real Madrid",
-            "payload": "REAL_MADRID"
+            "title": "Barcelona",
+            "payload": "BARCELONA"
 
         },
         {
             "content_type": "text",
-            "title": "París Saint-Germain",
-            "payload": "PARIS_SAINT_GERMAN"
+            "title": "Chelsea",
+            "payload": "CHELSEA"
         }
     ];
     sendQuickReplay(senderId, "Get game tickets for your team. Choose a team: ", replies);
@@ -225,6 +226,5 @@ var startChicas = (senderId) => {
 
 
 module.exports = {
-    startRealMadridFrame,
-
+    startBarVsCheFrame
 }
