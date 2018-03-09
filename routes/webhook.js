@@ -2256,7 +2256,7 @@ var startChampionsLeagueFrame = (senderId, referral) => {
  * 
  */
 var startBarcaVsChelsea = (senderId, referral) => {
-    let championsModule = require('../modules/tevo/champions/barcelonaChelsea_frame')
+    let championsModule = require('../modules/tevo/champions/champions')
     championsModule.startBarcaVsChelsea(senderId)
 }
 
