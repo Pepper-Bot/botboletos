@@ -578,6 +578,46 @@ function processLocation(senderId, locationData) {
 
                         }
 
+                        if (result.mlinkSelected == "STPATTYS_FRAME") {
+
+
+                            let userPreferences = {
+                                event_title: '',
+                                city: '',
+                                artist: '',
+                                team: '',
+                                event_type: '',
+                                music_genre: ''
+                            }
+
+                            let lat = locationData.payload.coordinates.lat;
+                            let lon = locationData.payload.coordinates.long;
+
+
+                            let page = 1
+                            let per_page = 9
+
+
+
+                            var query = {
+                                prioridad: 1,
+                                searchBy: 'Category',
+                                query: tevo.API_URL + 'events?category_id=' + '63' + '&page=' + page + '&per_page=' + per_page + '&lat=' + lat + '&lon=' + lon + '&' + only_with + '&within=100&order_by=events.occurs_at,events.popularity_score DESC',
+                                queryReplace: tevo.API_URL + 'events?category_id=' + '63' + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&lat=' + lat + '&lon=' + lon + '&' + only_with + '&within=100&order_by=events.occurs_at,events.popularity_score DESC',
+                                queryPage: page,
+                                queryPerPage: per_page,
+                                messageTitle: 'Cool, I looked for ' + 'festivals' + ' at your location.  Book a ticket'
+                            }
+
+
+                            user_queries.createUpdateUserDatas(senderId, '', '', {}, '', query.query, query.queryReplace, query.queryPage, query.queryPerPage, userPreferences.artist, userPreferences.music_genre, userPreferences.team, userPreferences.city, query.messageTitle, userPreferences.event_type)
+                            TevoModule.start(senderId, query.query, 0, query.messageTitle, {}, query);
+
+
+
+                        } else
+
+
                         if (result.mlinkSelected == "MARDIGRAS_FRAME") {
 
 
