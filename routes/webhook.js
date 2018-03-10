@@ -2103,6 +2103,13 @@ function chooseReferral(referral, senderId) {
                 }
                 break;
             
+            case "STPATTYS_FRAME": // Here we create the new CASE w new Me Link name 02/09/18
+                {
+                    startstPattysFrame(senderId, referral) //We create a new variable
+                }
+                break;
+            
+            
             case "MARDIGRAS_FRAME": // Here we create the new CASE w new Me Link name 02/09/18
                 {
                     startMardiGrasFrame(senderId, referral) //We create a new variable
@@ -2382,6 +2389,19 @@ var startBarVsCheFrame = (senderId, referral) => {
 var startRealMadridFrame = (senderId, referral) => {
     var realMadridFrameModule = require('../modules/tevo/champions/realmadrid_frame.js')
     realMadridFrameModule.startRealMadridFrame(senderId, referral)
+}
+
+// Created Mar 10
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
+var startstPattysFrame = (senderId, referral) => {
+    var stPattysFrameModule = require('../modules/tevo/stPattys/stpattys_frame.js')
+    stPattysFrameModule.startstPattysFrame(senderId, referral)
 }
 
 // Created Feb 9
