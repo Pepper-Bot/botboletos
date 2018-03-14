@@ -1969,7 +1969,7 @@ function saluda(senderId) {
 
      user_queries.createUpdateUserDatas(senderId, '-').then((foundUser) => {   
          
-        let buttons = [{
+       /* let buttons = [{
                 "type": "web_url",
                 "url": "https://pepper-bussines.herokuapp.com/?"+senderId,
                 "title": "My Artists",
@@ -1978,7 +1978,7 @@ function saluda(senderId) {
             } 
        ]
 
-       Message_2.listButtons( senderId,  'Select your favorite Artists ', buttons  )
+       Message_2.listButtons( senderId,  'Select your favorite Artists ', buttons  )*/
     
         let name = foundUser.firstName
         var greeting = "Hi " + name;
