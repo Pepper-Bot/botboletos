@@ -578,7 +578,7 @@ function processLocation(senderId, locationData) {
 
                         }
 
-                        if (result.mlinkSelected == "STPATTYS_FRAME") {
+                        if (result.mlinkSelected == "STPATTYS_FRAME" || result.mlinkSelected == "STPATTYS_QUIZ") {
 
 
                             let userPreferences = {
@@ -2148,6 +2148,13 @@ function chooseReferral(referral, senderId) {
                     startstPattysFrame(senderId, referral) //We create a new variable
                 }
                 break;
+
+            case "STPATTYS_QUIZ": // Here we create the new CASE w new Me Link name 03/14/18
+                {
+                    startstPattysQuiz(senderId, referral) //We create a new variable
+                }
+                break;    
+
             
             
             case "MARDIGRAS_FRAME": // Here we create the new CASE w new Me Link name 02/09/18
@@ -2430,6 +2437,20 @@ var startRealMadridFrame = (senderId, referral) => {
     var realMadridFrameModule = require('../modules/tevo/champions/realmadrid_frame.js')
     realMadridFrameModule.startRealMadridFrame(senderId, referral)
 }
+
+// Created Mar 14
+/**
+ * 
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función 
+ * 
+ */
+var startstPattysQuiz = (senderId, referral) => {
+    var stPattysQuizModule = require('../modules/tevo/stPattys/stpattys_quiz.js')
+    stPattysQuizModule.startstPattysQuiz(senderId, referral)
+}
+
 
 // Created Mar 10
 /**

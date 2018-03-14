@@ -89,7 +89,7 @@ var start = (senderId) => {
 
             let buttons = [{
                     "type": "web_url",
-                    "url": "https://www.facebook.com/fbcameraeffects/tryit/414869202274176/",
+                    "url": "http://woobox.com/sd3b2f",
                     "title": "Take selfie (mobile)"
             }/*,
                 {
@@ -99,7 +99,7 @@ var start = (senderId) => {
                 }*/
 
             ]
-            let title = "Share the St Patty's Spirit w a Picture!";
+            let title = "Test your St Patty's Knowledge!";
             Message_2.listButtons(senderId, title, buttons).then(()=>{
                 Message.getLocation(senderId, 'Check out this events during St Pats');
                
