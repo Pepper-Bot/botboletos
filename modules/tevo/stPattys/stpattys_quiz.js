@@ -89,7 +89,7 @@ var start = (senderId) => {
             let buttons = [{
                     "type": "web_url",
                     "url": "http://woobox.com/sd3b2f",
-                    "title": "Take selfie (mobile)"
+                    "title": "Take the test"
             }/*,
                 {
                     "type": "web_url",
