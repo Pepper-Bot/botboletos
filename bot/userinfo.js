@@ -12,7 +12,7 @@ var getInfo = (userId, callback) => {
 		if (error) {
 			callback(true, null);
 		} else {
-
+            console.log('getInfo Ok!')
 			callback(null, body);
 		}
 	});

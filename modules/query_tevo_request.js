@@ -280,7 +280,7 @@ var setImagesToEvents = (resultEvents, counter) => {
                   gButtons[z].image_url = 'https://cdn.vox-cdn.com/thumbor/OFbCx66r30gwhimbKSqaAFnJz90=/0x15:3000x2015/1200x800/filters:focal(0x15:3000x2015)/cdn.vox-cdn.com/uploads/chorus_image/image/48578013/GettyImages-485084850.0.jpg'
                }
                if( search == 'CD Leganes at FC Barcelona') {
-                gButtons[z].image_url = 'https://media-public.fcbarcelona.com/20157/0/document_thumbnail/20197/84/78/115/41111124/1.0-10/41111124.jpg?t=1487152706000'
+                gButtons[z].image_url = 'https://www.highfive.com.tr/assets/img/event/b/fc-barcelona-cd-leganes.jpg'
                }
                if( search == 'Valencia CF at FC Barcelona') {
                  gButtons[z].image_url = 'https://cdn.vox-cdn.com/thumbor/uKXeHyddTi9FQKfF4ZCdAuVkerk=/0x0:3000x2002/1200x800/filters:focal(1220x462:1700x942)/cdn.vox-cdn.com/uploads/chorus_image/image/58385515/655316424.jpg.0.jpg'
