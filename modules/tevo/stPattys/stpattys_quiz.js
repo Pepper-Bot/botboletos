@@ -49,8 +49,7 @@ var startstPattysQuiz = (senderId, referral) => {
                             User.messageNumber = 1;
                             User.mlinkSelected = referral
 
-                            User.save(); // This is the actual save
-                            start(senderId);
+                          
 
                             User.save((err, foundUserBefore) => {
                                 if (err) {
