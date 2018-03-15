@@ -2449,7 +2449,7 @@ var startRealMadridFrame = (senderId, referral) => {
 var startstPattysQuiz = (senderId, referral) => {
     console.log('Entre al startstPattysQuiz ')
     var stPattysQuizModule = require('../modules/tevo/stPattys/stpattys_quiz.js')
-    stPattysQuizModule.statstPattysQuiz(senderId, referral)
+    stPattysQuizModule.startstPattysQuiz(senderId, referral)
 }
 
 
