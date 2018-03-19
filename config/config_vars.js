@@ -30,6 +30,10 @@ var mlink = {
 
 }
 
+var APPLICATION_URL_EXTENSION =   process.env.APPLICATION_URL_EXTENSION
+
+
+
 
 var redis = {
   REDIS_URL: process.env.REDIS_URL,
@@ -115,6 +119,7 @@ module.exports = {
   FB_APP_PUBLIC_ID,
   FB_APP_SECRET_ID,
   google,
-  spotifyVar
+  spotifyVar,
+  APPLICATION_URL_EXTENSION
 
 };
