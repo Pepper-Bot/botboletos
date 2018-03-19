@@ -7,10 +7,11 @@ var APPLICATION_URL_EXTENSION = require("../../config/config_vars")
 
 var startAccount = senderId => {
   console.log("Entré a startAccount");
-  var URLAplication = APLICATION_URL_DOMAIN + "redirect/?u=";
-  var urlExtension = `${APPLICATION_URL_EXTENSION}profile?senderId=${senderId}`;
+  let URLAplication = APLICATION_URL_DOMAIN + "redirect/?u=";
+  let urlExtension = `${APPLICATION_URL_EXTENSION}profile?senderId=${senderId}`;
 
-  var boletos = [
+  let eventResults = [];
+  let boletos = [
     {
       titulo: "My Account",
       imagen: `${APLICATION_URL_DOMAIN}images/account/sharks_image_discount_20.jpg`,
@@ -19,8 +20,8 @@ var startAccount = senderId => {
     }
   ];
 
-  for (var i = 0, c = boletos.length; i < c; i++) {
-    console.log("i" + i);
+  for (let i = 0, c = boletos.length; i < c; i++) {
+    console.log("i " + i);
     eventResults.push({
       title: boletos[i].titulo,
       image_url: boletos[i].imagen,
