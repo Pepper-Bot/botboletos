@@ -8,6 +8,7 @@ var APLICATION_URL_DOMAIN = require("../../config/config_vars")
 
 
 var startAccount = senderId => {
+    console.log('Entré a startAccount')
   var URLAplication = APLICATION_URL_DOMAIN + "redirect/?u=";
  var urlExtension = `${APPLICATION_URL_EXTENSION}profile?senderId=${senderId}` 
 
