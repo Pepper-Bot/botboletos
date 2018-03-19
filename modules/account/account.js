@@ -30,7 +30,7 @@ var startAccount = senderId => {
       default_action: {
         type: "web_url",
         url: boletos[i].url,
-        messenger_extensions: true,
+        //messenger_extensions: true,
         webview_height_ratio: "tall"
         // "fallback_url": boletos[i].url
       },
