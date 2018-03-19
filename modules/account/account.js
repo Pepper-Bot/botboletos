@@ -14,7 +14,7 @@ var startAccount = senderId => {
   let boletos = [
     {
       titulo: "My Account",
-      imagen: `${APLICATION_URL_DOMAIN}images/account/sharks_image_discount_20.jpg`,
+      imagen: `${APLICATION_URL_DOMAIN}images/account/select_artist_v1.jpg`,
       subtitulo: "My Account",
       url: `${urlExtension}`
     }
