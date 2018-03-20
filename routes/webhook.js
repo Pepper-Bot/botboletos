@@ -2460,6 +2460,11 @@ function chooseReferral(referral, senderId) {
       }
       break;
 
+      case "SEVILLA_BAYERN_FRAME": // Here we create the new CASE w new Me Link name on 03/20/18
+      {
+        startSevillaBayernFrame(senderId, referral); //We create a new variable
+      }
+      break;
 
       case "REALMADRID_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
         {
@@ -2739,6 +2744,19 @@ var startSuperBowlCheer = (senderId, referral) => {
 var startBarVsCheFrame = (senderId, referral) => {
   var BarVsCheFrameModule = require("../modules/tevo/champions/barcelonaChelsea_frame.js");
   BarVsCheFrameModule.startBarVsCheFrame(senderId, referral);
+};
+
+// Created 3/20
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startSevillaBayernFrame = (senderId, referral) => {
+  var sevillaBayernFrameModule = require("../modules/tevo/champions/sevillaBayern_frame.js");
+  sevillaBayernFrameModule.startSevillaBayernFrame(senderId, referral);
 };
 
 // Created Feb 28
