@@ -225,6 +225,6 @@ var startChicas = (senderId) => {
 
 
 module.exports = {
-    startRealMadridFrame, startSevillaBayernFrame
+    startSevillaBayernFrame
 
 }
