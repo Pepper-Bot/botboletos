@@ -898,6 +898,21 @@ function processQuickReplies(event) {
   console.log("este es el quick replay  payload  " + payload);
 
   switch (payload) {
+    
+    case "SEVILLA":
+      {
+        console.log("entré al sevilla");
+        startTevoModuleWithMlink("Sevilla", senderId);// Call for tickets search by name
+      }
+      break;
+
+      case "BAYER":
+      {
+        console.log("entré al bayer");
+        startTevoModuleWithMlink("Bayer", senderId);// Call for tickets search by name
+      }
+      break; 
+    
     case "BARCELONA":
       {
         console.log("entré al barcelona");
@@ -2438,6 +2453,14 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
+      case "BAYER_SEVILLA":// MLINK  FOR CHAMPIONS LEAGUE 03_19_2018
+
+      {
+          startBayerSevilla(senderId, referral); // New variable
+      }
+      break;
+
+
       case "REALMADRID_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
         {
           startRealMadridFrame(senderId, referral); //We create a new variable
@@ -2597,6 +2620,17 @@ var startChampionsLeagueFrame = (senderId, referral) => {
 var startBarcaVsChelsea = (senderId, referral) => {
   let championsModule = require("../modules/tevo/champions/champions");
   championsModule.startBarcaVsChelsea(senderId);
+};
+
+
+/**
+ * @param {*} senderId Facebook User Id
+ * @param {*} referral mlink
+ * @description Function to start the mlink for champions league
+ */
+var startBayerSevilla = (senderId, referral) => {
+  let  championsModule = require("modules/tevo/champions/champions");
+  championsModule.startBayerSevilla(senderId);
 };
 
 /**

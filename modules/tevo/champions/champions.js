@@ -43,7 +43,29 @@ var startBarcaVsChelsea = (senderId) => {
     sendQuickReplay(senderId, "Which is your favorite? ", replies);
 }
 
+var startBayerSevilla = (senderId) => {
+    var replies = [
+        {
+        "content_type": "text",
+         "title": "Sevilla",
+         "payload": "SEVILLA"
+        },
 
+        {
+        "content_type": "text",
+         "title": "Bayer",
+         "payload": "BAYER"
+        }
+    ];
+    sendQuickReplay(senderId, "Which is your favorite? ", replies);
+
+}
+
+
+
+
+/** GENERAL FUNCTIONS - DO NOT CHANGE */
+// Send the quick replies
 var sendQuickReplay = (senderId, messageText, replies) => {
     var messageData = {
         "recipient": {
@@ -59,7 +81,7 @@ var sendQuickReplay = (senderId, messageText, replies) => {
 }
 
 function callSendAPI(messageData) {
-    //api de facebook
+    //api de facebook to create the cards and UI elements in the chat
     request({
         uri: FBMESSAGESPAGE,
         qs: {
@@ -78,6 +100,6 @@ function callSendAPI(messageData) {
 
 
 module.exports = {
-    startChampionsLeagueFrame, startBarcaVsChelsea
+    startChampionsLeagueFrame, startBarcaVsChelsea, startBayerSevilla
 
 }
