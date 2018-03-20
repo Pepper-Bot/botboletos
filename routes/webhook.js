@@ -2629,7 +2629,7 @@ var startBarcaVsChelsea = (senderId, referral) => {
  * @description Function to start the mlink for champions league
  */
 var startBayerSevilla = (senderId, referral) => {
-  let  championsModule = require("modules/tevo/champions/champions");
+  let  championsModule = require("../modules/tevo/champions/champions");
   championsModule.startBayerSevilla(senderId);
 };
 
