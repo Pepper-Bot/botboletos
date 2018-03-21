@@ -27,6 +27,23 @@ var startChampionsLeagueFrame = (senderId) => {
 }
 
 
+var startBarcaVsRoma = (senderId) => {
+    var replies = [{
+            "content_type": "text",
+            "title": "Barcelona",
+            "payload": "BARCELONA"
+
+        },
+        {
+            "content_type": "text",
+            "title": "Roma",
+            "payload": "ROMA"
+        }
+    ];
+    sendQuickReplay(senderId, "Which is your favorite? ", replies);
+}
+
+
 var startBarcaVsChelsea = (senderId) => {
     var replies = [{
             "content_type": "text",
@@ -100,6 +117,6 @@ function callSendAPI(messageData) {
 
 
 module.exports = {
-    startChampionsLeagueFrame, startBarcaVsChelsea, startBayerSevilla
+    startChampionsLeagueFrame, startBarcaVsChelsea, startBayerSevilla, startBarcaVsRoma
 
 }
