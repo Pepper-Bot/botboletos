@@ -16,7 +16,8 @@ var startAccount = senderId => {
       titulo: "My Account",
       imagen: `${APLICATION_URL_DOMAIN}images/account/select_artist_v1.jpg`,
       subtitulo: "My Account",
-      url: `${URLAplication}${urlExtension} &id=${senderId}`
+      //url: `${URLAplication}${urlExtension} &id=${senderId}`,
+      url: `${urlExtension}`
     }
   ];
 
