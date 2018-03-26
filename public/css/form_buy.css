@@ -1,0 +1,50 @@
+.barcolor {
+	background-color: #0084FC;
+}
+
+.row_custom {
+	margin: 0;
+	padding: 0;
+}
+
+.row_custom_padding{
+	margin: 0;
+	padding-top: 36px;
+}
+
+.row_title {
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.row_title_lg{
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	font-weight: bold;
+	font-size: 32px;
+}
+
+.row_description {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	text-align: left;
+	opacity: 0.54;
+}
+
+.button_round {
+	border-radius: 12px;
+}
+
+.options-payment {
+	margin:0;
+	padding: 0;
+}
+
+.right-payment {
+	margin: 16px;
+}

@@ -3,6 +3,13 @@
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }*/
 
+.container-fluid{
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
 .btn1rem {
   padding: 0 1rem;
 }
@@ -119,4 +126,12 @@ a {
   .container1 {
     width: 70%;
   }
+}
+
+.btn-round {
+  border-radius: 10em;
+}
+
+.no-uppercase {
+  text-transform: none;
 }
