@@ -33,13 +33,15 @@ var startAccount = senderId => {
         type: "web_url",
         url: boletos[i].url,
         messenger_extensions: true,
-        webview_height_ratio: "tall"
-        // "fallback_url": boletos[i].url
+        webview_height_ratio: "tall",
+        "fallback_url": boletos[i].url
       },
       buttons: [
         {
           type: "web_url",
           url: boletos[i].url,
+          messenger_extensions: true,
+          webview_height_ratio: "tall",
           title: "Select your favorite artists"
           //"payload": "TIBURON" + (i + 1)
         }
