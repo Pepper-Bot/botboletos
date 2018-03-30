@@ -81,7 +81,7 @@ var selectSendImageAndTemplates = (senderId, payload) => {
 };
 
 var sendImageAndTevoSearch = (senderId, urlImage) => {
-  Message.sendMessage(senderId, urlImage).then(() => {
+  Message.sendImage(senderId, urlImage).then(() => {
     sendTemplate(senderId, "");
   });
 };
