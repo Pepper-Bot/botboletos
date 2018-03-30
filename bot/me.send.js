@@ -1,6 +1,6 @@
 const FBMESSAGESPAGE = "https://graph.facebook.com/v2.6/me/messages";
 const PAGE_ACCESS_TOKEN = require("../config/config_vars").PAGE_ACCESS_TOKEN;
-const dashbot = require("dashbot");
+const dashbot = require('dashbot')('CJl7GFGWbmStQyF8dYjR6WxIBPwrcjaIWq057IOO').facebook;//new
 
 var request = require("request");
 
