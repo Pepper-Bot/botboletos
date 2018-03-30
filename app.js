@@ -286,6 +286,11 @@ app.get("/spotify/login/", function(req, res) {
   });
 });
 
+//DASHBOT DAY
+app.post('/guessnumber', (request, response) => {
+  dashbot.logIncoming(request.body);
+}
+
 // GET /auth/spotify
 //   Use passport.authenticate() as route middleware to authenticate the
 //   request. The first step in spotify authentication will involve redirecting

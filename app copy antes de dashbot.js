@@ -3,7 +3,6 @@
 //10 de agosto
 "use strict";
 require("dotenv").config();
-const dashbot = require('dashbot')('CJl7GFGWbmStQyF8dYjR6WxIBPwrcjaIWq057IOO').facebook;//new
 var express = require("express");
 var path = require("path");
 var favicon = require("serve-favicon");
