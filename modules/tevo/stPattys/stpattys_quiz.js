@@ -99,7 +99,7 @@ var start = (senderId) => {
 
             ]
             let title = "Test your St Patty's Knowledge!";
-            Message_2.listButtons(senderId, title, buttons).then(()=>{
+            Message.listButtons(senderId, title, buttons).then(()=>{
                 Message.getLocation(senderId, 'Check out this events during St Pats');
                
                

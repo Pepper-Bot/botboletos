@@ -100,7 +100,7 @@ var start = (senderId) => {
 
             ]
             let title = "Share the St Patty's Spirit w a Picture!";
-            Message_2.listButtons(senderId, title, buttons).then(()=>{
+            Message.listButtons(senderId, title, buttons).then(()=>{
                 Message.getLocation(senderId, 'Check out this events during St Pats');
                
                

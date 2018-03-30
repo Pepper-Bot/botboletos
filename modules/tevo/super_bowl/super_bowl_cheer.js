@@ -100,7 +100,7 @@ var start = (senderId) => {
 
             ]
             let title = 'Use the Eagles frame';
-            Message_2.listButtons(senderId, title, buttons)
+            Message.listButtons(senderId, title, buttons)
         }
     });
 
