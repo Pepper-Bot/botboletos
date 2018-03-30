@@ -2,175 +2,145 @@
 BARCELONA ROMA FRAME COPIED FROM BARCELONA CHELSEA 
 */
 
-var Message = require('../../../bot/messages');
-var Message_2 = require('../../../bot/generic_buttton') // Define new card layout
-var APLICATION_URL_DOMAIN = require('../../../config/config_vars').APLICATION_URL_DOMAIN;
-var PAGE_ACCESS_TOKEN = require('../../../config/config_vars').PAGE_ACCESS_TOKEN;
-var FBMESSAGESPAGE = require('../../../config/config_vars').FBMESSAGESPAGE
-var mlink = require('../../../config/config_vars').mlink.MLINK_BASE + "?ref="
-var Message2 = require('../../../bot/generic_buttton');
-var request = require('request');
-var UserData = require('../../../bot/userinfo');
-var UserData2 = require('../../../schemas/userinfo');
-var Message = require('../../../bot/messages');
-var user_queries = require('../../../schemas/queries/user_queries');
+var Message = require("../../../bot/messages");
+var Message_2 = require("../../../bot/generic_buttton"); // Define new card layout
+var APLICATION_URL_DOMAIN = require("../../../config/config_vars")
+  .APLICATION_URL_DOMAIN;
+var PAGE_ACCESS_TOKEN = require("../../../config/config_vars")
+  .PAGE_ACCESS_TOKEN;
+var FBMESSAGESPAGE = require("../../../config/config_vars").FBMESSAGESPAGE;
+var mlink = require("../../../config/config_vars").mlink.MLINK_BASE + "?ref=";
+var Message2 = require("../../../bot/generic_buttton");
+var request = require("request");
+var UserData = require("../../../bot/userinfo");
+var UserData2 = require("../../../schemas/userinfo");
+var Message = require("../../../bot/messages");
+var user_queries = require("../../../schemas/queries/user_queries");
 // Request the users ID from DB API
 var startBarVsRomaFrame = (senderId, referral) => {
-    UserData2.findOne({
-        fbId: senderId
-    }, {}, {
-        sort: {
-            'sessionStart': -1
-        }
-    }, function (err, foundUser) {
-        // Check if user exists in DB
-        if (!err) {
-            if (foundUser) {
-                foundUser.mlinkSelected = referral // Update Me Link selected
-                foundUser.save((err, foundUserBefore) => {
-                    if (err) {
-                        console.log('Error al guardar el usuario');
-                    } else {
-                        console.log('usuario actualizado:' + foundUser.mlinkSelected);
-                        start(senderId);
-                    }
-                });
+  UserData2.findOne(
+    {
+      fbId: senderId
+    },
+    {},
+    {
+      sort: {
+        sessionStart: -1
+      }
+    },
+    function(err, foundUser) {
+      // Check if user exists in DB
+      if (!err) {
+        if (foundUser) {
+          foundUser.mlinkSelected = referral; // Update Me Link selected
+          foundUser.save((err, foundUserBefore) => {
+            if (err) {
+              console.log("Error al guardar el usuario");
             } else {
-                // If the user is not already in the DB then store it
-                UserData.getInfo(senderId, function (err, result) {
-                    console.log('Dentro de UserData');
-                    if (!err) {
-                        var bodyObj = JSON.parse(result);
-                        console.log(result);
-                        var User = new UserData2; {
-                            User.fbId = senderId;
-                            User.firstName = bodyObj.first_name;
-                            User.LastName = bodyObj.last_name;
-                            User.profilePic = bodyObj.profile_pic;
-                            User.locale = bodyObj.locale;
-                            User.timeZone = bodyObj.timezone;
-                            User.gender = bodyObj.gender;
-                            User.messageNumber = 1;
-                            User.mlinkSelected = referral
-
-                            User.save(); // This is the actual save
-                            start(senderId);
-
-                            User.save((err, foundUserBefore) => {
-                                if (err) {
-                                    console.log('Error al guardar el usuario ');
-                                } else {
-                                    console.log('usuario guardado:' + foundUserBefore.mlinkSelected);
-                                    start(senderId);
-                                }
-
-                            });
-                        }
-                    }
-                });
+              console.log("usuario actualizado:" + foundUser.mlinkSelected);
+              start(senderId);
             }
-        }
-    });
+          });
+        } else {
+          // If the user is not already in the DB then store it
+          UserData.getInfo(senderId, function(err, result) {
+            console.log("Dentro de UserData");
+            if (!err) {
+              var bodyObj = JSON.parse(result);
+              console.log(result);
+              var User = new UserData2();
+              {
+                User.fbId = senderId;
+                User.firstName = bodyObj.first_name;
+                User.LastName = bodyObj.last_name;
+                User.profilePic = bodyObj.profile_pic;
+                User.locale = bodyObj.locale;
+                User.timeZone = bodyObj.timezone;
+                User.gender = bodyObj.gender;
+                User.messageNumber = 1;
+                User.mlinkSelected = referral;
 
-}
+                User.save(); // This is the actual save
+                start(senderId);
+
+                User.save((err, foundUserBefore) => {
+                  if (err) {
+                    console.log("Error al guardar el usuario ");
+                  } else {
+                    console.log(
+                      "usuario guardado:" + foundUserBefore.mlinkSelected
+                    );
+                    start(senderId);
+                  }
+                });
+              }
+            }
+          });
+        }
+      }
+    }
+  );
+};
 
 // Here i make this standard me link for frameS ANALOGOUS to someFrame.js
 
-var start = (senderId) => {
-    UserData.getInfo(senderId, function (err, result) {
-        console.log('Consultado el usuario de Face !!');
-        if (!err) {
+var start = senderId => {
+  UserData.getInfo(senderId, function(err, result) {
+    console.log("Consultado el usuario de Face !!");
+    if (!err) {
+      var bodyObj = JSON.parse(result);
+      console.log(result);
 
-            var bodyObj = JSON.parse(result);
-            console.log(result);
+      var name = bodyObj.first_name;
 
-            var name = bodyObj.first_name;
+      //Old shmack - Valentine etc
+      //let eventResults = [];
+      //let urlLink = 'www.facebook.com/fbcameraeffects/tryit/1148639865272750/'
+      // Draw the FB UI Cards and elements
 
-            //Old shmack - Valentine etc
-            //let eventResults = [];
-            //let urlLink = 'www.facebook.com/fbcameraeffects/tryit/1148639865272750/'
-            // Draw the FB UI Cards and elements
-
-
-            let buttons = [{
-                    "type": "web_url",
-                    "url": "https://www.facebook.com/fbcameraeffects/tryit/1855012714531905/",
-                    "title": "Try Barcelona"
-            },
-                {
-                    "type": "web_url",
-                    "url": "https://www.facebook.com/fbcameraeffects/tryit/386952905111753/",
-                    "title": " Try Roma"
-                }
-
-            ]
-            let title = 'Wear your team colors!';
-            Message_2.listButtons(senderId, title, buttons).then(()=>{
-              //  Message.getLocation(senderId, 'Check out these games for your team');
-            
-            BarcelonaRomaButtons (senderId);
-               
-
-            })
-        }
-    });
-
-}
-
-
-var BarcelonaRomaButtons = (senderId) => {
-    var replies = [{
-            "content_type": "text",
-            "title": "Barcelona",
-            "payload": "BARCELONA"
-
+      let buttons = [
+        {
+          type: "web_url",
+          url:
+            "https://www.facebook.com/fbcameraeffects/tryit/1855012714531905/",
+          title: "Try Barcelona"
         },
         {
-            "content_type": "text",
-            "title": "Roma",
-            "payload": "ROMA"
+          type: "web_url",
+          url:
+            "https://www.facebook.com/fbcameraeffects/tryit/386952905111753/",
+          title: " Try Roma"
         }
-    ];
-    sendQuickReplay(senderId, "Get game tickets for your team. Choose a team: ", replies);
-}
+      ];
+      let title = "Wear your team colors!";
+      Message.listButtons(senderId, title, buttons).then(() => {
+        //  Message.getLocation(senderId, 'Check out these games for your team');
 
-
-
-var sendQuickReplay = (senderId, messageText, replies) => {
-    var messageData = {
-        "recipient": {
-            "id": senderId
-        },
-        "message": {
-            "text": messageText,
-            "quick_replies": replies
-        }
+        BarcelonaRomaButtons(senderId);
+      });
     }
-    callSendAPI(messageData)
+  });
+};
 
-}
-
-function callSendAPI(messageData) {
-    //api de facebook
-    request({
-        uri: FBMESSAGESPAGE,
-        qs: {
-            access_token: PAGE_ACCESS_TOKEN
-        },
-        method: 'POST',
-        json: messageData
-    }, function (error, response, data) {
-        if (error)
-            console.log('No es posible enviar el mensaje')
-        else
-            console.log('Mensaje enviado')
-    })
-}
-
-
-
-
-
+var BarcelonaRomaButtons = senderId => {
+  var replies = [
+    {
+      content_type: "text",
+      title: "Barcelona",
+      payload: "BARCELONA"
+    },
+    {
+      content_type: "text",
+      title: "Roma",
+      payload: "ROMA"
+    }
+  ];
+  Message.quickReply(
+    senderId,
+    "Get game tickets for your team. Choose a team: ",
+    replies
+  );
+};
 
 /*
 
@@ -223,8 +193,6 @@ var startChicas = (senderId) => {
 
 */
 
-
-
 module.exports = {
-    startBarVsRomaFrame
-}
+  startBarVsRomaFrame
+};

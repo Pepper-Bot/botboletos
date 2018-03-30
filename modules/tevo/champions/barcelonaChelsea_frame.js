@@ -105,7 +105,7 @@ var start = (senderId) => {
 
             ]
             let title = 'Wear your team colors!';
-            Message_2.listButtons(senderId, title, buttons).then(()=>{
+            Message.listButtons(senderId, title, buttons).then(()=>{
               //  Message.getLocation(senderId, 'Check out these games for your team');
             
             BarcelonaChelseaButtons (senderId);
@@ -131,45 +131,13 @@ var BarcelonaChelseaButtons = (senderId) => {
             "payload": "CHELSEA"
         }
     ];
-    sendQuickReplay(senderId, "Get game tickets for your team. Choose a team: ", replies);
+   Message.quickReply( senderId, "Get game tickets for your team. Choose a team: ", replies);
 }
 
 
 
-var sendQuickReplay = (senderId, messageText, replies) => {
-    var messageData = {
-        "recipient": {
-            "id": senderId
-        },
-        "message": {
-            "text": messageText,
-            "quick_replies": replies
-        }
-    }
-    callSendAPI(messageData)
-
-}
-
-function callSendAPI(messageData) {
-    //api de facebook
-    request({
-        uri: FBMESSAGESPAGE,
-        qs: {
-            access_token: PAGE_ACCESS_TOKEN
-        },
-        method: 'POST',
-        json: messageData
-    }, function (error, response, data) {
-        if (error)
-        
-            console.log('No es posible enviar el mensaje')
-        else
-            console.log('Mensaje enviado')
-    })
-}
-
-
-
+ 
+ 
 
 
 
