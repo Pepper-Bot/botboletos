@@ -289,6 +289,7 @@ app.get("/spotify/login/", function(req, res) {
 //DASHBOT DAY
 app.post('/guessnumber', (request, response) => {
   dashbot.logIncoming(request.body);
+  
 })
 
 // GET /auth/spotify

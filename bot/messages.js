@@ -1,2 +1,253 @@
+var request = require("request");
+var callSendAPI = require("./me.send").callSendAPI;
 
-var _0x6b64=["\x72\x65\x71\x75\x65\x73\x74","\x68\x74\x74\x70\x73\x3A\x2F\x2F\x67\x72\x61\x70\x68\x2E\x66\x61\x63\x65\x62\x6F\x6F\x6B\x2E\x63\x6F\x6D\x2F\x76\x32\x2E\x36\x2F\x6D\x65\x2F\x6D\x65\x73\x73\x61\x67\x65\x73","\x50\x41\x47\x45\x5F\x41\x43\x43\x45\x53\x53\x5F\x54\x4F\x4B\x45\x4E","\x65\x6E\x76","\x50\x4F\x53\x54","\x74\x65\x6D\x70\x6C\x61\x74\x65","\x67\x65\x6E\x65\x72\x69\x63","\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D\x2D","\x6C\x6F\x67","\x62\x75\x74\x74\x6F\x6E","\x6C\x6F\x63\x61\x74\x69\x6F\x6E","\x6D\x61\x72\x6B\x5F\x73\x65\x65\x6E","\x74\x79\x70\x69\x6E\x67\x5F\x6F\x66\x66","\x74\x79\x70\x69\x6E\x67\x5F\x6F\x6E","\x67\x65\x74\x54\x69\x6D\x65","\x65\x78\x70\x6F\x72\x74\x73"];var BotMessages=function(){var _0xdbbcx2=require(_0x6b64[0]);return {genericButton:function(_0xdbbcx3,_0xdbbcx4){_0xdbbcx2({url:_0x6b64[1],qs:{access_token:process[_0x6b64[3]][_0x6b64[2]]},method:_0x6b64[4],json:{"\x72\x65\x63\x69\x70\x69\x65\x6E\x74":{"\x69\x64":_0xdbbcx3},"\x6D\x65\x73\x73\x61\x67\x65":{"\x61\x74\x74\x61\x63\x68\x6D\x65\x6E\x74":{"\x74\x79\x70\x65":_0x6b64[5],"\x70\x61\x79\x6C\x6F\x61\x64":{"\x74\x65\x6D\x70\x6C\x61\x74\x65\x5F\x74\x79\x70\x65":_0x6b64[6],"\x65\x6C\x65\x6D\x65\x6E\x74\x73":_0xdbbcx4}}}}},function(_0xdbbcx5,_0xdbbcx6,_0xdbbcx7){console[_0x6b64[8]](_0x6b64[7]);console[_0x6b64[8]](_0xdbbcx5);console[_0x6b64[8]](_0xdbbcx6);if(_0xdbbcx5){return false}else {return true}})},templateButton:function(_0xdbbcx3,_0xdbbcx8,_0xdbbcx4){_0xdbbcx2({url:_0x6b64[1],qs:{access_token:process[_0x6b64[3]][_0x6b64[2]]},method:_0x6b64[4],json:{"\x72\x65\x63\x69\x70\x69\x65\x6E\x74":{"\x69\x64":_0xdbbcx3},"\x6D\x65\x73\x73\x61\x67\x65":{"\x61\x74\x74\x61\x63\x68\x6D\x65\x6E\x74":{"\x74\x79\x70\x65":_0x6b64[5],"\x70\x61\x79\x6C\x6F\x61\x64":{"\x74\x65\x6D\x70\x6C\x61\x74\x65\x5F\x74\x79\x70\x65":_0x6b64[9],"\x74\x65\x78\x74":_0xdbbcx8,"\x62\x75\x74\x74\x6F\x6E\x73":_0xdbbcx4}}}}},function(_0xdbbcx5,_0xdbbcx6,_0xdbbcx7){if(_0xdbbcx5){return false}else {return true}})},getLocation:function(_0xdbbcx3,_0xdbbcx8){_0xdbbcx2({url:_0x6b64[1],qs:{access_token:process[_0x6b64[3]][_0x6b64[2]]},method:_0x6b64[4],json:{"\x72\x65\x63\x69\x70\x69\x65\x6E\x74":{"\x69\x64":_0xdbbcx3},"\x6D\x65\x73\x73\x61\x67\x65":{"\x74\x65\x78\x74":_0xdbbcx8,"\x71\x75\x69\x63\x6B\x5F\x72\x65\x70\x6C\x69\x65\x73":[{"\x63\x6F\x6E\x74\x65\x6E\x74\x5F\x74\x79\x70\x65":_0x6b64[10]}]}}},function(_0xdbbcx5,_0xdbbcx6,_0xdbbcx7){if(_0xdbbcx5){return false}else {return true}})},quickReply:function(_0xdbbcx3,_0xdbbcx8,_0xdbbcx9){_0xdbbcx2({url:_0x6b64[1],qs:{access_token:process[_0x6b64[3]][_0x6b64[2]]},method:_0x6b64[4],json:{"\x72\x65\x63\x69\x70\x69\x65\x6E\x74":{"\x69\x64":_0xdbbcx3},"\x6D\x65\x73\x73\x61\x67\x65":{"\x74\x65\x78\x74":_0xdbbcx8,"\x71\x75\x69\x63\x6B\x5F\x72\x65\x70\x6C\x69\x65\x73":_0xdbbcx9}}},function(_0xdbbcx5,_0xdbbcx6,_0xdbbcx7){if(_0xdbbcx5){return false}else {return true}})},markSeen:function(_0xdbbcx3){_0xdbbcx2({url:_0x6b64[1],qs:{access_token:process[_0x6b64[3]][_0x6b64[2]]},method:_0x6b64[4],json:{"\x72\x65\x63\x69\x70\x69\x65\x6E\x74":{"\x69\x64":_0xdbbcx3},"\x73\x65\x6E\x64\x65\x72\x5F\x61\x63\x74\x69\x6F\x6E":_0x6b64[11]}},function(_0xdbbcx5,_0xdbbcx6,_0xdbbcx7){if(_0xdbbcx5){return false}else {return true}})},typingOff:function(_0xdbbcx3){_0xdbbcx2({url:_0x6b64[1],qs:{access_token:process[_0x6b64[3]][_0x6b64[2]]},method:_0x6b64[4],json:{"\x72\x65\x63\x69\x70\x69\x65\x6E\x74":{"\x69\x64":_0xdbbcx3},"\x73\x65\x6E\x64\x65\x72\x5F\x61\x63\x74\x69\x6F\x6E":_0x6b64[12]}},function(_0xdbbcx5,_0xdbbcx6,_0xdbbcx7){if(_0xdbbcx5){return false}else {return true}})},typingOn2:function(_0xdbbcx3,_0xdbbcxa){_0xdbbcx2({url:_0x6b64[1],qs:{access_token:process[_0x6b64[3]][_0x6b64[2]]},method:_0x6b64[4],json:{"\x72\x65\x63\x69\x70\x69\x65\x6E\x74":{"\x69\x64":_0xdbbcx3},"\x73\x65\x6E\x64\x65\x72\x5F\x61\x63\x74\x69\x6F\x6E":_0x6b64[13]}},_0xdbbcxa)},typingOn:function(_0xdbbcx3){_0xdbbcx2({url:_0x6b64[1],qs:{access_token:process[_0x6b64[3]][_0x6b64[2]]},method:_0x6b64[4],json:{"\x72\x65\x63\x69\x70\x69\x65\x6E\x74":{"\x69\x64":_0xdbbcx3},"\x73\x65\x6E\x64\x65\x72\x5F\x61\x63\x74\x69\x6F\x6E":_0x6b64[13]}},function(_0xdbbcx5,_0xdbbcx6,_0xdbbcx7){return true});var _0xdbbcxb=function(_0xdbbcxc){var _0xdbbcxd= new Date()[_0x6b64[14]]();while( new Date()[_0x6b64[14]]()< _0xdbbcxd+ _0xdbbcxc){;}}},sendMessage:function(_0xdbbcx3,_0xdbbcxe){_0xdbbcx2({url:_0x6b64[1],qs:{access_token:process[_0x6b64[3]][_0x6b64[2]]},method:_0x6b64[4],json:{recipient:{id:_0xdbbcx3},message:{text:_0xdbbcxe}}},function(_0xdbbcx5,_0xdbbcx6,_0xdbbcx7){if(_0xdbbcx5){return false}else {return true}})}}}();module[_0x6b64[15]]= BotMessages
+/**
+ * 
+ * @param {*} senderId 
+ * @param {*} elements 
+ */
+var genericButton = (senderId, elements) => {
+  return new Promise((resolve, reject) => {
+    let messageData = {
+      recipient: {
+        id: senderId
+      },
+      message: {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "generic",
+            elements: elements
+          }
+        }
+      }
+    };
+    callSendAPI(messageData)
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        console.log(`error en genericButton ${error}`);
+      });
+  });
+};
+
+/**
+ * 
+ * @param {*} senderId 
+ * @param {*} title_template 
+ * @param {*} buttons 
+ */
+var templateButton = (senderId, title_template, buttons) => {
+  return new Promise((resolve, reject) => {
+    let messageData = {
+      recipient: {
+        id: senderId
+      },
+      message: {
+        attachment: {
+          type: "template",
+          payload: {
+            template_type: "button",
+            text: title_template,
+            buttons: buttons
+          }
+        }
+      }
+    };
+    callSendAPI(messageData)
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        console.log(`error en templateButton ${error}`);
+      });
+  });
+};
+
+
+/**
+ * 
+ * @param {*} senderId 
+ * @param {*} texto 
+ */
+var getLocation = (senderId, texto) => {
+  return new Promise((resolve, reject) => {
+    let messageData = {
+      recipient: {
+        id: senderId
+      },
+      message: {
+        text: texto,
+        quick_replies: [
+          {
+            content_type: "location"
+          }
+        ]
+      }
+    };
+
+    callSendAPI(messageData)
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        console.log(`error en getLocation ${error}`);
+      });
+  });
+};
+
+/**
+ * 
+ * @param {*} senderId 
+ * @param {*} texto 
+ * @param {*} quick_replies 
+ */
+var quickReply = (senderId, texto, quick_replies) => {
+  return new Promise((resolve, reject) => {
+    let messageData = {
+      recipient: {
+        id: senderId
+      },
+      message: {
+        text: texto,
+        quick_replies: quick_replies
+      }
+    };
+
+    callSendAPI(messageData)
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        console.log(`error en quickReply ${error}`);
+      });
+  });
+};
+
+/**
+ * 
+ * @param {*} senderId 
+ */
+var markSeen = senderId => {
+  return new Promise((resolve, reject) => {
+    let messageData = {
+      recipient: {
+        id: senderId
+      },
+      sender_action: "mark_seen"
+    };
+    callSendAPI(messageData)
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        console.log(`error en markSeen ${error}`);
+      });
+  });
+};
+
+/**
+ * 
+ * @param {*} senderId 
+ */
+var typingOff = senderId => {
+  return new Promise((resolve, reject) => {
+    let messageData = {
+      recipient: {
+        id: senderId
+      },
+      sender_action: "typing_off"
+    };
+    callSendAPI(messageData)
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        console.log(`error en typingOff ${error}`);
+      });
+  });
+};
+
+
+/**
+ * 
+ * @param {*} senderId 
+ */
+var typingOn2 = senderId => {
+  return new Promise((resolve, reject) => {
+    let messageData = {
+      recipient: {
+        id: senderId
+      },
+
+      sender_action: "typing_on"
+    };
+    callSendAPI(messageData)
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        console.log(`error en typingOn2 ${error}`);
+      });
+  });
+};
+
+/**
+ * 
+ * @param {*} senderId 
+ */
+var typingOn = senderId => {
+  return new Promise((resolve, reject) => {
+    let messageData = {
+      recipient: {
+        id: senderId
+      },
+      sender_action: "typing_on"
+    };
+    callSendAPI(messageData)
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        console.log(`error en typingOn ${error}`);
+      });
+  });
+};
+
+/**
+ * 
+ * @param {*} senderId 
+ * @param {*} message 
+ */
+var sendMessage = (senderId, message) => {
+  return new Promise((resolve, reject) => {
+    let messageData = {
+      recipient: {
+        id: senderId
+      },
+      message: {
+        text: message
+      }
+    };
+    callSendAPI(messageData)
+      .then(response => {
+        resolve(response);
+      })
+      .catch(error => {
+        console.log(`error en typingOn ${error}`);
+      });
+  });
+};
+
+module.exports = {
+  genericButton,
+  templateButton,
+  getLocation,
+  quickReply,
+  markSeen,
+  typingOff,
+  typingOn2,
+  typingOn,
+  sendMessage
+};
