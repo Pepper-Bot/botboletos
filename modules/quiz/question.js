@@ -5,7 +5,7 @@ module.exports = function () {
         start: function (senderId) {
 
 
-            var Message = require('../bot/messages');
+            var Message = require('../../bot/messages');
             // llamamos al modulo de mensajes
             var eventResults = [];
             Message.typingOn(senderId);
@@ -72,10 +72,11 @@ module.exports = function () {
             //Message.genericButton(senderId, eventResults);
 
 
-            var GenericButton = require('../bot/generic_buttton');
+            var GenericButton = require('../../bot/generic_buttton');
             GenericButton.genericButtonQuickReplay(senderId, eventResults, "Find something else? ", "horizontal")
 
 
+           
             // dejamos de tipear
             Message.typingOff(senderId);
 

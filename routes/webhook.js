@@ -882,7 +882,7 @@ function processQuickReplayBox(senderId) {
   //Message.sendMessage(senderId, "Results:");
   //resultados...
   var rigovslomaQuickReplay = require("../modules/quiz/rigo_vs_loma_quick_replay");
-  rigovslomaQuickReplay.send(Message, senderId);
+  rigovslomaQuickReplay.send( senderId);
 }
 
 /**
