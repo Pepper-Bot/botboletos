@@ -49,7 +49,7 @@ var only_with = 'only_with_available_tickets=true'
 //var format_tickets = 'format=Eticket,Flash_seats,TM_mobile,Guest_list,Paperless'
 var format_tickets = 'format=Physical,Eticket,Flash_seats,TM_mobile,Guest_list,Paperless'
 
-/*
+
 /////////////////////tevo//////////////////////////// 
 var API_SECRET_KEY = process.env.SANDBOX_API_SECRET_KEY
 var API_TOKEN = process.env.SANDBOX_API_TOKEN
@@ -60,10 +60,10 @@ var P_CLIENT_ID = process.env.SANDBOX_P_CLIENT_ID
 var P_CLIENT_SECRET = process.env.SANDBOX_P_CLIENT_SECRET
 var P_MODE = 'sandbox'
 /////////////////////PP//////////////////////////// 
-*/
 
 
 
+/*
 /////////////////////tevo/////////////////////////////
 var API_SECRET_KEY = process.env.API_SECRET_KEY
 var API_TOKEN = process.env.API_TOKEN
@@ -73,7 +73,7 @@ var OFFICE_ID = process.env.OFFICE_ID
 var P_CLIENT_ID = process.env.P_CLIENT_ID
 var P_CLIENT_SECRET = process.env.P_CLIENT_SECRET
 var P_MODE = 'live'
-
+*/
 
 
 
