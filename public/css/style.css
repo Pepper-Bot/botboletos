@@ -53,6 +53,7 @@ a {
   max-height: 60%;
   overflow-y: auto;
   overflow-x: hidden;
+  background-color: white
 }
 
 .width100 {
