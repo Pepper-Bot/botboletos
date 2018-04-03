@@ -202,7 +202,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <select id="state" name="state" class="form-control">
-                                        
+
                                     </select>
                                     <label for="state">State </label>
                                 </div>
@@ -337,7 +337,8 @@
 
     }); 
 </script>
-<script> $(document).ready(function () {
+<script>
+    $(document).ready(function () {
         $("#same_as_ship").on("click", function (e) {
             if ($(this).is(":checked")) {
                 $("#shipping_form").hide();
@@ -357,7 +358,45 @@
             }
         });
 
-        
+        $("#cc_radio").on("click", function (e) {
+            if ($(this).is(":checked")) {
+                $("#paypal_form").hide();
+                $("#credit_card_form").show();
+
+                $("#cc").removeAttr("disabled", "disabled");
+                $("#exp_month").removeAttr("disabled", "disabled");
+                $("#exp_year").removeAttr("disabled", "disabled");
+                $("#cvv").removeAttr("disabled", "disabled");
+            }
+            else {
+                $("#cc").attr("disabled", "disabled");
+                $("#exp_month").attr("disabled", "disabled");
+                $("#exp_year").attr("disabled", "disabled");
+                $("#cvv").attr("disabled", "disabled");
+                $("#credit_card_form").hide();
+                $("#paypal_form").show();
+            }
+        });
+
+        $("#pp_radio").on("click", function (e) {
+            if ($(this).is(":checked")) {
+                $("#cc").attr("disabled", "disabled");
+                $("#exp_month").attr("disabled", "disabled");
+                $("#exp_year").attr("disabled", "disabled");
+                $("#cvv").attr("disabled", "disabled");
+                $("#credit_card_form").hide();
+                $("#paypal_form").show();
+
+            }
+            else {
+                $("#paypal_form").hide();
+                $("#credit_card_form").show();
+                $("#cc").removeAttr("disabled", "disabled");
+                $("#exp_month").removeAttr("disabled", "disabled");
+                $("#exp_year").removeAttr("disabled", "disabled");
+                $("#cvv").removeAttr("disabled", "disabled");
+            }
+        });
 
     });
 </script>
