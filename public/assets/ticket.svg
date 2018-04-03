@@ -1,0 +1,31 @@
+<svg id="Group_485" data-name="Group 485" xmlns="http://www.w3.org/2000/svg" viewBox="1816 172 48 53">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: 0.54;
+      }
+
+      .cls-2, .cls-4 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: rgba(112,112,112,0.36);
+        opacity: 0;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="noun_1295078_cc" class="cls-1" transform="translate(1826.023 173)">
+    <g id="Group_417" data-name="Group 417" transform="translate(0 50.996) rotate(-90)">
+      <path id="Path_124" data-name="Path 124" d="M0,0V7.013a7.012,7.012,0,0,1,7.012,7.01A7.012,7.012,0,0,1,0,21.036v7.012H33.785v-5.1h2.55v5.1H51V21.036A7.012,7.012,0,1,1,51,7.012V0H36.334V5.1h-2.55V0H0Zm33.785,7.65h2.55v5.1h-2.55Zm0,7.649h2.55v5.1h-2.55Z" transform="translate(0 0)"/>
+    </g>
+  </g>
+  <g id="Rectangle_200" data-name="Rectangle 200" class="cls-2" transform="translate(1816 172)">
+    <rect class="cls-3" width="48" height="53"/>
+    <rect class="cls-4" x="0.5" y="0.5" width="47" height="52"/>
+  </g>
+</svg>

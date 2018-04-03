@@ -1,0 +1,26 @@
+<svg id="Group_460" data-name="Group 460" xmlns="http://www.w3.org/2000/svg" viewBox="-346.519 2020.471 52.9 52.9">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-4 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: rgba(112,112,112,0);
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <path id="icon-facebook-black" class="cls-1" d="M281.434-156A25.03,25.03,0,0,0,256.4-130.966a25.03,25.03,0,0,0,25.034,25.034,25.03,25.03,0,0,0,25.034-25.034A25.03,25.03,0,0,0,281.434-156Zm7.413,14.729h-3.5c-1.24,0-1.495.51-1.495,1.786v3.087h4.995l-.486,5.42h-4.509v16.187h-6.465v-16.127h-3.366V-136.4h3.366v-4.326c0-4.059,2.163-6.174,6.976-6.174h4.472l.012,5.627Z" transform="translate(-601.193 2178.134)"/>
+  <g id="Rectangle_186" data-name="Rectangle 186" class="cls-2" transform="matrix(1, 0.017, -0.017, 1, -345.611, 2020.471)">
+    <rect class="cls-3" width="52" height="52"/>
+    <rect class="cls-4" x="0.5" y="0.5" width="51" height="51"/>
+  </g>
+</svg>
