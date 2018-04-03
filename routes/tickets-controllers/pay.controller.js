@@ -49,7 +49,7 @@ var init_pay = function (req, res) {
             break;
         default:
             {
-
+                console.log('Método de pago desconocido. Revisar')
             }
             break;
     }
