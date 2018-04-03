@@ -33,52 +33,6 @@
     </div>
 </div>
 
-
-<div class="container">
-    <div class="row left">
-        <h3 class="header left blue-text">{{subtitulo}}</h3>
-        <div class="section hide-on-med-and-down">
-            <div class="row">
-                <div class="col m12 m4">
-                    <div class="card">
-                        <div class="card-content">
-                            <div class="card-image">
-                                <img src="{{image_url}}">
-                                <span style="display:none;" class="card-title">{{this.name}}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="section">
-            <div class="row">
-                {{#each events}}
-                <div class="col m12 m4">
-                    <div class="card">
-
-                        <div class="card-content">
-                            <p>{{this.name}}
-                                <br>
-                                <strong>{{this.occurs_at_format}}</strong>
-                                <br>{{this.venue.name}} {{this.venue.location}} </p>
-                            <div class="card-action">
-                                <p>
-                                    <a class="btn blue" href="{{this.button_href}}">Purchase Tickets</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-               {{/each}}
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
 <div class="container-fluid container-cards">
     <div class="row row-custom">
         <div class="col col-custom s12 m8 offset-m2">
@@ -94,11 +48,7 @@
                         <div class="card-action">
                             <div class="row center">
                                 <div class="input-field col s12">
-                                    <button id="checkout" name="checkout" class="btn btn-round btn-book no-uppercase white">
-                                    </button>
-
-                                      <a class="btn btn-round btn-book no-uppercase white" href="{{this.button_href}}">Book Tickets</a>
-
+                                    <a class="btn btn-round btn-book no-uppercase white" href="{{this.button_href}}">Book Tickets</a>
                                 </div>
                             </div>
                         </div>
