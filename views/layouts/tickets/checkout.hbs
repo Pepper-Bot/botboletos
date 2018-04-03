@@ -361,5 +361,27 @@
 
     }); 
 </script>
-<script>
+<script> $(document).ready(function () {
+        $("#same_as_ship").on("click", function (e) {
+            if ($(this).is(":checked")) {
+                $("#shipping_form").hide();
+                $("#ship_address").attr("disabled", "disabled");
+                $("#zipcode").attr("disabled", "disabled");
+                $("#city").attr("disabled", "disabled");
+                $("#state").attr("disabled", "disabled");
+                $("#country").attr("disabled", "disabled");
+            }
+            else {
+                $("#ship_address").removeAttr("disabled", "disabled");
+                $("#zipcode").removeAttr("disabled", "disabled");
+                $("#city").removeAttr("disabled", "disabled");
+                $("#state").removeAttr("disabled", "disabled");
+                $("#country").removeAttr("disabled", "disabled");
+                $("#shipping_form").show();
+            }
+        });
+
+        
+
+    });
 </script>
