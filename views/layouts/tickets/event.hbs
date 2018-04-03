@@ -70,11 +70,43 @@
                         </div>
                     </div>
                 </div>
-                {{/each}}
+               {{/each}}
             </div>
         </div>
     </div>
 </div>
+
+
+
+
+<div class="container-fluid container-cards">
+    <div class="row row-custom">
+        <div class="col col-custom s12 m8 offset-m2">
+            <div class="row row-custom">
+                {{#each events}}
+                <div class="col s12 m6">
+                    <div class="card">
+                        <div class="card-content">
+                            <p class="row_description">{{this.name}}</p>
+                            <p class="row_title">{{this.occurs_at_format}}</p>
+                            <p class="row_description">{{this.venue.name}} {{this.venue.location}}</p>
+                        </div>
+                        <div class="card-action">
+                            <div class="row center">
+                                <div class="input-field col s12">
+                                    <button id="checkout" name="checkout" class="btn btn-round btn-book no-uppercase white">Book Tickets
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+            </div>
+        </div>
+
+    </div>
 </div>
+
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
