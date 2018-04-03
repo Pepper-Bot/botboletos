@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col s12 l5">
                 <div class="row">
-                    
+
                     <div class="col s6">
                         <b>Event</b>
                     </div>
@@ -59,6 +59,50 @@
                 <div class="row">
                     <div class="col s6">Total</div>
                     <div class="col s6">{{{total}}}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="container-root">
+                <div class="row">
+                    <div class="col s12">
+                        <p class="row-title">{{{event_name}}}</p>
+                        <p class="row-description">Section {{{section}}}, Row {{{row}}}, {{{event_date}}}. {{{format}}}</p>
+                    </div>
+                </div>
+                <div class="row row-custom-padding">
+                    <div class="col s4 m3 l2">
+                        <p class="row-title">{{{quantity}}}</p>
+                        <label class="row-description">Ticket</label>
+                    </div>
+                    <div class="col s4 m3 l2">
+                        <p class="row-title">${{{price}}}</p>
+                        <label class="row-description">Price</label>
+                    </div>
+                </div>
+                <div class="row row-custom">
+                    <div class="col s12">
+                        <div class="divider"></div>
+                    </div>
+                </div>
+                <div class="row row-custom-padding">
+                    <div class="col s12">
+                        <p class="row-title-lg">{{{total}}}</p>
+                    </div>
+                </div>
+                <div class="row row-custom">
+                    <div class="col s12">
+                        <div class="divider"></div>
+                    </div>
                 </div>
             </div>
         </div>
