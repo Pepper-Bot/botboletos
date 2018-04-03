@@ -1,0 +1,52 @@
+.options-payment {
+	margin:0;
+	padding: 0;
+}
+
+.right-payment {
+	margin: 16px;
+}
+
+.btn-checkout {
+	border:none !important;
+	background-color: #0083FF;
+	font-size: 16px;
+}
+
+@media only screen and (max-width: 601px){
+
+	.container-fluid {
+		padding-top: 10px;
+		background-color: #FFFFFF;
+	    margin-left: 10px;
+	    margin-right: 10px;
+	    margin-top: 16px;
+	    margin-bottom: 16px;
+	}
+}
+
+@media only screen and (max-width: 993px){
+	.container-fluid{
+		background-color: #E9EBEE;
+		margin: 0;
+	}
+
+	.container-root {
+		padding-left: 10px;
+		padding-right: 10px;
+		padding-top: 16px;
+		background-color: #FFFFFF;
+	}
+}
+
+@media only screen and (max-width: 2560px){
+	.container-fluid{
+		margin: 0;
+		padding-bottom: 16px;
+	}
+
+	.container-root {
+		padding-top: 16px;
+		background-color: #FFFFFF;
+	}
+}

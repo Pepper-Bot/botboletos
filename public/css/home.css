@@ -1,0 +1,20 @@
+.page-footer{
+	background-color: #6a6b6dff;
+}
+
+body{
+	background-color: #E9EBEE;
+}
+
+.barcolor {
+	background-color: #0084FC;
+}
+
+.button_round_book {
+	border-radius: 9999px;
+	border-style: solid;
+	border-width: 1px;
+	border-color: #0083FF;
+	color: #0083FF;
+	font-size: 16px;
+}

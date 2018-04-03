@@ -1,0 +1,78 @@
+.row .col-image {
+	padding: 0;
+}
+
+.row_custom {
+	margin: 0;
+	padding: 0;
+	
+}
+
+.row .col-custom {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+.container-header .row .col .row .col {
+	padding: 0;
+}
+
+.container-header .row .col .row .col .card{
+	margin: 0 0 1rem 0;
+}
+
+.container-cards{
+	margin-left: 10px;
+	margin-right: 10px;
+	margin-bottom: 16px;
+}
+
+.barcolor {
+	background-color: #0084FC;
+}
+
+.btn-book {
+	border-style: solid;
+	border-width: 1px;
+	border-color: #0083FF;
+	color: #0083FF;
+	font-size: 16px;
+}
+
+.row_title {
+	margin: 0;
+	padding: 0;
+	text-align: left;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.row_title_lg{
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	font-weight: bold;
+	font-size: 32px;
+}
+
+.row_description {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	text-align: left;
+	opacity: 0.54;
+}
+
+.gradient-image::after{
+   display: block;
+  position: relative;
+  background-image: linear-gradient(transparent, rgba(0, 0, 0, 0.63));
+  margin-top: -150px;
+  height: 150px;
+  width: 100%;
+  content: '';
+}
+
+.card .card-title {
+	font-size: 36px;
+}
