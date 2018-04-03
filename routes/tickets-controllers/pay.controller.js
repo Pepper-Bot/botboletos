@@ -50,6 +50,7 @@ var init_pay = function (req, res) {
         default:
             {
                 console.log('Método de pago desconocido. Revisar')
+                res.send( {message: "Método de pago desconocido. Revisar"})
             }
             break;
     }
