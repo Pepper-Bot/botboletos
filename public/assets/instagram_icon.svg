@@ -1,0 +1,30 @@
+<svg id="Group_461" data-name="Group 461" xmlns="http://www.w3.org/2000/svg" viewBox="-422.519 2020.471 52.9 52.9">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #fff;
+      }
+
+      .cls-2, .cls-4 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: rgba(112,112,112,0);
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <g id="instagram-logo-svgrepo-com" transform="translate(-421 2021.874)">
+    <path id="Path_128" data-name="Path 128" class="cls-1" d="M36.242,0H13.813A13.8,13.8,0,0,0,0,13.747V36.068A13.8,13.8,0,0,0,13.813,49.816H36.242A13.8,13.8,0,0,0,50.056,36.068V13.747A13.8,13.8,0,0,0,36.242,0Zm9.373,36.068A9.361,9.361,0,0,1,36.243,45.4H13.813a9.36,9.36,0,0,1-9.372-9.327V13.747A9.361,9.361,0,0,1,13.813,4.42H36.242a9.361,9.361,0,0,1,9.373,9.327V36.068Z"/>
+    <path id="Path_129" data-name="Path 129" class="cls-1" d="M53.866,40.97a12.836,12.836,0,1,0,12.9,12.836A12.882,12.882,0,0,0,53.866,40.97Zm0,21.252a8.416,8.416,0,1,1,8.457-8.416A8.446,8.446,0,0,1,53.866,62.222Z" transform="translate(-28.838 -28.898)"/>
+    <path id="Path_130" data-name="Path 130" class="cls-1" d="M122.178,28.251a3.247,3.247,0,1,0,2.3.949A3.278,3.278,0,0,0,122.178,28.251Z" transform="translate(-83.711 -19.927)"/>
+  </g>
+  <g id="Rectangle_189" data-name="Rectangle 189" class="cls-2" transform="matrix(1, 0.017, -0.017, 1, -421.611, 2020.471)">
+    <rect class="cls-3" width="52" height="52"/>
+    <rect class="cls-4" x="0.5" y="0.5" width="51" height="51"/>
+  </g>
+</svg>

@@ -1,0 +1,27 @@
+<svg id="Group_486" data-name="Group 486" xmlns="http://www.w3.org/2000/svg" viewBox="1704 172 48 53">
+  <defs>
+    <style>
+      .cls-1 {
+        opacity: 0.54;
+      }
+
+      .cls-2, .cls-4 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: rgba(112,112,112,0.36);
+        opacity: 0;
+      }
+
+      .cls-3 {
+        stroke: none;
+      }
+    </style>
+  </defs>
+  <path id="Path_125" data-name="Path 125" class="cls-1" d="M44.333,6.167H41.75V1H36.583V6.167H15.917V1H10.75V6.167H8.167A5.165,5.165,0,0,0,3,11.333V47.5a5.165,5.165,0,0,0,5.167,5.167H44.333A5.182,5.182,0,0,0,49.5,47.5V11.333A5.182,5.182,0,0,0,44.333,6.167ZM26.25,13.917a7.75,7.75,0,1,1-7.75,7.75A7.74,7.74,0,0,1,26.25,13.917Zm15.5,31h-31V42.333c0-5.167,10.333-8.008,15.5-8.008s15.5,2.842,15.5,8.008Z" transform="translate(1701.763 171.583)"/>
+  <g id="Rectangle_199" data-name="Rectangle 199" class="cls-2" transform="translate(1704 172)">
+    <rect class="cls-3" width="48" height="53"/>
+    <rect class="cls-4" x="0.5" y="0.5" width="47" height="52"/>
+  </g>
+</svg>

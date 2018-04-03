@@ -1,0 +1,49 @@
+body{
+	background-color: #E9EBEE;
+}
+
+.barcolor {
+	background-color: #0084FC;
+}
+
+.row-custom {
+	margin: 0;
+	padding: 0;
+}
+
+.row-custom-padding{
+	margin: 0;
+	padding-top: 14px;
+	padding-bottom: 14px;
+}
+
+.row-title {
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.row-title-lg{
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+	font-size: 32px;
+}
+
+.row-description {
+	margin: 0;
+	padding: 0;
+	font-size: 14px;
+	opacity: 0.54;
+}
+
+.btn-round {
+	border-radius: 9999px;
+	text-shadow:none !important;
+	box-shadow:none !important;
+}
+
+.no-uppercase {
+  text-transform: none;
+}

@@ -2,17 +2,14 @@
 <html lang="en">
 <head>
    <meta charset="utf-8">
-   <base href="https://ticketdelivery.herokuapp.com/">
    <meta http-equiv="X-UA-Compatible" content="IE=edge">
    <meta name="viewport" content="width=device-width, initial-scale=1">
    <title>Ticket Checkout</title>
-   <base href="https://ticketdelivery.herokuapp.com">
    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-   <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection"/>
-   <link type="text/css" rel="stylesheet" href="css/style.css" media="screen,projection"/>
-   <link rel="stylesheet" type="text/css" href="css/form_buy.css" media="screen,projection"/>
+   <link type="text/css" rel="stylesheet" href="../css/materialize.min.css"  media="screen,projection"/>
+   <link type="text/css" rel="stylesheet" href="../css/main.css"  media="screen,projection"/>
+   <link rel="stylesheet" type="text/css" href="../css/form_buy.css">
 </head>
-<body>
 <body>
    <div class="navbar-fixed">
       <nav class="barcolor">
@@ -25,38 +22,41 @@
       </nav>
    </div>
    <div class="container-fluid">
-      <div class="row row_custom">
+      <div class="row">
+         <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="container-root">
+               <div class="row">
          <div class="col s12">
-            <p class="row_title">Katy Perry Witness The Tour</p>
-            <p class="row_description">Section C, Row 14, February 18th 2018, 5:30 PM. Eticket New</p>
+            <p class="row-title">Katy Perry Witness The Tour</p>
+            <p class="row-description">Section C, Row 14, February 18th 2018, 5:30 PM. Eticket New</p>
          </div>
       </div>
-      <div class="row row_custom_padding center">
-         <div class="col s5 offset-s1 m5 offset-m1 l5 offset-l1">
-            <p class="row_title">1</p>
-            <label class="row_description">Ticket</label>
+      <div class="row row-custom-padding">
+         <div class="col s4 m3 l2">
+            <p class="row-title">1</p>
+            <label class="row-description">Ticket</label>
          </div>
-         <div class="col s5 offset-s1 m5 offset-m1 l5">
-            <p class="row_title">$40.17</p>
-            <label class="row_description">Price</label>
+         <div class="col s4 m3 l2">
+            <p class="row-title">$40.17</p>
+            <label class="row-description">Price</label>
          </div>
       </div>
-      <div class="row center">
-         <div class="col s12 m10 offset-m2 l6 offset-l3">
+      <div class="row row-custom">
+         <div class="col s12">
             <div class="divider"></div>
          </div>
       </div>
-      <div class="row row_custom_padding">
+      <div class="row row-custom-padding">
          <div class="col s12">
-            <p class="row_title_lg">$42.17</p>
+            <p class="row-title-lg">$42.17</p>
          </div>
       </div>
-      <div class="row center">
-         <div class="col s12 m10 offset-m2 l6 offset-l3">
+      <div class="row row-custom">
+         <div class="col s12">
             <div class="divider"></div>
          </div>
       </div>
-      <div class="row row_custom_padding">
+      <div class="row row-custom-padding">
          <form action="/pay/?uid=1529264627114912" method="post">
             <input type="hidden" value="2017-08-15T20:00:00Z" name="event_date">
             <input type="hidden" value="27" name="section">
@@ -68,48 +68,48 @@
             <input type="hidden" value="351304009" name="groupticket_id">
 
             <div class="row">
-               <div class="col s12 m8 offset-m2 l6 offset-l3">
+               <div class="col s12">
                   <h5 class="blue-text">Billing Information.</h5 class="blue-text">
                </div>
             </div>
             <div class="row">
-               <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+               <div class="input-field col s12">
                   <input id="firstname" name="firstname" type="text" class="validate">
-                  <label for="firstname">Fist Name</label>
+                  <label for="firstname">First Name</label>
                </div>
             </div>
             <div class="row">
-               <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+               <div class="input-field col s12">
                   <input id="lastname" name="lastname" type="text" class="validate">
                   <label for="lastname">Last Name</label>
                </div>
             </div>
             <div class="row">
-               <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+               <div class="input-field col s12">
                   <input id="billing_address" name="billing_address" type="text" class="validate">
                   <label for="billing_address">Billing Address</label>
                </div>
             </div>                    
             <div class="row">
-               <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+               <div class="input-field col s12">
                   <input id="billing_city" name="billing_city" type="text" class="validate">
                   <label for="billing_city">City</label>
                </div>
             </div>                    
             <div class="row">
-               <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+               <div class="input-field col s12">
                   <input type="text" id="billing_country" name="billing_country" class="autocomplete">
                   <label for="billing_country">Country</label>
                </div>
             </div>
             <div class="row">
-               <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+               <div class="input-field col s12">
                   <input id="billing_zipcode" name="billing_zipcode" type="text" class="validate">
                   <label for="billing_zipcode">Zip Code</label>
                </div>
             </div>   
             <div class="row">
-               <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+               <div class="input-field col s12">
                   <select id="billing_state" name="billing_state" class="form-control">
                      <option value="" selected="selected">Select…</option>
                      <option value="Outside the U.S.">Outside the U.S.</option>
@@ -170,44 +170,44 @@
             </div>
 
             <div class="row">
-               <div class="col s12 m8 offset-m2 l6 offset-l3">
+               <div class="col s12">
                   <h5 class="blue-text">Shipping Information.</h5 class="blue-text">
                </div>
             </div>
             <div class="row">
-               <div class="col s12 m8 offset-m2 l6 offset-l3">
+               <div class="col s12">
                   <input type="checkbox" value="1" id="same_as_ship" name="same_as_ship" />
                   <label  for="same_as_ship">Same as Billing Address</label>
                </div>
             </div>
             <div id="shipping_form">
                <div class="row">
-                  <div class="input-field col s12 m8 offset-m2 l6 offset-l3"> 
+                  <div class="input-field col s12"> 
                      <input id="ship_address" name="ship_address" type="text"  class="validate" value=" " required="">
                      <label for="ship_address">Shipping Address</label>
                   </div>
                </div>
                <div class="row">
-                  <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+                  <div class="input-field col s12">
                      <input id="city" name="city" type="text"  class="validate" value=" " required="">
                      <label for="city">City</label>
                   </div>
                </div>
                <div class="row">
-                  <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+                  <div class="input-field col s12">
                      <input type="text" id="country" name="country" class="autocomplete">
                      <label for="country">Country</label>
                   </div>
                </div>
                <div class="row">
-                  <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+                  <div class="input-field col s12">
                      <input id="zipcode" name="zipcode" value=" " type="text" class="validate" required="">
                      <label for="zipcode">Zip Code 
                      </label>
                   </div>
                </div>
                <div class="row">
-                  <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+                  <div class="input-field col s12">
                      <select id="state" name="state" class="form-control">
                         <option value=" " selected="selected">Select…</option>
                         <option value="Outside the U.S.">Outside the U.S.</option>
@@ -268,45 +268,45 @@
                </div>
             </div>
             <div class="row">
-               <div class="col s12 m8 offset-m2 l6 offset-l3">
+               <div class="col s12 m8">
                   <h5 class="blue-text">Contact Information.</h5 class="blue-text">
                </div>
             </div>
             <div class="row">
-               <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+               <div class="input-field col s12">
                   <input id="email" name="email" type="text"  class="validate" required="">
                   <label for="email">Email</label>
                </div>
             </div>
             <div class="row">
-               <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+               <div class="input-field col s12">
                   <input id="phone" name="phone" type="text"  class="validate" required="">
                   <label for="phone">Daytime phone</label>
                </div>
             </div>
             <div class="row">
-               <div class="col s12 m8 offset-m2 l6 offset-l3">
+               <div class="col s12">
                   <h5 class="blue-text">Payment Information.</h5 class="blue-text">
                </div>
             </div>
-            <div class="row row_custom_padding">
-               <div class="col s12 m8 offset-m2 l6 offset-l3">
+            <div class="row row-custom-padding">
+               <div class="col s12">
                   <ul id="options-payment" class="options-payment">
-                     <li id="creditcard" style="display: inline;"><img id="icon_credit_card" src="../assets/credit_card_inactive.svg" width="102px" height="135px"/></li>
+                     <li id="creditcard" style="display: inline;"><img id="icon_credit_card" src="../assets/credit_card_active.svg" width="102px" height="135px"/></li>
                      <li class="right-payment" id="paypal" style="display: inline;"><img id="icon_pay_pal" src="../assets/pay_pal_inactive.svg" width="102px" height="135px"/></li>
                   </ul>
                </div>
             </div>
 
-            <div id="section_credit_data" style="display: none;">
-               <div class="row row_custom_padding">
-                  <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+            <div id="section_credit_data">
+               <div class="row row-custom-padding">
+                  <div class="input-field col s12">
                      <input id="cc" name="cc" type="text"  class="validate" required="">
                      <label for="cc">Credit Card #</label>
                   </div>
                </div>
                <div class="row">
-                  <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+                  <div class="input-field col s12">
                      <select id="exp_month" name="exp_month" class="form-control">
                         <option value="1">1</option>
                         <option value="2">2</option>
@@ -325,7 +325,7 @@
                   </div>
                </div>
                <div class="row">
-                  <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+                  <div class="input-field col s12">
                      <select id="exp_year" name="exp_year" class="form-control">
                         <option value="2017">2017</option>
                         <option value="2018">2018</option>
@@ -348,23 +348,27 @@
                   </div>
                </div>
                <div class="row">
-                  <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
+                  <div class="input-field col s12">
                      <input id="cvv" name="cvv" type="text" placeholder="Security Code / CVV" class="text-blue" required="">
                      <label for="cvv">Security Code</label>
                   </div>
                </div>
             </div>
             <div class="row center">
-               <div class="input-field col s12 m8 offset-m2 l6 offset-l3">
-                  <button id="checkout" name="checkout" class="btn btn-round no-uppercase blue">Check Out</button>
+               <div class="input-field col s12">
+                  <button id="checkout" name="checkout" class="btn btn-round btn-checkout no-uppercase blue">Check Out</button>
                </div>
             </div>
          </form>
       </div>
+            </div>
+         </div>
+      </div>
+      
    </div>
    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-   <script type="text/javascript" src="js/materialize.min.js"></script>
-   <script type="text/javascript" src="js/checkout.js"></script>
+   <script type="text/javascript" src="../js/materialize.min.js"></script>
+   <script type="text/javascript" src="../js/checkout.js"></script>
    <script>$(document).ready(function() {
       $('select').material_select();
       $('input.autocomplete').autocomplete({
