@@ -7,6 +7,8 @@ var UserData = require("../bot/userinfo");
 var UserData2 = require("../schemas/userinfo");
 var reqExternas = require("../bot/requestExternas");
 
+var config = require("../config/config_vars");
+
 var API_AI_CLIENT_ACCESS_TOKEN = require("../config/config_vars")
   .API_AI_CLIENT_ACCESS_TOKEN;
 var APLICATION_URL_DOMAIN = require("../config/config_vars")
@@ -31,6 +33,10 @@ var user_queries = require("../schemas/queries/user_queries");
 var TevoModule = require("../modules/query_tevo_request");
 var nlp = require("../bot/NLP/nlp");
 
+var DASHBOT_API_KEY = config.DASHBOT_API_KEY;
+
+const dashbot = require("dashbot")(DASHBOT_API_KEY).facebook;
+
 const apiAiService = apiai(API_AI_CLIENT_ACCESS_TOKEN, {
   language: "en",
   requestSource: "fb"
@@ -47,6 +53,15 @@ var datos = {}; // Para saber si estamos o no con el ID
 
 var dbObj = require("../schemas/mongodb");
 dbObj.getConnection();
+
+
+var pausedUsers = {};
+var pause = (req, res) => {
+  const userId = req.body.userId;
+  const paused = req.body.paused;
+  pausedUsers[userId] = paused;
+  res.send("ok");
+};
 
 /**
  *
@@ -71,6 +86,8 @@ var intitGetFB = (req, res) => {
  *
  */
 var initFBEvents = (req, res) => {
+  dashbot.logIncoming(req.body);
+
   if (req.body.object == "page") {
     // Iterate over each entry
     // There may be multiple entries if batched
@@ -882,7 +899,7 @@ function processQuickReplayBox(senderId) {
   //Message.sendMessage(senderId, "Results:");
   //resultados...
   var rigovslomaQuickReplay = require("../modules/quiz/rigo_vs_loma_quick_replay");
-  rigovslomaQuickReplay.send( senderId);
+  rigovslomaQuickReplay.send(senderId);
 }
 
 /**
@@ -898,28 +915,27 @@ function processQuickReplies(event) {
   console.log("este es el quick replay  payload  " + payload);
 
   switch (payload) {
-   
-  case "ROMA":
-    {
-      console.log("entré al roma");
-      startTevoModuleWithMlink("UEFA Champions League: AS Roma", senderId);// Call for tickets search by name
-    }
-    break;
-
-  case "SEVILLA":
+    case "ROMA":
       {
-        console.log("entré al sevilla");
-        startTevoModuleWithMlink("Sevilla", senderId);// Call for tickets search by name
+        console.log("entré al roma");
+        startTevoModuleWithMlink("UEFA Champions League: AS Roma", senderId); // Call for tickets search by name
       }
       break;
 
-      case "BAYER":
+    case "SEVILLA":
+      {
+        console.log("entré al sevilla");
+        startTevoModuleWithMlink("Sevilla", senderId); // Call for tickets search by name
+      }
+      break;
+
+    case "BAYER":
       {
         console.log("entré al bayer");
-        startTevoModuleWithMlink("Bayer", senderId);// Call for tickets search by name
+        startTevoModuleWithMlink("Bayer", senderId); // Call for tickets search by name
       }
-      break; 
-    
+      break;
+
     case "BARCELONA":
       {
         console.log("entré al barcelona");
@@ -1969,14 +1985,11 @@ function processPostback(event) {
       break;
     case "ACCOUNT":
       {
-        let Account = require('../modules/account/account')
+        let Account = require("../modules/account/account");
 
-        Account.startAccount(senderId)
-
+        Account.startAccount(senderId);
       }
       break;
-
-      
 
     default:
       UserData2.findOne(
@@ -2466,18 +2479,17 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
-      case "BAYER_SEVILLA":// MLINK  FOR CHAMPIONS LEAGUE 03_19_2018
-
-      {
+      case "BAYER_SEVILLA": // MLINK  FOR CHAMPIONS LEAGUE 03_19_2018
+        {
           startBayerSevilla(senderId, referral); // New variable
-      }
-      break;
+        }
+        break;
 
       case "SEVILLA_BAYERN_FRAME": // Here we create the new CASE w new Me Link name on 03/20/18
-      {
-        startSevillaBayernFrame(senderId, referral); //We create a new variable
-      }
-      break;
+        {
+          startSevillaBayernFrame(senderId, referral); //We create a new variable
+        }
+        break;
 
       case "REALMADRID_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
         {
@@ -2491,9 +2503,6 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
-   
-   
-   
       case "BAR_v_CHE_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
         {
           startBarVsCheFrame(senderId, referral); //We create a new variable
@@ -2649,7 +2658,6 @@ var startBarcaVsRoma = (senderId, referral) => {
   championsModule.startBarcaVsRoma(senderId);
 };
 
-
 /**
  *
  * @param {*} senderId FaceBook User Id
@@ -2662,14 +2670,13 @@ var startBarcaVsChelsea = (senderId, referral) => {
   championsModule.startBarcaVsChelsea(senderId);
 };
 
-
 /**
  * @param {*} senderId Facebook User Id
  * @param {*} referral mlink
  * @description Function to start the mlink for champions league
  */
 var startBayerSevilla = (senderId, referral) => {
-  let  championsModule = require("../modules/tevo/champions/champions");
+  let championsModule = require("../modules/tevo/champions/champions");
   championsModule.startBayerSevilla(senderId);
 };
 

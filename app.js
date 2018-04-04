@@ -18,6 +18,7 @@ var Promise = global.Promise || require("promise");
 var helpers = require("./lib/helpers");
 
 var config = require("./config/config_vars");
+
 var APLICATION_URL_DOMAIN = config.APLICATION_URL_DOMAIN;
 var DASHBOT_API_KEY = config.DASHBOT_API_KEY;
 
@@ -294,6 +295,7 @@ app.get("/spotify/login/", function(req, res) {
 app.post("/guessnumber", (request, response) => {
   dashbot.logIncoming(request.body);
 });
+
 
 // GET /auth/spotify
 //   Use passport.authenticate() as route middleware to authenticate the
