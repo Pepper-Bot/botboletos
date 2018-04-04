@@ -95,7 +95,7 @@ a {
   background-color: #E9EBEE;
 }
 
-@media only screen and (max-width: 601px) {
+@media only screen and (max-width: 768px) {
   .container1 {
     width: 100%;
   }
