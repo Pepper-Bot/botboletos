@@ -1,6 +1,9 @@
 /////////////////////tevo/////////////////////////////
 
 
+var DASHBOT_API_KEY =    process.env.DASHBOT_API_KEY
+
+
 var google = {
   GOOGLE_API_KEY: process.env.GOOGLE_API_KEY,
   GOOGLE_CSE_ID: process.env.GOOGLE_CSE_ID,
@@ -120,6 +123,7 @@ module.exports = {
   FB_APP_SECRET_ID,
   google,
   spotifyVar,
-  APPLICATION_URL_EXTENSION
+  APPLICATION_URL_EXTENSION,
+  DASHBOT_API_KEY
 
 };

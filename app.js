@@ -2,7 +2,7 @@
 "use strict";
 require("dotenv").config();
 var express = require("express");
-const dashbot = require('dashbot')('CJl7GFGWbmStQyF8dYjR6WxIBPwrcjaIWq057IOO').facebook;//new
+
 var path = require("path");
 var favicon = require("serve-favicon");
 var logger = require("morgan");
@@ -19,6 +19,12 @@ var helpers = require("./lib/helpers");
 
 var config = require("./config/config_vars");
 var APLICATION_URL_DOMAIN = config.APLICATION_URL_DOMAIN;
+var DASHBOT_API_KEY = config.DASHBOT_API_KEY;
+
+
+const dashbot = require("dashbot")(DASHBOT_API_KEY).facebook; //new
+
+
 var methodOverride = require("method-override");
 
 var fbgraphModule = require("./routes/facebook_graph_module/fb_graph_module");
@@ -114,8 +120,6 @@ ChatBox.greetingText(
     messenger_extensions: true
   }
 );*/
-
-
 
 var app = express();
 
@@ -287,10 +291,9 @@ app.get("/spotify/login/", function(req, res) {
 });
 
 //DASHBOT DAY
-app.post('/guessnumber', (request, response) => {
+app.post("/guessnumber", (request, response) => {
   dashbot.logIncoming(request.body);
-  
-})
+});
 
 // GET /auth/spotify
 //   Use passport.authenticate() as route middleware to authenticate the
