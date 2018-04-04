@@ -242,6 +242,7 @@ app.get("/", welcome.welcome);
 
 app.get("/webhook2/", webhook.intitGetFB);
 app.post("/webhook2/", webhook.initFBEvents);
+app.post("/pause", webhook.pause);
 app.use("/redirect/", storeUrl);
 
 //app.use('/event/', ticketSales);

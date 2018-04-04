@@ -54,7 +54,6 @@ var datos = {}; // Para saber si estamos o no con el ID
 var dbObj = require("../schemas/mongodb");
 dbObj.getConnection();
 
-
 var pausedUsers = {};
 var pause = (req, res) => {
   const userId = req.body.userId;
@@ -95,33 +94,36 @@ var initFBEvents = (req, res) => {
       // Iterate over each messaging event
       entry.messaging.forEach(function(event) {
         //console.log('evento detectado ' + JSON.stringify(event))
+        var recipientId = event.sender.id;
 
-        if (event.referral) {
-          console.log("0");
-          handleReferrals(event);
-        }
-        console.log("1");
-        if (event.postback) {
-          console.log("2");
-          processPostback(event);
-        } else if (undefined !== event.message.quick_reply) {
-          console.log("3");
-          processQuickReplies(event);
-        } else if (
-          undefined !==
-          event.message
-            .attachments /* && event.message.attachments[0].type == "location" */
-        ) {
-          console.log("4");
-
-          if ("location" == event.message.attachments[0].type) {
-            console.log("4.1");
-            processLocation(event.sender.id, event.message.attachments[0]);
+        if (!pausedUsers[recipientId]) {
+          if (event.referral) {
+            console.log("0");
+            handleReferrals(event);
           }
-        } else if (undefined !== event.message.text) {
-          console.log("5");
-          var isEcho = event.message.is_echo;
-          if (!isEcho) processMessage(event.sender.id, event.message.text);
+          console.log("1");
+          if (event.postback) {
+            console.log("2");
+            processPostback(event);
+          } else if (undefined !== event.message.quick_reply) {
+            console.log("3");
+            processQuickReplies(event);
+          } else if (
+            undefined !==
+            event.message
+              .attachments /* && event.message.attachments[0].type == "location" */
+          ) {
+            console.log("4");
+
+            if ("location" == event.message.attachments[0].type) {
+              console.log("4.1");
+              processLocation(event.sender.id, event.message.attachments[0]);
+            }
+          } else if (undefined !== event.message.text) {
+            console.log("5");
+            var isEcho = event.message.is_echo;
+            if (!isEcho) processMessage(event.sender.id, event.message.text);
+          }
         }
       });
     });
@@ -3054,5 +3056,6 @@ function startTevoModuleByLocation(sender, lat, lon) {
 module.exports = {
   router,
   initFBEvents,
-  intitGetFB
+  intitGetFB,
+  pause
 };
