@@ -115,7 +115,7 @@ module.exports = function () {
                                         "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
                                       
                                          "messenger_extensions": true,
-                                         "webview_height_ratio": "tall",
+                                         "webview_height_ratio": "full",
                                          "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
                                     },
                                     "buttons":
@@ -125,7 +125,7 @@ module.exports = function () {
                                             {
                                                 "type": "web_url",
                                                  "messenger_extensions": true,
-                                                "webview_height_ratio": "tall",
+                                                "webview_height_ratio": "full",
                                                 "url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name,
                                                 "title": "Book"
                                             },
