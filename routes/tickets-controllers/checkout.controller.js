@@ -94,6 +94,7 @@ var checkout = (req, res) => {
                     APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
                     event_id: params.event_id,
                     fbId: params.uid,
+                    form_buy:true,
                     venue_id: params.venue_id,
                     event_name: params.event_name,
                     performer_id: params.performer_id,

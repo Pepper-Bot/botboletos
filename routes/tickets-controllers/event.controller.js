@@ -64,6 +64,7 @@ var render_events = (req, res) => {
                         res.render(
                             './layouts/tickets/event', {
                                 titulo: "Book",
+                                book:true,
                                 APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
                                 events: events,
                                 uid: req.query.uid,
