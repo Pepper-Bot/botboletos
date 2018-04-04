@@ -11,6 +11,7 @@ Added files on public
 Updated files 
 -checkout.hbs (joined the marquetry code with the base code)
 -event.hbs (joined the marquetry code with the base code)
+-ticketgroup.hbs (change buttons style)
 -style.css
 Pending 
 -Test payment method (missing one variable)
