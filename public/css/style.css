@@ -1,3 +1,4 @@
+ 
 .btn1rem {
   padding: 0 1rem;
 }
@@ -114,3 +115,22 @@ a {
     width: 70%;
   }
 }
+
+
+/* ESTILOS NORMALES (para móviles en vertical)
+   ========================================================================= /
+
+/* RESPONSIVE
+   ========================================================================= /
+ 
+/ Móviles en horizontal o tablets en vertical
+   ------------------------------------------------------------------------- /
+@media (min-width: 768px) { }
+ 
+/ Tablets en horizonal y escritorios normales
+   ------------------------------------------------------------------------- /
+@media (min-width: 1024px) { }
+ 
+/ Escritorios muy anchos
+   ------------------------------------------------------------------------- */
+@media (min-width: 1200px) { }
