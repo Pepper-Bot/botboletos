@@ -953,16 +953,24 @@ function processQuickReplies(event) {
 
     case "REAL_MADRID":
       {
-        console.log("entré al al real madrid");
+        console.log("entré al real madrid");
         startTevoModuleWithMlink("Real Madrid", senderId);
       }
       break;
+    
     case "PARIS_SAINT_GERMAN":
       {
-        console.log("entré al al Paris Saint-German FC");
+        console.log("entré a Paris Saint-German FC");
         startTevoModuleWithMlink("Paris Saint-Germain FC", senderId);
       }
       break;
+
+      case "JUVENTUS": //created April 4th for CL Semi finals
+      {
+        console.log("entré a Juventus");
+        startTevoModuleWithMlink("Juventus", senderId);
+      }
+      break;  
 
     case "find_my_event_Patriots":
       {
@@ -2499,6 +2507,12 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
+        case "REALMADRID_JUV_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
+        {
+          startRealMadridJuvFrame(senderId, referral); //We create a new variable
+        }
+        break;  
+
       case "BAR_v_ROMA_FRAME": // Here we create the new CASE w new Me Link name on 03/21/18
         {
           startBarVsRomaFrame(senderId, referral); //We create a new variable
@@ -2829,6 +2843,19 @@ var startRealMadridFrame = (senderId, referral) => {
   realMadridFrameModule.startRealMadridFrame(senderId, referral);
 };
 
+// Created Apr 4th
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startRealMadridJuvFrame = (senderId, referral) => {
+  var realMadridJuvFrameModule = require("../modules/tevo/champions/realmadrid_juv_frame.js");
+  realMadridJuvFrameModule.startRealMadridJuvFrame(senderId, referral);
+};
+
 // Created Mar 14
 /**
  *
@@ -3055,6 +3082,7 @@ function startTevoModuleByLocation(sender, lat, lon) {
 
 module.exports = {
   router,
+  startRealMadridJuvFrame,
   initFBEvents,
   intitGetFB,
   pause
