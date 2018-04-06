@@ -2266,10 +2266,33 @@ function saluda(senderId) {
     var greeting = "Hi " + name;
     var messagetxt = greeting + ", what would you like to do?";
     Message.markSeen(senderId);
-    Message.typingOn2(senderId, function(error, response, body) {
-      var GreetingsReply = require("../modules/greetings");
-      GreetingsReply.send(Message, senderId, messagetxt);
-    });
+
+
+    
+    Message.markSeen(senderId);
+    Message.typingOn(senderId);
+ 
+    var replies = [{
+        "content_type":"text",
+        "title":"Food",
+        "payload":"GET_LOCATION_FOOD"
+       
+    },
+    {
+        "content_type":"text",
+        "title":"Drinks",
+        "payload":"GET_LOCATION_DRINKS"
+    },
+    {
+        "content_type":"text",
+        "title":"Event",
+        "payload":"GET_LOCATION_EVENTS"
+    }];
+ 
+    Message.quickReply(senderId, messagetxt, replies);
+
+
+ 
   });
 }
 
