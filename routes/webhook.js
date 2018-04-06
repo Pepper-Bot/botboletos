@@ -1980,6 +1980,12 @@ function processPostback(event) {
 
       break;
 
+    case "Greetings":
+      {
+        saluda(senderId)
+      }
+      break;
+
     //inicio
     case "Greetings_2":
       if (undefined !== event.postback.referral) {
@@ -2004,8 +2010,6 @@ function processPostback(event) {
     default:
       startTevoModuleByPerformerName(senderId, payload).then(isPerformer => {
         if (isPerformer === true) {
-
-
         } else {
           UserData2.findOne(
             {
@@ -2267,32 +2271,28 @@ function saluda(senderId) {
     var messagetxt = greeting + ", what would you like to do?";
     Message.markSeen(senderId);
 
-
-    
     Message.markSeen(senderId);
     Message.typingOn(senderId);
- 
-    var replies = [{
-        "content_type":"text",
-        "title":"Food",
-        "payload":"GET_LOCATION_FOOD"
-       
-    },
-    {
-        "content_type":"text",
-        "title":"Drinks",
-        "payload":"GET_LOCATION_DRINKS"
-    },
-    {
-        "content_type":"text",
-        "title":"Event",
-        "payload":"GET_LOCATION_EVENTS"
-    }];
- 
+
+    var replies = [
+      {
+        content_type: "text",
+        title: "Food",
+        payload: "GET_LOCATION_FOOD"
+      },
+      {
+        content_type: "text",
+        title: "Drinks",
+        payload: "GET_LOCATION_DRINKS"
+      },
+      {
+        content_type: "text",
+        title: "Event",
+        payload: "GET_LOCATION_EVENTS"
+      }
+    ];
+
     Message.quickReply(senderId, messagetxt, replies);
-
-
- 
   });
 }
 
