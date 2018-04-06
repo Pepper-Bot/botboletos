@@ -957,7 +957,7 @@ function processQuickReplies(event) {
         startTevoModuleWithMlink("Real Madrid", senderId);
       }
       break;
-    
+
     case "PARIS_SAINT_GERMAN":
       {
         console.log("entré a Paris Saint-German FC");
@@ -965,12 +965,12 @@ function processQuickReplies(event) {
       }
       break;
 
-      case "JUVENTUS": //created April 4th for CL Semi finals
+    case "JUVENTUS": //created April 4th for CL Semi finals
       {
         console.log("entré a Juventus");
         startTevoModuleWithMlink("Juventus", senderId);
       }
-      break;  
+      break;
 
     case "find_my_event_Patriots":
       {
@@ -2002,140 +2002,147 @@ function processPostback(event) {
       break;
 
     default:
-      UserData2.findOne(
-        {
-          fbId: senderId
-        },
-        {},
-        {
-          sort: {
-            sessionStart: -1
-          }
-        },
-        function(err, foundUser) {
-          if (!err) {
-            if (foundUser) {
-              console.log("Found User  BLACK_FRIDAY<< " + payload);
-              if (foundUser.mlinkSelected == "BLACK_FRIDAY") {
-                startTevoModuleWithMlink(payload, senderId);
-              } else {
-                console.log(
-                  "No guardé el mlink ?? O_O << " + foundUser.mlinkSelected
-                );
+      startTevoModuleByPerformerName(senderId, payload).then(isPerformer => {
+        if (isPerformer === true) {
+
+          
+        } else {
+          UserData2.findOne(
+            {
+              fbId: senderId
+            },
+            {},
+            {
+              sort: {
+                sessionStart: -1
               }
-              if (foundUser.mlinkSelected == "CHRISTMAS_PROMO") {
-                startTevoModuleWithMlink(payload, senderId);
-              } else {
-                console.log(
-                  "No guardé el mlink DE  CHRISTMAS_PROMO ?? O_O << " +
-                    foundUser.mlinkSelected
-                );
-              }
+            },
+            function(err, foundUser) {
+              if (!err) {
+                if (foundUser) {
+                  console.log("Found User  BLACK_FRIDAY<< " + payload);
+                  if (foundUser.mlinkSelected == "BLACK_FRIDAY") {
+                    startTevoModuleWithMlink(payload, senderId);
+                  } else {
+                    console.log(
+                      "No guardé el mlink ?? O_O << " + foundUser.mlinkSelected
+                    );
+                  }
+                  if (foundUser.mlinkSelected == "CHRISTMAS_PROMO") {
+                    startTevoModuleWithMlink(payload, senderId);
+                  } else {
+                    console.log(
+                      "No guardé el mlink DE  CHRISTMAS_PROMO ?? O_O << " +
+                        foundUser.mlinkSelected
+                    );
+                  }
 
-              if (foundUser.mlinkSelected == "CHRISTMAS_SONGS") {
-                startTevoModuleWithMlink(payload, senderId);
-              } else {
-                console.log(
-                  "No guardé el mlink DE  CHRISTMAS_SONGS ?? O_O << " +
-                    foundUser.mlinkSelected
-                );
-              }
+                  if (foundUser.mlinkSelected == "CHRISTMAS_SONGS") {
+                    startTevoModuleWithMlink(payload, senderId);
+                  } else {
+                    console.log(
+                      "No guardé el mlink DE  CHRISTMAS_SONGS ?? O_O << " +
+                        foundUser.mlinkSelected
+                    );
+                  }
 
-              if (foundUser.mlinkSelected == "VEGAS_SHOW") {
-                startTevoModuleWithMlink(payload, senderId);
-              } else {
-                console.log(
-                  "No guardé el mlink DE  SHOW_VEGAS ?? O_O << " +
-                    foundUser.mlinkSelected
-                );
-              }
+                  if (foundUser.mlinkSelected == "VEGAS_SHOW") {
+                    startTevoModuleWithMlink(payload, senderId);
+                  } else {
+                    console.log(
+                      "No guardé el mlink DE  SHOW_VEGAS ?? O_O << " +
+                        foundUser.mlinkSelected
+                    );
+                  }
 
-              if (foundUser.mlinkSelected == "HAPPY_NEW_YEAR") {
-                startTevoModuleWithMlink(payload, senderId);
-              } else {
-                console.log(
-                  "No guardé el mlink DE  HAPPY_NEW_YEAR ?? O_O << " +
-                    foundUser.mlinkSelected
-                );
-              }
+                  if (foundUser.mlinkSelected == "HAPPY_NEW_YEAR") {
+                    startTevoModuleWithMlink(payload, senderId);
+                  } else {
+                    console.log(
+                      "No guardé el mlink DE  HAPPY_NEW_YEAR ?? O_O << " +
+                        foundUser.mlinkSelected
+                    );
+                  }
 
-              if (foundUser.mlinkSelected == "SAN_VALENTIN") {
-                let page = 1;
-                let per_page = 9;
+                  if (foundUser.mlinkSelected == "SAN_VALENTIN") {
+                    let page = 1;
+                    let per_page = 9;
 
-                let city = foundUser.searchTevoParameters.city;
-                let startDate = "20180201T000000";
-                startDate = moment();
-                startDate = moment(startDate, moment.ISO_8601).format();
-                startDate = startDate.substring(0, startDate.length - 6);
+                    let city = foundUser.searchTevoParameters.city;
+                    let startDate = "20180201T000000";
+                    startDate = moment();
+                    startDate = moment(startDate, moment.ISO_8601).format();
+                    startDate = startDate.substring(0, startDate.length - 6);
 
-                let finalDate = "20180218T230000";
+                    let finalDate = "20180218T230000";
 
-                var query = {
-                  prioridad: 1,
-                  searchBy: "NameAndCityAndDate",
-                  query:
-                    tevo.API_URL +
-                    "events?q=" +
-                    payload +
-                    "&page=" +
-                    page +
-                    "&per_page=" +
-                    per_page +
-                    "&city_state=" +
-                    city +
-                    "&occurs_at.gte=" +
-                    startDate +
-                    "&occurs_at.lte=" +
-                    finalDate +
-                    "&" +
-                    only_with +
-                    "&order_by=events.occurs_at",
-                  queryReplace:
-                    tevo.API_URL +
-                    "events?q=" +
-                    payload +
-                    "&page=" +
-                    "{{page}}" +
-                    "&per_page=" +
-                    "{{per_page}}" +
-                    "&city_state=" +
-                    city +
-                    "&occurs_at.gte=" +
-                    startDate +
-                    "&occurs_at.lte=" +
-                    finalDate +
-                    "&" +
-                    only_with +
-                    "&order_by=events.occurs_at",
-                  queryPage: page,
-                  queryPerPage: per_page,
-                  messageTitle:
-                    'Cool, I looked for "' +
-                    payload +
-                    '" ' +
-                    city +
-                    " shows.  Book a ticket"
-                };
+                    var query = {
+                      prioridad: 1,
+                      searchBy: "NameAndCityAndDate",
+                      query:
+                        tevo.API_URL +
+                        "events?q=" +
+                        payload +
+                        "&page=" +
+                        page +
+                        "&per_page=" +
+                        per_page +
+                        "&city_state=" +
+                        city +
+                        "&occurs_at.gte=" +
+                        startDate +
+                        "&occurs_at.lte=" +
+                        finalDate +
+                        "&" +
+                        only_with +
+                        "&order_by=events.occurs_at",
+                      queryReplace:
+                        tevo.API_URL +
+                        "events?q=" +
+                        payload +
+                        "&page=" +
+                        "{{page}}" +
+                        "&per_page=" +
+                        "{{per_page}}" +
+                        "&city_state=" +
+                        city +
+                        "&occurs_at.gte=" +
+                        startDate +
+                        "&occurs_at.lte=" +
+                        finalDate +
+                        "&" +
+                        only_with +
+                        "&order_by=events.occurs_at",
+                      queryPage: page,
+                      queryPerPage: per_page,
+                      messageTitle:
+                        'Cool, I looked for "' +
+                        payload +
+                        '" ' +
+                        city +
+                        " shows.  Book a ticket"
+                    };
 
-                TevoModule.start(
-                  senderId,
-                  query.query,
-                  0,
-                  query.messageTitle,
-                  {},
-                  query
-                );
-              } else {
-                console.log(
-                  "No guardé el mlink DE  SAN_VALENTIN ?? O_O << " +
-                    foundUser.mlinkSelected
-                );
+                    TevoModule.start(
+                      senderId,
+                      query.query,
+                      0,
+                      query.messageTitle,
+                      {},
+                      query
+                    );
+                  } else {
+                    console.log(
+                      "No guardé el mlink DE  SAN_VALENTIN ?? O_O << " +
+                        foundUser.mlinkSelected
+                    );
+                  }
+                }
               }
             }
-          }
+          );
         }
-      );
+      });
 
       break;
   }
@@ -2507,11 +2514,11 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
-        case "REALMADRID_JUV_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
+      case "REALMADRID_JUV_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
         {
           startRealMadridJuvFrame(senderId, referral); //We create a new variable
         }
-        break;  
+        break;
 
       case "BAR_v_ROMA_FRAME": // Here we create the new CASE w new Me Link name on 03/21/18
         {
@@ -3080,6 +3087,67 @@ function startTevoModuleByLocation(sender, lat, lon) {
   });
 }
 
+var startTevoModuleByPerformerName = (sender, payload) => {
+  return new Promise((resolve, reject) => {
+    let query = `${tevo.API_URL}performers?name=${payload}`;
+    tevoClient
+      .getJSON(query)
+      .then(json => {
+        let salir = false;
+        if (json.error) {
+          resolve(false);
+        } else {
+          if (json.performers.length > 0) {
+            let performer_id = json.performers[0].id;
+
+            let page = 0;
+            let per_page = 9;
+
+            let query = {
+              prioridad: 1,
+              searchBy: "ByPerformerId",
+              query: `${
+                tevo.API_URL
+              }events?performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
+              queryReplace: `${
+                tevo.API_URL
+              }events?performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
+              queryPage: page,
+              queryPerPage: per_page,
+              messageTitle:
+                'Cool, I looked for "' + payload + '" shows.  Book a ticket'
+            };
+
+            let userPreferences = {
+              event_title: "",
+              city: "",
+              artist: "",
+              team: "",
+              event_type: "",
+              music_genre: ""
+            };
+
+            nlp.tevoByQuery(sender, query, userPreferences).then(cantidad => {
+              if (cantidad == 0) {
+                find_my_event(senderId, 1, "");
+              }
+            });
+
+            resolve(true);
+          } else {
+            console.log(
+              `El payload  ${payload} no coincide con ningun performer`
+            );
+            resolve(false);
+          }
+        }
+      })
+      .catch(error => {
+        resolve(false);
+        console.log(`error ${error}`);
+      });
+  });
+};
 module.exports = {
   router,
   startRealMadridJuvFrame,
