@@ -192,5 +192,5 @@ var startChicas = (senderId) => {
 */
 
 module.exports = {
-  startRealMadridFrame, startRealMadridJuvFrame
+  startRealMadridFrame
 };
