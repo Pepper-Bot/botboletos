@@ -1,5 +1,5 @@
 /*
-REAL MADRID_JUV_FRAME FRAME COPIED FROM "REALMADRID_FRAME.JS" 
+REAL MADRID_JUV_FRAME FRAME COPIED FROM REALMADRID_FRAME 
 */
 
 var Message = require("../../../bot/messages");
@@ -82,7 +82,7 @@ var startRealMadridFrame = (senderId, referral) => {
   );
 };
 
-// Here i make this standard me link for frameS ANALOGOUS to realmadrid_frame.js
+// Here i make this standard me link for frameS ANALOGOUS to super_bowl_cheer.js
 
 var start = senderId => {
   UserData.getInfo(senderId, function(err, result) {
@@ -106,7 +106,7 @@ var start = senderId => {
         {
           type: "web_url",
           url: "www.facebook.com/fbcameraeffects/tryit/2065967663618433/",
-          title: " Try Juventus"
+          title: " Try Paris SG"
         }
       ];
       let title = "Wear your team colors!";
