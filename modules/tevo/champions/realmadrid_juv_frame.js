@@ -106,7 +106,7 @@ var start = senderId => {
         {
           type: "web_url",
           url: "www.facebook.com/fbcameraeffects/tryit/2065967663618433/",
-          title: " Try Paris SG"
+          title: "Try Juventus"
         }
       ];
       let title = "Wear your team colors!";
@@ -129,7 +129,7 @@ var startChampionsLeagueFrame = senderId => {
     {
       content_type: "text",
       title: "París Saint-Germain",
-      payload: "PARIS_SAINT_GERMAN"
+      payload: "JUVENTUS"
     }
   ];
   Message.quickReply(
@@ -192,5 +192,5 @@ var startChicas = (senderId) => {
 */
 
 module.exports = {
-  startRealMadridFrame
+  startRealMadridFrame, startRealMadridJuvFrame
 };
