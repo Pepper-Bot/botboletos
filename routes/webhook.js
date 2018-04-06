@@ -2005,7 +2005,7 @@ function processPostback(event) {
       startTevoModuleByPerformerName(senderId, payload).then(isPerformer => {
         if (isPerformer === true) {
 
-          
+
         } else {
           UserData2.findOne(
             {
@@ -2860,7 +2860,7 @@ var startRealMadridFrame = (senderId, referral) => {
  */
 var startRealMadridJuvFrame = (senderId, referral) => {
   var realMadridJuvFrameModule = require("../modules/tevo/champions/realmadrid_juv_frame.js");
-  realMadridJuvFrameModule.startRealMadridJuvFrame(senderId, referral);
+  realMadridJuvFrameModule.startRealMadridFrame(senderId, referral);
 };
 
 // Created Mar 14
