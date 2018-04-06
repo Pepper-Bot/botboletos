@@ -1981,7 +1981,7 @@ function processPostback(event) {
       break;
 
     //inicio
-    case "Greetings":
+    case "Greetings_2":
       if (undefined !== event.postback.referral) {
         // Comprobamos que exista el comando de referencia y mostramos la correspondiente tarjeta.
         console.log("Esta definido event.postback.referral ");
