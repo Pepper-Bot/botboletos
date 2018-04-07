@@ -27,7 +27,7 @@ var ticketgroup = (req, res) => {
 
     console.log('event_id >' + event_id);
 
-    var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false&' + format_tickets
+    var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false&' + format_tickets + '&type=event'
 
     tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
 

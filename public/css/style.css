@@ -72,7 +72,7 @@ a {
 }
 
 
-@media screen and (min-width: 960px) {
+@media screen and (min-width: 601px) {
   #style-7::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
     background-color: #F5F5F5;
@@ -95,7 +95,7 @@ a {
   background-color: #E9EBEE;
 }
 
-@media only screen and (max-width: 993px) {
+@media only screen and (max-width: 601px) {
   .container1 {
     width: 100%;
   }
