@@ -93,8 +93,8 @@ var start = senderId => {
 
       var name = bodyObj.first_name;
 
-      let eventResults = [];
-      let urlLink = "www.facebook.com/fbcameraeffects/tryit/1148639865272750/";
+      //let eventResults = [];
+      //let urlLink = "www.facebook.com/fbcameraeffects/tryit/1148639865272750/";
       // Draw the FB UI Cards and elements
 
       let buttons = [
@@ -105,7 +105,7 @@ var start = senderId => {
         },
         {
           type: "web_url",
-          url: "www.facebook.com/fbcameraeffects/tryit/2065967663618433/",
+          url: "www.facebook.com/fbcameraeffects/tryit/321089971748850/",
           title: "Try Juventus"
         }
       ];
@@ -128,7 +128,7 @@ var startChampionsLeagueFrame = senderId => {
     },
     {
       content_type: "text",
-      title: "París Saint-Germain",
+      title: "Juventus",
       payload: "JUVENTUS"
     }
   ];
