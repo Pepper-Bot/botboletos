@@ -14,16 +14,12 @@ var fb_me_send_account = require("./me.send.account");
  * ===================================================================================================
  */
 var buildUserArtistGenericTemplate = senderId => {
+  let counter = 0;
   return new Promise((resolve, reject) => {
     userQueries.getUserByFbId(senderId).then(foundUser => {
       let artistsSelected = foundUser.artistsSelected;
       if (artistsSelected.length > 0) {
-        /**
-         * ===============================🔆
-         *  Faves added
-         * ===============================
-         */
-
+        
         artistsWithEventsNewArray(artistsSelected).then(artistsWithEvents => {
           let lastArtistsSelected = artistsWithEvents;
           console.log(
@@ -32,7 +28,7 @@ var buildUserArtistGenericTemplate = senderId => {
           //resolve({ message: lastArtistsSelected });
           let elements = [];
           let pepperurlref = `${pepperurl}?ref=`;
-          let counter = 0;
+
           if (lastArtistsSelected) {
             for (let i = 0; i < lastArtistsSelected.length; i++) {
               artistQueries
@@ -76,7 +72,7 @@ var buildUserArtistGenericTemplate = senderId => {
                     fbComponents
                       .sendGenericTemplate(senderId, elements, "horizontal")
                       .then(response => {
-                        resolve(response);
+                        resolve(counter);
                       });
                   } else {
                     console.log(`elements.length  ${elements.length}`);
@@ -85,22 +81,12 @@ var buildUserArtistGenericTemplate = senderId => {
             }
           } else {
             console.log(`Ninguno de los artistas seleccionados tiene evento.`); //🔆
-            fb_me_send_account.sendMyAccount(senderId).then(() => {
-              resolve({
-                messsage: `User doesn't have artists`
-              });
-            });
+            resolve(counter);
           }
         });
       } else {
         console.log(`El usuario no tiene artistas asociados.`); //🔆
-
-        artistQueries.getArtists(9, 1).then(artists => {});
-        fb_me_send_account.sendMyAccount(senderId).then(() => {
-          resolve({
-            messsage: `User doesn't have artists`
-          });
-        });
+        resolve(counter);
       }
     });
   }).catch(error => {
@@ -145,15 +131,17 @@ var artistsWithEventsNewArray = artistsSelected => {
  * @param {*} artistsSelected
  * @description Función para escoger los artistas que seleccionó el usuario y que tienen eventos.
  */
-var artistsWithEventsNewArray = artistsSelected => {
+var artistsWithEventsInLocationNewArray = (artistsSelected, lat, lon) => {
   return new Promise((resolve, reject) => {
     let artistsWithEvents = [];
     let counter = 0;
     for (let i = 0; i < artistsSelected.length; i++) {
       eventsRequests
-        .searchEventsByPerformerId(
+        .searchEventsByPerformerIdAndLocation(
           artistsSelected[i].performer_id,
-          artistsSelected[i].name
+          artistsSelected[i].name,
+          lat,
+          lon
         )
         .then(cantidad => {
           console.log(` Cantidad ${cantidad}`);
@@ -172,11 +160,8 @@ var artistsWithEventsNewArray = artistsSelected => {
   });
 };
 
-
-
-
 /**
- * @description Función para enviar los 9 primeros artistas 
+ * @description Función para enviar los 9 primeros artistas
  */
 var sendFirst9Artists = () => {
   return new Promise((resolve, reject) => {

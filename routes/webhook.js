@@ -598,12 +598,13 @@ function processLocation(senderId, locationData) {
               console.log("Guardamos la localizacion");
               if (result.context == "notification1") {
                 console.log(
-                  `Enviar tarjetas con performer seleccionado  si no tiene performer enviar los 7 más populares`
+                  `Enviar tarjetas con performer seleccionado  si no tiene performer enviar los 7 más populares de acuerdo a su ubicación`
                 );
 
-
-
                 
+
+
+
               } else if (result.context == "find_venue_to_eat") {
                 let totalElements = result.userSays.length;
                 let userSays = result.userSays[totalElements - 1];
