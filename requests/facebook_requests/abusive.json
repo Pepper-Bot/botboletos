@@ -1,0 +1,34 @@
+[
+  {
+    "title": "Taylor Swift",
+    "image_url":
+      "http://eqview.com/wp-content/uploads/2015/05/tay-600x300.jpeg",
+    "subtitle": "Taylor Swift",
+    "default_action": {
+      "type": "web_url",
+      "url": "https://www.messenger.com/t/pepperSharks?ref=Taylor Swift"
+    },
+    "buttons": [
+      {
+        "type": "postback",
+        "payload": "Taylor Swift",
+        "title": "Taylor Swift"
+      },
+      { "type": "element_share" }
+    ]
+  },
+  {
+    "title": "Charli XCX",
+    "image_url":
+      "http://www.portalfamosos.com.br/wp-content/uploads/2017/07/Charli-XCX.png",
+    "subtitle": "Charli XCX",
+    "default_action": {
+      "type": "web_url",
+      "url": "https://www.messenger.com/t/pepperSharks?ref=Charli XCX"
+    },
+    "buttons": [
+      { "type": "postback", "payload": "Charli XCX", "title": "Charli XCX" },
+      { "type": "element_share" }
+    ]
+  }
+]
