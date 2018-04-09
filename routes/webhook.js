@@ -596,6 +596,13 @@ function processLocation(senderId, locationData) {
           result.save(function(err) {
             if (!err) {
               console.log("Guardamos la localizacion");
+              if (result.context == "notification1") {
+
+
+
+              }
+
+
 
               if (result.context == "find_venue_to_eat") {
                 let totalElements = result.userSays.length;
