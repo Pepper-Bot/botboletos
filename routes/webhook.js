@@ -2255,11 +2255,11 @@ function saluda(senderId) {
   var Message_2 = require("../bot/generic_buttton");
 
   user_queries.createUpdateUserDatas(senderId, "-").then(foundUser => {
-    let Account = require("../modules/account/account");
-    Account.startAccount(senderId);
+   // let Account = require("../modules/account/account");
+    //Account.startAccount(senderId);
 
  
-    /*let name = foundUser.firstName;
+    let name = foundUser.firstName;
     var greeting = "Hi " + name;
     var messagetxt = greeting + ", what would you like to do?";
     Message.markSeen(senderId);
@@ -2285,7 +2285,7 @@ function saluda(senderId) {
       }
     ];
 
-    Message.quickReply(senderId, messagetxt, replies);*/
+    Message.quickReply(senderId, messagetxt, replies); 
   });
 }
 
