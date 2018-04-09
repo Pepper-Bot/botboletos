@@ -597,14 +597,14 @@ function processLocation(senderId, locationData) {
             if (!err) {
               console.log("Guardamos la localizacion");
               if (result.context == "notification1") {
+                console.log(
+                  `Enviar tarjetas con performer seleccionado  si no tiene performer enviar los 7 más populares`
+                );
 
 
 
-              }
-
-
-
-              if (result.context == "find_venue_to_eat") {
+                
+              } else if (result.context == "find_venue_to_eat") {
                 let totalElements = result.userSays.length;
                 let userSays = result.userSays[totalElements - 1];
                 if (isDefined(userSays)) {
@@ -616,9 +616,7 @@ function processLocation(senderId, locationData) {
                     sendToApiAi(senderId, userSays.typed);
                   }
                 }
-              }
-
-              if (
+              } else if (
                 result.mlinkSelected == "STPATTYS_FRAME" ||
                 result.mlinkSelected == "STPATTYS_QUIZ"
               ) {
@@ -1989,7 +1987,7 @@ function processPostback(event) {
 
     case "Greetings":
       {
-        saluda(senderId)
+        saluda(senderId);
       }
       break;
 
@@ -2262,10 +2260,9 @@ function saluda(senderId) {
   var Message_2 = require("../bot/generic_buttton");
 
   user_queries.createUpdateUserDatas(senderId, "-").then(foundUser => {
-   // let Account = require("../modules/account/account");
+    // let Account = require("../modules/account/account");
     //Account.startAccount(senderId);
 
- 
     let name = foundUser.firstName;
     var greeting = "Hi " + name;
     var messagetxt = greeting + ", what would you like to do?";
@@ -2292,7 +2289,7 @@ function saluda(senderId) {
       }
     ];
 
-    Message.quickReply(senderId, messagetxt, replies); 
+    Message.quickReply(senderId, messagetxt, replies);
   });
 }
 
@@ -3171,6 +3168,7 @@ var startTevoModuleByPerformerName = (sender, payload) => {
       });
   });
 };
+
 module.exports = {
   router,
   startRealMadridJuvFrame,
