@@ -27,6 +27,7 @@ var buildUserArtistGenericTemplate = senderId => {
         let lat = foundUser.location.coordinates[0];
         let lon = foundUser.location.coordinates[1];
         if (lat && lon) {
+          console.log(`tengo la location`)
           artistsWithEventsInLocationNewArray(artistsSelected, lat, lon).then(
             artistsWithEvents => {
               if (artistsWithEvents.length > 0) {
