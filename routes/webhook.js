@@ -3181,7 +3181,7 @@ var startTevoModuleByPerformerName = (sender, payload) => {
 
               nlp.tevoByQuery(sender, query, userPreferences).then(cantidad => {
                 if (cantidad == 0) {
-                  find_my_event(senderId, 1, "");
+                  find_my_event(sender, 1, "");
                 }
               });
             }).catch((error)=>{
