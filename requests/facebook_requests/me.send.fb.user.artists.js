@@ -195,7 +195,7 @@ var sendFbGenericTemplate = (senderId, lastArtistsSelected, messageText) => {
             
             console.log(`sendFbGenericTemplate - messageText ${messageText}` )
 
-            Messsage.sendMessage(messageText).then((response) => {
+            Messsage.sendMessage(senderId, messageText).then(response => {
               console.log("sendFbGenericTemplate - sendMessage")
               fbComponents
                 .sendGenericTemplate(senderId, elements, "horizontal")
