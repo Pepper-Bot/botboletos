@@ -14,6 +14,7 @@ var fb_me_send_account = require("./me.send.account");
  * ===================================================================================================
  */
 var buildUserArtistGenericTemplate = senderId => {
+  console.log(`entré a buildUserArtistGenericTemplate`)
   return new Promise((resolve, reject) => {
     userQueries.getUserByFbId(senderId).then(foundUser => {
       let artistsSelected = foundUser.artistsSelected;
