@@ -40,8 +40,10 @@ var buildUserArtistGenericTemplate = senderId => {
                   } `
                 );
 
-                userQueries.createUpdateUserArtistHasEvent(senderId, true);
-                
+                userQueries
+                  .createUpdateUserArtistHasEvent(senderId, true)
+                  .then(() => {});
+
                 let messageText =
                   "Cool, your favorite artists results near you";
                 sendFbGenericTemplate(
@@ -64,8 +66,9 @@ var buildUserArtistGenericTemplate = senderId => {
                        * ===============================
                        */
 
-
-                      userQueries.createUpdateUserArtistHasEvent(senderId, false);
+                      userQueries
+                        .createUpdateUserArtistHasEvent(senderId, false)
+                        .then(() => {});
 
                       let messageText =
                         "Cool, your favorite artists results near you";
