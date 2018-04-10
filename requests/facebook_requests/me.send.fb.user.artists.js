@@ -192,7 +192,8 @@ var sendFbGenericTemplate = (senderId, lastArtistsSelected, messageText) => {
 
           if (counter === lastArtistsSelected.length - 1) {
             elements.splice(9, lastArtistsSelected.length - 10);
-            Messsage.sendMessage(messageText).then(() => {
+            Messsage.sendMessage(messageText).then((response) => {
+              console.log("sendFbGenericTemplate - sendMessage")
               fbComponents
                 .sendGenericTemplate(senderId, elements, "horizontal")
                 .then(response => {
