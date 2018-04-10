@@ -6,7 +6,7 @@ var Message = require("../bot/messages");
 var UserData = require("../bot/userinfo");
 var UserData2 = require("../schemas/userinfo");
 var reqExternas = require("../bot/requestExternas");
-var notificaciones = require("../requests/facebook_requests/me.send.fb.user.artists")
+var notificaciones = require("../requests/facebook_requests/me.send.fb.user.artists");
 var config = require("../config/config_vars");
 
 var API_AI_CLIENT_ACCESS_TOKEN = require("../config/config_vars")
@@ -600,13 +600,9 @@ function processLocation(senderId, locationData) {
                 console.log(
                   `Enviar tarjetas con performer seleccionado  si no tiene performer enviar los 7 más populares de acuerdo a su ubicación`
                 );
-                notificaciones.buildUserArtistGenericTemplate(senderId).then(()=>{
-                  
-                })
-                
-
-
-
+                notificaciones
+                  .buildUserArtistGenericTemplate(senderId)
+                  .then(() => {});
               } else if (result.context == "find_venue_to_eat") {
                 let totalElements = result.userSays.length;
                 let userSays = result.userSays[totalElements - 1];
@@ -3126,34 +3122,68 @@ var startTevoModuleByPerformerName = (sender, payload) => {
             let page = 0;
             let per_page = 9;
 
-            let query = {
-              prioridad: 1,
-              searchBy: "ByPerformerId",
-              query: `${
-                tevo.API_URL
-              }events?performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
-              queryReplace: `${
-                tevo.API_URL
-              }events?performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
-              queryPage: page,
-              queryPerPage: per_page,
-              messageTitle:
-                'Cool, I looked for "' + payload + '" shows.  Book a ticket'
-            };
+            let user_queries = require("../db/queries/user.queries");
 
-            let userPreferences = {
-              event_title: "",
-              city: "",
-              artist: "",
-              team: "",
-              event_type: "",
-              music_genre: ""
-            };
+           
+            user_queries.searchUserByFacebookId(sender).then(foundUser => {
+              let query = {};
+              if (foundUser.artistHasEvent === true) {
 
-            nlp.tevoByQuery(sender, query, userPreferences).then(cantidad => {
-              if (cantidad == 0) {
-                find_my_event(senderId, 1, "");
+         
+                console.log(`search events by performer and location ===>`)
+
+                let lat = foundUser.location.coordinates[0];
+                let lon = foundUser.location.coordinates[1]; 
+
+                
+
+                 query = {
+                  prioridad: 1,
+                  searchBy: "ByPerformerIdAndLocation",
+                  query: `${
+                    tevo.API_URL
+                  }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at&within=100`,
+                  queryReplace: `${
+                    tevo.API_URL
+                  }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at&within=100`,
+                  queryPage: page,
+                  queryPerPage: per_page,
+                  messageTitle:
+                    'Cool, I looked for "' +
+                    payload +
+                    '" shows.  Book a ticket'
+                };
+              } else {
+                query = {
+                  prioridad: 1,
+                  searchBy: "ByPerformerId",
+                  query: `${
+                    tevo.API_URL
+                  }events?performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
+                  queryReplace: `${
+                    tevo.API_URL
+                  }events?performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
+                  queryPage: page,
+                  queryPerPage: per_page,
+                  messageTitle:
+                    'Cool, I looked for "' + payload + '" shows.  Book a ticket'
+                };
               }
+
+              let userPreferences = {
+                event_title: "",
+                city: "",
+                artist: "",
+                team: "",
+                event_type: "",
+                music_genre: ""
+              };
+
+              nlp.tevoByQuery(sender, query, userPreferences).then(cantidad => {
+                if (cantidad == 0) {
+                  find_my_event(senderId, 1, "");
+                }
+              });
             });
 
             resolve(true);

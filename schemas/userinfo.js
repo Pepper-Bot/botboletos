@@ -129,7 +129,11 @@ var UserData = mongoose.Schema({
   ],
  
 
-  spotify_id: String
+  spotify_id: String,
+  artistHasEvent: {
+	  type:Boolean,
+	  default:false
+  }
 });
 
 module.exports = mongoose.model("UserData", UserData);

@@ -14,7 +14,6 @@ var fb_me_send_account = require("./me.send.account");
  * ===================================================================================================
  */
 var buildUserArtistGenericTemplate = senderId => {
-  console.log(`entré a buildUserArtistGenericTemplate`)
   return new Promise((resolve, reject) => {
     userQueries.getUserByFbId(senderId).then(foundUser => {
       let artistsSelected = foundUser.artistsSelected;
@@ -27,7 +26,6 @@ var buildUserArtistGenericTemplate = senderId => {
         let lat = foundUser.location.coordinates[0];
         let lon = foundUser.location.coordinates[1];
         if (lat && lon) {
-          console.log(`tengo la location`)
           artistsWithEventsInLocationNewArray(artistsSelected, lat, lon).then(
             artistsWithEvents => {
               if (artistsWithEvents.length > 0) {
@@ -41,6 +39,9 @@ var buildUserArtistGenericTemplate = senderId => {
                     artistsWithEvents.length
                   } `
                 );
+
+                userQueries.createUpdateUserArtistHasEvent(senderId, true);
+                
                 let messageText =
                   "Cool, your favorite artists results near you";
                 sendFbGenericTemplate(
@@ -62,6 +63,10 @@ var buildUserArtistGenericTemplate = senderId => {
                        * Artistas seleccionados con eventos, sin tener en cuenta localización del usuario
                        * ===============================
                        */
+
+
+                      userQueries.createUpdateUserArtistHasEvent(senderId, false);
+
                       let messageText =
                         "Cool, your favorite artists results near you";
                       sendFbGenericTemplate(
@@ -114,8 +119,6 @@ var buildUserArtistGenericTemplate = senderId => {
                * No tengo coordenadas del usuario y ninguno de los artistas tienen evento
                * ===============================
                */
-
-
 
               resolve({
                 message: "Ninguno de los artistas seleccionados tienen eventos"

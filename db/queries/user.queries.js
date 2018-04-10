@@ -603,10 +603,141 @@ var pushIfNew = (artists, artist) => {
   artists.push(newArtist);
 };
 
+/**
+ *
+ * @param {*} senderId
+ * @param {*} artistHasEvent
+ */
+var createUpdateUserArtistHasEvent = (senderId, artistHasEvent) => {
+  var dbObj = require("../DB");
+  dbObj.getConnection();
+  return new Promise((resolve, reject) => {
+    UserData.getInfo(senderId, function(err, FBUser) {
+      //console.log('FBUser.first_name'+  FBUser.first_name )
+      console.log("FBUser.first_name' >>> " + JSON.stringify(FBUser));
+      if (!err) {
+        console.log("1");
+        var FBUser = JSON.parse(FBUser);
+        UserData2.findOne(
+          {
+            fbId: senderId
+          },
+          {},
+          {
+            sort: {
+              sessionEnd: -1
+            }
+          },
+          function(err, foundUser) {
+            if (!err) {
+              if (null != foundUser) {
+                foundUser.fbId = senderId;
+                foundUser.firstName = FBUser.first_name;
+                foundUser.LastName = FBUser.last_name;
+                foundUser.profilePic = FBUser.profile_pic;
+                foundUser.locale = FBUser.locale;
+                foundUser.timeZone = FBUser.timezone;
+                foundUser.gender = FBUser.gender;
+                foundUser.messageNumber = 1;
+                foundUser.sessionEnd = moment();
+
+                //foundUser.artistsSelected.push(artists);
+
+                foundUser.artistHasEvent = artistHasEvent;
+
+                foundUser.save(function(err, userSaved) {
+                  if (!err) {
+                    console.log(
+                      "foundUser Saved!!! " + JSON.stringify(userSaved.fbId)
+                    );
+
+                    resolve(userSaved);
+                  } else {
+                    console.log("Error guardando en userdatas " + err);
+                    reject(err);
+                  }
+                });
+              } else {
+                UserData.getInfo(senderId, function(err, result) {
+                  console.log("Dentro de UserData");
+                  if (!err) {
+                    var bodyObj = JSON.parse(result);
+                    console.log("guardando el usuario " + result);
+
+                    var User = new UserData2();
+                    {
+                      User.fbId = senderId;
+                      User.firstName = bodyObj.first_name;
+                      User.LastName = bodyObj.last_name;
+                      User.profilePic = bodyObj.profile_pic;
+                      User.locale = bodyObj.locale;
+                      User.timeZone = bodyObj.timezone;
+                      User.gender = bodyObj.gender;
+                      User.messageNumber = 1;
+
+                      User.artistHasEvent = artistHasEvent;
+
+                      User.save(function(err, userSaved) {
+                        if (!err) {
+                          console.log(
+                            "user Saved!!! " + JSON.stringify(userSaved.fbId)
+                          );
+
+                          resolve(userSaved);
+                        } else {
+                          console.log("Error guardando en userdatas " + err);
+                          reject(err);
+                        }
+                      });
+                    }
+                  }
+                });
+              }
+            }
+          }
+        );
+      }
+    });
+  });
+};
+
+/**
+ * 
+ * @param {*} senderId 
+ */
+var searchUserByFacebookId = senderId => {
+  return new Promise((resolve, reject) => {
+    UserData2.findOne(
+      {
+        fbId: senderId
+      },
+      {},
+      {
+        sort: {
+          sessionEnd: -1
+        }
+      },
+      function(err, foundUser) {
+        if (!err) {
+          if (null != foundUser) {
+            resolve(foundUser);
+          } else {
+            resolve(null);
+          }
+        } else {
+          resolve(null);
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   getUsersGroupByFBId,
   createUpdateUserDatas,
   getUserByFbId,
   createUpdateUseSelectArtist,
-  createUpdateUserSpotifyId
+  createUpdateUserSpotifyId,
+  createUpdateUserArtistHasEvent,
+  searchUserByFacebookId
 };
