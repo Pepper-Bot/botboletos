@@ -192,6 +192,9 @@ var sendFbGenericTemplate = (senderId, lastArtistsSelected, messageText) => {
 
           if (counter === lastArtistsSelected.length - 1) {
             elements.splice(9, lastArtistsSelected.length - 10);
+            
+            console.log(`sendFbGenericTemplate - messageText ${messageText}` )
+
             Messsage.sendMessage(messageText).then((response) => {
               console.log("sendFbGenericTemplate - sendMessage")
               fbComponents

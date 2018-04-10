@@ -230,10 +230,11 @@ var sendMessage = (senderId, message) => {
     };
     callSendAPI(messageData)
       .then(response => {
+        
         resolve(response);
       })
       .catch(error => {
-        console.log(`error en typingOn ${error}`);
+        console.log(`error en sendMessage ${error}`);
       });
   });
 };
