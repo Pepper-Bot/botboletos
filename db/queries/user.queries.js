@@ -1,5 +1,5 @@
 var UserData = require("../../requests/facebook_requests/user");
-var UserData2 = require("../schemas/userinfo");
+var UserData2 = require("../../schemas/userinfo");
 var moment = require("moment");
 
 var getUsersGroupByFBId = () => {
