@@ -3122,7 +3122,7 @@ var startTevoModuleByPerformerName = (sender, payload) => {
             let page = 0;
             let per_page = 9;
 
-            let user_queries = require("../db/queries/user.queries");
+            
 
            
             user_queries.searchUserByFacebookId(sender).then(foundUser => {
@@ -3135,7 +3135,7 @@ var startTevoModuleByPerformerName = (sender, payload) => {
                 let lat = foundUser.location.coordinates[0];
                 let lon = foundUser.location.coordinates[1]; 
 
-                
+
 
                  query = {
                   prioridad: 1,
@@ -3184,7 +3184,10 @@ var startTevoModuleByPerformerName = (sender, payload) => {
                   find_my_event(senderId, 1, "");
                 }
               });
-            });
+            }).catch((error)=>{
+                 console.log(`Error al consultar startTevoModuleByPerformerName - searchUserByFacebookId`)
+
+            })
 
             resolve(true);
           } else {

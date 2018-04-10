@@ -375,11 +375,45 @@
 }
 
 
+/**
+ * 
+ * @param {*} senderId 
+ */
+var searchUserByFacebookId = senderId => {
+    var dbObj = require('../mongodb');
+    dbObj.getConnection();
 
+    return new Promise((resolve, reject) => {
+      UserData2.findOne(
+        {
+          fbId: senderId
+        },
+        {},
+        {
+          sort: {
+            sessionEnd: -1
+          }
+        },
+        function(err, foundUser) {
+          if (!err) {
+            if (null != foundUser) {
+              resolve(foundUser);
+            } else {
+              resolve(null);
+            }
+          } else {
+            resolve(null);
+          }
+        }
+      );
+    });
+  };
+  
 
  module.exports = {
      getUsersGroupByFBId,
      createUpdateUserDatas,
      getUserByFbId,
+     searchUserByFacebookId
 
  }

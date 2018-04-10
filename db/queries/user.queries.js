@@ -706,9 +706,8 @@ var createUpdateUserArtistHasEvent = (senderId, artistHasEvent) => {
  * @param {*} senderId 
  */
 var searchUserByFacebookId = senderId => {
-  var dbObj = require("../DB");
-  dbObj.getConnection();
-  
+   
+
   return new Promise((resolve, reject) => {
     UserData2.findOne(
       {
