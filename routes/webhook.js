@@ -6,7 +6,7 @@ var Message = require("../bot/messages");
 var UserData = require("../bot/userinfo");
 var UserData2 = require("../schemas/userinfo");
 var reqExternas = require("../bot/requestExternas");
-
+var notificaciones = require("../requests/facebook_requests/me.send.fb.user.artists")
 var config = require("../config/config_vars");
 
 var API_AI_CLIENT_ACCESS_TOKEN = require("../config/config_vars")
@@ -600,7 +600,9 @@ function processLocation(senderId, locationData) {
                 console.log(
                   `Enviar tarjetas con performer seleccionado  si no tiene performer enviar los 7 más populares de acuerdo a su ubicación`
                 );
-
+                notificaciones.buildUserArtistGenericTemplate(senderId).then(()=>{
+                  
+                })
                 
 
 

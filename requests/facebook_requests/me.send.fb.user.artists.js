@@ -2,7 +2,7 @@ var artistQueries = require("../../db/queries/artist.queries");
 var userQueries = require("../../db/queries/user.queries");
 var fbComponents = require("./me.send.fb.components");
 const pepperurl = "https://www.messenger.com/t/pepperSharks";
-
+const Messsage = require("./messages");
 const eventsRequests = require("../tevo_requests/events");
 var fb_me_send_account = require("./me.send.account");
 
@@ -14,83 +14,188 @@ var fb_me_send_account = require("./me.send.account");
  * ===================================================================================================
  */
 var buildUserArtistGenericTemplate = senderId => {
-  let counter = 0;
   return new Promise((resolve, reject) => {
     userQueries.getUserByFbId(senderId).then(foundUser => {
       let artistsSelected = foundUser.artistsSelected;
       if (artistsSelected.length > 0) {
-        
-        artistsWithEventsNewArray(artistsSelected).then(artistsWithEvents => {
-          let lastArtistsSelected = artistsWithEvents;
-          console.log(
-            `lastArtistsSelected.length  ${lastArtistsSelected.length}`
-          );
-          //resolve({ message: lastArtistsSelected });
-          let elements = [];
-          let pepperurlref = `${pepperurl}?ref=`;
-
-          if (lastArtistsSelected) {
-            for (let i = 0; i < lastArtistsSelected.length; i++) {
-              artistQueries
-                .getArtist(lastArtistsSelected[i].performer_id)
-                .then(foundArtist => {
-                  console.log(
-                    `foundArtist.length  ${foundArtist.images.length}`
-                  );
-
-                  let buttons = [];
-                  buttons.push(
-                    fbComponents.buildPayLoadButton(
-                      foundArtist.name,
-                      foundArtist.name
-                    )
-                  );
-                  buttons.push(fbComponents.buildShareButton());
-
-                  console.log(`buttons  ${JSON.stringify(buttons)}`);
-
-                  elements.push(
-                    fbComponents.buildElementForGenericTemplate(
-                      foundArtist.name,
-                      foundArtist.images[0].url,
-                      foundArtist.name,
-                      `${pepperurlref}${foundArtist.name}`,
-                      buttons
-                    )
-                  );
-                  counter++;
-                  console.log(
-                    `elements.length  ${JSON.stringify(elements.length)}`
-                  );
-                  console.log(
-                    `lastArtistsSelected.length  ${JSON.stringify(
-                      lastArtistsSelected.length
-                    )}`
-                  );
-
-                  if (counter === lastArtistsSelected.length - 1) {
-                    fbComponents
-                      .sendGenericTemplate(senderId, elements, "horizontal")
-                      .then(response => {
-                        resolve(counter);
-                      });
-                  } else {
-                    console.log(`elements.length  ${elements.length}`);
-                  }
+        /**
+         * ===============================🔆
+         *  Faves added
+         * ===============================
+         */
+        let lat = foundUser.location.coordinates[0];
+        let lon = foundUser.location.coordinates[1];
+        if (lat && lon) {
+          artistsWithEventsInLocationNewArray(artistsSelected, lat, lon).then(
+            artistsWithEvents => {
+              if (artistsWithEvents.length > 0) {
+                /**
+                 * ===============================🔆
+                 * Artistas Filtrados con eventos en la localización del usuario
+                 * ===============================
+                 */
+                console.log(
+                  `artistsWithEventsInLocationNewArray: Artistas Filtrados con eventos en la localización del usuario largo ${
+                    artistsWithEvents.length
+                  } `
+                );
+                let messageText =
+                  "Cool, your favorite artists results near you";
+                sendFbGenericTemplate(
+                  senderId,
+                  artistsWithEvents,
+                  messageText
+                ).then(response => {
+                  resolve(response);
                 });
+              } else {
+                console.log(
+                  `artistsWithEventsInLocationNewArray: Ningun artista tiene eventos en la localización del usuario`
+                );
+                artistsWithEventsNewArray(artistsSelected).then(
+                  artistsWithEvents => {
+                    if (artistsWithEvents.length > 0) {
+                      /**
+                       * ===============================🔆
+                       * Artistas seleccionados con eventos, sin tener en cuenta localización del usuario
+                       * ===============================
+                       */
+                      let messageText =
+                        "Cool, your favorite artists results near you";
+                      sendFbGenericTemplate(
+                        senderId,
+                        artistsWithEvents,
+                        messageText
+                      ).then(response => {
+                        console.log(
+                          `Artistas seleccionados con eventos, sin tener en cuenta localización`
+                        );
+                        resolve(response);
+                      });
+                    } else {
+                      console.log(
+                        "buildUserArtistGenericTemplate-artistsWithEventsNewArray: Ninguno de los artistas seleccionados tienen eventos"
+                      );
+                      resolve({
+                        message:
+                          "Ninguno de los artistas seleccionados tienen eventos"
+                      });
+                    }
+                  }
+                );
+              }
             }
-          } else {
-            console.log(`Ninguno de los artistas seleccionados tiene evento.`); //🔆
-            resolve(counter);
-          }
-        });
+          );
+        } else {
+          /**
+           * ===============================🔆
+           * No tengo coordenadas del usuario Los artistas tienen evento
+           * ===============================
+           */
+          artistsWithEventsNewArray(artistsSelected).then(artistsWithEvents => {
+            if (artistsWithEvents.length > 0) {
+              let messageText =
+                "With your location I can give  you better recommendations. These are the most trending events";
+              sendFbGenericTemplate(
+                senderId,
+                artistsWithEvents,
+                messageText
+              ).then(response => {
+                resolve(response);
+              });
+            } else {
+              console.log(
+                "buildUserArtistGenericTemplate-artistsWithEventsNewArray: Ninguno de los artistas seleccionados tienen eventos"
+              );
+              /**
+               * ===============================🔆
+               * No tengo coordenadas del usuario y ninguno de los artistas tienen evento
+               * ===============================
+               */
+
+
+
+              resolve({
+                message: "Ninguno de los artistas seleccionados tienen eventos"
+              });
+            }
+          });
+        }
       } else {
-        console.log(`El usuario no tiene artistas asociados.`); //🔆
-        resolve(counter);
+        /**
+         * ===============================🔆
+         *  Faves Not Added
+         * ===============================
+         */
+        let locationMesssage = "May be later. Would you like to  catch a show?";
+        Messsage.getLocation(senderId, locationMesssage);
+
+        console.log(`El usuario no tiene artistas asociados.`);
+        resolve({
+          messsage: `User doesn't have artists`
+        });
       }
     });
   }).catch(error => {
     console.log(`Error en buildUserArtistGenericTemplate ${error}`);
+  });
+};
+
+/**
+ *
+ * @param {*} lastArtistsSelected
+ * @description función para enviar un generic Template de artistas seleccionados.
+ */
+var sendFbGenericTemplate = (senderId, lastArtistsSelected, messageText) => {
+  return new Promise((resolve, reject) => {
+    let counter = 0;
+    let elements = [];
+    let pepperurlref = `${pepperurl}?ref=`;
+    for (let i = 0; i < lastArtistsSelected.length; i++) {
+      artistQueries
+        .getArtist(lastArtistsSelected[i].performer_id)
+        .then(foundArtist => {
+          console.log(`foundArtist.length  ${foundArtist.images.length}`);
+
+          let buttons = [];
+          buttons.push(
+            fbComponents.buildPayLoadButton(foundArtist.name, foundArtist.name)
+          );
+          buttons.push(fbComponents.buildShareButton());
+
+          console.log(`buttons  ${JSON.stringify(buttons)}`);
+
+          elements.push(
+            fbComponents.buildElementForGenericTemplate(
+              foundArtist.name,
+              foundArtist.images[0].url,
+              foundArtist.name,
+              `${pepperurlref}${foundArtist.name}`,
+              buttons
+            )
+          );
+          counter++;
+          console.log(`elements.length  ${JSON.stringify(elements.length)}`);
+          console.log(
+            `lastArtistsSelected.length  ${JSON.stringify(
+              lastArtistsSelected.length
+            )}`
+          );
+
+          if (counter === lastArtistsSelected.length - 1) {
+            elements.splice(9, lastArtistsSelected.length - 10);
+            Messsage.sendMessage(messageText).then(() => {
+              fbComponents
+                .sendGenericTemplate(senderId, elements, "horizontal")
+                .then(response => {
+                  resolve(response);
+                });
+            });
+          } else {
+            console.log(`elements.length  ${elements.length}`);
+          }
+        });
+    }
   });
 };
 

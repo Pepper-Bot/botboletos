@@ -1,13 +1,11 @@
 var tevoClient = require("./index").tevoClient;
 var tevo = require("./index").tevo;
-var only_with = require("../../config/config_vars").only_with;
+var only_with = require('../../config/config_vars').only_with;
+ 
 
-/**
- *
- * @param {*} performer_id
- * @param {*} performer_name
- */
-var searchEventsByPerformerId = (performer_id, performer_name) => {
+ 
+
+var searchEventsByPerformerId = ( performer_id, performer_name) => {
   let page = 0;
   let per_page = 9;
   return new Promise((resolve, reject) => {
@@ -52,6 +50,9 @@ var searchEventsByPerformerId = (performer_id, performer_name) => {
   });
 };
 
+ 
+
+
 /**
  * 
  * @param {*} performer_id 
@@ -68,10 +69,10 @@ var searchEventsByPerformerIdAndLocation = (performer_id, performer_name, lat, l
       searchBy: "ByPerformerId",
       query: `${
         tevo.API_URL
-      }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
+      }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at&within=200`,
       queryReplace: `${
         tevo.API_URL
-      }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
+      }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at&within=200`,
       queryPage: page,
       queryPerPage: per_page,
       messageTitle:
@@ -104,15 +105,15 @@ var searchEventsByPerformerIdAndLocation = (performer_id, performer_name, lat, l
   });
 };
 
+module.exports = {
+    searchEventsByPerformerId,
+    searchEventsByPerformerIdAndLocation
+  };
+
 
 
 // busqueda por conciertos y lat y lon 
 //`${tevo.API_URL}events?category_id =54&lat=${lat}&lon=${lon}&${only_with}&order_by=events.occurs_at,events.popularity_score DESC&page=${page}&per_page=${per_page}&within=100`;
 
 
-
-
-module.exports = {
-  searchEventsByPerformerId,
-  searchEventsByPerformerIdAndLocation
-};
+ 
