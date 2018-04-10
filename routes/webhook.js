@@ -3121,10 +3121,7 @@ var startTevoModuleByPerformerName = (sender, payload) => {
 
             let page = 0;
             let per_page = 9;
-
-            
-
-           
+   
             user_queries.searchUserByFacebookId(sender).then(foundUser => {
               let query = {};
               if (foundUser.artistHasEvent === true) {

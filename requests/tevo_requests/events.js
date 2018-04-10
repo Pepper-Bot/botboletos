@@ -69,10 +69,10 @@ var searchEventsByPerformerIdAndLocation = (performer_id, performer_name, lat, l
       searchBy: "ByPerformerId",
       query: `${
         tevo.API_URL
-      }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at&within=200`,
+      }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at&within=100`,
       queryReplace: `${
         tevo.API_URL
-      }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at&within=200`,
+      }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at&within=100`,
       queryPage: page,
       queryPerPage: per_page,
       messageTitle:
