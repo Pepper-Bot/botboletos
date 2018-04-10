@@ -600,7 +600,10 @@ function processLocation(senderId, locationData) {
                 console.log(
                   `Enviar tarjetas con performer seleccionado  si no tiene performer enviar los 7 más populares de acuerdo a su ubicación`
                 );
-             
+                notificaciones.buildUserArtistGenericTemplate(senderId).then(()=>{
+                  
+                })
+                
 
 
 

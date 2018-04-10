@@ -1,6 +1,7 @@
 var ArtistSchema = require("../schemas/artist.schema");
 var isDefined = require("../../util/fun_varias").isDefined;
 
+
 var getArtists = (limite, n = 1) => {
   console.log("" + limite);
   limite = Number(limite);
