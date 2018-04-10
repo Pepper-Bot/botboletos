@@ -609,8 +609,7 @@ var pushIfNew = (artists, artist) => {
  * @param {*} artistHasEvent
  */
 var createUpdateUserArtistHasEvent = (senderId, artistHasEvent) => {
-  var dbObj = require("../DB");
-  dbObj.getConnection();
+  
   return new Promise((resolve, reject) => {
     UserData.getInfo(senderId, function(err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
