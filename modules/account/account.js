@@ -42,7 +42,7 @@ var startAccount = senderId => {
           url: boletos[i].url,
           messenger_extensions: true,
           webview_height_ratio: "tall",
-          title: "Select your favorite artists"
+          title: "Track artists"
           //"payload": "TIBURON" + (i + 1)
         }
       ]
