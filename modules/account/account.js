@@ -14,9 +14,9 @@ var startAccount = senderId => {
   let eventResults = [];
   let boletos = [
     {
-      titulo: "My Account",
+      titulo: "Track your favorite artist",
       imagen: `${APLICATION_URL_DOMAIN}images/account/select_artist_v1.jpg`,
-      subtitulo: "My Account",
+      subtitulo: "Track artist",
       //url: `${URLAplication}${urlExtension} &id=${senderId}`,
       url: `${urlExtension}`
     }

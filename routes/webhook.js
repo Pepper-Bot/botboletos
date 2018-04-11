@@ -3106,6 +3106,11 @@ function startTevoModuleByLocation(sender, lat, lon) {
   });
 }
 
+/**
+ * 
+ * @param {*} sender 
+ * @param {*} payload 
+ */
 var startTevoModuleByPerformerName = (sender, payload) => {
   return new Promise((resolve, reject) => {
     let query = `${tevo.API_URL}performers?name=${payload}`;
