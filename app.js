@@ -18,7 +18,7 @@ var Promise = global.Promise || require("promise");
 var helpers = require("./lib/helpers");
 
 var config = require("./config/config_vars");
-
+const cors = require("cors");
 var APLICATION_URL_DOMAIN = config.APLICATION_URL_DOMAIN;
 var DASHBOT_API_KEY = config.DASHBOT_API_KEY;
 
@@ -196,6 +196,9 @@ var urlencodedParser = app.use(
     extended: false
   })
 );
+
+app.use(cors());
+
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
