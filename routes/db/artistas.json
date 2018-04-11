@@ -1,0 +1,646 @@
+[
+  {
+    "popularity_score": 0.79,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/f0370da3f52161b07a461b4be9a64d0adbfb498d",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/e21f791b600f04f9dd8ad2b6d9b3304a82e048ca",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/f39b705ba6b1070c77bce4e9c21dff5bac96f21c",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5aa2c897983d5c2930ed2dd1",
+    "performer_id": 29186,
+    "name": "Ed Sheeran",
+    "category_id": 57,
+    "category_name": "Rock & Pop",
+    "__v": 4
+  },
+  {
+    "popularity_score": 0.73,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/aa32d6d4ca2467974403518dd3ebfe8831c5ced1",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/63cad86cb183568085a4e5f0be86aa187cc511e4",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/5461dcbb3f23e1df62d85c8273fc49cc4edd49d5",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5aa41028444d172b5c20d241",
+    "performer_id": 1847,
+    "name": "Bruno Mars",
+    "category_id": 57,
+    "category_name": "Rock & Pop",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0.68,
+    "images": [
+      {
+        "height": 500,
+        "url":
+          "https://i.scdn.co/image/a841f0ee4f2d88c42f55f76c2cc6b588841f5d2f",
+        "width": 500
+      },
+      {
+        "height": 200,
+        "url":
+          "https://i.scdn.co/image/c47117e331659695a4674b48d23003708be3fb77",
+        "width": 200
+      },
+      {
+        "height": 64,
+        "url":
+          "https://i.scdn.co/image/35eb446a46cf7ba603b540b88a5cb4ec219a9f02",
+        "width": 64
+      }
+    ],
+    "show_artist": true,
+    "_id": "5aa410dfcee5c824c0648932",
+    "performer_id": 11635,
+    "name": "The Killers",
+    "category_id": 82,
+    "category_name": "Alternative Rock",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0.67,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/9f65f9f5ba10e0243da093306d213f88ccb85da6",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/78e87fcc881b4572913167d8488f975c104451b7",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/4c8ff1e7bf10e7f5b1430a270de5faf5e9a21e2c",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5aa41194cee5c824c064897c",
+    "performer_id": 10102,
+    "name": "Shakira",
+    "category_id": 57,
+    "category_name": "Rock & Pop",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0.67,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/1233a174b66518fd7c7ff9ce96202054ca062f09",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/8dfb733a23f3aa7c95be20b409feec30bec61f17",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/3d16562a5fb4a16326c69e8690c88c050b6e1035",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5aa41215cee5c824c06489c4",
+    "performer_id": 31318,
+    "name": "Imagine Dragons",
+    "category_id": 57,
+    "category_name": "Rock & Pop",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0.66,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/1685533969d5b68cbc630f991e873bd6467f1814",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/f759994946aa42851e5293083f472c96c1753105",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/0b0925b544b46d90a549f25a7f754ce6e59e6be2",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5ab28c97ad919c1ca453eae2",
+    "performer_id": 6808,
+    "name": "Linkin Park",
+    "category_id": 82,
+    "category_name": "Alternative Rock",
+    "__v": 0
+  },
+  {
+    "popularity_score": 0.61,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/274d68d07ce964e9cfd591a43d9b299154c083e9",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/fd18d19a767da8e3eb441af332717a63cf8d8add",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/03c2831957e4ee067772c36c138ddc8fe12f447f",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5aa414d3cee5c824c0648b88",
+    "performer_id": 54278,
+    "name": "Grace VanderWaal",
+    "category_id": 57,
+    "category_name": "Rock & Pop",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0.59,
+    "images": [
+      {
+        "height": 1333,
+        "url":
+          "https://i.scdn.co/image/71b0c671d5decfe38df81549a56dcef11e8649a1",
+        "width": 1000
+      },
+      {
+        "height": 853,
+        "url":
+          "https://i.scdn.co/image/3966d522ec082e4d209aea77758fa81e18f77705",
+        "width": 640
+      },
+      {
+        "height": 267,
+        "url":
+          "https://i.scdn.co/image/a7d65c23311c12553bb509c873b20983b269cb3b",
+        "width": 200
+      },
+      {
+        "height": 85,
+        "url":
+          "https://i.scdn.co/image/4af53d4ccc6ed80c1d2c931947743b7d16f8effa",
+        "width": 64
+      }
+    ],
+    "show_artist": true,
+    "_id": "5aa413a2cee5c824c0648aa8",
+    "performer_id": 5622,
+    "name": "Jennifer Lopez",
+    "category_id": 85,
+    "category_name": "Latin",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0.59,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/c82dfff224bfb7fe29e0364a5aacc55da29b465b",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/d482525120fc7eed9ea0696f564c6cba5237c8f5",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/49a45aac2c93bab9575de13cee2d71b7eb164cab",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5aa4124dcee5c824c0648a52",
+    "performer_id": 8915,
+    "name": "Pitbull",
+    "category_id": 85,
+    "category_name": "Latin",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0.58,
+    "images": [
+      {
+        "size": "300X300",
+        "url":
+          "http://fulldiscografias.com/wp-content/uploads/2014/06/Evanescence-300x300.png",
+        "_id": "5aa414accee5c824c0648b13"
+      }
+    ],
+    "show_artist": true,
+    "_id": "5aa414accee5c824c0648b12",
+    "performer_id": 3826,
+    "name": "Evanescence",
+    "category_id": 57,
+    "category_name": "Rock & Pop",
+    "__v": 0
+  },
+  {
+    "popularity_score": 0.57,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/12fb1cb99738a65d206a30f69f7490638443cad9",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/c7f670dd9a9ef4f708730399e75234f8cd2276b2",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/537a6e1507ea513988c774c38a93cd7c9b0a219b",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5ab143115f9a4315a435f940",
+    "performer_id": 2058,
+    "name": "Carlos Vives",
+    "category_id": 85,
+    "category_name": "Latin",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0.55,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/83b70d344ea18f84f6fb654179e6d14ce886b716",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/650a32fcd5fbb68d8db676d33b54b54b4828e255",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/32978a5e54416c666c529ad4772ea266c6df2d1d",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5ab28c97ad919c1ca453eb1b",
+    "performer_id": 12018,
+    "name": "The Strokes",
+    "category_id": 82,
+    "category_name": "Alternative Rock",
+    "__v": 0
+  },
+  {
+    "popularity_score": 0.55,
+    "images": [],
+    "show_artist": true,
+    "_id": "5ab28c97ad919c1ca453eb1e",
+    "performer_id": 12018,
+    "name": "The Strokes",
+    "category_id": 82,
+    "category_name": "Alternative Rock",
+    "__v": 0
+  },
+  {
+    "popularity_score": 0.54,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/4a88a9bbdd03bcf4e77090706b696e58635c8932",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/d47d6633154ccf1dd65f69462657013d39fafa67",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/5f02725080c3a83503ed6bb08554fb7cff1cf2a4",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5aa41521cee5c824c0648c4e",
+    "performer_id": 5033,
+    "name": "Hombres G",
+    "category_id": 85,
+    "category_name": "Latin",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0.53,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/1316e87138e23255642187e93575af7f6b315fbf",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/c91916bc159e45b21939647165186b5082c15346",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/7ea26f0ba7a078a6c59c0690dc76db62debc037b",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5ab143115f9a4315a435f941",
+    "performer_id": 488,
+    "name": "Alejandro Sanz",
+    "category_id": 85,
+    "category_name": "Latin",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0.53,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/bfc8d115e0ea8cb3e540569ffd87aeb890a1115e",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/fb5260403acc8f28bf9d131d22f0db488e640995",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/43fc9cd9a4df5e3dc5e3fbe01590a305f3d994d5",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5aa41500cee5c824c0648bfe",
+    "performer_id": 9478,
+    "name": "Ricky Martin",
+    "category_id": 85,
+    "category_name": "Latin",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0.52,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/73d96bbd8ac9869029e5327d27e92f71488ca8d6",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/89f4058c3335f0f79a1574aa44594a74c10f7a19",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/9b75da857f655115a96f3f9f39af27c34df3eda3",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5ab28c97ad919c1ca453eb1d",
+    "performer_id": 489,
+    "name": "Aleks Syntek",
+    "category_id": 85,
+    "category_name": "Latin",
+    "__v": 0
+  },
+  {
+    "popularity_score": 0.52,
+    "images": [],
+    "show_artist": true,
+    "_id": "5ab28c97ad919c1ca453eb20",
+    "performer_id": 489,
+    "name": "Aleks Syntek",
+    "category_id": 85,
+    "category_name": "Latin",
+    "__v": 0
+  },
+  {
+    "popularity_score": 0.51,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/3cab7a705d1fefebd1f7c8bf03f27587ae697ead",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/ebcd33c2a80269b32a62af0240322ff115ef9077",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/60732fcec7fae58bd7684c2793900dec68528aa7",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5ab28c97ad919c1ca453eae1",
+    "performer_id": 8215,
+    "name": "Nickelback",
+    "category_id": 82,
+    "category_name": "Alternative Rock",
+    "__v": 0
+  },
+  {
+    "popularity_score": 0.44,
+    "images": [],
+    "show_artist": true,
+    "_id": "5ab3f605ba08c9177c42a6ac",
+    "performer_id": 5516,
+    "name": "Jason Derulo",
+    "category_id": 57,
+    "category_name": "Rock & Pop",
+    "__v": 0
+  },
+  {
+    "popularity_score": 0.44,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/300b459748ce4d11ce1e222eb3d7dff8e854d6da",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/94ec695562c35fcbf00cc51ca765fc8002393d58",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/95c580b7f4eb48f34a3e9b73ec763801d3eb9e9d",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5ab3f605ba08c9177c42a6ad",
+    "performer_id": 5516,
+    "name": "Jason Derulo",
+    "category_id": 57,
+    "category_name": "Rock & Pop",
+    "__v": 0
+  },
+  {
+    "popularity_score": 0.43,
+    "images": [
+      {
+        "height": 1000,
+        "url":
+          "https://i.scdn.co/image/f77b6e05da95676055d2d3e1a87e2afe9e5d2b04",
+        "width": 1000
+      },
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/3eb4a752f0ad4265744b2f241c7a39fb0978d0fb",
+        "width": 640
+      },
+      {
+        "height": 200,
+        "url":
+          "https://i.scdn.co/image/e1bc008e0fa1a6afa74267a29d95c1eb50f55041",
+        "width": 200
+      },
+      {
+        "height": 64,
+        "url":
+          "https://i.scdn.co/image/b6123b510e3cf90309e0358164303ee9b9fcf16b",
+        "width": 64
+      }
+    ],
+    "show_artist": true,
+    "_id": "5ab28c97ad919c1ca453eb22",
+    "performer_id": 3865,
+    "name": "Extreme",
+    "category_id": 57,
+    "category_name": "Rock & Pop",
+    "__v": 1
+  },
+  {
+    "popularity_score": 0,
+    "images": [
+      {
+        "height": 640,
+        "url":
+          "https://i.scdn.co/image/d9adf348c82164816e834e5db9e1ebee1860db02",
+        "width": 640
+      },
+      {
+        "height": 320,
+        "url":
+          "https://i.scdn.co/image/236eee652b46d4657ac7fbc45a27577ba0641bdf",
+        "width": 320
+      },
+      {
+        "height": 160,
+        "url":
+          "https://i.scdn.co/image/3ff002ec63df4247d5790464b7fdd19b2e76dfd2",
+        "width": 160
+      }
+    ],
+    "show_artist": true,
+    "_id": "5ab3eff97167d81a58bdd2bd",
+    "performer_id": 1030,
+    "name": "Bacilos",
+    "category_id": 85,
+    "category_name": "Latin",
+    "__v": 0
+  },
+  {
+    "popularity_score": 0,
+    "images": [],
+    "show_artist": true,
+    "_id": "5ab3eff97167d81a58bdd2be",
+    "performer_id": 1030,
+    "name": "Bacilos",
+    "category_id": 85,
+    "category_name": "Latin",
+    "__v": 0
+  }
+]

@@ -1,0 +1,194 @@
+{
+  "statusCode": 200,
+  "body": {
+    "artists": [
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/0TnOYISbd1XYRBk9myaseg"
+        },
+        "followers": { "href": null, "total": 5025524 },
+        "genres": ["dance pop", "latin", "pop", "pop rap"],
+        "href": "https://api.spotify.com/v1/artists/0TnOYISbd1XYRBk9myaseg",
+        "id": "0TnOYISbd1XYRBk9myaseg",
+        "images": [
+          {
+            "height": 640,
+            "url":
+              "https://i.scdn.co/image/c82dfff224bfb7fe29e0364a5aacc55da29b465b",
+            "width": 640
+          },
+          {
+            "height": 320,
+            "url":
+              "https://i.scdn.co/image/d482525120fc7eed9ea0696f564c6cba5237c8f5",
+            "width": 320
+          },
+          {
+            "height": 160,
+            "url":
+              "https://i.scdn.co/image/49a45aac2c93bab9575de13cee2d71b7eb164cab",
+            "width": 160
+          }
+        ],
+        "name": "Pitbull",
+        "popularity": 84,
+        "type": "artist",
+        "uri": "spotify:artist:0TnOYISbd1XYRBk9myaseg"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/1vyhD5VmyZ7KMfW5gqLgo5"
+        },
+        "followers": { "href": null, "total": 5736933 },
+        "genres": ["latin", "reggaeton"],
+        "href": "https://api.spotify.com/v1/artists/1vyhD5VmyZ7KMfW5gqLgo5",
+        "id": "1vyhD5VmyZ7KMfW5gqLgo5",
+        "images": [
+          {
+            "height": 640,
+            "url":
+              "https://i.scdn.co/image/3464232821db557fa7eb3c2979425995bec84356",
+            "width": 640
+          },
+          {
+            "height": 320,
+            "url":
+              "https://i.scdn.co/image/934005ef45d5487d21556f1eacfbbf50e7217c9c",
+            "width": 320
+          },
+          {
+            "height": 160,
+            "url":
+              "https://i.scdn.co/image/33f318206ffde754d7537c547375a3f8581cf43a",
+            "width": 160
+          }
+        ],
+        "name": "J Balvin",
+        "popularity": 94,
+        "type": "artist",
+        "uri": "spotify:artist:1vyhD5VmyZ7KMfW5gqLgo5"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/1l8Fu6IkuTP0U5QetQJ5Xt"
+        },
+        "followers": { "href": null, "total": 4581909 },
+        "genres": ["dance pop", "pop", "post-teen pop", "talent show"],
+        "href": "https://api.spotify.com/v1/artists/1l8Fu6IkuTP0U5QetQJ5Xt",
+        "id": "1l8Fu6IkuTP0U5QetQJ5Xt",
+        "images": [
+          {
+            "height": 640,
+            "url":
+              "https://i.scdn.co/image/c5e2e813755c107d8f4b068ec1001ea0f91409f1",
+            "width": 640
+          },
+          {
+            "height": 320,
+            "url":
+              "https://i.scdn.co/image/41935c973086a4e4ad47dfda8914eb4a4aca1423",
+            "width": 320
+          },
+          {
+            "height": 160,
+            "url":
+              "https://i.scdn.co/image/27a42ab5ba14d9d941aa6801ce2e85806d6f9b32",
+            "width": 160
+          }
+        ],
+        "name": "Fifth Harmony",
+        "popularity": 80,
+        "type": "artist",
+        "uri": "spotify:artist:1l8Fu6IkuTP0U5QetQJ5Xt"
+      },
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/4wLXwxDeWQ8mtUIRPxGiD6"
+        },
+        "followers": { "href": null, "total": 1966188 },
+        "genres": [
+          "latin",
+          "latin christmas",
+          "latin pop",
+          "salsa",
+          "tropical"
+        ],
+        "href": "https://api.spotify.com/v1/artists/4wLXwxDeWQ8mtUIRPxGiD6",
+        "id": "4wLXwxDeWQ8mtUIRPxGiD6",
+        "images": [
+          {
+            "height": 1000,
+            "url":
+              "https://i.scdn.co/image/be9cd13d7e82b17dffcc817c690cb4871a45a168",
+            "width": 1000
+          },
+          {
+            "height": 640,
+            "url":
+              "https://i.scdn.co/image/d0dfb2248f07256004718ef0cabae943dcb72a41",
+            "width": 640
+          },
+          {
+            "height": 200,
+            "url":
+              "https://i.scdn.co/image/f120236ca9f1929f4db0ee2b9b931608536f686f",
+            "width": 200
+          },
+          {
+            "height": 64,
+            "url":
+              "https://i.scdn.co/image/ab663ca3539b844b63c7e52deda8ae77ccc33a50",
+            "width": 64
+          }
+        ],
+        "name": "Marc Anthony",
+        "popularity": 78,
+        "type": "artist",
+        "uri": "spotify:artist:4wLXwxDeWQ8mtUIRPxGiD6"
+      }
+    ]
+  },
+  "headers": {
+    "server": "nginx",
+    "date": "Fri, 16 Mar 2018 16:53:26 GMT",
+    "content-type": "application/json; charset=utf-8",
+    "content-length": "3761",
+    "connection": "close",
+    "vary": "Accept-Encoding",
+    "cache-control": "public, max-age=7200",
+    "access-control-allow-origin": "*",
+    "access-control-allow-headers":
+      "Accept, Authorization, Origin, Content-Type, Retry-After",
+    "access-control-allow-methods": "GET, POST, OPTIONS, PUT, DELETE, PATCH",
+    "access-control-allow-credentials": "true",
+    "access-control-max-age": "604800",
+    "x-content-type-options": "nosniff",
+    "strict-transport-security": "max-age=31536000"
+  },
+  "request": {
+    "uri": {
+      "protocol": "https:",
+      "slashes": true,
+      "auth": null,
+      "host": "api.spotify.com",
+      "port": null,
+      "hostname": "api.spotify.com",
+      "hash": null,
+      "search":
+        "?ids=0TnOYISbd1XYRBk9myaseg%2C1vyhD5VmyZ7KMfW5gqLgo5%2C1l8Fu6IkuTP0U5QetQJ5Xt%2C4wLXwxDeWQ8mtUIRPxGiD6",
+      "query":
+        "ids=0TnOYISbd1XYRBk9myaseg%2C1vyhD5VmyZ7KMfW5gqLgo5%2C1l8Fu6IkuTP0U5QetQJ5Xt%2C4wLXwxDeWQ8mtUIRPxGiD6",
+      "pathname": "/v1/artists",
+      "path":
+        "/v1/artists?ids=0TnOYISbd1XYRBk9myaseg%2C1vyhD5VmyZ7KMfW5gqLgo5%2C1l8Fu6IkuTP0U5QetQJ5Xt%2C4wLXwxDeWQ8mtUIRPxGiD6",
+      "href":
+        "https://api.spotify.com/v1/artists?ids=0TnOYISbd1XYRBk9myaseg%2C1vyhD5VmyZ7KMfW5gqLgo5%2C1l8Fu6IkuTP0U5QetQJ5Xt%2C4wLXwxDeWQ8mtUIRPxGiD6"
+    },
+    "method": "GET",
+    "headers": {
+      "Accept": "application/json",
+      "Authorization":
+        "Bearer BQD7mlc7HIqiIvZR2T8lgwdf3d__Ib6qws6Rc-8T6rIeYBigIJytBvShm1IDz-l6xmXZhcJqkjrs0NRUSHQzoCTInttPis7T_CtaHE2GAe1Ll6XK316wlG1MVJ2xPzpLbhfJgnPWGNFIfUg8nKjTmv-_Rv14ZiLGCLlma9OOFwwOiXtSEYqz-e7nVQ"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "country": "MX",
+  "display_name": "Leo Jaimes Estévez",
+  "email": "leo.jaimes777@yahoo.es",
+  "external_urls": {
+    "spotify": "https://open.spotify.com/user/21bmdkzy2o53wa4h4j3dwltzi"
+  },
+  "followers": { "href": null, "total": 0 },
+  "href": "https://api.spotify.com/v1/users/21bmdkzy2o53wa4h4j3dwltzi",
+  "id": "21bmdkzy2o53wa4h4j3dwltzi",
+  "images": [
+    {
+      "height": null,
+      "url":
+        "https://scontent.xx.fbcdn.net/v/t1.0-1/p200x200/26112172_2257407267818905_8707984450382680209_n.jpg?oh=e7e7811434f529fe795221c460fd1192&oe=5B4CE196",
+      "width": null
+    }
+  ],
+  "product": "open",
+  "type": "user",
+  "uri": "spotify:user:21bmdkzy2o53wa4h4j3dwltzi"
+}

@@ -1,0 +1,63 @@
+[
+  {
+    "external_urls": {
+      "spotify": "https://open.spotify.com/artist/2BICa6b3GtjSqhOkgnDUu6"
+    },
+    "followers": { "href": null, "total": 434 },
+    "genres": [],
+    "href": "https://api.spotify.com/v1/artists/2BICa6b3GtjSqhOkgnDUu6",
+    "id": "2BICa6b3GtjSqhOkgnDUu6",
+    "images": [],
+    "name": "J.Lo",
+    "popularity": 23,
+    "type": "artist",
+    "uri": "spotify:artist:2BICa6b3GtjSqhOkgnDUu6"
+  },
+  {
+    "external_urls": {
+      "spotify": "https://open.spotify.com/artist/2DlGxzQSjYe5N6G9nkYghR"
+    },
+    "followers": { "href": null, "total": 4073426 },
+    "genres": [
+      "dance pop",
+      "hip pop",
+      "pop",
+      "pop rap",
+      "post-teen pop",
+      "r&b",
+      "urban contemporary"
+    ],
+    "href": "https://api.spotify.com/v1/artists/2DlGxzQSjYe5N6G9nkYghR",
+    "id": "2DlGxzQSjYe5N6G9nkYghR",
+    "images": [
+      {
+        "height": 1333,
+        "url":
+          "https://i.scdn.co/image/71b0c671d5decfe38df81549a56dcef11e8649a1",
+        "width": 1000
+      },
+      {
+        "height": 853,
+        "url":
+          "https://i.scdn.co/image/3966d522ec082e4d209aea77758fa81e18f77705",
+        "width": 640
+      },
+      {
+        "height": 267,
+        "url":
+          "https://i.scdn.co/image/a7d65c23311c12553bb509c873b20983b269cb3b",
+        "width": 200
+      },
+      {
+        "height": 85,
+        "url":
+          "https://i.scdn.co/image/4af53d4ccc6ed80c1d2c931947743b7d16f8effa",
+        "width": 64
+      }
+    ],
+    "name": "Jennifer Lopez",
+    "popularity": 79,
+    "type": "artist",
+    "uri": "spotify:artist:2DlGxzQSjYe5N6G9nkYghR"
+  }
+]

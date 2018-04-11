@@ -4,6 +4,7 @@ var moment = require("moment");
 var UserNotificationSheduled = require("../schemas/user.notification.sheduled.schema");
 var eventsRequests = require("../../requests/tevo_requests/events");
 var userArtists = require("../../requests/facebook_requests/me.send.fb.user.artists");
+var fb_me_send_account = require("../../requests/facebook_requests/me.send.account");
 
 /**
  * ===========================================
@@ -57,7 +58,6 @@ var sendDailyNotification = () => {
             let counter = 0;
             if (usersForNotification.length > 0) {
               for (let i = 0; i < usersForNotification.length; i++) {
-
                 userArtists
                   .buildUserArtistGenericTemplate(usersForNotification[i].fbId)
                   .then(() => {
@@ -66,8 +66,6 @@ var sendDailyNotification = () => {
                       resolve({ messsge: "termine" });
                     }
                   });
-
-                  
               }
             } else {
               resolve({
@@ -104,20 +102,26 @@ var checkIfNewUsers = () => {
                y se guarda para enviar nueva notificación
               =======================================================================*/
 
-              //TODO: COLOCAR EL  ENVIO DEL SELECTOR DE ARTISTAS AQUI ��----
               createUpdateUserNotificationSheduled(
                 usuarios[i]._id.fbId,
-                moment().add(7, "days"),
-                7,
+                moment().add(3, "days"),
+                3,
                 { description: "Send Artist Selector", date: moment() }
               )
                 .then(() => {
-                  counter++;
-                  if (counter === usuarios.length - 1) {
-                    resolve({
-                      message: "termine  checkIfNewUsers "
+                  fb_me_send_account
+                    .sendMyAccount(usuarios[i]._id.fbId)
+                    .then(response => {
+                      counter++;
+                      if (counter === usuarios.length - 1) {
+                        resolve({
+                          message: "termine  checkIfNewUsers "
+                        });
+                      }
+                    })
+                    .catch(error => {
+                      console.log(error);
                     });
-                  }
                 })
                 .catch(error => {
                   console.log(error);
