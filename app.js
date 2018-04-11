@@ -124,15 +124,15 @@ ChatBox.greetingText(
 
 var app = express();
 
-/* 
+//notificaciones//
 app.listen(3000, function() {
-  var menu = require("./bot/get_started");
+  var notificaciones = require("./db/queries/user.notification.sheduled.queries");
 
   setInterval(function() {
-    menu.deleteAndCreatePersistentMenu();
+    notificaciones.sendDailyNotification()
   }, 1000 * 60);
-});
-
+})
+//notificaciones//
 
 
 
