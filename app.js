@@ -18,12 +18,6 @@ var Promise = global.Promise || require("promise");
 var helpers = require("./lib/helpers");
 
 var config = require("./config/config_vars");
-//notificaciones
-const cors = require("cors");
-const facebookRoutes = require("./routes/facebook_routes/facebook.routes");
-const userNotificationRoutes =  require("./routes/facebook_routes/user.notification.sheduled.routes");
-//notificaciones
-
 
 var APLICATION_URL_DOMAIN = config.APLICATION_URL_DOMAIN;
 var DASHBOT_API_KEY = config.DASHBOT_API_KEY;
@@ -138,7 +132,7 @@ app.listen(3000, function() {
     menu.deleteAndCreatePersistentMenu();
   }, 1000 * 60);
 });
-*/
+
 
 
 
@@ -154,7 +148,7 @@ app.use(function(req, res, next) {
 });
 */
 
-/*app.use(function(req, res, next) {
+app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
   res.header("Access-Control-Allow-Origin", APLICATION_URL_DOMAIN);
@@ -163,7 +157,7 @@ app.use(function(req, res, next) {
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
-});*/
+});
 
 //############MANEJO DE PLANTILLAS express-handlebars####################
 
@@ -202,9 +196,6 @@ var urlencodedParser = app.use(
     extended: false
   })
 );
-
-app.use(cors());
-
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -252,10 +243,6 @@ app.use("/dashboard", index);
 // xxx  app.use('/webhook2/', webhook);
 var welcome = require("./routes/welcome/welcome");
 app.get("/", welcome.welcome);
-
-app.use("/fb", facebookRoutes);
-app.use("/fb", userNotificationRoutes);
-
 
 app.get("/webhook2/", webhook.intitGetFB);
 app.post("/webhook2/", webhook.initFBEvents);
