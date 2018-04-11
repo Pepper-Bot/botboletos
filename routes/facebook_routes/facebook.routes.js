@@ -66,7 +66,7 @@ facebookRoutes.route("/send_message").post(function(req, res) {
 
 
 /**
- * http://localhost:8888/fb/send_generic_template/1705877032758862
+ * https://botboletos-test.herokuapp.com/fb/send_generic_template/1705877032758862
  */
 facebookRoutes.route("/send_generic_template/:senderId").get(function(req, res) {
     let senderId = req.params.senderId;

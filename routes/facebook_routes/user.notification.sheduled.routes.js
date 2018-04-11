@@ -105,7 +105,7 @@ userNotificationSheduledRoutes
   });
 
 /**
- *  @argument ruta: http://localhost:8888/fb/notifications
+ *  @argument ruta: https://botboletos-test.herokuapp.com/fb/notifications
  */
 userNotificationSheduledRoutes
   .route("/notifications")
