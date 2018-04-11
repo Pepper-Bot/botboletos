@@ -1,5 +1,5 @@
 var userQueries = require("./user.queries");
-var UserData2 = require("../schemas/userinfo");
+var UserData2 = require("../../schemas/userinfo");
 var moment = require("moment");
 var UserNotificationSheduled = require("../schemas/user.notification.sheduled.schema");
 var eventsRequests = require("../../requests/tevo_requests/events");
