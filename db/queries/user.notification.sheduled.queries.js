@@ -158,9 +158,7 @@ var createUpdateUserNotificationSheduled = (
   numberOfNextDays = 7,
   description = {}
 ) => {
-  var dbObj = require("../DB");
-  dbObj.getConnection();
-
+  
   return new Promise((resolve, reject) => {
     UserNotificationSheduled.findOne(
       {
@@ -258,9 +256,7 @@ var createUpdateUserNotificationSheduled = (
  * ===========================================================
  */
 var searchUserNotificationSheduledByFbId = (fbId = "") => {
-  var dbObj = require("../DB");
-  dbObj.getConnection();
-
+ 
   return new Promise((resolve, reject) => {
     UserNotificationSheduled.findOne(
       {

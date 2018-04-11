@@ -97,9 +97,7 @@ var createUpdateUserDatas = (
   zomatoQs = {},
   searchTevoParameters = {}
 ) => {
-  var dbObj = require("../DB");
-  dbObj.getConnection();
-
+ 
   return new Promise((resolve, reject) => {
     UserData.getInfo(senderId, function(err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
@@ -395,8 +393,7 @@ var createUpdateUserDatas = (
 };
 
 var createUpdateUseSelectArtist = (senderId, artists = []) => {
-  var dbObj = require("../DB");
-  dbObj.getConnection();
+
   return new Promise((resolve, reject) => {
     UserData.getInfo(senderId, function(err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
@@ -496,8 +493,7 @@ var createUpdateUseSelectArtist = (senderId, artists = []) => {
 };
 
 var createUpdateUserSpotifyId = (senderId, spotify_id) => {
-  var dbObj = require("../DB");
-  dbObj.getConnection();
+
   return new Promise((resolve, reject) => {
     UserData.getInfo(senderId, function(err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
