@@ -18,7 +18,6 @@ var Message = require("../../../bot/messages");
 var user_queries = require("../../../schemas/queries/user_queries");
 // Request the users ID from DB API
 var startBarVsSevillaFrame = (senderId, referral) => {
-  var  = (senderId, referral) => {
   UserData2.findOne(
     {
       fbId: senderId
