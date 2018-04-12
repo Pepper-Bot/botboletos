@@ -144,8 +144,6 @@ app.listen(3000, function() {
     let today_plus_7_days_start = moment();
     let today_plus_7_days_start = moment().add(1, "seconds");
 
-
-
     console.log(`HOY MAS 7 DIAS START  ${today_plus_7_days_start}`);
     console.log(`HOY MAS 7 DIAS  FINAL  ${today_plus_7_days_end}`);
 
@@ -154,7 +152,7 @@ app.listen(3000, function() {
       today_plus_7_days_end
     );
 
-    
+
   }, 1000 * 60);
 });
 //notificaciones//
