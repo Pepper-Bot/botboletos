@@ -6,6 +6,16 @@ const Messsage = require("./messages");
 const eventsRequests = require("../tevo_requests/events");
 var fb_me_send_account = require("./me.send.account");
 
+var TevoClient = require("ticketevolution-node");
+var only_with = require("../../config/config_vars").only_with;
+var tevo = require("../../config/config_vars").tevo;
+var nlp = require("../../bot/NLP/nlp");
+
+const tevoClient = new TevoClient({
+  apiToken: tevo.API_TOKEN,
+  apiSecretKey: tevo.API_SECRET_KEY
+});
+
 /**
  *
  * @param {*} senderId
@@ -151,6 +161,246 @@ var buildUserArtistGenericTemplate = senderId => {
 
 /**
  *
+ * @param {*} senderId
+ * @description función para 72 horas despues
+ */
+var buildCategoriesToSend = senderId => {
+  return new Promise((resolve, reject) => {
+    userQueries.getUserByFbId(senderId).then(foundUser => {
+      let artistsSelected = foundUser.artistsSelected;
+      if (artistsSelected.length > 0) {
+        /**
+         * ===============================🔆
+         *  Faves added
+         * ===============================
+         */
+
+        let index = 0;
+        index = Math.round(Math.random() * artistsSelected.length - 1);
+        name = artistsSelected[index].name;
+
+        startTevoModuleByCategoryPerformerName(senderId, name);
+      } else {
+        /**
+         * ===============================🔆
+         *  Faves Not Added
+         * ===============================
+         */
+
+        categoriasRandom = [61, 64, 84, 85, 59, 57];
+
+        let index = 0;
+        index = Math.round(Math.random() * categoriasRandom.length - 1);
+        let category_id = categoriasRandom[index];
+
+        startTevoModuleByCategoryPerformerId(sender, category_id);
+      }
+    });
+  });
+};
+
+/**
+ *
+ * @param {*} sender
+ * @param {*} category_id
+ */
+var startTevoModuleByCategoryPerformerId = (sender, category_id) => {
+  return new Promise((resolve, reject) => {
+    let query = `${tevo.API_URL}categories/${category_id}`;
+    tevoClient
+      .getJSON(query)
+      .then(json => {
+        let salir = false;
+        if (json.error) {
+          resolve(false);
+        } else {
+          if (json.performers.length > 0) {
+            let category_id = json.id;
+            let category_name = json.name;
+
+            let page = 0;
+            let per_page = 9;
+
+            userQueries
+              .searchUserByFacebookId(sender)
+              .then(foundUser => {
+                let query = {};
+
+                console.log(`search events by performer and location ===>`);
+
+                let lat = foundUser.location.coordinates[0];
+                let lon = foundUser.location.coordinates[1];
+
+                if (lat && lon) {
+                  query = {
+                    prioridad: 1,
+                    searchBy: "ByCategoryId",
+                    query: `${
+                      tevo.API_URL
+                    }events?category_id=${category_id}&lat=${lat}&lon=${lon}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
+                    queryReplace: `${
+                      tevo.API_URL
+                    }events?category_id=${category_id}&lat=${lat}&lon=${lon}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
+                    queryPage: page,
+                    queryPerPage: per_page,
+                    messageTitle: `:) Been a while! here are some ( ${category_name} ) events near you?`
+                  };
+                } else {
+                  query = {
+                    prioridad: 1,
+                    searchBy: "ByPerformerId",
+                    query: `${
+                      tevo.API_URL
+                    }events?category_id=${category_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
+                    queryReplace: `${
+                      tevo.API_URL
+                    }events?category_id=${category_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
+                    queryPage: page,
+                    queryPerPage: per_page,
+                    messageTitle: `:) Been a while! here are some ( ${category_name} ) events near you?`
+                  };
+                }
+                let userPreferences = {
+                  event_title: "",
+                  city: "",
+                  artist: "",
+                  team: "",
+                  event_type: "",
+                  music_genre: ""
+                };
+
+                nlp
+                  .tevoByQuery(sender, query, userPreferences)
+                  .then(cantidad => {
+                    if (cantidad == 0) {
+                      //find_my_event(sender, 1, "");
+                    }
+                  });
+              })
+              .catch(error => {
+                console.log(
+                  `Error al consultar startTevoModuleByPerformerName - searchUserByFacebookId`
+                );
+              });
+
+            resolve(true);
+          } else {
+            console.log(
+              `El payload  ${payload} no coincide con ningun performer`
+            );
+            resolve(false);
+          }
+        }
+      })
+      .catch(error => {
+        resolve(false);
+        console.log(`error ${error}`);
+      });
+  });
+};
+
+/**
+ *
+ * @param {*} sender
+ * @param {*} name
+ */
+var startTevoModuleByCategoryPerformerName = (sender, name) => {
+  return new Promise((resolve, reject) => {
+    let query = `${tevo.API_URL}performers?name=${name}`;
+    tevoClient
+      .getJSON(query)
+      .then(json => {
+        let salir = false;
+        if (json.error) {
+          resolve(false);
+        } else {
+          if (json.performers.length > 0) {
+            let category_id = json.performers[0].category.id;
+            let category_name = json.performers[0].category.name;
+
+            let page = 0;
+            let per_page = 9;
+
+            userQueries
+              .searchUserByFacebookId(sender)
+              .then(foundUser => {
+                let query = {};
+
+                console.log(`search events by performer and location ===>`);
+
+                let lat = foundUser.location.coordinates[0];
+                let lon = foundUser.location.coordinates[1];
+
+                if (lat && lon) {
+                  query = {
+                    prioridad: 1,
+                    searchBy: "ByPerformerId",
+                    query: `${
+                      tevo.API_URL
+                    }events?category_id=${category_id}&lat=${lat}&lon=${lon}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
+                    queryReplace: `${
+                      tevo.API_URL
+                    }events?category_id=${category_id}&lat=${lat}&lon=${lon}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
+                    queryPage: page,
+                    queryPerPage: per_page,
+                    messageTitle: `:) Been a while! here are some ( ${category_name} ) events near you?`
+                  };
+                } else {
+                  query = {
+                    prioridad: 1,
+                    searchBy: "ByPerformerId",
+                    query: `${
+                      tevo.API_URL
+                    }events?category_id=${category_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
+                    queryReplace: `${
+                      tevo.API_URL
+                    }events?category_id=${category_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
+                    queryPage: page,
+                    queryPerPage: per_page,
+                    messageTitle: `:) Been a while! here are some ( ${category_name} ) events near you?`
+                  };
+                }
+                let userPreferences = {
+                  event_title: "",
+                  city: "",
+                  artist: "",
+                  team: "",
+                  event_type: "",
+                  music_genre: ""
+                };
+
+                nlp
+                  .tevoByQuery(sender, query, userPreferences)
+                  .then(cantidad => {
+                    if (cantidad == 0) {
+                      //find_my_event(sender, 1, "");
+                    }
+                  });
+              })
+              .catch(error => {
+                console.log(
+                  `Error al consultar startTevoModuleByPerformerName - searchUserByFacebookId`
+                );
+              });
+
+            resolve(true);
+          } else {
+            console.log(
+              `El payload  ${payload} no coincide con ningun performer`
+            );
+            resolve(false);
+          }
+        }
+      })
+      .catch(error => {
+        resolve(false);
+        console.log(`error ${error}`);
+      });
+  });
+};
+
+/**
+ *
  * @param {*} lastArtistsSelected
  * @description función para enviar un generic Template de artistas seleccionados.
  */
@@ -192,11 +442,11 @@ var sendFbGenericTemplate = (senderId, lastArtistsSelected, messageText) => {
 
           if (counter === lastArtistsSelected.length - 1) {
             elements.splice(9, lastArtistsSelected.length - 10);
-            
-            console.log(`sendFbGenericTemplate - messageText ${messageText}` )
+
+            console.log(`sendFbGenericTemplate - messageText ${messageText}`);
 
             Messsage.sendMessage(senderId, messageText).then(response => {
-              console.log("sendFbGenericTemplate - sendMessage")
+              console.log("sendFbGenericTemplate - sendMessage");
               fbComponents
                 .sendGenericTemplate(senderId, elements, "horizontal")
                 .then(response => {
