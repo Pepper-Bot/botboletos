@@ -1,6 +1,9 @@
 var userQueries = require("./user.queries");
 var UserData2 = require("../../schemas/userinfo");
 var moment = require("moment");
+
+ 
+
 var UserNotificationSheduled = require("../schemas/user.notification.sheduled.schema");
 var eventsRequests = require("../../requests/tevo_requests/events");
 var userArtists = require("../../requests/facebook_requests/me.send.fb.user.artists");
@@ -47,10 +50,17 @@ var sendDailyNotification = (initDay, finishDay) => {
                 userArtists
                   .buildUserArtistGenericTemplate(usersForNotification[i].fbId)
                   .then(() => {
-                    counter++;
-                    if (counter === usersForNotification.length - 1) {
-                      resolve({ messsge: "termine" });
-                    }
+
+                    createUpdateUserNotificationSheduled(usersForNotification[i].fbId).then(()=>{
+                      counter++;
+                      if (counter === usersForNotification.length - 1) {
+                         
+                          resolve({ messsge: "termine" });
+                      }
+                    })
+
+
+                    
                   });
               }
             } else {

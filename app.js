@@ -123,6 +123,7 @@ ChatBox.greetingText(
 var app = express();
 
 //notificaciones//
+/* 
 app.listen(3000, function() {
   setInterval(function() {
     var moment = require("moment");
@@ -134,12 +135,6 @@ app.listen(3000, function() {
     console.log(`INICIO DEL DIA  ${today_start}`);
     console.log(`FINAL DEL DIA  ${today_end}`);
 
-    /*let today_plus_7_days_start = moment()
-      .add(0, "days")
-      .startOf("day");
-    let today_plus_7_days_end = moment()
-      .add(0, "days")
-      .endOf("day");*/
 
     let startDate = moment();
     let endDate = moment().add(1, "seconds");
@@ -155,6 +150,10 @@ app.listen(3000, function() {
 
   }, 1000 * 60);
 });
+
+
+ */
+
 //notificaciones//
 
 /*
