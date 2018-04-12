@@ -19,67 +19,71 @@ var sendDailyNotification = (initDay, finishDay) => {
     /*======================================================================================
     | chequear si hay nuevos usuarios y insertar un registro en usernotificationsheduleds
      =======================================================================================*/
-    startEndQueries.createUpdateStartEnd().then(() => {
-      startEndQueries.searchToogle().then(toogle => {
-        console.log(`toogle ${toogle}`);
-      });
-    });
+    startEndQueries.searchToogle().then(toogle => {
+      console.log(`toogle ${toogle}`);
+      if (toogle === true) {
+        checkIfNewUsers().then(() => {
+          userQueries.getUsersGroupByFBId().then(usuarios => {
+            let counter = 0;
+            let senderIds = [];
+            for (let i = 0; i < usuarios.length; i++) {
+              senderIds.push(usuarios[i]._id.fbId);
+            }
 
-    checkIfNewUsers().then(() => {
-      userQueries.getUsersGroupByFBId().then(usuarios => {
-        let counter = 0;
-        let senderIds = [];
-        for (let i = 0; i < usuarios.length; i++) {
-          senderIds.push(usuarios[i]._id.fbId);
-        }
-
-        /*==================================================================================
+            /*==================================================================================
         | Buscar los usuarios que tengan notificación pendiente para el día que se desee |
         ===================================================================================*/
-        getUserNotificationsByFbIdsAndNextNotificationDate(
-          senderIds,
-          initDay,
-          finishDay
-        )
-          .then(usersForNotification => {
-            console.log(
-              `UsersForNotification ${JSON.stringify(
-                usersForNotification.length
-              )}`
-            );
-            //Notificaciones según las preferencias del usuario   ----
-            let counter = 0;
-            if (usersForNotification.length > 0) {
-              for (let i = 0; i < usersForNotification.length; i++) {
+            getUserNotificationsByFbIdsAndNextNotificationDate(
+              senderIds,
+              initDay,
+              finishDay
+            )
+              .then(usersForNotification => {
                 console.log(
-                  `usersForNotification[i].nextNotificacion  ${
-                    usersForNotification[i].nextNotificacion
-                  }`
+                  `UsersForNotification ${JSON.stringify(
+                    usersForNotification.length
+                  )}`
                 );
-                userArtists
-                  .buildUserArtistGenericTemplate(usersForNotification[i].fbId)
-                  .then(() => {
-                    createUpdateUserNotificationSheduled(
-                      usersForNotification[i].fbId
-                    ).then(() => {
-                      counter++;
-                      if (counter === usersForNotification.length - 1) {
-                        resolve({ messsge: "termine" });
-                      }
-                    });
+                //Notificaciones según las preferencias del usuario   ----
+                let counter = 0;
+                if (usersForNotification.length > 0) {
+                  for (let i = 0; i < usersForNotification.length; i++) {
+                    console.log(
+                      `usersForNotification[i].nextNotificacion  ${
+                        usersForNotification[i].nextNotificacion
+                      }`
+                    );
+                    userArtists
+                      .buildUserArtistGenericTemplate(
+                        usersForNotification[i].fbId
+                      )
+                      .then(() => {
+                        createUpdateUserNotificationSheduled(
+                          usersForNotification[i].fbId
+                        ).then(() => {
+                          counter++;
+                          if (counter === usersForNotification.length - 1) {
+                            resolve({ messsge: "termine" });
+                          }
+                        });
+                      });
+                  }
+                } else {
+                  resolve({
+                    messsge:
+                      "No encontré usuarios que tengan pendiente notificación"
                   });
-              }
-            } else {
-              resolve({
-                messsge:
-                  "No encontré usuarios que tengan pendiente notificación"
+                }
+              })
+              .catch(error => {
+                console.log(`Error ${error}`);
               });
-            }
-          })
-          .catch(error => {
-            console.log(`Error ${error}`);
           });
-      });
+        });
+      }else{
+        console.log("startend:toogle:false")
+        resolve({ messsge: "termine" });
+      }
     });
   });
 };
