@@ -141,15 +141,15 @@ app.listen(3000, function() {
       .add(0, "days")
       .endOf("day");*/
 
-    let today_plus_7_days_start = moment();
-    let today_plus_7_days_start = moment().add(1, "seconds");
+    let startDate = moment();
+    let endDate = moment().add(1, "seconds");
 
-    console.log(`HOY MAS 7 DIAS START  ${today_plus_7_days_start}`);
-    console.log(`HOY MAS 7 DIAS  FINAL  ${today_plus_7_days_end}`);
+    console.log(`start Date ${startDate}`);
+    console.log(`end Date ${endDate}`);
 
     notificaciones.sendDailyNotification(
-      today_plus_7_days_start,
-      today_plus_7_days_end
+      startDate,
+      endDate
     );
 
 
