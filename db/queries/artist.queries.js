@@ -25,7 +25,12 @@ var getArtists = (limite, n = 1) => {
       });
   });
 };
-
+/**
+ * 
+ * @param {*} name 
+ * @param {*} limite 
+ * @param {*} n 
+ */
 var searchArtistsLikeName = (name, limite = 24, n = 1) => {
   console.log("" + limite);
   limite = Number(limite);

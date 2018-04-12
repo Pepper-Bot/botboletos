@@ -2,12 +2,11 @@ var userQueries = require("./user.queries");
 var UserData2 = require("../../schemas/userinfo");
 var moment = require("moment");
 
- 
-
 var UserNotificationSheduled = require("../schemas/user.notification.sheduled.schema");
 var eventsRequests = require("../../requests/tevo_requests/events");
 var userArtists = require("../../requests/facebook_requests/me.send.fb.user.artists");
 var fb_me_send_account = require("../../requests/facebook_requests/me.send.account");
+var startEndQueries = require("../queries/start.end.queries");
 
 /**
  *
@@ -20,6 +19,12 @@ var sendDailyNotification = (initDay, finishDay) => {
     /*======================================================================================
     | chequear si hay nuevos usuarios y insertar un registro en usernotificationsheduleds
      =======================================================================================*/
+    startEndQueries.createUpdateStartEnd().then(() => {
+      startEndQueries.searchToogle().then(toogle => {
+        console.log(`toogle ${toogle}`);
+      });
+    });
+
     checkIfNewUsers().then(() => {
       userQueries.getUsersGroupByFBId().then(usuarios => {
         let counter = 0;
@@ -46,21 +51,22 @@ var sendDailyNotification = (initDay, finishDay) => {
             let counter = 0;
             if (usersForNotification.length > 0) {
               for (let i = 0; i < usersForNotification.length; i++) {
-                console.log(`usersForNotification[i].nextNotificacion  ${usersForNotification[i].nextNotificacion}`);
+                console.log(
+                  `usersForNotification[i].nextNotificacion  ${
+                    usersForNotification[i].nextNotificacion
+                  }`
+                );
                 userArtists
                   .buildUserArtistGenericTemplate(usersForNotification[i].fbId)
                   .then(() => {
-
-                    createUpdateUserNotificationSheduled(usersForNotification[i].fbId).then(()=>{
+                    createUpdateUserNotificationSheduled(
+                      usersForNotification[i].fbId
+                    ).then(() => {
                       counter++;
                       if (counter === usersForNotification.length - 1) {
-                         
-                          resolve({ messsge: "termine" });
+                        resolve({ messsge: "termine" });
                       }
-                    })
-
-
-                    
+                    });
                   });
               }
             } else {
