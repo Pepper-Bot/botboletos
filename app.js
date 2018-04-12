@@ -123,7 +123,7 @@ ChatBox.greetingText(
 var app = express();
 
 //notificaciones//
-/* 
+
 app.listen(3000, function() {
   setInterval(function() {
     var moment = require("moment");
@@ -150,10 +150,6 @@ app.listen(3000, function() {
 
   }, 1000 * 60);
 });
-
-
- */
-
 //notificaciones//
 
 /*
