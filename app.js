@@ -22,9 +22,7 @@ var config = require("./config/config_vars");
 var APLICATION_URL_DOMAIN = config.APLICATION_URL_DOMAIN;
 var DASHBOT_API_KEY = config.DASHBOT_API_KEY;
 
-
 const dashbot = require("dashbot")(DASHBOT_API_KEY).facebook; //new
-
 
 var methodOverride = require("method-override");
 
@@ -125,16 +123,41 @@ ChatBox.greetingText(
 var app = express();
 
 //notificaciones//
-/*app.listen(3000, function() {
-  var notificaciones = require("./db/queries/user.notification.sheduled.queries");
-
+app.listen(3000, function() {
   setInterval(function() {
-    notificaciones.sendDailyNotification()
+    var moment = require("moment");
+    var notificaciones = require("./db/queries/user.notification.sheduled.queries");
+
+    let today_start = moment().startOf("day");
+    let today_end = moment().endOf("day");
+
+    console.log(`INICIO DEL DIA  ${today_start}`);
+    console.log(`FINAL DEL DIA  ${today_end}`);
+
+    /*let today_plus_7_days_start = moment()
+      .add(0, "days")
+      .startOf("day");
+    let today_plus_7_days_end = moment()
+      .add(0, "days")
+      .endOf("day");*/
+
+    let today_plus_7_days_start = moment();
+    let today_plus_7_days_start = moment().add(1, "seconds");
+
+
+
+    console.log(`HOY MAS 7 DIAS START  ${today_plus_7_days_start}`);
+    console.log(`HOY MAS 7 DIAS  FINAL  ${today_plus_7_days_end}`);
+
+    notificaciones.sendDailyNotification(
+      today_plus_7_days_start,
+      today_plus_7_days_end
+    );
+
+    
   }, 1000 * 60);
-})*/
+});
 //notificaciones//
-
-
 
 /*
 app.use(function(req, res, next) {
@@ -300,7 +323,6 @@ app.get("/spotify/login/", function(req, res) {
 app.post("/guessnumber", (request, response) => {
   dashbot.logIncoming(request.body);
 });
-
 
 // GET /auth/spotify
 //   Use passport.authenticate() as route middleware to authenticate the

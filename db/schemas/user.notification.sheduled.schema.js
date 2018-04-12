@@ -8,20 +8,26 @@ var UserNotificationSheduled = mongoose.Schema({
     default: Date.now
   },
 
-  numberOfNextDays: {
+  numberOfNextSeconds: {
     type: Number,
     default: 0
   },
   
-  
-  description: [
-    
-  ],
-
+ 
   lastNotificationDate: {
     type: Date,
     default: Date.now
   },
+
+
+
+  
+  nextNotificacion: {
+    type: Number,
+    default: 0
+  }
+  
+
 
 });
 

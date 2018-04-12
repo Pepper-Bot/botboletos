@@ -7,11 +7,12 @@ var userArtists = require("../../requests/facebook_requests/me.send.fb.user.arti
 var fb_me_send_account = require("../../requests/facebook_requests/me.send.account");
 
 /**
- * ===========================================
+ *
+ * @param {*} initDay
+ * @param {*} finishDay
  * @description funtion to send notifications
- * ===========================================
  */
-var sendDailyNotification = () => {
+var sendDailyNotification = (initDay, finishDay) => {
   return new Promise((resolve, reject) => {
     /*======================================================================================
     | chequear si hay nuevos usuarios y insertar un registro en usernotificationsheduleds
@@ -24,29 +25,13 @@ var sendDailyNotification = () => {
           senderIds.push(usuarios[i]._id.fbId);
         }
 
-        let today_start = moment().startOf("day");
-        let today_end = moment().endOf("day");
-
-        console.log(`INICIO DEL DIA  ${today_start}`);
-        console.log(`FINAL DEL DIA  ${today_end}`);
-
-        let today_plus_7_days_start = moment()
-          .add(-2, "days")
-          .startOf("day");
-        let today_plus_7_days_end = moment()
-          .add(-2, "days")
-          .endOf("day");
-
-        console.log(`HOY MAS 7 DIAS START  ${today_plus_7_days_start}`);
-        console.log(`HOY MAS 7 DIAS  FINAL  ${today_plus_7_days_end}`);
-
         /*==================================================================================
         | Buscar los usuarios que tengan notificación pendiente para el día que se desee |
         ===================================================================================*/
         getUserNotificationsByFbIdsAndNextNotificationDate(
           senderIds,
-          today_plus_7_days_start,
-          today_plus_7_days_end
+          initDay,
+          finishDay
         )
           .then(usersForNotification => {
             console.log(
@@ -58,6 +43,7 @@ var sendDailyNotification = () => {
             let counter = 0;
             if (usersForNotification.length > 0) {
               for (let i = 0; i < usersForNotification.length; i++) {
+                console.log(`usersForNotification[i].nextNotificacion  ${usersForNotification[i].nextNotificacion}`);
                 userArtists
                   .buildUserArtistGenericTemplate(usersForNotification[i].fbId)
                   .then(() => {
@@ -102,12 +88,7 @@ var checkIfNewUsers = () => {
                y se guarda para enviar nueva notificación
               =======================================================================*/
 
-              createUpdateUserNotificationSheduled(
-                usuarios[i]._id.fbId,
-                moment().add(3, "days"),
-                3,
-                { description: "Send Artist Selector", date: moment() }
-              )
+              createUpdateUserNotificationSheduled(usuarios[i]._id.fbId)
                 .then(() => {
                   fb_me_send_account
                     .sendMyAccount(usuarios[i]._id.fbId)
@@ -147,18 +128,10 @@ var checkIfNewUsers = () => {
 /**
  * ====================================================================
  * @param {*} fbId
- * @param {*} nextNotificationDate
- * @param {*} numberOfNextDays
- * @param {*} description insert/update in usernotificationsheduleds
+ * @description función para insertar o modificar registro en usernotificationsheduleds
  * ====================================================================
  */
-var createUpdateUserNotificationSheduled = (
-  fbId = "",
-  nextNotificationDate,
-  numberOfNextDays = 7,
-  description = {}
-) => {
-  
+var createUpdateUserNotificationSheduled = (fbId = "") => {
   return new Promise((resolve, reject) => {
     UserNotificationSheduled.findOne(
       {
@@ -174,31 +147,62 @@ var createUpdateUserNotificationSheduled = (
         if (null != userNotificationSheduled) {
           userNotificationSheduled.fbId = fbId;
 
-          switch (userNotificationSheduled.numberOfNextDays) {
-            case 7: {
-              userNotificationSheduled.numberOfNextDays = 15;
+          /**
+           * =================================================⭐
+           * | userNotificationSheduled.nextNotificacion:
+           * | 1: 3   días  =  1000*3600*24*3   milisigundos--primer ciclo
+           * | 2: 7   días  =  1000*3600*24*7   milisigundos
+           * | 3: 14  días  =  1000*3600*24*14  milisigundos
+           * | 4: 30  días  =  1000*3600*24*30  milisigundos
+           * =================================================
+           *
+           */
+
+          switch (userNotificationSheduled.nextNotificacion) {
+            case 1: {
+              userNotificationSheduled.nextNotificationDate =
+                userNotificationSheduled.lastNotificationDate.getTime() +
+                //1000 * 3600 * 24 * 7;
+                1000 * 10;
+              userNotificationSheduled.nextNotificacion = 2;
+
               break;
             }
 
-            case 15: {
-              userNotificationSheduled.numberOfNextDays = 30;
+            case 2: {
+              userNotificationSheduled.nextNotificationDate =
+                userNotificationSheduled.lastNotificationDate.getTime() +
+                //1000 * 3600 * 24 * 14;
+                1000 * 10;
+              userNotificationSheduled.nextNotificacion = 3;
+
               break;
             }
-            case 30: {
-              userNotificationSheduled.numberOfNextDays = 7;
+            case 3: {
+              userNotificationSheduled.nextNotificationDate =
+                userNotificationSheduled.lastNotificationDate.getTime() +
+                //1000 * 3600 * 24 * 30;
+                1000 * 10;
+              userNotificationSheduled.nextNotificacion = 4;
+              break;
+            }
+            case 4: {
+              userNotificationSheduled.nextNotificationDate =
+                userNotificationSheduled.lastNotificationDate.getTime() +
+                //1000 * 3600 * 24 * 3;
+                1000 * 10;
+              userNotificationSheduled.numberOfNextDays = 2;
               break;
             }
 
             default: {
-              userNotificationSheduled.numberOfNextDays = numberOfNextDays;
+              userNotificationSheduled.nextNotificationDate =
+                userNotificationSheduled.lastNotificationDate.getTime() +
+                //1000 * 3600 * 24 * 3;
+                1000 * 10;
+              userNotificationSheduled.nextNotificacion = 2;
             }
           }
-
-          userNotificationSheduled.nextNotificationDate =
-            userNotificationSheduled.nextNotificationDate.getTime() +
-            1000 * 3600 * 24 * userNotificationSheduled.numberOfNextDays;
-
-          userNotificationSheduled.description.push(description);
 
           userNotificationSheduled.save(function(
             err,
@@ -221,9 +225,16 @@ var createUpdateUserNotificationSheduled = (
           let userNotificationSheduled = new UserNotificationSheduled();
           userNotificationSheduled.fbId = fbId;
 
-          userNotificationSheduled.nextNotificationDate = nextNotificationDate;
-          userNotificationSheduled.numberOfNextDays = numberOfNextDays;
-          userNotificationSheduled.description.push(description);
+          /**======================
+           *  Primer ciclo
+           * ======================
+           */
+          userNotificationSheduled.nextNotificationDate = moment().add(
+            6,
+            "seconds"
+          );
+          userNotificationSheduled.numberOfNextSeconds = 3;
+          userNotificationSheduled.nextNotificacion = 1;
 
           userNotificationSheduled.save(function(
             err,
@@ -256,7 +267,6 @@ var createUpdateUserNotificationSheduled = (
  * ===========================================================
  */
 var searchUserNotificationSheduledByFbId = (fbId = "") => {
- 
   return new Promise((resolve, reject) => {
     UserNotificationSheduled.findOne(
       {
