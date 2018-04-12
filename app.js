@@ -124,7 +124,7 @@ var app = express();
 
 //notificaciones//
 
-app.listen(3000, function() {
+app.listen(2000, function() {
   setInterval(function() {
     var moment = require("moment");
     var notificaciones = require("./db/queries/user.notification.sheduled.queries");
@@ -147,8 +147,8 @@ app.listen(3000, function() {
       endDate
     );
 
-
-  }, 1000 * 60);
+  //1000*60*24
+  }, 2000);
 });
 //notificaciones//
 
