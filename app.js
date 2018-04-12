@@ -125,13 +125,13 @@ ChatBox.greetingText(
 var app = express();
 
 //notificaciones//
-app.listen(3000, function() {
+/*app.listen(3000, function() {
   var notificaciones = require("./db/queries/user.notification.sheduled.queries");
 
   setInterval(function() {
     notificaciones.sendDailyNotification()
   }, 1000 * 60);
-})
+})*/
 //notificaciones//
 
 
