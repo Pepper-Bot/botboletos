@@ -148,7 +148,7 @@ app.listen(2000, function() {
     );
 
   //1000*60*24
-  }, 2000);
+  }, 1000*60);
 });
 
 //notificaciones//

@@ -97,23 +97,53 @@ var listButtons = (senderId, title, buttons) => {
  * @param {*} messageText
  * @param {*} callback
  */
-var genericButtonQuickReplay = (senderId, gButtons, messageText, callback) => {
-  Message.genericButton(senderId, gButtons).then(response1 => {
-    var replies = [
-      {
-        content_type: "text",
-        title: "Show me more",
-        payload: "find_my_event_show_me_more"
-      },
-      {
-        content_type: "text",
-        title: "Search Event",
-        payload: "find_my_event_search_event"
-      }
-    ];
+var genericButtonQuickReplay = (
+  senderId,
+  gButtons,
+  messageText,
+  track_artist
+) => {
+  return new Promise((resolve, reject) => {
+    Message.genericButton(senderId, gButtons).then(response1 => {
+      let replies = [];
 
-    Message.quickReply(senderId, messageText, replies).then(response2 => {
-      console.log(`quickReply response ${response2}`);
+      if (track_artist === true) {
+        replies = [
+          {
+            content_type: "text",
+            title: "Show me more",
+            payload: "find_my_event_show_me_more"
+          },
+          {
+            content_type: "text",
+            title: "Search Event",
+            payload: "find_my_event_search_event"
+          },
+          {
+            content_type: "text",
+            title: "Track Artist",
+            payload: "ACCOUNT"
+          }
+        ];
+      } else {
+        replies = [
+          {
+            content_type: "text",
+            title: "Show me more",
+            payload: "find_my_event_show_me_more"
+          },
+          {
+            content_type: "text",
+            title: "Search Event",
+            payload: "find_my_event_search_event"
+          }
+        ];
+      }
+
+      Message.quickReply(senderId, messageText, replies).then(response2 => {
+        console.log(`quickReply response ${response2}`);
+        resolve(response2);
+      });
     });
   });
 };

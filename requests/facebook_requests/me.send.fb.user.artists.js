@@ -162,9 +162,10 @@ var buildUserArtistGenericTemplate = senderId => {
 /**
  *
  * @param {*} senderId
- * @description función para 72 horas despues
+ * @param {*} track_artist
+ * @description función para 3,  7 y 14  días después
  */
-var buildCategoriesToSend = senderId => {
+var buildCategoriesToSend = (senderId, track_artist = false) => {
   return new Promise((resolve, reject) => {
     userQueries.getUserByFbId(senderId).then(foundUser => {
       let artistsSelected = foundUser.artistsSelected;
@@ -174,26 +175,38 @@ var buildCategoriesToSend = senderId => {
          *  Faves added
          * ===============================
          */
-
+        console.loge(`Faves added`);
         let index = 0;
         index = Math.round(Math.random() * artistsSelected.length - 1);
         name = artistsSelected[index].name;
 
-        startTevoModuleByCategoryPerformerName(senderId, name);
+        startTevoModuleByCategoryPerformerName(
+          senderId,
+          name,
+          track_artist
+        ).then(salida => {
+          resolve(salida);
+        });
       } else {
         /**
          * ===============================🔆
          *  Faves Not Added
          * ===============================
          */
-
+        console.loge(`Faves no added`);
         categoriasRandom = [61, 64, 84, 85, 59, 57];
 
         let index = 0;
         index = Math.round(Math.random() * categoriasRandom.length - 1);
         let category_id = categoriasRandom[index];
 
-        startTevoModuleByCategoryPerformerId(sender, category_id);
+        startTevoModuleByCategoryPerformerId(
+          sender,
+          category_id,
+          track_artist
+        ).then(salida => {
+          resolve(salida);
+        });
       }
     });
   });
@@ -203,8 +216,15 @@ var buildCategoriesToSend = senderId => {
  *
  * @param {*} sender
  * @param {*} category_id
+ * @param {*} track_artist
+ * 
+ * @description Faves Not Added function
  */
-var startTevoModuleByCategoryPerformerId = (sender, category_id) => {
+var startTevoModuleByCategoryPerformerId = (
+  sender,
+  category_id,
+  track_artist
+) => {
   return new Promise((resolve, reject) => {
     let query = `${tevo.API_URL}categories/${category_id}`;
     tevoClient
@@ -270,7 +290,7 @@ var startTevoModuleByCategoryPerformerId = (sender, category_id) => {
                 };
 
                 nlp
-                  .tevoByQuery(sender, query, userPreferences)
+                  .tevoByQuery(sender, query, userPreferences, track_artist)
                   .then(cantidad => {
                     if (cantidad == 0) {
                       //find_my_event(sender, 1, "");
@@ -303,8 +323,14 @@ var startTevoModuleByCategoryPerformerId = (sender, category_id) => {
  *
  * @param {*} sender
  * @param {*} name
+ * @param {*} track_artist
+ * @description Faves  Added function 
  */
-var startTevoModuleByCategoryPerformerName = (sender, name) => {
+var startTevoModuleByCategoryPerformerName = (
+  sender,
+  name,
+  track_artist = false
+) => {
   return new Promise((resolve, reject) => {
     let query = `${tevo.API_URL}performers?name=${name}`;
     tevoClient
@@ -354,7 +380,7 @@ var startTevoModuleByCategoryPerformerName = (sender, name) => {
                   };
 
                   nlp
-                    .tevoByQuery(sender, query, userPreferences)
+                    .tevoByQuery(sender, query, userPreferences, track_artist)
                     .then(cantidad => {
                       if (cantidad == 0) {
                         //find_my_event(sender, 1, "");
@@ -386,7 +412,9 @@ var startTevoModuleByCategoryPerformerName = (sender, name) => {
                           .tevoByQuery(sender, query, userPreferences)
                           .then(cantidad => {
                             if (cantidad == 0) {
-                              console.log("me.send.fb.user.artists - startTevoModuleByCategoryPerformerName, no tengo eventos")
+                              console.log(
+                                "me.send.fb.user.artists - startTevoModuleByCategoryPerformerName, no tengo eventos"
+                              );
                             }
                           });
                       }
@@ -613,5 +641,6 @@ var sendFirst9Artists = () => {
   });
 };
 module.exports = {
-  buildUserArtistGenericTemplate
+  buildUserArtistGenericTemplate,
+  buildCategoriesToSend
 };

@@ -22,7 +22,7 @@ var sendDailyNotification = (initDay, finishDay) => {
     startEndQueries.searchToogle().then(startend => {
       console.log(`toogle ${startend.toogle}`);
       if (startend.toogle === true) {
-         checkIfNewUsers().then(() => {
+        checkIfNewUsers().then(() => {
           userQueries.getUsersGroupByFBId().then(usuarios => {
             let counter = 0;
             let senderIds = [];
@@ -54,8 +54,116 @@ var sendDailyNotification = (initDay, finishDay) => {
                       }`
                     );
 
-                    
-                    userArtists
+                    switch (userNotificationSheduled.nextNotificacion) {
+                      case 1:
+                        {
+                          /**
+                           * ===================
+                           * 3 días/72 horas
+                           * ===================
+                           */
+                          userArtists
+                            .buildCategoriesToSend(usersForNotification[i].fbId, false)
+                            .then(() => {
+                              createUpdateUserNotificationSheduled(
+                                usersForNotification[i].fbId
+                              ).then(() => {
+                                counter++;
+                                if (
+                                  counter ===
+                                  usersForNotification.length - 1
+                                ) {
+                                  resolve({ messsge: "termine" });
+                                }
+                              });
+                            });
+                        }
+                        break;
+                      case 2:
+                        {
+                          /**
+                           * ===================
+                           * 7 días
+                           * ===================
+                           */
+                          userArtists
+                            .buildCategoriesToSend(usersForNotification[i].fbId, true)
+                            .then(() => {
+                              createUpdateUserNotificationSheduled(
+                                usersForNotification[i].fbId
+                              ).then(() => {
+                                counter++;
+                                if (
+                                  counter ===
+                                  usersForNotification.length - 1
+                                ) {
+                                  resolve({ messsge: "termine" });
+                                }
+                              });
+                            });
+                        }
+                        break;
+                      case 3: {
+                        /**
+                         * ===================
+                         * 14 días
+                         * ===================
+                         */
+                        userArtists
+                          .buildCategoriesToSend(usersForNotification[i].fbId, true )
+                          .then(() => {
+                            createUpdateUserNotificationSheduled(
+                              usersForNotification[i].fbId
+                            ).then(() => {
+                              counter++;
+                              if (counter === usersForNotification.length - 1) {
+                                resolve({ messsge: "termine" });
+                              }
+                            });
+                          });
+                      }
+                      case 4: {
+                        /**
+                         * ===================
+                         * 30 días
+                         * ===================
+                         */
+                        userArtists
+                          .buildCategoriesToSend(usersForNotification[i].fbId)
+                          .then(() => {
+                            createUpdateUserNotificationSheduled(
+                              usersForNotification[i].fbId
+                            ).then(() => {
+                              counter++;
+                              if (counter === usersForNotification.length - 1) {
+                                resolve({ messsge: "termine" });
+                              }
+                            });
+                          });
+                        break;
+                      }
+                      default: {
+                        /**
+                         * ===================
+                         * 3 días
+                         * ===================
+                         */
+                        userArtists
+                          .buildCategoriesToSend(usersForNotification[i].fbId)
+                          .then(() => {
+                            createUpdateUserNotificationSheduled(
+                              usersForNotification[i].fbId
+                            ).then(() => {
+                              counter++;
+                              if (counter === usersForNotification.length - 1) {
+                                resolve({ messsge: "termine" });
+                              }
+                            });
+                          });
+                      }
+                      break;
+                    }
+                    /*userArtists
                       .buildUserArtistGenericTemplate(
                         usersForNotification[i].fbId
                       )
@@ -68,9 +176,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                             resolve({ messsge: "termine" });
                           }
                         });
-                      });
-
-
+                      });*/
                   }
                 } else {
                   resolve({
@@ -84,8 +190,8 @@ var sendDailyNotification = (initDay, finishDay) => {
               });
           });
         });
-      }else{
-        console.log("startend:toogle:false")
+      } else {
+        console.log("startend:toogle:false");
         resolve({ messsge: "termine" });
       }
     });
@@ -187,7 +293,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 7;
-                1000 * 10;
+                1000 * 60 * 1;
               userNotificationSheduled.nextNotificacion = 2;
 
               break;
@@ -197,7 +303,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 14;
-                1000 * 10;
+                1000 * 60 * 1;
               userNotificationSheduled.nextNotificacion = 3;
 
               break;
@@ -206,7 +312,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 30;
-                1000 * 10;
+                1000 * 60 * 1;
               userNotificationSheduled.nextNotificacion = 4;
               break;
             }
@@ -214,7 +320,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 3;
-                1000 * 10;
+                1000 * 60 * 1;
               userNotificationSheduled.numberOfNextDays = 2;
               break;
             }
@@ -223,7 +329,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 3;
-                1000 * 10;
+                1000 * 60 * 1;
               userNotificationSheduled.nextNotificacion = 2;
             }
           }

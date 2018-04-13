@@ -1361,12 +1361,13 @@ function find_my_event(senderId, hi = 0, event_name = '') {
  * @param {*} sender FaceBook Id
  * @param {*} query Objeto con  las siguientes propiedades: searchBy, queryReplace, queryPage, queryPerPage y messageTitle
  * @param {*} userPreferences Objeto con las preferencias de usuario event_title, city, artist, team, event_type, y music_genre
+ * @param {*} track_artist define si envia o no un quick replay con track artist
  * 
  * @description Función  que se lanza cuando no se encuentran eventos y se le muestra al usuario con 
  * quick replays las opciones de busqueda de eventos que posee Pepper Bot
  * 
  */
-var tevoByQuery = (sender, query = {}, userPreferences = {}) => {
+var tevoByQuery = (sender, query = {}, userPreferences = {}, track_artist= false) => {
     return new Promise((resolve, reject) => {
         tevoClient.getJSON(query.query).then((json) => {
             if (json.error) {
@@ -1375,7 +1376,7 @@ var tevoByQuery = (sender, query = {}, userPreferences = {}) => {
             } else {
                 if (json.events.length > 0) {
                     console.log("query Tevo >>> " + JSON.stringify(query));
-                    TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query);
+                    TevoModule.start(sender, query.query, 1, query.messageTitle, userPreferences, query,  track_artist );
                     resolve(json.events.length)
                 } else {
 
