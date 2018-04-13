@@ -294,7 +294,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 7;
-                1000 * 60 * 1;
+                1000 * 10;
               userNotificationSheduled.nextNotificacion = 2;
 
               break;
@@ -304,7 +304,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 14;
-                1000 * 60 * 1;
+                1000 *10;
               userNotificationSheduled.nextNotificacion = 3;
 
               break;
@@ -313,7 +313,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 30;
-                1000 * 60 * 1;
+                1000 *10;
               userNotificationSheduled.nextNotificacion = 4;
               break;
             }
@@ -321,7 +321,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 3;
-                1000 * 60 * 1;
+                1000 *10;
               userNotificationSheduled.numberOfNextDays = 2;
               break;
             }
@@ -330,7 +330,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 3;
-                1000 * 60 * 1;
+                1000 * 10;
               userNotificationSheduled.nextNotificacion = 2;
             }
           }
@@ -361,8 +361,8 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
            * ======================
            */
           userNotificationSheduled.nextNotificationDate = moment().add(
-            1,
-            "minutes"
+            10,
+            "seconds"
           );
           userNotificationSheduled.numberOfNextSeconds = 60;
           userNotificationSheduled.nextNotificacion = 1;

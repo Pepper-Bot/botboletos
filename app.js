@@ -137,7 +137,7 @@ app.listen(2000, function() {
 
 
     let startDate = moment();
-    let endDate = moment().add(1, "minutes");
+    let endDate = moment().add(10, "seconds");
 
     console.log(`start Date ${startDate}`);
     console.log(`end Date ${endDate}`);
@@ -148,7 +148,7 @@ app.listen(2000, function() {
     );
 
   //1000*60*24
-  }, 1000*60);
+  }, 1000*10);
 });
 
 //notificaciones//
