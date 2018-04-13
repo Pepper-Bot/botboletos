@@ -303,7 +303,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.nextNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 7;
-                1000 * 10;
+                1000 * 20;
               userNotificationSheduled.nextNotificacion = 2;
 
         
