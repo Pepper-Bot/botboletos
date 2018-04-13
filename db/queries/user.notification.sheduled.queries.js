@@ -54,7 +54,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                       }`
                     );
 
-                    switch (userNotificationSheduled.nextNotificacion) {
+                    switch (usersForNotification[i].nextNotificacion) {
                       case 1:
                         {
                           /**
@@ -63,7 +63,10 @@ var sendDailyNotification = (initDay, finishDay) => {
                            * ===================
                            */
                           userArtists
-                            .buildCategoriesToSend(usersForNotification[i].fbId, false)
+                            .buildCategoriesToSend(
+                              usersForNotification[i].fbId,
+                              false
+                            )
                             .then(() => {
                               createUpdateUserNotificationSheduled(
                                 usersForNotification[i].fbId
@@ -87,7 +90,10 @@ var sendDailyNotification = (initDay, finishDay) => {
                            * ===================
                            */
                           userArtists
-                            .buildCategoriesToSend(usersForNotification[i].fbId, true)
+                            .buildCategoriesToSend(
+                              usersForNotification[i].fbId,
+                              true
+                            )
                             .then(() => {
                               createUpdateUserNotificationSheduled(
                                 usersForNotification[i].fbId
@@ -110,7 +116,10 @@ var sendDailyNotification = (initDay, finishDay) => {
                          * ===================
                          */
                         userArtists
-                          .buildCategoriesToSend(usersForNotification[i].fbId, true )
+                          .buildCategoriesToSend(
+                            usersForNotification[i].fbId,
+                            true
+                          )
                           .then(() => {
                             createUpdateUserNotificationSheduled(
                               usersForNotification[i].fbId
@@ -142,41 +151,33 @@ var sendDailyNotification = (initDay, finishDay) => {
                           });
                         break;
                       }
-                      default: {
-                        /**
-                         * ===================
-                         * 3 días
-                         * ===================
-                         */
-                        userArtists
-                          .buildCategoriesToSend(usersForNotification[i].fbId)
-                          .then(() => {
-                            createUpdateUserNotificationSheduled(
+                      default:
+                        {
+                          /**
+                           * ===================
+                           * 3 días
+                           * ===================
+                           */
+                          userArtists
+                            .buildUserArtistGenericTemplate(
                               usersForNotification[i].fbId
-                            ).then(() => {
-                              counter++;
-                              if (counter === usersForNotification.length - 1) {
-                                resolve({ messsge: "termine" });
-                              }
+                            )
+                            .then(() => {
+                              createUpdateUserNotificationSheduled(
+                                usersForNotification[i].fbId
+                              ).then(() => {
+                                counter++;
+                                if (
+                                  counter ===
+                                  usersForNotification.length - 1
+                                ) {
+                                  resolve({ messsge: "termine" });
+                                }
+                              });
                             });
-                          });
-                      }
-                      break;
+                        }
+                        break;
                     }
-                    /*userArtists
-                      .buildUserArtistGenericTemplate(
-                        usersForNotification[i].fbId
-                      )
-                      .then(() => {
-                        createUpdateUserNotificationSheduled(
-                          usersForNotification[i].fbId
-                        ).then(() => {
-                          counter++;
-                          if (counter === usersForNotification.length - 1) {
-                            resolve({ messsge: "termine" });
-                          }
-                        });
-                      });*/
                   }
                 } else {
                   resolve({
