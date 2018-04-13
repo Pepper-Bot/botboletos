@@ -70,12 +70,12 @@ var searchToogle = () => {
       },
       function(err, startEnd) {
         if (err) {
-            resolve(null)
+            resolve({})
         } else {
           if (null != startEnd) {
             resolve(startEnd);
           } else {
-            resolve(null);
+            resolve({});
           }
         }
       }

@@ -53,6 +53,8 @@ var sendDailyNotification = (initDay, finishDay) => {
                         usersForNotification[i].nextNotificacion
                       }`
                     );
+
+                    
                     userArtists
                       .buildUserArtistGenericTemplate(
                         usersForNotification[i].fbId
@@ -67,6 +69,8 @@ var sendDailyNotification = (initDay, finishDay) => {
                           }
                         });
                       });
+
+
                   }
                 } else {
                   resolve({
