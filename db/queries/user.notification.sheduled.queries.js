@@ -62,6 +62,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                            * 3 días/72 horas
                            * ===================
                            */
+                          console.log(`3 días`)
                           userArtists
                             .buildCategoriesToSend(
                               usersForNotification[i].fbId,
@@ -89,6 +90,8 @@ var sendDailyNotification = (initDay, finishDay) => {
                            * 7 días
                            * ===================
                            */
+
+                          console.log(`7 días`)
                           userArtists
                             .buildCategoriesToSend(
                               usersForNotification[i].fbId,
@@ -115,6 +118,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                          * 14 días
                          * ===================
                          */
+                        console.log(`14 días`)
                         userArtists
                           .buildCategoriesToSend(
                             usersForNotification[i].fbId,
@@ -137,6 +141,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                          * 30 días
                          * ===================
                          */
+                        console.log(`30 días`)
                         userArtists
                           .buildCategoriesToSend(usersForNotification[i].fbId)
                           .then(() => {
@@ -158,6 +163,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                            * 3 días
                            * ===================
                            */
+                          console.log(`default`)
                           userArtists
                             .buildUserArtistGenericTemplate(
                               usersForNotification[i].fbId

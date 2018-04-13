@@ -234,7 +234,7 @@ var startTevoModuleByCategoryPerformerId = (
         if (json.error) {
           resolve(false);
         } else {
-          if (json.performers.length > 0) {
+          if (json.id) {
             let category_id = json.id;
             let category_name = json.name;
 
@@ -246,8 +246,7 @@ var startTevoModuleByCategoryPerformerId = (
               .then(foundUser => {
                 let query = {};
 
-                console.log(`search events by performer and location ===>`);
-
+                
                 let lat = foundUser.location.coordinates[0];
                 let lon = foundUser.location.coordinates[1];
 
@@ -314,7 +313,7 @@ var startTevoModuleByCategoryPerformerId = (
       })
       .catch(error => {
         resolve(false);
-        console.log(`error ${error}`);
+        console.log(`error-startTevoModuleByCategoryPerformerId ${error}`);
       });
   });
 };
