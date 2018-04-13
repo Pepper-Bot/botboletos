@@ -347,8 +347,8 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.nextNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 3;
-                1000 * 3600 * 24 * 60;
-              userNotificationSheduled.numberOfNextDays = 9999;
+                1000 * 60;
+              userNotificationSheduled.nextNotificacion = 5;
               console.log(
                 `userNotificationSheduled.nextNotificationDate  ${
                   userNotificationSheduled.nextNotificationDate
