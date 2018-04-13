@@ -361,10 +361,10 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
            * ======================
            */
           userNotificationSheduled.nextNotificationDate = moment().add(
-            6,
-            "seconds"
+            1,
+            "minutes"
           );
-          userNotificationSheduled.numberOfNextSeconds = 3;
+          userNotificationSheduled.numberOfNextSeconds = 60;
           userNotificationSheduled.nextNotificacion = 1;
 
           userNotificationSheduled.save(function(
