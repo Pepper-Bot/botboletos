@@ -168,7 +168,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                            * 3 días
                            * ===================
                            */
-                          console.log(`default`);
+                          /*console.log(`default`);
                           userArtists
                             .buildUserArtistGenericTemplate(
                               usersForNotification[i].fbId
@@ -185,7 +185,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                                   resolve({ messsge: "termine" });
                                 }
                               });
-                            });
+                            });*/
                         }
                         break;
                     }
@@ -348,7 +348,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
                 userNotificationSheduled.nextNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 3;
                 1000 * 10;
-              userNotificationSheduled.numberOfNextDays = 2;
+              userNotificationSheduled.numberOfNextDays = 9999;
               console.log(
                 `userNotificationSheduled.nextNotificationDate  ${
                   userNotificationSheduled.nextNotificationDate
