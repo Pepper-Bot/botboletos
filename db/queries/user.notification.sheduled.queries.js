@@ -295,6 +295,8 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
            *
            */
 
+          console.log(`userNotificationSheduled.nextNotificacion ${userNotificationSheduled.nextNotificacion}` )
+
           
           switch (userNotificationSheduled.nextNotificacion) {
             case 1: {
