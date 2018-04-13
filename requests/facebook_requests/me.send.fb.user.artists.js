@@ -201,7 +201,7 @@ var buildCategoriesToSend = (senderId, track_artist = false) => {
         let category_id = categoriasRandom[index];
 
         startTevoModuleByCategoryPerformerId(
-          sender,
+          senderId,
           category_id,
           track_artist
         ).then(salida => {
