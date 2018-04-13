@@ -175,7 +175,7 @@ var buildCategoriesToSend = (senderId, track_artist = false) => {
          *  Faves added
          * ===============================
          */
-        console.loge(`Faves added`);
+        console.log(`Faves added`);
         let index = 0;
         index = Math.round(Math.random() * artistsSelected.length - 1);
         name = artistsSelected[index].name;
@@ -193,7 +193,7 @@ var buildCategoriesToSend = (senderId, track_artist = false) => {
          *  Faves Not Added
          * ===============================
          */
-        console.loge(`Faves no added`);
+        console.log(`Faves no added`);
         categoriasRandom = [61, 64, 84, 85, 59, 57];
 
         let index = 0;
