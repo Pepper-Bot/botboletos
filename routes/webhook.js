@@ -1623,6 +1623,14 @@ function processPostback(event) {
   console.log("processPostback " + payload);
 
   switch (payload) {
+    case "ACCOUNT":
+      {
+        let Account = require("../modules/account/account");
+
+        Account.startAccount(senderId);
+      }
+      break;
+
     case "SUPER_BOWL_CHEER_TAKE_FOTO":
       {
         reqExternas.takePhoto(senderId);
@@ -2549,7 +2557,7 @@ function chooseReferral(referral, senderId) {
         {
           startBarVsSevillaFrame(senderId, referral); //We create a new variable
         }
-        break;  
+        break;
 
       case "BAR_v_CHE_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
         {
@@ -3126,9 +3134,9 @@ function startTevoModuleByLocation(sender, lat, lon) {
 }
 
 /**
- * 
- * @param {*} sender 
- * @param {*} payload 
+ *
+ * @param {*} sender
+ * @param {*} payload
  */
 var startTevoModuleByPerformerName = (sender, payload) => {
   return new Promise((resolve, reject) => {
@@ -3145,70 +3153,74 @@ var startTevoModuleByPerformerName = (sender, payload) => {
 
             let page = 0;
             let per_page = 9;
-   
-            user_queries.searchUserByFacebookId(sender).then(foundUser => {
-              let query = {};
-              if (foundUser.artistHasEvent === true) {
 
-         
-                console.log(`search events by performer and location ===>`)
+            user_queries
+              .searchUserByFacebookId(sender)
+              .then(foundUser => {
+                let query = {};
+                if (foundUser.artistHasEvent === true) {
+                  console.log(`search events by performer and location ===>`);
 
-                let lat = foundUser.location.coordinates[0];
-                let lon = foundUser.location.coordinates[1]; 
+                  let lat = foundUser.location.coordinates[0];
+                  let lon = foundUser.location.coordinates[1];
 
-
-
-                 query = {
-                  prioridad: 1,
-                  searchBy: "ByPerformerIdAndLocation",
-                  query: `${
-                    tevo.API_URL
-                  }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at&within=100`,
-                  queryReplace: `${
-                    tevo.API_URL
-                  }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at&within=100`,
-                  queryPage: page,
-                  queryPerPage: per_page,
-                  messageTitle:
-                    'Cool, I looked for "' +
-                    payload +
-                    '" shows.  Book a ticket'
-                };
-              } else {
-                query = {
-                  prioridad: 1,
-                  searchBy: "ByPerformerId",
-                  query: `${
-                    tevo.API_URL
-                  }events?performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
-                  queryReplace: `${
-                    tevo.API_URL
-                  }events?performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
-                  queryPage: page,
-                  queryPerPage: per_page,
-                  messageTitle:
-                    'Cool, I looked for "' + payload + '" shows.  Book a ticket'
-                };
-              }
-
-              let userPreferences = {
-                event_title: "",
-                city: "",
-                artist: "",
-                team: "",
-                event_type: "",
-                music_genre: ""
-              };
-
-              nlp.tevoByQuery(sender, query, userPreferences).then(cantidad => {
-                if (cantidad == 0) {
-                  find_my_event(sender, 1, "");
+                  query = {
+                    prioridad: 1,
+                    searchBy: "ByPerformerIdAndLocation",
+                    query: `${
+                      tevo.API_URL
+                    }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at&within=100`,
+                    queryReplace: `${
+                      tevo.API_URL
+                    }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at&within=100`,
+                    queryPage: page,
+                    queryPerPage: per_page,
+                    messageTitle:
+                      'Cool, I looked for "' +
+                      payload +
+                      '" shows.  Book a ticket'
+                  };
+                } else {
+                  query = {
+                    prioridad: 1,
+                    searchBy: "ByPerformerId",
+                    query: `${
+                      tevo.API_URL
+                    }events?performer_id=${performer_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
+                    queryReplace: `${
+                      tevo.API_URL
+                    }events?performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
+                    queryPage: page,
+                    queryPerPage: per_page,
+                    messageTitle:
+                      'Cool, I looked for "' +
+                      payload +
+                      '" shows.  Book a ticket'
+                  };
                 }
-              });
-            }).catch((error)=>{
-                 console.log(`Error al consultar startTevoModuleByPerformerName - searchUserByFacebookId`)
 
-            })
+                let userPreferences = {
+                  event_title: "",
+                  city: "",
+                  artist: "",
+                  team: "",
+                  event_type: "",
+                  music_genre: ""
+                };
+
+                nlp
+                  .tevoByQuery(sender, query, userPreferences)
+                  .then(cantidad => {
+                    if (cantidad == 0) {
+                      find_my_event(sender, 1, "");
+                    }
+                  });
+              })
+              .catch(error => {
+                console.log(
+                  `Error al consultar startTevoModuleByPerformerName - searchUserByFacebookId`
+                );
+              });
 
             resolve(true);
           } else {

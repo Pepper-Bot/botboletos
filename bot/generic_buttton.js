@@ -111,6 +111,11 @@ var genericButtonQuickReplay = (
         replies = [
           {
             content_type: "text",
+            title: "Track Artist",
+            payload: "ACCOUNT"
+          },
+          {
+            content_type: "text",
             title: "Show me more",
             payload: "find_my_event_show_me_more"
           },
@@ -118,12 +123,8 @@ var genericButtonQuickReplay = (
             content_type: "text",
             title: "Search Event",
             payload: "find_my_event_search_event"
-          },
-          {
-            content_type: "text",
-            title: "Track Artist",
-            payload: "ACCOUNT"
           }
+         
         ];
       } else {
         replies = [
