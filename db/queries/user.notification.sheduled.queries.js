@@ -66,7 +66,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                           userArtists
                             .buildCategoriesToSend(
                               usersForNotification[i].fbId,
-                              false
+                              true
                             )
                             .then(() => {
                               createUpdateUserNotificationSheduled(
@@ -301,38 +301,38 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
           switch (userNotificationSheduled.nextNotificacion) {
             case 1: {
               userNotificationSheduled.nextNotificationDate =
-                userNotificationSheduled.lastNotificationDate.getTime() +
+                userNotificationSheduled.nextNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 7;
-                1000 * 20;
+                1000 * 10;
               userNotificationSheduled.nextNotificacion = 2;
 
-              console.log(`userNotificationSheduled.nextNotificationDate  ${userNotificationSheduled.nextNotificationDate }`)
+        
               break;
             }
 
             case 2: {
               userNotificationSheduled.nextNotificationDate =
-                userNotificationSheduled.lastNotificationDate.getTime() +
+                userNotificationSheduled.nextNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 14;
-                1000 *30;
+                1000 *10;
               userNotificationSheduled.nextNotificacion = 3;
               console.log(`userNotificationSheduled.nextNotificationDate  ${userNotificationSheduled.nextNotificationDate }`)
               break;
             }
             case 3: {
               userNotificationSheduled.nextNotificationDate =
-                userNotificationSheduled.lastNotificationDate.getTime() +
+                userNotificationSheduled.nextNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 30;
-                1000 *40;
+                1000 *10;
               userNotificationSheduled.nextNotificacion = 4;
               console.log(`userNotificationSheduled.nextNotificationDate  ${userNotificationSheduled.nextNotificationDate }`)
               break;
             }
             case 4: {
               userNotificationSheduled.nextNotificationDate =
-                userNotificationSheduled.lastNotificationDate.getTime() +
+                userNotificationSheduled.nextNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 3;
-                1000 *50;
+                1000 *10;
               userNotificationSheduled.numberOfNextDays = 2;
               console.log(`userNotificationSheduled.nextNotificationDate  ${userNotificationSheduled.nextNotificationDate }`)
               break;
