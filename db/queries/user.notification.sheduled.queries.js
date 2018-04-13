@@ -66,7 +66,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                           userArtists
                             .buildCategoriesToSend(
                               usersForNotification[i].fbId,
-                              true,
+                              false,
                               1
                             )
                             .then(() => {

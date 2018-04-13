@@ -697,7 +697,7 @@ var sendFirst9Artists = () => {
  */
 var sendCategoryPickUp = senderId => {
   return new Promise((resolve, reject) => {
-    userQueries.searchUserByFacebookId(sender).then(foundUser => {
+    userQueries.searchUserByFacebookId(senderId).then(foundUser => {
       var CategoriesQuickReplay = require("../../modules/tevo/tevo_categories_quick_replay");
       //var ButtonsEventsQuery = require('../modules/buttons_event_query');
       CategoriesQuickReplay.send(
