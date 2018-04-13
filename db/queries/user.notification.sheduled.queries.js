@@ -297,7 +297,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
 
           console.log(`userNotificationSheduled.nextNotificacion ${userNotificationSheduled.nextNotificacion}` )
 
-          
+
           switch (userNotificationSheduled.nextNotificacion) {
             case 1: {
               userNotificationSheduled.nextNotificationDate =
@@ -363,6 +363,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               console.log(
                 "Error guardando en createUpdateUserNotificationSheduled " + err
               );
+              resolve({});
             }
           });
         } else {
