@@ -227,7 +227,7 @@ var startTevoModuleByCategoryPerformerId = (
   sender,
   category_id,
   track_artist,
-  caso =1
+  caso = 1
 ) => {
   return new Promise((resolve, reject) => {
     let query = `${tevo.API_URL}categories/${category_id}`;
@@ -281,29 +281,49 @@ var startTevoModuleByCategoryPerformerId = (
                     searchBy: "ByCategoryId",
                     query: `${
                       tevo.API_URL
-                    }events?category_id=${category_id}&lat=${lat}&lon=${lon}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
+                    }events?category_id=${category_id}&lat=${lat}&lon=${lon}&page=${page}&per_page=${per_page}&${only_with}&events.popularity_score DESC&order_by=events.occurs_at`,
                     queryReplace: `${
                       tevo.API_URL
-                    }events?category_id=${category_id}&lat=${lat}&lon=${lon}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
+                    }events?category_id=${category_id}&lat=${lat}&lon=${lon}&page="{{page}}&per_page={{per_page}}&${only_with}&events.popularity_score DESC&order_by=events.occurs_at`,
                     queryPage: page,
                     queryPerPage: per_page,
                     messageTitle: messageTitle
                   };
                 } else {
-                  query = {
-                    prioridad: 1,
-                    searchBy: "ByPerformerId",
-                    query: `${
-                      tevo.API_URL
-                    }events?category_id=${category_id}&page=${page}&per_page=${per_page}&${only_with}&order_by=events.occurs_at`,
-                    queryReplace: `${
-                      tevo.API_URL
-                    }events?category_id=${category_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
-                    queryPage: page,
-                    queryPerPage: per_page,
-                    messageTitle: messageTitle
-                  };
+                  if (caso == 1) {
+                    query = {
+                      prioridad: 1,
+                      searchBy: "ByPerformerId",
+                      query: `${
+                        tevo.API_URL
+                      }events?page=${page}&per_page=${per_page}&${only_with}&events.popularity_score DESC&order_by=events.occurs_at`,
+                      queryReplace: `${
+                        tevo.API_URL
+                      }events?page="{{page}}&per_page={{per_page}}&${only_with}&events.popularity_score DESC&order_by=events.occurs_at`,
+                      queryPage: page,
+                      queryPerPage: per_page,
+                      messageTitle: `Hi ${
+                        foundUser.firstName
+                      } these are the most trending events`
+                    };
+                  } else {
+                    query = {
+                      prioridad: 1,
+                      searchBy: "ByPerformerId",
+                      query: `${
+                        tevo.API_URL
+                      }events?category_id=${category_id}&page=${page}&per_page=${per_page}&${only_with}&events.popularity_score DESC&order_by=events.occurs_at`,
+                      queryReplace: `${
+                        tevo.API_URL
+                      }events?category_id=${category_id}&page="{{page}}&per_page={{per_page}}&${only_with}&events.popularity_score DESC&order_by=events.occurs_at`,
+                      queryPage: page,
+                      queryPerPage: per_page,
+                      messageTitle: messageTitle
+                    };
+                  }
                 }
+
+                
                 let userPreferences = {
                   event_title: "",
                   city: "",
@@ -708,7 +728,7 @@ var sendCategoryPickUp = senderId => {
         }  Let me get to know you better.  What type of events do you like?`,
         true
       );
-      resolve(true)
+      resolve(true);
     });
   });
 };
