@@ -2,7 +2,7 @@ var artistQueries = require("../../db/queries/artist.queries");
 var userQueries = require("../../db/queries/user.queries");
 var fbComponents = require("./me.send.fb.components");
 const pepperurl = "https://www.messenger.com/t/pepperSharks";
-const Messsage = require("./messages");
+const Message = require("./messages");
 const eventsRequests = require("../tevo_requests/events");
 var fb_me_send_account = require("./me.send.account");
 
@@ -145,12 +145,12 @@ var buildUserArtistGenericTemplate = senderId => {
          *  Faves Not Added
          * ===============================
          */
-        let locationMesssage = "May be later. Would you like to  catch a show?";
-        Messsage.getLocation(senderId, locationMesssage);
+        let locationMessage = "May be later. Would you like to  catch a show?";
+        Message.getLocation(senderId, locationMessage);
 
         console.log(`El usuario no tiene artistas asociados.`);
         resolve({
-          messsage: `User doesn't have artists`
+          message: `User doesn't have artists`
         });
       }
     });
@@ -477,7 +477,7 @@ var startTevoModuleByCategoryPerformerName = (
                   userQueries
                     .createUpdateUserDatas(sender, "notification1")
                     .then(() => {
-                      Messsage.getLocation(
+                      Message.getLocation(
                         sender,
                         ":) Been a while! wanna check out events near you?"
                       );
@@ -552,7 +552,7 @@ var sendFbGenericTemplate = (senderId, lastArtistsSelected, messageText) => {
 
             console.log(`sendFbGenericTemplate - messageText ${messageText}`);
 
-            Messsage.sendMessage(senderId, messageText).then(response => {
+            Message.sendMessage(senderId, messageText).then(response => {
               console.log("sendFbGenericTemplate - sendMessage");
               fbComponents
                 .sendGenericTemplate(senderId, elements, "horizontal")
