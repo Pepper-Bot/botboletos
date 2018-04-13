@@ -19,10 +19,10 @@ var sendDailyNotification = (initDay, finishDay) => {
     /*======================================================================================
     | chequear si hay nuevos usuarios y insertar un registro en usernotificationsheduleds
      =======================================================================================*/
-    startEndQueries.searchToogle().then(toogle => {
-      console.log(`toogle ${toogle}`);
-      if (toogle === true) {
-        checkIfNewUsers().then(() => {
+    startEndQueries.searchToogle().then(startend => {
+      console.log(`toogle ${startend.toogle}`);
+      if (startend.toogle === true) {
+         checkIfNewUsers().then(() => {
           userQueries.getUsersGroupByFBId().then(usuarios => {
             let counter = 0;
             let senderIds = [];
@@ -31,8 +31,8 @@ var sendDailyNotification = (initDay, finishDay) => {
             }
 
             /*==================================================================================
-        | Buscar los usuarios que tengan notificación pendiente para el día que se desee |
-        ===================================================================================*/
+            | Buscar los usuarios que tengan notificación pendiente para el día que se desee |
+            ===================================================================================*/
             getUserNotificationsByFbIdsAndNextNotificationDate(
               senderIds,
               initDay,
