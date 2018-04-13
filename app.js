@@ -136,8 +136,8 @@ app.listen(2000, function() {
     console.log(`FINAL DEL DIA  ${today_end}`);
 
 
-    let startDate = moment();
-    let endDate = moment().add(20, "seconds");
+    let startDate = moment().add(-10, "seconds");
+    let endDate = moment().add(10, "seconds");
 
     console.log(`start Date ${startDate}`);
     console.log(`end Date ${endDate}`);
