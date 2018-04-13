@@ -163,9 +163,10 @@ var buildUserArtistGenericTemplate = senderId => {
  *
  * @param {*} senderId
  * @param {*} track_artist
+ * @param {*} caso
  * @description función para 3,  7 y 14  días después
  */
-var buildCategoriesToSend = (senderId, track_artist = false) => {
+var buildCategoriesToSend = (senderId, track_artist = false, caso = 1) => {
   return new Promise((resolve, reject) => {
     userQueries.getUserByFbId(senderId).then(foundUser => {
       let artistsSelected = foundUser.artistsSelected;
@@ -183,7 +184,8 @@ var buildCategoriesToSend = (senderId, track_artist = false) => {
         startTevoModuleByCategoryPerformerName(
           senderId,
           name,
-          track_artist
+          track_artist,
+          caso
         ).then(salida => {
           resolve(salida);
         });
@@ -203,7 +205,8 @@ var buildCategoriesToSend = (senderId, track_artist = false) => {
         startTevoModuleByCategoryPerformerId(
           senderId,
           category_id,
-          track_artist
+          track_artist,
+          caso
         ).then(salida => {
           resolve(salida);
         });
@@ -217,13 +220,14 @@ var buildCategoriesToSend = (senderId, track_artist = false) => {
  * @param {*} sender
  * @param {*} category_id
  * @param {*} track_artist
- * 
+ * @param {*} caso
  * @description Faves Not Added function
  */
 var startTevoModuleByCategoryPerformerId = (
   sender,
   category_id,
-  track_artist
+  track_artist,
+  caso =1
 ) => {
   return new Promise((resolve, reject) => {
     let query = `${tevo.API_URL}categories/${category_id}`;
@@ -246,9 +250,30 @@ var startTevoModuleByCategoryPerformerId = (
               .then(foundUser => {
                 let query = {};
 
-                
                 let lat = foundUser.location.coordinates[0];
                 let lon = foundUser.location.coordinates[1];
+
+                let messageTitle = "";
+                switch (caso) {
+                  case 1:
+                    {
+                      messageTitle = `:) Been a while! here are some ( ${category_name} ) events near you?`;
+                    }
+                    break;
+
+                  case 2:
+                    {
+                      messageTitle = `:) What a week! Check out these ${category_name} events near you?`;
+                    }
+                    break;
+                  case 3:
+                    {
+                      messageTitle = `Hey ${
+                        foundUser.firstName
+                      } Check out these   ${category_name} events near you?`;
+                    }
+                    break;
+                }
 
                 if (lat && lon) {
                   query = {
@@ -262,7 +287,7 @@ var startTevoModuleByCategoryPerformerId = (
                     }events?category_id=${category_id}&lat=${lat}&lon=${lon}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
                     queryPage: page,
                     queryPerPage: per_page,
-                    messageTitle: `:) Been a while! here are some ( ${category_name} ) events near you?`
+                    messageTitle: messageTitle
                   };
                 } else {
                   query = {
@@ -276,7 +301,7 @@ var startTevoModuleByCategoryPerformerId = (
                     }events?category_id=${category_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at`,
                     queryPage: page,
                     queryPerPage: per_page,
-                    messageTitle: `:) Been a while! here are some ( ${category_name} ) events near you?`
+                    messageTitle: messageTitle
                   };
                 }
                 let userPreferences = {
@@ -323,12 +348,14 @@ var startTevoModuleByCategoryPerformerId = (
  * @param {*} sender
  * @param {*} name
  * @param {*} track_artist
- * @description Faves  Added function 
+ * @param {*} caso
+ * @description Faves  Added function
  */
 var startTevoModuleByCategoryPerformerName = (
   sender,
   name,
-  track_artist = false
+  track_artist = false,
+  caso = 1
 ) => {
   return new Promise((resolve, reject) => {
     let query = `${tevo.API_URL}performers?name=${name}`;
@@ -354,6 +381,28 @@ var startTevoModuleByCategoryPerformerName = (
                 let lat = foundUser.location.coordinates[0];
                 let lon = foundUser.location.coordinates[1];
 
+                let messageTitle = "";
+                switch (caso) {
+                  case 1:
+                    {
+                      messageTitle = `:) Been a while! here are some ( ${category_name} ) events near you?`;
+                    }
+                    break;
+
+                  case 2:
+                    {
+                      messageTitle = `:) What a week! Check out these ${category_name} events near you?`;
+                    }
+                    break;
+                  case 3:
+                    {
+                      messageTitle = `Hey ${
+                        foundUser.firstName
+                      } Check out these   ${category_name} events near you?`;
+                    }
+                    break;
+                }
+
                 if (lat && lon) {
                   let query = {
                     prioridad: 1,
@@ -366,7 +415,7 @@ var startTevoModuleByCategoryPerformerName = (
                     }events?category_id=${category_id}&lat=${lat}&lon=${lon}&page="{{page}}&per_page={{per_page}}&${only_with}&events.popularity_score DESC&order_by=events.occurs_at`,
                     queryPage: page,
                     queryPerPage: per_page,
-                    messageTitle: `:) Been a while! here are some ( ${category_name} ) events near you?`
+                    messageTitle: messageTitle
                   };
 
                   let userPreferences = {
@@ -395,7 +444,7 @@ var startTevoModuleByCategoryPerformerName = (
                           }events?category_id=${category_id}&page="{{page}}&per_page={{per_page}}&${only_with}&events.popularity_score DESC&order_by=events.occurs_at`,
                           queryPage: page,
                           queryPerPage: per_page,
-                          messageTitle: `:) Been a while! here are some ( ${category_name} ) events near you?`
+                          messageTitle: messageTitle
                         };
 
                         let userPreferences = {
@@ -639,7 +688,33 @@ var sendFirst9Artists = () => {
     });
   });
 };
+
+/**
+ *
+ * @param {*} senderId
+ *
+ * @description función que se envia a los 30 días
+ */
+var sendCategoryPickUp = senderId => {
+  return new Promise((resolve, reject) => {
+    userQueries.searchUserByFacebookId(sender).then(foundUser => {
+      var CategoriesQuickReplay = require("../../modules/tevo/tevo_categories_quick_replay");
+      //var ButtonsEventsQuery = require('../modules/buttons_event_query');
+      CategoriesQuickReplay.send(
+        Message,
+        senderId,
+        `Hi ${
+          foundUser.firstName
+        }  Let me get to know you better.  What type of events do you like?`,
+        true
+      );
+      resolve(true)
+    });
+  });
+};
+
 module.exports = {
   buildUserArtistGenericTemplate,
-  buildCategoriesToSend
+  buildCategoriesToSend,
+  sendCategoryPickUp
 };
