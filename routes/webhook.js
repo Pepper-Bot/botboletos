@@ -921,6 +921,14 @@ function processQuickReplies(event) {
   console.log("este es el quick replay  payload  " + payload);
 
   switch (payload) {
+    case "ACCOUNT":
+      {
+        let Account = require("../modules/account/account");
+
+        Account.startAccount(senderId);
+      }
+      break;
+
     case "ROMA":
       {
         console.log("entré al roma");
@@ -1623,14 +1631,6 @@ function processPostback(event) {
   console.log("processPostback " + payload);
 
   switch (payload) {
-    case "ACCOUNT":
-      {
-        let Account = require("../modules/account/account");
-
-        Account.startAccount(senderId);
-      }
-      break;
-
     case "SUPER_BOWL_CHEER_TAKE_FOTO":
       {
         reqExternas.takePhoto(senderId);
