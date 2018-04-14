@@ -921,6 +921,14 @@ function processQuickReplies(event) {
   console.log("este es el quick replay  payload  " + payload);
 
   switch (payload) {
+    case "FAVES":
+      {
+        let Account = require("../modules/account/account");
+
+        Account.startFaves(senderId);
+      }
+      break;
+
     case "ACCOUNT":
       {
         let Account = require("../modules/account/account");
@@ -1188,7 +1196,6 @@ function processQuickReplies(event) {
 
     case "find_my_event_by_category":
       {
-       
         var CategoriesQuickReplay = require("../modules/tevo/tevo_categories_quick_replay");
         //var ButtonsEventsQuery = require('../modules/buttons_event_query');
         CategoriesQuickReplay.send(Message, senderId, "Pick a category:");
@@ -2012,10 +2019,15 @@ function processPostback(event) {
       }
 
       break;
+    case "FAVES":
+      {
+        let Account = require("../modules/account/account");
+        Account.startFaves(senderId);
+      }
+      break;
     case "ACCOUNT":
       {
         let Account = require("../modules/account/account");
-
         Account.startAccount(senderId);
       }
       break;
@@ -3177,7 +3189,6 @@ var startTevoModuleByPerformerName = (sender, payload) => {
                     queryPage: page,
                     queryPerPage: per_page,
                     messageTitle: `Here are the event times`
-                      
                   };
                 } else {
                   query = {
