@@ -54,7 +54,7 @@ var buildUserArtistGenericTemplate = senderId => {
                   .createUpdateUserArtistHasEvent(senderId, true)
                   .then(() => {});
 
-                let messageText = "Cool, your favorite artists results near you";
+                //let messageText = "Cool, your favorite artists results near you";
                 let messageText = "Cool, Check out your artists events";
 
                 sendFbGenericTemplate(
@@ -180,7 +180,7 @@ var buildCategoriesToSend = (senderId, track_artist = false, caso = 1) => {
         console.log(`Faves added`);
         let index = 0;
         index = Math.round(Math.random() * artistsSelected.length - 1);
-        
+
         name = artistsSelected[index].name;
 
 
