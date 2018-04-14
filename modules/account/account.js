@@ -66,7 +66,7 @@ var startFaves = senderId => {
   let boletos = [
     {
       titulo: "My Favorites",
-      imagen: `${APLICATION_URL_DOMAIN}images/account/select_artist_v1.jpg`,
+      imagen: `${APLICATION_URL_DOMAIN}images/account/faves_image.jpg`,
       subtitulo: "My Favorites",
       //url: `${URLAplication}${urlExtension} &id=${senderId}`,
       url: `${urlExtension}`
