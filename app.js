@@ -136,8 +136,8 @@ app.listen(2000, function() {
     console.log(`FINAL DEL DIA  ${today_end}`);
 
 
-    let startDate = moment().add(-1, "minutes");
-    let endDate = moment()//.add(1, "minutes");
+    let startDate = moment().add(-10, "minutes");
+    let endDate = moment().add(10, "minutes");
 
     console.log(`start Date ${startDate}`);
     console.log(`end Date ${endDate}`);
@@ -148,7 +148,7 @@ app.listen(2000, function() {
     );
 
   //1000*60*24
-  }, 1000*60*1);
+  }, 1000*60*10);
 });
 
 //notificaciones//
