@@ -54,8 +54,9 @@ var buildUserArtistGenericTemplate = senderId => {
                   .createUpdateUserArtistHasEvent(senderId, true)
                   .then(() => {});
 
-                let messageText =
-                  "Cool, your favorite artists results near you";
+                let messageText = "Cool, your favorite artists results near you";
+                let messageText = "Cool, Check out your artists events";
+
                 sendFbGenericTemplate(
                   senderId,
                   artistsWithEvents,
@@ -548,7 +549,7 @@ var sendFbGenericTemplate = (senderId, lastArtistsSelected, messageText) => {
 
           let buttons = [];
           buttons.push(
-            fbComponents.buildPayLoadButton(foundArtist.name, foundArtist.name)
+            fbComponents.buildPayLoadButton(foundArtist.name, "View" /*foundArtist.name*/)
           );
           buttons.push(fbComponents.buildShareButton());
 

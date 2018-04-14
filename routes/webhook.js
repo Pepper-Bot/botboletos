@@ -3176,10 +3176,8 @@ var startTevoModuleByPerformerName = (sender, payload) => {
                     }events?lat=${lat}&lon=${lon}&performer_id=${performer_id}&page="{{page}}&per_page={{per_page}}&${only_with}&order_by=events.occurs_at&within=100`,
                     queryPage: page,
                     queryPerPage: per_page,
-                    messageTitle:
-                      'Cool, I looked for "' +
-                      payload +
-                      '" shows.  Book a ticket'
+                    messageTitle: `Here are the event times`
+                      
                   };
                 } else {
                   query = {
