@@ -323,6 +323,10 @@ var startTevoModuleByCategoryPerformerId = (
                   }
                 }
 
+                if (caso == 1) {
+                  let Account = require("../../modules/account/account");
+                  Account.startAccount(senderId)
+                }
                 
                 let userPreferences = {
                   event_title: "",
@@ -332,7 +336,7 @@ var startTevoModuleByCategoryPerformerId = (
                   event_type: "",
                   music_genre: ""
                 };
-
+ 
                 nlp
                   .tevoByQuery(sender, query, userPreferences, track_artist)
                   .then(cantidad => {
