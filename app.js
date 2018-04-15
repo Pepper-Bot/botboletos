@@ -100,7 +100,7 @@ var ChatBox = require("./bot/chatbox");
 //ChatBox.unsetGreetingText(); // Reset Greetings
 ChatBox.startButton("Greetings");
 ChatBox.greetingText(
-  "Pepper automatically finds relevant restaurants & bars for you by learning your habits",
+  "Pepper finds you upcoming concerts & events based on your lifestyle and listening habits",
   "default"
 );
 

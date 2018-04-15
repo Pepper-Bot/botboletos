@@ -5,8 +5,15 @@ var APLICATION_URL_DOMAIN = require("../../config/config_vars")
 var APPLICATION_URL_EXTENSION = require("../../config/config_vars")
   .APPLICATION_URL_EXTENSION;
 
-  
-var startAccount = senderId => {
+
+  /**
+   * 
+   * @param {*} senderId 
+   * @param {*} messageTitle 
+   * @description Envio de Track Artist
+   * 
+   */
+var startAccount = (senderId, messageTitle = "") => {
   console.log("Entré a startAccount");
   let URLAplication = APLICATION_URL_DOMAIN + "redirect/?u=";
   let urlExtension = `${APPLICATION_URL_EXTENSION}profile?senderId=${senderId}`;
@@ -16,7 +23,7 @@ var startAccount = senderId => {
     {
       titulo: "Track your favorite artist",
       imagen: `${APLICATION_URL_DOMAIN}images/account/select_artist_v1.jpg`,
-      subtitulo: "Track artist",
+      subtitulo: "Get notified of upcoming concerts",
       //url: `${URLAplication}${urlExtension} &id=${senderId}`,
       url: `${urlExtension}`
     }
@@ -34,7 +41,7 @@ var startAccount = senderId => {
         url: boletos[i].url,
         messenger_extensions: true,
         webview_height_ratio: "tall",
-        "fallback_url": boletos[i].url
+        fallback_url: boletos[i].url
       },
       buttons: [
         {
@@ -53,9 +60,6 @@ var startAccount = senderId => {
 
   Messages.genericTemplate(senderId, eventResults, "horizontal");
 };
-
-
-
 
 var startFaves = senderId => {
   console.log("Entré a startAccount");
@@ -85,7 +89,7 @@ var startFaves = senderId => {
         url: boletos[i].url,
         messenger_extensions: true,
         webview_height_ratio: "tall",
-        "fallback_url": boletos[i].url
+        fallback_url: boletos[i].url
       },
       buttons: [
         {
@@ -104,8 +108,6 @@ var startFaves = senderId => {
 
   Messages.genericTemplate(senderId, eventResults, "horizontal");
 };
-
-
 
 module.exports = {
   startAccount,
