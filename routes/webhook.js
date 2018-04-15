@@ -2031,7 +2031,6 @@ function processPostback(event) {
       break;
     case "ACCOUNT":
       {
-
         let Account = require("../modules/account/account");
         user_queries.getUserByFbId(senderId).then(foundUser => {
           let messageTitle = `Hi ${
@@ -2039,7 +2038,6 @@ function processPostback(event) {
           }, follow your favorite artist.`;
           Account.startAccount(senderId, messageTitle);
         });
-
       }
       break;
 
@@ -2323,7 +2321,12 @@ function saluda(senderId) {
     Message.quickReply(senderId, messagetxt, replies);*/
 
     let Account = require("../modules/account/account");
-    Account.startAccount(senderId);
+    user_queries.getUserByFbId(senderId).then(foundUser => {
+      let messageTitle = `Hi ${
+        foundUser.firstName
+      }, follow your favorite artist.`;
+      Account.startAccount(senderId, messageTitle);
+    });
   });
 }
 
