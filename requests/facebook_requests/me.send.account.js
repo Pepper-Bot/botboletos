@@ -1,9 +1,13 @@
 var APLICATION_URL_DOMAIN = require("../../config/config_vars")
   .APLICATION_URL_DOMAIN;
 var fbComponents = require("./me.send.fb.components");
+var user_queries = require("../../schemas/queries/user_queries");
+var Message = require("../../bot/messages");
 
 var sendMyAccount = senderId => {
-  console.log(`imagen  ${APLICATION_URL_DOMAIN}images/account/select_artist_v1.jpg`);
+  console.log(
+    `imagen  ${APLICATION_URL_DOMAIN}images/account/select_artist_v1.jpg`
+  );
   return new Promise((resolve, reject) => {
     console.log("Entré a sendMyAccount");
     let URLAplication = APLICATION_URL_DOMAIN + "redirect/?u=";
@@ -14,7 +18,7 @@ var sendMyAccount = senderId => {
       {
         titulo: "Track your favorite artist",
         imagen: `${APLICATION_URL_DOMAIN}images/account/select_artist_v1.jpg`,
-        subtitulo: "Track Artist",
+        subtitulo: "Get notified of upcoming concerts",
         url: `${urlExtension}`
       }
     ];
@@ -38,12 +42,18 @@ var sendMyAccount = senderId => {
         )
       );
     }
-
-    fbComponents
-      .sendGenericTemplate(senderId, elements, "horizontal")
-      .then(response => {
-        resolve(response);
+    user_queries.getUserByFbId(senderId).then(() => {
+      let messageTitle = `Hi ${
+        foundUser.firstName
+      }, follow your favorite artist.`;
+      Message.sendMessage(senderId, messageTitle).then(() => {
+        fbComponents
+          .sendGenericTemplate(senderId, elements, "horizontal")
+          .then(response => {
+            resolve(response);
+          });
       });
+    });
   });
 };
 
