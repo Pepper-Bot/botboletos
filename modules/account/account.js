@@ -72,7 +72,7 @@ var startFaves = senderId => {
     {
       titulo: "My Favorites",
       imagen: `${APLICATION_URL_DOMAIN}images/account/faves_image.jpg`,
-      subtitulo: "My Favorites",
+      subtitulo: "Set your prefered music, concerts and events",
       //url: `${URLAplication}${urlExtension} &id=${senderId}`,
       url: `${urlExtension}`
     }
