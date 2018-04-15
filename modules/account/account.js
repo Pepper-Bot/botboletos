@@ -1,18 +1,18 @@
-const Messages = require("../../bot/generic_buttton");
+const Messages1 = require("../../bot/generic_buttton");
+const Messages = require("../../bot/messages");
 var APLICATION_URL_DOMAIN = require("../../config/config_vars")
   .APLICATION_URL_DOMAIN;
 
 var APPLICATION_URL_EXTENSION = require("../../config/config_vars")
   .APPLICATION_URL_EXTENSION;
 
-
-  /**
-   * 
-   * @param {*} senderId 
-   * @param {*} messageTitle 
-   * @description Envio de Track Artist
-   * 
-   */
+/**
+ *
+ * @param {*} senderId
+ * @param {*} messageTitle
+ * @description Envio de Track Artist
+ *
+ */
 var startAccount = (senderId, messageTitle = "") => {
   console.log("Entré a startAccount");
   let URLAplication = APLICATION_URL_DOMAIN + "redirect/?u=";
@@ -57,8 +57,9 @@ var startAccount = (senderId, messageTitle = "") => {
 
     console.log("events Results >>>>>>>>>>>>>>>" + eventResults[i].url);
   }
-
-  Messages.genericTemplate(senderId, eventResults, "horizontal");
+  Messages.sendMessage(senderId, messageTitle).then(() => {
+    Messages1.genericTemplate(senderId, eventResults, "horizontal");
+  });
 };
 
 var startFaves = senderId => {
@@ -106,7 +107,7 @@ var startFaves = senderId => {
     console.log("events Results >>>>>>>>>>>>>>>" + eventResults[i].url);
   }
 
-  Messages.genericTemplate(senderId, eventResults, "horizontal");
+  Messages1.genericTemplate(senderId, eventResults, "horizontal");
 };
 
 module.exports = {

@@ -932,8 +932,12 @@ function processQuickReplies(event) {
     case "ACCOUNT":
       {
         let Account = require("../modules/account/account");
-
-        Account.startAccount(senderId);
+        user_queries.getUserByFbId(senderId).then(foundUser => {
+          let messageTitle = `Hi ${
+            foundUser.firstName
+          }, follow your favorite artist.`;
+          Account.startAccount(senderId, messageTitle);
+        });
       }
       break;
 
@@ -2027,8 +2031,15 @@ function processPostback(event) {
       break;
     case "ACCOUNT":
       {
+
         let Account = require("../modules/account/account");
-        Account.startAccount(senderId);
+        user_queries.getUserByFbId(senderId).then(foundUser => {
+          let messageTitle = `Hi ${
+            foundUser.firstName
+          }, follow your favorite artist.`;
+          Account.startAccount(senderId, messageTitle);
+        });
+
       }
       break;
 
@@ -2313,12 +2324,7 @@ function saluda(senderId) {
 
     let Account = require("../modules/account/account");
     Account.startAccount(senderId);
-
-    
   });
-
-
-
 }
 
 /**
