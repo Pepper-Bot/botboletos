@@ -28,7 +28,7 @@ var sendMyAccount = senderId => {
       let buttons = [];
       console.log("i " + i);
       buttons.push(
-        fbComponents.buildURLButton(boletos[i].url, boletos[i].subtitulo)
+        fbComponents.buildURLButton(boletos[i].url, "Track artists")
       );
       buttons.push(fbComponents.buildShareButton());
       console.log(`buttons  ${JSON.stringify(buttons)}`);

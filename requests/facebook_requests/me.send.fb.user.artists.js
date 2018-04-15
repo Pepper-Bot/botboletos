@@ -426,7 +426,7 @@ var startTevoModuleByCategoryPerformerName = (
                     {
                       messageTitle = `Hey ${
                         foundUser.firstName
-                      } Check out these   ${category_name} events near you?`;
+                      }, Long time! Check out these ${category_name} events near you?`;
                     }
                     break;
                 }
@@ -733,7 +733,7 @@ var sendCategoryPickUp = senderId => {
         senderId,
         `Hi ${
           foundUser.firstName
-        }  Let me get to know you better.  What type of events do you like?`,
+        } a month already? Let me get to know you better.  What type of events do you like?`,
         true
       );
       resolve(true);

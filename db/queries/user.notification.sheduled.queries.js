@@ -137,6 +137,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                               }
                             });
                           });
+                          break;
                       }
                       case 4: {
                         /**
