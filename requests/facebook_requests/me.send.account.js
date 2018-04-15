@@ -42,7 +42,7 @@ var sendMyAccount = senderId => {
         )
       );
     }
-    user_queries.getUserByFbId(senderId).then(() => {
+    user_queries.getUserByFbId(senderId).then((foundUser) => {
       let messageTitle = `Hi ${
         foundUser.firstName
       }, follow your favorite artist.`;
