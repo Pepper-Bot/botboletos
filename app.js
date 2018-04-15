@@ -99,10 +99,10 @@ var ChatBox = require("./bot/chatbox");
 // prueba alexis
 ChatBox.unsetGreetingText(); // Reset Greetings
 ChatBox.startButton("Greetings");
-ChatBox.greetingText(
-  "Pepper finds you upcoming concerts & events based on your lifestyle and listening habits",
+/*ChatBox.greetingText(
+  "Hello {{user_first_name}}!. Pepper finds you upcoming concerts & events based on your lifestyle and listening habits",
   "default"
-);
+);*/
 
 /*ChatBox.persistentMenu(
   {
