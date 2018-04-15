@@ -716,7 +716,6 @@ var sendFirst9Artists = () => {
     });
   });
 };
-
 /**
  *
  * @param {*} senderId
