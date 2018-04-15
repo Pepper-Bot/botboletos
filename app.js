@@ -97,12 +97,12 @@ var email = require("./routes/email");
 
 var ChatBox = require("./bot/chatbox");
 // prueba alexis
-ChatBox.unsetGreetingText(); // Reset Greetings
+//ChatBox.unsetGreetingText(); // Reset Greetings
 ChatBox.startButton("Greetings");
-/*ChatBox.greetingText(
-  "Hello {{user_first_name}}!. Pepper finds you upcoming concerts & events based on your lifestyle and listening habits",
+ChatBox.greetingText(
+  "Pepper finds you upcoming concerts & events based on your lifestyle and listening habits",
   "default"
-);*/
+);
 
 
 /*ChatBox.persistentMenu(
