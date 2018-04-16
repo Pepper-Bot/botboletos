@@ -5,7 +5,7 @@ var callSendAPI = require("./me.send").callSendAPI;
  * @param {*} url
  * @param {*} title
  */
-var buildURLButton = (url, title, messenger_extensions =true,webview_height_ratio ="tall" ) => {
+var buildURLButton = (url, title, messenger_extensions =false,webview_height_ratio ="tall" ) => {
   button = {
     type: "web_url",
     url: url,
@@ -50,7 +50,8 @@ var buildElementForGenericTemplate = (
   image_url,
   subtitle,
   url,
-  buttons = []
+  buttons = [],
+  messenger_extensions= false
 ) => {
   var element = {
     title: title,
