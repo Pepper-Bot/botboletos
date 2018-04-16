@@ -312,7 +312,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.nextNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 7;
-                1000 * 60 * 5;
+                1000 * 60 * 7;
               userNotificationSheduled.nextNotificacion = 2;
 
               break;
@@ -322,7 +322,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.nextNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 14;
-                1000 * 60 * 5;
+                1000 * 60 * 7;
               userNotificationSheduled.nextNotificacion = 3;
               console.log(
                 `userNotificationSheduled.nextNotificationDate  ${
@@ -335,7 +335,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.nextNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 30;
-                1000 * 60 * 5;
+                1000 * 60 * 7;
               userNotificationSheduled.nextNotificacion = 4;
               console.log(
                 `userNotificationSheduled.nextNotificationDate  ${
@@ -348,7 +348,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.nextNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 3;
-                1000 * 60 *5;
+                1000 * 60 *7;
               userNotificationSheduled.nextNotificacion = 5;
               console.log(
                 `userNotificationSheduled.nextNotificationDate  ${
@@ -362,7 +362,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
               userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 3;
-                1000 * 60*5;
+                1000 * 60*7;
               userNotificationSheduled.nextNotificacion = 2;
               console.log(
                 `userNotificationSheduled.nextNotificationDate  ${
@@ -395,7 +395,7 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
           userNotificationSheduled.fbId = fbId;
 
           userNotificationSheduled.nextNotificationDate = moment().add(
-            5,
+            7,
             "minutes"
           );
           /**======================
