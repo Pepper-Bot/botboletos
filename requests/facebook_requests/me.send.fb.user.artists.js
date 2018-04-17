@@ -261,20 +261,20 @@ var startTevoModuleByCategoryPerformerId = (
                 switch (caso) {
                   case 1:
                     {
-                      messageTitle = `:) Been a while! here are some ( ${category_name} ) events near you?`;
+                      messageTitle = `😊 Been a while! here are some "${category_name}" events near you?`;
                     }
                     break;
 
                   case 2:
                     {
-                      messageTitle = `:) What a week! Check out these ${category_name} events near you?`;
+                      messageTitle = `What a week! Check out these "${category_name}" events near you? 😉`;
                     }
                     break;
                   case 3:
                     {
                       messageTitle = `Hey ${
                         foundUser.firstName
-                      } Check out these   ${category_name} events near you?`;
+                      }, Long time! Check out these "${category_name}" events near you? 😉`;
                     }
                     break;
                 }
@@ -413,20 +413,20 @@ var startTevoModuleByCategoryPerformerName = (
                 switch (caso) {
                   case 1:
                     {
-                      messageTitle = `:) Been a while! here are some ( ${category_name} ) events near you?`;
+                      messageTitle = `😊 Been a while! here are some "${category_name}" events near you?`;
                     }
                     break;
 
                   case 2:
                     {
-                      messageTitle = `:) What a week! Check out these ${category_name} events near you?`;
+                      messageTitle = `What a week! Check out these "${category_name}" events near you? 😉`;
                     }
                     break;
                   case 3:
                     {
                       messageTitle = `Hey ${
                         foundUser.firstName
-                      }, Long time! Check out these ${category_name} events near you?`;
+                      }, Long time! Check out these "${category_name}" events near you? 😉`;
                     }
                     break;
                 }
@@ -732,7 +732,7 @@ var sendCategoryPickUp = senderId => {
         senderId,
         `Hi ${
           foundUser.firstName
-        } a month already? Let me get to know you better.  What type of events do you like?`,
+        }! a month already? Let me get to know you better.  What type of events do you like? 😄`,
         true
       );
       resolve(true);
