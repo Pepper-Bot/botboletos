@@ -2006,12 +2006,14 @@ function processPostback(event) {
 
     case "Greetings":
       {
-        let Account = require("../modules/account/account");
-        user_queries.getUserByFbId(senderId).then(foundUser => {
-          let messageTitle = `Hi ${
-            foundUser.firstName
-          }, follow your favorite artist.`;
-          Account.startAccount(senderId, messageTitle);
+        user_queries.createUpdateUserDatas(senderId, "-").then(foundUser => {
+          let Account = require("../modules/account/account");
+          user_queries.getUserByFbId(senderId).then(foundUser => {
+            let messageTitle = `Hi ${
+              foundUser.firstName
+            }, follow your favorite artist.`;
+            Account.startAccount(senderId, messageTitle);
+          });
         });
       }
       break;
@@ -2031,18 +2033,22 @@ function processPostback(event) {
       break;
     case "FAVES":
       {
-        let Account = require("../modules/account/account");
-        Account.startFaves(senderId);
+        user_queries.createUpdateUserDatas(senderId, "-").then(foundUser => {
+          let Account = require("../modules/account/account");
+          Account.startFaves(senderId);
+        });
       }
       break;
     case "ACCOUNT":
       {
-        let Account = require("../modules/account/account");
-        user_queries.getUserByFbId(senderId).then(foundUser => {
-          let messageTitle = `Hi ${
-            foundUser.firstName
-          }, follow your favorite artist.`;
-          Account.startAccount(senderId, messageTitle);
+        user_queries.createUpdateUserDatas(senderId, "-").then(foundUser => {
+          let Account = require("../modules/account/account");
+          user_queries.getUserByFbId(senderId).then(foundUser => {
+            let messageTitle = `Hi ${
+              foundUser.firstName
+            }, follow your favorite artist.`;
+            Account.startAccount(senderId, messageTitle);
+          });
         });
       }
       break;
@@ -2298,7 +2304,7 @@ function saluda(senderId) {
     // let Account = require("../modules/account/account");
     //Account.startAccount(senderId);
 
-   let name = foundUser.firstName;
+    let name = foundUser.firstName;
     var greeting = "Hi " + name;
     var messagetxt = greeting + ", what would you like to do?";
     Message.markSeen(senderId);
