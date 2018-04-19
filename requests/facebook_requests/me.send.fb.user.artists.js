@@ -149,7 +149,7 @@ var buildUserArtistGenericTemplate = senderId => {
         //let locationMessage = "May be later. Would you like to  catch a show?";
         //Message.getLocation(senderId, locationMessage);
 
-        buildCategoriesToSend(senderId, false, 1).then(()=>{
+        buildCategoriesToSend(senderId, false, 2).then(()=>{
 
         })
 
