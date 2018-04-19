@@ -97,7 +97,6 @@ var buildUserArtistGenericTemplate = senderId => {
                       console.log(
                         "buildUserArtistGenericTemplate-artistsWithEventsNewArray: Ninguno de los artistas seleccionados tienen eventos"
                       );
-
                       buildCategoriesToSend(senderId, false, 4).then(() => {});
 
                       resolve({
