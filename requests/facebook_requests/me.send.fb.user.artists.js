@@ -185,7 +185,7 @@ var buildCategoriesToSend = (senderId, track_artist = false, caso = 1) => {
         let index = 0;
         index = Math.round(Math.random() * artistsSelected.length - 1);
 
-        name = artistsSelected[index].name;
+        let name = artistsSelected[index].name;
 
         startTevoModuleByCategoryPerformerName(
           senderId,
