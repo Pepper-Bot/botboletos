@@ -146,8 +146,12 @@ var buildUserArtistGenericTemplate = senderId => {
          *  Faves Not Added
          * ===============================
          */
-        let locationMessage = "May be later. Would you like to  catch a show?";
-        Message.getLocation(senderId, locationMessage);
+        //let locationMessage = "May be later. Would you like to  catch a show?";
+        //Message.getLocation(senderId, locationMessage);
+
+        buildCategoriesToSend(senderId,false, 1).then(()=>{
+          
+        })
 
         console.log(`El usuario no tiene artistas asociados.`);
         resolve({
