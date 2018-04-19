@@ -616,7 +616,7 @@ var sendFbGenericTemplate = (senderId, lastArtistsSelected, messageText) => {
           } else {
             console.log(`elements.length  ${elements.length}`);
           }
-          
+
           counter++;
 
         });
@@ -722,7 +722,7 @@ var sendFirst9Artists = () => {
                 buttons
               )
             );
-            counter++;
+          
             console.log(`elements.length  ${JSON.stringify(elements.length)}`);
             console.log(
               `lastArtistsSelected.length  ${JSON.stringify(
@@ -739,6 +739,7 @@ var sendFirst9Artists = () => {
             } else {
               console.log(`elements.length  ${elements.length}`);
             }
+            counter++;
           });
       }
     });
