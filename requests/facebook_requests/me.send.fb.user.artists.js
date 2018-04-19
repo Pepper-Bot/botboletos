@@ -98,7 +98,7 @@ var buildUserArtistGenericTemplate = senderId => {
                         "buildUserArtistGenericTemplate-artistsWithEventsNewArray: Ninguno de los artistas seleccionados tienen eventos"
                       );
 
-                      buildCategoriesToSend(senderId, false, 1).then(() => {});
+                      buildCategoriesToSend(senderId, false, 4).then(() => {});
 
                       resolve({
                         message:
@@ -430,6 +430,11 @@ var startTevoModuleByCategoryPerformerName = (
                       messageTitle = `Hey ${
                         foundUser.firstName
                       }, Long time! Check out these "${category_name}" events near you? 😉`;
+                    }
+                    break;
+                  case 4:
+                    {
+                      messageTitle = `Here are some "${category_name}" events near you?`;
                     }
                     break;
                 }
