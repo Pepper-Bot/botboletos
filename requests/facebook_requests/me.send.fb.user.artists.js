@@ -620,11 +620,13 @@ var artistsWithEventsNewArray = artistsSelected => {
             artistsWithEvents.push(artistsSelected[i]);
           }
 
-          counter++;
+        
 
           if (counter === artistsSelected.length - 1) {
             resolve(artistsWithEvents);
           }
+
+          counter++;
         });
     }
   });
@@ -659,7 +661,7 @@ var artistsWithEventsInLocationNewArray = (artistsSelected, lat, lon) => {
           if (counter === artistsSelected.length - 1) {
             resolve(artistsWithEvents);
           }
-          
+
           counter++;
         });
     }
