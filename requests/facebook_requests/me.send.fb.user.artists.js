@@ -194,7 +194,7 @@ var buildCategoriesToSend = (senderId, track_artist = false, caso = 1) => {
         console.log(`Faves added`);
         let index = 0;
         index = Math.round(Math.random() * artistsSelected.length - 1);
-
+        console.log(`artistsSelected > ${JSON.stringify(artistsSelected )} > index ${index}`)
         let name = artistsSelected[index].name;
 
         startTevoModuleByCategoryPerformerName(
