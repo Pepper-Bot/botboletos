@@ -150,7 +150,7 @@ var buildUserArtistGenericTemplate = senderId => {
         //Message.getLocation(senderId, locationMessage);
 
         buildCategoriesToSend(senderId,false, 1).then(()=>{
-          
+
         })
 
         console.log(`El usuario no tiene artistas asociados.`);
@@ -355,7 +355,7 @@ var startTevoModuleByCategoryPerformerId = (
               })
               .catch(error => {
                 console.log(
-                  `Error al consultar startTevoModuleByPerformerName - searchUserByFacebookId`
+                  `Error al consultar startTevoModuleByPerformerName - searchUserByFacebookId ${error}`
                 );
               });
 
