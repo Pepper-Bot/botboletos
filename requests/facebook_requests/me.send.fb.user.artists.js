@@ -97,6 +97,9 @@ var buildUserArtistGenericTemplate = senderId => {
                       console.log(
                         "buildUserArtistGenericTemplate-artistsWithEventsNewArray: Ninguno de los artistas seleccionados tienen eventos"
                       );
+
+                      buildCategoriesToSend(senderId, false, 1).then(() => {});
+
                       resolve({
                         message:
                           "Ninguno de los artistas seleccionados tienen eventos"
@@ -149,7 +152,7 @@ var buildUserArtistGenericTemplate = senderId => {
         //let locationMessage = "May be later. Would you like to  catch a show?";
         //Message.getLocation(senderId, locationMessage);
 
-        Message.sendMessage(senderId, `Ty for participate!` )
+        Message.sendMessage(senderId, `Ty for participate!`);
 
         console.log(`El usuario no tiene artistas asociados.`);
         resolve({
@@ -184,8 +187,6 @@ var buildCategoriesToSend = (senderId, track_artist = false, caso = 1) => {
         index = Math.round(Math.random() * artistsSelected.length - 1);
 
         name = artistsSelected[index].name;
-
-
 
         startTevoModuleByCategoryPerformerName(
           senderId,
@@ -331,9 +332,9 @@ var startTevoModuleByCategoryPerformerId = (
 
                 if (caso == 1) {
                   let Account = require("../../modules/account/account");
-                  Account.startAccount(sender)
+                  Account.startAccount(sender);
                 }
-                
+
                 let userPreferences = {
                   event_title: "",
                   city: "",
@@ -342,7 +343,7 @@ var startTevoModuleByCategoryPerformerId = (
                   event_type: "",
                   music_genre: ""
                 };
- 
+
                 nlp
                   .tevoByQuery(sender, query, userPreferences, track_artist)
                   .then(cantidad => {
@@ -554,7 +555,10 @@ var sendFbGenericTemplate = (senderId, lastArtistsSelected, messageText) => {
 
           let buttons = [];
           buttons.push(
-            fbComponents.buildPayLoadButton(foundArtist.name, "View" /*foundArtist.name*/)
+            fbComponents.buildPayLoadButton(
+              foundArtist.name,
+              "View" /*foundArtist.name*/
+            )
           );
           buttons.push(fbComponents.buildShareButton());
 
@@ -620,8 +624,6 @@ var artistsWithEventsNewArray = artistsSelected => {
             artistsWithEvents.push(artistsSelected[i]);
           }
 
-        
-
           if (counter === artistsSelected.length - 1) {
             resolve(artistsWithEvents);
           }
@@ -655,8 +657,6 @@ var artistsWithEventsInLocationNewArray = (artistsSelected, lat, lon) => {
           if (cantidad > 0) {
             artistsWithEvents.push(artistsSelected[i]);
           }
-
-         
 
           if (counter === artistsSelected.length - 1) {
             resolve(artistsWithEvents);
