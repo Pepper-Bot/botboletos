@@ -150,8 +150,18 @@ var buildUserArtistGenericTemplate = senderId => {
          */
         //let locationMessage = "May be later. Would you like to  catch a show?";
         //Message.getLocation(senderId, locationMessage);
+        /*let lat = foundUser.location.coordinates[0];
+        let lon = foundUser.location.coordinates[1];
+        if (lat && lon) {
 
-        Message.sendMessage(senderId, `Ty for participate!`);
+
+        }
+        Message.sendMessage(senderId, `Ty for participate!`);*/
+
+        buildCategoriesToSend(senderId, false, 4).then(()=>{
+          
+        })
+
 
         console.log(`El usuario no tiene artistas asociados.`);
         resolve({
@@ -263,20 +273,25 @@ var startTevoModuleByCategoryPerformerId = (
                 switch (caso) {
                   case 1:
                     {
-                      messageTitle = `😊 Been a while! here are some "${category_name}" events near you?`;
+                      messageTitle = `😊 Been a while! here are some "${category_name}" events near you!`;
                     }
                     break;
 
                   case 2:
                     {
-                      messageTitle = `What a week! Check out these "${category_name}" events near you? 😉`;
+                      messageTitle = `What a week! Check out these "${category_name}" events near you! 😉`;
                     }
                     break;
                   case 3:
                     {
                       messageTitle = `Hey ${
                         foundUser.firstName
-                      }, Long time! Check out these "${category_name}" events near you? 😉`;
+                      }, Long time! Check out these "${category_name}" events near you! 😉`;
+                    }
+                    break;
+                    case 4:
+                    {
+                      messageTitle = `😊 Here are some "${category_name}" events near you!`;
                     }
                     break;
                 }
@@ -415,25 +430,25 @@ var startTevoModuleByCategoryPerformerName = (
                 switch (caso) {
                   case 1:
                     {
-                      messageTitle = `😊 Been a while! here are some "${category_name}" events near you?`;
+                      messageTitle = `😊 Been a while! here are some "${category_name}" events near you!`;
                     }
                     break;
 
                   case 2:
                     {
-                      messageTitle = `What a week! Check out these "${category_name}" events near you? 😉`;
+                      messageTitle = `What a week! Check out these "${category_name}" events near you! 😉`;
                     }
                     break;
                   case 3:
                     {
                       messageTitle = `Hey ${
                         foundUser.firstName
-                      }, Long time! Check out these "${category_name}" events near you? 😉`;
+                      }, Long time! Check out these "${category_name}" events near you! 😉`;
                     }
                     break;
                   case 4:
                     {
-                      messageTitle = `Here are some "${category_name}" events near you?`;
+                      messageTitle = `Here are some "${category_name}" events near you!`;
                     }
                     break;
                 }
