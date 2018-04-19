@@ -159,7 +159,7 @@ var buildUserArtistGenericTemplate = senderId => {
         Message.sendMessage(senderId, `Ty for participate!`);*/
 
         buildCategoriesToSend(senderId, false, 4).then(()=>{
-          
+
         })
 
 
@@ -592,7 +592,7 @@ var sendFbGenericTemplate = (senderId, lastArtistsSelected, messageText) => {
               buttons
             )
           );
-          counter++;
+        
           console.log(`elements.length  ${JSON.stringify(elements.length)}`);
           console.log(
             `lastArtistsSelected.length  ${JSON.stringify(
@@ -616,6 +616,9 @@ var sendFbGenericTemplate = (senderId, lastArtistsSelected, messageText) => {
           } else {
             console.log(`elements.length  ${elements.length}`);
           }
+          
+          counter++;
+
         });
     }
   });
