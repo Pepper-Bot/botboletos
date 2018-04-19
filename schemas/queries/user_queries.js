@@ -60,8 +60,8 @@
 
              }
              if (!foundUser) {
-                 console.log('Error en getUserByFbId user_queries ' + err)
-                 reject(err)
+                console.log(`No se encontró el registro ${senderId} en userdatas: -user_queries, Error: ${err} `);
+                resolve({});
              }
              if (foundUser) {
                  resolve(foundUser)
