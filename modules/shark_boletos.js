@@ -27,7 +27,7 @@ module.exports = function () {
                     "titulo": "Discount - Limited Time",
                     "imagen": APLICATION_URL_DOMAIN + "images/sharkstank/sharks_image_discount_20.jpg",
                     "subtitulo": "Live the Sharks Tank experience. You can also pitch and Win 50K",
-                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-56-with-50k-in-prizes-tickets-42550402399?discount=SuperPromo " + '&id=' + senderId
+                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-58-with-50k-in-prizes-tickets-43909866593?discount=SuperPromo " + '&id=' + senderId
 
 
                 },
@@ -36,14 +36,14 @@ module.exports = function () {
                     "titulo": "General Admission - $20",
                     "imagen": APLICATION_URL_DOMAIN + "images/sharkstank/sharks_tank_16sec_video_attendees.png",
                     "subtitulo": "Bring cards and network w Bay Area investors and entrepreneurs",
-                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-56-with-50k-in-prizes-tickets-42550402399 " + '&id=' + senderId
+                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-58-with-50k-in-prizes-tickets-43909866593 " + '&id=' + senderId
 
                 },
                 {
                     "titulo": "Startups - $150",
                     "imagen": APLICATION_URL_DOMAIN + "images/sharkstank/sharks_Fb_image_participant.png",
                     "subtitulo": "Pitch your idea and Win 50K. Get Funded this Friday.",
-                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-56-with-50k-in-prizes-tickets-42550402399 " + '&id=' + senderId
+                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-58-with-50k-in-prizes-tickets-43909866593 " + '&id=' + senderId
 
                 },
 
@@ -51,7 +51,7 @@ module.exports = function () {
                     "titulo": "Sponsors - from $500",
                     "imagen": APLICATION_URL_DOMAIN + "images/sharkstank/sharks_Fb_image_sponsor.png",
                     "subtitulo": "Get your logo in front of 50 thousand people. Get a VIP table and join the smashing party.",
-                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-56-with-50k-in-prizes-tickets-42550402399 " + '&id=' + senderId
+                    "url": URLAplication + "https://www.eventbrite.com/e/live-sharks-tank-envivo-episode-58-with-50k-in-prizes-tickets-43909866593 " + '&id=' + senderId
 
                 }
 
