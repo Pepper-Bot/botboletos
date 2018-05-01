@@ -400,3 +400,11 @@
 
     });
 </script>
+<!--This is the Pixel's FB event trackign clicking Checkout button -->
+<script>
+$(document).ready(function () {
+        $('#checkout').click(function () {
+            fbq('track', 'ViewContent');
+        });
+    });
+</script>
