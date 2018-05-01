@@ -2601,6 +2601,14 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
+        case "RU_AS_WCFRAME": // Here we create the new CASE w new Me Link name on 04/11/18
+        {
+          startRuAsFrame(senderId, referral); //We create a new variable
+        }
+        break;  
+
+        
+
       case "BAR_v_CHE_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
         {
           startBarVsCheFrame(senderId, referral); //We create a new variable
@@ -2897,6 +2905,19 @@ var startBarVsCheFrame = (senderId, referral) => {
 var startBarVsSevillaFrame = (senderId, referral) => {
   var BarVsSevillaFrameModule = require("../modules/tevo/champions/barcelonaSevilla_frame.js");
   BarVsSevillaFrameModule.startBarVsSevillaFrame(senderId, referral);
+};
+
+// Created May 1 - Russia vs Arabia Saudita Game 1 in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startRuAsFrame = (senderId, referral) => {
+  var RuAsFrameModule = require("../modules/tevo/russia2018/barcelonaSevilla_frame.js");
+  RuAsFrameModule.startRuAsFrame(senderId, referral);
 };
 
 // Created Mar 21
