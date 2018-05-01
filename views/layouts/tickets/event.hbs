@@ -44,7 +44,7 @@
                         <div class="card-action">
                             <div class="row center">
                                 <div class="input-field col s12">
-                                    <a class="btn btn-round btn-book no-uppercase white" href="{{this.button_href}}">Book Tickets</a>
+                                    <a id="viewProductButton" class="btn btn-round btn-book no-uppercase white" href="{{this.button_href}}">Book Tickets</a>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,15 @@
 
     </div>
 </div>
-
-
+ 
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <script type="text/javascript" src="js/materialize.min.js"></script>
+<script>
+$(document).ready(function () {
+$( '#viewProductButton' ).click(function() 
+
+{
+  fbq('track', 'ViewContent');
+});
+});
+</script>
