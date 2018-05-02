@@ -1596,7 +1596,7 @@ function processQuickReplies(event) {
         "What location would you like to get a drink at?"
       );
       Message.typingOn(senderId);
-      saveUserSelection(senderId, "Events");
+      saveUserSelection(senderId, "Drinks");
 
       break;
 
