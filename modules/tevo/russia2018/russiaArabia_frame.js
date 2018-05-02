@@ -1,5 +1,5 @@
 /*
-BARCELONA SEVILLA FRAME COPIED FROM BARCELONA ROMA 
+RUSSIA ARABIA FRAME COPIED FROM BARCELONA ROMA 
 */
 
 var Message = require("../../../bot/messages");
@@ -17,7 +17,7 @@ var UserData2 = require("../../../schemas/userinfo");
 var Message = require("../../../bot/messages");
 var user_queries = require("../../../schemas/queries/user_queries");
 // Request the users ID from DB API
-var startBarVsSevillaFrame = (senderId, referral) => {
+var startRuAsFrame = (senderId, referral) => {
   UserData2.findOne(
     {
       fbId: senderId
@@ -103,36 +103,36 @@ var start = senderId => {
           type: "web_url",
           url:
             "https://www.facebook.com/fbcameraeffects/tryit/1855012714531905/",
-          title: "Try Barcelona"
+          title: "Try Russia Mask"
         },
         {
           type: "web_url",
           url:
             "https://www.facebook.com/fbcameraeffects/tryit/377121839428051/",
-          title: " Try Sevilla"
+          title: " Try Arabia Saudita"
         }
       ];
       let title = "Wear your team colors!";
       Message.listButtons(senderId, title, buttons).then(() => {
         //  Message.getLocation(senderId, 'Check out these games for your team');
 
-        BarcelonaRomaButtons(senderId);
+        RussiaArabiaButtons(senderId);
       });
     }
   });
 };
 
-var BarcelonaRomaButtons = senderId => {
+var RussiaArabiaButtons = senderId => {
   var replies = [
     {
       content_type: "text",
-      title: "Barcelona",
-      payload: "BARCELONA"
+      title: "Russia",
+      payload: "RUSSIA"
     },
     {
       content_type: "text",
-      title: "Sevilla",
-      payload: "SEVILLA"
+      title: "Arabia",
+      payload: "ARABIA"
     }
   ];
   Message.quickReply(
@@ -194,6 +194,6 @@ var startChicas = (senderId) => {
 */
 
 module.exports = {
-   startBarVsSevillaFrame
+   startRuAsFrame
 
 };

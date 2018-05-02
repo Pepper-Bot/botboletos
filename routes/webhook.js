@@ -849,6 +849,20 @@ var processQuickReplaySanValentin = (senderId, payload) => {
   sanvalentinModule.sendMessageAndChoiceImage(senderId, payload);
 };
 
+/** Process buttons in russiaArabia_frame.js 04/30/18
+ *
+ * @param {*} senderId FaceBook user ID
+ * @param {*} payload payload en el quick replay
+ * @description Función para evaluar un quick replay
+ *
+ */
+var processQuickReplayRussiaArabia = (senderId, payload) => {
+  console.log("Russia vs Arab voting Module " + payload);
+  Message.markSeen(senderId);
+  var RuAsFrameModule = require("../modules/tevo/russia2018/russiaArabia_frame");
+  RuAsFrameModule.sendMessageAndChoiceImage(senderId, payload);
+};
+
 /**
  *
  * @param {*} senderId FaceBook user ID
@@ -968,6 +982,22 @@ function processQuickReplies(event) {
         startTevoModuleWithMlink("Barcelona", senderId);
       }
       break;
+      
+    case "RUSSIA":
+      {
+        console.log("entré al equipo Russia");
+        startTevoModuleWithMlink("FIFA World Cup Soccer", senderId);//Call for tickets search by name
+      }
+      break;
+
+    case "ARABIA":
+      {
+        console.log("entré al equipo Arabia Saudita");
+        startTevoModuleWithMlink("FIFA World Cup Soccer", senderId);//Call for tickets search by name
+      }
+      break;
+
+
     case "CHELSEA":
       {
         console.log("entré al chelsea");
@@ -2916,7 +2946,7 @@ var startBarVsSevillaFrame = (senderId, referral) => {
  *
  */
 var startRuAsFrame = (senderId, referral) => {
-  var RuAsFrameModule = require("../modules/tevo/russia2018/barcelonaSevilla_frame.js");
+  var RuAsFrameModule = require("../modules/tevo/russia2018/russiaArabia_frame");
   RuAsFrameModule.startRuAsFrame(senderId, referral);
 };
 
