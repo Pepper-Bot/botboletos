@@ -102,17 +102,17 @@ var start = senderId => {
         {
           type: "web_url",
           url:
-            "https://www.facebook.com/fbcameraeffects/tryit/1855012714531905/",
+            "www.facebook.com/fbcameraeffects/tryit/1035515946617469/",
           title: "Try Russia Mask"
         },
         {
           type: "web_url",
           url:
-            "https://www.facebook.com/fbcameraeffects/tryit/377121839428051/",
-          title: " Try Arabia Saudita"
+            "www.facebook.com/fbcameraeffects/tryit/865056913666580/",
+          title: " Try Saudi Mask"
         }
       ];
-      let title = "Wear your team colors!";
+      let title = "Wear your country colors!";
       Message.listButtons(senderId, title, buttons).then(() => {
         //  Message.getLocation(senderId, 'Check out these games for your team');
 
@@ -137,7 +137,7 @@ var RussiaArabiaButtons = senderId => {
   ];
   Message.quickReply(
     senderId,
-    "Get game tickets for your team. Choose a team: ",
+    "Don't miss the opening game or your country's Debut game: ",
     replies
   );
 };
