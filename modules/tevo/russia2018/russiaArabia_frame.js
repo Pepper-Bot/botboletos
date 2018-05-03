@@ -137,7 +137,7 @@ var RussiaArabiaButtons = senderId => {
   ];
   Message.quickReply(
     senderId,
-    "Don't miss the opening game or your country's Debut game: ",
+    "Don't miss the opening game or your country's debut game:",
     replies
   );
 };
