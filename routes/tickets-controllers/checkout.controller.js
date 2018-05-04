@@ -7,6 +7,8 @@ var P_CLIENT_SECRET = require('../../config/config_vars').P_CLIENT_SECRET;
 var P_MODE = require('../../config/config_vars').P_MODE;
 var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 
+
+const dashbot = require("dashbot")("CJl7GFGWbmStQyF8dYjR6WxIBPwrcjaIWq057IOO").facebook; //new
 var moment = require('moment');
 
 var tevo = require('../../config/config_vars').tevo;
@@ -88,6 +90,21 @@ var checkout = (req, res) => {
         var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false'
         tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
             req.session.format_type = ticketG.format
+
+
+            let dashBotEvent = {
+                type: 'customEvent',
+                name: 'view check out details',
+                userId: fbId,
+                extraInfo: {
+                     eventId: event_id,
+                     groupticket_id: params.groupticket_id,
+                     event_date :   moment(event_date).format('MMMM Do YYYY, h:mm a'),
+                }
+             }
+
+             dashbot.logEvent( dashBotEvent   );
+
             res.render(
                 './layouts/tickets/checkout', {
                     titulo: "Your tickets are on its way!",
@@ -103,6 +120,7 @@ var checkout = (req, res) => {
                     row: params.row,
                     quantity: params.userticketsquantity,
                     price: params.priceticket,
+                    wholesale_price:  params.wholesale_price,
                     total: totals,
                     format: params.format,
                     noeticket: noeticket,

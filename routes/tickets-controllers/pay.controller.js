@@ -19,7 +19,7 @@ var tevoClient = new TevoClient({
     apiSecretKey: tevo.API_SECRET_KEY
 });
 
-
+ 
 
 
 /* GET home page. */
@@ -50,7 +50,7 @@ var init_pay = function (req, res) {
         default:
             {
                 console.log('Método de pago desconocido. Revisar el payment_type')
-                 res.send( {message: "Método de pago desconocido. payment_type"})
+                res.send( {message: "Método de pago desconocido. payment_type"})
             }
             break;
     }
@@ -361,10 +361,11 @@ var pay_with_pp = (req, res) => {
             req.session.address_id = address_id
             req.session.client_id = client_id
 
+            console.log( "client_id ", client_id);
             var dataShip = {
                 "ticket_group_id": req.body.groupticket_id,
-                //"address_id": address_id,
-                "address_attributes": direccionEnvio
+                "address_id": address_id//,
+                //"address_attributes": direccionEnvio
             };
             console.log("dataShip de tevo >>" + JSON.stringify(dataShip));
             tevoClient.postJSON(tevo.API_URL + 'shipments/suggestion', dataShip).then((shipping) => {
@@ -650,10 +651,11 @@ var pay_with_cc1 = (req, res) => {
 
 
                 ////////////////shipping cc pay_with_cc1///////////////
+                console.log( "client_id ", client_id);
                 var dataShip = {
                     "ticket_group_id": req.body.groupticket_id,
-                    //"address_id": address_id,
-                    "address_attributes": direccionEnvio
+                    "address_id": address_id//,
+                    //"address_attributes": direccionEnvio
                 };
                 console.log("dataShip de tevo >>" + JSON.stringify(dataShip));
                 tevoClient.postJSON(tevo.API_URL + 'shipments/suggestion', dataShip).then((shipping) => {
@@ -831,8 +833,8 @@ var pay_with_cc = (req, res) => {
                 var address_id = result.address_id[result.address_id.length - 1];
                 var dataShip = {
                     "ticket_group_id": req.body.groupticket_id,
-                    "address_id": address_id,
-                    "address_attributes": direccionEnvio
+                    "address_id": address_id//,
+                    //"address_attributes": direccionEnvio
                 };
 
                 console.log('Datos enviados:' + JSON.stringify(dataShip));

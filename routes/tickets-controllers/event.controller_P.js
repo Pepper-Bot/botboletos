@@ -8,9 +8,6 @@ var tevo = require('../../config/config_vars').tevo;
 var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_DOMAIN;
 var only_with = require('../../config/config_vars').only_with;
 
-const dashbot = require("dashbot")("CJl7GFGWbmStQyF8dYjR6WxIBPwrcjaIWq057IOO").facebook; //new
-
-
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
 var tevoClient = new TevoClient({
@@ -61,24 +58,12 @@ var render_events = (req, res) => {
                     }
 
 
-                    let dashBotEvent = {
-                       type: 'customEvent',
-                       name: 'view events details',
-                       userId: req.query.uid,
-                       extraInfo: {
-                            eventId: req.query.event_id,
-                            event_name :  event_name,
-                       }
-                    }
 
-                    dashbot.logEvent( dashBotEvent   );
+                    gis(event_name, function (err, images) {
 
-                    // gis(event_name, function (err, images) {
-                    getGoogleImage(event_name).then((images) => {
                         res.render(
                             './layouts/tickets/event', {
                                 titulo: "Book",
-                                book:true,
                                 APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
                                 events: events,
                                 uid: req.query.uid,
@@ -167,24 +152,21 @@ var getGoogleImage = (search, matriz = []) => {
                 reject(error);
             } else {
                 console.log("Imagenes gis Respuesta >>> " + results.length);
-                // console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
-                //resolve(results, matriz);
-                var results1 = [];
-                for (let i = 0; i < results.length; i++) {
+                console.log("Imagenes gis Respuesta >>> " + JSON.stringify(results));
+                resolve(results, matriz);
+                /*for (let i = 0; i < results.length; i++) {
 
                     if (results[i].width / results[i].height >= 1.91 && results[i].width / results[i].height <= 2 && results[i].height > 300) {
-
-                        results1.push(results[i])
-
-                        resolve(results1, matriz);
+                         var results1 = [];
+                          results1.push(results[i] )
+                         
+                         
                     }
 
                     if (i + 1 == results.length) {
                         resolve(results, matriz);
                     }
-
-
-                }
+                }*/
 
             }
         }

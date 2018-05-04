@@ -16,7 +16,7 @@ var tevoClient = new TevoClient({
 	apiSecretKey: tevo.API_SECRET_KEY
 });
 
-
+const dashbot = require("dashbot")("CJl7GFGWbmStQyF8dYjR6WxIBPwrcjaIWq057IOO").facebook; //new
 
 router.get('/', function (req, res) {
 
@@ -41,7 +41,7 @@ router.get('/', function (req, res) {
 		return;
 	}
 
-	var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false&' + format_tickets
+	var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false&' + format_tickets+ '&type=event'
 	console.log('Groups url api tevo>>>>>>>' + searchTicketGroupByEventId);
 	tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
 
@@ -58,6 +58,22 @@ router.get('/', function (req, res) {
 					occurs_at = moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
 					//console.log("EVENT<<<  : >>> " + JSON.stringify(event));
+
+
+
+					
+                    let dashBotEvent = {
+						type: 'customEvent',
+						name: 'view ticket group details',
+						userId: req.query.uid,
+						extraInfo: {
+							 eventId: event_id,
+							 ticketGroups :  ticketGroups,
+						}
+					 }
+ 
+					 dashbot.logEvent( dashBotEvent);
+
 					res.render(
 						'./layouts/tickets/ticketgroup', {
 							titulo: "Select your tickets",

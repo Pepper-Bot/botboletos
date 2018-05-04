@@ -141,7 +141,7 @@
 
  				tevoClient.postJSON(createOrder, orderData).then((OrderRes) => {
  					if (OrderRes.error != undefined) {
- 						res.send('<b>' + OrderRes.error + '</b>');
+ 						res.send('<b>Error Order:' + OrderRes.error + '</b>');
  						res.end();
  						return;
  					}
@@ -178,6 +178,8 @@
  					sendEmailSenGrid(req, res, clienteSearch, OrderRes)
 
  					//req.session.destroy();
+
+ 
 
  					res.render(
  						'./layouts/tickets/finish', {
