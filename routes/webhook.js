@@ -2577,41 +2577,7 @@ function chooseReferral(referral, senderId) {
           startSanValentin(senderId, referral);
         }
         break;
-      // MOTHERS DAY IN VEGAS  MAY 7 2018
-      case "LAS_VEGAS":
-        {
-          let searchTevoParameters = {
-            city: "Las Vegas"
-          };
-          user_queries
-            .createUpdateUserDatas(
-              senderId,
-              "",
-              "SAN_VALENTIN",
-              "",
-              "",
-              "",
-              "",
-              0,
-              0,
-              "",
-              "",
-              "",
-              "",
-              "Las Vegas Events",
-              "",
-              "",
-              "",
-              "",
-              0,
-              0,
-              {},
-              searchTevoParameters
-            )
-            .then(() => {});
-          startSanValentin(senderId, referral);
-        }
-        break; // MOTHERS DAY ENDS 
+      
 
       case "CHAMPIONS_LEAGUE": // Here we create the new CASE w new Me Link name 02/27/18
         {
@@ -2887,7 +2853,7 @@ var startSuperBowl = (senderId, referral) => {
   superBowlModule.startSuperBowl(senderId, referral);
 };
 
-/**
+/** MODIFIED FOR MOTHERS DAY MAY 7TH 2018
  *
  * @param {*} senderId FaceBook User Id
  * @param {*} referral Variable ref que se encia con el vinculo del bot
@@ -2934,6 +2900,8 @@ var startSanValentin = (senderId, referral) => {
   var sanValentinModule = require("../modules/tevo/san_valentin/san_valentin");
   sanValentinModule.startSanValentin(senderId, referral);
 };
+
+
 
 /**
  *

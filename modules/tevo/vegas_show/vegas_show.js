@@ -109,41 +109,17 @@ var sendTemplate = (senderId, message = "") => {
 
 
     var boletos = [{
-            "titulo": "Vegas! The Show",
-            "imagen": URLAplication + "images/vegas_show/vegas_the_show.jpg",
-            "subtitulo": "",
-            "url": mlink + "Vegas! The Show"
+        "titulo": "Cher",
+        "imagen": URLAplication + "images/vegas_show/cher.jpg",
+        "subtitulo": "",
+        "url": mlink + "Cher"
         },
+        
         {
-            "titulo": " Cirque Du Soleil: Love (The Beatles)",
-            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_love_the_beatles.jpg",
-            "subtitulo": "",
-            "url": mlink + " Cirque Du Soleil: Love (The Beatles)"
-        },
-        {
-            "titulo": "Celine Dion",
-            "imagen": URLAplication + "images/vegas_show/celine_dion.jpg",
-            "subtitulo": "",
-            "url": mlink + "Celine Dion"
-
-        },
-        {
-            "titulo": "Cirque Du Soleil: Michael Jackson ONE",
-            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_michael_jackson_one.jpg",
-            "subtitulo": "",
-            "url": mlink + "Cirque Du Soleil: Michael Jackson ONE"
-        },
-        {
-            "titulo": "Paranormal - The Mindreading Magic Show",
-            "imagen": URLAplication + "images/vegas_show/paranormal_the_mindreading_magic_show.jpg",
-            "subtitulo": "",
-            "url": mlink + "Paranormal - The Mindreading Magic Show"
-        },
-        {
-            "titulo": "Cirque Du Soleil: O",
-            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_o.jpg",
-            "subtitulo": "",
-            "url": mlink + "Vegas! The Show"
+        "titulo": "Elton John",
+        "imagen": URLAplication + "images/vegas_show/elton.png",
+        "subtitulo": "",
+        "url": mlink + "Elton John"
         },
         {
             "titulo": "Cirque Du Soleil: KA",
@@ -151,12 +127,57 @@ var sendTemplate = (senderId, message = "") => {
             "subtitulo": "",
             "url": mlink + "Cirque Du Soleil: KA"
         },
+        
         {
-            "titulo": "Cher",
-            "imagen": URLAplication + "images/vegas_show/cher.jpg",
+            "titulo": "Cirque Du Soleil: O",
+            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_o.jpg",
             "subtitulo": "",
-            "url": mlink + "Cher"
+            "url": mlink + "Vegas! The Show"
         },
+
+        {
+            "titulo": "Menopause The Musical",
+            "imagen": URLAplication + "images/vegas_show/menopause.png",
+            "subtitulo": "",
+            "url": mlink + "Menopause The Musical"
+
+        },
+        {
+            "titulo": " Cirque Du Soleil: Love (The Beatles)",
+            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_love_the_beatles.jpg",
+            "subtitulo": "",
+            "url": mlink + " Cirque Du Soleil: Love (The Beatles)"
+        },
+
+        {
+            "titulo": "David Copperfield",
+            "imagen": URLAplication + "images/vegas_show/copperfield.png",
+            "subtitulo": "",
+            "url": mlink + "David Copperfield"
+        },
+
+        {
+            "titulo": "V - The Ultimate Variety Show",
+            "imagen": URLAplication + "images/vegas_show/vegas_the_show.jpg",
+            "subtitulo": "",
+            "url": mlink + "V - The Ultimate Variety Show"
+        },
+        
+        {
+            "titulo": "Vegas! The Show",
+            "imagen": URLAplication + "images/vegas_show/vegas_the_show.jpg",
+            "subtitulo": "",
+            "url": mlink + "Vegas! The Show"
+        },
+       
+       
+        {
+            "titulo": "Cirque Du Soleil: Michael Jackson ONE",
+            "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_michael_jackson_one.jpg",
+            "subtitulo": "",
+            "url": mlink + "Cirque Du Soleil: Michael Jackson ONE"
+        },
+       
         {
             "titulo": "Jennifer Lopez",
             "imagen": URLAplication + "images/vegas_show/jennifer_lopez.jpg",
@@ -164,14 +185,17 @@ var sendTemplate = (senderId, message = "") => {
             "url": mlink + "Jennifer Lopez"
 
         },
+
+        {
+            "titulo": "Legends in Concert",
+            "imagen": URLAplication + "images/vegas_show/legends.png",
+            "subtitulo": "",
+            "url": mlink + "Legends in Concert"
+
+        },
       
        
-        {
-            "titulo": "Ricky Martin",
-            "imagen": URLAplication + "images/vegas_show/ricky_martin.jpg",
-            "subtitulo": "",
-            "url": mlink + "Ricky Martin"
-        },
+       
 
        
 
