@@ -109,6 +109,13 @@ var sendTemplate = (senderId, message = "") => {
 
 
     var boletos = [{
+        "titulo": "Elton John",
+        "imagen": URLAplication + "images/vegas_show/elton.png",
+        "subtitulo": "",
+        "url": mlink + "Elton John"
+        },
+        
+        {
             "titulo": "Vegas! The Show",
             "imagen": URLAplication + "images/vegas_show/vegas_the_show.jpg",
             "subtitulo": "",
