@@ -109,12 +109,12 @@ var sendTemplate = (senderId, message = "") => {
       subtitulo: "",
       url: mlink + "Elton John"
     },
-    {
+    /*{
       titulo: "Vegas! The Show",
       imagen: URLAplication + "images/vegas_show/vegas_the_show.jpg",
       subtitulo: "",
       url: mlink + "Vegas! The Show"
-    },
+    },*/
     {
       titulo: " Cirque Du Soleil: Love (The Beatles)",
       imagen:
