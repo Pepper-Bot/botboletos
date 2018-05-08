@@ -132,7 +132,7 @@ var sendTemplate = (senderId, message = "") => {
             "titulo": "Cirque Du Soleil: O",
             "imagen": URLAplication + "images/vegas_show/cirque_du_soleil_o.jpg",
             "subtitulo": "",
-            "url": mlink + "Vegas! The Show"
+            "url": mlink + "Cirque Du Soleil: O"
         },
 
         {
