@@ -2577,6 +2577,42 @@ function chooseReferral(referral, senderId) {
           startSanValentin(senderId, referral);
         }
         break;
+      // MOTHERS DAY IN VEGAS  MAY 7 2018
+      case "LAS_VEGAS":
+        {
+          let searchTevoParameters = {
+            city: "Las Vegas"
+          };
+          user_queries
+            .createUpdateUserDatas(
+              senderId,
+              "",
+              "SAN_VALENTIN",
+              "",
+              "",
+              "",
+              "",
+              0,
+              0,
+              "",
+              "",
+              "",
+              "",
+              "Las Vegas Events",
+              "",
+              "",
+              "",
+              "",
+              0,
+              0,
+              {},
+              searchTevoParameters
+            )
+            .then(() => {});
+          startSanValentin(senderId, referral);
+        }
+        break; // MOTHERS DAY ENDS 
+
       case "CHAMPIONS_LEAGUE": // Here we create the new CASE w new Me Link name 02/27/18
         {
           startChampionsLeagueFrame(senderId, referral); //We create a new variable
