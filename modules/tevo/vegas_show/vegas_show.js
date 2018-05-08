@@ -112,7 +112,7 @@ var sendTemplate = (senderId, message = "") => {
         "titulo": "Elton John",
         "imagen": URLAplication + "images/vegas_show/elton.png",
         "subtitulo": "",
-        "url": mlink + "Elton John"
+        "url": mlink + "Vegas! The Show"
         },
         {
             "titulo": "Vegas! The Show",
