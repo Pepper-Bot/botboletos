@@ -103,12 +103,12 @@ var sendTemplate = (senderId, message = "") => {
   //configuramos los boletos
 
   var boletos = [
-    /*{
-        "titulo": "Elton John",
-        "imagen": URLAplication + "images/vegas_show/elton.png",
-        "subtitulo": "",
-        "url": mlink + "Elton John"
-        },*/
+    {
+      titulo: "Elton John",
+      imagen: URLAplication + "images/vegas_show/elton.png",
+      subtitulo: "",
+      url: mlink + "Elton John"
+    },
 
     {
       titulo: "Vegas! The Show",
