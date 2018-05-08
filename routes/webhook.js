@@ -849,20 +849,6 @@ var processQuickReplaySanValentin = (senderId, payload) => {
   sanvalentinModule.sendMessageAndChoiceImage(senderId, payload);
 };
 
-/** Process buttons in russiaArabia_frame.js 04/30/18
- *
- * @param {*} senderId FaceBook user ID
- * @param {*} payload payload en el quick replay
- * @description Función para evaluar un quick replay
- *
- */
-var processQuickReplayRussiaArabia = (senderId, payload) => {
-  console.log("Russia vs Arab voting Module " + payload);
-  Message.markSeen(senderId);
-  var RuAsFrameModule = require("../modules/tevo/russia2018/russiaArabia_frame");
-  RuAsFrameModule.sendMessageAndChoiceImage(senderId, payload);
-};
-
 /**
  *
  * @param {*} senderId FaceBook user ID
@@ -998,6 +984,7 @@ function processQuickReplies(event) {
       break;
 
 
+      
     case "CHELSEA":
       {
         console.log("entré al chelsea");
@@ -2577,8 +2564,6 @@ function chooseReferral(referral, senderId) {
           startSanValentin(senderId, referral);
         }
         break;
-      
-
       case "CHAMPIONS_LEAGUE": // Here we create the new CASE w new Me Link name 02/27/18
         {
           startChampionsLeagueFrame(senderId, referral); //We create a new variable
@@ -2633,15 +2618,14 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
-        case "RU_AS_WCFRAME": // Here we create the new CASE w new Me Link name on 04/11/18
+      case "RU_AS_WCFRAME": // Here we create the new CASE w new Me Link name on 04/11/18
         {
           startRuAsFrame(senderId, referral); //We create a new variable
         }
         break;  
 
-        
 
-      case "BAR_v_CHE_FRAME": // Here we create the new CASE w new Me Link name on 02/28/18
+      case "BAR_v_CHE_FRAME": // Here we create the new CASEame on 02/28/18 w new Me Link n
         {
           startBarVsCheFrame(senderId, referral); //We create a new variable
         }
@@ -2853,7 +2837,7 @@ var startSuperBowl = (senderId, referral) => {
   superBowlModule.startSuperBowl(senderId, referral);
 };
 
-/** MODIFIED FOR MOTHERS DAY MAY 7TH 2018
+/**
  *
  * @param {*} senderId FaceBook User Id
  * @param {*} referral Variable ref que se encia con el vinculo del bot
@@ -2900,8 +2884,6 @@ var startSanValentin = (senderId, referral) => {
   var sanValentinModule = require("../modules/tevo/san_valentin/san_valentin");
   sanValentinModule.startSanValentin(senderId, referral);
 };
-
-
 
 /**
  *
