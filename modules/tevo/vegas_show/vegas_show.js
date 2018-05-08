@@ -105,11 +105,10 @@ var sendTemplate = (senderId, message = "") => {
   var boletos = [
     {
       titulo: "Elton John",
-      imagen: URLAplication + "images/vegas_show/elton.png",
+      imagen: URLAplication + "images/vegas_show/elton_jhon.jpg",
       subtitulo: "",
       url: mlink + "Elton John"
     },
-
     {
       titulo: "Vegas! The Show",
       imagen: URLAplication + "images/vegas_show/vegas_the_show.jpg",
@@ -170,7 +169,6 @@ var sendTemplate = (senderId, message = "") => {
       subtitulo: "",
       url: mlink + "Jennifer Lopez"
     },
-
     {
       titulo: "Ricky Martin",
       imagen: URLAplication + "images/vegas_show/ricky_martin.jpg",
