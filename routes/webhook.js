@@ -2969,7 +2969,7 @@ var startPortugalSpainFrame = (senderId, referral) => {
  *
  */
 var startFranceAustraliaFrame = (senderId, referral) => {
-  var FranceAustraliaFrameModule = require("../modules/tevo/russia2018/portugalSpain_frame");
+  var FranceAustraliaFrameModule = require("../modules/tevo/russia2018/franceAustralia_frame");
   FranceAustraliaFrameModule.startFranceAustraliaFrame(senderId, referral);
 };
 
