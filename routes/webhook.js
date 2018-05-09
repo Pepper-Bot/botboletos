@@ -2634,7 +2634,15 @@ function chooseReferral(referral, senderId) {
         {
           startFranceAustraliaFrame(senderId, referral); //We create a new variable
         }
-        break; 
+        break;
+
+      case "ARGENTINA_ICELAND_FRAME": // Here we create the new CASE w new Me Link name on 05/9/18
+        {
+          startArgentinaIcelandFrame(senderId, referral); //We create a new variable
+        }
+        break;  
+        
+        
 
 
       case "BAR_v_CHE_FRAME": // Here we create the new CASEame on 02/28/18 w new Me Link n
@@ -2971,6 +2979,19 @@ var startPortugalSpainFrame = (senderId, referral) => {
 var startFranceAustraliaFrame = (senderId, referral) => {
   var FranceAustraliaFrameModule = require("../modules/tevo/russia2018/franceAustralia_frame");
   FranceAustraliaFrameModule.startFranceAustraliaFrame(senderId, referral);
+};
+
+// Created May 9 - Argentina vs Iceland Game 7 in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startArgentinaIcelandFrame = (senderId, referral) => {
+  var ArgentinaIcelandFrameModule = require("../modules/tevo/russia2018/argentinaIceland_frame");
+  ArgentinaIcelandFrameModule.startArgentinaIcelandFrame(senderId, referral);
 };
 
 
