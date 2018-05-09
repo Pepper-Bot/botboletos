@@ -2624,11 +2624,17 @@ function chooseReferral(referral, senderId) {
         }
         break;  
 
-        case "PORTUGAL_SPAIN_FRAME": // Here we create the new CASE w new Me Link name on 05/8/18
+      case "PORTUGAL_SPAIN_FRAME": // Here we create the new CASE w new Me Link name on 05/8/18
         {
           startPortugalSpainFrame(senderId, referral); //We create a new variable
         }
-        break;   
+        break;
+        
+      case "FRANCE_AUSTRALIA_FRAME": // Here we create the new CASE w new Me Link name on 05/8/18
+        {
+          startFranceAustraliaFrame(senderId, referral); //We create a new variable
+        }
+        break; 
 
 
       case "BAR_v_CHE_FRAME": // Here we create the new CASEame on 02/28/18 w new Me Link n
@@ -2941,7 +2947,7 @@ var startRuAsFrame = (senderId, referral) => {
   var RuAsFrameModule = require("../modules/tevo/russia2018/russiaArabia_frame");
   RuAsFrameModule.startRuAsFrame(senderId, referral);
 };
-// Created May 1 - Russia vs Arabia Saudita Game 1 in the World Cup
+// Created May 8 - Portugal vs Spain Game 3 in the World Cup
 /**
  *
  * @param {*} senderId FaceBook User Id
@@ -2952,6 +2958,19 @@ var startRuAsFrame = (senderId, referral) => {
 var startPortugalSpainFrame = (senderId, referral) => {
   var PortugalSpainFrameModule = require("../modules/tevo/russia2018/portugalSpain_frame");
   PortugalSpainFrameModule.startPortugalSpainFrame(senderId, referral);
+};
+
+// Created May 8 - France vs Australia Game 5 in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startFranceAustraliaFrame = (senderId, referral) => {
+  var FranceAustraliaFrameModule = require("../modules/tevo/russia2018/portugalSpain_frame");
+  FranceAustraliaFrameModule.startFranceAustraliaFrame(senderId, referral);
 };
 
 
