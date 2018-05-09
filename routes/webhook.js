@@ -2641,9 +2641,13 @@ function chooseReferral(referral, senderId) {
           startArgentinaIcelandFrame(senderId, referral); //We create a new variable
         }
         break;  
+      
+        case "GERMANY_MEXICO_FRAME": // Here we create the new CASE w new Me Link name on 05/9/18
+        {
+          startGermanyMexicoFrame(senderId, referral); //We create a new variable
+        }
+        break;   
         
-        
-
 
       case "BAR_v_CHE_FRAME": // Here we create the new CASEame on 02/28/18 w new Me Link n
         {
@@ -2992,6 +2996,19 @@ var startFranceAustraliaFrame = (senderId, referral) => {
 var startArgentinaIcelandFrame = (senderId, referral) => {
   var ArgentinaIcelandFrameModule = require("../modules/tevo/russia2018/argentinaIceland_frame");
   ArgentinaIcelandFrameModule.startArgentinaIcelandFrame(senderId, referral);
+};
+
+// Created May 9 - Germany vs Mexico Game 11 in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startGermanyMexicoFrame = (senderId, referral) => {
+  var GermanyMexicoFrameModule = require("../modules/tevo/russia2018/germanyMexico_frame");
+  GermanyMexicoFrameModule.startGermanyMexicoFrame(senderId, referral);
 };
 
 
