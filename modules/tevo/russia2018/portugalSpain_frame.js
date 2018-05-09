@@ -194,6 +194,6 @@ var startChicas = (senderId) => {
 */
 
 module.exports = {
-   startRuAsFrame
+  startPortugalSpainFrame
 
 };
