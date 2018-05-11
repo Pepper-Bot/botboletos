@@ -17,7 +17,7 @@ var UserData2 = require("../../../schemas/userinfo");
 var Message = require("../../../bot/messages");
 var user_queries = require("../../../schemas/queries/user_queries");
 // Request the users ID from DB API
-var startFranceAustraliaFrame = (senderId, referral) => {
+var startBrazilSwitzFrame = (senderId, referral) => {
   UserData2.findOne(
     {
       fbId: senderId
