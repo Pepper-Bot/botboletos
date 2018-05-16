@@ -999,6 +999,13 @@ function processQuickReplies(event) {
       }
       break;
 
+    case "UEFA Champions League Final": // UEFA CHAMPIONS LEAGUE FINAL MAY 16 2018
+      {
+        console.log("entré al UEFA Champions");
+        startTevoModuleWithMlink("UEFA Champions League Final", senderId);
+      }
+      break;
+
     case "PARIS_SAINT_GERMAN":
       {
         console.log("entré a Paris Saint-German FC");
@@ -2618,6 +2625,12 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
+      case "REALMADRID_v_LIV_FRAME": // Here we create the new CASE w new Me Link name on 05/16/18
+        {
+          startRealMadridLivFrame(senderId, referral); //We create a new variable
+        }
+        break;  
+
       case "RU_AS_WCFRAME": // Here we create the new CASE w new Me Link name on 04/11/18
         {
           startRuAsFrame(senderId, referral); //We create a new variable
@@ -2951,6 +2964,19 @@ var startBarVsCheFrame = (senderId, referral) => {
 var startBarVsSevillaFrame = (senderId, referral) => {
   var BarVsSevillaFrameModule = require("../modules/tevo/champions/barcelonaSevilla_frame.js");
   BarVsSevillaFrameModule.startBarVsSevillaFrame(senderId, referral);
+};
+
+// Created May 16
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startRealMadridLivFrame = (senderId, referral) => {
+  var RealMadridVsLivFrameModule = require("../modules/tevo/champions/realMadridLiv_frame.js");
+  RealMadridVsLivFrameModule.startRealMadridLivFrame(senderId, referral);
 };
 
 // Created May 1 - Russia vs Arabia Saudita Game 1 in the World Cup
