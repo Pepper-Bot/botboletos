@@ -2660,6 +2660,13 @@ function chooseReferral(referral, senderId) {
           startGermanyMexicoFrame(senderId, referral); //We create a new variable
         }
         break;  
+
+      case "ENGLAND_TUN_FRAME": // Here we create the new CASE w new Me Link name on 05/18/18
+        {
+          startEnglandTunFrame(senderId, referral); //We create a new variable
+        }
+        break;  
+      
         
       case "BRAZIL_SWITZ_FRAME": // Here we create the new CASE w new Me Link name on 05/9/18
         {
@@ -3042,6 +3049,20 @@ var startGermanyMexicoFrame = (senderId, referral) => {
   var GermanyMexicoFrameModule = require("../modules/tevo/russia2018/germanyMexico_frame");
   GermanyMexicoFrameModule.startGermanyMexicoFrame(senderId, referral);
 };
+
+// Created May 18 - England vs Tunisia Game 14 in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startEnglandTunFrame = (senderId, referral) => {
+  var EnglandTunFrameModule = require("../modules/tevo/russia2018/englandTun_frame");
+  EnglandTunFrameModule.startEnglandTunFrame(senderId, referral);
+};
+
 
 // Created May 10 - Brazil - Switzerland Game 11 in the World Cup
 /**
