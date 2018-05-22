@@ -3078,7 +3078,7 @@ var startEnglandTunFrame = (senderId, referral) => {
  *
  */
 var startColombiaJapFrame = (senderId, referral) => {
-  var ColombiaJapFrameModule = require("../modules/tevo/russia2018/englandTun_frame");
+  var ColombiaJapFrameModule = require("../modules/tevo/russia2018/colombiaJap_frame");
   ColombiaJapFxrameModule.startColombiaJapFrame(senderId, referral);
 };
 
