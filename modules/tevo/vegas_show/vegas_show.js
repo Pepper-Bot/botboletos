@@ -104,22 +104,22 @@ var sendTemplate = (senderId, message = "") => {
 
   var boletos = [
     {
-      titulo: "Elton John",
-      imagen: URLAplication + "images/vegas_show/elton.png",
+      titulo: "Blue Man Group",
+      imagen: URLAplication + "images/vegas_show/blue.png",
       subtitulo: "",
-      url: mlink + "Elton John"
+      url: mlink + "Blue Man Group"
     }, 
     {
-      titulo: "Cher",
-      imagen: URLAplication + "images/vegas_show/cher.jpg",
+      titulo: "Michael Jackson One",
+      imagen: URLAplication + "images/vegas_show/michael_jackson.png",
       subtitulo: "",
-      url: mlink + "Cher"
+      url: mlink + "Michael Jackson One"
     },
     {
       titulo: "Cirque Du Soleil: O",
       imagen: URLAplication + "images/vegas_show/cirque_du_soleil_o.jpg",
       subtitulo: "",
-      url: mlink + "Vegas! The Show"
+      url: mlink + "Cirque Du Soleil: O"
     },
     {
       titulo: "Cirque Du Soleil: KA",
@@ -128,10 +128,10 @@ var sendTemplate = (senderId, message = "") => {
       url: mlink + "Cirque Du Soleil: KA"
     }, 
     {
-      titulo: "Menopause The Musical",
-      imagen: URLAplication + "images/vegas_show/menopause.png",
+      titulo: "Nathan Burton Comedy Magic",
+      imagen: URLAplication + "images/vegas_show/nathan_burton.png",
       subtitulo: "",
-      url: mlink + "Menopause The Musical"
+      url: mlink + "Nathan Burton Comedy Magic"
     },
 
     {
