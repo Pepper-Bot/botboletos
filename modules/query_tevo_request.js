@@ -13,16 +13,17 @@ var google = require("../config/config_vars").google;
 var only_with = require("../config/config_vars").only_with;
 var user_queries = require("../schemas/queries/user_queries");
 var eventsQueries = require("../schemas/queries/events.queries");
-module.exports = (function() {
+module.exports = (function () {
   return {
-    start: function(
+    start: function (
       senderId,
       urlApiTevo,
       position = 0,
       messageTitle = "",
       userPreferences = {},
       query = {},
-      track_artist = false
+      track_artist = false,
+      action
     ) {
       var tevoClient = new TevoClient({
         apiToken: tevo.API_TOKEN,
@@ -47,9 +48,9 @@ module.exports = (function() {
 
                 console.log(
                   "TENEMOS  " +
-                    json.events.length +
-                    " EVENTOS <<<<<<<<<<<POSITION > " +
-                    position
+                  json.events.length +
+                  " EVENTOS <<<<<<<<<<<POSITION > " +
+                  position
                 );
                 var resultEvent = [];
                 resultEvent = json.events;
@@ -60,21 +61,18 @@ module.exports = (function() {
                 if (resultEvent.length > 9 * (position - 1)) {
                   if (position * 9 > resultEvent.length - 9) {
                     position = 0;
-                    UserData2.findOne(
-                      {
+                    UserData2.findOne({
                         fbId: senderId
-                      },
-                      {},
-                      {
+                      }, {}, {
                         sort: {
                           sessionStart: -1
                         }
                       },
-                      function(err, foundUser) {
+                      function (err, foundUser) {
                         if (!err) {
                           if (null != foundUser) {
                             foundUser.showMemore.index1 = 0;
-                            foundUser.save(function(err) {
+                            foundUser.save(function (err) {
                               if (!err) {
                                 console.log("index1 en cero");
                               } else {
@@ -101,17 +99,17 @@ module.exports = (function() {
 
                 console.log(
                   "TENEMOS  " +
-                    resultEvent.length +
-                    " EVENTOS LUEGO DE RECORTARLOS    <<<<<<<<<<<<<<<<<<<<<<<<<<"
+                  resultEvent.length +
+                  " EVENTOS LUEGO DE RECORTARLOS    <<<<<<<<<<<<<<<<<<<<<<<<<<"
                 );
 
                 for (var j = 0, c = resultEvent.length; j < c; j++) {
                   console.log(
                     "EVENTO " +
-                      j +
-                      "--" +
-                      resultEvent[j].id +
-                      ">>>>>>>>>>>>>>>>"
+                    j +
+                    "--" +
+                    resultEvent[j].id +
+                    ">>>>>>>>>>>>>>>>"
                   );
 
                   var occurs_at = resultEvent[j].occurs_at;
@@ -127,16 +125,14 @@ module.exports = (function() {
                     title: resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                     performer: resultEvent[j].performances[0].performer.name,
                     image_url: resultEvent[j].category.name,
-                    subtitle:
-                      resultEvent[j].venue.name +
+                    subtitle: resultEvent[j].venue.name +
                       " " +
                       resultEvent[j].venue.location +
                       " " +
                       occurs_at,
                     default_action: {
                       type: "web_url",
-                      url:
-                        baseURL +
+                      url: baseURL +
                         resultEvent[j].id +
                         "&uid=" +
                         senderId +
@@ -151,13 +147,11 @@ module.exports = (function() {
                       webview_height_ratio: "full"
                       //"fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
                     },
-                    buttons: [
-                      {
+                    buttons: [{
                         type: "web_url",
                         //"messenger_extensions": true,
                         webview_height_ratio: "full",
-                        url:
-                          baseURL +
+                        url: baseURL +
                           resultEvent[j].id +
                           "&uid=" +
                           senderId +
@@ -187,20 +181,18 @@ module.exports = (function() {
                                         "webview_height_ratio": "tall",
                                         "fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name*/
                     },
-                    buttons: [
-                      {
-                        type: "postback",
-                        title: "More event times",
-                        payload: "find_my_event_see_more_events_by_query"
-                      }
-                    ]
+                    buttons: [{
+                      type: "postback",
+                      title: "More event times",
+                      payload: "find_my_event_see_more_events_by_query"
+                    }]
                   });
 
                 var gButtons = eventButtons_;
                 var counter = 0;
 
                 setImagesToEvents(gButtons, counter).then(gButtons => {
-                  Message.sendMessage(senderId, messageTitle);
+                  Message.sendMessage(senderId, messageTitle, "events.search.card");
 
                   console.log(
                     "luego del GButons event_name >>>>> " + urlApiTevo
@@ -212,15 +204,15 @@ module.exports = (function() {
                     gButtons,
                     "Find something else? ",
                     track_artist
+
                   ).then(() => {
                     // createUpdateUserDatas = (senderId, context '', mlinkSelected = '', userSays = {}, eventSearchSelected = '', querysTevo = '', queryTevoFinal = '', page = 0, per_page = 0, artists = '', musical_genres = '', teams = '', cities = '', categorySearchSelected = '', optionsSelected = '', index1 = 0, index2 = 0, index3 = 0
 
-                    
+
                     user_queries.createUpdateUserDatas(
                       senderId,
                       "",
-                      "",
-                      {},
+                      "", {},
                       "",
                       urlApiTevo,
                       query.queryReplace,
@@ -269,6 +261,12 @@ var setImagesToEvents = (resultEvents, counter) => {
           search = gButtons[z].performer;
           gButtons[z].title = search;
         }
+      }
+
+
+      let shark_tank = false
+      if (gButtons[z].performer == "Live Sharks Tank") {
+        shark_tank = true
       }
 
       delete gButtons[z].performer;
@@ -345,15 +343,23 @@ var setImagesToEvents = (resultEvents, counter) => {
               gButtons[z].image_url =
                 "https://statics.sportskeeda.com/wp-content/uploads/2016/11/626150036-lionel-messi-of-fc-barcelona-duels-for-the-gettyimages-1480309071-800.jpg";
             }
+
+
           } else {
             console.log(
               "Error con el tamaño de Images.   images.length " +
-                images.length +
-                " buscando  " +
-                search
+              images.length +
+              " buscando  " +
+              search
             );
             gButtons[z].image_url =
               APLICATION_URL_DOMAIN + "/images/no_found.png";
+          }
+
+
+          if (shark_tank === true) {
+            gButtons[z].image_url =
+              "https://ticketdelivery.herokuapp.com/images/images/sharkstank/sharks_anniversary_web.png";
           }
 
           if (gButtons[z].subtitle == "My Pepper Bot") {
@@ -368,7 +374,7 @@ var setImagesToEvents = (resultEvents, counter) => {
           if (counter + 1 == gButtons.length) {
             if (gButtons[z].subtitle == "My Pepper Bot")
               gButtons[gButtons.length - 1].image_url =
-                "https://ticketdelivery.herokuapp.com/images/ciudad.jpg";
+              "https://ticketdelivery.herokuapp.com/images/ciudad.jpg";
             resolve(gButtons);
           }
         })
