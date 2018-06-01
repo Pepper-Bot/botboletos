@@ -30,7 +30,7 @@ var render_events = (req, res) => {
     let urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&' + only_with + ''
     if (performer_id == "57088") {
         console.log(`57088`)
-        let urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id
+        urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id
     }
 
 
@@ -44,6 +44,7 @@ var render_events = (req, res) => {
     }
 
     tevoClient.getJSON(urlApiTevo).then((json) => {
+        console.log(`urlApiTevo: ${urlApiTevo}`)
         if (json) {
             console.log(`json.events.length ---->  ${json.events.length}`)
             if (json.events.length > 0) {
