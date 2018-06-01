@@ -44,6 +44,7 @@ var render_events = (req, res) => {
 
     tevoClient.getJSON(urlApiTevo).then((json) => {
         if (json) {
+            console.log(`json.events.length ---->  ${json.events.length}`)
             if (json.events.length > 0) {
                 var events = json.events
                 var counter = 0;
