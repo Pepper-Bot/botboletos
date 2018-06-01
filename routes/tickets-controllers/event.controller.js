@@ -82,6 +82,9 @@ var render_events = (req, res) => {
 
                     // gis(event_name, function (err, images) {
                     getGoogleImage(event_name).then((images) => {
+                        if (performer_id == "57088") {
+                            images[0].url = "https://ticketdelivery.herokuapp.com/images/sharkstank/sharks_anniversary_web.png";
+                        }
                         res.render(
                             './layouts/tickets/event', {
                                 titulo: "Book",
