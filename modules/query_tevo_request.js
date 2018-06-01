@@ -359,7 +359,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 
           if (shark_tank === true) {
             gButtons[z].image_url =
-              "https://ticketdelivery.herokuapp.com/images/images/sharkstank/sharks_anniversary_web.png";
+              "https://ticketdelivery.herokuapp.com/images/sharkstank/sharks_anniversary_web.png";
           }
 
           if (gButtons[z].subtitle == "My Pepper Bot") {
