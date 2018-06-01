@@ -27,7 +27,11 @@ var render_events = (req, res) => {
     var performer_id = req.query.performer_id;
 
 
-    urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&' + only_with + ''
+    let urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id + '&' + only_with + ''
+    if (performer_id == "57088") {
+        let urlApiTevo = tevo.API_URL + 'events/?page=1&per_page=50&performer_id=' + performer_id + '&venue_id=' + venue_id
+    }
+
 
 
 
@@ -62,23 +66,23 @@ var render_events = (req, res) => {
 
 
                     let dashBotEvent = {
-                       type: 'customEvent',
-                       name: 'view events details',
-                       userId: req.query.uid,
-                       extraInfo: {
+                        type: 'customEvent',
+                        name: 'view events details',
+                        userId: req.query.uid,
+                        extraInfo: {
                             eventId: req.query.event_id,
-                            event_name :  event_name,
-                       }
+                            event_name: event_name,
+                        }
                     }
 
-                    dashbot.logEvent( dashBotEvent   );
+                    dashbot.logEvent(dashBotEvent);
 
                     // gis(event_name, function (err, images) {
                     getGoogleImage(event_name).then((images) => {
                         res.render(
                             './layouts/tickets/event', {
                                 titulo: "Book",
-                                book:true,
+                                book: true,
                                 APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
                                 events: events,
                                 uid: req.query.uid,
