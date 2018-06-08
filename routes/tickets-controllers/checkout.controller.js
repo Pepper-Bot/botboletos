@@ -97,13 +97,13 @@ var checkout = (req, res) => {
                 name: 'view check out details',
                 userId: fbId,
                 extraInfo: {
-                     eventId: event_id,
-                     groupticket_id: params.groupticket_id,
-                     event_date :   moment(event_date).format('MMMM Do YYYY, h:mm a'),
+                    eventId: event_id,
+                    groupticket_id: params.groupticket_id,
+                    event_date: moment(event_date).format('MMMM Do YYYY, h:mm a'),
                 }
-             }
+            }
 
-             dashbot.logEvent( dashBotEvent   );
+            dashbot.logEvent(dashBotEvent);
 
             res.render(
                 './layouts/tickets/checkout', {
@@ -111,7 +111,7 @@ var checkout = (req, res) => {
                     APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
                     event_id: params.event_id,
                     fbId: params.uid,
-                    form_buy:true,
+                    form_buy: true,
                     venue_id: params.venue_id,
                     event_name: params.event_name,
                     performer_id: params.performer_id,
@@ -120,7 +120,7 @@ var checkout = (req, res) => {
                     row: params.row,
                     quantity: params.userticketsquantity,
                     price: params.priceticket,
-                    wholesale_price:  params.wholesale_price,
+                    wholesale_price: params.wholesale_price,
                     total: totals,
                     format: params.format,
                     noeticket: noeticket,
@@ -301,6 +301,31 @@ function paypal_cancel(req, res) {
     res.send('Cancelled')
 }
 
+/**
+ * 
+ * =======================================================
+ * @description ruta para consultar el codigo de promoción
+ * =======================================================
+ * 
+ */
+function promo(req, res) {
+    let promo_code = req.params.promo_code
+
+    let searchPromoCode = `${tevo.API_URL}promotion_codes/`
+    if (promo_code) {
+        searchPromoCode = `${tevo.API_URL}promotion_codes/${promo_code}`
+    }
+    console.log(`${JSON.stringify(searchPromoCode)}`)
+
+
+    tevoClient.getJSON(searchPromoCode).then((promoCodeResponse) => {
+        console.log(`${JSON.stringify(promoCodeResponse)}`)
+    }).catch((error) => {
+        console.log(`error ${error}`)
+    })
+
+}
+
 
 
 
@@ -310,5 +335,7 @@ module.exports = {
     checkout,
     paypal_success,
     paypal_cancel,
-    paypal_pay
+    paypal_pay,
+    promo,
+
 }

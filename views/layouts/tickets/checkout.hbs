@@ -69,6 +69,12 @@
                         </div>
                         <div class="row">
                             <div class="input-field col s12">
+                                <input id="firstname" name="promo_code" type="text" class="validate">
+                                <label for="firstname">Promo Code</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="input-field col s12">
                                 <input id="firstname" value="{{{firstName}}}" name="firstname" type="text" class="validate">
                                 <label for="firstname">First Name</label>
                             </div>
@@ -406,7 +412,7 @@
 </script>
 <!--This is the Pixel's FB event trackign clicking Checkout button -->
 <script>
-$(document).ready(function () {
+    $(document).ready(function () {
         $('#checkout').click(function () {
             fbq('track', 'ViewContent');
         });

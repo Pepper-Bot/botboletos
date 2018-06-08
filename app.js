@@ -43,11 +43,11 @@ var consolidate = require("consolidate");
 //   the user by ID when deserializing. However, since this example does not
 //   have a database of user records, the complete spotify profile is serialized
 //   and deserialized.
-passport.serializeUser(function(user, done) {
+passport.serializeUser(function (user, done) {
   done(null, user);
 });
 
-passport.deserializeUser(function(obj, done) {
+passport.deserializeUser(function (obj, done) {
   done(null, obj);
 });
 
@@ -57,15 +57,14 @@ passport.deserializeUser(function(obj, done) {
 //   and spotify profile), and invoke a callback with a user object.
 
 passport.use(
-  new SpotifyStrategy(
-    {
+  new SpotifyStrategy({
       clientID: spotifyVar.SPOTIFY_CLIENT_ID,
       clientSecret: spotifyVar.SPOTIFY_CLIENT_SECRET,
       callbackURL: APLICATION_URL_DOMAIN + "auth/spotify/callback"
     },
-    function(accessToken, refreshToken, expires_in, profile, done) {
+    function (accessToken, refreshToken, expires_in, profile, done) {
       // asynchronous verification, for effect...
-      process.nextTick(function() {
+      process.nextTick(function () {
         // To keep the example simple, the user's spotify profile is returned to
         // represent the logged-in user. In a typical application, you would want
         // to associate the spotify account with a user record in your database,
@@ -123,8 +122,8 @@ ChatBox.greetingText(
 
 var app = express();
 //notificaciones//
-app.listen(2000, function() {
-  setInterval(function() {
+app.listen(2000, function () {
+  setInterval(function () {
     var moment = require("moment");
     var notificaciones = require("./db/queries/user.notification.sheduled.queries");
 
@@ -146,8 +145,8 @@ app.listen(2000, function() {
       endDate
     );
 
-  //1000*60*24
-  }, 1000*60*7);
+    //1000*60*24
+  }, 1000 * 60 * 7);
 });
 
 //notificaciones//
@@ -164,7 +163,7 @@ app.use(function(req, res, next) {
 });
 */
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,DELETE");
   res.header("Access-Control-Allow-Origin", APLICATION_URL_DOMAIN);
@@ -273,6 +272,11 @@ app.get("/ticketgroups/:event_id", ticket_Groups.ticketgroup);
 //app.use('/checkout/', checkout);
 
 app.post("/checkout/", checkoutBuy.checkout);
+
+app.get("/checkout/promo/:promo_code*?", checkoutBuy.promo);
+
+
+
 app.post("/checkout/paypal_pay/", checkoutBuy.paypal_pay);
 app.use("/paypal_success/", checkoutBuy.paypal_success);
 app.use("/paypal_cancel/", checkoutBuy.paypal_cancel);
@@ -288,7 +292,7 @@ app.get("/UserHasLoggedIn/", fbgraphModule.UserHasLoggedIn);
 
 app.get("/zuck/", fbgraphModule.zuck);
 
-app.get("/spotify/", function(req, res) {
+app.get("/spotify/", function (req, res) {
   res.render("./layouts/spotify/index", {
     titulo: "Spotify",
     APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
@@ -296,7 +300,7 @@ app.get("/spotify/", function(req, res) {
   });
 });
 
-app.get("/spotify/account/", ensureAuthenticated, function(req, res) {
+app.get("/spotify/account/", ensureAuthenticated, function (req, res) {
   res.render("./layouts/spotify/account", {
     titulo: "Spotify Account",
     APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
@@ -304,7 +308,7 @@ app.get("/spotify/account/", ensureAuthenticated, function(req, res) {
   });
 });
 
-app.get("/spotify/login/", function(req, res) {
+app.get("/spotify/login/", function (req, res) {
   res.render("./layouts/spotify/login", {
     titulo: "Spotify Login",
     APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
@@ -328,7 +332,7 @@ app.get(
     scope: ["user-read-email", "user-read-private"],
     showDialog: true
   }),
-  function(req, res) {
+  function (req, res) {
     // The request will be redirected to spotify for authentication, so this
     // function will not be called.
   }
@@ -344,14 +348,14 @@ app.get(
   passport.authenticate("spotify", {
     failureRedirect: "/spotify/login/"
   }),
-  function(req, res) {
+  function (req, res) {
     res.redirect("/spotify/");
 
     //res.send('Loguiado!!!')
   }
 );
 
-app.get("/spotify/logout/", function(req, res) {
+app.get("/spotify/logout/", function (req, res) {
   req.logout();
   res.redirect("/spotify/");
 });
@@ -370,13 +374,13 @@ function ensureAuthenticated(req, res, next) {
 
 app.use("/pruebamail/", email);
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   var err = new Error("Not Found");
   err.status = 404;
   next(err);
 });
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   if (!req.session) {
     return next(new Error("oh no")); // handle error
   } else {
@@ -386,7 +390,7 @@ app.use(function(req, res, next) {
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get("env") === "development" ? err : {};
@@ -404,13 +408,13 @@ function exposeTemplates(req, res, next) {
       cache: app.enabled("view cache"),
       precompiled: true
     })
-    .then(function(templates) {
+    .then(function (templates) {
       // RegExp to remove the ".handlebars" extension from the template names.
       var extRegex = new RegExp(hbs.extname + "$");
 
       // Creates an array of templates which are exposed via
       // `res.locals.templates`.
-      templates = Object.keys(templates).map(function(name) {
+      templates = Object.keys(templates).map(function (name) {
         return {
           name: name.replace(extRegex, ""),
           template: templates[name]
