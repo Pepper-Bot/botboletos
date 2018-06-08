@@ -320,12 +320,12 @@ function promo(req, res) {
 
     tevoClient.getJSON(searchPromoCode).then((promoCodeResponse) => {
         console.log(`${JSON.stringify(promoCodeResponse)}`)
-        req.status(200).json({
+        res.status(200).json({
             promoCodeResponse
         })
     }).catch((error) => {
         console.log(`error ${error}`)
-        req.status(500).json({
+        res.status(500).json({
             error
         })
     })
