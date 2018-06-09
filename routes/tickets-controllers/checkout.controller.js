@@ -310,8 +310,8 @@ function paypal_cancel(req, res) {
  */
 function promo(req, res) {
     let promo_code = req.params.promo_code
-
-    let searchPromoCode = `${tevo.API_URL}promotion_codes/`
+    let code = req.query.code
+    let searchPromoCode = `${tevo.API_URL}promotion_codes/?code=${code}`
     if (promo_code) {
         searchPromoCode = `${tevo.API_URL}promotion_codes/${promo_code}`
     }
