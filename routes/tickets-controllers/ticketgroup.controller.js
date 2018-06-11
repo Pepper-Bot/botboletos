@@ -27,7 +27,7 @@ var ticketgroup = (req, res) => {
 
     console.log('event_id >' + event_id);
 
-    var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false&' + format_tickets+ '&type=event'
+    var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false&' + format_tickets + '&type=event'
 
     tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
 
@@ -43,6 +43,10 @@ var ticketgroup = (req, res) => {
 
                 tevoClient.getJSON(searchById).then((event) => {
 
+                    var occurs_at = event.occurs_at;
+                    occurs_at = occurs_at.substring(0, occurs_at.length - 4);
+                    occurs_at = moment(occurs_at).format('MMMM Do YYYY, h:mm a')
+
                     // console.log("EVENT<<<  : >>> " + JSON.stringify(event));                                   
                     res.render(
                         './layouts/tickets/ticketgroup', {
@@ -52,21 +56,26 @@ var ticketgroup = (req, res) => {
                             event_id: event.event_id,
                             event_name: event.name,
                             event_date: event.occurs_at,
+                            event_date_f: occurs_at,
                             seatsmap: event.configuration.seating_chart.large,
                             subtitulo: "Select your tickets",
                             venue_name: event.venue.name + ' ' + event.venue.location,
-
                         }
                     );
+
+
+
+
+
                 });
             })
         } else {
             res.send('<h1> No  tickets available.</h1>');
         }
     }).catch((err) => {
-		console.log('Error al Recuperar los eventos');
-		console.log(err);
-	});
+        console.log('Error al Recuperar los eventos');
+        console.log(err);
+    });
 
 }
 

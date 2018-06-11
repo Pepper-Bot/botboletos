@@ -41,7 +41,7 @@ router.get('/', function (req, res) {
 		return;
 	}
 
-	var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false&' + format_tickets+ '&type=event'
+	var searchTicketGroupByEventId = tevo.API_URL + 'ticket_groups?event_id=' + event_id + '&lightweight=true&show_past=false&' + format_tickets + '&type=event'
 	console.log('Groups url api tevo>>>>>>>' + searchTicketGroupByEventId);
 	tevoClient.getJSON(searchTicketGroupByEventId).then((ticketG) => {
 
@@ -61,18 +61,18 @@ router.get('/', function (req, res) {
 
 
 
-					
-                    let dashBotEvent = {
+
+					let dashBotEvent = {
 						type: 'customEvent',
 						name: 'view ticket group details',
 						userId: req.query.uid,
 						extraInfo: {
-							 eventId: event_id,
-							 ticketGroups :  ticketGroups,
+							eventId: event_id,
+							ticketGroups: ticketGroups,
 						}
-					 }
- 
-					 dashbot.logEvent( dashBotEvent);
+					}
+
+					dashbot.logEvent(dashBotEvent);
 
 					res.render(
 						'./layouts/tickets/ticketgroup', {
