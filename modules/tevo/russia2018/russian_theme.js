@@ -85,7 +85,7 @@ var start = (senderId, con = true) => {
       
       //  ** Video display starts here **
 
-      let urlImage = APLICATION_URL_DOMAIN + "images/christmas/christmas.png";
+      //let urlImage = APLICATION_URL_DOMAIN + "images/christmas/christmas.png";
 
       if (con == true) {
         var urlVideo =
@@ -112,7 +112,7 @@ var start = (senderId, con = true) => {
 var sendVideoMessage = (senderId, message, urlVideo) => {
   Message.sendMessage(senderId, message).then(() => {
     Message.sendVideoMessage(senderId, urlVideo).then(() => {
-      Message.sendMessage(senderId, "Check the events for this season").then(
+      Message.sendMessage(senderId, "Was that awesome? Now.. ").then(
         () => {
           //sendTemplate(senderId);
           RussiaListButtons(senderId);
@@ -138,7 +138,7 @@ var RussiaListButtons = senderId => {
   ];
   Message.quickReply(
     senderId,
-    "Don't miss the opening game or your country's debut game:",
+    "Before tickets run out. Get your tickets to the Cup",
     replies
   );
 };
