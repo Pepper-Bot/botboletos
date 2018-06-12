@@ -88,7 +88,7 @@ var start = (senderId, con = true) => {
       if (con == true) {
         var urlVideo =
           APLICATION_URL_DOMAIN +
-          "videos/russia_worldcup/official_music_fifa_world_cup_russia.mp4";
+          "videos/happy_new_year/happy_new_year_480.mp4";
         //var message = 'Seasson´s Greetings! And best wishes for the New Year 😄'
         var message = "Hi " + name + ", Happy 2018 FIFA Worldcup 😄";
 
