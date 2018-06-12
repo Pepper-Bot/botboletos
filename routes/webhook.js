@@ -2735,6 +2735,14 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
+        
+      case "RUSSIA_THEME": // Russia theme created Jun 11 2018
+        {
+          startRussiaTheme(senderId, referral);
+        }
+        break;
+
+
       case "VEGAS_SHOW":
         {
           startVegasShow(senderId, referral);
@@ -2915,6 +2923,18 @@ var startVegasShow = (senderId, referral) => {
 var startHappyNewYear = (senderId, referral, con = true) => {
   var happyNewYearModule = require("../modules/tevo/happy_new_year/happy_new_year");
   happyNewYearModule.startHappyNewYear(senderId, referral, con);
+};
+
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startRussiaTheme = (senderId, referral, con = true) => {
+  var russiaThemeModule = require("../modules/tevo/russia2018/russian_theme");
+  russiaThemeModule.startRussiaTheme(senderId, referral, con);
 };
 
 /**
