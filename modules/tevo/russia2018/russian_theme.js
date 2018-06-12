@@ -82,6 +82,8 @@ var start = (senderId, con = true) => {
       console.log(result);
 
       var name = bodyObj.first_name;
+      
+      //  ** Video display starts here **
 
       let urlImage = APLICATION_URL_DOMAIN + "images/christmas/christmas.png";
 
@@ -112,18 +114,42 @@ var sendVideoMessage = (senderId, message, urlVideo) => {
     Message.sendVideoMessage(senderId, urlVideo).then(() => {
       Message.sendMessage(senderId, "Check the events for this season").then(
         () => {
-          sendTemplate(senderId);
+          //sendTemplate(senderId);
+          RussiaListButtons(senderId);
+
         }
       );
     });
   });
 };
 
+var RussiaListButtons = senderId => {
+  var replies = [
+    {
+      content_type: "text",
+      title: "Get Tickets",
+      payload: "RUSSIA"
+    }/*,
+    {
+      content_type: "text",
+      title: "Arabia",
+      payload: "ARABIA"
+    }*/
+  ];
+  Message.quickReply(
+    senderId,
+    "Don't miss the opening game or your country's debut game:",
+    replies
+  );
+};
+
+/*
 /**
  * 
  * @param {*} senderId 
  * @param {*} message 
  */
+/*
 var sendTemplate = (senderId, message = "") => {
   var Message = require("../../../bot/messages");
   // llamamos al modulo de mensajes
@@ -135,7 +161,9 @@ var sendTemplate = (senderId, message = "") => {
   // Guarda el url cada vez que el usuario hace click en la tarjeta
   var URLAplication = APLICATION_URL_DOMAIN;
   //configuramos los boletos
-
+  */
+  
+  /*
   var boletos = [
     {
       titulo: "Super Bowl",
@@ -167,8 +195,9 @@ var sendTemplate = (senderId, message = "") => {
       subtitulo: "",
       url: mlink + "Bruno Mars"
     }
-  ];
+  ]; */
 
+  /*  ** BLOCK FOR OLDER CARDS **
   // creamos las tarjetas
   for (let i = 0, c = boletos.length; i < c; i++) {
     eventResults.push({
@@ -198,7 +227,7 @@ var sendTemplate = (senderId, message = "") => {
   console.log("events Results >>>>>>>>>>>>>>>" + eventResults);
 
   Message.typingOff(senderId);
-};
+};*/
 
 module.exports = {
   startRussiaTheme,
