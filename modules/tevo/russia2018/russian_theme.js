@@ -11,7 +11,7 @@ var UserData = require("../../../bot/userinfo");
 var UserData2 = require("../../../schemas/userinfo");
 var Message = require("../../../bot/messages");
 
-var startHappyNewYear = (senderId, referral, con = true) => {
+var startRussiaTheme = (senderId, referral, con = true) => {
   UserData2.findOne(
     {
       fbId: senderId
@@ -201,7 +201,7 @@ var sendTemplate = (senderId, message = "") => {
 };
 
 module.exports = {
-  startHappyNewYear,
+  startRussiaTheme,
   sendVideoMessage,
   start
 };
