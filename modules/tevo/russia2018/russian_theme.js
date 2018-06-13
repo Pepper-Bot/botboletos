@@ -90,9 +90,9 @@ var start = (senderId, con = true) => {
       if (con == true) {
         var urlVideo =
           APLICATION_URL_DOMAIN +
-          "videos/russia_worldcup/4.mp4";
+          "videos/russia_worldcup/official_music_fifa_world_cup_russia_6.mp4";
         //var message = 'Seasson´s Greetings! And best wishes for the New Year 😄'
-        var message = "Hi " + name + ", Happy 2018 FIFA Worldcup 😄";
+        var message = "Hi " + name + ", Happy 2018 FIFA Worldcup 😄. Let me get the full video..";
 
         sendVideoMessage(senderId, message, urlVideo);
       } else {
