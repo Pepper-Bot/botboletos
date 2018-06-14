@@ -1,3 +1,11 @@
+/* This program:
+
+- Stores the user who lands on pepper via M link
+- Shows a video: sendVideoMessage
+- Shows buttons RussiaListButtons
+
+*/ 
+
 var Message = require("../../../bot/messages");
 var APLICATION_URL_DOMAIN = require("../../../config/config_vars")
   .APLICATION_URL_DOMAIN;
@@ -163,71 +171,8 @@ var sendTemplate = (senderId, message = "") => {
   //configuramos los boletos
   */
   
-  /*
-  var boletos = [
-    {
-      titulo: "Super Bowl",
-      imagen: URLAplication + "images/happy_new_year/super_bowl.jpg",
-      subtitulo: "",
-      url: mlink + "Super Bowl"
-    },
-    {
-      titulo: "Blake Shelton ",
-      imagen: URLAplication + "images/happy_new_year/blake_shelton.jpg",
-      subtitulo: "",
-      url: mlink + "Blake Shelton"
-    },
-    {
-      titulo: "Katy Perry",
-      imagen: URLAplication + "images/happy_new_year/katy_perry.jpg",
-      subtitulo: "",
-      url: mlink + "Katy Perry"
-    },
-    {
-      titulo: "Demi Lovato",
-      imagen: URLAplication + "images/happy_new_year/demi.jpg",
-      subtitulo: "",
-      url: mlink + "Demi Lovato"
-    },
-    {
-      titulo: "Bruno Mars",
-      imagen: URLAplication + "images/happy_new_year/bruno_mars.jpg",
-      subtitulo: "",
-      url: mlink + "Bruno Mars"
-    }
-  ]; */
-
-  /*  ** BLOCK FOR OLDER CARDS **
-  // creamos las tarjetas
-  for (let i = 0, c = boletos.length; i < c; i++) {
-    eventResults.push({
-      title: boletos[i].titulo,
-      image_url: boletos[i].imagen,
-      subtitle: boletos[i].subtitulo,
-      default_action: {
-        type: "web_url",
-        url: boletos[i].url //,
-      },
-      buttons: [
-        {
-          type: "postback",
-          title: "View",
-          payload: boletos[i].titulo
-        },
-        {
-          type: "element_share"
-        }
-      ]
-    });
-  }
-  let counter = 0;
-
-  Message.genericButton(senderId, eventResults);
-
-  console.log("events Results >>>>>>>>>>>>>>>" + eventResults);
-
-  Message.typingOff(senderId);
-};*/
+ 
+ 
 
 module.exports = {
   startRussiaTheme,
