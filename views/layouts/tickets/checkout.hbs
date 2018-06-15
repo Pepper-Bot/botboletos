@@ -355,7 +355,9 @@
 
         $("#promoButton").on("click", function (e) {
             //TODO:
-            var promo_code_s = $("#promoButton").val()
+            var promo_code_s = $("#promo_code").val()
+
+
             $.get("https://botboletos-test.herokuapp.com/checkout/promo/" + promo_code_s, function (data) {
                 console.log(`-- promo response ${JSON.stringify(data)}`)
             });
