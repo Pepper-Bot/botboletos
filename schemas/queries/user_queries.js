@@ -517,13 +517,16 @@
  };
 
  var pushIfNewPerformer = (performances, performer) => {
-     console.log("performances.length" + performances.length);
+     console.log("performances.length-antes" + performances.length);
+     console.log("performer.name" + performer.name);
+
      for (let i = 0; i < performances.length; i++) {
          if (performances[i].id === performer.id) {
              return;
          }
      }
      performances.push(performer);
+     console.log("performances.length-despues" + performances.length);
  };
 
 
