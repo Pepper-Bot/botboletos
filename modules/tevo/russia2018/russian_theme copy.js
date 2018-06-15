@@ -120,7 +120,7 @@ var start = (senderId, con = true) => {
 var sendVideoMessage = (senderId, message, urlVideo) => {
   Message.sendMessage(senderId, message).then(() => {
     Message.sendVideoMessage(senderId, urlVideo).then(() => {
-      Message.sendMessage(senderId, "The video will start itself when ready? Meanwhile.. ").then(
+      Message.sendMessage(senderId, "Was that awesome? Now.. ").then(
         () => {
           //sendTemplate(senderId);
           RussiaListButtons(senderId);
