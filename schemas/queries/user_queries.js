@@ -420,6 +420,7 @@
 
                              for (let i = 0; i < performances.length; i++) {
                                  let performer = performances[i];
+                                 console.log(`performer- ${ JSON.stringify(performer)} `)
                                  pushIfNewPerformer(foundUser.performances, performer);
                              }
 
