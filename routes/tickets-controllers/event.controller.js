@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+
 var Message = require('../../bot/messages');
 var UserData2 = require('../../schemas/userinfo');
 var gis = require('g-i-s'); // Google images
@@ -9,7 +10,7 @@ var APLICATION_URL_DOMAIN = require('../../config/config_vars').APLICATION_URL_D
 var only_with = require('../../config/config_vars').only_with;
 
 const dashbot = require("dashbot")("CJl7GFGWbmStQyF8dYjR6WxIBPwrcjaIWq057IOO").facebook; //new
-
+var userQueries = require('../../schemas/queries/user_queries')
 
 
 var TevoClient = require('ticketevolution-node'); // modulo de Ticket Evolution requests
@@ -41,12 +42,39 @@ var render_events = (req, res) => {
         res.send('Error trying to access');
         res.end();
         return;
+    } else {
+        if (req.query.event_id != undefined) {
+            let searcEvent = `${tevo.API_URL}events/${req.query.event_id}`
+            tevoClient.getJSON(searcEvent).then((json) => {
+                console.log(`${JSON.stringify(json)}`)
+
+                let evento = {
+                    id: json.id,
+                    name: json.name,
+                    occurs_at: occurs_at
+                }
+                let category = json.category
+                let performances = json.performances
+
+                userQueries.upateEventClicked(req.query.event_id, evento, category, performances).then(() => {
+
+                })
+
+
+            }).catch(error => {
+                console.log(`error consultando el evento- ${error}`)
+            })
+        }
     }
 
     tevoClient.getJSON(urlApiTevo).then((json) => {
         console.log(`urlApiTevo: ${urlApiTevo}`)
         if (json) {
             console.log(`json.events.length ---->  ${json.events.length}`)
+
+
+
+
             if (json.events.length > 0) {
                 var events = json.events
                 var counter = 0;

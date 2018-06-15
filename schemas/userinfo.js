@@ -1,4 +1,3 @@
-
 var mongoose = require("mongoose");
 
 var UserData = mongoose.Schema({
@@ -66,15 +65,13 @@ var UserData = mongoose.Schema({
   cities: [],
   event_type: [],
 
-  userSays: [
-    {
-      typed: String,
-      writtenAt: {
-        type: Date,
-        default: Date.now
-      }
+  userSays: [{
+    typed: String,
+    writtenAt: {
+      type: Date,
+      default: Date.now
     }
-  ],
+  }],
   messageTitle: String,
 
   coordinates: {
@@ -125,15 +122,21 @@ var UserData = mongoose.Schema({
     }
   },
   artistsSelected: [
-    
+
   ],
- 
+
 
   spotify_id: String,
   artistHasEvent: {
-	  type:Boolean,
-	  default:false
-  }
+    type: Boolean,
+    default: false
+  },
+
+  events_clicked: [],
+  categories: [],
+  performances: []
+
+
 });
 
 module.exports = mongoose.model("UserData", UserData);
