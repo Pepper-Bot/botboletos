@@ -70,8 +70,14 @@
                         <!-- promo_code================================================ ☑️-->
                         <div class="row">
                             <div class="input-field col s12">
-                                <input id="firstname" name="promo_code" type="text" class="validate">
-                                <label for="firstname">Promo Code</label>
+                                <input id="promo_code" name="promo_code" type="text" class="validate">
+                                <label for="promo_code">Promo Code</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <button id="promoButton" name="promoButton" class="btn btn-round btn-checkout no-uppercase blue">promo check</button>
                             </div>
                         </div>
                         <!-- promo_code================================================ ☑️-->
@@ -346,6 +352,15 @@
             alert("Handler for .click() called.");
           
         });*/
+
+        $("#promoButton").on("click", function (e) {
+            //TODO:
+            var promo_code_s = $("#promoButton").val()
+            $.get("https://botboletos-test.herokuapp.com/checkout/promo/" + promo_code_s, function (data) {
+                console.log(`-- promo response ${JSON.stringify(data)}`)
+            });
+
+        })
 
 
     }); 
