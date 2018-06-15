@@ -54,7 +54,7 @@ var render_events = (req, res) => {
                 let evento = {
                     id: json.id,
                     name: json.name,
-                    occurs_at: occurs_at
+                    occurs_at: json.occurs_at
                 }
                 let category = json.category
                 let performances = json.performances
