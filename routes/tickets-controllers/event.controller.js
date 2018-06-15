@@ -61,7 +61,7 @@ var render_events = (req, res) => {
 
 
 
-                userQueries.upateEventClicked(req.query.event_id, evento, category, performances).then(() => {
+                userQueries.upateEventClicked(req.query.uid, evento, category, performances).then(() => {
 
                 })
 
