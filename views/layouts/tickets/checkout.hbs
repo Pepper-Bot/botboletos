@@ -353,8 +353,9 @@
           
         });*/
 
-        $("#promoButton").on("click", function (e) {
+        $("#promoButton").on("click", function (event) {
             //TODO:
+            event.preventDefault();
             var promo_code_s = $("#promo_code").val()
 
 
