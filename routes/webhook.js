@@ -2951,7 +2951,7 @@ var startRussiaTheme = (senderId, referral, con = true) => {
  *
  */
 var startMalumaTheme = (senderId, referral, con = true) => {
-  var malumaThemeModule = require("../modules/tevo/russia2018/jason_derulo_y_maluma_colors_1.mp4");
+  var malumaThemeModule = require("../modules/tevo/russia2018/jasonMaluma_theme");
   malumaThemeModule.startMalumaTheme(senderId, referral, con);
 };
 
