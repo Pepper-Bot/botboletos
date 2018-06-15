@@ -446,45 +446,49 @@
                                      var bodyObj = JSON.parse(result);
                                      console.log('guardando el usuario ' + result);
 
-
-                                     var User = new UserData2; {
-                                         User.fbId = senderId;
-                                         User.firstName = bodyObj.first_name;
-                                         User.LastName = bodyObj.last_name;
-                                         User.profilePic = bodyObj.profile_pic;
-                                         User.locale = bodyObj.locale;
-                                         User.timeZone = bodyObj.timezone;
-                                         User.gender = bodyObj.gender;
-                                         User.messageNumber = 1;
-                                     }
-
-
-
-
-
-                                     foundUser.events_clicked.push(event_clicked)
-                                     foundUser.categories.push(category)
-
-
-
-                                     for (let i = 0; i < performances.length; i++) {
-                                         let performer = performances[i].performer;
-                                         foundUser.performances.push(performer)
-                                     }
-
-
-
-
-
-                                     User.save(function (err, userSaved) {
-                                         if (!err) {
-                                             console.log("foundUser Saved!!! " + JSON.stringify(userSaved.fbId));
-                                             resolve(userSaved)
-                                         } else {
-                                             reject(err)
-                                             console.log('error-upateEventClicked' + err)
+                                     if (bodyObj.first_name) {
+                                         var User = new UserData2; {
+                                             User.fbId = senderId;
+                                             User.firstName = bodyObj.first_name;
+                                             User.LastName = bodyObj.last_name;
+                                             User.profilePic = bodyObj.profile_pic;
+                                             User.locale = bodyObj.locale;
+                                             User.timeZone = bodyObj.timezone;
+                                             User.gender = bodyObj.gender;
+                                             User.messageNumber = 1;
                                          }
-                                     });
+
+
+
+
+
+                                         User.events_clicked.push(event_clicked)
+                                         User.categories.push(category)
+
+
+
+                                         for (let i = 0; i < performances.length; i++) {
+                                             let performer = performances[i].performer;
+                                             User.performances.push(performer)
+                                         }
+
+
+
+
+
+                                         User.save(function (err, userSaved) {
+                                             if (!err) {
+                                                 console.log("foundUser Saved!!! " + JSON.stringify(userSaved.fbId));
+                                                 resolve(userSaved)
+                                             } else {
+                                                 reject(err)
+                                                 console.log('error-upateEventClicked' + err)
+                                             }
+                                         });
+                                     } else {
+                                         console.log('el usuario no existe en fb' + err)
+                                         resolve({})
+                                     }
                                  }
                              })
                          }
@@ -527,6 +531,9 @@
              return;
          }
      }
+
+
+
      categories.push(category);
  };
 
