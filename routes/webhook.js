@@ -2742,6 +2742,12 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
+      case "MALUMA_THEME": // Maluma theme created Jun 14 2018
+        {
+          startMalumaTheme(senderId, referral);
+        }
+      break;
+
 
       case "VEGAS_SHOW":
         {
@@ -2935,6 +2941,18 @@ var startHappyNewYear = (senderId, referral, con = true) => {
 var startRussiaTheme = (senderId, referral, con = true) => {
   var russiaThemeModule = require("../modules/tevo/russia2018/russian_theme");
   russiaThemeModule.startRussiaTheme(senderId, referral, con);
+};
+
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startMalumaTheme = (senderId, referral, con = true) => {
+  var malumaThemeModule = require("../modules/tevo/russia2018/jason_derulo_y_maluma_colors_1.mp4");
+  malumaThemeModule.startMalumaTheme(senderId, referral, con);
 };
 
 /**
