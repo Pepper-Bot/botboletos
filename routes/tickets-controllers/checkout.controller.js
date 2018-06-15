@@ -304,7 +304,8 @@ function paypal_cancel(req, res) {
 /**
  * 
  * =======================================================
- * @description ruta para consultar el codigo de promoción /checkout/promo/
+ * @description ruta para consultar el codigo de promoción 
+ * https://botboletos-test.herokuapp.com/checkout/promo/promo_code_super_cero
  * =======================================================
  * 
  */

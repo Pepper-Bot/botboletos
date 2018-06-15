@@ -501,6 +501,11 @@
      console.log("events_clicked.length" + events_clicked.length);
      for (let i = 0; i < events_clicked.length; i++) {
          if (events_clicked[i].id === event_clicked.id) {
+             if (events_clicked[i].times) {
+                 events_clicked[i].times += 1
+             } else {
+                 events_clicked[i].times = 1
+             }
              return;
          }
      }
