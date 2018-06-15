@@ -98,9 +98,9 @@ var start = (senderId, con = true) => {
       if (con == true) {
         var urlVideo =
           APLICATION_URL_DOMAIN +
-          "videos/russia_worldcup/official_music_fifa_world_cup_russia_6.mp4";
-        //var message = 'Seasson´s Greetings! And best wishes for the New Year 😄'
-        var message = "Hi " + name + ", Happy 2018 FIFA Worldcup 😄. Let me get the full video..";
+          "videos/russia_worldcup/jason_derulo_y_maluma_colors_1.mp4";
+        //var message = 'Seasson´s Greetings! And best wishes for the New Year '
+        var message = "Hi " + name + ", Happy 2018 FIFA Worldcup 😄. Give me a min to load the full video..";
 
         sendVideoMessage(senderId, message, urlVideo);
       } else {
