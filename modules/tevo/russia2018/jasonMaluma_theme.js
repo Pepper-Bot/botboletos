@@ -19,7 +19,7 @@ var UserData = require("../../../bot/userinfo");
 var UserData2 = require("../../../schemas/userinfo");
 var Message = require("../../../bot/messages");
 
-var startRussiaTheme = (senderId, referral, con = true) => {
+var startMalumaTheme = (senderId, referral, con = true) => {
   UserData2.findOne(
     {
       fbId: senderId
@@ -175,7 +175,7 @@ var sendTemplate = (senderId, message = "") => {
  
 
 module.exports = {
-  startRussiaTheme,
+  startMalumaTheme,
   sendVideoMessage,
   start
 };
