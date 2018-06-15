@@ -419,7 +419,7 @@
 
 
                              for (let i = 0; i < performances.length; i++) {
-                                 let performer = performances[i];
+                                 let performer = performances[i].performer;
                                  console.log(`performer- ${ JSON.stringify(performer)} `)
                                  pushIfNewPerformer(foundUser.performances, performer);
                              }
@@ -468,7 +468,7 @@
 
 
                                      for (let i = 0; i < performances.length; i++) {
-                                         let performer = performances[i];
+                                         let performer = performances[i].performer;
                                          foundUser.performances.push(performer)
                                      }
 
