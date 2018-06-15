@@ -45,6 +45,9 @@ var render_events = (req, res) => {
     } else {
         if (req.query.event_id != undefined) {
             let searcEvent = `${tevo.API_URL}events/${req.query.event_id}`
+
+
+            console.log(`searcEvent-${searcEvent}`)
             tevoClient.getJSON(searcEvent).then((json) => {
                 console.log(`${JSON.stringify(json)}`)
 
@@ -55,6 +58,8 @@ var render_events = (req, res) => {
                 }
                 let category = json.category
                 let performances = json.performances
+
+
 
                 userQueries.upateEventClicked(req.query.event_id, evento, category, performances).then(() => {
 
