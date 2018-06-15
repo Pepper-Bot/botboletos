@@ -516,6 +516,14 @@
      console.log("events_clicked.length" + categories.length);
      for (let i = 0; i < categories.length; i++) {
          if (categories[i].id === category.id) {
+
+             if (categories[i].times) {
+                 categories[i].times += 1
+             } else {
+                 categories[i].times = 1
+             }
+
+
              return;
          }
      }
@@ -528,6 +536,16 @@
 
      for (let i = 0; i < performances.length; i++) {
          if (performances[i].id === performer.id) {
+
+
+             if (performances[i].times) {
+                 performances[i].times += 1
+             } else {
+                 performances[i].times = 1
+             }
+
+
+
              return;
          }
      }
