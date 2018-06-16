@@ -73,7 +73,7 @@
  							"additional_expense": 0.00,
  							"tax": 0.00,
  							"discount": 0.00,
- 							"promo_code": ""
+ 							"promo_code": req.body.promo_code
  						}]
  					};
  				} else {
@@ -128,7 +128,7 @@
  							"additional_expense": 0.00,
  							"tax": 0.00,
  							"discount": 0.00,
- 							"promo_code": ""
+ 							"promo_code": req.body.promo_code
  						}]
  					}
  				}
@@ -179,7 +179,7 @@
 
  					//req.session.destroy();
 
- 
+
 
  					res.render(
  						'./layouts/tickets/finish', {
