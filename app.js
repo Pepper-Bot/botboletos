@@ -273,7 +273,7 @@ app.get("/ticketgroups/:event_id", ticket_Groups.ticketgroup);
 
 app.post("/checkout/", checkoutBuy.checkout);
 
-app.get("/checkout/promo/:promo_code*?", checkoutBuy.promo);
+app.post("/checkout/promo/:promo_code*?", checkoutBuy.promo);
 
 
 

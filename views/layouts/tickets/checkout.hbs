@@ -359,8 +359,14 @@
             var promo_code_s = $("#promo_code").val()
 
 
-            $.get("https://botboletos-test.herokuapp.com/checkout/promo/" + promo_code_s, function (data) {
+            $.post("https://botboletos-test.herokuapp.com/checkout/promo/" + promo_code_s, function (data) {
                 console.log(`-- promo response ${JSON.stringify(data)}`)
+                if (data.promoCodeResponse && data.promoCodeResponse.total_entries > 0) {
+                    console.log(`OK!`)
+                } else {
+                    console.log(`BAD!`)
+                }
+
             });
 
         })
