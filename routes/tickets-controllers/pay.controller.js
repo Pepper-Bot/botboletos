@@ -177,7 +177,7 @@ var render_paypal_cc_form = (req, res, direccionEnvio, shiping) => {
             with_ship: with_ship,
             provider: provider,
             actionSubmit: actionSubmit,
-            promo_code: undefined //  <!-- promo_code==========🔶===================================== ☑️-->
+            promo_code: req.body.promo_code //  <!-- promo_code==========🔶===================================== ☑️-->
         }
     );
 }
