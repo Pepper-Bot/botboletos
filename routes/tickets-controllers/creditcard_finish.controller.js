@@ -154,7 +154,7 @@ var finishCC = function (req, res) {
 
           console.log(`${JSON.stringify(searchPromoCode)}`)
 
-          if (promo_code && promo_code != "") {
+          if (req.body.promo_code && req.body.promo_code != "") {
             tevoClient.getJSON(searchPromoCode).then((promoCodeResponse) => {
 
               if (promoCodeResponse.total_entries > 0) {
