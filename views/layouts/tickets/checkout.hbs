@@ -365,7 +365,7 @@
             $.post("https://botboletos-test.herokuapp.com/checkout/promo/" + promo_code_s, function (data) {
                 console.log(`-- promo response ${JSON.stringify(data)}`)
                 if (data.promoCodeResponse && data.promoCodeResponse.total_entries > 0) {
-                    $("#promo_code").val(data.promoCodeResponse.promotion_codes[0].name)
+                    $("#promo_code").val(data.promoCodeResponse.promotion_codes[0].code)
                     console.log(`OK!`)
                 } else {
                     console.log(`BAD!`)

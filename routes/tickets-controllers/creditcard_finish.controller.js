@@ -20,7 +20,7 @@ var tevoClient = new TevoClient({
   apiSecretKey: tevo.API_SECRET_KEY
 });
 
-var finishCC = function(req, res) {
+var finishCC = function (req, res) {
   if (undefined == req.session.client_id) {
     res.status(200);
     res.send("Error trying to access");
@@ -32,122 +32,74 @@ var finishCC = function(req, res) {
   /*Obtenemos la session guardada en mongo db */
 
   console.log("client_id" + req.session.client_id);
-  Client.findOne(
-    {
+  Client.findOne({
       client_id: req.session.client_id
-    },
-    {},
-    {
+    }, {}, {
       sort: {
         sessionStart: -1
       }
     },
-    function(error, clienteSearch) {
+    function (error, clienteSearch) {
       if (!error) {
         if (clienteSearch) {
           // Verificamoas el tipo de ticket.
           // Si es Eticket o Fisco para planear el request.
+          let orderData = {}
+
           if (req.body.format == "Eticket") {
-            var orderData = {
-              orders: [
-                {
-                  shipped_items: [
-                    {
-                      items: [
-                        {
-                          ticket_group_id: req.body.ticket_group_id,
-                          price: req.body.price_per_ticket,
-                          quantity: req.body.quantity
-                        }
-                      ],
-                      type: "Eticket",
-                      email_address_id: clienteSearch.email_id
-                    }
-                  ],
-                  billing_address_id:
-                    clienteSearch.billing_address_id[
-                      clienteSearch.billing_address_id.length - 1
-                    ],
-                  payments: [
-                    {
-                      type: "credit_card",
-                      amount: parseFloat(
-                        req.body.price_per_ticket * req.body.quantity
-                      ).toFixed(2),
-                      credit_card_id:
-                        clienteSearch.creditcard_id[
-                          clienteSearch.creditcard_id.length - 1
-                        ]
-                    }
-                  ],
-                  seller_id: tevo.OFFICE_ID,
-                  client_id: clienteSearch.client_id,
-                  created_by_ip_address: "",
-                  instructions: "",
-                  shipping: req.body.shipping_price,
-                  service_fee: 0.0,
-                  additional_expense: 0.0,
-                  tax: 0.0,
-                  discount: 0.0,
-                  promo_code: req.body.promo_code
-                }
-              ]
+            orderData = {
+              orders: [{
+                shipped_items: [{
+                  items: [{
+                    ticket_group_id: req.body.ticket_group_id,
+                    price: req.body.price_per_ticket,
+                    quantity: req.body.quantity
+                  }],
+                  type: "Eticket",
+                  email_address_id: clienteSearch.email_id
+                }],
+                billing_address_id: clienteSearch.billing_address_id[
+                  clienteSearch.billing_address_id.length - 1
+                ],
+                payments: [{
+                  type: "credit_card",
+                  amount: parseFloat(
+                    req.body.price_per_ticket * req.body.quantity
+                  ).toFixed(2),
+                  credit_card_id: clienteSearch.creditcard_id[
+                    clienteSearch.creditcard_id.length - 1
+                  ]
+                }],
+                seller_id: tevo.OFFICE_ID,
+                client_id: clienteSearch.client_id,
+                created_by_ip_address: "",
+                instructions: "",
+                shipping: req.body.shipping_price,
+                service_fee: 0.0,
+                additional_expense: 0.0,
+                tax: 0.0,
+                discount: 0.0,
+                promo_code: req.body.promo_code
+              }]
             };
           } else {
-            var orderData = {
-              orders: [
-                {
-                  shipped_items: [
-                    {
-                      items: [
-                        {
-                          ticket_group_id: req.body.ticket_group_id,
-                          price: req.body.price_per_ticket,
-                          quantity: req.body.quantity
-                        }
-                      ],
-                      phone_number_id: clienteSearch.phone_id,
-                      service_type: "LEAST_EXPENSIVE",
-                      type: "FedEx",
-                      address_id:
-                        clienteSearch.address_id[
-                          clienteSearch.address_id.length - 1
-                        ],
-                      ship_to_name: clienteSearch.fullName,
-                      address_attributes: {
-                        name: clienteSearch.fullName,
-                        street_address: req.body.street_address,
-                        extendend_address: req.body.extendend_address,
-                        locality: req.body.locality,
-                        region: req.body.region,
-                        country_code: req.body.country_code,
-                        postal_code: req.body.postal_code,
-                        label: "shipping"
-                      }
-                    }
+            orderData = {
+              orders: [{
+                shipped_items: [{
+                  items: [{
+                    ticket_group_id: req.body.ticket_group_id,
+                    price: req.body.price_per_ticket,
+                    quantity: req.body.quantity
+                  }],
+                  phone_number_id: clienteSearch.phone_id,
+                  service_type: "LEAST_EXPENSIVE",
+                  type: "FedEx",
+                  address_id: clienteSearch.address_id[
+                    clienteSearch.address_id.length - 1
                   ],
-                  billing_address_id:
-                    clienteSearch.billing_address_id[
-                      clienteSearch.billing_address_id.length - 1
-                    ],
-                  payments: [
-                    {
-                      type: "credit_card",
-                      amount: parseFloat(
-                        req.body.price_per_ticket * req.body.quantity
-                      ).toFixed(2),
-                      credit_card_id:
-                        clienteSearch.creditcard_id[
-                          clienteSearch.creditcard_id.length - 1
-                        ]
-                    }
-                  ],
-                  seller_id: tevo.OFFICE_ID,
-                  client_id: clienteSearch.client_id,
-                  created_by_ip_address: "",
-                  instructions: "",
-                  shipping_address: {
-                    name: req.body.name2,
+                  ship_to_name: clienteSearch.fullName,
+                  address_attributes: {
+                    name: clienteSearch.fullName,
                     street_address: req.body.street_address,
                     extendend_address: req.body.extendend_address,
                     locality: req.body.locality,
@@ -155,61 +107,77 @@ var finishCC = function(req, res) {
                     country_code: req.body.country_code,
                     postal_code: req.body.postal_code,
                     label: "shipping"
-                  },
-                  shipping: req.body.shipping_price,
-                  service_fee: 0.0,
-                  additional_expense: 0.0,
-                  tax: 0.0,
-                  discount: 0.0,
-                  promo_code: req.body.promo_code
-                }
-              ]
+                  }
+                }],
+                billing_address_id: clienteSearch.billing_address_id[
+                  clienteSearch.billing_address_id.length - 1
+                ],
+                payments: [{
+                  type: "credit_card",
+                  amount: parseFloat(
+                    req.body.price_per_ticket * req.body.quantity
+                  ).toFixed(2),
+                  credit_card_id: clienteSearch.creditcard_id[
+                    clienteSearch.creditcard_id.length - 1
+                  ]
+                }],
+                seller_id: tevo.OFFICE_ID,
+                client_id: clienteSearch.client_id,
+                created_by_ip_address: "",
+                instructions: "",
+                shipping_address: {
+                  name: req.body.name2,
+                  street_address: req.body.street_address,
+                  extendend_address: req.body.extendend_address,
+                  locality: req.body.locality,
+                  region: req.body.region,
+                  country_code: req.body.country_code,
+                  postal_code: req.body.postal_code,
+                  label: "shipping"
+                },
+                shipping: req.body.shipping_price,
+                service_fee: 0.0,
+                additional_expense: 0.0,
+                tax: 0.0,
+                discount: 0.0,
+                promo_code: req.body.promo_code
+              }]
             };
           }
-          console.log(
-            `promo_code- ${req.body.promo_code}\n orden-armada-${JSON.stringify(
-              orderData
-            )}`
-          );
+
 
           // Realizamos la orden.
           var createOrder = tevo.API_URL + "orders";
 
-          tevoClient.postJSON(createOrder, orderData).then(OrderRes => {
-            if (OrderRes.error != undefined) {
-              res.send("<b>Error Order:" + OrderRes.error + "</b>");
-              res.end();
-              return;
-            }
 
-            console.log("<OrderResmsg>" + JSON.stringify(OrderRes));
+          let searchPromoCode = `${tevo.API_URL}promotion_codes?code=${promo_code}`
 
-            var Order = new Orders();
-            {
-              Order.order_id.push(OrderRes.orders[0].id);
-              Order.order_tevo = OrderRes.orders[0];
-              Order.save(function(err, orderSaved) {
-                if (err) {
-                  console.log("Error al guardar la orden" + err);
-                } else {
-                  if (orderSaved) {
-                    //console.log("Orden Guardada Bien : >>> " + JSON.stringify(orderSaved));
-                    console.log("Orden Guardada Bien : >>> ");
+          console.log(`${JSON.stringify(searchPromoCode)}`)
+
+          if (promo_code && promo_code != "") {
+            tevoClient.getJSON(searchPromoCode).then((promoCodeResponse) => {
+
+              if (promoCodeResponse.total_entries > 0) {
+
+                if (promoCodeResponse.promotion_codes[0].active === true && promoCodeResponse.promotion_codes[0].value > 0) {
+                  let discountValue = promoCodeResponse.promotion_codes[0].value
+                  let isPercentage = promoCodeResponse.promotion_codes[0].percentage
+                  if (isPercentage === true) {
+                    orderData.orders[0].discount = orderData.orders[0].payments[0].amount * discountValue / 100
+                  } else {
+                    orderData.orders[0].discount = discountValue
                   }
                 }
-              });
-            }
+              }
 
-            sendEmailSenGrid(req, res, clienteSearch, OrderRes);
+              sendOrder(req, res, createOrder, orderData, clienteSearch)
+            })
 
-            //req.session.destroy();
+          } else {
+            sendOrder(req, res, createOrder, orderData, clienteSearch)
 
-            res.render("./layouts/tickets/finish", {
-              titulo: "Your tickets are on its way!",
-              APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
-              buyer_name: clienteSearch.fullName
-            });
-          });
+          }
+
         } else {
           res.send("No encontré el cliente  " + req.session.client_id);
         }
@@ -219,6 +187,54 @@ var finishCC = function(req, res) {
     }
   );
 };
+
+
+
+
+var sendOrder = (req, res, createOrder, orderData, clienteSearch) => {
+
+  console.log(
+    `promo_code- ${req.body.promo_code}\n orden-armada-${JSON.stringify(orderData)}`
+  );
+
+  tevoClient.postJSON(createOrder, orderData).then(OrderRes => {
+    if (OrderRes.error != undefined) {
+      res.send("<b>Error Order:" + OrderRes.error + "</b>");
+      res.end();
+      return;
+    }
+
+    console.log("<OrderResmsg>" + JSON.stringify(OrderRes));
+
+    var Order = new Orders(); {
+      Order.order_id.push(OrderRes.orders[0].id);
+      Order.order_tevo = OrderRes.orders[0];
+      Order.save(function (err, orderSaved) {
+        if (err) {
+          console.log("Error al guardar la orden" + err);
+        } else {
+          if (orderSaved) {
+            //console.log("Orden Guardada Bien : >>> " + JSON.stringify(orderSaved));
+            console.log("Orden Guardada Bien : >>> ");
+          }
+        }
+      });
+    }
+
+    sendEmailSenGrid(req, res, clienteSearch, OrderRes);
+
+    //req.session.destroy();
+
+    res.render("./layouts/tickets/finish", {
+      titulo: "Your tickets are on its way!",
+      APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
+      buyer_name: clienteSearch.fullName
+    });
+  });
+}
+
+
+
 
 var sendEmailSenGrid = (req, res, clienteSearch, OrderRes) => {
   var nombreCliente = OrderRes.orders[0].buyer.name;
@@ -316,7 +332,7 @@ var sendEmailSenGrid = (req, res, clienteSearch, OrderRes) => {
   };
   //console.log("<msg>" + JSON.stringify(msg));
 
-  sgMail.send(msg, function(err, body) {
+  sgMail.send(msg, function (err, body) {
     console.log("<correo>" + JSON.stringify(err));
     console.log("<correo>" + JSON.stringify(body));
   });

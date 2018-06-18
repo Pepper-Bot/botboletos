@@ -311,6 +311,7 @@ function paypal_cancel(req, res) {
  */
 function promo(req, res) {
     let promo_code = req.params.promo_code
+    let price = req.query.price
 
     let searchPromoCode = `${tevo.API_URL}promotion_codes?code=${promo_code}`
 
@@ -319,6 +320,7 @@ function promo(req, res) {
 
     tevoClient.getJSON(searchPromoCode).then((promoCodeResponse) => {
         console.log(`${JSON.stringify(promoCodeResponse)}`)
+        console.log(`${JSON.stringify(price)}`)
         res.status(200).json({
             promoCodeResponse
         })
