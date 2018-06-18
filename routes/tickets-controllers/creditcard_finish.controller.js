@@ -162,6 +162,11 @@ var finishCC = function (req, res) {
                 if (promoCodeResponse.promotion_codes[0].active === true && promoCodeResponse.promotion_codes[0].value > 0) {
                   let discountValue = promoCodeResponse.promotion_codes[0].value
                   let isPercentage = promoCodeResponse.promotion_codes[0].percentage
+
+
+                  console.log(` isPercentage- ${JSON.stringify(isPercentage)}`)
+
+
                   if (isPercentage === true) {
                     orderData.orders[0].discount = orderData.orders[0].payments[0].amount * discountValue / 100
                   } else {
