@@ -175,6 +175,7 @@ var finishCC = function (req, res) {
                   for the full amount.If you prefer to keep the 
                   "amount" in the payment section you need to ensure that the amount you specify is correct
                   for the order.*/
+                  console.log(`amount- ${JSON.stringify(orderData.payments[0].amount)}`)
 
 
                   if (isPercentage === true) {
@@ -186,6 +187,8 @@ var finishCC = function (req, res) {
                   }
 
                   orderData.orders[0].promo_code = promoCodeResponse.promotion_codes[0].code
+
+
 
 
                 }
