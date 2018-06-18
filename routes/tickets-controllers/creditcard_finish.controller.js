@@ -175,20 +175,22 @@ var finishCC = function (req, res) {
                   for the full amount.If you prefer to keep the 
                   "amount" in the payment section you need to ensure that the amount you specify is correct
                   for the order.*/
-                  console.log(`amount- ${JSON.stringify(orderData.payments[0].amount)}`)
+                  console.log(`amount-antes ${JSON.stringify(orderData.orders[0].payments[0].amount)}`)
 
 
                   if (isPercentage === true) {
                     orderData.orders[0].discount = parseFloat(orderData.orders[0].payments[0].amount * discountValue / 100).toFixed(2)
-                    orderData.payments[0].amount = parseFloat(orderData.orders[0].payments[0].amount - orderData.orders[0].discount).toFixed(2)
+                    orderData.orders[0].payments[0].amount = parseFloat(orderData.orders[0].payments[0].amount - orderData.orders[0].discount).toFixed(2)
                   } else {
                     orderData.orders[0].discount = discountValue
-                    orderData.payments[0].amount = parseFloat(orderData.orders[0].payments[0].amount - orderData.orders[0].discount).toFixed(2)
+                    orderData.orders[0].payments[0].amount = parseFloat(orderData.orders[0].payments[0].amount - orderData.orders[0].discount).toFixed(2)
                   }
 
                   orderData.orders[0].promo_code = promoCodeResponse.promotion_codes[0].code
 
 
+
+                  console.log(`amount-despues- ${JSON.stringify(orderData.orders[0].payments[0].amount)}`)
 
 
                 }
