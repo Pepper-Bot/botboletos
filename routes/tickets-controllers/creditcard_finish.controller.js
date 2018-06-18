@@ -172,6 +172,10 @@ var finishCC = function (req, res) {
                   } else {
                     orderData.orders[0].discount = discountValue
                   }
+
+                  orderData.orders[0].promo_code = promoCodeResponse.promotion_codes[0].name
+
+
                 }
               }
 
