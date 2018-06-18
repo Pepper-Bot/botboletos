@@ -150,7 +150,7 @@ var finishCC = function (req, res) {
           var createOrder = tevo.API_URL + "orders";
 
 
-          let searchPromoCode = `${tevo.API_URL}promotion_codes?code=${promo_code}`
+          let searchPromoCode = `${tevo.API_URL}promotion_codes?code=${req.body.promo_code}`
 
           console.log(`${JSON.stringify(searchPromoCode)}`)
 
