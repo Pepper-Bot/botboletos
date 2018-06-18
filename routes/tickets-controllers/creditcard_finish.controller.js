@@ -166,14 +166,26 @@ var finishCC = function (req, res) {
 
                   console.log(`isPercentage- ${JSON.stringify(isPercentage)}`)
 
+                  /*The error code message correct. 
+                  The cost of the order is 2 x $114.40 -0.23 = $228.57 and you have the payment amount as $228.80.
+                  The easiest thing to do is just omit the "amount"
+                  from
+                  the payment section and he
+                  default is to make the payment
+                  for the full amount.If you prefer to keep the 
+                  "amount" in the payment section you need to ensure that the amount you specify is correct
+                  for the order.*/
+
 
                   if (isPercentage === true) {
                     orderData.orders[0].discount = parseFloat(orderData.orders[0].payments[0].amount * discountValue / 100).toFixed(2)
+                    orderData.payments[0].amount = parseFloat(orderData.orders[0].payments[0].amount - orderData.orders[0].discount).toFixed(2)
                   } else {
                     orderData.orders[0].discount = discountValue
+                    orderData.payments[0].amount = parseFloat(orderData.orders[0].payments[0].amount - orderData.orders[0].discount).toFixed(2)
                   }
 
-                  orderData.orders[0].promo_code = promoCodeResponse.promotion_codes[0].name
+                  orderData.orders[0].promo_code = promoCodeResponse.promotion_codes[0].code
 
 
                 }
