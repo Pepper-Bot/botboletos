@@ -161,7 +161,7 @@ var render_paypal_cc_form = (req, res, direccionEnvio, shiping) => {
             postal_code: postal_code,
             email: email,
             format: format,
-            groupticket_id: grouptickket_id,
+            groupticket_id: groupticket_id,
             price: price,
             quantity: quantity,
             address_id: address_id,
