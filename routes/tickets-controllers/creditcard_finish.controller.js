@@ -164,11 +164,11 @@ var finishCC = function (req, res) {
                   let isPercentage = promoCodeResponse.promotion_codes[0].percentage
 
 
-                  console.log(` isPercentage- ${JSON.stringify(isPercentage)}`)
+                  console.log(`isPercentage- ${JSON.stringify(isPercentage)}`)
 
 
                   if (isPercentage === true) {
-                    orderData.orders[0].discount = orderData.orders[0].payments[0].amount * discountValue / 100
+                    orderData.orders[0].discount = parseFloat(orderData.orders[0].payments[0].amount * discountValue / 100).toFixed(2)
                   } else {
                     orderData.orders[0].discount = discountValue
                   }
