@@ -279,10 +279,12 @@ var sendEmailSenGrid = (req, res, clienteSearch, OrderRes) => {
   var tipoTickets = OrderRes.orders[0].items[0].ticket_group.format;
   var precio = OrderRes.orders[0].items[0].price;
 
-  var costoTotal = OrderRes.orders[0].items[0].cost;
-
 
   var discount = OrderRes.orders[0].discount
+  var costoTotal = OrderRes.orders[0].items[0].cost - discount;
+
+
+
 
 
   var ordenNumber = OrderRes.orders[0].id;
@@ -339,8 +341,8 @@ var sendEmailSenGrid = (req, res, clienteSearch, OrderRes) => {
   templateHTML = templateHTML.replace("&lt;type of ticket&gt;", tipoTickets);
   templateHTML = templateHTML.replace("&lt;Price&gt;", precio);
   templateHTML = templateHTML.replace("&lt;Discount&gt;", discount);
-  templateHTML = templateHTML.replace("&lt;Total Cost&gt;", "$" + costoTotal - discount);
-  templateHTML = templateHTML.replace("&lt;Total Cost&gt;", "$" + costoTotal - discount);
+  templateHTML = templateHTML.replace("&lt;Total Cost&gt;", "$" + costoTotal);
+  templateHTML = templateHTML.replace("&lt;Total Cost&gt;", "$" + costoTotal);
   templateHTML = templateHTML.replace("&lt;Order&gt;", ordenNumber);
   templateHTML = templateHTML.replace("&lt;orderDate&gt;", fechaOrden);
   templateHTML = templateHTML.replace("&lt;Customer&gt;", clienteId);
