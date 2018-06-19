@@ -212,7 +212,8 @@ function paypal_pay(req, res) {
 
 
 
-            if (req.session.promo_code && req.session.promo_code > 0) {
+            if (req.session.promo_code && req.session.promo_code != "") {
+                console.log(`req.session.promo_code ${req.session.promo_code}`)
                 checkout_promo_calculate(req.session.promo_code, req.session.groupticket_id, quantity).then((calculated) => {
                     if (calculated.discount && calculated.discount > 0) {
 

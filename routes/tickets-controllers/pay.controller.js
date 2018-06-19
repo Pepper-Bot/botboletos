@@ -34,7 +34,6 @@ var init_pay = function (req, res) {
     switch (req.body.payment_type) {
         case "cc":
             {
-
                 // pay_with_cc(req, res);
                 pay_with_cc1(req, res);
             }
