@@ -27,9 +27,9 @@ var tevoClient = new TevoClient({
 
 
 var init_pay = function (req, res) {
-       
-    req.session.promo_code =    req.body.promo_code 
-  
+    console.log(`init-pay-promo-code-  ${JSON.stringify(req.body)}`)
+    req.session.promo_code = req.body.promo_code
+    console.log(`req.session.promo_code-  ${JSON.stringify(req.session.promo_code)}`)
 
     switch (req.body.payment_type) {
         case "cc":
@@ -99,7 +99,7 @@ var render_paypal_cc_form = (req, res, direccionEnvio, shiping) => {
         req.session.provider = provider
         req.session.shiping_name = shiping_name
 
-     
+
 
         with_ship = true;
     } else {
