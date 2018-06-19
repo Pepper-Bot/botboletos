@@ -230,6 +230,13 @@ function paypal_pay(req, res) {
                         console.log(`pay-pal-items-con-discount  ${JSON.stringify(items)}`)
                         paypal_orden(req, res, items, total, event_name)
 
+
+
+                    } else {
+                        console.log(`pay-pal-items-discount-menor-zero ${JSON.stringify(items)}`)
+                        let total = (parseFloat(price * quantity + ship_price).toFixed(2))
+                        req.session.total = total
+                        paypal_orden(req, res, items, total, event_name)
                     }
 
                 })
