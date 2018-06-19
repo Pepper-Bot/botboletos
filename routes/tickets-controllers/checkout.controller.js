@@ -227,9 +227,8 @@ function paypal_pay(req, res) {
                         let total = (parseFloat(price * quantity + ship_price - calculated.discount).toFixed(2))
 
                         req.session.total = total
+                        console.log(`pay-pal-items- ${JSON.stringify(items)}`)
                         paypal_orden(req, res, items, total, event_name)
-
-
 
                     }
 
