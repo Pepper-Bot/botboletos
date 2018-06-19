@@ -205,9 +205,6 @@ function paypal_pay(req, res) {
                 }
             }
 
-            var total = (parseFloat(price * quantity + ship_price).toFixed(2))
-            req.session.total = total
-
 
             console.log(" req.session.fbId >" + req.session.fbId)
             console.log("quantity" + quantity)
@@ -215,45 +212,43 @@ function paypal_pay(req, res) {
 
 
 
+            if (req.session.promo_code && req.session.promo_code > 0) {
+                checkout_promo_calculate(req.session.promo_code, req.session.groupticket_id, quantity).then((calculated) => {
+                    if (calculated.discount && calculated.discount > 0) {
+
+                        items.push({
+                            "name": "Discount",
+                            "sku": "001",
+                            "price": calculated.discount * -1,
+                            "currency": "USD",
+                            "quantity": 1
+                        })
+
+                        let total = (parseFloat(price * quantity + ship_price - calculated.discount).toFixed(2))
+
+                        req.session.total = total
+                        paypal_orden(req, res, items, total, event_name)
 
 
-            const create_payment_json = {
-                "intent": "sale",
-                "payer": {
-                    "payment_method": "paypal"
-                },
-                "redirect_urls": {
-                    "return_url": APLICATION_URL_DOMAIN + "paypal_success",
-                    "cancel_url": APLICATION_URL_DOMAIN + "paypal_cancel"
-                },
-                "transactions": [{
-                    "item_list": {
-                        "items": items
-                    },
-                    "amount": {
-                        "currency": "USD",
-                        "total": total
-                    },
-                    "description": event_name
-                }]
 
+                    }
+
+                })
+
+            } else {
+                let total = (parseFloat(price * quantity + ship_price).toFixed(2))
+                req.session.total = total
+                paypal_orden(req, res, items, total, event_name)
 
             }
 
-            paypal.payment.create(create_payment_json, function (error, payment) {
-                if (error) {
-                    console.log("error " + error)
-                    throw error;
-                } else {
-                    for (let i = 0; i < payment.links.length; i++) {
-                        if (payment.links[i].rel === 'approval_url') {
-                            console.log("payment.links[i].href <<  " + payment.links[i].href)
-                            res.redirect(payment.links[i].href);
 
-                        }
-                    }
-                }
-            });
+
+
+
+
+
+
         } else {
 
             res.status(200);
@@ -265,6 +260,138 @@ function paypal_pay(req, res) {
     });
 
 }
+
+
+/**
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @param {*} items 
+ * @param {*} total 
+ * @param {*} event_name 
+ * 
+ * 
+ */
+function paypal_orden(req, res, items, total, event_name) {
+
+    const create_payment_json = {
+        "intent": "sale",
+        "payer": {
+            "payment_method": "paypal"
+        },
+        "redirect_urls": {
+            "return_url": APLICATION_URL_DOMAIN + "paypal_success",
+            "cancel_url": APLICATION_URL_DOMAIN + "paypal_cancel"
+        },
+        "transactions": [{
+            "item_list": {
+                "items": items
+            },
+            "amount": {
+                "currency": "USD",
+                "total": total
+            },
+            "description": event_name
+        }]
+
+
+    }
+
+    paypal.payment.create(create_payment_json, function (error, payment) {
+        if (error) {
+            console.log("error " + error)
+            throw error;
+        } else {
+            for (let i = 0; i < payment.links.length; i++) {
+                if (payment.links[i].rel === 'approval_url') {
+                    console.log("payment.links[i].href <<  " + payment.links[i].href)
+                    res.redirect(payment.links[i].href);
+
+                }
+            }
+        }
+    });
+}
+
+
+
+
+
+
+/**
+ * 
+ * @param {*} promo_code 
+ * @param {*} ticket_group_id 
+ * @param {*} quantity 
+ * @description función usada para calcular el descuento
+ * 
+ */
+var checkout_promo_calculate = (promo_code, ticket_group_id, quantity) => {
+    return new Promise((resolve, reject) => {
+        let searchPromoCode = `${tevo.API_URL}promotion_codes?code=${promo_code}`
+        console.log(`${JSON.stringify(searchPromoCode)}`)
+        tevoClient.getJSON(searchPromoCode).then((promoCodeResponse) => {
+            if (promoCodeResponse.total_entries > 0) {
+                if (promoCodeResponse.promotion_codes[0].active === true && promoCodeResponse.promotion_codes[0].value > 0) {
+                    let code = promoCodeResponse.promotion_codes[0].code
+                    let discountValue = promoCodeResponse.promotion_codes[0].value
+                    let isPercentage = promoCodeResponse.promotion_codes[0].percentage
+                    console.log(`isPercentage- ${JSON.stringify(isPercentage)}`)
+
+                    let searchTicketGroup = `${tevo.API_URL}ticket_groups/${ticket_group_id}?ticket_list=true`
+
+
+                    tevoClient.getJSON(searchTicketGroup).then((ticketGroupRes) => {
+
+                        console.log(`ticketGroupRes- ${JSON.stringify(ticketGroupRes)}`)
+
+
+                        let retail_price = ticketGroupRes.retail_price
+
+                        let amount = retail_price * quantity
+                        let discount = 0
+
+                        if (isPercentage === true) {
+                            discount = amount * discountValue / 100
+                        } else {
+                            discount = discountValue
+                        }
+
+                        let total = amount - discount
+
+                        let response = {
+                            code,
+                            retail_price,
+                            quantity,
+                            amount,
+                            discount,
+                            total
+                        }
+                        resolve(response)
+
+
+                    }).catch((error) => {
+                        console.log(`error-searchTicketGroup ${error}`)
+                        reject({
+                            error: `error-searchTicketGroup ${error}`
+                        })
+                    })
+                } else {
+                    resolve({})
+                }
+            } else {
+                resolve({})
+            }
+
+        }).catch((error) => {
+            console.log(`error-searchPromoCode ${error}`)
+            reject({
+                error: `error-searchPromoCode ${error}`
+            })
+        })
+    })
+}
+
 
 
 
@@ -322,7 +449,20 @@ function promo(req, res) {
         return
     }
 
-    let searchPromoCode = `${tevo.API_URL}promotion_codes?code=${promo_code}`
+    checkout_promo_calculate(promo_code, ticket_group_id, quantity).then((response) => {
+        res.status(200).json(
+            response
+        )
+    }).catch(error => {
+        res.status(500).json(
+            error
+        )
+    })
+
+
+
+
+    /*let searchPromoCode = `${tevo.API_URL}promotion_codes?code=${promo_code}`
 
     console.log(`${JSON.stringify(searchPromoCode)}`)
 
@@ -394,7 +534,7 @@ function promo(req, res) {
         res.status(500).json({
             error
         })
-    })
+    })*/
 
 }
 
