@@ -384,76 +384,77 @@
             //================================================ ☑️
 
 
-        }); 
+        });
+    }); 
 </script>
 <script>
-            $(document).ready(function () {
-                $("#same_as_ship").on("click", function (e) {
-                    if ($(this).is(":checked")) {
-                        $("#shipping_form").hide();
-                        $("#ship_address").attr("disabled", "disabled");
-                        $("#zipcode").attr("disabled", "disabled");
-                        $("#city").attr("disabled", "disabled");
-                        $("#state").attr("disabled", "disabled");
-                        $("#country").attr("disabled", "disabled");
-                    }
-                    else {
-                        $("#ship_address").removeAttr("disabled", "disabled");
-                        $("#zipcode").removeAttr("disabled", "disabled");
-                        $("#city").removeAttr("disabled", "disabled");
-                        $("#state").removeAttr("disabled", "disabled");
-                        $("#country").removeAttr("disabled", "disabled");
-                        $("#shipping_form").show();
-                    }
-                });
+    $(document).ready(function () {
+        $("#same_as_ship").on("click", function (e) {
+            if ($(this).is(":checked")) {
+                $("#shipping_form").hide();
+                $("#ship_address").attr("disabled", "disabled");
+                $("#zipcode").attr("disabled", "disabled");
+                $("#city").attr("disabled", "disabled");
+                $("#state").attr("disabled", "disabled");
+                $("#country").attr("disabled", "disabled");
+            }
+            else {
+                $("#ship_address").removeAttr("disabled", "disabled");
+                $("#zipcode").removeAttr("disabled", "disabled");
+                $("#city").removeAttr("disabled", "disabled");
+                $("#state").removeAttr("disabled", "disabled");
+                $("#country").removeAttr("disabled", "disabled");
+                $("#shipping_form").show();
+            }
+        });
 
-                $("#cc_radio").on("click", function (e) {
-                    if ($(this).is(":checked")) {
-                        $("#paypal_form").hide();
-                        $("#credit_card_form").show();
+        $("#cc_radio").on("click", function (e) {
+            if ($(this).is(":checked")) {
+                $("#paypal_form").hide();
+                $("#credit_card_form").show();
 
-                        $("#cc").removeAttr("disabled", "disabled");
-                        $("#exp_month").removeAttr("disabled", "disabled");
-                        $("#exp_year").removeAttr("disabled", "disabled");
-                        $("#cvv").removeAttr("disabled", "disabled");
-                    }
-                    else {
-                        $("#cc").attr("disabled", "disabled");
-                        $("#exp_month").attr("disabled", "disabled");
-                        $("#exp_year").attr("disabled", "disabled");
-                        $("#cvv").attr("disabled", "disabled");
-                        $("#credit_card_form").hide();
-                        $("#paypal_form").show();
-                    }
-                });
+                $("#cc").removeAttr("disabled", "disabled");
+                $("#exp_month").removeAttr("disabled", "disabled");
+                $("#exp_year").removeAttr("disabled", "disabled");
+                $("#cvv").removeAttr("disabled", "disabled");
+            }
+            else {
+                $("#cc").attr("disabled", "disabled");
+                $("#exp_month").attr("disabled", "disabled");
+                $("#exp_year").attr("disabled", "disabled");
+                $("#cvv").attr("disabled", "disabled");
+                $("#credit_card_form").hide();
+                $("#paypal_form").show();
+            }
+        });
 
-                $("#pp_radio").on("click", function (e) {
-                    if ($(this).is(":checked")) {
-                        $("#cc").attr("disabled", "disabled");
-                        $("#exp_month").attr("disabled", "disabled");
-                        $("#exp_year").attr("disabled", "disabled");
-                        $("#cvv").attr("disabled", "disabled");
-                        $("#credit_card_form").hide();
-                        $("#paypal_form").show();
+        $("#pp_radio").on("click", function (e) {
+            if ($(this).is(":checked")) {
+                $("#cc").attr("disabled", "disabled");
+                $("#exp_month").attr("disabled", "disabled");
+                $("#exp_year").attr("disabled", "disabled");
+                $("#cvv").attr("disabled", "disabled");
+                $("#credit_card_form").hide();
+                $("#paypal_form").show();
 
-                    }
-                    else {
-                        $("#paypal_form").hide();
-                        $("#credit_card_form").show();
-                        $("#cc").removeAttr("disabled", "disabled");
-                        $("#exp_month").removeAttr("disabled", "disabled");
-                        $("#exp_year").removeAttr("disabled", "disabled");
-                        $("#cvv").removeAttr("disabled", "disabled");
-                    }
-                });
+            }
+            else {
+                $("#paypal_form").hide();
+                $("#credit_card_form").show();
+                $("#cc").removeAttr("disabled", "disabled");
+                $("#exp_month").removeAttr("disabled", "disabled");
+                $("#exp_year").removeAttr("disabled", "disabled");
+                $("#cvv").removeAttr("disabled", "disabled");
+            }
+        });
 
-            });
+    });
 </script>
 <!--This is the Pixel's FB event trackign clicking Checkout button -->
 <script>
-        $(document).ready(function () {
-            $('#checkout').click(function () {
-                fbq('track', 'ViewContent');
-            });
+    $(document).ready(function () {
+        $('#checkout').click(function () {
+            fbq('track', 'ViewContent');
         });
+    });
 </script>
