@@ -280,7 +280,7 @@ function createOrder(req, res, payment, event, clienteSearch) {
                 }
             );
 
-            req.session.destroy();
+
         }
 
 
@@ -426,6 +426,10 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes, discount
     sgMail.send(msg, function (err, body) {
         console.log("<correo>" + JSON.stringify(err));
         console.log("<correo>" + JSON.stringify(body));
+
+        req.session.discount = undefined
+        req.session.promo_code = undefined
+
 
     });
 

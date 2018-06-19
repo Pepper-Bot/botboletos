@@ -383,6 +383,9 @@ var sendEmailSenGrid = (req, res, clienteSearch, OrderRes) => {
   sgMail.send(msg, function (err, body) {
     console.log("<correo>" + JSON.stringify(err));
     console.log("<correo>" + JSON.stringify(body));
+
+
+
   });
 };
 
