@@ -363,6 +363,7 @@ function promo(req, res) {
                         retail_price,
                         quantity,
                         amount,
+                        discount,
                         total
                     }
 
