@@ -342,10 +342,10 @@ function promo(req, res) {
 
                 tevoClient.getJSON(searchTicketGroup).then((ticketGroupRes) => {
 
-                    console.log(`isPercentage- ${JSON.stringify(ticketGroupRes)}`)
+                    console.log(`ticketGroupRes- ${JSON.stringify(ticketGroupRes)}`)
 
 
-                    let retail_price = ticketGroupRes.ticket_groups[0].retail_price
+                    let retail_price = ticketGroupRes.retail_price
 
                     let amount = retail_price * quantity
                     let discount = 0
