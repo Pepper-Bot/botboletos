@@ -35,6 +35,7 @@
                         <p class="row-title">${{{price}}}</p>
                         <label class="row-description">Price + fee</label>
                     </div>
+
                 </div>
                 <div class="row row-custom">
                     <div class="col s12">
@@ -43,7 +44,7 @@
                 </div>
                 <div class="row row-custom-padding">
                     <div class="col s12">
-                        <p class="row-title-lg">{{{total}}}</p>
+                        <p id="totalTagP" class="row-title-lg">${{{total}}}</p>
                     </div>
                 </div>
                 <div class="row row-custom">
@@ -58,9 +59,9 @@
                         <input type="hidden" value="{{{row}}}" name="row">
                         <input type="hidden" value="{{{event_name}}}" name="event_name">
                         <input type="hidden" value="{{{price}}}" name="price">
-                        <input type="hidden" value="{{{quantity}}}" name="quantity">
+                        <input id="quantity" type="hidden" value="{{{quantity}}}" name="quantity">
                         <input type="hidden" value="{{{format}}}" name="format">
-                        <input type="hidden" value="{{{groupticket_id}}}" name="groupticket_id">
+                        <input id="groupticket_id" type="hidden" value="{{{groupticket_id}}}" name="groupticket_id">
 
                         <input type="hidden" id="payment_type" name="payment_type">
                         <input type="hidden" id="promo_code" name="promo_code">
@@ -360,93 +361,99 @@
             //TODO:
             event.preventDefault();
             var promo_code_s = $("#promo_code1").val()
+            let groupticket_id = $("#groupticket_id").val()
+            let quantity = $("#quantity").val()
+
+            let datos = {
+                promo_code_s,
+                groupticket_id,
+                quantity
+            }
+
+            let search = `https://botboletos-test.herokuapp.com/checkout/promo`
 
 
-            $.post("https://botboletos-test.herokuapp.com/checkout/promo/" + promo_code_s, function (data) {
+
+            $.post(search, datos, function (data) {
                 console.log(`-- promo response ${JSON.stringify(data)}`)
-                if (data.promoCodeResponse && data.promoCodeResponse.total_entries > 0) {
-                    $("#promo_code").val(data.promoCodeResponse.promotion_codes[0].code)
-                    console.log(`OK!`)
-                } else {
-                    console.log(`BAD!`)
+                if (data) {
+                    $("#promo_code").val(data.code)
                 }
 
-            });
-
-        })
-        //================================================ ☑️
+            })
+            //================================================ ☑️
 
 
-    }); 
+        }); 
 </script>
 <script>
-    $(document).ready(function () {
-        $("#same_as_ship").on("click", function (e) {
-            if ($(this).is(":checked")) {
-                $("#shipping_form").hide();
-                $("#ship_address").attr("disabled", "disabled");
-                $("#zipcode").attr("disabled", "disabled");
-                $("#city").attr("disabled", "disabled");
-                $("#state").attr("disabled", "disabled");
-                $("#country").attr("disabled", "disabled");
-            }
-            else {
-                $("#ship_address").removeAttr("disabled", "disabled");
-                $("#zipcode").removeAttr("disabled", "disabled");
-                $("#city").removeAttr("disabled", "disabled");
-                $("#state").removeAttr("disabled", "disabled");
-                $("#country").removeAttr("disabled", "disabled");
-                $("#shipping_form").show();
-            }
-        });
+            $(document).ready(function () {
+                $("#same_as_ship").on("click", function (e) {
+                    if ($(this).is(":checked")) {
+                        $("#shipping_form").hide();
+                        $("#ship_address").attr("disabled", "disabled");
+                        $("#zipcode").attr("disabled", "disabled");
+                        $("#city").attr("disabled", "disabled");
+                        $("#state").attr("disabled", "disabled");
+                        $("#country").attr("disabled", "disabled");
+                    }
+                    else {
+                        $("#ship_address").removeAttr("disabled", "disabled");
+                        $("#zipcode").removeAttr("disabled", "disabled");
+                        $("#city").removeAttr("disabled", "disabled");
+                        $("#state").removeAttr("disabled", "disabled");
+                        $("#country").removeAttr("disabled", "disabled");
+                        $("#shipping_form").show();
+                    }
+                });
 
-        $("#cc_radio").on("click", function (e) {
-            if ($(this).is(":checked")) {
-                $("#paypal_form").hide();
-                $("#credit_card_form").show();
+                $("#cc_radio").on("click", function (e) {
+                    if ($(this).is(":checked")) {
+                        $("#paypal_form").hide();
+                        $("#credit_card_form").show();
 
-                $("#cc").removeAttr("disabled", "disabled");
-                $("#exp_month").removeAttr("disabled", "disabled");
-                $("#exp_year").removeAttr("disabled", "disabled");
-                $("#cvv").removeAttr("disabled", "disabled");
-            }
-            else {
-                $("#cc").attr("disabled", "disabled");
-                $("#exp_month").attr("disabled", "disabled");
-                $("#exp_year").attr("disabled", "disabled");
-                $("#cvv").attr("disabled", "disabled");
-                $("#credit_card_form").hide();
-                $("#paypal_form").show();
-            }
-        });
+                        $("#cc").removeAttr("disabled", "disabled");
+                        $("#exp_month").removeAttr("disabled", "disabled");
+                        $("#exp_year").removeAttr("disabled", "disabled");
+                        $("#cvv").removeAttr("disabled", "disabled");
+                    }
+                    else {
+                        $("#cc").attr("disabled", "disabled");
+                        $("#exp_month").attr("disabled", "disabled");
+                        $("#exp_year").attr("disabled", "disabled");
+                        $("#cvv").attr("disabled", "disabled");
+                        $("#credit_card_form").hide();
+                        $("#paypal_form").show();
+                    }
+                });
 
-        $("#pp_radio").on("click", function (e) {
-            if ($(this).is(":checked")) {
-                $("#cc").attr("disabled", "disabled");
-                $("#exp_month").attr("disabled", "disabled");
-                $("#exp_year").attr("disabled", "disabled");
-                $("#cvv").attr("disabled", "disabled");
-                $("#credit_card_form").hide();
-                $("#paypal_form").show();
+                $("#pp_radio").on("click", function (e) {
+                    if ($(this).is(":checked")) {
+                        $("#cc").attr("disabled", "disabled");
+                        $("#exp_month").attr("disabled", "disabled");
+                        $("#exp_year").attr("disabled", "disabled");
+                        $("#cvv").attr("disabled", "disabled");
+                        $("#credit_card_form").hide();
+                        $("#paypal_form").show();
 
-            }
-            else {
-                $("#paypal_form").hide();
-                $("#credit_card_form").show();
-                $("#cc").removeAttr("disabled", "disabled");
-                $("#exp_month").removeAttr("disabled", "disabled");
-                $("#exp_year").removeAttr("disabled", "disabled");
-                $("#cvv").removeAttr("disabled", "disabled");
-            }
-        });
+                    }
+                    else {
+                        $("#paypal_form").hide();
+                        $("#credit_card_form").show();
+                        $("#cc").removeAttr("disabled", "disabled");
+                        $("#exp_month").removeAttr("disabled", "disabled");
+                        $("#exp_year").removeAttr("disabled", "disabled");
+                        $("#cvv").removeAttr("disabled", "disabled");
+                    }
+                });
 
-    });
+            });
 </script>
 <!--This is the Pixel's FB event trackign clicking Checkout button -->
 <script>
-    $(document).ready(function () {
-        $('#checkout').click(function () {
-            fbq('track', 'ViewContent');
+        $(document).ready(function () {
+            $('#checkout').click(function () {
+                fbq('track', 'ViewContent');
+            });
         });
-    });
 </script>

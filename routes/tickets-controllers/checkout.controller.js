@@ -61,7 +61,7 @@ var checkout = (req, res) => {
 
 
     var total = (parseFloat(params.userticketsquantity * params.priceticket).toFixed(2));
-    var totals = "$" + total
+
 
 
 
@@ -121,7 +121,7 @@ var checkout = (req, res) => {
                     quantity: params.userticketsquantity,
                     price: params.priceticket,
                     wholesale_price: params.wholesale_price,
-                    total: totals,
+                    total: total,
                     format: params.format,
                     noeticket: noeticket,
                     eticket: params.eticket,
@@ -305,13 +305,22 @@ function paypal_cancel(req, res) {
  * 
  * =======================================================
  * @description ruta para consultar el codigo de promoción 
- * https://botboletos-test.herokuapp.com/checkout/promo/promo_code_super_cero
+ * https://botboletos-test.herokuapp.com/checkout/promo 
  * =======================================================
  * 
  */
 function promo(req, res) {
-    let promo_code = req.params.promo_code
-    let price = req.query.price
+    let promo_code = req.body.promo_code
+    let ticket_group_id = req.body.ticket_group_id
+    let quantity = req.body.quantity
+
+
+    if (!promo_code || !ticket_group_id || !quantity) {
+        res.status(500).json({
+            message: `incomplete vars`
+        })
+        return
+    }
 
     let searchPromoCode = `${tevo.API_URL}promotion_codes?code=${promo_code}`
 
@@ -319,13 +328,62 @@ function promo(req, res) {
 
 
     tevoClient.getJSON(searchPromoCode).then((promoCodeResponse) => {
-        console.log(`${JSON.stringify(promoCodeResponse)}`)
-        console.log(`${JSON.stringify(price)}`)
-        res.status(200).json({
-            promoCodeResponse
-        })
+        if (promoCodeResponse.total_entries > 0) {
+
+            if (promoCodeResponse.promotion_codes[0].active === true && promoCodeResponse.promotion_codes[0].value > 0) {
+                let code = promoCodeResponse.promotion_codes[0].code
+                let discountValue = promoCodeResponse.promotion_codes[0].value
+                let isPercentage = promoCodeResponse.promotion_codes[0].percentage
+                console.log(`isPercentage- ${JSON.stringify(isPercentage)}`)
+
+                let searchTicketGroup = `ticket_groups/${ticket_group_id}?ticket_list=true`
+
+                tevoClient.getJSON(searchTicketGroup).then((ticketGroupRes) => {
+                    let retail_price = ticketGroupRes.ticket_groups[0].retail_price
+
+                    let amount = retail_price * quantity
+                    let discount = 0
+
+                    if (isPercentage === true) {
+                        discount = amount * discountValue / 100
+                    } else {
+                        discount = discountValue
+                    }
+
+                    let total = amount - discount
+
+                    let response = {
+                        code,
+                        retail_price,
+                        quantity,
+                        amount,
+                        total
+                    }
+
+                    res.status(200).json(
+                        response
+                    )
+
+                }).catch((error) => {
+                    console.log(`error-searchTicketGroup ${error}`)
+                    res.status(500).json({
+                        error
+                    })
+                })
+
+            } else {
+                res.status(500).json({
+                    message: 'bad-code-inactive-zero'
+                })
+            }
+        } else {
+            res.status(500).json({
+                message: 'bad-code'
+            })
+        }
+
     }).catch((error) => {
-        console.log(`error ${error}`)
+        console.log(`error-searchPromoCode ${error}`)
         res.status(500).json({
             error
         })
