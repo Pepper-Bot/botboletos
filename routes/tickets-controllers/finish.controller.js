@@ -14,7 +14,7 @@ var tevoClient = new TevoClient({
     apiSecretKey: tevo.API_SECRET_KEY
 });
 
- 
+
 
 function finish(req, res, payment) {
     var urlApiTevo = tevo.API_URL;
@@ -109,15 +109,20 @@ function createOrder(req, res, payment, event, clienteSearch) {
         var shipping = req.session.ship_price // Se obtine luego de hacer petición de shipping   Additional amount added to the order to be labeled as Shipping Cost
     }
 
-    var amount = (parseFloat(price * quantity).toFixed(2))
+    let amount = (parseFloat(price * quantity).toFixed(2))
     var type = 'offline'; //modo sugerido por tevo
 
 
     var service_fee = 0.00;
     var additional_expense = 0.00;
     var tax = 0.00;
-    var discount = 0.00;
-    var promo_code = '';
+    let discount = 0.00;
+    if (req.session.discount && req.session.discount > 0) {
+        discount = req.session.discount
+        amount = parseFloat(amount - discount).toFixed(2)
+    }
+
+    var promo_code = req.session.promo_code;
 
     //
     var phone_number_id = clienteSearch.phone_id;
@@ -140,9 +145,9 @@ function createOrder(req, res, payment, event, clienteSearch) {
     var format = req.session.format;
 
     var format_type = req.session.format_type
-
+    let orderData = {}
     if (format == 'Eticket') {
-        var orderData = {
+        orderData = {
             "orders": [{
                 "shipped_items": [{
                     "items": [{
@@ -171,7 +176,7 @@ function createOrder(req, res, payment, event, clienteSearch) {
             }]
         };
     } else {
-        var orderData = {
+        orderData = {
             "orders": [{
                 "shipped_items": [{
                     "items": [{
@@ -262,7 +267,7 @@ function createOrder(req, res, payment, event, clienteSearch) {
             }
 
 
-            sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes)
+            sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes, discount)
 
             var pp_recipient_name = payment.payer.payer_info.shipping_address.recipient_name;
             res.render(
@@ -282,7 +287,7 @@ function createOrder(req, res, payment, event, clienteSearch) {
 }
 
 
-function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
+function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes, discount) {
     //pay pal vars
     var pp_email = payment.payer.payer_info.email;
     var pp_first_name = payment.payer.payer_info.first_name;
@@ -384,6 +389,16 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
     templateHTML = templateHTML.replace('&lt;orderDate&gt;', fechaOrden);
     templateHTML = templateHTML.replace('&lt;Customer&gt;', clienteId);
     templateHTML = templateHTML.replace('&lt;Location&gt;', venueEvento);
+
+
+    if (discount > 0) {
+        templateHTML = templateHTML.replace("{{PayDescription}}", `${cantidadTickets} ${tipoTickets} ${precio} - Discount ${discount} = $ ${costoTotal}`);
+    } else {
+        templateHTML = templateHTML.replace("{{PayDescription}}", `${cantidadTickets} ${tipoTickets} ${precio} = $ ${costoTotal}`);
+    }
+
+
+
 
     if (format == 'Eticket') {
         templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'Eticket - Email with PDF');
