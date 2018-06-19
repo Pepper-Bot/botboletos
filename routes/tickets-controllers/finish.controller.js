@@ -116,6 +116,7 @@ function createOrder(req, res, payment, event, clienteSearch) {
     var service_fee = 0.00;
     var additional_expense = 0.00;
     var tax = 0.00;
+
     let discount = 0.00;
     if (req.session.discount && req.session.discount > 0) {
         discount = req.session.discount
@@ -278,6 +279,8 @@ function createOrder(req, res, payment, event, clienteSearch) {
 
                 }
             );
+
+            req.session.destroy();
         }
 
 
@@ -425,6 +428,9 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes, discount
         console.log("<correo>" + JSON.stringify(body));
 
     });
+
+
+
 }
 
 
