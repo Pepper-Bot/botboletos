@@ -364,20 +364,20 @@
 
 
             event.preventDefault();
-            var promo_code_s = $("#promo_code1").val()
-            let groupticket_id = $("#groupticket_id").val()
+            var promo_code = $("#promo_code1").val()
+            let ticket_group_id = $("#groupticket_id").val()
             let quantity = $("#quantity").val()
 
             let datos = {
                 promo_code_s,
-                groupticket_id,
+                ticket_group_id,
                 quantity
             }
 
 
-            console.log(`-- promo response ${JSON.stringify(datos)}`)
+            console.log(`-- datos ${JSON.stringify(datos)}`)
 
-            /*let search = `https://botboletos-test.herokuapp.com/checkout/promo`
+            let search = `https://botboletos-test.herokuapp.com/checkout/promo`
 
 
 
@@ -387,7 +387,8 @@
                     $("#promo_code").val(data.code)
                 }
 
-            })*/
+            })
+
             //================================================ ☑️
 
 

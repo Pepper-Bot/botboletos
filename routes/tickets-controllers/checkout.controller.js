@@ -336,7 +336,9 @@ function promo(req, res) {
                 let isPercentage = promoCodeResponse.promotion_codes[0].percentage
                 console.log(`isPercentage- ${JSON.stringify(isPercentage)}`)
 
-                let searchTicketGroup = `ticket_groups/${ticket_group_id}?ticket_list=true`
+
+                let searchTicketGroup = `${tevo.API_URL}ticket_groups/${ticket_group_id}?ticket_list=true`
+
 
                 tevoClient.getJSON(searchTicketGroup).then((ticketGroupRes) => {
                     let retail_price = ticketGroupRes.ticket_groups[0].retail_price
