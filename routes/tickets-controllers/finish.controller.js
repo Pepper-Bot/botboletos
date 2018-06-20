@@ -290,7 +290,7 @@ function createOrder(req, res, payment, event, clienteSearch) {
 }
 
 
-function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes, discount = 0) {
+function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
     //pay pal vars
     var pp_email = payment.payer.payer_info.email;
     var pp_first_name = payment.payer.payer_info.first_name;
@@ -313,6 +313,9 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes, discount
     var cantidadTickets = OrderRes.orders[0].items[0].quantity;
     var tipoTickets = OrderRes.orders[0].items[0].ticket_group.format;
     var precio = OrderRes.orders[0].items[0].price;
+
+    let discount = OrderRes.orders[0].discount
+
     var costoTotal = parseFloat(OrderRes.orders[0].items[0].cost - discount).toFixed(2)
 
 
