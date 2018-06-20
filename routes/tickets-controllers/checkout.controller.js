@@ -380,9 +380,9 @@ var checkout_promo_calculate = (promo_code, ticket_group_id, quantity) => {
                             resolve(response)
 
                         } else if (ticketGroupRes.error) {
-
-                            resolve({})
-
+                            reject({
+                                error: `error-searchTicketGroup ${error}`
+                            })
                         }
 
 
