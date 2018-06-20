@@ -3091,7 +3091,7 @@ var startSpainFrame = (senderId, referral) => {
  */
 var startPortugalFrame = (senderId, referral) => {
   var PortugalFrameModule = require("../modules/tevo/russia2018/Portugal_frame");
-  PortugalFrameModule.startPotugalFrame(senderId, referral);
+  PortugalFrameModule.startPortugalFrame(senderId, referral);
 };
 
 // Created May 8 - France vs Australia Game 5 in the World Cup
