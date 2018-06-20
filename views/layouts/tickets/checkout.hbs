@@ -61,7 +61,7 @@
                         <input type="hidden" value="{{{price}}}" name="price">
                         <input id="quantity" type="hidden" value="{{{quantity}}}" name="quantity">
                         <input type="hidden" value="{{{format}}}" name="format">
-                    
+
                         <input id="groupticket_id" type="hidden" value="{{{groupticket_id}}}" name="groupticket_id">
 
                         <input type="hidden" id="payment_type" name="payment_type">
@@ -384,12 +384,9 @@
 
             $.post(search, datos, function (data) {
                 console.log(`-- promo response ${JSON.stringify(data)}`)
-                if (data) {
+                if (data.discount && data.code && data.total) {
                     $("#promo_code").val(data.code)
-                    $("#totalTagP").text(`$${data.total}  Discount $${data.discount}` )
-
-                    
-                    
+                    $("#totalTagP").text(`$${data.total}  Discount $${data.discount}`)
                 }
 
             })

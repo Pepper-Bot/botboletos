@@ -351,33 +351,41 @@ var checkout_promo_calculate = (promo_code, ticket_group_id, quantity) => {
                     let searchTicketGroup = `${tevo.API_URL}ticket_groups/${ticket_group_id}?ticket_list=true`
 
 
+                    console.log(`ticketGroup request- ${JSON.stringify(searchTicketGroup)}`)
                     tevoClient.getJSON(searchTicketGroup).then((ticketGroupRes) => {
+                        console.log(`ticketGroup response- ${JSON.stringify(ticketGroupRes)}`)
 
-                        console.log(`ticketGroupRes- ${JSON.stringify(ticketGroupRes)}`)
+                        if (ticketGroupRes.retail_price) {
+                            let retail_price = ticketGroupRes.retail_price
 
+                            let amount = retail_price * quantity
+                            let discount = 0
 
-                        let retail_price = ticketGroupRes.retail_price
+                            if (isPercentage === true) {
+                                discount = parseFloat(amount * discountValue / 100).toFixed(2)
+                            } else {
+                                discount = discountValue
+                            }
 
-                        let amount = retail_price * quantity
-                        let discount = 0
+                            let total = parseFloat(amount - discount).toFixed(2)
 
-                        if (isPercentage === true) {
-                            discount = parseFloat(amount * discountValue / 100).toFixed(2)
-                        } else {
-                            discount = discountValue
+                            let response = {
+                                code,
+                                retail_price,
+                                quantity,
+                                amount,
+                                discount,
+                                total
+                            }
+                            resolve(response)
+
+                        } else if (ticketGroupRes.error) {
+
+                            resolve({})
+
                         }
 
-                        let total = parseFloat(amount - discount).toFixed(2)
 
-                        let response = {
-                            code,
-                            retail_price,
-                            quantity,
-                            amount,
-                            discount,
-                            total
-                        }
-                        resolve(response)
 
 
                     }).catch((error) => {
