@@ -282,7 +282,8 @@ var sendEmailSenGrid = (req, res, clienteSearch, OrderRes) => {
 
 
   var discount = OrderRes.orders[0].discount
-  var costoTotal = OrderRes.orders[0].items[0].cost - discount;
+
+  var costoTotal = parseFloat(OrderRes.orders[0].items[0].cost - discount).toFixed(2);
 
 
 

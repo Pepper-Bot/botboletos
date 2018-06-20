@@ -313,7 +313,7 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes, discount
     var cantidadTickets = OrderRes.orders[0].items[0].quantity;
     var tipoTickets = OrderRes.orders[0].items[0].ticket_group.format;
     var precio = OrderRes.orders[0].items[0].price;
-    var costoTotal = OrderRes.orders[0].items[0].cost - discount
+    var costoTotal = parseFloat(OrderRes.orders[0].items[0].cost - discount).toFixed(2)
 
 
     var ordenNumber = ""
