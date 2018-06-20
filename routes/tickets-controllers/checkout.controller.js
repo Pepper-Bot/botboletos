@@ -381,7 +381,7 @@ var checkout_promo_calculate = (promo_code, ticket_group_id, quantity) => {
 
                         } else if (ticketGroupRes.error) {
                             reject({
-                                error: `error-searchTicketGroup ${error}`
+                                error: `error-searchTicketGroup ${ticketGroupRes.error}`
                             })
                         }
 
@@ -476,83 +476,6 @@ function promo(req, res) {
             error
         )
     })
-
-
-
-
-    /*let searchPromoCode = `${tevo.API_URL}promotion_codes?code=${promo_code}`
-
-    console.log(`${JSON.stringify(searchPromoCode)}`)
-
-
-    tevoClient.getJSON(searchPromoCode).then((promoCodeResponse) => {
-        if (promoCodeResponse.total_entries > 0) {
-
-            if (promoCodeResponse.promotion_codes[0].active === true && promoCodeResponse.promotion_codes[0].value > 0) {
-                let code = promoCodeResponse.promotion_codes[0].code
-                let discountValue = promoCodeResponse.promotion_codes[0].value
-                let isPercentage = promoCodeResponse.promotion_codes[0].percentage
-                console.log(`isPercentage- ${JSON.stringify(isPercentage)}`)
-
-
-                let searchTicketGroup = `${tevo.API_URL}ticket_groups/${ticket_group_id}?ticket_list=true`
-
-
-                tevoClient.getJSON(searchTicketGroup).then((ticketGroupRes) => {
-
-                    console.log(`ticketGroupRes- ${JSON.stringify(ticketGroupRes)}`)
-
-
-                    let retail_price = ticketGroupRes.retail_price
-
-                    let amount = retail_price * quantity
-                    let discount = 0
-
-                    if (isPercentage === true) {
-                        discount = amount * discountValue / 100
-                    } else {
-                        discount = discountValue
-                    }
-
-                    let total = amount - discount
-
-                    let response = {
-                        code,
-                        retail_price,
-                        quantity,
-                        amount,
-                        discount,
-                        total
-                    }
-
-                    res.status(200).json(
-                        response
-                    )
-
-                }).catch((error) => {
-                    console.log(`error-searchTicketGroup ${error}`)
-                    res.status(500).json({
-                        error
-                    })
-                })
-
-            } else {
-                res.status(500).json({
-                    message: 'bad-code-inactive-zero'
-                })
-            }
-        } else {
-            res.status(500).json({
-                message: 'bad-code'
-            })
-        }
-
-    }).catch((error) => {
-        console.log(`error-searchPromoCode ${error}`)
-        res.status(500).json({
-            error
-        })
-    })*/
 
 }
 
