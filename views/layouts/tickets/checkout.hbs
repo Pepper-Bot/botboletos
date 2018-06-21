@@ -41,10 +41,10 @@
                     <div class="row row-custom-padding">
                         <div class="col s12">
                             <div class="row">
-                                <div id="havePromoP" class="input-field col s4">
-                                    <p style="color:coral; cursor: pointer;">Have a promo code? </p>
+                                <div class="input-field col s4">
+                                    <p id="havePromoP" style="color:coral; cursor: pointer;">Have a promo code? </p>
                                 </div>
-                                <p id="discountAp" style="display:none;" class="row-description col s4"></p>
+
 
 
                                 <div id="divPromoIntro" style="display:none">
@@ -392,8 +392,8 @@
                 if (data.discount && data.code && data.total) {
                     $("#promo_code").val(data.code)
                     $("#totalTagP").text(`$${data.total}`)
-                    $("#discountAp").text(data.discountAp)
-                    $('#discountAp').show();
+                    $("#havePromoP").text(data.discountAp)
+                    $('#havePromoP').show();
                     $('#divPromoIntro').hide();
                 }
 
