@@ -72,7 +72,7 @@
                     <input type="hidden" value="{{{section}}}" name="section">
                     <input type="hidden" value="{{{row}}}" name="row">
                     <input type="hidden" value="{{{event_name}}}" name="event_name">
-                    <input type="hidden" value="{{{price}}}" name="price">
+                    <input id="price" type="hidden" value="{{{price}}}" name="price">
                     <input id="quantity" type="hidden" value="{{{quantity}}}" name="quantity">
                     <input type="hidden" value="{{{format}}}" name="format">
 
@@ -394,8 +394,11 @@
                     $("#havePromoP").text(data.discountAp)
                     $('#havePromoP').show();
                     $('#divPromoIntro').hide();
-
                     $("#havePromoP").css({ 'color': 'gray' });
+                } else {
+                    let price = $("#price").val
+                    let quantity = $("#quantity").val
+                    $("#totalTagP").text(`$${price * quantity}`)
                 }
 
             })
