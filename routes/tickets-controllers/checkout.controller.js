@@ -494,5 +494,6 @@ module.exports = {
     paypal_cancel,
     paypal_pay,
     promo,
+    checkout_promo_calculate
 
 }

@@ -19,6 +19,7 @@ var tevoClient = new TevoClient({
     apiSecretKey: tevo.API_SECRET_KEY
 });
 
+var checkout = require("./checkout.controller")
 
 
 
@@ -144,40 +145,58 @@ var render_paypal_cc_form = (req, res, direccionEnvio, shiping) => {
 
 
 
-    res.render(
-        './layouts/tickets/pay', {
-            titulo: "Your tickets are on its way!",
-            APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
-            ship_price: ship_price,
-            uid: uid,
-            firstname: firstname,
-            lastname: lastname,
-            street_address: street_address,
-            locality: locality,
-            region: region,
-            country_code: country_code,
-            postal_code: postal_code,
-            email: email,
-            format: format,
-            groupticket_id: groupticket_id,
-            price: price,
-            quantity: quantity,
-            address_id: address_id,
-            service_type: service_type,
-            provider: provider,
-            shiping_name: shiping_name,
-            event_name: event_name,
-            event_date: event_date,
-            section: section,
-            row: row,
-            subtotal: subtotal,
-            total: total,
-            with_ship: with_ship,
-            provider: provider,
-            actionSubmit: actionSubmit,
-            promo_code: req.body.promo_code //  <!-- promo_code==========🔶===================================== ☑️-->
-        }
-    );
+    let renderVars = {
+        titulo: "Your tickets are on its way!",
+        APLICATION_URL_DOMAIN: APLICATION_URL_DOMAIN,
+        ship_price: ship_price,
+        uid: uid,
+        firstname: firstname,
+        lastname: lastname,
+        street_address: street_address,
+        locality: locality,
+        region: region,
+        country_code: country_code,
+        postal_code: postal_code,
+        email: email,
+        format: format,
+        groupticket_id: groupticket_id,
+        price: price,
+        quantity: quantity,
+        address_id: address_id,
+        service_type: service_type,
+        provider: provider,
+        shiping_name: shiping_name,
+        event_name: event_name,
+        event_date: event_date,
+        section: section,
+        row: row,
+        subtotal: subtotal,
+        total: total,
+        with_ship: with_ship,
+        provider: provider,
+        actionSubmit: actionSubmit,
+        promo_code: req.body.promo_code, //  <!-- promo_code==========🔶===================================== ☑️-->
+        with_discount: false
+    }
+
+    if (req.body.promo_code && req.body.promo_code != "") {
+        checkout.checkout_promo_calculate(req.body.promo_code, groupticket_id, quantity).then((descuento) => {
+            renderVars.discount = descuento.discount
+            renderVars.with_discount = true
+            res.render(
+                './layouts/tickets/pay', renderVars
+            );
+
+
+        })
+    } else {
+        renderVars.with_discount = false
+        res.render(
+            './layouts/tickets/pay', renderVars
+        );
+    }
+
+
 }
 
 //########################################################
