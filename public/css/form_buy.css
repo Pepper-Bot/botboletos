@@ -1,5 +1,5 @@
 .options-payment {
-	margin:0;
+	margin: 0;
 	padding: 0;
 }
 
@@ -8,45 +8,52 @@
 }
 
 .btn-checkout {
-	border:none !important;
+	border: none !important;
 	background-color: #0083FF;
 	font-size: 16px;
 }
 
-@media only screen and (max-width: 601px){
+.container-fluid {
+	margin: 0;
+	padding-bottom: 16px;
+}
 
+.container-root {
+	padding-top: 32px;
+	background-color: #FFFFFF;
+}
+
+@media only screen and (max-width: 600px) {
 	.container-fluid {
+		margin-top: 64px;
 		padding-top: 10px;
-		background-color: #FFFFFF;
-	    margin-left: 10px;
-	    margin-right: 10px;
-	    margin-top: 16px;
-	    margin-bottom: 16px;
 	}
 }
 
-@media only screen and (max-width: 993px){
-	.container-fluid{
-		background-color: #E9EBEE;
-		margin: 0;
-	}
-
-	.container-root {
-		padding-left: 10px;
-		padding-right: 10px;
-		padding-top: 16px;
-		background-color: #FFFFFF;
+@media only screen and (min-width: 601px) and (max-width: 768px) {
+	.container-fluid {
+		margin-top: 64px;
+		padding-top: 0px;
 	}
 }
 
-@media only screen and (max-width: 2560px){
-	.container-fluid{
-		margin: 0;
-		padding-bottom: 16px;
+@media only screen and (min-width: 768px) {
+	.container-fluid {
+		margin-top: 64px;
+		padding-top: 0px;
 	}
+}
 
-	.container-root {
-		padding-top: 16px;
-		background-color: #FFFFFF;
+@media only screen and (min-width: 992px) {
+	.container-fluid {
+		margin: 64px;
+		padding-top: 0px;
+	}
+}
+
+@media only screen and (min-width: 1200px) {
+	.container-fluid {
+		margin: 86px;
+		padding-top: 0px;
 	}
 }

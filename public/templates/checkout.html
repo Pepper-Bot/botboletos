@@ -56,11 +56,9 @@
 <body>
 
     <header class="z-depth-2" id="header">
-
         <a href="javascript:history.back()" class="arrow_back">
-            <i class="material-icons">arrow_back</i>
+            <i style="font-size: 30px" class="material-icons">arrow_back</i>
         </a>
-
         <a href="#" class="header-logo"></a>
         <a class="header-title letra_avenir">Checkout</a>
     </header>
@@ -89,6 +87,7 @@
         <div class="row">
             <div class="col s12 m8 offset-m2 l6 offset-l3">
                 <div class="container-root">
+
                     <div class="row">
                         <div class="col s12">
                             <p class="row-title">{{{event_name}}}</p>
@@ -115,18 +114,34 @@
                             <div class="divider"></div>
                         </div>
                     </div>
-                    <div class="row row-custom-padding">
-                        <div class="col s12">
-                            <p id="totalTagP" class="row-title-lg">${{{total}}}</p>
+
+                    <form action="/pay/?uid={{{fbId}}}" method="post">
+                        <div class="row row-custom-padding">
+
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="input-field col s4">
+                                        <p style="color:coral; cursor: pointer;">Have a promo code? </p>
+                                        <input id="promo_code1" name="promo_code1" type="text" class="validate">
+                                        <label for="promo_code">Promo Code</label>
+                                    </div>
+                                    <div class="input-field col s2" style="padding-top: 8px; float:left">
+                                        <button id="promoButton" name="promoButton" class="btn btn-round btn-checkout no-uppercase blue">Add</button>
+                                    </div>
+
+                                    <div class="col s6" style="padding-top: 10px;">
+                                        <p id="totalTagP" class="row-title-lg" style="float:right">${{{total}}}</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row row-custom">
-                        <div class="col s12">
-                            <div class="divider"></div>
+                        <div class="row row-custom">
+                            <div class="col s12">
+                                <div class="divider"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row row-custom-padding">
-                        <form action="/pay/?uid={{{fbId}}}" method="post">
+                        <div class="row row-custom-padding">
+
                             <input type="hidden" value="{{{event_date}}}" name="event_date">
                             <input type="hidden" value="{{{section}}}" name="section">
                             <input type="hidden" value="{{{row}}}" name="row">
@@ -146,18 +161,7 @@
                                 </div>
                             </div>
                             <!-- promo_code================================================ ☑️-->
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input id="promo_code1" name="promo_code1" type="text" class="validate">
-                                    <label for="promo_code">Promo Code</label>
-                                </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <button id="promoButton" name="promoButton" class="btn btn-round btn-checkout no-uppercase blue">promo check</button>
-                                </div>
-                            </div>
                             <!-- promo_code================================================ ☑️-->
 
                             <div class="row">
@@ -403,7 +407,7 @@
                                     <button id="checkout" name="checkout" class="btn btn-round btn-checkout no-uppercase blue">Check Out</button>
                                 </div>
                             </div>
-                        </form>
+                    </form>
                     </div>
                 </div>
             </div>
