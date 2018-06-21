@@ -33,7 +33,7 @@ header {
   a.arrow_back {
     width: 46px;
     height: auto;
-    margin: 20px 0 0px 2%;
+    margin: 16px 0 0px 2%;
     color: white;
   }
 }
@@ -65,7 +65,7 @@ header {
   a.arrow_back {
     width: 46px;
     height: auto;
-    margin: 20px 0 0px 30px;
+    margin: 16px 0 0px 30px;
     color: white;
   }
 }
@@ -90,7 +90,7 @@ header {
   a.arrow_back {
     width: 46px;
     height: auto;
-    margin: 20px 0 0px 30px;
+    margin: 16px 0 0px 30px;
     color: white;
   }
 }
@@ -115,7 +115,7 @@ header {
   a.arrow_back {
     width: 46px;
     height: auto;
-    margin: 20px 0 0px 30px;
+    margin: 16px 0 0px 30px;
     color: white;
   }
 }
@@ -140,7 +140,7 @@ header {
   a.arrow_back {
     width: 46px;
     height: auto;
-    margin: 30px 0 0px 30px;
+    margin: 28px 0 0px 30px;
     color: white;
   }
 }
@@ -259,14 +259,7 @@ a {
   }
   #style-7::-webkit-scrollbar-thumb {
     border-radius: 6px;
-    background-image: -webkit-gradient(
-      linear,
-      left bottom,
-      left top,
-      color-stop(0.44, rgb(122, 153, 217)),
-      color-stop(0.72, rgb(73, 125, 189)),
-      color-stop(0.86, rgb(28, 58, 148))
-    );
+    background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.44, rgb(122, 153, 217)), color-stop(0.72, rgb(73, 125, 189)), color-stop(0.86, rgb(28, 58, 148)));
   }
 }
 
@@ -315,5 +308,4 @@ a {
 / Escritorios muy anchos
    ------------------------------------------------------------------------- */
 
-@media (min-width: 1200px) {
-}
+@media (min-width: 1200px) {}
