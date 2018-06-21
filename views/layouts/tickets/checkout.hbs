@@ -43,10 +43,6 @@
                             <div class="row">
 
                                 <p class="input-field col s4" id="havePromoP" style="color:coral; cursor: pointer;">Have a promo code? </p>
-
-
-
-
                                 <div id="divPromoIntro" style="display:none">
                                     <div class="input-field col s4">
                                         <input id="promo_code1" name="promo_code1" type="text" class="validate">
@@ -58,8 +54,9 @@
                                 </div>
 
                                 <div class="col s6" style="padding-top: 10px;">
-                                    <p class="row-description">Total</p>
-                                    <p id="totalTagP" class="row-title-lg" style="float:right">${{{total}}}</p>
+
+                                    <p id="totalTagP" class="row-title-lg" style="float:right">
+                                        <span class="row-description">Total</span>${{{total}}}</p>
                                 </div>
                             </div>
                         </div>
@@ -395,6 +392,8 @@
                     $("#havePromoP").text(data.discountAp)
                     $('#havePromoP').show();
                     $('#divPromoIntro').hide();
+
+                    $("#havePromoP").css({ 'color': 'gray' });
                 }
 
             })
