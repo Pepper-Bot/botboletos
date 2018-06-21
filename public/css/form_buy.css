@@ -46,14 +46,14 @@
 
 @media only screen and (min-width: 992px) {
 	.container-fluid {
-		margin: 64px;
+		margin-top: 64px;
 		padding-top: 0px;
 	}
 }
 
 @media only screen and (min-width: 1200px) {
 	.container-fluid {
-		margin: 86px;
+		margin-top: 64px;
 		padding-top: 0px;
 	}
 }
