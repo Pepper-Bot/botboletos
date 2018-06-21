@@ -44,6 +44,8 @@
                                 <div id="havePromoP" class="input-field col s4">
                                     <p style="color:coral; cursor: pointer;">Have a promo code? </p>
                                 </div>
+                                <label id="discountAp" style="display:none;" class="row-description"></label>
+
 
                                 <div id="divPromoIntro" style="display:none">
                                     <div class="input-field col s4">
@@ -388,7 +390,10 @@
                 console.log(`-- promo response ${JSON.stringify(data)}`)
                 if (data.discount && data.code && data.total) {
                     $("#promo_code").val(data.code)
-                    $("#totalTagP").text(`$${data.total}  Discount $${data.discount}`)
+                    $("#totalTagP").text(`$${data.total}`)
+                    $("#discountAp").text(data.discountAp)
+                    $('#discountAp').show();
+                    $('#divPromoIntro').hide();
                 }
 
             })

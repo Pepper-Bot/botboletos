@@ -360,11 +360,14 @@ var checkout_promo_calculate = (promo_code, ticket_group_id, quantity) => {
 
                             let amount = retail_price * quantity
                             let discount = 0
+                            let discountAp = ""
 
                             if (isPercentage === true) {
                                 discount = parseFloat(amount * discountValue / 100).toFixed(2)
+                                discountAp = `${discount} % off applied`
                             } else {
                                 discount = discountValue
+                                discountAp = `${discount} % USD applied`
                             }
 
                             let total = parseFloat(amount - discount).toFixed(2)
@@ -375,7 +378,8 @@ var checkout_promo_calculate = (promo_code, ticket_group_id, quantity) => {
                                 quantity,
                                 amount,
                                 discount,
-                                total
+                                total,
+                                discountAp
                             }
                             resolve(response)
 
