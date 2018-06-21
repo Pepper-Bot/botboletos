@@ -21,6 +21,7 @@
 .container-root {
 	padding-top: 32px;
 	background-color: #FFFFFF;
+	padding-bottom: 32px;
 }
 
 @media only screen and (max-width: 600px) {
