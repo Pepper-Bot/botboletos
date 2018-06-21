@@ -182,7 +182,7 @@ var render_paypal_cc_form = (req, res, direccionEnvio, shiping) => {
     if (req.body.promo_code && req.body.promo_code != "") {
         checkout.checkout_promo_calculate(req.body.promo_code, groupticket_id, quantity).then((descuento) => {
             renderVars.discount = descuento.discount
-            renderVars.total = renderVars.total - descuento.discount
+            renderVars.total = parseFloat(renderVars.total - descuento.discount).toFixed(2)
             renderVars.with_discount = true
             res.render(
                 './layouts/tickets/pay', renderVars
