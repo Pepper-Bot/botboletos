@@ -2711,6 +2711,12 @@ function chooseReferral(referral, senderId) {
         }
         break;  
 
+      case "TUN_FRAME": // Here we create the new CASE w new Me Link name on 05/18/18
+        {
+          startTunFrame(senderId, referral); //We create a new variable
+        }
+        break;    
+
       case "COLOMBIA_JAP_FRAME": // Here we create the new CASE w new Me Link name on 05/21/18
         {
           startColombiaJapFrame(senderId, referral); //We create a new variable
@@ -3257,6 +3263,21 @@ var startEnglandTunFrame = (senderId, referral) => {
   var EnglandTunFrameModule = require("../modules/tevo/russia2018/englandTun_frame");
   EnglandTunFrameModule.startEnglandTunFrame(senderId, referral);
 };
+
+// Created Jun 22 - Tunisia in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startTunFrame = (senderId, referral) => {
+  var TunFrameModule = require("../modules/tevo/russia2018/Tun_frame");
+  TunFrameModule.startTunFrame(senderId, referral);
+};
+
+
 
 // Created May 18 - Colombia vs Japan Game 16 in the World Cup
 /**
