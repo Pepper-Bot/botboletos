@@ -844,9 +844,9 @@ var eventsSearch = (
     var urlApiTevo = "";
     var urlsApiTevo = [];
 
-    if ("superbowl" == event_title.toLowerCase()) {
+    /*if ("superbowl" == event_title.toLowerCase()) {
       event_title = "Super Bowl";
-    }
+    }*/
 
     var userPreferences = {
       event_title: event_title,
