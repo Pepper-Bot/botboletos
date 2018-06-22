@@ -98,7 +98,7 @@ var start = (senderId, con = true) => {
       if (con == true) {
         var urlVideo =
           APLICATION_URL_DOMAIN +
-          "videos/russia_worldcup/jason_derulo_y_maluma_colors_1.mp4";
+          "videos/russia_worldcup/maluma_1.mp4";
         //var message = 'Seasson´s Greetings! And best wishes for the New Year 😄'
         var message = "Hi " + name + ", Happy 2018 FIFA Worldcup 😄. Let me load the full video..";
 
