@@ -188,7 +188,6 @@ var render_paypal_cc_form = (req, res, direccionEnvio, shiping) => {
                 './layouts/tickets/pay', renderVars
             );
 
-
         })
     } else {
         renderVars.with_discount = false
