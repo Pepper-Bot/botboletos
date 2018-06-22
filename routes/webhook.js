@@ -2703,6 +2703,12 @@ function chooseReferral(referral, senderId) {
         {
           startBrazilSwitzFrame(senderId, referral); //We create a new variable
         }
+        break;   
+        
+      case "BRAZIL_FRAME": // Here we create the new CASE w new Me Link name on 06/21/18
+        {
+          startBrazilSwitzFrame(senderId, referral); //We create a new variable
+        }
         break;    
         
 
@@ -3212,6 +3218,19 @@ var startColombiaJapFrame = (senderId, referral) => {
 var startBrazilSwitzFrame = (senderId, referral) => {
   var BrazilSwitzFrameModule = require("../modules/tevo/russia2018/brazilSwitz_frame");
   BrazilSwitzFrameModule.startBrazilSwitzFrame(senderId, referral);
+};
+
+// Created June 21 - Brazil - in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startBrazilFrame = (senderId, referral) => {
+  var BrazilFrameModule = require("../modules/tevo/russia2018/Brazil_frame");
+  BrazilFrameModule.startBrazilFrame(senderId, referral);
 };
 
 
