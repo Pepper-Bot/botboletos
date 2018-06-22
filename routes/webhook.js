@@ -2707,7 +2707,7 @@ function chooseReferral(referral, senderId) {
         
       case "BRAZIL_FRAME": // Here we create the new CASE w new Me Link name on 06/21/18
         {
-          startBrazilSwitzFrame(senderId, referral); //We create a new variable
+          startBrazilFrame(senderId, referral); //We create a new variable
         }
         break;    
         
