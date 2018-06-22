@@ -548,7 +548,22 @@ var sendEmailSenGrid = (req, res, clienteSearch, OrderRes) => {
     );
   } else if (req.body.format == "Physical") {
     templateHTML = templateHTML.replace("&lt;Delivery method&gt;", "FedEx");
+  } else if (req.body.format == "Flash_seats") {
+    templateHTML = templateHTML.replace("&lt;Delivery method&gt;", "Flash_seats");
+  } else if (req.body.format == "TM_mobile") {
+    templateHTML = templateHTML.replace("&lt;Delivery method&gt;", "TM_mobile");
+  } else if (req.body.format == "Guest_list") {
+    templateHTML = templateHTML.replace("&lt;Delivery method&gt;", "Guest_list");
+  } else if (req.body.format == "Paperless") {
+    templateHTML = templateHTML.replace("&lt;Delivery method&gt;", "Paperless");
   }
+
+
+
+
+
+
+
 
   const sgMail = require("@sendgrid/mail");
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);

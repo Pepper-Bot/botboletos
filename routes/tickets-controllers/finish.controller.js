@@ -568,10 +568,22 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
 
     if (format == 'Physical') {
         templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'FedEx');
-
     } else if (format == 'Eticket') {
         templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'Eticket - Email with PDF');
+    } else if (format == 'Flash_seats') {
+        templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'Flash_seats');
+    } else if (format == 'TM_mobile') {
+        templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'TM_mobile');
+    } else if (format == 'Guest_list') {
+        templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'Guest_list');
+    } else if (format == 'Paperless') {
+        templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'Paperless');
     }
+
+
+
+
+
 
 
     const sgMail = require('@sendgrid/mail');
