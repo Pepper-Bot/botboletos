@@ -540,12 +540,13 @@ var sendEmailSenGrid = (req, res, clienteSearch, OrderRes) => {
   templateHTML = templateHTML.replace("&lt;Customer&gt;", clienteId);
   templateHTML = templateHTML.replace("&lt;Location&gt;", venueEvento);
 
+
   if (req.body.format == "Eticket") {
     templateHTML = templateHTML.replace(
       "&lt;Delivery method&gt;",
       "Eticket - Email with PDF"
     );
-  } else {
+  } else if (req.body.format == "Physical") {
     templateHTML = templateHTML.replace("&lt;Delivery method&gt;", "FedEx");
   }
 

@@ -566,13 +566,11 @@ function sendEmailSenGrid(req, payment, event, clienteSearch, OrderRes) {
 
 
 
-    if (format == 'Eticket') {
-        templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'Eticket - Email with PDF');
-
-    } else {
-
+    if (format == 'Physical') {
         templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'FedEx');
 
+    } else if (format == 'Eticket') {
+        templateHTML = templateHTML.replace('&lt;Delivery method&gt;', 'Eticket - Email with PDF');
     }
 
 
