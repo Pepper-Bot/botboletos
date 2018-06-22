@@ -2679,6 +2679,12 @@ function chooseReferral(referral, senderId) {
           startArgentinaFrame(senderId, referral); //We create a new variable
         }
         break;    
+
+      case "ICELAND_FRAME": // Here we create the new CASE w new Me Link name on 06/21/18
+        {
+          startIcelandFrame(senderId, referral); //We create a new variable
+        }
+        break;  
       
       case "GERMANY_MEXICO_FRAME": // Here we create the new CASE w new Me Link name on 05/9/18
         {
@@ -3169,6 +3175,19 @@ var startArgentinaIcelandFrame = (senderId, referral) => {
 var startArgentinaFrame = (senderId, referral) => {
   var ArgentinaFrameModule = require("../modules/tevo/russia2018/Argentina_frame");
   ArgentinaFrameModule.startArgentinaFrame(senderId, referral);
+};
+
+// Created June 21 - Iceland Frame in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startIcelandFrame = (senderId, referral) => {
+  var icelandFrameModule = require("../modules/tevo/russia2018/Iceland_frame");
+  icelandFrameModule.startIcelandFrame(senderId, referral);
 };
 
 
