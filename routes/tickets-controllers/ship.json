@@ -2,28 +2,30 @@
     "orders": [{
         "shipped_items": [{
             "items": [{
-                "ticket_group_id": "422333455",
-                "price": "3.09",
-                "quantity": "1"
+                "ticket_group_id": 385269975,
+                "price": 10,
+                "quantity": 2
             }],
-            "type": "Eticket",
-            "email_address_id": 2498575
+            "type": "FlashSeats",
+            "ship_to_name": "Ned Flanders",
+            "email_address_id": 207924
         }],
-        "billing_address_id": "5290898",
+        "billing_address_id": 111111,
         "payments": [{
             "type": "credit_card",
-            "amount": "3.09",
-            "credit_card_id": 352073
+            "credit_card_id": 22222
         }],
-        "seller_id": "4642",
-        "client_id": 1623900,
-        "created_by_ip_address": "",
-        "instructions": "",
-        "shipping": "1",
+        "seller_id": 1937,
+        "client_id": 167895,
+        "created_by_ip_address": "12.34.56.78",
         "service_fee": 0,
-        "additional_expense": 0,
+        "shipping": 0,
         "tax": 0,
+        "additional_expense": 0,
         "discount": 0,
-        "promo_code": ""
+        "promo_code": "10DOLLARSOFF",
+        "seller_reference_number": "123456789",
+        "external_notes": "These notes will be visible to all parties",
+        "internal_notes": "These notes will be visible only to your office (1937)"
     }]
 }

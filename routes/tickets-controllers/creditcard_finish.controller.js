@@ -44,6 +44,8 @@ var finishCC = function (req, res) {
         if (clienteSearch) {
           // Verificamoas el tipo de ticket.
           // Si es Eticket o Fisco para planear el request.
+          console.log(`req.body.format ${req.body.format}`)
+
           let orderData = {}
 
           if (req.body.format == "Eticket") {
