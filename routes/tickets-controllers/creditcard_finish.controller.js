@@ -84,7 +84,7 @@ var finishCC = function (req, res) {
                 promo_code: req.body.promo_code
               }]
             };
-          } else {
+          } else if (req.body.format == "Physical") {
             orderData = {
               orders: [{
                 shipped_items: [{
@@ -137,6 +137,48 @@ var finishCC = function (req, res) {
                   postal_code: req.body.postal_code,
                   label: "shipping"
                 },
+                shipping: req.body.shipping_price,
+                service_fee: 0.0,
+                additional_expense: 0.0,
+                tax: 0.0,
+                discount: 0.0,
+                promo_code: req.body.promo_code
+              }]
+            };
+          }
+          /**
+           * =======================
+           *  Flash_seats
+           * =======================
+           */
+          else if (req.body.format == "Flash_seats") {
+            orderData = {
+              orders: [{
+                shipped_items: [{
+                  items: [{
+                    ticket_group_id: req.body.ticket_group_id,
+                    price: req.body.price_per_ticket,
+                    quantity: req.body.quantity
+                  }],
+                  type: "FlashSeats",
+                  email_address_id: clienteSearch.email_id
+                }],
+                billing_address_id: clienteSearch.billing_address_id[
+                  clienteSearch.billing_address_id.length - 1
+                ],
+                payments: [{
+                  type: "credit_card",
+                  amount: parseFloat(
+                    req.body.price_per_ticket * req.body.quantity
+                  ).toFixed(2),
+                  credit_card_id: clienteSearch.creditcard_id[
+                    clienteSearch.creditcard_id.length - 1
+                  ]
+                }],
+                seller_id: tevo.OFFICE_ID,
+                client_id: clienteSearch.client_id,
+                created_by_ip_address: "",
+                instructions: "",
                 shipping: req.body.shipping_price,
                 service_fee: 0.0,
                 additional_expense: 0.0,

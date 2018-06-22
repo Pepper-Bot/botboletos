@@ -64,7 +64,7 @@
                                 <input type="hidden" value="{{this.section}}" name="section">
                                 <input type="hidden" value="{{this.row}}" name="row">
                                 <!--<input type="hidden" value="{{this.wholesale_price}}" name="priceticket">-->
-                                <input type="hidden" value="{{this.retail_price}}" name="priceticket">           
+                                <input type="hidden" value="{{this.retail_price}}" name="priceticket">
                                 <input type="hidden" value="{{this.wholesale_price}}" name="wholesale_price">
 
 
@@ -88,7 +88,8 @@
                                 </div>-->
 
                                 <div class="input-field col s4 l4">
-                                    <button id="viewPriceButton" type="submit" class="btn btn1rem blue width100 fuente9 btn btn-round btn-book no-uppercase white" style="display:block">{{this.wholesale_price_format}}</button>
+                                    <button id="viewPriceButton" type="submit" class="btn btn1rem blue width100 fuente9 btn btn-round btn-book no-uppercase white"
+                                        style="display:block">{{this.wholesale_price_format}}</button>
                                 </div>
 
 
@@ -123,9 +124,8 @@
 </script>
 <!--This is the Facebook Event script. Al -->
 <script>
-$(document).ready(function () {
-$( '#viewPriceButton' ).click(function() 
-{fbq('track', 'ViewContent');}
-);
-});
+    $(document).ready(function () {
+        $('#viewPriceButton').click(function () { fbq('track', 'ViewContent'); }
+        );
+    });
 </script>
