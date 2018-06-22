@@ -2789,7 +2789,13 @@ function chooseReferral(referral, senderId) {
         {
           startMalumaTheme(senderId, referral);
         }
-      break;
+        break;
+
+      case "TOP_GOALS": // Maluma theme created Jun 21 2018
+        {
+          startTopGoals(senderId, referral);
+        }
+        break;
 
 
       case "VEGAS_SHOW":
@@ -2974,7 +2980,7 @@ var startHappyNewYear = (senderId, referral, con = true) => {
   happyNewYearModule.startHappyNewYear(senderId, referral, con);
 };
 
-/**
+/** RUSSIA THEME CUP
  *
  * @param {*} senderId FaceBook User Id
  * @param {*} referral Variable ref que se encia con el vinculo del bot
@@ -2982,11 +2988,11 @@ var startHappyNewYear = (senderId, referral, con = true) => {
  *
  */
 var startRussiaTheme = (senderId, referral, con = true) => {
-  var russiaThemeModule = require("../modules/tevo/russia2018/russian_theme");
+  var russiaThemeModule = require("../modules/tevo/russia2018/videos/russian_theme");
   russiaThemeModule.startRussiaTheme(senderId, referral, con);
 };
 
-/**
+/** MALUMA THEME CUP
  *
  * @param {*} senderId FaceBook User Id
  * @param {*} referral Variable ref que se encia con el vinculo del bot
@@ -2994,9 +3000,22 @@ var startRussiaTheme = (senderId, referral, con = true) => {
  *
  */
 var startMalumaTheme = (senderId, referral, con = true) => {
-  var malumaThemeModule = require("../modules/tevo/russia2018/jasonMaluma_theme");
+  var malumaThemeModule = require("../modules/tevo/russia2018/videos/jasonMaluma_theme");
   malumaThemeModule.startMalumaTheme(senderId, referral, con);
 };
+
+/** TOP GOALS CUP 6/21/2018
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startTopGoals = (senderId, referral, con = true) => {
+  var topGoalsModule = require("../modules/tevo/russia2018/videos/topGoals");
+  topGoalsModule.startTopGoals(senderId, referral, con);
+};
+
 
 /**
  *
