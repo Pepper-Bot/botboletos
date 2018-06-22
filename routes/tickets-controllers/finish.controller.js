@@ -147,6 +147,11 @@ function createOrder(req, res, payment, event, clienteSearch) {
 
     var format_type = req.session.format_type
     let orderData = {}
+    /**
+     * =======================
+     * Eticket
+     * =======================
+     */
     if (format == 'Eticket') {
         orderData = {
             "orders": [{
@@ -176,7 +181,13 @@ function createOrder(req, res, payment, event, clienteSearch) {
                 "promo_code": promo_code
             }]
         };
-    } else {
+    }
+    /**
+     * =======================
+     * Physical
+     * =======================
+     */
+    else if (format == "Physical") {
         orderData = {
             "orders": [{
                 "shipped_items": [{
@@ -231,6 +242,155 @@ function createOrder(req, res, payment, event, clienteSearch) {
             }]
         }
     }
+    /**
+     * =======================
+     * Flash_seats
+     * =======================
+     */
+    else if (format == "Flash_seats") {
+        orderData = {
+            "orders": [{
+                "shipped_items": [{
+                    "items": [{
+                        "ticket_group_id": ticket_group_id,
+                        "price": price,
+                        "quantity": quantity,
+                    }],
+                    "type": "FlashSeats",
+                    "email_address_id": email_address_id
+                }],
+                "billing_address_id": billing_address_id,
+                "payments": [{
+                    "type": type,
+                    "amount": amount
+                }],
+                "seller_id": seller_id,
+                "client_id": client_id,
+                "created_by_ip_address": created_by_ip_address,
+                "instructions": instructions,
+                "shipping": shipping,
+                "service_fee": service_fee,
+                "additional_expense": additional_expense,
+                "tax": tax,
+                "discount": discount,
+                "promo_code": promo_code
+            }]
+        };
+    }
+    /**
+     * =======================
+     * TM_mobile
+     * =======================
+     */
+    else if (format == "TM_mobile") {
+        orderData = {
+            "orders": [{
+                "shipped_items": [{
+                    "items": [{
+                        "ticket_group_id": ticket_group_id,
+                        "price": price,
+                        "quantity": quantity,
+                    }],
+                    "type": "TMMobile",
+                    "email_address_id": email_address_id
+                }],
+                "billing_address_id": billing_address_id,
+                "payments": [{
+                    "type": type,
+                    "amount": amount
+                }],
+                "seller_id": seller_id,
+                "client_id": client_id,
+                "created_by_ip_address": created_by_ip_address,
+                "instructions": instructions,
+                "shipping": shipping,
+                "service_fee": service_fee,
+                "additional_expense": additional_expense,
+                "tax": tax,
+                "discount": discount,
+                "promo_code": promo_code
+            }]
+        };
+
+
+    }
+    /**
+     * =======================
+     * Guest_list
+     * =======================
+     */
+    else if (format == "Guest_list") {
+        orderData = {
+            "orders": [{
+                "shipped_items": [{
+                    "items": [{
+                        "ticket_group_id": ticket_group_id,
+                        "price": price,
+                        "quantity": quantity,
+                    }],
+                    "type": "GuestList",
+                    "email_address_id": email_address_id
+                }],
+                "billing_address_id": billing_address_id,
+                "payments": [{
+                    "type": type,
+                    "amount": amount
+                }],
+                "seller_id": seller_id,
+                "client_id": client_id,
+                "created_by_ip_address": created_by_ip_address,
+                "instructions": instructions,
+                "shipping": shipping,
+                "service_fee": service_fee,
+                "additional_expense": additional_expense,
+                "tax": tax,
+                "discount": discount,
+                "promo_code": promo_code
+            }]
+        };
+
+
+    }
+    /**
+     * =======================
+     * Paperless
+     * =======================
+     */
+    else if (format == "Paperless") {
+        orderData = {
+            "orders": [{
+                "shipped_items": [{
+                    "items": [{
+                        "ticket_group_id": ticket_group_id,
+                        "price": price,
+                        "quantity": quantity,
+                    }],
+                    "type": "Paperless",
+                    "email_address_id": email_address_id
+                }],
+                "billing_address_id": billing_address_id,
+                "payments": [{
+                    "type": type,
+                    "amount": amount
+                }],
+                "seller_id": seller_id,
+                "client_id": client_id,
+                "created_by_ip_address": created_by_ip_address,
+                "instructions": instructions,
+                "shipping": shipping,
+                "service_fee": service_fee,
+                "additional_expense": additional_expense,
+                "tax": tax,
+                "discount": discount,
+                "promo_code": promo_code
+            }]
+        };
+
+
+    }
+
+
+
     console.log("Orden Construida: >>> " + JSON.stringify(orderData));
 
     console.log("Inicio Orden Tevo >>> " + tevo.API_URL);
