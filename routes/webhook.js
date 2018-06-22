@@ -2711,11 +2711,17 @@ function chooseReferral(referral, senderId) {
         }
         break;  
 
-      case "TUN_FRAME": // Here we create the new CASE w new Me Link name on 05/18/18
+      case "TUN_FRAME": // Here we create the new CASE w new Me Link name on 06//18
         {
           startTunFrame(senderId, referral); //We create a new variable
         }
         break;    
+
+      case "BRITANNIA_FRAME": // Here we create the new CASE w new Me Link name on 06/22/18
+        {
+          startEnglandFrame(senderId, referral); //We create a new variable
+        }
+        break;   
 
       case "COLOMBIA_JAP_FRAME": // Here we create the new CASE w new Me Link name on 05/21/18
         {
@@ -3275,6 +3281,19 @@ var startEnglandTunFrame = (senderId, referral) => {
 var startTunFrame = (senderId, referral) => {
   var TunFrameModule = require("../modules/tevo/russia2018/Tun_frame");
   TunFrameModule.startTunFrame(senderId, referral);
+};
+
+// Created Jun 22 - England in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startEnglandFrame = (senderId, referral) => {
+  var EnglandFrameModule = require("../modules/tevo/russia2018/England_frame");
+  EnglandFrameModule.startEnglandFrame(senderId, referral);
 };
 
 
