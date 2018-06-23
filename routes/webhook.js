@@ -3316,7 +3316,7 @@ var startColombiaJapFrame = (senderId, referral) => {
   ColombiaJapFrameModule.startColombiaJapFrame(senderId, referral);
 };
 
-// Created May 18 - Colombia vs Japan Game 16 in the World Cup
+// Created Jun 22 - Colombia in the World Cup
 /**
  *
  * @param {*} senderId FaceBook User Id

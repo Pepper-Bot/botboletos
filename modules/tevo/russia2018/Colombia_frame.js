@@ -122,12 +122,7 @@ var RussiaButtons = senderId => {
       content_type: "text",
       title: "Get Tickets",
       payload: "RUSSIA"
-    }/*,
-    {
-      content_type: "text",
-      title: "Arabia",
-      payload: "ARABIA"
-    }*/
+    }
   ];
   Message.quickReply(
     senderId,
