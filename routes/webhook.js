@@ -3326,7 +3326,7 @@ var startColombiaJapFrame = (senderId, referral) => {
  */
 var startColombiaFrame = (senderId, referral) => {
   var ColombiaFrameModule = require("../modules/tevo/russia2018/Colombia_frame");
-  ColombiaFraMeModule.startColombiaFrame(senderId, referral);
+  ColombiaFrameModule.startColombiaFrame(senderId, referral);
 };
 
 
