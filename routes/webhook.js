@@ -2728,7 +2728,12 @@ function chooseReferral(referral, senderId) {
           startColombiaJapFrame(senderId, referral); //We create a new variable
         }
         break;   
-      
+
+      case "COLOMBIA_FRAME": // Here we create the new CASE w new Me Link name on 06/22/18
+        {
+          startColombiaFrame(senderId, referral); //We create a new variable
+        }
+        break;
         
       case "BRAZIL_SWITZ_FRAME": // Here we create the new CASE w new Me Link name on 05/9/18
         {
