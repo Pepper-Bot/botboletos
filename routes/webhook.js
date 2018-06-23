@@ -3316,6 +3316,19 @@ var startColombiaJapFrame = (senderId, referral) => {
   ColombiaJapFrameModule.startColombiaJapFrame(senderId, referral);
 };
 
+// Created May 18 - Colombia vs Japan Game 16 in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startColombiaFrame = (senderId, referral) => {
+  var ColombiaFrameModule = require("../modules/tevo/russia2018/Colombia_frame");
+  ColombiaFraMeModule.startColombiaFrame(senderId, referral);
+};
+
 
 // Created May 10 - Brazil - Switzerland Game 11 in the World Cup
 /**
