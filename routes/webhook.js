@@ -2690,6 +2690,12 @@ function chooseReferral(referral, senderId) {
         {
           startGermanyMexicoFrame(senderId, referral); //We create a new variable
         }
+        break;
+        
+      case "SWEDEN_MEXICO_FRAME": // Here we create the new CASE w new Me Link name on 06/25/18
+        {
+          startSwedenMexicoFrame(senderId, referral); //We create a new variable
+        }
         break;  
 
       case "MEXICO_FRAME": // Here we create the new CASE w new Me Link name on 06/22/18
@@ -3234,6 +3240,20 @@ var startGermanyMexicoFrame = (senderId, referral) => {
   var GermanyMexicoFrameModule = require("../modules/tevo/russia2018/germanyMexico_frame");
   GermanyMexicoFrameModule.startGermanyMexicoFrame(senderId, referral);
 };
+
+// Created June 25 - Sweden vs Mexico Game 44 in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startSwedenMexicoFrame = (senderId, referral) => {
+  var SwedenMexicoFrameModule = require("../modules/tevo/russia2018/swedenMexico_frame");
+  SwedenMexicoFrameModule.startSwedenMexicoFrame(senderId, referral);
+};
+
 
 // Created June 22 - Mexico in the World Cup
 /**
