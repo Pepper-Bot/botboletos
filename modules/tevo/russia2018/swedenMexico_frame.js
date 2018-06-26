@@ -108,7 +108,7 @@ var start = senderId => {
         {
           type: "web_url",
           url:
-            "www.facebook.com/fbcameraeffects/tryit/243587146202097/",
+            "www.facebook.com/fbcameraeffects/tryit/1921162667927943/",
           title: "Try Sweden Mask"
         }
       ];
