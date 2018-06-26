@@ -1,5 +1,5 @@
 /*
- GERMANY MEXICO FRAME COPIED FROM ARGENTINA ICELAND - MAY 9 2018
+ SWEDEN MEXICO FRAME COPIED FROM GERMANY MEXICO - JUN 25, 2018
 */
 
 var Message = require("../../../bot/messages");
@@ -17,7 +17,7 @@ var UserData2 = require("../../../schemas/userinfo");
 var Message = require("../../../bot/messages");
 var user_queries = require("../../../schemas/queries/user_queries");
 // Request the users ID from DB API
-var startGermanyMexicoFrame = (senderId, referral) => {
+var startSwedenMexicoFrame = (senderId, referral) => {
   UserData2.findOne(
     {
       fbId: senderId
@@ -109,7 +109,7 @@ var start = senderId => {
           type: "web_url",
           url:
             "www.facebook.com/fbcameraeffects/tryit/243587146202097/",
-          title: "Try Germany Mask"
+          title: "Try Sweden Mask"
         }
       ];
       let title = "Wear your country colors!";
@@ -194,6 +194,6 @@ var startChicas = (senderId) => {
 */
 
 module.exports = {
-  startGermanyMexicoFrame
+  startSwedenMexicoFrame
 
 };
