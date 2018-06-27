@@ -2733,7 +2733,13 @@ function chooseReferral(referral, senderId) {
         {
           startColombiaJapFrame(senderId, referral); //We create a new variable
         }
-        break;   
+        break;  
+        
+      case "JAPAN_FRAME": // Here we create the new CASE w new Me Link name on 06/26/18
+        {
+          startJapanFrame(senderId, referral); //We create a new variable
+        }
+        break;          
 
       case "COLOMBIA_FRAME": // Here we create the new CASE w new Me Link name on 06/22/18
         {
@@ -3348,6 +3354,20 @@ var startColombiaFrame = (senderId, referral) => {
   var ColombiaFrameModule = require("../modules/tevo/russia2018/Colombia_frame");
   ColombiaFrameModule.startColombiaFrame(senderId, referral);
 };
+
+// Created Jun 26 - Japan in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startJapanFrame = (senderId, referral) => {
+  var JapanFrameModule = require("../modules/tevo/russia2018/Japan_frame");
+  JapanFrameModule.startJapanFrame(senderId, referral);
+};
+
 
 
 // Created May 10 - Brazil - Switzerland Game 11 in the World Cup
