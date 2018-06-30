@@ -2637,6 +2637,12 @@ function chooseReferral(referral, senderId) {
         }
         break;  
 
+      case "RUSSIA_SPAIN_FRAME": // Here we create the new CASE w new Me Link name on 06/29/18
+        {
+          startRuSpFrame(senderId, referral); //We create a new variable
+        }
+        break;         
+
       case "PORTUGAL_SPAIN_FRAME": // Here we create the new CASE w new Me Link name on 05/8/18
         {
           startPortugalSpainFrame(senderId, referral); //We create a new variable
@@ -3132,6 +3138,20 @@ var startRuAsFrame = (senderId, referral) => {
   var RuAsFrameModule = require("../modules/tevo/russia2018/russiaArabia_frame");
   RuAsFrameModule.startRuAsFrame(senderId, referral);
 };
+
+// Created Jun 29 - Russia vs Spain in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startRuSpFrame = (senderId, referral) => {
+  var RuSpFrameModule = require("../modules/tevo/russia2018/russiaSpain_frame");
+  RuSpFrameModule.startRuSpFrame(senderId, referral);
+};
+
 // Created May 8 - Portugal vs Spain Game 3 in the World Cup
 /**
  *
