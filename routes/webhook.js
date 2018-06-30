@@ -2715,6 +2715,12 @@ function chooseReferral(referral, senderId) {
         }
         break;  
 
+      case "BRAZIL_MEXICO_FRAME": // Here we create the new CASE w new Me Link name on 06/30/18
+        {
+          startBrazilMexicoFrame(senderId, referral); //We create a new variable
+        }
+        break;          
+
       case "MEXICO_FRAME": // Here we create the new CASE w new Me Link name on 06/22/18
         {
           startMexicoFrame(senderId, referral); //We create a new variable
@@ -3315,6 +3321,19 @@ var startGermanyMexicoFrame = (senderId, referral) => {
 var startSwedenMexicoFrame = (senderId, referral) => {
   var SwedenMexicoFrameModule = require("../modules/tevo/russia2018/swedenMexico_frame");
   SwedenMexicoFrameModule.startSwedenMexicoFrame(senderId, referral);
+};
+
+// Created June 30 - Brazil vs Mexico @ the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startBrazilMexicoFrame = (senderId, referral) => {
+  var BrazilMexicoFrameModule = require("../modules/tevo/russia2018/brazilMexico_frame");
+  BrazilMexicoFrameModule.startBrazilMexicoFrame(senderId, referral);
 };
 
 
