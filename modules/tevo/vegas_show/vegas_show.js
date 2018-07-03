@@ -153,7 +153,7 @@ var sendTemplate = (senderId, message = "") => {
   
     {
       titulo: "V - The Ultimate Variety Show",
-      imagen: URLAplication + "images/vegas_show/vegas_the_show.jpg",
+      imagen: URLAplication + "images/vegas_show/variety.png",
       subtitulo: "",
       url: mlink + "variety.png"
     },
