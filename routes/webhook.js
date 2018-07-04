@@ -2671,7 +2671,13 @@ function chooseReferral(referral, senderId) {
         {
           startPortugalUruguayFrame(senderId, referral); //We create a new variable
         }
-        break;        
+        break;   
+        
+      case "URUGUAY_FRAME": // 7/03/2018
+        {
+          startUruguayFrame(senderId, referral); //We create a new variable
+        }
+        break;          
         
       case "FRANCE_AUSTRALIA_FRAME": // Here we create the new CASE w new Me Link name on 05/8/18
         {
@@ -3201,6 +3207,19 @@ var startPortugalSpainFrame = (senderId, referral) => {
 var startPortugalUruguayFrame = (senderId, referral) => {
   var PortugalUruguayFrameModule = require("../modules/tevo/russia2018/portugalUruguay_frame");
   PortugalUruguayFrameModule.startPortugalUruguayFrame(senderId, referral);
+};
+
+// Created Jul 03 - Uruguay in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startUruguayFrame = (senderId, referral) => {
+  var UruguayFrameModule = require("../modules/tevo/russia2018/Uruguay_frame");
+  UruguayFrameModule.startUruguayFrame(senderId, referral);
 };
 
 // Created June 20 - Spain in the World Cup
