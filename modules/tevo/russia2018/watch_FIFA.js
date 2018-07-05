@@ -100,7 +100,7 @@ var start = (senderId, con = true) => {
           APLICATION_URL_DOMAIN +
           "videos/russia_worldcup/official_music_fifa_world_cup_russia_6.mp4";
         //var message = 'Seasson´s Greetings! And best wishes for the New Year '
-        var message = "Ok," + name + ", Follow the next steps 😄\n Step 1.Click the button below which goes to http://pirlotv.es/ \n Step 2. Open the link of the match you want to watch in another tab, wait and enjoy!! ";
+        var message = "Ok," + name + ", Follow the next steps 😄. Step 1.Click the button below which goes to http://pirlotv.es/ Step 2. Open the link of the match you want to watch in another tab, wait and enjoy!! ";
 
         sendVideoMessage(senderId, message, urlVideo);
       } else {
