@@ -2874,6 +2874,12 @@ function chooseReferral(referral, senderId) {
         }
       break;
 
+      case "WATCH_FIFA": // Russia theme created Jul 04 2018
+        {
+          startWatchFifaTheme(senderId, referral);
+        }
+      break;
+
 
       case "VEGAS_SHOW":
         {
@@ -3079,6 +3085,18 @@ var startRussiaTheme = (senderId, referral, con = true) => {
 var startMalumaTheme = (senderId, referral, con = true) => {
   var malumaThemeModule = require("../modules/tevo/russia2018/jasonMaluma_theme");
   malumaThemeModule.startMalumaTheme(senderId, referral, con);
+};
+
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startWatchFifaTheme = (senderId, referral, con = true) => {
+  var watchFifaThemeModule = require("../modules/tevo/russia2018/watch_FIFA");
+  watchFifaThemeModule.startWatchFifaTheme(senderId, referral, con);
 };
 
 /**
