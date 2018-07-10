@@ -2703,6 +2703,12 @@ function chooseReferral(referral, senderId) {
         }
         break;  
 
+      case "BELGIUM_FRAME": // Here we create the new CASE w new Me Link name on 07/09/18
+        {
+          startBelgiumFrame(senderId, referral); //We create a new variable
+        }
+        break;  
+
       case "ARGENTINA_ICELAND_FRAME": // Here we create the new CASE w new Me Link name on 05/9/18
         {
           startArgentinaIcelandFrame(senderId, referral); //We create a new variable
@@ -3328,6 +3334,19 @@ var startFranceAustraliaFrame = (senderId, referral) => {
 var startFranceFrame = (senderId, referral) => {
   var FranceFrameModule = require("../modules/tevo/russia2018/France_frame");
   FranceFrameModule.startFranceFrame(senderId, referral);
+};
+
+// Created July 09 - Belgium Frame in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startBelgiumFrame = (senderId, referral) => {
+  var BelgiumFrameModule = require("../modules/tevo/russia2018/Belgium_frame");
+  BelgiumFrameModule.startBelgiumFrame(senderId, referral);
 };
 
 
