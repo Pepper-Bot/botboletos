@@ -98,7 +98,7 @@ var start = (senderId, con = true) => {
       if (con == true) {
         var urlVideo =
           APLICATION_URL_DOMAIN +
-          "videos/russia_worldcup/official_music_fifa_world_cup_russia_6.mp4";
+          "modules/tevo/russia2018/images/FIFA_links.jpeg";
         //var message = 'Seasson´s Greetings! And best wishes for the New Year '
         var message = "Ok, Follow the next steps 😄";
 
