@@ -2701,7 +2701,13 @@ function chooseReferral(referral, senderId) {
         {
           startFranceFrame(senderId, referral); //We create a new variable
         }
-        break;  
+        break;
+        
+      case "FRANCE_CROATIA_FRAME": // Here we create the new CASE w new Me Link name on 7/11/18
+        {
+          startFranceCroatiaFrame(senderId, referral); //We create a new variable
+        }
+        break;        
 
       case "BELGIUM_FRAME": // Here we create the new CASE w new Me Link name on 07/09/18
         {
@@ -3321,6 +3327,19 @@ var startPortugalFrame = (senderId, referral) => {
 var startFranceAustraliaFrame = (senderId, referral) => {
   var FranceAustraliaFrameModule = require("../modules/tevo/russia2018/franceAustralia_frame");
   FranceAustraliaFrameModule.startFranceAustraliaFrame(senderId, referral);
+};
+
+// Created Jul 11 - France vs Croatia FINAL in the World Cup
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startFranceCroatiaFrame = (senderId, referral) => {
+  var FranceCroatiaFrameModule = require("../modules/tevo/russia2018/franceCroatia_frame");
+  FranceCroatiaFrameModule.startFranceCroatiaFrame(senderId, referral);
 };
 
 // Created June 21 - France Frame in the World Cup
