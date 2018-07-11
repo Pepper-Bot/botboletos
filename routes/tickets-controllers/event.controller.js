@@ -114,16 +114,6 @@ var render_events = (req, res) => {
                     dashbot.logEvent(dashBotEvent);
 
 
-                    if (req.query.event_id == 1104021 || req.query.event_id == 1104026) {
-                        for (i = 0; i < events.length; i++) {
-                            if (events[i].id == 1104021) {
-                                events[i].name = "FIFA World Cup Soccer Finals Francia Vs Croatia"
-                            } else if (events[i].id == 1104026) {
-                                events[i].name = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
-                            }
-                        }
-                        images[0].url = "https://ticketdelivery.herokuapp.com/images/fifa_worl_cup/final.jpg"
-                    }
 
 
 
@@ -131,6 +121,19 @@ var render_events = (req, res) => {
 
                     // gis(event_name, function (err, images) {
                     getGoogleImage(event_name).then((images) => {
+
+                        if (req.query.event_id == 1104021 || req.query.event_id == 1104026) {
+                            for (i = 0; i < events.length; i++) {
+                                if (events[i].id == 1104021) {
+                                    events[i].name = "FIFA World Cup Soccer Finals Francia Vs Croatia"
+                                } else if (events[i].id == 1104026) {
+                                    events[i].name = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
+                                }
+                            }
+                            images[0].url = "https://ticketdelivery.herokuapp.com/images/fifa_worl_cup/final.jpg"
+                        }
+
+
                         if (performer_id == "57088") {
                             images[0].url = "https://ticketdelivery.herokuapp.com/images/sharkstank/sharks_anniversary_web.png";
                         }
