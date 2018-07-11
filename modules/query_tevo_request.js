@@ -236,7 +236,7 @@ module.exports = (function () {
             } //fin  de else json.error
           })
           .catch(err => {
-            console.err(err);
+            console.log(err);
           });
       }
     }
@@ -249,7 +249,7 @@ var setImagesToEvents = (resultEvents, counter) => {
 
   for (i = 0; i < gButtons.length; i++) {
     if (gButtons[i].id == 1104020) {
-      events.splice(i, 1);
+      gButtons.splice(i, 1);
     }
 
   }
