@@ -116,10 +116,10 @@ var render_events = (req, res) => {
 
                     if (req.query.event_id == 1104021 || req.query.event_id == 1104026) {
                         for (i = 0; i < events.length; i++) {
-                            if (event[i].id == 1104021) {
-                                event[i].name = "FIFA World Cup Soccer Finals Francia Vs Croatia"
-                            } else if (event[i].id == 1104026) {
-                                event[i].name = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
+                            if (events[i].id == 1104021) {
+                                events[i].name = "FIFA World Cup Soccer Finals Francia Vs Croatia"
+                            } else if (events[i].id == 1104026) {
+                                events[i].name = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
                             }
                         }
                         images[0].url = "https://ticketdelivery.herokuapp.com/images/fifa_worl_cup/final.jpg"
