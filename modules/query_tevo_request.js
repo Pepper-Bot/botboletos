@@ -246,6 +246,14 @@ module.exports = (function () {
 var setImagesToEvents = (resultEvents, counter) => {
   // var gButtons = [];
   var gButtons = resultEvents;
+
+  for (i = 0; i < gButtons.length; i++) {
+    if (gButtons[i].id == 1104020) {
+      events.splice(i, 1);
+    }
+
+  }
+
   return new Promise((resolve, reject) => {
     for (let z = 0; z < gButtons.length; z++) {
       let search = gButtons[z].title;
