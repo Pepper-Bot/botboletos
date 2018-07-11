@@ -380,12 +380,14 @@ var setImagesToEvents = (resultEvents, counter) => {
 
 
           if (gButtons[z].id === 1104021) {
-            gButtons[z].title = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
-            gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/fifa_worl_cup/belgica_inglaterra.jpg"
-          } else if (gButtons[z].id === 1104026) {
             gButtons[z].title = "FIFA World Cup Soccer Finals Francia Vs Croatia"
             gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/fifa_worl_cup/francia_croatia.jpg"
+          } else if (gButtons[z].id === 1104026) {
+            gButtons[z].title = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
+            gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/fifa_worl_cup/belgica_inglaterra.jpg"
+
           }
+
 
           delete gButtons[z].id;
 
