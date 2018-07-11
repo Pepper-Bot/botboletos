@@ -137,7 +137,11 @@ var render_events = (req, res) => {
                                     events[i].name = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
                                 }
                             }
-                            images[0].url = "https://ticketdelivery.herokuapp.com/images/fifa_worl_cup/final.jpg"
+                            if (req.query.event_id == 1104021) {
+                                images[0].url = "https://ticketdelivery.herokuapp.com/images/fifa_worl_cup/belgica_inglaterra.jpg"
+                            } else if (req.query.event_id == 1104026) {
+                                images[0].url = "https://ticketdelivery.herokuapp.com/images/fifa_worl_cup/francia_croatia.jpg"
+                            }
                         }
 
 
