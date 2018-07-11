@@ -122,6 +122,13 @@ var render_events = (req, res) => {
                     // gis(event_name, function (err, images) {
                     getGoogleImage(event_name).then((images) => {
 
+
+                        for (i = 0; i < events.length; i++) {
+                            if (events[i].id == 1104020) {
+                                events.splice(i, 1);
+                            }
+
+                        }
                         if (req.query.event_id == 1104021 || req.query.event_id == 1104026) {
                             for (i = 0; i < events.length; i++) {
                                 if (events[i].id == 1104021) {
