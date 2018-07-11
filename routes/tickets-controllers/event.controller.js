@@ -132,9 +132,10 @@ var render_events = (req, res) => {
                         if (req.query.event_id == 1104021 || req.query.event_id == 1104026) {
                             for (i = 0; i < events.length; i++) {
                                 if (events[i].id == 1104021) {
-                                    events[i].name = "FIFA World Cup Soccer Finals Francia Vs Croatia"
-                                } else if (events[i].id == 1104026) {
                                     events[i].name = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
+                                } else if (events[i].id == 1104026) {
+                                    events[i].name = "FIFA World Cup Soccer Finals Francia Vs Croatia"
+
                                 }
                             }
                             if (req.query.event_id == 1104021) {
