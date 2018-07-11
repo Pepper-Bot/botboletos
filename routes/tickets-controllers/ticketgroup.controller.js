@@ -47,7 +47,17 @@ var ticketgroup = (req, res) => {
                     occurs_at = occurs_at.substring(0, occurs_at.length - 4);
                     occurs_at = moment(occurs_at).format('MMMM Do YYYY, h:mm a')
 
-                    // console.log("EVENT<<<  : >>> " + JSON.stringify(event));                                   
+                    // console.log("EVENT<<<  : >>> " + JSON.stringify(event));   
+
+
+                    if (event_id == 1104021) {
+                        event.name = "FIFA World Cup Soccer Finals Francia Vs Croatia"
+                    } else if (event_id == 1104026) {
+                        event.name = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
+                    }
+
+
+
                     res.render(
                         './layouts/tickets/ticketgroup', {
                             titulo: "Your tickets are on its way!",

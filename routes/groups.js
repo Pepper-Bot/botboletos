@@ -74,6 +74,14 @@ router.get('/', function (req, res) {
 
 					dashbot.logEvent(dashBotEvent);
 
+
+					if (event_id == 1104021) {
+						event.name = "FIFA World Cup Soccer Finals Francia Vs Croatia"
+					} else if (event_id == 1104026) {
+						event.name = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
+					}
+
+
 					res.render(
 						'./layouts/tickets/ticketgroup', {
 							titulo: "Select your tickets",

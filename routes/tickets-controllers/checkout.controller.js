@@ -26,8 +26,17 @@ var checkout = (req, res) => {
 
 
     var event_id = params.event_id;
+
+    if (event_id == 1104021) {
+        params.event_name = "FIFA World Cup Soccer Finals Francia Vs Croatia"
+    } else if (event_id == 1104026) {
+        params.event_name = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
+    }
+
+
     var fbId = params.uid;
     var venue_id = params.venue_id;
+
     var event_name = params.event_name;
     var performer_id = params.performer_id;
     var event_date = params.event_date;
