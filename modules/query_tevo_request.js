@@ -124,6 +124,7 @@ module.exports = (function () {
                   eventButtons_.push({
                     title: resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                     performer: resultEvent[j].performances[0].performer.name,
+                    id: resultEvent[j].id,
                     image_url: resultEvent[j].category.name,
                     subtitle: resultEvent[j].venue.name +
                       " " +
@@ -265,9 +266,13 @@ var setImagesToEvents = (resultEvents, counter) => {
 
 
       let shark_tank = false
+
       if (gButtons[z].performer == "Live Sharks Tank") {
         shark_tank = true
       }
+
+
+
 
       delete gButtons[z].performer;
 
@@ -361,6 +366,22 @@ var setImagesToEvents = (resultEvents, counter) => {
             gButtons[z].image_url =
               "https://ticketdelivery.herokuapp.com/images/sharkstank/sharks_anniversary_web.png";
           }
+
+
+
+
+
+          if (gButtons[z].id == 1104021) { ///final 
+            gButtons[z].name = "FIFA World Cup Soccer Finals Francia Vs Croatia"
+            gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/fifa_worl_cup/final.jpg"
+          } else if (gButtons[z].id == 1104026) { //third place 
+            gButtons[z].name = "FIFA World Cup Soccer Third Place Belgica Vs Inglaterra"
+            gButtons[z].image_url = "https://ticketdelivery.herokuapp.com/images/fifa_worl_cup/final.jpg"
+          }
+
+          delete gButtons[z].id;
+
+
 
           if (gButtons[z].subtitle == "My Pepper Bot") {
             gButtons[z].image_url =
