@@ -2571,6 +2571,13 @@ function chooseReferral(referral, senderId) {
           startSanValentin(senderId, referral);
         }
         break;
+
+        case "FIFA World Cup Soccer":
+        {
+          console.log("entré al equipo Russia");
+          startTevoModuleWithMlink("FIFA World Cup Soccer", senderId);//Call for tickets search by name
+        }
+        break;
       case "CHAMPIONS_LEAGUE": // Here we create the new CASE w new Me Link name 02/27/18
         {
           startChampionsLeagueFrame(senderId, referral); //We create a new variable
