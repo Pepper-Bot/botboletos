@@ -95,6 +95,7 @@ var createUpdateUserDatas = (
   var dbObj = require("../mongodb");
   dbObj.getConnection();
   return new Promise((resolve, reject) => {
+
     UserData.getInfo(senderId, function (err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
       console.log("FBUser.first_name' >>> " + JSON.stringify(FBUser));
@@ -131,11 +132,11 @@ var createUpdateUserDatas = (
                 }
 
                 if (eventSearchSelected != "") {
-                  foundUser.eventSearchSelected.concat([eventSearchSelected]);
+                  foundUser.eventSearchSelected.push(eventSearchSelected);
                 }
 
                 if (querysTevo != "") {
-                  foundUser.querysTevo.concat([querysTevo]);
+                  foundUser.querysTevo.push(querysTevo);
                 }
 
                 if (queryTevoFinal != "") {
@@ -172,19 +173,23 @@ var createUpdateUserDatas = (
                   foundUser.messageTitle = messageTitle;
                 }
                 if (event_type != "") {
-                  foundUser.event_type.concat([event_type]);
+                  foundUser.event_type.push(event_type);
                 }
 
                 if (categorySearchSelected != "") {
-                  foundUser.categorySearchSelected.concat([categorySearchSelected]);
+                  foundUser.categorySearchSelected.push(categorySearchSelected);
                 }
 
                 if (optionsSelected != "") {
-                  foundUser.optionsSelected.concat([optionsSelected]);
+
+
+                  foundUser.optionsSelected.push(optionsSelected);
+                  console.log(`foundUser.optionsSelected  ${optionsSelected}   ${foundUser.optionsSelected.length}`)
                 }
 
                 if (userSays.typed) {
-                  foundUser.userSays.concat([userSays]);
+
+                  foundUser.userSays.push(userSays);
                 }
 
                 console.log(
@@ -272,11 +277,11 @@ var createUpdateUserDatas = (
                       }
 
                       if (eventSearchSelected != "") {
-                        User.eventSearchSelected.concat([eventSearchSelected]);
+                        User.eventSearchSelected.push(eventSearchSelected);
                       }
 
                       if (querysTevo != "") {
-                        User.querysTevo.concat([querysTevo]);
+                        User.querysTevo.push(querysTevo);
                       }
 
                       if (queryTevoFinal != "") {
@@ -313,21 +318,21 @@ var createUpdateUserDatas = (
                         User.messageTitle = messageTitle;
                       }
                       if (event_type != "") {
-                        User.event_type.concat([event_type]);
+                        User.event_type.push([event_type]);
                       }
 
                       if (categorySearchSelected != "") {
-                        User.categorySearchSelected.concat(
-                          [categorySearchSelected]
+                        User.categorySearchSelected.push(
+                          categorySearchSelected
                         );
                       }
 
                       if (optionsSelected != "") {
-                        User.optionsSelected.concat([optionsSelected]);
+                        User.optionsSelected.push(optionsSelected);
                       }
 
                       if (userSays.typed) {
-                        User.userSays.concat([userSays]);
+                        User.userSays.push(userSays);
                       }
 
                       User.showMemore.index1 = index1;
@@ -469,12 +474,12 @@ var upateEventClicked = (
                         User.messageNumber = 1;
                       }
 
-                      User.events_clicked.concat([event_clicked]);
-                      User.categories.concat([category]);
+                      User.events_clicked.push(event_clicked);
+                      User.categories.push(category);
 
                       for (let i = 0; i < performances.length; i++) {
                         let performer = performances[i].performer;
-                        User.performances.concat([performer]);
+                        User.performances.push(performer);
                       }
 
                       User.save(function (err, userSaved) {
@@ -516,7 +521,7 @@ var pushIfNewEvent = (events_clicked, event_clicked) => {
       return;
     }
   }
-  events_clicked.concat([event_clicked]);
+  events_clicked.push(event_clicked);
 };
 
 var pushIfNewCategory = (categories, category) => {
@@ -533,7 +538,7 @@ var pushIfNewCategory = (categories, category) => {
     }
   }
 
-  categories.concat([category]);
+  categories.push(category);
 };
 
 var pushIfNewPerformer = (performances, performer) => {
@@ -551,7 +556,7 @@ var pushIfNewPerformer = (performances, performer) => {
       return;
     }
   }
-  performances.concat([performer]);
+  performances.push(performer);
   console.log("performances.length-despues" + performances.length);
 };
 

@@ -24,6 +24,7 @@ var sendDailyNotification = (initDay, finishDay) => {
       if (startend.toogle === true) {
         checkIfNewUsers().then(() => {
           userQueries.getUsersGroupByFBId().then(usuarios => {
+
             let counter = 0;
             let senderIds = [];
             for (let i = 0; i < usuarios.length; i++) {
@@ -33,11 +34,12 @@ var sendDailyNotification = (initDay, finishDay) => {
             /*==================================================================================
             | Buscar los usuarios que tengan notificación pendiente para el día que se desee |
             ===================================================================================*/
+            //console.log(`senderIds.length ${JSON.stringify( senderIds)}`)
             getUserNotificationsByFbIdsAndNextNotificationDate(
-              senderIds,
-              initDay,
-              finishDay
-            )
+                senderIds,
+                initDay,
+                finishDay
+              )
               .then(usersForNotification => {
                 console.log(
                   `UsersForNotification ${JSON.stringify(
@@ -46,8 +48,12 @@ var sendDailyNotification = (initDay, finishDay) => {
                 );
                 //Notificaciones según las preferencias del usuario   ----
                 let counter = 0;
+                let hasta = 1
+                if (usersForNotification.length < 1) {
+                  hasta = usersForNotification.length
+                }
                 if (usersForNotification.length > 0) {
-                  for (let i = 0; i < usersForNotification.length; i++) {
+                  for (let i = 0; i < hasta; i++) {
                     console.log(
                       `usersForNotification[i].nextNotificacion  ${
                         usersForNotification[i].nextNotificacion
@@ -64,24 +70,28 @@ var sendDailyNotification = (initDay, finishDay) => {
                            */
                           console.log(`3 días`);
                           userArtists
-                            .buildCategoriesToSend(
-                              usersForNotification[i].fbId,
-                              false,
-                              1
-                            )
-                            .then(() => {
-                              createUpdateUserNotificationSheduled(
-                                usersForNotification[i].fbId
-                              ).then(() => {
-                                counter++;
-                                if (
-                                  counter ===
-                                  usersForNotification.length - 1
-                                ) {
-                                  resolve({ messsge: "termine" });
-                                }
-                              });
+                          .buildCategoriesToSend(
+                            usersForNotification[i].fbId,
+                            false,
+                            1
+                          )
+                          .then(() => {
+                            createUpdateUserNotificationSheduled(
+                              usersForNotification[i].fbId
+                            ).then(() => {
+
+                              if (
+                                counter ===
+                                hasta - 1
+                              ) {
+                                resolve({
+                                  messsge: "termine"
+                                });
+                              }
+
+                              counter++;
                             });
+                          });
                         }
                         break;
                       case 2:
@@ -94,34 +104,38 @@ var sendDailyNotification = (initDay, finishDay) => {
 
                           console.log(`7 días`);
                           userArtists
-                            .buildCategoriesToSend(
-                              usersForNotification[i].fbId,
-                              true,
-                              2
-                            )
-                            .then(() => {
-                              createUpdateUserNotificationSheduled(
-                                usersForNotification[i].fbId
-                              ).then(() => {
-                                counter++;
-                                if (
-                                  counter ===
-                                  usersForNotification.length - 1
-                                ) {
-                                  resolve({ messsge: "termine" });
-                                }
-                              });
+                          .buildCategoriesToSend(
+                            usersForNotification[i].fbId,
+                            true,
+                            2
+                          )
+                          .then(() => {
+                            createUpdateUserNotificationSheduled(
+                              usersForNotification[i].fbId
+                            ).then(() => {
+
+                              if (
+                                counter ===
+                                hasta - 1
+                              ) {
+                                resolve({
+                                  messsge: "termine"
+                                });
+                              }
+                              counter++;
                             });
+                          });
                         }
                         break;
-                      case 3: {
-                        /**
-                         * ===================
-                         * 14 días
-                         * ===================
-                         */
-                        console.log(`14 días`);
-                        userArtists
+                      case 3:
+                        {
+                          /**
+                           * ===================
+                           * 14 días
+                           * ===================
+                           */
+                          console.log(`14 días`);
+                          userArtists
                           .buildCategoriesToSend(
                             usersForNotification[i].fbId,
                             true,
@@ -131,37 +145,44 @@ var sendDailyNotification = (initDay, finishDay) => {
                             createUpdateUserNotificationSheduled(
                               usersForNotification[i].fbId
                             ).then(() => {
-                              counter++;
-                              if (counter === usersForNotification.length - 1) {
-                                resolve({ messsge: "termine" });
+
+                              if (counter === hasta - 1) {
+                                resolve({
+                                  messsge: "termine"
+                                });
                               }
+                              counter++;
                             });
                           });
                           break;
-                      }
-                      case 4: {
-                        /**
-                         * ===================
-                         * 30 días
-                         * ===================
-                         */
-                        console.log(`30 días`);
+                        }
+                      case 4:
+                        {
+                          /**
+                           * ===================
+                           * 30 días
+                           * ===================
+                           */
+                          console.log(`30 días`);
 
-                        userArtists
+                          userArtists
                           .sendCategoryPickUp(usersForNotification[i].fbId)
                           .then(() => {
                             createUpdateUserNotificationSheduled(
                               usersForNotification[i].fbId
                             ).then(() => {
-                              counter++;
-                              if (counter === usersForNotification.length - 1) {
-                                resolve({ messsge: "termine" });
+
+                              if (counter === hasta - 1) {
+                                resolve({
+                                  messsge: "termine"
+                                });
                               }
+                              counter++;
                             });
                           });
 
-                        break;
-                      }
+                          break;
+                        }
                       default:
                         {
                           /**
@@ -193,8 +214,7 @@ var sendDailyNotification = (initDay, finishDay) => {
                   }
                 } else {
                   resolve({
-                    messsge:
-                      "No encontré usuarios que tengan pendiente notificación"
+                    messsge: "No encontré usuarios que tengan pendiente notificación"
                   });
                 }
               })
@@ -205,7 +225,9 @@ var sendDailyNotification = (initDay, finishDay) => {
         });
       } else {
         console.log("startend:toogle:false");
-        resolve({ messsge: "termine" });
+        resolve({
+          messsge: "termine"
+        });
       }
     });
   });
@@ -222,7 +244,7 @@ var checkIfNewUsers = () => {
       let counter = 0;
       for (let i = 0; i < usuarios.length; i++) {
         let usuario = usuarios[i];
-        console.log(`${JSON.stringify(usuario)}`);
+        //console.log(`${JSON.stringify(usuario)}`);
         searchUserNotificationSheduledByFbId(usuario._id.fbId).then(
           userNotificationSheduled => {
             if (userNotificationSheduled === null) {
@@ -232,20 +254,39 @@ var checkIfNewUsers = () => {
               =======================================================================*/
 
               createUpdateUserNotificationSheduled(usuarios[i]._id.fbId)
-                .then(() => {
-                  fb_me_send_account
-                    .sendMyAccount(usuarios[i]._id.fbId)
-                    .then(response => {
-                      counter++;
-                      if (counter === usuarios.length - 1) {
-                        resolve({
-                          message: "termine  checkIfNewUsers "
-                        });
-                      }
-                    })
-                    .catch(error => {
-                      console.log(error);
-                    });
+                .then((userNotificaciones) => {
+
+                  if (userNotificaciones.activated == true) {
+
+                    fb_me_send_account
+                      .sendMyAccount(usuarios[i]._id.fbId)
+                      .then(response => {
+
+                        if (counter === usuarios.length - 1) {
+                          resolve({
+                            message: "termine  checkIfNewUsers "
+                          });
+                        }
+                        counter++;
+                      })
+                      .catch(error => {
+                        console.log(error);
+                      });
+
+
+                  } else {
+
+                    if (counter === usuarios.length - 1) {
+                      resolve({
+                        message: "termine  checkIfNewUsers "
+                      });
+                    }
+                    counter++;
+
+
+                  }
+
+
                 })
                 .catch(error => {
                   console.log(error);
@@ -254,12 +295,13 @@ var checkIfNewUsers = () => {
               /*===================================================
               ------El usuario tiene registro en search update-----
               =====================================================*/
-              counter++;
+
               if (counter === usuarios.length - 1) {
                 resolve({
                   message: "termine  checkIfNewUsers "
                 });
               }
+              counter++;
             }
           }
         );
@@ -271,24 +313,24 @@ var checkIfNewUsers = () => {
 /**
  * ====================================================================
  * @param {*} fbId
+ * @param {*} activated
  * @description función para insertar o modificar registro en usernotificationsheduleds
+ * 
  * ====================================================================
  */
 var createUpdateUserNotificationSheduled = (fbId = "") => {
   return new Promise((resolve, reject) => {
-    UserNotificationSheduled.findOne(
-      {
+    UserNotificationSheduled.findOne({
         fbId: fbId
-      },
-      {},
-      {
+      }, {}, {
         sort: {
           fbId: -1
         }
       },
-      function(err, userNotificationSheduled) {
+      function (err, userNotificationSheduled) {
         if (null != userNotificationSheduled) {
           userNotificationSheduled.fbId = fbId;
+
 
           /**
            * =================================================⭐
@@ -308,78 +350,83 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
           );
 
           switch (userNotificationSheduled.nextNotificacion) {
-            case 1: {
-              userNotificationSheduled.nextNotificationDate =
+            case 1:
+              {
+                userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.nextNotificationDate.getTime() +
-                //1000 * 3600 * 24 * 7;
-                1000 * 60 * 7;
-              userNotificationSheduled.nextNotificacion = 2;
+                1000 * 3600 * 24 * 3;
+                //1000 * 60 * 7;
+                userNotificationSheduled.nextNotificacion = 2;
 
-              break;
-            }
+                break;
+              }
 
-            case 2: {
-              userNotificationSheduled.nextNotificationDate =
+            case 2:
+              {
+                userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.nextNotificationDate.getTime() +
-                //1000 * 3600 * 24 * 14;
-                1000 * 60 * 7;
-              userNotificationSheduled.nextNotificacion = 3;
-              console.log(
-                `userNotificationSheduled.nextNotificationDate  ${
+                1000 * 3600 * 24 * 4;
+                //1000 * 60 * 7;
+                userNotificationSheduled.nextNotificacion = 3;
+                console.log(
+                  `userNotificationSheduled.nextNotificationDate  ${
                   userNotificationSheduled.nextNotificationDate
                 }`
-              );
-              break;
-            }
-            case 3: {
-              userNotificationSheduled.nextNotificationDate =
+                );
+                break;
+              }
+            case 3:
+              {
+                userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.nextNotificationDate.getTime() +
-                //1000 * 3600 * 24 * 30;
-                1000 * 60 * 7;
-              userNotificationSheduled.nextNotificacion = 4;
-              console.log(
-                `userNotificationSheduled.nextNotificationDate  ${
+                1000 * 3600 * 24 * 8;
+                //1000 * 60 * 7;
+                userNotificationSheduled.nextNotificacion = 4;
+                console.log(
+                  `userNotificationSheduled.nextNotificationDate  ${
                   userNotificationSheduled.nextNotificationDate
                 }`
-              );
-              break;
-            }
-            case 4: {
-              userNotificationSheduled.nextNotificationDate =
+                );
+                break;
+              }
+            case 4:
+              {
+                userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.nextNotificationDate.getTime() +
-                //1000 * 3600 * 24 * 3;
-                1000 * 60 *7;
-              userNotificationSheduled.nextNotificacion = 5;
-              console.log(
-                `userNotificationSheduled.nextNotificationDate  ${
+                1000 * 3600 * 24 * 15;
+                //1000 * 60 *7;
+                userNotificationSheduled.nextNotificacion = 5;
+                console.log(
+                  `userNotificationSheduled.nextNotificationDate  ${
                   userNotificationSheduled.nextNotificationDate
                 }`
-              );
-              break;
-            }
+                );
+                break;
+              }
 
-            default: {
-              userNotificationSheduled.nextNotificationDate =
+            default:
+              {
+                userNotificationSheduled.nextNotificationDate =
                 userNotificationSheduled.lastNotificationDate.getTime() +
                 //1000 * 3600 * 24 * 3;
-                1000 * 60*7;
-              userNotificationSheduled.nextNotificacion = 2;
-              console.log(
-                `userNotificationSheduled.nextNotificationDate  ${
+                1000 * 60 * 7;
+                userNotificationSheduled.nextNotificacion = 2;
+                console.log(
+                  `userNotificationSheduled.nextNotificationDate  ${
                   userNotificationSheduled.nextNotificationDate
                 }`
-              );
-            }
+                );
+              }
           }
 
-          userNotificationSheduled.save(function(
+          userNotificationSheduled.save(function (
             err,
             userNotificationSheduledU
           ) {
             if (!err) {
               console.log(
                 "userNotificationSheduled upated !!! " +
-                  JSON.stringify(userNotificationSheduledU.fbId)
+                JSON.stringify(userNotificationSheduledU.fbId)
               );
 
               resolve(userNotificationSheduledU);
@@ -395,8 +442,8 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
           userNotificationSheduled.fbId = fbId;
 
           userNotificationSheduled.nextNotificationDate = moment().add(
-            7,
-            "minutes"
+            1,
+            "day"
           );
           /**======================
            *  Primer ciclo
@@ -405,17 +452,42 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
           userNotificationSheduled.numberOfNextSeconds = 60;
           userNotificationSheduled.nextNotificacion = 1;
 
-          userNotificationSheduled.save(function(
+          userNotificationSheduled.save(function (
             err,
             userNotificationSheduledS
           ) {
             if (!err) {
               console.log(
                 "userNotificationSheduled Saved !!! " +
-                  JSON.stringify(userNotificationSheduledS.fbId)
+                JSON.stringify(userNotificationSheduledS.fbId)
               );
 
-              resolve(userNotificationSheduledS);
+              userQueries.getUserByFbId(userNotificationSheduledS.fbId).then((userFound) => {
+                if (
+                  userFound.timeZone == "-2" ||
+                  userFound.timeZone == "-2" ||
+                  userFound.timeZone == "-1" ||
+                  userFound.timeZone == "0" ||
+                  userFound.timeZone == "1" ||
+                  userFound.timeZone == "2" ||
+                  userFound.timeZone == "3" ||
+                  userFound.timeZone == "4" ||
+                  userFound.timeZone == "5" ||
+                  userFound.timeZone == "6" ||
+                  userFound.timeZone == "7" ||
+                  userFound.timeZone == "8" ||
+                  userFound.timeZone == "9" ||
+                  userFound.timeZone == "10"
+                ) {
+                  updateUserActivated(userNotificationSheduledS.fbId, false).then((userNotificaciones) => {
+                    resolve(userNotificaciones);
+                  })
+                } else {
+                  resolve(userNotificationSheduledS);
+                }
+              })
+
+
             } else {
               console.log(
                 "Error guardando en createUpdateUserNotificationSheduled " + err
@@ -437,19 +509,16 @@ var createUpdateUserNotificationSheduled = (fbId = "") => {
  */
 var searchUserNotificationSheduledByFbId = (fbId = "") => {
   return new Promise((resolve, reject) => {
-    UserNotificationSheduled.findOne(
-      {
+    UserNotificationSheduled.findOne({
         fbId: fbId
-      },
-      {},
-      {
+      }, {}, {
         sort: {
           fbId: -1
         }
       },
-      function(err, userNotificationSheduled) {
+      function (err, userNotificationSheduled) {
         if (null != userNotificationSheduled) {
-          console.log(`UserNotificationSheduledByFbId  foun !! fbId: ${fbId}`);
+          //console.log(`UserNotificationSheduledByFbId  foun !! fbId: ${fbId}`);
           resolve(userNotificationSheduled);
         } else {
           console.log(
@@ -470,9 +539,15 @@ var searchUserNotificationSheduledByFbId = (fbId = "") => {
  */
 var getUserNotificationsByFbIds = (fbIds = []) => {
   return new Promise((resolve, reject) => {
-    UserNotificationSheduled.find({ fbId: { $in: fbIds } })
-      .sort({ fbId: -1 })
-      .exec(function(err, userNotifications) {
+    UserNotificationSheduled.find({
+        fbId: {
+          $in: fbIds
+        }
+      })
+      .sort({
+        fbId: -1
+      })
+      .exec(function (err, userNotifications) {
         if (err) {
           console.log("error en userNotifications " + err);
           resolve([]);
@@ -501,19 +576,31 @@ var getUserNotificationsByFbIdsAndNextNotificationDate = (
   endOfDay = new Date()
 ) => {
   return new Promise((resolve, reject) => {
+    console.log(`startOfDay--> ${startOfDay}`)
+    console.log(`endOfDay--> ${endOfDay}`)
     UserNotificationSheduled.find({
-      $and: [
-        { fbId: { $in: fbIds } },
-        {
-          nextNotificationDate: {
-            $gt: startOfDay,
-            $lt: endOfDay
+        $and: [{
+            fbId: {
+              $in: fbIds
+            }
+          },
+          {
+            nextNotificationDate: {
+              $gt: startOfDay,
+              $lt: endOfDay
+            }
+          },
+          {
+            activated: true
           }
-        }
-      ]
-    })
-      .sort({ fbId: -1 })
-      .exec(function(err, userNotifications) {
+
+        ]
+      })
+      .sort({
+        fbId: -1
+      })
+      .limit(1)
+      .exec(function (err, userNotifications) {
         if (err) {
           console.log("error en userNotifications " + err);
           resolve([]);
@@ -528,10 +615,59 @@ var getUserNotificationsByFbIdsAndNextNotificationDate = (
   });
 };
 
+
+
+
+
+/**
+ * ====================================================================
+ * @param {*} fbId
+ * @param {*} activated
+ * @description función para insertar o modificar registro en usernotificationsheduleds
+ * ====================================================================
+ */
+var updateUserActivated = (fbId = "", activated = true) => {
+  return new Promise((resolve, reject) => {
+    UserNotificationSheduled.findOne({
+        fbId: fbId
+      }, {}, {
+        sort: {
+          fbId: -1
+        }
+      },
+      function (err, userNotificationSheduled) {
+        if (null != userNotificationSheduled) {
+          userNotificationSheduled.activated = activated
+          userNotificationSheduled.save(function (
+            err,
+            userNotificationSheduledU
+          ) {
+            if (!err) {
+              console.log(
+                "updateUserActivated upated activated " +
+
+                JSON.stringify(userNotificationSheduledU.fbId)
+              );
+
+              resolve(userNotificationSheduledU);
+            } else {
+              console.log(
+                "Error guardando en updateUserActivated   " + err
+              );
+              resolve({});
+            }
+          });
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   sendDailyNotification,
   createUpdateUserNotificationSheduled,
   searchUserNotificationSheduledByFbId,
   getUserNotificationsByFbIds,
-  getUserNotificationsByFbIdsAndNextNotificationDate
+  getUserNotificationsByFbIdsAndNextNotificationDate,
+  updateUserActivated
 };

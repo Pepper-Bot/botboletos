@@ -131,11 +131,14 @@ var UserData = mongoose.Schema({
     type: Boolean,
     default: false
   },
+  notifications_activated: {
+    type: Boolean,
+    default: true
+  },
 
   events_clicked: [],
   categories: [],
   performances: []
-
 
 });
 

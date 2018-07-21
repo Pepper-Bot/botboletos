@@ -159,7 +159,7 @@ var newArtists = (
         foundArtist.name = name;
         foundArtist.popularity_score = popularity_score;
 
-        //foundArtist.images.push(image);
+
         if (image.url) {
           pushIfNew(foundArtist.images, image);
         }
@@ -184,7 +184,7 @@ var newArtists = (
         artist.popularity_score = popularity_score;
 
         if (image.url) {
-          artist.images.concat([image]);
+          artist.images.push(image);
         }
 
         artist.category_id = category_id;
@@ -220,7 +220,7 @@ var newArtistWithImages = (
         foundArtist.name = name;
         foundArtist.popularity_score = popularity_score;
 
-        //foundArtist.images.push(image);
+
 
         foundArtist.images = images;
 
@@ -273,7 +273,7 @@ var pushIfNew = (images, image) => {
     size: image.size,
     url: image.url
   };
-  images.concat([newImage]);
+  images.push(newImage);
 };
 
 module.exports = {

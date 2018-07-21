@@ -35,7 +35,7 @@ var createUpdateUserNotificationMinutes = (
           UserNotificationMinutes.lastNotificationDate = moment();
 
           UserNotificationMinutes.numberOfNextMinutes = numberOfNextMinutes;
-          UserNotificationMinutes.description.concat([description]);
+          UserNotificationMinutes.description.push(description);
 
           UserNotificationMinutes.save(function (err, UserNotificationMinutesU) {
             if (!err) {
@@ -61,7 +61,7 @@ var createUpdateUserNotificationMinutes = (
           );
           UserNotificationMinutes.lastNotificationDate = moment();
           UserNotificationMinutes.numberOfNextMinutes = numberOfNextMinutes;
-          UserNotificationMinutes.description.concat([description]);
+          UserNotificationMinutes.description.push(description);
 
           UserNotificationMinutes.save(function (err, UserNotificationMinutesS) {
             if (!err) {

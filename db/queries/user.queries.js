@@ -36,6 +36,17 @@ var getUsersGroupByFBId = () => {
           resolve([]);
         } else {
           resolve(result);
+          /*let resultado = [
+            {
+              _id: {
+                fbId: "1501137066641951",
+                LastName: "Jaimes Estévez",
+                firstName: "Leo"
+              }
+            }
+          ]; */
+
+          //resolve(resultado);
         }
       }
     );
@@ -57,7 +68,9 @@ var getUserByFbId = senderId => {
           reject(err);
         }
         if (!foundUser) {
-          console.log(`No se encontró el registro ${senderId} en userdatas: -user_queries, Error: ${err} `);
+          console.log(
+            `No se encontró el registro ${senderId} en userdatas: -user_queries, Error: ${err} `
+          );
           resolve({});
         }
         if (foundUser) {
@@ -93,7 +106,6 @@ var createUpdateUserDatas = (
   zomatoQs = {},
   searchTevoParameters = {}
 ) => {
-
   return new Promise((resolve, reject) => {
     UserData.getInfo(senderId, function (err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
@@ -131,11 +143,11 @@ var createUpdateUserDatas = (
                 }
 
                 if (eventSearchSelected != "") {
-                  foundUser.eventSearchSelected.concat([eventSearchSelected]);
+                  foundUser.eventSearchSelected.push(eventSearchSelected);
                 }
 
                 if (querysTevo != "") {
-                  foundUser.querysTevo.concat([querysTevo]);
+                  foundUser.querysTevo.push(querysTevo);
                 }
 
                 if (queryTevoFinal != "") {
@@ -172,19 +184,19 @@ var createUpdateUserDatas = (
                   foundUser.messageTitle = messageTitle;
                 }
                 if (event_type != "") {
-                  foundUser.event_type.concat([event_type]);
+                  foundUser.event_type.push(event_type);
                 }
 
                 if (categorySearchSelected != "") {
-                  foundUser.categorySearchSelected.concat([categorySearchSelected]);
+                  foundUser.categorySearchSelected.push(categorySearchSelected);
                 }
 
                 if (optionsSelected != "") {
-                  foundUser.optionsSelected.concat([optionsSelected]);
+                  foundUser.optionsSelected.push(optionsSelected);
                 }
 
                 if (userSays.typed) {
-                  foundUser.userSays.concat([userSays]);
+                  foundUser.userSays.push(userSays);
                 }
 
                 console.log(
@@ -272,11 +284,11 @@ var createUpdateUserDatas = (
                       }
 
                       if (eventSearchSelected != "") {
-                        User.eventSearchSelected.concat([eventSearchSelected]);
+                        User.eventSearchSelected.push(eventSearchSelected);
                       }
 
                       if (querysTevo != "") {
-                        User.querysTevo.concat([querysTevo]);
+                        User.querysTevo.push(querysTevo);
                       }
 
                       if (queryTevoFinal != "") {
@@ -313,21 +325,21 @@ var createUpdateUserDatas = (
                         User.messageTitle = messageTitle;
                       }
                       if (event_type != "") {
-                        User.event_type.concat([event_type]);
+                        User.event_type.push(event_type);
                       }
 
                       if (categorySearchSelected != "") {
-                        User.categorySearchSelected.concat(
-                          [categorySearchSelected]
+                        User.categorySearchSelected.push(
+                          categorySearchSelected
                         );
                       }
 
                       if (optionsSelected != "") {
-                        User.optionsSelected.concat([optionsSelected]);
+                        User.optionsSelected.push(optionsSelected);
                       }
 
                       if (userSays.typed) {
-                        User.userSays.concat([userSays]);
+                        User.userSays.push(userSays);
                       }
 
                       User.showMemore.index1 = index1;
@@ -385,7 +397,6 @@ var createUpdateUserDatas = (
 };
 
 var createUpdateUseSelectArtist = (senderId, artists = []) => {
-
   return new Promise((resolve, reject) => {
     UserData.getInfo(senderId, function (err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
@@ -412,6 +423,7 @@ var createUpdateUseSelectArtist = (senderId, artists = []) => {
                 foundUser.gender = FBUser.gender;
                 foundUser.messageNumber = 1;
                 foundUser.sessionEnd = moment();
+
 
 
                 foundUser.artistsSelected = artists;
@@ -445,6 +457,7 @@ var createUpdateUseSelectArtist = (senderId, artists = []) => {
                       User.gender = bodyObj.gender;
                       User.messageNumber = 1;
 
+
                       User.artistsSelected = artists;
 
                       User.save(function (err, userSaved) {
@@ -472,7 +485,6 @@ var createUpdateUseSelectArtist = (senderId, artists = []) => {
 };
 
 var createUpdateUserSpotifyId = (senderId, spotify_id) => {
-
   return new Promise((resolve, reject) => {
     UserData.getInfo(senderId, function (err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
@@ -571,7 +583,7 @@ var pushIfNew = (artists, artist) => {
     performer_id: artist.performer_id,
     name: artist.name
   };
-  artists.concat([newArtist]);
+  artists.push(newArtist);
 };
 
 /**
@@ -580,7 +592,6 @@ var pushIfNew = (artists, artist) => {
  * @param {*} artistHasEvent
  */
 var createUpdateUserArtistHasEvent = (senderId, artistHasEvent) => {
-
   return new Promise((resolve, reject) => {
     UserData.getInfo(senderId, function (err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
@@ -668,12 +679,10 @@ var createUpdateUserArtistHasEvent = (senderId, artistHasEvent) => {
 };
 
 /**
- * 
- * @param {*} senderId 
+ *
+ * @param {*} senderId
  */
 var searchUserByFacebookId = senderId => {
-
-
   return new Promise((resolve, reject) => {
     UserData2.findOne({
         fbId: senderId

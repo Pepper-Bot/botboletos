@@ -69,7 +69,7 @@ var newEvent = (value = "", synonyms = "", images = {}) => {
     getEvent(value).then(foundEvent => {
       if (isDefined(foundEvent.value)) {
         if (isDefined(images.url)) {
-          foundEvent.images.concat([images]);
+          foundEvent.images.push(images);
         }
 
         foundEvent.save(function (err, eventSaved) {
@@ -87,9 +87,9 @@ var newEvent = (value = "", synonyms = "", images = {}) => {
         var event = new EventsModel();
 
         event.value = value;
-        event.synonyms.concat([value]);
+        event.synonyms.push(value);
         if (isDefined(images.url)) {
-          event.images.concat([images]);
+          event.images.push(images);
         }
 
         event.save(function (err, eventSaved) {
