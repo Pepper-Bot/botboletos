@@ -16,13 +16,12 @@ function isDefined(obj) {
 
 var getEventsImages = event_name => {
   return new Promise((resolve, reject) => {
-    EventsModel.find(
-      {
+    EventsModel.find({
         value: {
           $regex: new RegExp(event_name, "ig")
         }
       },
-      function(err, events) {
+      function (err, events) {
         if (err) {
           console.log("Error al consultar getEventsImages por nombre" + err);
           resolve([]);
@@ -42,15 +41,14 @@ var getEventsImages = event_name => {
 
 var getEvent = (event_name = "") => {
   return new Promise((resolve, reject) => {
-    EventsModel.findOne(
-      {
+    EventsModel.findOne({
         value: event_name
+      }, {}, {
+        sort: {
+          event_name: -1
+        }
       },
-      {},
-      {
-        sort: { event_name: -1 }
-      },
-      function(err, foundEvent) {
+      function (err, foundEvent) {
         if (!err) {
           console.log(foundEvent);
           if (null != foundEvent) {
@@ -71,10 +69,10 @@ var newEvent = (value = "", synonyms = "", images = {}) => {
     getEvent(value).then(foundEvent => {
       if (isDefined(foundEvent.value)) {
         if (isDefined(images.url)) {
-          foundEvent.images.push(images);
+          foundEvent.images.concat([images]);
         }
 
-        foundEvent.save(function(err, eventSaved) {
+        foundEvent.save(function (err, eventSaved) {
           if (!err) {
             console.log(
               "Events images Updated!!! " + JSON.stringify(eventSaved.value)
@@ -89,12 +87,12 @@ var newEvent = (value = "", synonyms = "", images = {}) => {
         var event = new EventsModel();
 
         event.value = value;
-        event.synonyms.push(value);
+        event.synonyms.concat([value]);
         if (isDefined(images.url)) {
-          event.images.push(images);
+          event.images.concat([images]);
         }
 
-        event.save(function(err, eventSaved) {
+        event.save(function (err, eventSaved) {
           if (!err) {
             console.log(
               "Event Saved!!! " + JSON.stringify(eventSaved.value)
@@ -112,7 +110,7 @@ var newEvent = (value = "", synonyms = "", images = {}) => {
 
 module.exports = {
   getEventsImages,
-  newEvent, 
+  newEvent,
   getEvent
 
 };

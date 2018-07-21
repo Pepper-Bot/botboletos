@@ -17,17 +17,14 @@ var createUpdateUserNotificationMinutes = (
   description = {}
 ) => {
   return new Promise((resolve, reject) => {
-    UserNotificationMinutesSchema.findOne(
-      {
+    UserNotificationMinutesSchema.findOne({
         fbId: fbId
-      },
-      {},
-      {
+      }, {}, {
         sort: {
           fbId: -1
         }
       },
-      function(err, UserNotificationMinutes) {
+      function (err, UserNotificationMinutes) {
         if (null != UserNotificationMinutes) {
           UserNotificationMinutes.fbId = fbId;
 
@@ -38,13 +35,13 @@ var createUpdateUserNotificationMinutes = (
           UserNotificationMinutes.lastNotificationDate = moment();
 
           UserNotificationMinutes.numberOfNextMinutes = numberOfNextMinutes;
-          UserNotificationMinutes.description.push(description);
+          UserNotificationMinutes.description.concat([description]);
 
-          UserNotificationMinutes.save(function(err, UserNotificationMinutesU) {
+          UserNotificationMinutes.save(function (err, UserNotificationMinutesU) {
             if (!err) {
               console.log(
                 "UserNotificationMinutes upated !!! " +
-                  JSON.stringify(UserNotificationMinutesU.fbId)
+                JSON.stringify(UserNotificationMinutesU.fbId)
               );
 
               resolve(UserNotificationMinutesU);
@@ -64,13 +61,13 @@ var createUpdateUserNotificationMinutes = (
           );
           UserNotificationMinutes.lastNotificationDate = moment();
           UserNotificationMinutes.numberOfNextMinutes = numberOfNextMinutes;
-          UserNotificationMinutes.description.push(description);
+          UserNotificationMinutes.description.concat([description]);
 
-          UserNotificationMinutes.save(function(err, UserNotificationMinutesS) {
+          UserNotificationMinutes.save(function (err, UserNotificationMinutesS) {
             if (!err) {
               console.log(
                 "UserNotificationMinutes Saved !!! " +
-                  JSON.stringify(UserNotificationMinutesS.fbId)
+                JSON.stringify(UserNotificationMinutesS.fbId)
               );
 
               resolve(UserNotificationMinutesS);
@@ -100,17 +97,14 @@ var updateUserNotificationMinuteslastNotificationDate = (
 ) => {
 
   return new Promise((resolve, reject) => {
-    UserNotificationMinutesSchema.findOne(
-      {
+    UserNotificationMinutesSchema.findOne({
         fbId: fbId
-      },
-      {},
-      {
+      }, {}, {
         sort: {
           fbId: -1
         }
       },
-      function(err, UserNotificationMinutes) {
+      function (err, UserNotificationMinutes) {
         if (null != UserNotificationMinutes) {
           UserNotificationMinutes.fbId = fbId;
 
@@ -119,11 +113,11 @@ var updateUserNotificationMinuteslastNotificationDate = (
             "minutes"
           );
 
-          UserNotificationMinutes.save(function(err, UserNotificationMinutesU) {
+          UserNotificationMinutes.save(function (err, UserNotificationMinutesU) {
             if (!err) {
               console.log(
                 "UserNotificationMinutes upated !!! " +
-                  JSON.stringify(UserNotificationMinutesU.fbId)
+                JSON.stringify(UserNotificationMinutesU.fbId)
               );
 
               resolve(UserNotificationMinutesU);
@@ -150,27 +144,24 @@ var userNotificationMinutesFinish = (
   fbId = "",
 ) => {
   return new Promise((resolve, reject) => {
-    UserNotificationMinutesSchema.findOne(
-      {
+    UserNotificationMinutesSchema.findOne({
         fbId: fbId
-      },
-      {},
-      {
+      }, {}, {
         sort: {
           fbId: -1
         }
       },
-      function(err, UserNotificationMinutes) {
+      function (err, UserNotificationMinutes) {
         if (null != UserNotificationMinutes) {
           UserNotificationMinutes.fbId = fbId;
 
-          UserNotificationMinutes.finished =  true
+          UserNotificationMinutes.finished = true
 
-          UserNotificationMinutes.save(function(err, UserNotificationMinutesU) {
+          UserNotificationMinutes.save(function (err, UserNotificationMinutesU) {
             if (!err) {
               console.log(
                 "UserNotificationMinutes finish upated !!! " +
-                  JSON.stringify(UserNotificationMinutesU.fbId)
+                JSON.stringify(UserNotificationMinutesU.fbId)
               );
 
               resolve(UserNotificationMinutesU);
@@ -197,17 +188,14 @@ var userNotificationMinutesFinish = (
 var searchUserNotificationMinutesByFbId = (fbId = "") => {
 
   return new Promise((resolve, reject) => {
-    UserNotificationMinutesSchema.findOne(
-      {
+    UserNotificationMinutesSchema.findOne({
         fbId: fbId
-      },
-      {},
-      {
+      }, {}, {
         sort: {
           fbId: -1
         }
       },
-      function(err, UserNotificationMinutes) {
+      function (err, UserNotificationMinutes) {
         if (null != UserNotificationMinutes) {
           console.log(`UserNotificationMinutesByFbId  foun !! fbId: ${fbId}`);
           resolve(UserNotificationMinutes);
@@ -237,18 +225,23 @@ var getUserNotificationsByFbIdsAndNextNotificationDate = (
 ) => {
   return new Promise((resolve, reject) => {
     UserNotificationMinutesSchema.find({
-      $and: [
-        { fbId: { $in: fbIds } },
-        {
-          nextNotificationDate: {
-            $gt: startOfMinute,
-            $lt: endOfOfMinute
+        $and: [{
+            fbId: {
+              $in: fbIds
+            }
+          },
+          {
+            nextNotificationDate: {
+              $gt: startOfMinute,
+              $lt: endOfOfMinute
+            }
           }
-        }
-      ]
-    })
-      .sort({ fbId: -1 })
-      .exec(function(err, userNotifications) {
+        ]
+      })
+      .sort({
+        fbId: -1
+      })
+      .exec(function (err, userNotifications) {
         if (err) {
           console.log(
             "error en getUserNotificationsByFbIdsAndNextNotificationDate " + err

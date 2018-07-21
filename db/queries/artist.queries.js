@@ -7,11 +7,17 @@ var getArtists = (limite, n = 1) => {
   limite = Number(limite);
 
   return new Promise((resolve, reject) => {
-    ArtistSchema.find({ category_id: { $nin: [56, 55, 70] } })
-      .sort({ popularity_score: -1 })
+    ArtistSchema.find({
+        category_id: {
+          $nin: [56, 55, 70]
+        }
+      })
+      .sort({
+        popularity_score: -1
+      })
       .skip(limite * (n - 1))
       .limit(limite)
-      .exec(function(err, artists) {
+      .exec(function (err, artists) {
         if (err) {
           console.log("error en getArtists " + err);
           resolve([]);
@@ -37,14 +43,16 @@ var searchArtistsLikeName = (name, limite = 24, n = 1) => {
   console.log(`name ${name}`);
   return new Promise((resolve, reject) => {
     ArtistSchema.find({
-      name: {
-        $regex: new RegExp(name, "ig")
-      }
-    })
-      .sort({ popularity_score: -1 })
+        name: {
+          $regex: new RegExp(name, "ig")
+        }
+      })
+      .sort({
+        popularity_score: -1
+      })
       .skip(limite * (n - 1))
       .limit(limite)
-      .exec(function(err, artists) {
+      .exec(function (err, artists) {
         if (err) {
           console.log("error en getArtists " + err);
           resolve([]);
@@ -63,9 +71,15 @@ var searchArtistsLikeName = (name, limite = 24, n = 1) => {
 
 var getArtistsByPerformersId = (performers_id = []) => {
   return new Promise((resolve, reject) => {
-    ArtistSchema.find({ performer_id: { $in: performers_id } })
-      .sort({ popularity_score: -1 })
-      .exec(function(err, artists) {
+    ArtistSchema.find({
+        performer_id: {
+          $in: performers_id
+        }
+      })
+      .sort({
+        popularity_score: -1
+      })
+      .exec(function (err, artists) {
         if (err) {
           console.log("error en getArtists " + err);
           resolve([]);
@@ -82,9 +96,15 @@ var getArtistsByPerformersId = (performers_id = []) => {
 
 var getArtistsByPerformersName = (names = []) => {
   return new Promise((resolve, reject) => {
-    ArtistSchema.find({ name: { $in: names } })
-      .sort({ popularity_score: -1 })
-      .exec(function(err, artists) {
+    ArtistSchema.find({
+        name: {
+          $in: names
+        }
+      })
+      .sort({
+        popularity_score: -1
+      })
+      .exec(function (err, artists) {
         if (err) {
           console.log("error en getArtists " + err);
           resolve([]);
@@ -101,15 +121,14 @@ var getArtistsByPerformersName = (names = []) => {
 
 var getArtist = (performer_id = 1) => {
   return new Promise((resolve, reject) => {
-    ArtistSchema.findOne(
-      {
+    ArtistSchema.findOne({
         performer_id: performer_id
+      }, {}, {
+        sort: {
+          foundArtist: -1
+        }
       },
-      {},
-      {
-        sort: { foundArtist: -1 }
-      },
-      function(err, foundArtist) {
+      function (err, foundArtist) {
         if (!err) {
           console.log(foundArtist);
           if (null != foundArtist) {
@@ -147,7 +166,7 @@ var newArtists = (
 
         foundArtist.category_id = category_id;
         foundArtist.category_name = category_name;
-        foundArtist.save(function(err, artistSaved) {
+        foundArtist.save(function (err, artistSaved) {
           if (!err) {
             console.log(
               "Artist Updated!!! " + JSON.stringify(artistSaved.performer_id)
@@ -165,12 +184,12 @@ var newArtists = (
         artist.popularity_score = popularity_score;
 
         if (image.url) {
-          artist.images.push(image);
+          artist.images.concat([image]);
         }
 
         artist.category_id = category_id;
         artist.category_name = category_name;
-        artist.save(function(err, artistSaved) {
+        artist.save(function (err, artistSaved) {
           if (!err) {
             console.log(
               "Artist Saved!!! " + JSON.stringify(artistSaved.performer_id)
@@ -207,7 +226,7 @@ var newArtistWithImages = (
 
         foundArtist.category_id = category_id;
         foundArtist.category_name = category_name;
-        foundArtist.save(function(err, artistSaved) {
+        foundArtist.save(function (err, artistSaved) {
           if (!err) {
             console.log(
               "Artist Updated!!! " + JSON.stringify(artistSaved.performer_id)
@@ -228,7 +247,7 @@ var newArtistWithImages = (
 
         artist.category_id = category_id;
         artist.category_name = category_name;
-        artist.save(function(err, artistSaved) {
+        artist.save(function (err, artistSaved) {
           if (!err) {
             console.log(
               "Artist Saved!!! " + JSON.stringify(artistSaved.performer_id)
@@ -254,7 +273,7 @@ var pushIfNew = (images, image) => {
     size: image.size,
     url: image.url
   };
-  images.push(newImage);
+  images.concat([newImage]);
 };
 
 module.exports = {

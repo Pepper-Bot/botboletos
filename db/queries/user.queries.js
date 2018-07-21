@@ -5,8 +5,7 @@ var moment = require("moment");
 var getUsersGroupByFBId = () => {
   return new Promise((resolve, reject) => {
     UserData2.aggregate(
-      [
-        {
+      [{
           $match: {
             firstName: {
               $exists: true
@@ -32,7 +31,7 @@ var getUsersGroupByFBId = () => {
           }
         }
       ],
-      function(error, result) {
+      function (error, result) {
         if (error) {
           resolve([]);
         } else {
@@ -45,17 +44,14 @@ var getUsersGroupByFBId = () => {
 
 var getUserByFbId = senderId => {
   return new Promise((resolve, reject) => {
-    UserData2.findOne(
-      {
+    UserData2.findOne({
         fbId: senderId
-      },
-      {},
-      {
+      }, {}, {
         sort: {
           sessionEnd: -1
         }
       },
-      function(err, foundUser) {
+      function (err, foundUser) {
         if (err) {
           console.log("Error en getUserByFbId user_queries " + err);
           reject(err);
@@ -97,25 +93,22 @@ var createUpdateUserDatas = (
   zomatoQs = {},
   searchTevoParameters = {}
 ) => {
- 
+
   return new Promise((resolve, reject) => {
-    UserData.getInfo(senderId, function(err, FBUser) {
+    UserData.getInfo(senderId, function (err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
       console.log("FBUser.first_name' >>> " + JSON.stringify(FBUser));
 
       if (!err) {
         var FBUser = JSON.parse(FBUser);
-        UserData2.findOne(
-          {
+        UserData2.findOne({
             fbId: senderId
-          },
-          {},
-          {
+          }, {}, {
             sort: {
               sessionEnd: -1
             }
           },
-          function(err, foundUser) {
+          function (err, foundUser) {
             if (!err) {
               if (null != foundUser) {
                 foundUser.fbId = senderId;
@@ -138,11 +131,11 @@ var createUpdateUserDatas = (
                 }
 
                 if (eventSearchSelected != "") {
-                  foundUser.eventSearchSelected.push(eventSearchSelected);
+                  foundUser.eventSearchSelected.concat([eventSearchSelected]);
                 }
 
                 if (querysTevo != "") {
-                  foundUser.querysTevo.push(querysTevo);
+                  foundUser.querysTevo.concat([querysTevo]);
                 }
 
                 if (queryTevoFinal != "") {
@@ -179,19 +172,19 @@ var createUpdateUserDatas = (
                   foundUser.messageTitle = messageTitle;
                 }
                 if (event_type != "") {
-                  foundUser.event_type.push(event_type);
+                  foundUser.event_type.concat([event_type]);
                 }
 
                 if (categorySearchSelected != "") {
-                  foundUser.categorySearchSelected.push(categorySearchSelected);
+                  foundUser.categorySearchSelected.concat([categorySearchSelected]);
                 }
 
                 if (optionsSelected != "") {
-                  foundUser.optionsSelected.push(optionsSelected);
+                  foundUser.optionsSelected.concat([optionsSelected]);
                 }
 
                 if (userSays.typed) {
-                  foundUser.userSays.push(userSays);
+                  foundUser.userSays.concat([userSays]);
                 }
 
                 console.log(
@@ -242,7 +235,7 @@ var createUpdateUserDatas = (
                     searchTevoParameters.per_page;
                 }
 
-                foundUser.save(function(err, userSaved) {
+                foundUser.save(function (err, userSaved) {
                   if (!err) {
                     console.log(
                       "foundUser Saved!!! " + JSON.stringify(userSaved.fbId)
@@ -254,14 +247,13 @@ var createUpdateUserDatas = (
                   }
                 });
               } else {
-                UserData.getInfo(senderId, function(err, result) {
+                UserData.getInfo(senderId, function (err, result) {
                   console.log("Dentro de UserData");
                   if (!err) {
                     var bodyObj = JSON.parse(result);
                     console.log("guardando el usuario " + result);
 
-                    var User = new UserData2();
-                    {
+                    var User = new UserData2(); {
                       User.fbId = senderId;
                       User.firstName = bodyObj.first_name;
                       User.LastName = bodyObj.last_name;
@@ -280,11 +272,11 @@ var createUpdateUserDatas = (
                       }
 
                       if (eventSearchSelected != "") {
-                        User.eventSearchSelected.push(eventSearchSelected);
+                        User.eventSearchSelected.concat([eventSearchSelected]);
                       }
 
                       if (querysTevo != "") {
-                        User.querysTevo.push(querysTevo);
+                        User.querysTevo.concat([querysTevo]);
                       }
 
                       if (queryTevoFinal != "") {
@@ -321,21 +313,21 @@ var createUpdateUserDatas = (
                         User.messageTitle = messageTitle;
                       }
                       if (event_type != "") {
-                        User.event_type.push(event_type);
+                        User.event_type.concat([event_type]);
                       }
 
                       if (categorySearchSelected != "") {
-                        User.categorySearchSelected.push(
-                          categorySearchSelected
+                        User.categorySearchSelected.concat(
+                          [categorySearchSelected]
                         );
                       }
 
                       if (optionsSelected != "") {
-                        User.optionsSelected.push(optionsSelected);
+                        User.optionsSelected.concat([optionsSelected]);
                       }
 
                       if (userSays.typed) {
-                        User.userSays.push(userSays);
+                        User.userSays.concat([userSays]);
                       }
 
                       User.showMemore.index1 = index1;
@@ -395,23 +387,20 @@ var createUpdateUserDatas = (
 var createUpdateUseSelectArtist = (senderId, artists = []) => {
 
   return new Promise((resolve, reject) => {
-    UserData.getInfo(senderId, function(err, FBUser) {
+    UserData.getInfo(senderId, function (err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
       console.log("FBUser.first_name' >>> " + JSON.stringify(FBUser));
       if (!err) {
         console.log("1");
         var FBUser = JSON.parse(FBUser);
-        UserData2.findOne(
-          {
+        UserData2.findOne({
             fbId: senderId
-          },
-          {},
-          {
+          }, {}, {
             sort: {
               sessionEnd: -1
             }
           },
-          function(err, foundUser) {
+          function (err, foundUser) {
             if (!err) {
               if (null != foundUser) {
                 foundUser.fbId = senderId;
@@ -424,15 +413,10 @@ var createUpdateUseSelectArtist = (senderId, artists = []) => {
                 foundUser.messageNumber = 1;
                 foundUser.sessionEnd = moment();
 
-                //foundUser.artistsSelected.push(artists);
-                /*for(let i =0 ; i< artists.length ; i++ ){
-                  let artist = artists[i]
-                  pushIfNew(foundUser.artistsSelected,artist   )
-                }*/
 
                 foundUser.artistsSelected = artists;
 
-                foundUser.save(function(err, userSaved) {
+                foundUser.save(function (err, userSaved) {
                   if (!err) {
                     console.log(
                       "foundUser Saved!!! " + JSON.stringify(userSaved.fbId)
@@ -445,14 +429,13 @@ var createUpdateUseSelectArtist = (senderId, artists = []) => {
                   }
                 });
               } else {
-                UserData.getInfo(senderId, function(err, result) {
+                UserData.getInfo(senderId, function (err, result) {
                   console.log("Dentro de UserData");
                   if (!err) {
                     var bodyObj = JSON.parse(result);
                     console.log("guardando el usuario " + result);
 
-                    var User = new UserData2();
-                    {
+                    var User = new UserData2(); {
                       User.fbId = senderId;
                       User.firstName = bodyObj.first_name;
                       User.LastName = bodyObj.last_name;
@@ -462,13 +445,9 @@ var createUpdateUseSelectArtist = (senderId, artists = []) => {
                       User.gender = bodyObj.gender;
                       User.messageNumber = 1;
 
-                      /*for (let i = 0; i < artists.length; i++) {
-                        let artist = artists[i];
-                        pushIfNew(User.artistsSelected, artist);
-                      }*/
                       User.artistsSelected = artists;
 
-                      User.save(function(err, userSaved) {
+                      User.save(function (err, userSaved) {
                         if (!err) {
                           console.log(
                             "user Saved!!! " + JSON.stringify(userSaved.fbId)
@@ -495,23 +474,20 @@ var createUpdateUseSelectArtist = (senderId, artists = []) => {
 var createUpdateUserSpotifyId = (senderId, spotify_id) => {
 
   return new Promise((resolve, reject) => {
-    UserData.getInfo(senderId, function(err, FBUser) {
+    UserData.getInfo(senderId, function (err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
       console.log("FBUser.first_name' >>> " + JSON.stringify(FBUser));
       if (!err) {
         console.log("1");
         var FBUser = JSON.parse(FBUser);
-        UserData2.findOne(
-          {
+        UserData2.findOne({
             fbId: senderId
-          },
-          {},
-          {
+          }, {}, {
             sort: {
               sessionEnd: -1
             }
           },
-          function(err, foundUser) {
+          function (err, foundUser) {
             if (!err) {
               if (null != foundUser) {
                 foundUser.fbId = senderId;
@@ -524,11 +500,11 @@ var createUpdateUserSpotifyId = (senderId, spotify_id) => {
                 foundUser.messageNumber = 1;
                 foundUser.sessionEnd = moment();
 
-                //foundUser.artistsSelected.push(artists);
+
 
                 foundUser.spotify_id = spotify_id;
 
-                foundUser.save(function(err, userSaved) {
+                foundUser.save(function (err, userSaved) {
                   if (!err) {
                     console.log(
                       "foundUser Saved!!! " + JSON.stringify(userSaved.fbId)
@@ -541,14 +517,13 @@ var createUpdateUserSpotifyId = (senderId, spotify_id) => {
                   }
                 });
               } else {
-                UserData.getInfo(senderId, function(err, result) {
+                UserData.getInfo(senderId, function (err, result) {
                   console.log("Dentro de UserData");
                   if (!err) {
                     var bodyObj = JSON.parse(result);
                     console.log("guardando el usuario " + result);
 
-                    var User = new UserData2();
-                    {
+                    var User = new UserData2(); {
                       User.fbId = senderId;
                       User.firstName = bodyObj.first_name;
                       User.LastName = bodyObj.last_name;
@@ -560,7 +535,7 @@ var createUpdateUserSpotifyId = (senderId, spotify_id) => {
 
                       User.spotify_id = spotify_id;
 
-                      User.save(function(err, userSaved) {
+                      User.save(function (err, userSaved) {
                         if (!err) {
                           console.log(
                             "user Saved!!! " + JSON.stringify(userSaved.fbId)
@@ -596,7 +571,7 @@ var pushIfNew = (artists, artist) => {
     performer_id: artist.performer_id,
     name: artist.name
   };
-  artists.push(newArtist);
+  artists.concat([newArtist]);
 };
 
 /**
@@ -605,25 +580,22 @@ var pushIfNew = (artists, artist) => {
  * @param {*} artistHasEvent
  */
 var createUpdateUserArtistHasEvent = (senderId, artistHasEvent) => {
-  
+
   return new Promise((resolve, reject) => {
-    UserData.getInfo(senderId, function(err, FBUser) {
+    UserData.getInfo(senderId, function (err, FBUser) {
       //console.log('FBUser.first_name'+  FBUser.first_name )
       console.log("FBUser.first_name' >>> " + JSON.stringify(FBUser));
       if (!err) {
         console.log("1");
         var FBUser = JSON.parse(FBUser);
-        UserData2.findOne(
-          {
+        UserData2.findOne({
             fbId: senderId
-          },
-          {},
-          {
+          }, {}, {
             sort: {
               sessionEnd: -1
             }
           },
-          function(err, foundUser) {
+          function (err, foundUser) {
             if (!err) {
               if (null != foundUser) {
                 foundUser.fbId = senderId;
@@ -636,11 +608,11 @@ var createUpdateUserArtistHasEvent = (senderId, artistHasEvent) => {
                 foundUser.messageNumber = 1;
                 foundUser.sessionEnd = moment();
 
-                //foundUser.artistsSelected.push(artists);
+
 
                 foundUser.artistHasEvent = artistHasEvent;
 
-                foundUser.save(function(err, userSaved) {
+                foundUser.save(function (err, userSaved) {
                   if (!err) {
                     console.log(
                       "foundUser Saved!!! " + JSON.stringify(userSaved.fbId)
@@ -653,14 +625,13 @@ var createUpdateUserArtistHasEvent = (senderId, artistHasEvent) => {
                   }
                 });
               } else {
-                UserData.getInfo(senderId, function(err, result) {
+                UserData.getInfo(senderId, function (err, result) {
                   console.log("Dentro de UserData");
                   if (!err) {
                     var bodyObj = JSON.parse(result);
                     console.log("guardando el usuario " + result);
 
-                    var User = new UserData2();
-                    {
+                    var User = new UserData2(); {
                       User.fbId = senderId;
                       User.firstName = bodyObj.first_name;
                       User.LastName = bodyObj.last_name;
@@ -672,7 +643,7 @@ var createUpdateUserArtistHasEvent = (senderId, artistHasEvent) => {
 
                       User.artistHasEvent = artistHasEvent;
 
-                      User.save(function(err, userSaved) {
+                      User.save(function (err, userSaved) {
                         if (!err) {
                           console.log(
                             "user Saved!!! " + JSON.stringify(userSaved.fbId)
@@ -701,20 +672,17 @@ var createUpdateUserArtistHasEvent = (senderId, artistHasEvent) => {
  * @param {*} senderId 
  */
 var searchUserByFacebookId = senderId => {
-   
+
 
   return new Promise((resolve, reject) => {
-    UserData2.findOne(
-      {
+    UserData2.findOne({
         fbId: senderId
-      },
-      {},
-      {
+      }, {}, {
         sort: {
           sessionEnd: -1
         }
       },
-      function(err, foundUser) {
+      function (err, foundUser) {
         if (!err) {
           if (null != foundUser) {
             resolve(foundUser);
