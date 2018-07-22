@@ -802,7 +802,6 @@ function processLocation(senderId, locationData) {
                   let lat = locationData.payload.coordinates.lat;
                   let lon = locationData.payload.coordinates.long;
 
-                  console.log(`buscando por ubicación: ${lat},  ${lon} `);
                   startTevoModuleByLocation(senderId, lat, lon);
                 } else if ("Drinks" == lastSelected) {
                   var Drink = require("../modules/drink");
@@ -966,6 +965,8 @@ function processQuickReplies(event) {
         startTevoModuleWithMlink("FIFA World Cup Soccer", senderId); //Call for tickets search by name
       }
       break;
+
+
 
     case "CHELSEA":
       {
@@ -1249,14 +1250,12 @@ function processQuickReplies(event) {
 
     case "find_my_event_by_location":
       {
-        console.log(`find_my_event_by_location`)
         Message.markSeen(senderId);
         Message.getLocation(
           senderId,
           "What location would you like to catch show?"
         );
         Message.typingOn(senderId);
-
         saveUserSelection(senderId, "Events");
 
         UserData2.findOne({
@@ -2184,7 +2183,6 @@ function saveContext(senderId, context) {
  *
  */
 function saveUserSelection(senderId, selection) {
-  console.log(` selection ${selection}`)
   user_queries.createUpdateUserDatas(
     senderId,
     "",
@@ -2480,9 +2478,10 @@ function chooseReferral(referral, senderId) {
           startSanValentin(senderId, referral);
         }
         break;
+
       case "FIFA World Cup Soccer":
         {
-          console.log("entré FIFA World Cup Soccer");
+          console.log("entré al equipo Russia");
           startTevoModuleWithMlink("FIFA World Cup Soccer", senderId); //Call for tickets search by name
         }
         break;
@@ -2678,6 +2677,7 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
+
       case "ENGLAND_TUN_FRAME": // Here we create the new CASE w new Me Link name on 05/18/18
         {
           startEnglandTunFrame(senderId, referral); //We create a new variable
@@ -2731,6 +2731,7 @@ function chooseReferral(referral, senderId) {
           startSwitzFrame(senderId, referral); //We create a new variable
         }
         break;
+
 
       case "BAR_v_CHE_FRAME": // Here we create the new CASEame on 02/28/18 w new Me Link n
         {
@@ -2786,6 +2787,7 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
+
       case "RUSSIA_THEME": // Russia theme created Jun 11 2018
         {
           startRussiaTheme(senderId, referral);
@@ -2803,6 +2805,7 @@ function chooseReferral(referral, senderId) {
           startWatchFifaTheme(senderId, referral);
         }
         break;
+
 
       case "VEGAS_SHOW":
         {
@@ -3279,6 +3282,7 @@ var startBelgiumFrame = (senderId, referral) => {
   BelgiumFrameModule.startBelgiumFrame(senderId, referral);
 };
 
+
 // Created May 9 - Argentina vs Iceland Game 7 in the World Cup
 /**
  *
@@ -3317,6 +3321,8 @@ var startIcelandFrame = (senderId, referral) => {
   var icelandFrameModule = require("../modules/tevo/russia2018/Iceland_frame");
   icelandFrameModule.startIcelandFrame(senderId, referral);
 };
+
+
 
 // Created May 9 - Germany vs Mexico Game 11 in the World Cup
 /**
@@ -3357,6 +3363,7 @@ var startBrazilMexicoFrame = (senderId, referral) => {
   BrazilMexicoFrameModule.startBrazilMexicoFrame(senderId, referral);
 };
 
+
 // Created June 22 - Mexico in the World Cup
 /**
  *
@@ -3382,6 +3389,7 @@ var startGermanyFrame = (senderId, referral) => {
   var GermanyFrameModule = require("../modules/tevo/russia2018/Germany_frame");
   GermanyFrameModule.startGermanyFrame(senderId, referral);
 };
+
 
 // Created May 18 - England vs Tunisia Game 14 in the World Cup
 /**
@@ -3422,6 +3430,8 @@ var startEnglandFrame = (senderId, referral) => {
   EnglandFrameModule.startEnglandFrame(senderId, referral);
 };
 
+
+
 // Created May 18 - Colombia vs Japan Game 16 in the World Cup
 /**
  *
@@ -3461,6 +3471,8 @@ var startJapanFrame = (senderId, referral) => {
   JapanFrameModule.startJapanFrame(senderId, referral);
 };
 
+
+
 // Created May 10 - Brazil - Switzerland Game 11 in the World Cup
 /**
  *
@@ -3499,6 +3511,7 @@ var startSwitzFrame = (senderId, referral) => {
   var switzFrameModule = require("../modules/tevo/russia2018/Switz_frame");
   switzFrameModule.startSwitzFrame(senderId, referral);
 };
+
 
 // Created Mar 21
 /**
