@@ -8,6 +8,10 @@ var tevo = require("../config/config_vars").tevo;
 var APLICATION_URL_DOMAIN = require("../config/config_vars")
   .APLICATION_URL_DOMAIN;
 
+
+let configVars = require("../config/config_vars")
+let APPLICATION_URL_EXTENSION = configVars.APPLICATION_URL_EXTENSION
+
 var google = require("../config/config_vars").google;
 
 var only_with = require("../config/config_vars").only_with;
@@ -56,7 +60,7 @@ module.exports = (function () {
                 resultEvent = json.events;
                 var eventButtons_ = [];
                 var callsGis = 0;
-                var baseURL = APLICATION_URL_DOMAIN + "event/?event_id=";
+                var baseURL = APPLICATION_URL_EXTENSION //APLICATION_URL_DOMAIN + "event/?event_id=";
 
                 if (resultEvent.length > 9 * (position - 1)) {
                   if (position * 9 > resultEvent.length - 9) {
@@ -121,29 +125,20 @@ module.exports = (function () {
                     "MMM Do YYYY, h:mm a"
                   );
 
+
+                  let urlWeb = `${baseURL}${resultEvent[j].id}&uid=${senderId}&venue_id=${resultEvent[j].venue.id}&performer_id=${resultEvent[j].performances[0].performer.id}&event_name=${resultEvent[j].name}`
+
+                  urlWeb = `${baseURL}/book/${resultEvent[j].performances[0].performer.name}`
+
                   eventButtons_.push({
                     title: resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                     performer: resultEvent[j].performances[0].performer.name,
                     id: resultEvent[j].id,
                     image_url: resultEvent[j].category.name,
-                    subtitle: resultEvent[j].venue.name +
-                      " " +
-                      resultEvent[j].venue.location +
-                      " " +
-                      occurs_at,
+                    subtitle: `${resultEvent[j].venue.name} ${resultEvent[j].venue.location} ${occurs_at}`,
                     default_action: {
                       type: "web_url",
-                      url: baseURL +
-                        resultEvent[j].id +
-                        "&uid=" +
-                        senderId +
-                        "&venue_id=" +
-                        resultEvent[j].venue.id +
-                        "&performer_id=" +
-                        resultEvent[j].performances[0].performer.id +
-                        "&event_name=" +
-                        resultEvent[j].name,
-
+                      url: urlWeb,
                       //"messenger_extensions": true,
                       webview_height_ratio: "full"
                       //"fallback_url": baseURL + resultEvent[j].id + '&uid=' + senderId + '&venue_id=' + resultEvent[j].venue.id + '&performer_id=' + resultEvent[j].performances[0].performer.id + '&event_name=' + resultEvent[j].name
@@ -152,16 +147,7 @@ module.exports = (function () {
                         type: "web_url",
                         //"messenger_extensions": true,
                         webview_height_ratio: "full",
-                        url: baseURL +
-                          resultEvent[j].id +
-                          "&uid=" +
-                          senderId +
-                          "&venue_id=" +
-                          resultEvent[j].venue.id +
-                          "&performer_id=" +
-                          resultEvent[j].performances[0].performer.id +
-                          "&event_name=" +
-                          resultEvent[j].name,
+                        url: urlWeb,
                         title: "Book"
                       },
                       {
