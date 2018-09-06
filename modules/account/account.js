@@ -16,18 +16,17 @@ var APPLICATION_URL_EXTENSION = require("../../config/config_vars")
 var startAccount = (senderId, messageTitle = "") => {
   console.log("Entré a startAccount");
   let URLAplication = APLICATION_URL_DOMAIN + "redirect/?u=";
-  let urlExtension = `${APPLICATION_URL_EXTENSION}profile?senderId=${senderId}`;
+  //let urlExtension = `${APPLICATION_URL_EXTENSION}profile?senderId=${senderId}`;
+  let urlExtension = `${APPLICATION_URL_EXTENSION}?senderId=${senderId}&v=true`;
 
   let eventResults = [];
-  let boletos = [
-    {
-      titulo: "Track your favorite artist",
-      imagen: `${APLICATION_URL_DOMAIN}images/account/select_artist_v1.jpg`,
-      subtitulo: "Get notified of upcoming concerts",
-      //url: `${URLAplication}${urlExtension} &id=${senderId}`,
-      url: `${urlExtension}`
-    }
-  ];
+  let boletos = [{
+    titulo: "Track your favorite artist",
+    imagen: `${APLICATION_URL_DOMAIN}images/account/select_artist_v1.jpg`,
+    subtitulo: "Get notified of upcoming concerts",
+    //url: `${URLAplication}${urlExtension} &id=${senderId}`,
+    url: `${urlExtension}`
+  }];
 
   for (let i = 0, c = boletos.length; i < c; i++) {
     console.log("i " + i);
@@ -43,16 +42,14 @@ var startAccount = (senderId, messageTitle = "") => {
         webview_height_ratio: "full",
         //fallback_url: boletos[i].url
       },
-      buttons: [
-        {
-          type: "web_url",
-          url: boletos[i].url,
-          //messenger_extensions: true,
-          webview_height_ratio: "tall",
-          title: "Track artists"
-          //"payload": "TIBURON" + (i + 1)
-        }
-      ]
+      buttons: [{
+        type: "web_url",
+        url: boletos[i].url,
+        //messenger_extensions: true,
+        webview_height_ratio: "tall",
+        title: "Track artists"
+        //"payload": "TIBURON" + (i + 1)
+      }]
     });
 
     console.log("events Results >>>>>>>>>>>>>>>" + eventResults[i].url);
@@ -65,18 +62,17 @@ var startAccount = (senderId, messageTitle = "") => {
 var startFaves = senderId => {
   console.log("Entré a startAccount");
   let URLAplication = APLICATION_URL_DOMAIN + "redirect/?u=";
-  let urlExtension = `${APPLICATION_URL_EXTENSION}profile/faves/?senderId=${senderId}`;
+  //let urlExtension = `${APPLICATION_URL_EXTENSION}profile/faves/?senderId=${senderId}`;
+  let urlExtension = `${APPLICATION_URL_EXTENSION}/user/?senderId=${senderId}`;
 
   let eventResults = [];
-  let boletos = [
-    {
-      titulo: "My Favorites",
-      imagen: `${APLICATION_URL_DOMAIN}images/account/faves_image.jpg`,
-      subtitulo: "Set your prefered music, concerts and events",
-      //url: `${URLAplication}${urlExtension} &id=${senderId}`,
-      url: `${urlExtension}`
-    }
-  ];
+  let boletos = [{
+    titulo: "My Favorites",
+    imagen: `${APLICATION_URL_DOMAIN}images/account/faves_image.jpg`,
+    subtitulo: "Set your prefered music, concerts and events",
+    //url: `${URLAplication}${urlExtension} &id=${senderId}`,
+    url: `${urlExtension}`
+  }];
 
   for (let i = 0, c = boletos.length; i < c; i++) {
     console.log("i " + i);
@@ -90,18 +86,16 @@ var startFaves = senderId => {
         url: boletos[i].url,
         messenger_extensions: true,
         webview_height_ratio: "tall",
-       //fallback_url: boletos[i].url
+        //fallback_url: boletos[i].url
       },
-      buttons: [
-        {
-          type: "web_url",
-          url: boletos[i].url,
-           messenger_extensions: true,
-          webview_height_ratio: "tall",
-          title: "My Favorites"
-          //"payload": "TIBURON" + (i + 1)
-        }
-      ]
+      buttons: [{
+        type: "web_url",
+        url: boletos[i].url,
+        messenger_extensions: true,
+        webview_height_ratio: "tall",
+        title: "My Favorites"
+        //"payload": "TIBURON" + (i + 1)
+      }]
     });
 
     console.log("events Results >>>>>>>>>>>>>>>" + eventResults[i].url);
