@@ -63,7 +63,7 @@ var startFaves = senderId => {
   console.log("Entré a startAccount");
   let URLAplication = APLICATION_URL_DOMAIN + "redirect/?u=";
   //let urlExtension = `${APPLICATION_URL_EXTENSION}profile/faves/?senderId=${senderId}`;
-  let urlExtension = `${APPLICATION_URL_EXTENSION}/user/?senderId=${senderId}`;
+  let urlExtension = `${APPLICATION_URL_EXTENSION}/user/faves?senderId=${senderId}`;
 
   let eventResults = [];
   let boletos = [{
