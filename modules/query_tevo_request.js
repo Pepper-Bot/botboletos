@@ -130,6 +130,8 @@ module.exports = (function () {
 
                   urlWeb = `${baseURL}/book/${resultEvent[j].performances[0].performer.name}?senderId=${senderId}`
 
+                  console.log(`urlWeb ${urlWeb}`)
+
                   eventButtons_.push({
                     title: resultEvent[j].name, // +' '+ resultEvent[j].category.name,
                     performer: resultEvent[j].performances[0].performer.name,
