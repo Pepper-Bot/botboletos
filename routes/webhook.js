@@ -1249,7 +1249,7 @@ function processQuickReplies(event) {
 
     case "find_my_event_by_location":
       {
-        console.log(`find_my_event_by_location`)
+        console.log(`find_my_event_by_location`);
         Message.markSeen(senderId);
         Message.getLocation(
           senderId,
@@ -1957,15 +1957,24 @@ function processPostback(event) {
 
     case "Greetings":
       {
-        user_queries.createUpdateUserDatas(senderId, "-").then(foundUser => {
-          let Account = require("../modules/account/account");
-          user_queries.getUserByFbId(senderId).then(foundUser => {
-            let messageTitle = `Hi ${
-              foundUser.firstName
-            }, follow your favorite artist.`;
+        /*UserData.getInfo(senderId, function(err, result) {
+          console.log("Dentro de UserData");
+          if (!err) {
+            var bodyObj = JSON.parse(result);
+            console.log(result);
+
+            var name = bodyObj.first_name;
+
+            let messageTitle = `Hi ${name}, follow your favorite artist.`;
+
+            //Message.sendMessage(senderId, 'hi ' + name);
+            let Account = require("../modules/account/account");
             Account.startAccount(senderId, messageTitle);
-          });
+          }
         });
+
+        user_queries.createUpdateUserDatas(senderId, "-").then(foundUser => {});*/
+        saluda(senderId);
       }
       break;
 
@@ -2184,7 +2193,7 @@ function saveContext(senderId, context) {
  *
  */
 function saveUserSelection(senderId, selection) {
-  console.log(` selection ${selection}`)
+  console.log(` selection ${selection}`);
   user_queries.createUpdateUserDatas(
     senderId,
     "",
@@ -2240,46 +2249,41 @@ function saveCategorySelection(senderId, category) {
  */
 function saluda(senderId) {
   console.log("entré a saluda!");
-  var Message_2 = require("../bot/generic_buttton");
 
-  user_queries.createUpdateUserDatas(senderId, "-").then(foundUser => {
-    // let Account = require("../modules/account/account");
-    //Account.startAccount(senderId);
+  UserData.getInfo(senderId, function (err, result) {
+    console.log("Dentro de UserData");
+    if (!err) {
+      var bodyObj = JSON.parse(result);
+      console.log(result);
 
-    let name = foundUser.firstName;
-    var greeting = "Hi " + name;
-    var messagetxt = greeting + ", what would you like to do?";
-    Message.markSeen(senderId);
+      let name = bodyObj.first_name;
+      let messagetxt = `Hi ${name},  what would you like to do?`;
 
-    Message.markSeen(senderId);
-    Message.typingOn(senderId);
+      Message.markSeen(senderId);
+      Message.typingOn(senderId);
 
-    var replies = [{
-        content_type: "text",
-        title: "Food",
-        payload: "GET_LOCATION_FOOD"
-      },
-      {
-        content_type: "text",
-        title: "Drinks",
-        payload: "GET_LOCATION_DRINKS"
-      },
-      {
-        content_type: "text",
-        title: "Event",
-        payload: "GET_LOCATION_EVENTS"
-      }
-    ];
+      var replies = [{
+          content_type: "text",
+          title: "Food",
+          payload: "GET_LOCATION_FOOD"
+        },
+        {
+          content_type: "text",
+          title: "Drinks",
+          payload: "GET_LOCATION_DRINKS"
+        },
+        {
+          content_type: "text",
+          title: "Event",
+          payload: "GET_LOCATION_EVENTS"
+        }
+      ];
 
-    Message.quickReply(senderId, messagetxt, replies);
-
-    /*let Account = require("../modules/account/account");
-    user_queries.getUserByFbId(senderId).then(foundUser => {
-      let messageTitle = `Hi ${
-        foundUser.firstName
-      }, follow your favorite artist.`;
-      Account.startAccount(senderId, messageTitle);
-    });*/
+      Message.quickReply(senderId, messagetxt, replies).then(() => {
+        Message.typingOff(senderId);
+        user_queries.createUpdateUserDatas(senderId, "-").then(foundUser => {});
+      });
+    }
   });
 }
 
