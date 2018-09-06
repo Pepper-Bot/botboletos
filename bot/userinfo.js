@@ -3,7 +3,7 @@ var request = require('request');
 var getInfo = (userId, callback) => {
 
 	request({
-		url: 'https://graph.facebook.com/v2.6/' + userId,
+		url: 'https://graph.facebook.com/v3.1/' + userId,
 		qs: {
 			access_token: process.env.PAGE_ACCESS_TOKEN
 		},
@@ -12,7 +12,7 @@ var getInfo = (userId, callback) => {
 		if (error) {
 			callback(true, null);
 		} else {
-            console.log('getInfo Ok!')
+			console.log('getInfo Ok!')
 			callback(null, body);
 		}
 	});
@@ -20,9 +20,9 @@ var getInfo = (userId, callback) => {
 
 var getUserLikes = (userId) => {
 	return new Promise((resolve, reject) => {
-		 
+
 		request({
-			url: 'https://graph.facebook.com/v2.12/' + userId + '/likes',
+			url: 'https://graph.facebook.com/v3.1/' + userId + '/likes',
 			qs: {
 				access_token: process.env.PAGE_ACCESS_TOKEN
 			},
