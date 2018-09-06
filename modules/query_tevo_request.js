@@ -128,7 +128,7 @@ module.exports = (function () {
 
                   let urlWeb = `${baseURL}${resultEvent[j].id}&uid=${senderId}&venue_id=${resultEvent[j].venue.id}&performer_id=${resultEvent[j].performances[0].performer.id}&event_name=${resultEvent[j].name}`
 
-                  urlWeb = `${baseURL}/book/${resultEvent[j].performances[0].performer.name}`
+                  urlWeb = `${baseURL}/book/${resultEvent[j].performances[0].performer.name}?senderId=${senderId}`
 
                   eventButtons_.push({
                     title: resultEvent[j].name, // +' '+ resultEvent[j].category.name,
