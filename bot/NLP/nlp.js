@@ -743,12 +743,20 @@ var eventsSearch = (
   let music_genre = "";
   let event_type = "";
   let team = "";
+  let performer = "";
 
   if (
     isDefined(contexts[0]) &&
     contexts[0].name == "eventssearch-followup" &&
     contexts[0].parameters
   ) {
+    if (isDefined(contexts[0].parameters.performer)) {
+      if (isDefined(contexts[0].parameters.performer != "")) {
+        performer = contexts[0].parameters.performer;
+        console.log("performer>> " + performer);
+      }
+    }
+
     if (isDefined(contexts[0].parameters.team)) {
       if (isDefined(contexts[0].parameters.team != "")) {
         team = contexts[0].parameters.team;
@@ -856,6 +864,12 @@ var eventsSearch = (
       event_type: event_type,
       music_genre: music_genre
     };
+
+
+    if (performer != "") {
+      event_title = performer;
+    }
+
 
     if (artist != "") {
       event_title = artist;
