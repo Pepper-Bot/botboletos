@@ -126,7 +126,7 @@ var myButtons = senderId => {
   var replies = [{
       content_type: "text",
       title: "Get Tickets",
-      payload: "Gennady Golovkin"
+      payload: "CANELO"
     }
     /*,
         {

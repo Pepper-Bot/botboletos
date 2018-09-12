@@ -963,9 +963,9 @@ function processQuickReplies(event) {
     case "CANELO":
       {
         console.log("Veo canelo y sus boletos");
-        startTevoModuleWithMlink("Saul Canelo Alvarez", senderId); //Call for tickets search by name
+        startTevoModuleWithMlink("Canelo Alvarez vs Gennady Golovkin", senderId); //Call for tickets search by name
       }
-      break;  
+      break;
 
     case "ARABIA":
       {
