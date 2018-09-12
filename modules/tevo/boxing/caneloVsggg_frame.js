@@ -102,9 +102,16 @@ var start = senderId => {
         {
           type: "web_url",
           url:
-            "www.facebook.com/fbcameraeffects/tryit/200185917257210/",
-          title: "Try Mexico Mask"
-        }/*,
+            "www.facebook.com/fbcameraeffects/tryit/729174164116855/",
+          title: "Wear Canelo Gloves"
+        },
+        {
+          type: "web_url",
+          url:
+            "www.facebook.com/fbcameraeffects/tryit/325060341598879/",
+          title: "Wear Golovkin Gloves"  
+        }
+        /*,
         {
           type: "web_url",
           url:
@@ -112,22 +119,22 @@ var start = senderId => {
           title: "Try Germany Mask"
         }*/
       ];
-      let title = "Wear your country colors!";
+      let title = "Take a Picture w the Champion's Gloves!";
       Message.listButtons(senderId, title, buttons).then(() => {
         //  Message.getLocation(senderId, 'Check out these games for your team');
 
-        PortugalSpainButtons(senderId);
+        myButtons(senderId);
       });
     }
   });
 };
 
-var PortugalSpainButtons = senderId => {
+var myButtons = senderId => {
   var replies = [
     {
       content_type: "text",
       title: "Get Tickets",
-      payload: "RUSSIA"
+      payload: "CANELO"
     }/*,
     {
       content_type: "text",

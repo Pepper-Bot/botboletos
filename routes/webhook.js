@@ -960,6 +960,13 @@ function processQuickReplies(event) {
       }
       break;
 
+    case "CANELO":
+      {
+        console.log("Veo canelo y sus boletos");
+        startTevoModuleWithMlink("Saul Canelo Alvarez", senderId); //Call for tickets search by name
+      }
+      break;  
+
     case "ARABIA":
       {
         console.log("entré al equipo Arabia Saudita");
@@ -3391,7 +3398,7 @@ var startMexicoFrame = (senderId, referral) => {
  */
 var startCanelo_GGG_Frame = (senderId, referral) => {
   var caneloGGGFrameModule = require("../modules/tevo/boxing/caneloVsggg_frame");
-  caneloGGGFrameModule.startCanelo_GGG_Frame(senderId, referral);
+  caneloGGGFrameModule.startCanelo_GGG_sFrame(senderId, referral);
 };
 
 // Created June 22 - Germany in the World Cup
