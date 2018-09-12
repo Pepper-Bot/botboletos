@@ -18,17 +18,14 @@ var Message = require("../../../bot/messages");
 var user_queries = require("../../../schemas/queries/user_queries");
 // Request the users ID from DB API
 var startCanelo_GGG_Frame = (senderId, referral) => {
-  UserData2.findOne(
-    {
+  UserData2.findOne({
       fbId: senderId
-    },
-    {},
-    {
+    }, {}, {
       sort: {
         sessionStart: -1
       }
     },
-    function(err, foundUser) {
+    function (err, foundUser) {
       // Check if user exists in DB
       if (!err) {
         if (foundUser) {
@@ -43,13 +40,12 @@ var startCanelo_GGG_Frame = (senderId, referral) => {
           });
         } else {
           // If the user is not already in the DB then store it
-          UserData.getInfo(senderId, function(err, result) {
+          UserData.getInfo(senderId, function (err, result) {
             console.log("Dentro de UserData");
             if (!err) {
               var bodyObj = JSON.parse(result);
               console.log(result);
-              var User = new UserData2();
-              {
+              var User = new UserData2(); {
                 User.fbId = senderId;
                 User.firstName = bodyObj.first_name;
                 User.LastName = bodyObj.last_name;
@@ -85,7 +81,7 @@ var startCanelo_GGG_Frame = (senderId, referral) => {
 // Here i make this standard me link for frameS ANALOGOUS to someFrame.js
 
 var start = senderId => {
-  UserData.getInfo(senderId, function(err, result) {
+  UserData.getInfo(senderId, function (err, result) {
     console.log("Consultado el usuario de Face !!");
     if (!err) {
       var bodyObj = JSON.parse(result);
@@ -98,18 +94,15 @@ var start = senderId => {
       //let urlLink = 'www.facebook.com/fbcameraeffects/tryit/1148639865272750/'
       // Draw the FB UI Cards and elements
 
-      let buttons = [
-        {
+      let buttons = [{
           type: "web_url",
-          url:
-            "www.facebook.com/fbcameraeffects/tryit/729174164116855/",
+          url: "www.facebook.com/fbcameraeffects/tryit/729174164116855/",
           title: "Wear Canelo Gloves"
         },
         {
           type: "web_url",
-          url:
-            "www.facebook.com/fbcameraeffects/tryit/325060341598879/",
-          title: "Wear Golovkin Gloves"  
+          url: "www.facebook.com/fbcameraeffects/tryit/325060341598879/",
+          title: "Wear Golovkin Gloves"
         }
         /*,
         {
@@ -130,17 +123,17 @@ var start = senderId => {
 };
 
 var myButtons = senderId => {
-  var replies = [
-    {
+  var replies = [{
       content_type: "text",
       title: "Get Tickets",
-      payload: "CANELO"
-    }/*,
-    {
-      content_type: "text",
-      title: "Arabia",
-      payload: "ARABIA"
-    }*/
+      payload: "Gennady Golovkin"
+    }
+    /*,
+        {
+          content_type: "text",
+          title: "Arabia",
+          payload: "ARABIA"
+        }*/
   ];
   Message.quickReply(
     senderId,
