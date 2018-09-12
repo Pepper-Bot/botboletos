@@ -1109,7 +1109,7 @@ function processQuickReplies(event) {
     case "find_my_event_show_me_more":
       {
         //var MonthsQuickReply = require('../modules/tevo/months_replay');
-        //MonthsQuickReply.send(Message, senderId, "Please choose month...");
+        //MonthsQuickReply.send(Message, senderId, "Please month...");
         Message.markSeen(senderId);
         Message.getLocation(
           senderId,
@@ -2869,6 +2869,13 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
+
+      case "CANELO_GGG":
+        {
+          startCanelo_GGG_Frame(senderId, referral); // We create a new variable
+        }
+        break;
+
       case "EVENTBRITE":
         {
           var EventBriteModule = require("../modules/eventbrite_request");
@@ -3372,6 +3379,19 @@ var startBrazilMexicoFrame = (senderId, referral) => {
 var startMexicoFrame = (senderId, referral) => {
   var MexicoFrameModule = require("../modules/tevo/russia2018/Mexico_frame");
   MexicoFrameModule.startMexicoFrame(senderId, referral);
+};
+
+// Created Sept 12 - Canelo vs GGG Match
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startCanelo_GGG_Frame = (senderId, referral) => {
+  var caneloGGGFrameModule = require("../modules/tevo/boxing/caneloVsggg_frame");
+  caneloGGGFrameModule.startCanelo_GGG_Frame(senderId, referral);
 };
 
 // Created June 22 - Germany in the World Cup
