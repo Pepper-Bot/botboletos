@@ -3398,7 +3398,7 @@ var startMexicoFrame = (senderId, referral) => {
  */
 var startCanelo_GGG_Frame = (senderId, referral) => {
   var caneloGGGFrameModule = require("../modules/tevo/boxing/caneloVsggg_frame");
-  caneloGGGFrameModule.startCanelo_GGG_sFrame(senderId, referral);
+  caneloGGGFrameModule.startCanelo_GGG_Frame(senderId, referral);
 };
 
 // Created June 22 - Germany in the World Cup
