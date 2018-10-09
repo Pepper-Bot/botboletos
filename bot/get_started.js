@@ -8,17 +8,16 @@
 
 
        "call_to_actions": [{
-           "type": "postback",
-           "title": "Start again",
-           "payload": "Greetings",
-           "webview_height_ratio": "compact"
-         }
-       ]
+         "type": "postback",
+         "title": "Start again",
+         "payload": "Greetings",
+         "webview_height_ratio": "compact"
+       }]
      }]
    }
 
    request({
-     url: 'https://graph.facebook.com/v2.6/me/messenger_profile',
+     url: 'https://graph.facebook.com/v3.1/me/messenger_profile',
      qs: {
        access_token: process.env.PAGE_ACCES_TOKEN1,
      },
@@ -47,7 +46,7 @@
    }
 
    request({
-     url: 'https://graph.facebook.com/v2.6/me/messenger_profile',
+     url: 'https://graph.facebook.com/v3.1/me/messenger_profile',
      qs: {
        access_token: process.env.PAGE_ACCES_TOKEN1,
      },
