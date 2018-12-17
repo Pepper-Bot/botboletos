@@ -247,13 +247,9 @@ var setImagesToEvents = (resultEvents, counter) => {
       let search = gButtons[z].title;
       console.log("search " + search);
 
-      var cadena = search;
-      let separador = " "; // un espacio en blanco
-      let arregloDeSubCadenas = []
-      if (search != 'Can’t make any of these times?') {
+      var cadena = search,
+        separador = " ", // un espacio en blanco
         arregloDeSubCadenas = cadena.split(separador);
-      }
-
 
       console.log(arregloDeSubCadenas); // la consola devolverá: ["cadena", "de", "texto"]
 
@@ -300,7 +296,7 @@ var setImagesToEvents = (resultEvents, counter) => {
               kind: "messenger",
               url: gButtons[z].image_url
             };
-            //eventsQueries.newEvent(search, search, imagenGis);
+            eventsQueries.newEvent(search, search, imagenGis);
 
             /* 
                 eventsQueries
@@ -395,22 +391,15 @@ var setImagesToEvents = (resultEvents, counter) => {
           );
 
           if (counter + 1 == gButtons.length) {
-            console.log(
-              "termine!!" + gButtons.length
-            );
             if (gButtons[z].subtitle == "My Pepper Bot")
               gButtons[gButtons.length - 1].image_url =
               "https://ticketdelivery.herokuapp.com/images/ciudad.jpg";
             resolve(gButtons);
           }
-          counter = counter + 1;
         })
         .then(() => {
-
-        }).catch((err) => {
-          console.log(`error ${err}`)
           counter = counter + 1;
-        })
+        });
     }
   });
 
