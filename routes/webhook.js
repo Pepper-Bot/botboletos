@@ -15,7 +15,7 @@ var APLICATION_URL_DOMAIN = require("../config/config_vars")
   .APLICATION_URL_DOMAIN;
 var PAGE_ACCESS_TOKEN = require("../config/config_vars").PAGE_ACCESS_TOKEN;
 
-var FB_APP_SECRET = require("../config/config_vars").FB_APP_SECRET;
+//var FB_APP_SECRET = require("../config/config_vars").FB_APP_SECRET;
 
 var TevoClient = require("ticketevolution-node");
 var only_with = require("../config/config_vars").only_with;
