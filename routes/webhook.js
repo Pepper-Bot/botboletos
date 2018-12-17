@@ -122,9 +122,6 @@ var initFBEvents = (req, res) => {
           } else if (undefined !== event.message.text) {
             console.log("5");
             var isEcho = event.message.is_echo;
-            if (event.message.tags != undefined) {
-              console.log(`event.message.tags  ${ JSON.stringify( event.message.tags ) }`)
-            }
             if (!isEcho) processMessage(event.sender.id, event.message.text);
           }
         }
@@ -526,7 +523,7 @@ function sendGenericMessage(recipientId, elements) {
  */
 function callSendAPI(messageData) {
   request({
-      uri: "https://graph.facebook.com/v3.1/me/messages",
+      uri: "https://graph.facebook.com/v2.6/me/messages",
       qs: {
         access_token: PAGE_ACCESS_TOKEN
       },
@@ -2292,9 +2289,6 @@ function saluda(senderId) {
       Message.quickReply(senderId, messagetxt, replies).then(() => {
         Message.typingOff(senderId);
         user_queries.createUpdateUserDatas(senderId, "-").then(foundUser => {});
-        //AKI
-        var menu = require('../bot/get_started');
-        menu.deleteAndCreatePersistentMenu()
       });
     }
   });
