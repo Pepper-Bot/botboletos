@@ -130,7 +130,6 @@ var initFBEvents = (req, res) => {
         }
       });
     });
-
     res.sendStatus(200);
     res.end();
   } else {
