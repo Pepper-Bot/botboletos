@@ -162,6 +162,7 @@ module.exports = (function () {
                   eventButtons_.push({
                     title: "Can’t make any of these times?",
                     subtitle: "My Pepper Bot",
+                    image_url: "https://ticketdelivery.herokuapp.com/images/ciudad.jpg",
                     default_action: {
                       type: "web_url",
                       url: "https://www.facebook.com/mypepperbot/"
