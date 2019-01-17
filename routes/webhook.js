@@ -1,3 +1,16 @@
+/**
+ * ================================================================================
+ *  @module WebHook
+ *  @description 
+ *  Este archivo contiene las funciones que enlazan a la API  de FB messenger.
+ *  Es el corazón de las peticiones para generar respuesta a la hora que el usuario
+ *  escribe al robot Pepper Bot o realiza un evento sobre este.
+ *  Las funciones
+ *  @author Armando Russi
+ * ================================================================================
+ */
+
+
 "use strict";
 var express = require("express");
 var router = express.Router();
@@ -15,7 +28,7 @@ var APLICATION_URL_DOMAIN = require("../config/config_vars")
   .APLICATION_URL_DOMAIN;
 var PAGE_ACCESS_TOKEN = require("../config/config_vars").PAGE_ACCESS_TOKEN;
 
-//var FB_APP_SECRET = require("../config/config_vars").FB_APP_SECRET;
+var FB_APP_SECRET = require("../config/config_vars").FB_APP_SECRET;
 
 var TevoClient = require("ticketevolution-node");
 var only_with = require("../config/config_vars").only_with;
@@ -130,6 +143,7 @@ var initFBEvents = (req, res) => {
         }
       });
     });
+
     res.sendStatus(200);
     res.end();
   } else {
