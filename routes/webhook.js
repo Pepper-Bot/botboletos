@@ -979,7 +979,7 @@ function processQuickReplies(event) {
     case "SB2019":
       {
         console.log("entré al listado de boletos");
-        startTevoModuleByCategory(20, senderId); //20: category_id Call for tickets search by name
+        startTevoModuleByCategory(20, "NFL", senderId); //20: category_id Call for tickets search by name
 
       }
       break;
@@ -3792,6 +3792,7 @@ function startTevoModuleWithMlink(
 /**
  *
  * @param {*} category_id id de la categoria
+ * @param {*} category_name category_name,
  * @param {*} senderId  FaceBook Id
  * @param {*} mlink
  * @param {*} cool
@@ -3801,14 +3802,17 @@ function startTevoModuleWithMlink(
  */
 function startTevoModuleByCategory(
   category_id,
+  category_name,
   senderId,
+
   mlink = 0,
   cool = 0,
   messageTitle = ""
 ) {
   let page = 1;
   let per_page = 9;
-  console.log("event_name " + category_id);
+
+  console.log("category_name " + category_name);
   let userPreferences = {
     event_title: "",
     city: "",
@@ -3848,7 +3852,7 @@ function startTevoModuleByCategory(
 
     queryPage: page,
     queryPerPage: per_page,
-    messageTitle: 'Cool, I looked for "' + event_name + '" shows.  Book a ticket'
+    messageTitle: 'Cool, I looked for "' + category_name + '" shows.  Book a ticket'
   };
 
   console.log("query.query " + query.query);
