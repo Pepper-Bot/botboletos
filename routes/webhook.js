@@ -980,9 +980,9 @@ function processQuickReplies(event) {
       {
         console.log("entré al listado de boletos");
         startTevoModuleWithMlink("NFL", senderId); //Call for tickets search by name
-        
+
       }
-      break;  
+      break;
 
     case "CANELO":
       {
@@ -3107,7 +3107,7 @@ var startSanValentin = (senderId, referral) => {
  *
  */
 var startSB2019_ChiefsvPatriots = (senderId, referral) => {
-  var ChiefsvPatriotsFrameModule = require("../modules/tevo/super_bowl/superbowl_2019/Chiefs_Patriotsframe.js");
+  var ChiefsvPatriotsFrameModule = require("../modules/tevo/super_bowl/superbowl_2019/chiefs_patriots_frame");
   ChiefsvPatriotsFrameModule.startSB2019_ChiefsvPatriots(senderId, referral);
 };
 
