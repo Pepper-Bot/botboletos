@@ -979,7 +979,7 @@ function processQuickReplies(event) {
     case "SB2019":
       {
         console.log("entré al listado de boletos");
-        startTevoModuleWithMlink("NFL", senderId); //Call for tickets search by name
+        startTevoModuleByCategory(20, senderId); //20: category_id Call for tickets search by name
 
       }
       break;
@@ -3767,6 +3767,78 @@ function startTevoModuleWithMlink(
       "events?q=" +
       event_name +
       "&" +
+      only_with +
+      "&page=" +
+      "{{page}}" +
+      "&per_page=" +
+      "{{per_page}}" +
+      "&order_by=events.occurs_at",
+
+    queryPage: page,
+    queryPerPage: per_page,
+    messageTitle: 'Cool, I looked for "' + event_name + '" shows.  Book a ticket'
+  };
+
+  console.log("query.query " + query.query);
+  nlp.tevoByQuery(senderId, query, userPreferences).then(cantidad => {
+    if (cantidad == 0) {
+      find_my_event(senderId, 1, "");
+    }
+  });
+}
+
+
+
+/**
+ *
+ * @param {*} category_id id de la categoria
+ * @param {*} senderId  FaceBook Id
+ * @param {*} mlink
+ * @param {*} cool
+ * @param {*} messageTitle  Titulo que llevarán las tarjetas
+ * @description Función que inicia la busqueda de tarjetas por id de categoria.
+ *
+ */
+function startTevoModuleByCategory(
+  category_id,
+  senderId,
+  mlink = 0,
+  cool = 0,
+  messageTitle = ""
+) {
+  let page = 1;
+  let per_page = 9;
+  console.log("event_name " + category_id);
+  let userPreferences = {
+    event_title: "",
+    city: "",
+    artist: "",
+    team: "",
+    event_type: "",
+    music_genre: ""
+  };
+
+  let query = {
+    prioridad: 4,
+    searchBy: "ByName",
+    //query: tevo.API_URL + 'events?q=' + event_name + '&page=' + page + '&per_page=' + per_page + '&' + only_with + '&order_by=events.occurs_at',
+    //queryReplace: tevo.API_URL + 'events?q=' + event_name + '&page=' + '{{page}}' + '&per_page=' + '{{per_page}}' + '&' + only_with + '&order_by=events.occurs_at',
+    query: tevo.API_URL +
+      "events?category_id=" +
+      category_id +
+      "&category_tree=true&" +
+      only_with +
+      "&page=" +
+      page +
+      "&per_page=" +
+      per_page +
+      "&order_by=events.occurs_at",
+
+
+    queryReplace: tevo.API_URL +
+      "events?category_id=" +
+      category_id +
+      "&category_tree=true&" +
       only_with +
       "&page=" +
       "{{page}}" +
