@@ -2,33 +2,30 @@
 CHIEFS PATRIOTS FRAME COPIED FROM FIFA PORTUGAL V URUGUAY - JAN 17 2019
 */
 
-var Message = require("../../../bot/messages");
-var Message_2 = require("../../../bot/generic_buttton"); // Define new card layout
-var APLICATION_URL_DOMAIN = require("../../../config/config_vars")
+var Message = require("../../../../bot/messages");
+var Message_2 = require("../../../../bot/generic_buttton"); // Define new card layout
+var APLICATION_URL_DOMAIN = require("../../../../config/config_vars")
   .APLICATION_URL_DOMAIN;
-var PAGE_ACCESS_TOKEN = require("../../../config/config_vars")
+var PAGE_ACCESS_TOKEN = require("../../../../config/config_vars")
   .PAGE_ACCESS_TOKEN;
-var FBMESSAGESPAGE = require("../../../config/config_vars").FBMESSAGESPAGE;
-var mlink = require("../../../config/config_vars").mlink.MLINK_BASE + "?ref=";
-var Message2 = require("../../../bot/generic_buttton");
+var FBMESSAGESPAGE = require("../../../../config/config_vars").FBMESSAGESPAGE;
+var mlink = require("../../../../config/config_vars").mlink.MLINK_BASE + "?ref=";
+var Message2 = require("../../../../bot/generic_buttton");
 var request = require("request");
-var UserData = require("../../../bot/userinfo");
-var UserData2 = require("../../../schemas/userinfo");
-var Message = require("../../../bot/messages");
-var user_queries = require("../../../schemas/queries/user_queries");
+var UserData = require("../../../../bot/userinfo");
+var UserData2 = require("../../../../schemas/userinfo");
+var Message = require("../../../../bot/messages");
+var user_queries = require("../../../../schemas/queries/user_queries");
 // Request the users ID from DB API
 var startSB2019_ChiefsvPatriots = (senderId, referral) => {
-  UserData2.findOne(
-    {
+  UserData2.findOne({
       fbId: senderId
-    },
-    {},
-    {
+    }, {}, {
       sort: {
         sessionStart: -1
       }
     },
-    function(err, foundUser) {
+    function (err, foundUser) {
       // Check if user exists in DB
       if (!err) {
         if (foundUser) {
@@ -43,13 +40,12 @@ var startSB2019_ChiefsvPatriots = (senderId, referral) => {
           });
         } else {
           // If the user is not already in the DB then store it
-          UserData.getInfo(senderId, function(err, result) {
+          UserData.getInfo(senderId, function (err, result) {
             console.log("Dentro de UserData");
             if (!err) {
               var bodyObj = JSON.parse(result);
               console.log(result);
-              var User = new UserData2();
-              {
+              var User = new UserData2(); {
                 User.fbId = senderId;
                 User.firstName = bodyObj.first_name;
                 User.LastName = bodyObj.last_name;
@@ -85,7 +81,7 @@ var startSB2019_ChiefsvPatriots = (senderId, referral) => {
 // Here i make this standard me link for frameS ANALOGOUS to someFrame.js
 
 var start = senderId => {
-  UserData.getInfo(senderId, function(err, result) {
+  UserData.getInfo(senderId, function (err, result) {
     console.log("Consultado el usuario de Face !!");
     if (!err) {
       var bodyObj = JSON.parse(result);
@@ -98,17 +94,14 @@ var start = senderId => {
       //let urlLink = 'www.facebook.com/fbcameraeffects/tryit/1148639865272750/'
       // Draw the FB UI Cards and elements
 
-      let buttons = [
-        {
+      let buttons = [{
           type: "web_url",
-          url:
-            "www.facebook.com/fbcameraeffects/tryit/434656250406699/",
+          url: "www.facebook.com/fbcameraeffects/tryit/434656250406699/",
           title: "Try Patriots"
         },
         {
           type: "web_url",
-          url:
-            "www.facebook.com/fbcameraeffects/tryit/2035095723242022/",
+          url: "www.facebook.com/fbcameraeffects/tryit/2035095723242022/",
           title: " Try Chiefs"
         }
       ];
@@ -123,17 +116,17 @@ var start = senderId => {
 };
 
 var PortugalUruguayButtons = senderId => {
-  var replies = [
-    {
+  var replies = [{
       content_type: "text",
       title: "Get Tickets",
       payload: "SB2019"
-    }/*,
-    {
-      content_type: "text",
-      title: "Arabia",
-      payload: "ARABIA"
-    }*/
+    }
+    /*,
+        {
+          content_type: "text",
+          title: "Arabia",
+          payload: "ARABIA"
+        }*/
   ];
   Message.quickReply(
     senderId,
