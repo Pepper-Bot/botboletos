@@ -976,6 +976,14 @@ function processQuickReplies(event) {
       }
       break;
 
+    case "SB2019":
+      {
+        console.log("entré al listado de boletos");
+        startTevoModuleWithMlink("NFL", senderId); //Call for tickets search by name
+        
+      }
+      break;  
+
     case "CANELO":
       {
         console.log("Veo canelo y sus boletos");
@@ -2845,6 +2853,13 @@ function chooseReferral(referral, senderId) {
           startSuperBowl(senderId, referral);
         }
         break;
+
+      case "SB2019_CHIEFS_PATRIOTS":
+        {
+          startSB2019_ChiefsvPatriots(senderId, referral);
+        }
+        break;
+
       case "CHRISTMAS_SONGS":
         {
           startChristmasSongs(senderId, referral);
@@ -3082,6 +3097,20 @@ var startSanValentin = (senderId, referral) => {
   var sanValentinModule = require("../modules/tevo/san_valentin/san_valentin");
   sanValentinModule.startSanValentin(senderId, referral);
 };
+
+// Created Jan 19 - Chiefs vs Patriots - Superbowl 2019
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startSB2019_ChiefsvPatriots = (senderId, referral) => {
+  var ChiefsvPatriotsFrameModule = require("../modules/tevo/super_bowl/superbowl_2019/Chiefs_Patriotsframe.js");
+  ChiefsvPatriotsFrameModule.startSB2019_ChiefsvPatriots(senderId, referral);
+};
+
 
 /**
  *
