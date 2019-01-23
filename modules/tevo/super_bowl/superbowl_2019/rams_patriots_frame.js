@@ -130,7 +130,7 @@ var getTicketsButtons = senderId => {
   ];
   Message.quickReply(
     senderId,
-    "Don't miss the opening game or your country's debut game:",
+    "Don't miss the SUPERBOWL LIII! :)",
     replies
   );
 };
