@@ -2854,13 +2854,20 @@ function chooseReferral(referral, senderId) {
         }
         break;
 
-      case "SB2019_CHIEFS_PATRIOTS":
+      case "SB2019_RAMS_PATRIOTS":// Created 1/23/19 for  -- SUPERBOWL 2019 FINAL --
+        {
+          startSB2019_RamsvPatriots(senderId, referral);
+        }
+        break;          
+
+      case "SB2019_CHIEFS_PATRIOTS":// Created 1/19/19
         {
           startSB2019_ChiefsvPatriots(senderId, referral);
         }
         break;
 
-      case "SB2019_SAINTS_RAMS":
+
+      case "SB2019_SAINTS_RAMS": //Creaeted 1/18/19
         {
           startSB2019_SaintsvRams(senderId, referral);
         }
@@ -3102,6 +3109,19 @@ var startNYMassive = (senderId, referral) => {
 var startSanValentin = (senderId, referral) => {
   var sanValentinModule = require("../modules/tevo/san_valentin/san_valentin");
   sanValentinModule.startSanValentin(senderId, referral);
+};
+
+// Created Jan 23 - Rams vs Patriots - Superbowl 2019
+/**
+ *
+ * @param {*} senderId FaceBook User Id
+ * @param {*} referral Variable ref que se encia con el vinculo del bot
+ * @description Función
+ *
+ */
+var startSB2019_RamsvPatriots = (senderId, referral) => {
+  var RamsvPatriotsFrameModule = require("../modules/tevo/super_bowl/superbowl_2019/rams_patriots_frame");
+  RamsvPatriotsFrameModule.startSB2019_RamsvPatriots(senderId, referral);
 };
 
 // Created Jan 19 - Chiefs vs Patriots - Superbowl 2019
